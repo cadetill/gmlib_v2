@@ -1,0 +1,2 @@
+Method to call of the owner object to know his TLang.
+@return TLang of the owner object.

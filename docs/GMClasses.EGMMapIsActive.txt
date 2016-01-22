@@ -1,0 +1,1 @@
+@abstract(Exception raised when you try to change a property dependant of @code(TGMMap.Active) property and this is set to @code(True).)

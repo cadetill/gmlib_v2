@@ -1,0 +1,1 @@
+@abstract(Interface that defines the method to call of the owner object when changes a property of the object.)

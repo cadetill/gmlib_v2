@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{2B3B83A1-6B21-42E8-BAAD-0EE1EE1F3E96}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="dpk\GMLib_Seattle10.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="dpk\GMLib_Seattle10_VCL.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Demo\MegaDemo\MegaDemo.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="GMLib_Seattle10">
+        <MSBuild Projects="dpk\GMLib_Seattle10.dproj"/>
+    </Target>
+    <Target Name="GMLib_Seattle10:Clean">
+        <MSBuild Projects="dpk\GMLib_Seattle10.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLib_Seattle10:Make">
+        <MSBuild Projects="dpk\GMLib_Seattle10.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLib_Seattle10_VCL">
+        <MSBuild Projects="dpk\GMLib_Seattle10_VCL.dproj"/>
+    </Target>
+    <Target Name="GMLib_Seattle10_VCL:Clean">
+        <MSBuild Projects="dpk\GMLib_Seattle10_VCL.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLib_Seattle10_VCL:Make">
+        <MSBuild Projects="dpk\GMLib_Seattle10_VCL.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="MegaDemo">
+        <MSBuild Projects="Demo\MegaDemo\MegaDemo.dproj"/>
+    </Target>
+    <Target Name="MegaDemo:Clean">
+        <MSBuild Projects="Demo\MegaDemo\MegaDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MegaDemo:Make">
+        <MSBuild Projects="Demo\MegaDemo\MegaDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="GMLib_Seattle10;GMLib_Seattle10_VCL;MegaDemo"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="GMLib_Seattle10:Clean;GMLib_Seattle10_VCL:Clean;MegaDemo:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="GMLib_Seattle10:Make;GMLib_Seattle10_VCL:Make;MegaDemo:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

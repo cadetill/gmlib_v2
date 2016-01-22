@@ -1,0 +1,4 @@
+Execute the JavaScript function @code(NameFunct) with parameters @code(Params). If executed succefully returns @code(True), otherwise @code(False).
+@param NameFunct JavaScript function name to execute.
+@param Params Function parameters.
+@return @code(True) if executed succefully, otherwise @code(False).
