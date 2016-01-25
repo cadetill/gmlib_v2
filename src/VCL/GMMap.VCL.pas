@@ -202,7 +202,7 @@ type
 
   {
     @abstract(@code(google.maps.Map) class)
-    @image(D:\Documents\Dropbox\Programacio\GoogleMaps\Components\gmlib_v2\resources\tgmmap.png) @br
+    @image(tgmmap.png) @br
     More information at https://developers.google.com/maps/documentation/javascript/reference#Map
   }
   TGMMap = class(TGMCustomGMMap)

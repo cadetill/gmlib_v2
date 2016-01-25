@@ -1,0 +1,2 @@
+@abstract(Base class for all classes that inherit from @code(TCollection) into GMLib.)
+Implements @code(IGMControlChanges) and @code(IGMOwnerLang) interfaces.

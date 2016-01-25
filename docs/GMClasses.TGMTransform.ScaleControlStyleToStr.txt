@@ -1,0 +1,3 @@
+Returns a string that represents the ScaleControlStyle.
+@param ScaleControlStyle TGMScaleControlStyle to convert to string
+@return string with the ScaleControlStyle

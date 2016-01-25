@@ -1,0 +1,5 @@
+Convert bounds to string representation.
+
+@param Precision Precision of values. Default 6.
+
+@return String with the bounds.

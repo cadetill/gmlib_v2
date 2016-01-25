@@ -1,51 +1,33 @@
 ﻿[Closed Files]
-File_0=TSourceModule,'d:\Docs\DropBox\Programacio\GoogleMaps\Components\Docs\GMDoc\_Other documentator help\PasDoc\pasdoc-0.14.0-src\pasdoc\source\delphi_gui\frmhelpgeneratorunit.pas',0,1,1048,33,1008,0,0,,{1,942,3}
-File_1=TSourceModule,'d:\Docs\DropBox\Programacio\GoogleMaps\Components\Docs\GMDoc\_Other documentator help\PasDoc\pasdoc-0.14.0-src\pasdoc\source\component\PasDoc_GenHtml.pas',0,1,1627,26,1649,0,0,,
-File_2=TSourceModule,'d:\Docs\DropBox\Programacio\GoogleMaps\Components\Docs\GMDoc\_Other documentator help\PasDoc\pasdoc-0.14.0-src\pasdoc\source\component\PasDoc_Utils.pas',0,1,192,56,215,0,0,,
-File_3=TSourceModule,'d:\Docs\DropBox\Programacio\GoogleMaps\Components\Docs\GMDoc\_Other documentator help\PasDoc\pasdoc-0.14.0-src\pasdoc\source\component\PasDoc_Base.pas',0,1,51,3,74,0,0,,
-File_4=TSourceModule,'d:\Docs\DropBox\Programacio\GoogleMaps\Components\Docs\GMDoc\_Other documentator help\PasDoc\pasdoc-0.14.0-src\pasdoc\source\component\PasDoc_Types.pas',0,1,28,24,51,0,0,,
-File_5=TSourceModule,'d:\Docs\DropBox\Programacio\GoogleMaps\Components\Docs\GMDoc\_Other documentator help\PasDoc\pasdoc-0.14.0-src\pasdoc\source\component\PasDoc_Languages.pas',0,1,420,25,458,0,0,,
-File_6=TSourceModule,'c:\program files (x86)\embarcadero\rad studio\11.0\SOURCE\RTL\SYS\System.pas',0,1,1,1,11,0,0,,
-File_7=TSourceModule,'D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMLatLngBounds.pas',0,1,308,4,331,0,0,,
-File_8=TSourceModule,'D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\VCL\GMRegisterComp.VCL.pas',0,1,1,1,39,0,0,,
-File_9=TSourceModule,'c:\program files (x86)\embarcadero\rad studio\11.0\source\rtl\common\System.Classes.pas',0,1,383,1,406,0,0,,
-File_10=TSourceModule,'d:\Docs\DropBox\Programacio\GoogleMaps\Components\test\_old\src\GMBases.pas',0,1,265,3,279,0,0,,
-File_11=TSourceModule,'D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMTranslations.pas',0,1,70,19,82,0,0,,
-File_12=TSourceModule,'d:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\VCL\GMClasses.VCL.pas',0,1,4,1,1,0,0,,
-File_13=TSourceModule,'D:\Docs\DropBox\Programacio\GoogleMaps\Components\src\GMMap.pas',0,1,273,1,296,0,0,,{1
-File_14=TSourceModule,'d:\Docs\DropBox\Programacio\GoogleMaps\Components\src\GMLinkedComponents.pas',0,1,577,1,707,0,0,,
+File_0=TSourceModule,'d:\Docs\DropBox\Programacio\GoogleMaps\Components\gmlib_v2\src\VCL\GMMap.VCL.pas',0,1,171,12,205,0,0,,
+File_1=TSourceModule,'d:\Docs\DropBox\Programacio\GoogleMaps\Components\Docs\GMDoc\_Other documentator help\PasDoc\pasdoc-0.14.0-src\pasdoc\source\delphi_gui\frmhelpgeneratorunit.pas',0,1,1048,33,1008,0,0,,{1
+File_2=TSourceModule,'d:\Docs\DropBox\Programacio\GoogleMaps\Components\Docs\GMDoc\_Other documentator help\PasDoc\pasdoc-0.14.0-src\pasdoc\source\component\PasDoc_GenHtml.pas',0,1,1627,26,1649,0,0,,
+File_3=TSourceModule,'d:\Docs\DropBox\Programacio\GoogleMaps\Components\Docs\GMDoc\_Other documentator help\PasDoc\pasdoc-0.14.0-src\pasdoc\source\component\PasDoc_Utils.pas',0,1,192,56,215,0,0,,
+File_4=TSourceModule,'d:\Docs\DropBox\Programacio\GoogleMaps\Components\Docs\GMDoc\_Other documentator help\PasDoc\pasdoc-0.14.0-src\pasdoc\source\component\PasDoc_Base.pas',0,1,51,3,74,0,0,,
+File_5=TSourceModule,'d:\Docs\DropBox\Programacio\GoogleMaps\Components\Docs\GMDoc\_Other documentator help\PasDoc\pasdoc-0.14.0-src\pasdoc\source\component\PasDoc_Types.pas',0,1,28,24,51,0,0,,
+File_6=TSourceModule,'d:\Docs\DropBox\Programacio\GoogleMaps\Components\Docs\GMDoc\_Other documentator help\PasDoc\pasdoc-0.14.0-src\pasdoc\source\component\PasDoc_Languages.pas',0,1,420,25,458,0,0,,
+File_7=TSourceModule,'c:\program files (x86)\embarcadero\rad studio\11.0\SOURCE\RTL\SYS\System.pas',0,1,1,1,11,0,0,,
+File_8=TSourceModule,'c:\program files (x86)\embarcadero\rad studio\11.0\source\rtl\common\System.Classes.pas',0,1,383,1,406,0,0,,
 
 [Modules]
-Module0=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMMap.pas
-Module1=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\VCL\GMMap.VCL.pas
-Module2=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\Demo\MegaDemo\UMainFrm.pas
-Module3=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMSets.pas
-Module4=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMClasses.pas
-Module5=default.htm
-Count=6
+Module0=d:\Docs\DropBox\Programacio\GoogleMaps\Components\gmlib_v2\src\GMLatLngBounds.pas
+Module1=d:\Docs\DropBox\Programacio\GoogleMaps\Components\gmlib_v2\src\GMLatLng.pas
+Module2=d:\Docs\DropBox\Programacio\GoogleMaps\Components\gmlib_v2\src\GMClasses.pas
+Module3=default.htm
+Count=4
 EditWindowCount=1
 
-[D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMMap.pas]
+[d:\Docs\DropBox\Programacio\GoogleMaps\Components\gmlib_v2\src\GMLatLngBounds.pas]
 ModuleType=TSourceModule
 FormState=0
 FormOnTop=0
 
-[D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\VCL\GMMap.VCL.pas]
+[d:\Docs\DropBox\Programacio\GoogleMaps\Components\gmlib_v2\src\GMLatLng.pas]
 ModuleType=TSourceModule
 FormState=0
 FormOnTop=0
 
-[D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\Demo\MegaDemo\UMainFrm.pas]
-ModuleType=TSourceModule
-FormState=1
-FormOnTop=1
-
-[D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMSets.pas]
-ModuleType=TSourceModule
-FormState=0
-FormOnTop=0
-
-[D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMClasses.pas]
+[d:\Docs\DropBox\Programacio\GoogleMaps\Components\gmlib_v2\src\GMClasses.pas]
 ModuleType=TSourceModule
 FormState=0
 FormOnTop=0
@@ -54,14 +36,12 @@ FormOnTop=0
 ModuleType=TURLModule
 
 [EditWindow0]
-ViewCount=6
-CurrentEditView=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMMap.pas
+ViewCount=4
+CurrentEditView=d:\Docs\DropBox\Programacio\GoogleMaps\Components\gmlib_v2\src\GMLatLngBounds.pas
 View0=0
 View1=1
 View2=2
 View3=3
-View4=4
-View5=5
 PercentageSizes=1
 Create=1
 Visible=1
@@ -97,58 +77,36 @@ WelcomePageURL=bds:/default.htm
 
 [View1]
 CustomEditViewType=TEditView
-Module=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\Demo\MegaDemo\UMainFrm.pas
+Module=d:\Docs\DropBox\Programacio\GoogleMaps\Components\gmlib_v2\src\GMClasses.pas
 CursorX=1
-CursorY=35
-TopLine=11
+CursorY=1
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=Borland.FormDesignerView
+EditViewName=d:\Docs\DropBox\Programacio\GoogleMaps\Components\gmlib_v2\src\GMClasses.pas
 
 [View2]
 CustomEditViewType=TEditView
-Module=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMClasses.pas
+Module=d:\Docs\DropBox\Programacio\GoogleMaps\Components\gmlib_v2\src\GMLatLng.pas
 CursorX=1
-CursorY=604
-TopLine=597
-LeftCol=1
-Elisions=
-Bookmarks={1,280,3}{2,167,64}
-EditViewName=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMClasses.pas
-
-[View3]
-CustomEditViewType=TEditView
-Module=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMMap.pas
-CursorX=30
-CursorY=637
-TopLine=604
-LeftCol=1
-Elisions=
-Bookmarks={1,439,40}{2,219,20}
-EditViewName=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMMap.pas
-
-[View4]
-CustomEditViewType=TEditView
-Module=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\VCL\GMMap.VCL.pas
-CursorX=19
-CursorY=230
-TopLine=193
-LeftCol=1
-Elisions=
-Bookmarks={1,67,14}
-EditViewName=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\VCL\GMMap.VCL.pas
-
-[View5]
-CustomEditViewType=TEditView
-Module=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMSets.pas
-CursorX=39
-CursorY=25
-TopLine=4
+CursorY=27
+TopLine=1
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMSets.pas
+EditViewName=d:\Docs\DropBox\Programacio\GoogleMaps\Components\gmlib_v2\src\GMLatLng.pas
+
+[View3]
+CustomEditViewType=TEditView
+Module=d:\Docs\DropBox\Programacio\GoogleMaps\Components\gmlib_v2\src\GMLatLngBounds.pas
+CursorX=90
+CursorY=35
+TopLine=22
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=d:\Docs\DropBox\Programacio\GoogleMaps\Components\gmlib_v2\src\GMLatLngBounds.pas
 
 [Watches]
 Count=0
@@ -234,15 +192,15 @@ Create=1
 Visible=0
 Docked=1
 State=0
-Left=1
-Top=27
-Width=9984
-Height=3974
+Left=0
+Top=0
+Width=2766
+Height=986
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=9984
-ClientHeight=3974
-TBDockHeight=3974
+ClientWidth=2766
+ClientHeight=986
+TBDockHeight=986
 LRDockWidth=2766
 Dockable=1
 StayOnTop=0
@@ -275,21 +233,16 @@ State=0
 Left=0
 Top=0
 Width=1703
-Height=8763
+Height=8974
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1703
-ClientHeight=8763
+ClientHeight=8974
 TBDockHeight=6630
 LRDockWidth=1898
 Dockable=1
 StayOnTop=0
 SplitPos=100
-
-[PropInspDesignerSelection]
-ArrangeBy=Name
-SelectedItem=MapOptions,
-ExpandedItems="LiveBindings Designer=0",MapOptions=0,MapOptions.Center=1,MapOptions.MapTypeControlOptions=1,MapOptions.OverviewMapControlOptions=1,MapOptions.PanControlOptions=1,MapOptions.RotateControlOptions=1,MapOptions.ScaleControlOptions=1,MapOptions.StreetViewControlOptions=1,MapOptions.ZoomControlOptions=1,MapOptions.StreetView=1,MapOptions.StreetView.AddressControlOptions=1,MapOptions.StreetView.PanControlOptions=1,MapOptions.StreetView.Pov=1,MapOptions.StreetView.ZoomControlOptions=1,MapOptions.MapTypeControlOptions.MapTypeIds=1,Anchors=0,Constraints=0,Font=0,ImageMargins=0,LiveBindings=0,Margins=0
 
 [TFileExplorerForm]
 PercentageSizes=1
@@ -746,7 +699,7 @@ LRDockWidth=1898
 Dockable=1
 StayOnTop=0
 TabPosition=2
-ActiveTabID=PropertyInspector
+ActiveTabID=ProjectManager
 TabDockClients=PropertyInspector,ProjectManager,ModelViewTool,DataExplorerContainer,StructureView,ClassBrowserTool,TFileExplorerForm
 
 [DockSite3]
@@ -774,5 +727,5 @@ ActiveTabID=ToolForm
 TabDockClients=ToolForm,TemplateView
 
 [ActiveProject]
-ActiveProject=1
+ActiveProject=0
 

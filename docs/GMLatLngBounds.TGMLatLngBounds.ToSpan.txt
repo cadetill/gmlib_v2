@@ -1,0 +1,7 @@
+Converts the given bounds to a lat/lng span.
+
+@param LatLng TGMLatLng with the span.
+
+@raises EGMWithoutOwner This exception is raised if the object don't have a owner.
+@raises EGMOwnerWithoutJS This exception is raised if the owner can't execute JavaScript functions.
+@raises EGMJSError This exception is raised if an error occurred executing JavaScript function.

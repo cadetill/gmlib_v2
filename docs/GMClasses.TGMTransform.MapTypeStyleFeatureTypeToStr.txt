@@ -1,0 +1,3 @@
+Returns a string that represents the MapTypeStyleFeatureType.
+@param MapTypeStyleFeatureType TGMMapTypeStyleFeatureType to convert to string
+@return string with the MapTypeStyleFeatureType

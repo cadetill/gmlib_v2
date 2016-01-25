@@ -1,0 +1,3 @@
+Returns a string that represents the @code(Visibility).
+@param Visibility TGMVisibility to convert to string.
+@return string with the Visibility.

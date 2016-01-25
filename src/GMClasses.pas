@@ -115,47 +115,37 @@ type
     // @exclude
     procedure ControlChanges; virtual;
 
-    // Event triggered when a property changes.
+    // @include(..\docs\GMClasses.TGMInterfacedOwnedPersistent.OnChange.txt)
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
   public
-    // @abstract(Constructor class.)
-    // @param AOwner Owner of object
+    // @include(..\docs\GMClasses.TGMInterfacedOwnedPersistent.Create.txt)
     constructor Create(AOwner: TPersistent); virtual;
   end;
 
   { -------------------------------------------------------------------------- }
-  {
-    @abstract(Base class for all classes that inherit from @code(TGMInterfacedOwnedPersistent) into GMLib and implements @code(IGMAPIUrl) interface.)
-  }
+  // @include(..\docs\GMClasses.TGMPersistent.txt)
   TGMPersistent = class(TGMInterfacedOwnedPersistent, IGMAPIUrl)
   protected
     // @exclude
     function GetAPIUrl: string; virtual;
 
-    // URL to Google Maps API class
+    // @include(..\docs\GMClasses.TGMPersistent.APIUrl.txt)
     property APIUrl: string read GetAPIUrl;
   end;
 
   { -------------------------------------------------------------------------- }
-  {
-    @abstract(Base class for all classes that inherit from @code(TGMPersistent) into GMLib and implements @code(IGMToStr) and @code(IGMOwnerLang) interfaces.)
-  }
+  // @include(..\docs\GMClasses.TGMPersistentStr.txt)
   TGMPersistentStr = class(TGMPersistent, IGMToStr, IGMOwnerLang)
   protected
-    // Converts all class properties values to a string separated by semicolon.
-    // @return string with all properties.
+    // @include(..\docs\GMClasses.TGMPersistentStr.PropToString.txt)
     function PropToString: string; virtual; abstract;
 
-    // Returns the Lang of the Owner.@br@br If Owner is not assigned or not supports IGMOwnerLang interface then returns @code(lnEnglish).)
-    // @return TLang of the owner object.
+    // @include(..\docs\GMClasses.TGMPersistentStr.GetOwnerLang.txt)
     function GetOwnerLang: TGMLang; virtual;
   end;
 
   { -------------------------------------------------------------------------- }
-  {
-    @abstract(Base class for all classes that inherit from @code(TComponent) into GMLib.)
-    Implements @code(IGMAPIUrl) interface.
-  }
+  // @include(..\docs\GMClasses.TGMComponent.txt)
   TGMComponent = class(TComponent, IGMAPIUrl)
   private
     FLanguage: TGMLang;
@@ -164,28 +154,23 @@ type
     // @exclude
     function GetAPIUrl: string; virtual;
 
-    // URL to Google Maps API class
+    // @include(..\docs\GMClasses.TGMComponent.APIUrl.txt)
     property APIUrl: string read GetAPIUrl;
 
-    // Language property specifies the language in which messages are displayed the exceptions shown by the class/component.
+    // @include(..\docs\GMClasses.TGMComponent.Language.txt)
     property Language: TGMLang read FLanguage write FLanguage default lnEnglish;
-    // This property shows an “About” form with info of the GMLib.
+    // @include(..\docs\GMClasses.TGMComponent.AboutGMLib.txt)
     property AboutGMLib: string read FAboutGMLib stored False;
   public
-    // @abstract(Constructor class.)
-    // @param AOwner Component owner.
+    // @include(..\docs\GMClasses.TGMComponent.Create.txt)
     constructor Create(AOwner: TComponent); override;
 
-    // Call @code(Assign) to copy the properties or other attributes of one object from another. The standard form of a call to @code(Assign) is@br @code(Destination.Assign(Source);)@br which tells the @code(Destination) object to copy the contents of the @code(Source) object to itself.
-    // @param Source Object to copy the content.
+    // @include(..\docs\GMClasses.TGMComponent.Assign.txt)
     procedure Assign(Source: TPersistent); override;
   end;
 
   { -------------------------------------------------------------------------- }
-  {
-    @abstract(Base class for all classes that inherit from @code(TCollectionItem) into GMLib.)
-    Implements @code(IGMAPIUrl), @code(IGMOwnerLang) and @code(IGMAPIUrl) interfaces.
-  }
+  // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.txt)
   TGMInterfacedCollectionItem = class(TCollectionItem, IGMToStr, IGMOwnerLang, IGMAPIUrl)
   private
     FOnChange: TNotifyEvent;
@@ -199,47 +184,41 @@ type
     function _AddRef: Integer; virtual; stdcall;
     // @exclude
     function _Release: Integer; virtual; stdcall;
-    // Returns the name of the collection item as it appears in the collection editor. See Delphi documentation for more details.
-    // @return String with the name
+    // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.GetDisplayName.txt)
     function GetDisplayName: string; override;
 
     // @exclude
     function GetAPIUrl: string; virtual;
 
-    // Converts all class properties values to a string separated by semicolon.
-    // @return string with all properties.
+    // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.PropToString.txt)
     function PropToString: string; virtual; abstract;
 
-    // Returns the Lang of the Owner.@br@br If Owner is not assigned or not supports IGMOwnerLang interface then returns @code(lnEnglish).)
-    // @return TLang of the owner object.
+    // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.GetOwnerLang.txt)
     function GetOwnerLang: TGMLang; virtual;
 
     // @exclude
     procedure ControlChanges; virtual;
 
-    // Event triggered when a property changes.
+    // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.OnChange.txt)
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
   public
-    // Call @code(Assign) to copy the properties or other attributes of one object from another. The standard form of a call to @code(Assign) is@br @code(Destination.Assign(Source);)@br which tells the @code(Destination) object to copy the contents of the @code(Source) object to itself.
-    // @param Source Object to copy the content.
+    // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // URL to Google Maps API class
+    // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.APIUrl.txt)
     property APIUrl: string read GetAPIUrl;
 
-    // Represents an object that is associated with the item.
+    // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.FObject.txt)
     property FObject: TObject read FFObject write FFObject;
   published
-    // Tag property has no predefined meaning. It can store any additional integer value for the convenience of developers.
+    // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.Tag.txt)
     property Tag: Integer read FTag write FTag default 0;
+    // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.Name.txt)
     property Name: string read FName write FName;
   end;
 
   { -------------------------------------------------------------------------- }
-  {
-    @abstract(Base class for all classes that inherit from @code(TCollection) into GMLib.)
-    Implements @code(IGMControlChanges) and @code(IGMOwnerLang) interfaces.
-  }
+  // @include(..\docs\GMClasses.TGMInterfacedCollection.txt)
   TGMInterfacedCollection = class(TCollection, IGMControlChanges, IGMOwnerLang)
   private
     FOnChange: TNotifyEvent;
@@ -257,99 +236,64 @@ type
     // @exclude
     function _Release: Integer; virtual; stdcall;
 
-    // Returns the Lang of the Owner.@br@br If Owner is not assigned or not supports IGMOwnerLang interface then returns @code(lnEnglish).)
-    // @return TLang of the owner object.
+    // @include(..\docs\GMClasses.TGMInterfacedCollection.GetOwnerLang.txt)
     function GetOwnerLang: TGMLang; virtual;
 
-    // Function that return the owner of object
-    // @return Owner of object
+    // @include(..\docs\GMClasses.TGMInterfacedCollection.GetOwner.txt)
     function GetOwner: TPersistent; override;
 
     // @exclude
     procedure ControlChanges; virtual;
 
-    // Method to call of the owner object when changes a property of the object.
-    // @param Prop Object property that has changed.
+    // @include(..\docs\GMClasses.TGMInterfacedCollection.PropertyChanged.txt)
     procedure PropertyChanged(Prop: TPersistent);
 
-    // Deletes a single item from the collection.
-    // @param Index Position to delete
+    // @include(..\docs\GMClasses.TGMInterfacedCollection.Delete.txt)
     procedure Delete(Index: Integer);
-    // Moves a item to a new position into the collection.
-    // @param CurIndex Index of Item to move
-    // @param NewIndex Destination index
+    // @include(..\docs\GMClasses.TGMInterfacedCollection.Move.txt)
     procedure Move(CurIndex, NewIndex: Integer);
-    // Deletes all items from the collection.
+    // @include(..\docs\GMClasses.TGMInterfacedCollection.Clear.txt)
     procedure Clear;
 
-    // Event triggered when a property changes.
+    // @include(..\docs\GMClasses.TGMInterfacedCollection.OnChange.txt)
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
-    // List of items from collection.
+    // @include(..\docs\GMClasses.TGMInterfacedCollection.Items.txt)
     property Items[I: Integer]: TGMInterfacedCollectionItem read GetItems write SetItems; default;
   public
-    // @abstract(Constructor class.)
-    // @param AOwner Object owner.
-    // @param ItemClass Identifies the TCollectionItem descendants that must be used to represent the items in the collection.
+    // @include(..\docs\GMClasses.TGMInterfacedCollection.Create.txt)
     constructor Create(AOwner: TPersistent; ItemClass: TCollectionItemClass); virtual;
 
-    // Call @code(Assign) to copy the properties or other attributes of one object from another. The standard form of a call to @code(Assign) is@br @code(Destination.Assign(Source);)@br which tells the @code(Destination) object to copy the contents of the @code(Source) object to itself.
-    // @param Source Object to copy the content.
+    // @include(..\docs\GMClasses.TGMInterfacedCollection.Assign.txt)
     procedure Assign(Source: TPersistent); override;
   end;
 
   { -------------------------------------------------------------------------- }
-  {
-    @abstract(Contains methods of transformations.)
-  }
+  // @include(..\docs\GMClasses.TGMTransform.txt)
   TGMTransform = record
   public
-    // Returns a string that represents a boolean value. This function have sense since some people have localized the original Delphi function.
-    // @param B Boolean value to convert.
-    // @param UseBoolStrs If true, returns a string value with "true" or "false" values, else returns "0" or "-1".
-    // @return string that represents the boolean value.
+    // @include(..\docs\GMClasses.TGMTransform.GMBoolToStr.txt)
     class function GMBoolToStr(B: Boolean; UseBoolStrs: Boolean = False): string; static;
 
-    // Returns a string with the MapTypeId included into MapTypeIds.
-    // @param MapTypeIds TGMMapTypeIds to convert to string
-    // @param Delimiter Delimiter between MapTypeId
-    // @return string with the MapTypeIds
+    // @include(..\docs\GMClasses.TGMTransform.MapTypeIdsToStr.txt)
     class function MapTypeIdsToStr(MapTypeIds: TGMMapTypeIds; Delimiter: Char = ';'): string; static;
 
-    // Returns a string that represents the @code(Visibility).
-    // @param Visibility TGMVisibility to convert to string.
-    // @return string with the Visibility.
+    // @include(..\docs\GMClasses.TGMTransform.VisibilityToStr.txt)
     class function VisibilityToStr(Visibility: TGMVisibility): string; static;
-    // Returns the TGMVisibility represented by the string @code(Visibility).
-    // @param Visibility String to convert to TGMVisibility
-    // @return TGMVisibility that represents the string
+    // @include(..\docs\GMClasses.TGMTransform.StrToVisibility.txt)
     class function StrToVisibility(Visibility: string): TGMVisibility; static;
-    // Returns a string that represents the Position.
-    // @param Position TGMControlPosition to convert to string
-    // @return string with the Position
+    // @include(..\docs\GMClasses.TGMTransform.PositionToStr.txt)
     class function PositionToStr(Position: TGMControlPosition): string; static;
-    // Returns a string that represents the MapTypeControlStyle.
-    // @param MapTypeControlStyle TGMMapTypeControlStyle to convert to string
-    // @return string with the MapTypeControlStyle
+    // @include(..\docs\GMClasses.TGMTransform.MapTypeControlStyleToStr.txt)
     class function MapTypeControlStyleToStr(MapTypeControlStyle: TGMMapTypeControlStyle): string; static;
-    // Returns a string that represents the ScaleControlStyle.
-    // @param ScaleControlStyle TGMScaleControlStyle to convert to string
-    // @return string with the ScaleControlStyle
+    // @include(..\docs\GMClasses.TGMTransform.ScaleControlStyleToStr.txt)
     class function ScaleControlStyleToStr(ScaleControlStyle: TGMScaleControlStyle): string; static;
-    // Returns a string that represents the ZoomControlStyle.
-    // @param ZoomControlStyle TGMZoomControlStyle to convert to string
-    // @return string with the ZoomControlStyle
+    // @include(..\docs\GMClasses.TGMTransform.ZoomControlStyleToStr.txt)
     class function ZoomControlStyleToStr(ZoomControlStyle: TGMZoomControlStyle): string; static;
-    // Returns a string that represents the MapTypeStyleElementType.
-    // @param MapTypeStyleElementType TGMMapTypeStyleElementType to convert to string
-    // @return string with the MapTypeStyleElementType
+    // @include(..\docs\GMClasses.TGMTransform.MapTypeStyleElementTypeToStr.txt)
     class function MapTypeStyleElementTypeToStr(MapTypeStyleElementType: TGMMapTypeStyleElementType): string; static;
-    // Returns a string that represents the MapTypeStyleFeatureType.
-    // @param MapTypeStyleFeatureType TGMMapTypeStyleFeatureType to convert to string
-    // @return string with the MapTypeStyleFeatureType
+    // @include(..\docs\GMClasses.TGMTransform.MapTypeStyleFeatureTypeToStr.txt)
     class function MapTypeStyleFeatureTypeToStr(MapTypeStyleFeatureType: TGMMapTypeStyleFeatureType): string; static;
-    // Returns a string that represents the MapTypeId.
-    // @param MapTypeId TMapTypeId to convert to string
-    // @return string with the MapTypeId
+    // @include(..\docs\GMClasses.TGMTransform.MapTypeIdToStr.txt)
     class function MapTypeIdToStr(MapTypeId: TGMMapTypeId): string; static;
   end;
 

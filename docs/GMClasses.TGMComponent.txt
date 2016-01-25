@@ -1,0 +1,2 @@
+@abstract(Base class for all classes that inherit from @code(TComponent) into GMLib.)
+Implements @code(IGMAPIUrl) interface.

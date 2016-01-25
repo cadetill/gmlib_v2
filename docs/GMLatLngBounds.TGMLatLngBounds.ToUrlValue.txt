@@ -1,0 +1,5 @@
+Returns a string with format "lat_lo,lng_lo,lat_hi,lng_hi" for this bounds, where "lo" corresponds to the southwest corner of the bounding box and "hi" corresponds to the northeast corner of that box.
+
+@param Precision Precision of values. Default 6.
+
+@return Formatted string.

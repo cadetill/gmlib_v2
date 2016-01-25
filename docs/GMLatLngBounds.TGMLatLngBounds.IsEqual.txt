@@ -1,0 +1,5 @@
+Returns @code(True) if this bounds is equals the given bounds.
+
+@param Other Bounds to compare.
+
+@return @code(True) if equals, otherwise @code(False).

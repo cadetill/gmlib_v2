@@ -1,0 +1,3 @@
+Returns a string that represents the ZoomControlStyle.
+@param ZoomControlStyle TGMZoomControlStyle to convert to string
+@return string with the ZoomControlStyle
