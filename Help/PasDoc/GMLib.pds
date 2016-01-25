@@ -69,9 +69,10 @@ Item_6=</tr>
 Item_7=</table>
 
 [IncludeDirectories]
-Count=2
+Count=3
 Item_0=..\..\src
 Item_1=..\..\src\VCL
+Item_2=..\..\resources
 
 [Files]
 Count=9
