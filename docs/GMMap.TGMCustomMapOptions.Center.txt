@@ -1,0 +1,1 @@
+Contains the lat/lng coordinates with the center of the map.

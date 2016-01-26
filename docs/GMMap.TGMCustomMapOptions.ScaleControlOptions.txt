@@ -1,0 +1,1 @@
+The initial display options for the Scale control.

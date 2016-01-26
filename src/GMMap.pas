@@ -122,11 +122,8 @@ type
     property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_LEFT;
   end;
 
-  {
-    @abstract(@code(google.maps.ScaleControlOptions) object from Google Maps API.)
-    Options for the rendering of the scale control.@br@br
-    More information at https://developers.google.com/maps/documentation/javascript/reference#ScaleControlOptions
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\docs\GMMap.TGMScaleControlOptions.txt)
   TGMScaleControlOptions = class(TGMPersistentStr)
   private
     FStyle: TGMScaleControlStyle;
@@ -135,27 +132,21 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @abstract(Constructor class.)
-    // @param AOwner Owner of the object.
+    // @include(..\docs\GMMap.TGMScaleControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // Call @code(Assign) to copy the properties or other attributes of one object from another. The standard form of a call to @code(Assign) is@br @code(Destination.Assign(Source);) @br which tells the @code(Destination) object to copy the contents of the @code(Source) object to itself.
-    // @param Source Object to copy the content.
+    // @include(..\docs\GMMap.TGMScaleControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // Converts all class properties values to a string separated by semicolon.
-    // @return String with all properties.
+    // @include(..\docs\GMMap.TGMScaleControlOptions.PropToString.txt)
     function PropToString: string; override;
   published
-    // Style id. Used to select what style of scale control to display.
+    // @include(..\docs\GMMap.TGMScaleControlOptions.Style.txt)
     property Style: TGMScaleControlStyle read FStyle write SetStyle default scDEFAULT;
   end;
 
-  {
-    @abstract(@code(google.maps.ZoomControlOptions) object from Google Maps API.)
-    Options for the rendering of the zoom control.@br@br
-    More information at https://developers.google.com/maps/documentation/javascript/reference#ZoomControlOptions
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\docs\GMMap.TGMZoomControlOptions.txt)
   TGMZoomControlOptions = class(TGMPersistentStr)
   private
     FStyle: TGMZoomControlStyle;
@@ -166,29 +157,23 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @abstract(Constructor class.)
-    // @param AOwner Owner of the object.
+    // @include(..\docs\GMMap.TGMZoomControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // Call @code(Assign) to copy the properties or other attributes of one object from another. The standard form of a call to @code(Assign) is@br @code(Destination.Assign(Source);) @br which tells the @code(Destination) object to copy the contents of the @code(Source) object to itself.
-    // @param Source Object to copy the content.
+    // @include(..\docs\GMMap.TGMZoomControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // Converts all class properties values to a string separated by semicolon.
-    // @return String with all properties.
+    // @include(..\docs\GMMap.TGMZoomControlOptions.PropToString.txt)
     function PropToString: string; override;
   published
-    // Position id. Used to specify the position of the control on the map.
+    // @include(..\docs\GMMap.TGMZoomControlOptions.Position.txt)
     property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_LEFT;
-    // Style id. Used to select what style of scale control to display.
+    // @include(..\docs\GMMap.TGMZoomControlOptions.Style.txt)
     property Style: TGMZoomControlStyle read FStyle write SetStyle default zcDEFAULT;
   end;
 
-  {
-    @abstract(@code(google.maps.StreetViewControlOptions) object from Google Maps API.)
-    Options for the rendering of the Street View pegman control on the map.@br@br
-    More information at https://developers.google.com/maps/documentation/javascript/reference#StreetViewControlOptions
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\docs\GMMap.TGMStreetViewControlOptions.txt)
   TGMStreetViewControlOptions = class(TGMPersistentStr)
   private
     FPosition: TGMControlPosition;
@@ -197,27 +182,21 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @abstract(Constructor class.)
-    // @param AOwner Owner of the object.
+    // @include(..\docs\GMMap.TGMStreetViewControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // Call @code(Assign) to copy the properties or other attributes of one object from another. The standard form of a call to @code(Assign) is@br @code(Destination.Assign(Source);) @br which tells the @code(Destination) object to copy the contents of the @code(Source) object to itself.
-    // @param Source Object to copy the content.
+    // @include(..\docs\GMMap.TGMStreetViewControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // Converts all class properties values to a string separated by semicolon.
-    // @return String with all properties.
+    // @include(..\docs\GMMap.TGMStreetViewControlOptions.PropToString.txt)
     function PropToString: string; override;
   published
-    // Position id. Used to specify the position of the control on the map. The default position is embedded within the navigation (zoom and pan) controls. If this position is the same as that specified in the ZoomControlOptions or PanControlOptions, the Street View control will be displayed as part of the navigation controls. Otherwise, it will be displayed separately.
+    // @include(..\docs\GMMap.TGMStreetViewControlOptions.Position.txt)
     property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_LEFT;
   end;
 
-  {
-    @abstract(Base class for @code(google.maps.MapTypeStyler) object from Google Maps API.)
-    A styler affects how a map's elements will be styled. Each MapTypeStyler should contain one and only one key. If more than one key is specified in a single MapTypeStyler, all but one will be ignored.@br@br
-    More information at https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyler
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\docs\GMMap.TGMCustomMapTypeStyler.txt)
   TGMCustomMapTypeStyler = class(TGMInterfacedCollectionItem)
   private
     FSaturation: Integer;
@@ -236,37 +215,31 @@ type
     // @exclude
     function GetAPIUrl: string; override;
 
-    // Converts all class properties values to a string separated by semicolon.
-    // @return string with all properties.
+    // @include(..\docs\GMMap.TGMCustomMapTypeStyler.PropToString.txt)
     function PropToString: string; override;
 
-    // Modifies the gamma by raising the lightness to the given power.@br Valid values: Floating point numbers, [0.01, 10], with 1.0 representing no change.
+    // @include(..\docs\GMMap.TGMCustomMapTypeStyler.Gamma.txt)
     property Gamma: Real read FGamma write SetGamma;
-    // A value of true will invert the lightness of the feature while preserving the hue and saturation.
+    // @include(..\docs\GMMap.TGMCustomMapTypeStyler.InvertLightness.txt)
     property InvertLightness: Boolean read FInvertLightness write SetInvertLightness default True;
-    // Shifts lightness of colors by a percentage of the original value if decreasing and a percentage of the remaining value if increasing.@br Valid values: [-100, 100].
+    // @include(..\docs\GMMap.TGMCustomMapTypeStyler.Lightness.txt)
     property Lightness: Integer read FLightness write SetLightness default 0;
-    // Shifts the saturation of colors by a percentage of the original value if decreasing and a percentage of the remaining value if increasing.@br Valid values: [-100, 100].
+    // @include(..\docs\GMMap.TGMCustomMapTypeStyler.Saturation.txt)
     property Saturation: Integer read FSaturation write SetSaturation default 0;
-    // Sets the visibility of the feature.
+    // @include(..\docs\GMMap.TGMCustomMapTypeStyler.Visibility.txt)
     property Visibility: TGMVisibility read FVisibility write SetVisibility default vOn;
-    // Sets the weight of the feature, in pixels.@br Valid values: Integers greater than or equal to zero.
+    // @include(..\docs\GMMap.TGMCustomMapTypeStyler.Weight.txt)
     property Weight: Integer read FWeight write SetWeight default 0;
   public
-    // @abstract(Constructor class.)
-    // @param AOwner Owner of the object.
+    // @include(..\docs\GMMap.TGMCustomMapTypeStyler.Create.txt)
     constructor Create(Collection: TCollection); override;
 
-    // Call @code(Assign) to copy the properties or other attributes of one object from another. The standard form of a call to @code(Assign) is@br @code(Destination.Assign(Source);) @br which tells the @code(Destination) object to copy the contents of the @code(Source) object to itself.
-    // @param Source Object to copy the content.
+    // @include(..\docs\GMMap.TGMCustomMapTypeStyler.Assign.txt)
     procedure Assign(Source: TPersistent); override;
   end;
 
-  {
-    @abstract(Base class for @code(google.maps.MapTypeStyle) object from Google Maps API.)
-    The TMapTypeStyle is a collection of selectors and stylers that define how the map should be styled. Selectors specify what map elements should be affected and stylers specify how those elements should be modified.@br@br
-    More information at https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyle
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\docs\GMMap.TGMCustomMapTypeStyle.txt)
   TGMCustomMapTypeStyle = class(TGMInterfacedCollectionItem)
   private
     FElementType: TGMMapTypeStyleElementType;
@@ -277,30 +250,23 @@ type
     // @exclude
     function GetAPIUrl: string; override;
 
-    // Converts all class properties values to a string separated by semicolon.
-    // @return string with all properties.
+    // @include(..\docs\GMMap.TGMCustomMapTypeStyle.PropToString.txt)
     function PropToString: string; override;
 
-    // Selects the element type to which a styler should be applied. An element type distinguishes between the different representations of a feature.
+    // @include(..\docs\GMMap.TGMCustomMapTypeStyle.ElementType.txt)
     property ElementType: TGMMapTypeStyleElementType read FElementType write SetElementType default setALL;
-    // Selects the feature, or group of features, to which a styler should be applied.
+    // @include(..\docs\GMMap.TGMCustomMapTypeStyle.FeatureType.txt)
     property FeatureType: TGMMapTypeStyleFeatureType read FFeatureType write SetFeatureType default sftALL;
   public
-    // @abstract(Constructor class.)
-    // @param AOwner Object owner.
-    // @param ItemClass Identifies the TCollectionItem descendants that must be used to represent the items in the collection.
+    // @include(..\docs\GMMap.TGMCustomMapTypeStyle.Create.txt)
     constructor Create(Collection: TCollection); override;
 
-    // Call @code(Assign) to copy the properties or other attributes of one object from another. The standard form of a call to @code(Assign) is@br @code(Destination.Assign(Source);) @br which tells the @code(Destination) object to copy the contents of the @code(Source) object to itself.
-    // @param Source Object to copy the content.
+    // @include(..\docs\GMMap.TGMCustomMapTypeStyle.Assign.txt)
     procedure Assign(Source: TPersistent); override;
   end;
 
-  {
-    @abstract(@code(google.maps.StreetViewAddressControlOptions) object from Google Maps API.)
-    Options for the rendering of the Street View address control.@br@br
-    More information at https://developers.google.com/maps/documentation/javascript/reference#StreetViewAddressControlOptions
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\docs\GMMap.TGMStreetViewAddressControlOptions.txt)
   TGMStreetViewAddressControlOptions = class(TGMPersistentStr)
   private
     FPosition: TGMControlPosition;
@@ -309,27 +275,21 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @abstract(Constructor class.)
-    // @param AOwner Owner of the object.
+    // @include(..\docs\GMMap.TGMStreetViewAddressControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // Call @code(Assign) to copy the properties or other attributes of one object from another. The standard form of a call to @code(Assign) is@br @code(Destination.Assign(Source);) @br which tells the @code(Destination) object to copy the contents of the @code(Source) object to itself.
-    // @param Source Object to copy the content.
+    // @include(..\docs\GMMap.TGMStreetViewAddressControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // Converts all class properties values to a string separated by semicolon.
-    // @return String with all properties.
+    // @include(..\docs\GMMap.TGMStreetViewAddressControlOptions.PropToString.txt)
     function PropToString: string; override;
   published
-    // Position id. This id is used to specify the position of the control on the map.
+    // @include(..\docs\GMMap.TGMStreetViewAddressControlOptions.Position.txt)
     property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_LEFT;
   end;
 
-  {
-    @abstract(@code(google.maps.StreetViewPov) object from Google Maps API.)
-    A point of view object which specifies the camera's orientation at the Street View panorama's position. The point of view is defined as heading and pitch.@br@br
-    More information at https://developers.google.com/maps/documentation/javascript/reference#StreetViewPov
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\docs\GMMap.TGMStreetViewPov.txt)
   TGMStreetViewPov = class(TGMPersistentStr)
   private
     FPitch: Integer;
@@ -340,29 +300,23 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @abstract(Constructor class.)
-    // @param AOwner Owner of the object.
+    // @include(..\docs\GMMap.TGMStreetViewPov.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // Call @code(Assign) to copy the properties or other attributes of one object from another. The standard form of a call to @code(Assign) is@br @code(Destination.Assign(Source);) @br which tells the @code(Destination) object to copy the contents of the @code(Source) object to itself.
-    // @param Source Object to copy the content.
+    // @include(..\docs\GMMap.TGMStreetViewPov.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // Converts all class properties values to a string separated by semicolon.
-    // @return String with all properties.
+    // @include(..\docs\GMMap.TGMStreetViewPov.PropToString.txt)
     function PropToString: string; override;
   published
-    // The camera heading in degrees relative to true north. True north is 0°, east is 90°, south is 180°, west is 270°.
+    // @include(..\docs\GMMap.TGMStreetViewPov.Heading.txt)
     property Heading: Integer read FHeading write SetHeading default 0;
-    // The camera pitch in degrees, relative to the street view vehicle. Ranges from 90° (directly upwards) to -90° (directly downwards).
+    // @include(..\docs\GMMap.TGMStreetViewPov.Pitch.txt)
     property Pitch: Integer read FPitch write SetPitch default 0;
   end;
 
-  {
-    @abstract(@code(google.maps.StreetViewPanoramaOptions) object from Google Maps API.)
-    Options defining the properties of a @code(StreetViewPanorama) object.@br@br
-    More information at https://developers.google.com/maps/documentation/javascript/reference#StreetViewPanoramaOptions
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.txt)
   TGMStreetViewPanoramaOptions = class(TGMPersistentStr)
   private
     FAddressControlOptions: TGMStreetViewAddressControlOptions;
@@ -395,56 +349,51 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @abstract(Constructor class.)
-    // @param AOwner Owner of the object.
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
-    // @abstract(Destructor class.)
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.Destroy.txt)
     destructor Destroy; override;
 
-    // Call @code(Assign) to copy the properties or other attributes of one object from another. The standard form of a call to @code(Assign) is@br @code(Destination.Assign(Source);) @br which tells the @code(Destination) object to copy the contents of the @code(Source) object to itself.
-    // @param Source Object to copy the content.
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // Converts all class properties values to a string separated by semicolon.
-    // @return String with all properties.
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.PropToString.txt)
     function PropToString: string; override;
   published
-    // The enabled/disabled state of the address control.
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.AddressControl.txt)
     property AddressControl: Boolean read FAddressControl write SetAddressControl default True;
-    // The display options for the address control.
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.AddressControlOptions.txt)
     property AddressControlOptions: TGMStreetViewAddressControlOptions read FAddressControlOptions write FAddressControlOptions;
-    // The enabled/disabled state of click-to-go.
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.ClickToGo.txt)
     property ClickToGo: Boolean read FClickToGo write SetClickToGo default True;
-    // Enables/disables all default UI. May be overridden individually.
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.DisableDefaultUI.txt)
     property DisableDefaultUI: Boolean read FDisableDefaultUI write SetDisableDefaultUI default False;
-    // Enables/disables zoom on double click.
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.DisableDoubleClickZoom.txt)
     property DisableDoubleClickZoom: Boolean read FDisableDoubleClickZoom write SetDisableDoubleClickZoom default False;
-    // If true, the close button is displayed.
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.EnableCloseButton.txt)
     property EnableCloseButton: Boolean read FEnableCloseButton write SetEnableCloseButton default True;
-    // The enabled/disabled state of the imagery acquisition date control.
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.ImageDateControl.txt)
     property ImageDateControl: Boolean read FImageDateControl write SetImageDateControl default False;
-    // The enabled/disabled state of the links control.
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.LinksControl.txt)
     property LinksControl: Boolean read FLinksControl write SetLinksControl default False;
-    // The enabled/disabled state of the pan control.
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.PanControl.txt)
     property PanControl: Boolean read FPanControl write SetPanControl default True;
-    // The display options for the pan control.
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.PanControlOptions.txt)
     property PanControlOptions: TGMPanControlOptions read FPanControlOptions write FPanControlOptions;
-    // The camera orientation, specified as heading and pitch, for the panorama.
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.Pov.txt)
     property Pov: TGMStreetViewPov read FPov write FPov;
-    // If false, disables scrollwheel zooming in Street View.
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.Scrollwheel.txt)
     property Scrollwheel: Boolean read FScrollwheel write SetScrollwheel default True;
-    // If true, the Street View panorama is visible on load.
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.Visible.txt)
     property Visible: Boolean read FVisible write SetVisible default False;
-    // The enabled/disabled state of the zoom control.
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.ZoomControl.txt)
     property ZoomControl: Boolean read FZoomControl write SetZoomControl default True;
-    // The display options for the zoom control.
+    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.ZoomControlOptions.txt)
     property ZoomControlOptions: TGMZoomControlOptions read FZoomControlOptions write FZoomControlOptions;
   end;
 
-  {
-    @abstract(Base class for @code(google.maps.MapOptions) object from Google Maps API.)
-    More information at https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\docs\GMMap.TGMCustomMapOptions.txt)
   TGMCustomMapOptions = class(TGMPersistentStr)
   private
     FTilt: Integer;
@@ -501,85 +450,81 @@ type
     procedure SetStreetViewControl(const Value: Boolean);
     procedure SetZoomControl(const Value: Boolean);
   protected
-    // Converts all class properties values to a string separated by semicolon.
-    // @return string with all properties.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.PropToString.txt)
     function PropToString: string; override;
 
-    // Contains the lat/lng coordinates with the center of the map.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.Center.txt)
     property Center: TGMLatLng read FCenter write FCenter;
-    // Enables/disables all default UI. May be overridden individually.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.DisableDefaultUI.txt)
     property DisableDefaultUI: Boolean read FDisableDefaultUI write SetDisableDefaultUI default False;
-    // Enables/disables zoom and center on double click.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.DisableDoubleClickZoom.txt)
     property DisableDoubleClickZoom: Boolean read FDisableDoubleClickZoom write SetDisableDoubleClickZoom default True;
-    // If false, prevents the map from being dragged.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.Draggable.txt)
     property Draggable: Boolean read FDraggable write SetDraggable default True;
-    // The name or url of the cursor to display when mousing over a draggable map. This property uses the css cursor attribute to change the icon. As with the css property, you must specify at least one fallback cursor that is not a URL. For example: draggableCursor: 'url(http://www.example.com/icon.png), auto;'.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.DraggableCursor.txt)
     property DraggableCursor: string read FDraggableCursor write SetDraggableCursor;
-    // The name or url of the cursor to display when the map is being dragged. This property uses the css cursor attribute to change the icon. As with the css property, you must specify at least one fallback cursor that is not a URL. For example: draggingCursor: 'url(http://www.example.com/icon.png), auto;'.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.DraggingCursor.txt)
     property DraggingCursor: string read FDraggingCursor write SetDraggingCursor;
-    // The heading for aerial imagery in degrees measured clockwise from cardinal direction North. Headings are snapped to the nearest available angle for which imagery is available.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.Heading.txt)
     property Heading: Integer read FHeading write SetHeading default 0;
-    // If false, prevents the map from being controlled by the keyboard.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.KeyboardShortcuts.txt)
     property KeyboardShortcuts: Boolean read FKeyboardShortcuts write SetKeyboardShortcuts default True;
-    // True if Map Maker tiles should be used instead of regular tiles.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.MapMaker.txt)
     property MapMaker: Boolean read FMapMaker write SetMapMaker default False;
-    // The initial enabled/disabled state of the Map type control.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.MapTypeControl.txt)
     property MapTypeControl: Boolean read FMapTypeControl write SetMapTypeControl default True;
-    // The initial display options for the Map type control.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.MapTypeControlOptions.txt)
     property MapTypeControlOptions: TGMMapTypeControlOptions read FMapTypeControlOptions write FMapTypeControlOptions;
-    // The initial Map mapTypeId.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.MapTypeId.txt)
     property MapTypeId: TGMMapTypeId read FMapTypeId write SetMapTypeId default mtROADMAP;
-    // The maximum zoom level which will be displayed on the map.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.MaxZoom.txt)
     property MaxZoom: Integer read FMaxZoom write SetMaxZoom default 0;
-    // The minimum zoom level which will be displayed on the map.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.MinZoom.txt)
     property MinZoom: Integer read FMinZoom write SetMinZoom default 0;
-    // If true, do not clear the contents of the Map div.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.NoClear.txt)
     property NoClear: Boolean read FNoClear write SetNoClear default False;
-    // The enabled/disabled state of the Overview Map control.@br Note: The Overview Map control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Overview Map control available as part of the old control set.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.OverviewMapControl.txt)
     property OverviewMapControl: Boolean read FOverviewMapControl write SetOverviewMapControl default True;
-    // The display options for the Overview Map control.@br Note: The Overview Map control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Overview Map control available as part of the old control set.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.OverviewMapControlOptions.txt)
     property OverviewMapControlOptions: TGMOverviewMapControlOptions read FOverviewMapControlOptions write FOverviewMapControlOptions;
-    // The enabled/disabled state of the Pan control.@br Note: The Pan control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Pan control available as part of the old control set.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.PanControl.txt)
     property PanControl: Boolean read FPanControl write SetPanControl default True;
-    // The display options for the Pan control.@br Note: The Pan control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Pan control available as part of the old control set.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.PanControlOptions.txt)
     property PanControlOptions: TGMPanControlOptions read FPanControlOptions write FPanControlOptions;
-    // The enabled/disabled state of the Rotate control.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.RotateControl.txt)
     property RotateControl: Boolean read FRotateControl write SetRotateControl default True;
-    // The display options for the Rotate control.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.RotateControlOptions.txt)
     property RotateControlOptions: TGMRotateControlOptions read FRotateControlOptions write FRotateControlOptions;
-    // The initial enabled/disabled state of the Scale control.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.ScaleControl.txt)
     property ScaleControl: Boolean read FScaleControl write SetScaleControl default True;
-    // The initial display options for the Scale control.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.ScaleControlOptions.txt)
     property ScaleControlOptions: TGMScaleControlOptions read FScaleControlOptions write FScaleControlOptions;
-    // If false, disables scrollwheel zooming on the map.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.Scrollwheel.txt)
     property Scrollwheel: Boolean read FScrollwheel write SetScrollwheel default True;
-    // A StreetViewPanorama to display when the Street View pegman is dropped on the map.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.StreetView.txt)
     property StreetView: TGMStreetViewPanoramaOptions read FStreetView write FStreetView;
-    // The initial enabled/disabled state of the Street View Pegman control. This control is part of the default UI, and should be set to false when displaying a map type on which the Street View road overlay should not appear (e.g. a non-Earth map type).
+    // @include(..\docs\GMMap.TGMCustomMapOptions.StreetViewControl.txt)
     property StreetViewControl: Boolean read FStreetViewControl write SetStreetViewControl default True;
-    // The initial display options for the Street View Pegman control.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.StreetViewControlOptions.txt)
     property StreetViewControlOptions: TGMStreetViewControlOptions read FStreetViewControlOptions write FStreetViewControlOptions;
-    // Controls the automatic switching behavior for the angle of incidence of the map. The only allowed values are 0 and 45. The value 0 causes the map to always use a 0° overhead view regardless of the zoom level and viewport. The value 45 causes the tilt angle to automatically switch to 45 whenever 45° imagery is available for the current zoom level and viewport, and switch back to 0 whenever 45° imagery is not available (this is the default behavior). 45° imagery is only available for SATELLITE and HYBRID map types, within some locations, and at some zoom levels. Note: getTilt returns the current tilt angle, not the value specified by this option. Because getTilt and this option refer to different things, do not bind() the tilt property; doing so may yield unpredictable effects.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.Tilt.txt)
     property Tilt: Integer read FTilt write SetTilt default 0;
-    // The initial Map zoom level.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.Zoom.txt)
     property Zoom: Integer read FZoom write SetZoom default 8;
-    // The enabled/disabled state of the Zoom control.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.ZoomControl.txt)
     property ZoomControl: Boolean read FZoomControl write SetZoomControl default True;
-    // The display options for the Zoom control.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.ZoomControlOptions.txt)
     property ZoomControlOptions: TGMZoomControlOptions read FZoomControlOptions write FZoomControlOptions;
   public
-    // @abstract(Constructor class.)
-    // Creates a TGMCustomMapOptions object.
-    // @param AOwner Owner of the object.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
-    // @abstract(Destructor class.)
+    // @include(..\docs\GMMap.TGMCustomMapOptions.Destroy.txt)
     destructor Destroy; override;
 
-    // URL to Google Maps API class.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.GetAPIUrl.txt)
     function GetAPIUrl: string; override;
 
-    // Call @code(Assign) to copy the properties or other attributes of one object from another. The standard form of a call to @code(Assign) is@br @code(Destination.Assign(Source);) @br which tells the @code(Destination) object to copy the contents of the @code(Source) object to itself.
-    // @param Source Object to copy the content.
+    // @include(..\docs\GMMap.TGMCustomMapOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
   end;
 

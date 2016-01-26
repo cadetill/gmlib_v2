@@ -1,0 +1,2 @@
+The camera pitch in degrees, relative to the street view vehicle. @br
+Ranges from 90° (directly upwards) to -90° (directly downwards).

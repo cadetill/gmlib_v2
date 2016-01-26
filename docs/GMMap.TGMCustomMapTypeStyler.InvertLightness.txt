@@ -1,0 +1,1 @@
+A value of true will invert the lightness of the feature while preserving the hue and saturation.

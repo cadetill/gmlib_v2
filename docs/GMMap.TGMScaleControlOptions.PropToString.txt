@@ -1,0 +1,3 @@
+Converts all class properties values to a string separated by semicolon.
+
+@return String with all properties.

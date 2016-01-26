@@ -1,0 +1,1 @@
+The maximum zoom level which will be displayed on the map.

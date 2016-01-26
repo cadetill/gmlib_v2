@@ -1,0 +1,1 @@
+If @code(false), prevents the map from being dragged.

@@ -1,0 +1,1 @@
+If @code(true), the close button is displayed.
