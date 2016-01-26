@@ -1,0 +1,1 @@
+Whether the control should display in opened mode or collapsed (minimized) mode.

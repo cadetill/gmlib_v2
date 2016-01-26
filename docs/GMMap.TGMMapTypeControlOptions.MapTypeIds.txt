@@ -1,0 +1,1 @@
+IDs of map types to show in the control.

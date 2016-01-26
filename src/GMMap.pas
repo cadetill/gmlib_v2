@@ -22,11 +22,8 @@ uses
   GMClasses, GMLatLng, GMLatLngBounds, GMSets;
 
 type
-  {
-    @abstract(@code(google.maps.MapTypeControlOptions) object from Google Maps API.)
-    Options for the rendering of the map type control.@br@br
-    More information at https://developers.google.com/maps/documentation/javascript/reference#MapTypeControlOptions
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\docs\GMMap.TGMMapTypeControlOptions.txt)
   TGMMapTypeControlOptions = class(TGMPersistentStr)
   private
     FMapTypeIds: TGMMapTypeIds;
@@ -39,31 +36,25 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @abstract(Constructor class.)
-    // @param AOwner Owner of the object.
+    // @include(..\docs\GMMap.TGMMapTypeControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // Call @code(Assign) to copy the properties or other attributes of one object from another. The standard form of a call to @code(Assign) is@br @code(Destination.Assign(Source);) @br which tells the @code(Destination) object to copy the contents of the @code(Source) object to itself.
-    // @param Source Object to copy the content.
+    // @include(..\docs\GMMap.TGMMapTypeControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // Converts all class properties values to a string separated by semicolon.
-    // @return String with all properties.
+    // @include(..\docs\GMMap.TGMMapTypeControlOptions.PropToString.txt)
     function PropToString: string; override;
   published
-    // IDs of map types to show in the control.
+    // @include(..\docs\GMMap.TGMMapTypeControlOptions.MapTypeIds.txt)
     property MapTypeIds: TGMMapTypeIds read FMapTypeIds write SetMapTypeIds default [mtHYBRID, mtROADMAP, mtSATELLITE, mtTERRAIN, mtOSM];
-    // Position id. Used to specify the position of the control on the map.
+    // @include(..\docs\GMMap.TGMMapTypeControlOptions.Position.txt)
     property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_RIGHT;
-    // Style id. Used to select what style of map type control to display.
+    // @include(..\docs\GMMap.TGMMapTypeControlOptions.Style.txt)
     property Style: TGMMapTypeControlStyle read FStyle write SetStyle default mtcDEFAULT;
   end;
 
-  {
-    @abstract(@code(google.maps.OverviewMapControlOptions) object from Google Maps API.)
-    Options for the rendering of the Overview Map control.@br@br
-    More information at https://developers.google.com/maps/documentation/javascript/reference#OverviewMapControlOptions
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\docs\GMMap.TGMOverviewMapControlOptions.txt)
   TGMOverviewMapControlOptions = class(TGMPersistentStr)
   private
     FOpened: Boolean;
@@ -72,27 +63,21 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @abstract(Constructor class.)
-    // @param AOwner Owner of the object.
+    // @include(..\docs\GMMap.TGMOverviewMapControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // Call @code(Assign) to copy the properties or other attributes of one object from another. The standard form of a call to @code(Assign) is@br @code(Destination.Assign(Source);) @br which tells the @code(Destination) object to copy the contents of the @code(Source) object to itself.
-    // @param Source Object to copy the content.
+    // @include(..\docs\GMMap.TGMOverviewMapControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // Converts all class properties values to a string separated by semicolon.
-    // @return String with all properties.
+    // @include(..\docs\GMMap.TGMOverviewMapControlOptions.PropToString.txt)
     function PropToString: string; override;
   published
-    // Whether the control should display in opened mode or collapsed (minimized) mode.
+    // @include(..\docs\GMMap.TGMOverviewMapControlOptions.Opened.txt)
     property Opened: Boolean read FOpened write SetOpened default False;
   end;
 
-  {
-    @abstract(@code(google.maps.PanControlOptions) object from Google Maps API.)
-    Options for the rendering of the pan control.@br@br
-    More information at https://developers.google.com/maps/documentation/javascript/reference#PanControlOptions
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\docs\GMMap.TGMPanControlOptions.txt)
   TGMPanControlOptions = class(TGMPersistentStr)
   private
     FPosition: TGMControlPosition;
@@ -101,27 +86,21 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @abstract(Constructor class.)
-    // @param AOwner Owner of the object.
+    // @include(..\docs\GMMap.TGMPanControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // Call @code(Assign) to copy the properties or other attributes of one object from another. The standard form of a call to @code(Assign) is@br @code(Destination.Assign(Source);) @br which tells the @code(Destination) object to copy the contents of the @code(Source) object to itself.
-    // @param Source Object to copy the content.
+    // @include(..\docs\GMMap.TGMPanControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // Converts all class properties values to a string separated by semicolon.
-    // @return String with all properties.
+    // @include(..\docs\GMMap.TGMPanControlOptions.PropToString.txt)
     function PropToString: string; override;
   published
-    // Position id. Used to specify the position of the control on the map.
+    // @include(..\docs\GMMap.TGMPanControlOptions.Position.txt)
     property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_LEFT;
   end;
 
-  {
-    @abstract(@code(google.maps.RotateControlOptions) object from Google Maps API.)
-    Options for the rendering of the rotate control.@br@br
-    More information at https://developers.google.com/maps/documentation/javascript/reference#RotateControlOptions
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\docs\GMMap.TGMRotateControlOptions.txt)
   TGMRotateControlOptions = class(TGMPersistentStr)
   private
     FPosition: TGMControlPosition;
@@ -130,19 +109,16 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @abstract(Constructor class.)
-    // @param AOwner Owner of the object.
+    // @include(..\docs\GMMap.TGMRotateControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // Call @code(Assign) to copy the properties or other attributes of one object from another. The standard form of a call to @code(Assign) is@br @code(Destination.Assign(Source);) @br which tells the @code(Destination) object to copy the contents of the @code(Source) object to itself.
-    // @param Source Object to copy the content.
+    // @include(..\docs\GMMap.TGMRotateControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // Converts all class properties values to a string separated by semicolon.
-    // @return String with all properties.
+    // @include(..\docs\GMMap.TGMRotateControlOptions.PropToString.txt)
     function PropToString: string; override;
   published
-    // Position id. Used to specify the position of the control on the map.
+    // @include(..\docs\GMMap.TGMRotateControlOptions.Position.txt)
     property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_LEFT;
   end;
 
