@@ -1,0 +1,3 @@
+OnTimer control event of Timer that check events from map. Internal use only.
+
+@param Sender Object that fire event

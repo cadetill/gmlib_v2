@@ -1,0 +1,3 @@
+Returns the HTML code of base map (map.html on gmmapres.res). Internal use only.
+
+@return String with the HTML code

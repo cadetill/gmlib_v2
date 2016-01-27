@@ -1,0 +1,1 @@
+Version of the Google Maps API to use

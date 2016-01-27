@@ -11,7 +11,7 @@ unit GMSets;
 interface
 
 type
-  // Language in which messages are displayed the exceptions shown by GMLib.
+  // @include(..\docs\GMSets.TGMLang.txt)
   TGMLang = (// unknown exception language
              lnUnknown,
              // Spanish exception language
@@ -21,51 +21,32 @@ type
              // French exception language
              lnFrench);
 
-  // Version of the Google Maps API to use
+  // @include(..\docs\GMSets.TGoogleAPIVer.txt)
   TGoogleAPIVer = (api321, api322, api323, apiNewest);
 
-  // @abstract(Identifiers for common MapTypes.)
-  // More info at https://developers.google.com/maps/documentation/javascript/reference#MapTypeId
+  // @include(..\docs\GMSets.TGMMapTypeId.txt)
   TGMMapTypeId = (mtHYBRID, mtROADMAP, mtSATELLITE, mtTERRAIN, mtOSM);
-  // @abstract(Set of TGMMapTypeId.)
+  // @include(..\docs\GMSets.TGMMapTypeIds.txt)
   TGMMapTypeIds = set of TGMMapTypeId;
 
-  // @abstract(Identifiers used to specify the placement of controls on the map.)
-  // Controls are positioned relative to other controls in the same layout position. Controls that are added first are positioned closer to the edge of the map.
-  // @longcode(#  +----------------+
-  //  + TL    TC    TR +
-  //  + LT          RT +
-  //  +                +
-  //  + LC          RC +
-  //  +                +
-  //  + LB          RB +
-  //  + BL    BC    BR +
-  //  +----------------+#)
-  // Elements in the top or bottom row flow towards the middle of the row. Elements in the left or right column flow towards the middle of the column.@br@br
-  // More info at https://developers.google.com/maps/documentation/javascript/reference#ControlPosition
+  // @include(..\docs\GMSets.TGMControlPosition.txt)
   TGMControlPosition = (cpBOTTOM_CENTER, cpBOTTOM_LEFT, cpBOTTOM_RIGHT,
                         cpLEFT_BOTTOM, cpLEFT_CENTER, cpLEFT_TOP,
                         cpRIGHT_BOTTOM, cpRIGHT_CENTER, cpRIGHT_TOP,
                         cpTOP_CENTER, cpTOP_LEFT, cpTOP_RIGHT);
 
-  // @abstract(Identifiers for common MapTypesControls.)
-  // More info at https://developers.google.com/maps/documentation/javascript/reference#MapTypeControlStyle
+  // @include(..\docs\GMSets.TGMMapTypeControlStyle.txt)
   TGMMapTypeControlStyle = (mtcDEFAULT, mtcDROPDOWN_MENU, mtcHORIZONTAL_BAR);
 
-  // @abstract(Identifiers for scale control ids.)
-  // More info at https://developers.google.com/maps/documentation/javascript/reference#ScaleControlStyle
+  // @include(..\docs\GMSets.TGMScaleControlStyle.txt)
   TGMScaleControlStyle = (scDEFAULT);
 
-  // @abstract(@code(google.maps.MapTypeStyleElementType) object specification)
-  // Each TGMMapTypeStyleElementType distinguishes between the different representations of a feature.@br@br
-  // More info at https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyleElementType
+  // @include(..\docs\GMSets.TGMMapTypeStyleElementType.txt)
   TGMMapTypeStyleElementType = (setALL, setGEOMETRY, setGEOMETRY_FILL, setGEOMETRY_STROKE,
                         setLABELS, setLABELS_ICON, setLABELS_TEXT, setLABELS_TEXT_FILL,
                         setLABELS_TEXT_STROKE);
 
-  // @abstract(@code(google.maps.MapTypeStyleFeatureType) object specification)
-  // Possible values for feature types. Stylers applied to a parent feature type automatically apply to all child feature types. Note however that parent features may include some additional features that are not included in one of their child feature types.@br@br
-  // More info at https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyleFeatureType
+  // @include(..\docs\GMSets.TGMMapTypeStyleFeatureType.txt)
   TGMMapTypeStyleFeatureType = (sftADMINISTRATIVE, sftADMINISTRATIVE_COUNTRY, sftADMINISTRATIVE_LAND__PARCEL,
               sftADMINISTRATIVE_LOCALITY, sftADMINISTRATIVE_NEIGHBORHOOD, sftADMINISTRATIVE_PROVINCE,
               sftALL, sftLANDSCAPE, sftLANDSCAPE_MAN__MADE, sftLANDSCAPE_NATURAL, sftLANDSCAPE_NATURAL_LANDCOVER,
@@ -75,14 +56,10 @@ type
               sftTRANSIT, sftTRANSIT_LINE, sftTRANSIT_STATION, sftTRANSIT_STATION_AIRPORT, sftTRANSIT_STATION_BUS,
               sftTRANSIT_STATION_RAIL, sftWATER);
 
-  // @abstract(Possible values for visibility property from MapTypeStyler object.)
-  // More info at https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyler
+  // @include(..\docs\GMSets.TGMVisibility.txt)
   TGMVisibility = (vOn, vOff, vSimplified);
 
-  // @abstract(@code(google.maps.ZoomControlStyle) constants)
-  // Styles for the zoom control. @br@br
-  // Note: Zoom control styles are not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the large Zoom control available as part of the old control set. See What's New in the v3.22 Map Controls at https://developers.google.com/maps/articles/v322-controls-diff. @br@br
-  // More info at https://developers.google.com/maps/documentation/javascript/reference#ZoomControlStyle
+  // @include(..\docs\GMSets.TGMZoomControlStyle.txt)
   TGMZoomControlStyle = (zcDEFAULT, zcLARGE, zcSMALL);
 
 implementation

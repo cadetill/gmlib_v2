@@ -1,0 +1,4 @@
+@abstract(@code(google.maps.ZoomControlStyle) constants)
+Styles for the zoom control. @br@br
+Note: Zoom control styles are not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the large Zoom control available as part of the old control set. See What's New in the v3.22 Map Controls at https://developers.google.com/maps/articles/v322-controls-diff. @br@br
+More info at https://developers.google.com/maps/documentation/javascript/reference#ZoomControlStyle

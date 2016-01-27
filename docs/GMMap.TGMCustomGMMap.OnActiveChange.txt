@@ -1,0 +1,1 @@
+OnActiveChange event is fired when Active property change.

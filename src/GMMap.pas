@@ -528,10 +528,8 @@ type
     procedure Assign(Source: TPersistent); override;
   end;
 
-  {
-    @abstract(Base class for @code(google.maps.Map) class)
-    More information at https://developers.google.com/maps/documentation/javascript/reference#Map
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\docs\GMMap.TGMCustomGMMap.txt)
   TGMCustomGMMap = class(TGMComponent)
   private
     FIsDoMap: Boolean;  // indicates if the map.html is loaded.
@@ -547,21 +545,18 @@ type
     procedure SetGoogleAPIKey(const Value: string);
     procedure SetIntervalEvents(const Value: Integer);
   protected
-    // Browser where display the Google Maps map.
+    // @include(..\docs\GMMap.TGMCustomGMMap.FWebBrowser.txt)
     FWebBrowser: TComponent;
 
-    // Set the interval of Timer that control de map events. Internal use only.
-    // @param Interval Interval in miliseconds
+    // @include(..\docs\GMMap.TGMCustomGMMap.SetIntervalTimer.txt)
     procedure SetIntervalTimer(Interval: Integer); virtual; abstract;
-    // LoadMap method loads and shows the map.html to use Google Maps API.
+    // @include(..\docs\GMMap.TGMCustomGMMap.LoadMap.txt)
     procedure LoadMap; virtual; abstract;
-    // LoadBlankPage method load the about:blank page.
+    // @include(..\docs\GMMap.TGMCustomGMMap.LoadBlankPage.txt)
     procedure LoadBlankPage; virtual; abstract;
-    // Returns the HTML code of base map (map.html on gmmapres.res). Internal use only.
-    // @return String with the HTML code
+    // @include(..\docs\GMMap.TGMCustomGMMap.GetBaseHTMLCode.txt)
     function GetBaseHTMLCode: string;
-    // OnTimer control event of Timer that check events from map. Internal use only.
-    // @param Sender Object that fire event
+    // @include(..\docs\GMMap.TGMCustomGMMap.OnTimer.txt)
     procedure OnTimer(Sender: TObject); virtual; (*1 *)
 
 {
@@ -582,37 +577,21 @@ type
     procedure SetZoom(Zoom: Integer);
 }
 
-    // Activate or deactivate access to the map.
+    // @include(..\docs\GMMap.TGMCustomGMMap.Active.txt)
     property Active: Boolean read FActive write SetActive default False;
-    // @abstract(Version of the Google Maps API to use.)
-    // raises EGMMapIsActive This exception is raised when @code(Active) property is @code(True).
+    // @include(..\docs\GMMap.TGMCustomGMMap.GoogleAPIVer.txt)
     property GoogleAPIVer: TGoogleAPIVer read FGoogleAPIVer write SetGoogleAPIVer default api323;
-    // @abstract(APIKey is the Key to use on Google Maps.)
-    // To obtaining Api Key please check: https://developers.google.com/maps/documentation/javascript/get-api-key @br@br
-    // Google Maps limits:
-    // @unorderedList(
-    //      @item(General info: https://developers.google.com/maps/documentation/javascript/usage)
-    //      @item(Directions: https://developers.google.com/maps/documentation/directions/usage-limits)
-    //      @item(Geocoding limits usage: https://developers.google.com/maps/documentation/geocoding/usage-limits)
-    //      @item(Elevation limits usage: https://developers.google.com/maps/documentation/elevation/usage-limits)
-    //      @item(Distance-Matrix limits usage: https://developers.google.com/maps/documentation/distance-matrix/usage-limits)
-    //      @item(Geolocation limits usage: https://developers.google.com/maps/documentation/geolocation/usage-limits)
-    //      @item(Roads limits usage: https://developers.google.com/maps/documentation/roads/usage-limits)
-    //      @item(Time Zone limits usage: https://developers.google.com/maps/documentation/timezone/usage-limits)
-    //    )
-    // @code(EGMMapIsActive) exception is raised when @code(Active) property is @code(True).
+    // @include(..\docs\GMMap.TGMCustomGMMap.GoogleAPIKey.txt)
     property GoogleAPIKey: string read FGoogleAPIKey write SetGoogleAPIKey;
-    // Interval of time to check the events of map.
+    // @include(..\docs\GMMap.TGMCustomGMMap.IntervalEvents.txt)
     property IntervalEvents: Integer read FIntervalEvents write SetIntervalEvents default 200;
 
-    // OnActiveChange event is fired when Active property change.
+    // @include(..\docs\GMMap.TGMCustomGMMap.OnActiveChange.txt)
     property OnActiveChange: TNotifyEvent read FOnActiveChange write FOnActiveChange;
-    // OnIntervalEventsChange event is fired when IntervalEvents property change.
+    // @include(..\docs\GMMap.TGMCustomGMMap.OnIntervalEventsChange.txt)
     property OnIntervalEventsChange: TNotifyEvent read FOnIntervalEventsChange write FOnIntervalEventsChange;
   public
-    // @abstract(Constructor class.)
-    // Creates a TGMCustomGMMap object.
-    // @param AOwner Owner of the object.
+    // @include(..\docs\GMMap.TGMCustomGMMap.Create.txt)
     constructor Create(AOwner: TComponent); override;
   end;
 

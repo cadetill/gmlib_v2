@@ -1,0 +1,2 @@
+@abstract(Identifiers for scale control ids.)
+More info at https://developers.google.com/maps/documentation/javascript/reference#ScaleControlStyle

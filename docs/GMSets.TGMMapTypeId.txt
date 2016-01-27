@@ -1,0 +1,2 @@
+@abstract(Identifiers for common MapTypes.)
+More info at https://developers.google.com/maps/documentation/javascript/reference#MapTypeId

@@ -1,0 +1,2 @@
+@abstract(Identifiers for common MapTypesControls.)
+More info at https://developers.google.com/maps/documentation/javascript/reference#MapTypeControlStyle

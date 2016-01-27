@@ -1,0 +1,1 @@
+Interval of time to check the events of map.

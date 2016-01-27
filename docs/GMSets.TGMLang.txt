@@ -1,0 +1,1 @@
+Language in which messages are displayed the exceptions shown by GMLib.

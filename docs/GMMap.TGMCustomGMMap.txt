@@ -1,0 +1,2 @@
+@abstract(Base class for @code(google.maps.Map) class)
+More information at https://developers.google.com/maps/documentation/javascript/reference#Map
