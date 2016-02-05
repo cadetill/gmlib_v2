@@ -1,0 +1,3 @@
+@abstract(Creates a new TGMMapTypeStyle instance and adds it to the Items array.)
+
+@return New TGMMapTypeStyle.

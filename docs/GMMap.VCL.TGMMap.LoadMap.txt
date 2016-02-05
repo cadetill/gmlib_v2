@@ -1,0 +1,1 @@
+LoadMap method loads and shows the map.html to use Google Maps API.

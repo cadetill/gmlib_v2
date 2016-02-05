@@ -1,0 +1,1 @@
+If @code(true), do not clear the contents of the Map div.

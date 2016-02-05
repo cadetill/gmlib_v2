@@ -1,0 +1,1 @@
+@code(google.maps.MapOptions) object specification

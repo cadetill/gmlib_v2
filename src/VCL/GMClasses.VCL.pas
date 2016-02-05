@@ -21,14 +21,10 @@ uses
 
 type
   { -------------------------------------------------------------------------- }
-  {
-    @abstract(Contains methods of transformations.)
-  }
+  // @include(..\..\docs\GMClasses.VCL.TGMTransformVCL.txt)
   TGMTransformVCL = record
   public
-    // Converts Color to a string that contains their RGB representation.
-    // @param Color Color to transform to RGB.
-    // @return String with RGB representation.
+    // @include(..\..\docs\GMClasses.VCL.TGMTransformVCL.TColorToStr.txt)
     class function TColorToStr(Color: TColor): string; static;
   end;
 

@@ -1,0 +1,4 @@
+@abstract(Constructor class.)
+Creates a TGMCustomMapOptions object.
+
+@param AOwner Owner of the object.

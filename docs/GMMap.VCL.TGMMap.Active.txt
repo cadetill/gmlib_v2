@@ -1,0 +1,1 @@
+Activate or deactivate access to the map.

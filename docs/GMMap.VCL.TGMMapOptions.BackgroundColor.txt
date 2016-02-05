@@ -1,0 +1,1 @@
+Color used for the background of the Map div. This color will be visible when tiles have not yet loaded as the user pans.

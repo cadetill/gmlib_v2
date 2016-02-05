@@ -1,0 +1,1 @@
+If false, prevents the map from being dragged.

@@ -22,11 +22,8 @@ uses
   GMMap, GMClasses;
 
 type
-  {
-    @abstract(@code(google.maps.MapTypeStyler) object from Google Maps API.)
-    A styler affects how a map's elements will be styled. Each MapTypeStyler should contain one and only one key. If more than one key is specified in a single MapTypeStyler, all but one will be ignored.@br@br
-    More information at https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyler
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyler.txt)
   TGMMapTypeStyler = class(TGMCustomMapTypeStyler)
   private
     FColor: TColor;
@@ -34,87 +31,80 @@ type
     procedure SetColor(const Value: TColor);
     procedure SetHue(const Value: TColor);
   protected
-    // Converts all class properties values to a string separated by semicolon.
-    // @return string with all properties.
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyler.PropToString.txt)
     function PropToString: string; override;
   published
-    // Sets the color of the feature.
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyler.Color.txt)
     property Color: TColor read FColor write SetColor default clBlack;
-    // Sets the hue of the feature to match the hue of the color supplied. Note that the saturation and lightness of the feature is conserved, which means that the feature will not match the color supplied exactly.
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyler.Hue.txt)
     property Hue: TColor read FHue write SetHue default clBlack;
-    // Modifies the gamma by raising the lightness to the given power.@br Valid values: Floating point numbers, [0.01, 10], with 1.0 representing no change.
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyler.Gamma.txt)
     property Gamma;
-    // A value of true will invert the lightness of the feature while preserving the hue and saturation.
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyler.InvertLightness.txt)
     property InvertLightness;
-    // Shifts lightness of colors by a percentage of the original value if decreasing and a percentage of the remaining value if increasing.@br Valid values: [-100, 100].
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyler.Lightness.txt)
     property Lightness;
-    // Shifts the saturation of colors by a percentage of the original value if decreasing and a percentage of the remaining value if increasing.@br Valid values: [-100, 100].
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyler.Saturation.txt)
     property Saturation;
-    // Sets the visibility of the feature.
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyler.Visibility.txt)
     property Visibility;
-    // Sets the weight of the feature, in pixels.@br Valid values: Integers greater than or equal to zero.
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyler.Weight.txt)
     property Weight;
   end;
 
-  {
-    @abstract(@code(google.maps.MapTypeStyler) list objects from Google Maps API.)
-    The TGMMapTypeStylers is a collection of TGMMapTypeStyler.@br@br
-    More information at https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyler
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\..\docs\GMMap.VCL.TGMMapTypeStylers.txt)
   TGMMapTypeStylers = class(TGMInterfacedCollection)
   private
     function GetItems(I: Integer): TGMMapTypeStyler;
     procedure SetItems(I: Integer; const Value: TGMMapTypeStyler);
   public
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStylers.Add.txt)
     function Add: TGMMapTypeStyler;
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStylers.Insert.txt)
     function Insert(Index: Integer): TGMMapTypeStyler;
 
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStylers.Items.txt)
     property Items[I: Integer]: TGMMapTypeStyler read GetItems write SetItems; default;
   end;
 
-  {
-    @abstract(@code(google.maps.MapTypeStyle) object from Google Maps API.)
-    The TGMMapTypeStyle is an individual object of collection of selectors and stylers that define how the map should be styled. Selectors specify what map elements should be affected and stylers specify how those elements should be modified.@br@br
-    More information at https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyle
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyle.txt)
   TGMMapTypeStyle = class(TGMCustomMapTypeStyle)
   private
     FStylers: TGMMapTypeStylers;
   public
-    // @abstract(Constructor class.)
-    // @param AOwner Object owner.
-    // @param ItemClass Identifies the TCollectionItem descendants that must be used to represent the items in the collection.
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyle.Create.txt)
     constructor Create(Collection: TCollection); override;
-    // @abstract(Destructor class.)
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyle.Destroy.txt)
     destructor Destroy; override;
   published
-    // Selects the element type to which a styler should be applied. An element type distinguishes between the different representations of a feature.
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyle.ElementType.txt)
     property ElementType;
-    // Selects the feature, or group of features, to which a styler should be applied.
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyle.FeatureType.txt)
     property FeatureType;
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyle.Stylers.txt)
     property Stylers: TGMMapTypeStylers read FStylers write FStylers;
   end;
 
-  {
-    @abstract(@code(google.maps.MapTypeStyle) list objects from Google Maps API.)
-    The TGMMapTypeStyles is a collection of selectors and stylers that define how the map should be styled. Selectors specify what map elements should be affected and stylers specify how those elements should be modified.@br@br
-    More information at https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyle
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyles.txt)
   TGMMapTypeStyles = class(TGMInterfacedCollection)
   private
     function GetItems(I: Integer): TGMMapTypeStyle;
     procedure SetItems(I: Integer; const Value: TGMMapTypeStyle);
   public
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyles.Add.txt)
     function Add: TGMMapTypeStyle;
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyles.Insert.txt)
     function Insert(Index: Integer): TGMMapTypeStyle;
 
+    // @include(..\..\docs\GMMap.VCL.TGMMapTypeStyles.Items.txt)
     property Items[I: Integer]: TGMMapTypeStyle read GetItems write SetItems; default;
   end;
 
-  {
-    @abstract(Class for @code(google.maps.MapOptions) object from Google Maps API.)
-    More information at https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\..\docs\GMMap.VCL.TGMMapOptions.txt)
   TGMMapOptions = class(TGMCustomMapOptions)
   private
     FBackgroundColor: TColor;
@@ -122,89 +112,85 @@ type
     procedure SetBackgroundColor(const Value: TColor);
     function GetCountStyles: Integer;
   public
-    // @abstract(Constructor class.)
-    // Creates a TGMCustomMapOptions object.
-    // @param AOwner Owner of the object.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
-    // @abstract(Destructor class.)
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.Destroy.txt)
     destructor Destroy; override;
 
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.CountStyles.txt)
     property CountStyles: Integer read GetCountStyles;
   published
-    // Color used for the background of the Map div. This color will be visible when tiles have not yet loaded as the user pans.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.BackgroundColor.txt)
     property BackgroundColor: TColor read FBackgroundColor write SetBackgroundColor default clBlack;
 
-    // Contains the lat/lng coordinates with the center of the map.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.Center.txt)
     property Center;
-    // Enables/disables all default UI. May be overridden individually.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.DisableDefaultUI.txt)
     property DisableDefaultUI;
-    // Enables/disables zoom and center on double click.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.DisableDoubleClickZoom.txt)
     property DisableDoubleClickZoom;
-    // If false, prevents the map from being dragged.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.Draggable.txt)
     property Draggable;
-    // The name or url of the cursor to display when mousing over a draggable map. This property uses the css cursor attribute to change the icon. As with the css property, you must specify at least one fallback cursor that is not a URL. For example: draggableCursor: 'url(http://www.example.com/icon.png), auto;'.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.DraggableCursor.txt)
     property DraggableCursor;
-    // The name or url of the cursor to display when the map is being dragged. This property uses the css cursor attribute to change the icon. As with the css property, you must specify at least one fallback cursor that is not a URL. For example: draggingCursor: 'url(http://www.example.com/icon.png), auto;'.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.DraggingCursor.txt)
     property DraggingCursor;
-    // The heading for aerial imagery in degrees measured clockwise from cardinal direction North. Headings are snapped to the nearest available angle for which imagery is available.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.Heading.txt)
     property Heading;
-    // If false, prevents the map from being controlled by the keyboard.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.KeyboardShortcuts.txt)
     property KeyboardShortcuts;
-    // True if Map Maker tiles should be used instead of regular tiles.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.MapMaker.txt)
     property MapMaker;
-    // The initial enabled/disabled state of the Map type control.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.MapTypeControl.txt)
     property MapTypeControl;
-    // The initial display options for the Map type control.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.MapTypeControlOptions.txt)
     property MapTypeControlOptions;
-    // The initial Map mapTypeId.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.MapTypeId.txt)
     property MapTypeId;
-    // The maximum zoom level which will be displayed on the map.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.MaxZoom.txt)
     property MaxZoom;
-    // The minimum zoom level which will be displayed on the map.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.MinZoom.txt)
     property MinZoom;
-    // If true, do not clear the contents of the Map div.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.NoClear.txt)
     property NoClear;
-    // The enabled/disabled state of the Overview Map control.@br Note: The Overview Map control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Overview Map control available as part of the old control set.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.OverviewMapControl.txt)
     property OverviewMapControl;
-    // The display options for the Overview Map control.@br Note: The Overview Map control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Overview Map control available as part of the old control set.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.OverviewMapControlOptions.txt)
     property OverviewMapControlOptions;
-    // The enabled/disabled state of the Pan control.@br Note: The Pan control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Pan control available as part of the old control set.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.PanControl.txt)
     property PanControl;
-    // The display options for the Pan control.@br Note: The Pan control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Pan control available as part of the old control set.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.PanControlOptions.txt)
     property PanControlOptions;
-    // The enabled/disabled state of the Rotate control.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.RotateControl.txt)
     property RotateControl;
-    // The display options for the Rotate control.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.RotateControlOptions.txt)
     property RotateControlOptions;
-    // The initial enabled/disabled state of the Scale control.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.ScaleControl.txt)
     property ScaleControl;
-    // The initial display options for the Scale control.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.ScaleControlOptions.txt)
     property ScaleControlOptions;
-    // If false, disables scrollwheel zooming on the map.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.Scrollwheel.txt)
     property Scrollwheel;
-    // A StreetViewPanorama to display when the Street View pegman is dropped on the map.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.StreetView.txt)
     property StreetView;
-    // The initial enabled/disabled state of the Street View Pegman control. This control is part of the default UI, and should be set to false when displaying a map type on which the Street View road overlay should not appear (e.g. a non-Earth map type).
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.StreetViewControl.txt)
     property StreetViewControl;
-    // The initial display options for the Street View Pegman control.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.StreetViewControlOptions.txt)
     property StreetViewControlOptions;
-    // Styles to apply to each of the default map types. Note that for mtSatellite/mtHybrid and mtTerrain modes, these styles will only apply to labels and geometry.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.Styles.txt)
     property Styles: TGMMapTypeStyles read FStyles write FStyles;
-    // Controls the automatic switching behavior for the angle of incidence of the map. The only allowed values are 0 and 45. The value 0 causes the map to always use a 0° overhead view regardless of the zoom level and viewport. The value 45 causes the tilt angle to automatically switch to 45 whenever 45° imagery is available for the current zoom level and viewport, and switch back to 0 whenever 45° imagery is not available (this is the default behavior). 45° imagery is only available for SATELLITE and HYBRID map types, within some locations, and at some zoom levels. Note: getTilt returns the current tilt angle, not the value specified by this option. Because getTilt and this option refer to different things, do not bind() the tilt property; doing so may yield unpredictable effects.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.Tilt.txt)
     property Tilt;
-    // The initial Map zoom level.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.Zoom.txt)
     property Zoom;
-    // The enabled/disabled state of the Zoom control.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.ZoomControl.txt)
     property ZoomControl;
-    // The display options for the Zoom control.
+    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.ZoomControlOptions.txt)
     property ZoomControlOptions;
   end;
 
-  {
-    @abstract(@code(google.maps.Map) class)
-    @image(tgmmap.png) @br
-    More information at https://developers.google.com/maps/documentation/javascript/reference#Map
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\..\docs\GMMap.VCL.TGMMap.txt)
   TGMMap = class(TGMCustomGMMap)
   private
     FMapOptions: TGMMapOptions;
@@ -213,54 +199,38 @@ type
     function GetWebBrowser: TWebBrowser;
     procedure SetWebBrowser(const Value: TWebBrowser); (*1 *)
   protected
-    // Set the interval of Timer that control de map events. Internal use only.
-    // @param Interval Interval in miliseconds
+    // @include(..\..\docs\GMMap.VCL.TGMMap.SetIntervalTimer.txt)
     procedure SetIntervalTimer(Interval: Integer); override;
-    // LoadMap method loads and shows the map.html to use Google Maps API.
+    // @include(..\..\docs\GMMap.VCL.TGMMap.LoadMap.txt)
     procedure LoadMap; override; (*1 *)
-    // LoadHTMLCodeAndWait method load the map.html and wait until it is loaded
+    // @include(..\..\docs\GMMap.VCL.TGMMap.LoadHTMLCodeAndWait.txt)
     procedure LoadHTMLCodeAndWait;
   public
-    // @abstract(Constructor class.)
-    // Creates a TGMCustomGMMap object.
-    // @param AOwner Owner of the object.
+    // @include(..\..\docs\GMMap.VCL.TGMMap.Create.txt)
     constructor Create(AOwner: TComponent); override;
-    // @abstract(Destructor class.)
+    // @include(..\..\docs\GMMap.VCL.TGMMap.Destroy.txt)
     destructor Destroy; override;
 
-    // URL to Google Maps API class.
+    // @include(..\..\docs\GMMap.VCL.TGMMap.GetAPIUrl.txt)
     function GetAPIUrl: string; override;
   published
-    // @code(google.maps.MapOptions) object specification
+    // @include(..\..\docs\GMMap.VCL.TGMMap.MapOptions.txt)
     property MapOptions: TGMMapOptions read FMapOptions write FMapOptions;
-    // Activate or deactivate access to the map.
+    // @include(..\..\docs\GMMap.VCL.TGMMap.Active.txt)
     property Active;
-    // Version of the Google Maps API to use
+    // @include(..\..\docs\GMMap.VCL.TGMMap.GoogleAPIVer.txt)
     property GoogleAPIVer;
-    // Language property specifies the language in which messages are displayed the exceptions shown by the class/component.
+    // @include(..\..\docs\GMMap.VCL.TGMMap.Language.txt)
     property Language;
-    // This property shows an “About” form with info of the GMLib.
+    // @include(..\..\docs\GMMap.VCL.TGMMap.AboutGMLib.txt)
     property AboutGMLib;
-    // URL to Google Maps API class
+    // @include(..\..\docs\GMMap.VCL.TGMMap.APIUrl.txt)
     property APIUrl;
-    // @abstract(APIKey is the Key to use on Google Maps.)
-    // To obtaining Api Key please check: https://developers.google.com/maps/documentation/javascript/get-api-key @br@br
-    // Google Maps limits:
-    // @unorderedList(
-    //      @item(General info: https://developers.google.com/maps/documentation/javascript/usage)
-    //      @item(Directions: https://developers.google.com/maps/documentation/directions/usage-limits)
-    //      @item(Geocoding limits usage: https://developers.google.com/maps/documentation/geocoding/usage-limits)
-    //      @item(Elevation limits usage: https://developers.google.com/maps/documentation/elevation/usage-limits)
-    //      @item(Distance-Matrix limits usage: https://developers.google.com/maps/documentation/distance-matrix/usage-limits)
-    //      @item(Geolocation limits usage: https://developers.google.com/maps/documentation/geolocation/usage-limits)
-    //      @item(Roads limits usage: https://developers.google.com/maps/documentation/roads/usage-limits)
-    //      @item(Time Zone limits usage: https://developers.google.com/maps/documentation/timezone/usage-limits)
-    //    )
-    // @code(EGMMapIsActive) exception is raised when @code(Active) property is @code(True).
+    // @include(..\..\docs\GMMap.VCL.TGMMap.GoogleAPIKey.txt)
     property GoogleAPIKey;
-    // Interval of time to check the events of map.
+    // @include(..\..\docs\GMMap.VCL.TGMMap.IntervalEvents.txt)
     property IntervalEvents;
-    // Browser where display the Google Maps map.
+    // @include(..\..\docs\GMMap.VCL.TGMMap.WebBrowser.txt)
     property WebBrowser: TWebBrowser read GetWebBrowser write SetWebBrowser;
   end;
 

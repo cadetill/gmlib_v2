@@ -55,27 +55,12 @@ const
       'La carte est active. Désactive cette propriété avant de la changer.'
   );
 
-  {*----------------------------------------------------------------------------
-    @abstract(@code(GetTranslateText) function retrieves a translated string into the Lang language.)
-    Is used to generate exception messages.@br
-    The language of @code(Text) param must be in English language.@br@br
-    @bold(For internal use only!)
-    @param Text String to translate
-    @param Args Array of arguments to apply to the message
-    @param Lang Destination language
-    @return Translated string
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\docs\GMTranslations.GetTranslateText_1.txt)
   function GetTranslateText(Text: string; const Args: array of const; Lang: TGMLang): string; overload;
 
-  {*----------------------------------------------------------------------------
-    @abstract(@code(GetTranslateText) fucntion retrieves a translated string into the Lang language.)
-    Is used to generate exception messages.@br@br
-    @bold(For internal use only!)
-    @param Idx Index of array
-    @param Args Array of arguments to apply to the message
-    @param Lang Destination language
-    @return Translated string
-  }
+  { -------------------------------------------------------------------------- }
+  // @include(..\docs\GMTranslations.GetTranslateText_2.txt)
   function GetTranslateText(Idx: Integer; const Args: array of const; Lang: TGMLang): string; overload;
 
 implementation

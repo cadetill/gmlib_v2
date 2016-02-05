@@ -1,0 +1,1 @@
+Selects the element type to which a styler should be applied. An element type distinguishes between the different representations of a feature.

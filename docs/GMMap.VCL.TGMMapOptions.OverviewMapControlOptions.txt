@@ -1,0 +1,3 @@
+The display options for the Overview Map control.@br@br 
+
+Note: The Overview Map control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Overview Map control available as part of the old control set.

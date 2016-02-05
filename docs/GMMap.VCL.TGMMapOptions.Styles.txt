@@ -1,0 +1,1 @@
+Styles to apply to each of the default map types. Note that for mtSatellite/mtHybrid and mtTerrain modes, these styles will only apply to labels and geometry.
