@@ -8,7 +8,16 @@
       default: return google.maps.MapTypeId.TERRAIN; 
     } 
   }
-
+  
+  /* StrToMapTypeControlStyle */
+  function StrToMapTypeControlStyle(aStyleMenu) { 
+    switch (aStyleMenu) { 
+      case "mtcDROPDOWN_MENU": return google.maps.MapTypeControlStyle.DROPDOWN_MENU; break; 
+      case "mtcHORIZONTAL_BAR": return google.maps.MapTypeControlStyle.HORIZONTAL_BAR; break; 
+      default: return google.maps.MapTypeControlStyle.DEFAULT; 
+    } 
+  }
+  
   /* StrToPosition */
   function StrToPosition(Pos) { 
     switch (Pos) { 
@@ -27,12 +36,11 @@
       default: return google.maps.ControlPosition.TOP_RIGHT; 
     } 
   }
-  
-  /* StrToMapTypeControlStyle */
-  function StrToMapTypeControlStyle(aStyleMenu) { 
-    switch (aStyleMenu) { 
-      case "mtcDROPDOWN_MENU": return google.maps.MapTypeControlStyle.DROPDOWN_MENU; break; 
-      case "mtcHORIZONTAL_BAR": return google.maps.MapTypeControlStyle.HORIZONTAL_BAR; break; 
-      default: return google.maps.MapTypeControlStyle.DEFAULT; 
+
+  /* StrToScaleControlStyle */
+  function StrToScaleControlStyle(ScaleStyle) { 
+    switch (ScaleStyle) { 
+      case "scDEFAULT": return google.maps.ScaleControlStyle.DEFAULT; break; 
+      default: return google.maps.ScaleControlStyle.DEFAULT; 
     } 
-  }
+  } 

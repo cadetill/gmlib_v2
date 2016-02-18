@@ -1,2 +1,5 @@
-The enabled/disabled state of the Overview Map control.@br 
-Note: The Overview Map control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Overview Map control available as part of the old control set.
+@abstract(The enabled/disabled state of the Overview Map control.)
+
+Note: The Overview Map control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Overview Map control available as part of the old control set.@br @br 
+
+@bold(Will be deleted in future releases.)

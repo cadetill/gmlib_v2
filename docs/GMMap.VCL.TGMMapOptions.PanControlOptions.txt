@@ -1,3 +1,5 @@
-The display options for the Pan control.@br@br 
+@abstract(The display options for the Pan control.) 
 
-Note: The Pan control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Pan control available as part of the old control set.
+Note: The Pan control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Pan control available as part of the old control set.@br@br 
+
+@bold(Will be deleted in future releases.)
