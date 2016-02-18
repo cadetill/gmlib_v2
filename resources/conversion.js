@@ -7,7 +7,7 @@
 	  case "mtOSM": return "OSM"; break;
       default: return google.maps.MapTypeId.TERRAIN; 
     } 
-  } 
+  }
 
   /* StrToPosition */
   function StrToPosition(Pos) { 
@@ -26,4 +26,13 @@
       case "cpTOP_RIGHT": return google.maps.ControlPosition.TOP_RIGHT; break; 
       default: return google.maps.ControlPosition.TOP_RIGHT; 
     } 
-  } 
+  }
+  
+  /* StrToMapTypeControlStyle */
+  function StrToMapTypeControlStyle(aStyleMenu) { 
+    switch (aStyleMenu) { 
+      case "mtcDROPDOWN_MENU": return google.maps.MapTypeControlStyle.DROPDOWN_MENU; break; 
+      case "mtcHORIZONTAL_BAR": return google.maps.MapTypeControlStyle.HORIZONTAL_BAR; break; 
+      default: return google.maps.MapTypeControlStyle.DEFAULT; 
+    } 
+  }
