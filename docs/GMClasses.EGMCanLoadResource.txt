@@ -1,0 +1,1 @@
+@abstract(Exception raised when the resource of the map can't be load.)

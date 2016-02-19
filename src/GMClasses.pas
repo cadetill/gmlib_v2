@@ -59,8 +59,8 @@ type
   // @include(..\docs\GMClasses.IGMExecJS.txt)
   IGMExecJS = interface(IInterface)
     ['{C1C87DC5-BDFD-4AA1-9BF7-C5FF01290339}']
-    // @include(..\docs\GMClasses.IGMExecJS.ExecuteScript.txt)
-    function ExecuteScript(NameFunct, Params: string): Boolean;
+    // @include(..\docs\GMClasses.IGMExecJS.ExecuteJavaScript.txt)
+    procedure ExecuteJavaScript(NameFunct, Params: string);
   end;
 
   { ************************************************************************** }
@@ -77,17 +77,74 @@ type
   end;
 
   // @include(..\docs\GMClasses.EGMNotValidRealNumber.txt)
-  EGMNotValidRealNumber = class(EGMException);
+  EGMNotValidRealNumber = class(EGMException)
+  public
+    // @include(..\docs\GMClasses.EGMNotValidRealNumber.Create.txt)
+    constructor Create(const Args: array of const; Lang: TGMLang); reintroduce; overload; virtual;
+  end;
+
   // @include(..\docs\GMClasses.EGMWithoutOwner.txt)
-  EGMWithoutOwner = class(EGMException);
+  EGMWithoutOwner = class(EGMException)
+  public
+    // @include(..\docs\GMClasses.EGMWithoutOwner.Create.txt)
+    constructor Create(Lang: TGMLang); reintroduce; overload; virtual;
+  end;
+
   // @include(..\docs\GMClasses.EGMOwnerWithoutJS.txt)
-  EGMOwnerWithoutJS = class(EGMException);
+  EGMOwnerWithoutJS = class(EGMException)
+  public
+    // @include(..\docs\GMClasses.EGMOwnerWithoutJS.Create.txt)
+    constructor Create(Lang: TGMLang); reintroduce; overload; virtual;
+  end;
+
   // @include(..\docs\GMClasses.EGMJSError.txt)
-  EGMJSError = class(EGMException);
+  EGMJSError = class(EGMException)
+  public
+    // @include(..\docs\GMClasses.EGMJSError.Create.txt)
+    constructor Create(const Args: array of const; Lang: TGMLang); reintroduce; overload; virtual;
+  end;
+
   // @include(..\docs\GMClasses.EGMUnassignedObject.txt)
-  EGMUnassignedObject = class(EGMException);
+  EGMUnassignedObject = class(EGMException)
+  public
+    // @include(..\docs\GMClasses.EGMUnassignedObject.Create.txt)
+    constructor Create(const Args: array of const; Lang: TGMLang); reintroduce; overload; virtual;
+  end;
+
   // @include(..\docs\GMClasses.EGMMapIsActive.txt)
-  EGMMapIsActive = class(EGMException);
+  EGMMapIsActive = class(EGMException)
+  public
+    // @include(..\docs\GMClasses.EGMMapIsActive.Create.txt)
+    constructor Create(Lang: TGMLang); reintroduce; overload; virtual;
+  end;
+
+  // @include(..\docs\GMClasses.EGMIncorrectBrowser.txt)
+  EGMIncorrectBrowser = class(EGMException)
+  public
+    // @include(..\docs\GMClasses.EGMIncorrectBrowser.Create.txt)
+    constructor Create(Lang: TGMLang); reintroduce; overload; virtual;
+  end;
+
+  // @include(..\docs\GMClasses.EGMCanLoadResource.txt)
+  EGMCanLoadResource = class(EGMException)
+  public
+    // @include(..\docs\GMClasses.EGMCanLoadResource.Create.txt)
+    constructor Create(Lang: TGMLang); reintroduce; overload; virtual;
+  end;
+
+  // @include(..\docs\GMClasses.EGMTimeOut.txt)
+  EGMTimeOut = class(EGMException)
+  public
+    // @include(..\docs\GMClasses.EGMTimeOut.Create.txt)
+    constructor Create(Lang: TGMLang); reintroduce; overload; virtual;
+  end;
+
+  // @include(..\docs\GMClasses.EGMNotActive.txt)
+  EGMNotActive = class(EGMException)
+  public
+    // @include(..\docs\GMClasses.EGMNotActive.Create.txt)
+    constructor Create(Lang: TGMLang); reintroduce; overload; virtual;
+  end;
 
   { -------------------------------------------------------------------------- }
   // @include(..\docs\GMClasses.TGMObject.txt)
@@ -137,8 +194,8 @@ type
   // @include(..\docs\GMClasses.TGMPersistentStr.txt)
   TGMPersistentStr = class(TGMPersistent, IGMToStr, IGMOwnerLang)
   protected
-    // @include(..\docs\GMClasses.TGMPersistentStr.PropToString.txt)
-    function PropToString: string; virtual; abstract;
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    function PropToString: string; virtual;
 
     // @include(..\docs\GMClasses.TGMPersistentStr.GetOwnerLang.txt)
     function GetOwnerLang: TGMLang; virtual;
@@ -190,8 +247,8 @@ type
     // @exclude
     function GetAPIUrl: string; virtual;
 
-    // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.PropToString.txt)
-    function PropToString: string; virtual; abstract;
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    function PropToString: string; virtual;
 
     // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.GetOwnerLang.txt)
     function GetOwnerLang: TGMLang; virtual;
@@ -219,7 +276,7 @@ type
 
   { -------------------------------------------------------------------------- }
   // @include(..\docs\GMClasses.TGMInterfacedCollection.txt)
-  TGMInterfacedCollection = class(TCollection, IGMControlChanges, IGMOwnerLang)
+  TGMInterfacedCollection = class(TCollection, IGMControlChanges, IGMOwnerLang, IGMToStr)
   private
     FOnChange: TNotifyEvent;
     FOwner: TPersistent;
@@ -255,6 +312,9 @@ type
     // @include(..\docs\GMClasses.TGMInterfacedCollection.Clear.txt)
     procedure Clear;
 
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    function PropToString: string; virtual;
+
     // @include(..\docs\GMClasses.TGMInterfacedCollection.OnChange.txt)
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
     // @include(..\docs\GMClasses.TGMInterfacedCollection.Items.txt)
@@ -277,6 +337,8 @@ type
     // @include(..\docs\GMClasses.TGMTransform.MapTypeIdsToStr.txt)
     class function MapTypeIdsToStr(MapTypeIds: TGMMapTypeIds; Delimiter: Char = ';'): string; static;
 
+    // @include(..\docs\GMClasses.TGMTransform.GoogleAPIVerToStr.txt)
+    class function GoogleAPIVerToStr(GoogleAPIVer: TGoogleAPIVer): string; static;
     // @include(..\docs\GMClasses.TGMTransform.VisibilityToStr.txt)
     class function VisibilityToStr(Visibility: TGMVisibility): string; static;
     // @include(..\docs\GMClasses.TGMTransform.StrToVisibility.txt)
@@ -402,6 +464,12 @@ begin
     Result := cSimpleBoolStrs[B];
 end;
 
+class function TGMTransform.GoogleAPIVerToStr(
+  GoogleAPIVer: TGoogleAPIVer): string;
+begin
+  Result := GetEnumName(TypeInfo(TGoogleAPIVer), Ord(GoogleAPIVer));
+end;
+
 class function TGMTransform.MapTypeControlStyleToStr(
   MapTypeControlStyle: TGMMapTypeControlStyle): string;
 begin
@@ -499,6 +567,11 @@ begin
   Result := Intf.GetOwnerLang;
 end;
 
+function TGMPersistentStr.PropToString: string;
+begin
+  Result := '';
+end;
+
 { TGMInterfacedCollectionItem }
 
 procedure TGMInterfacedCollectionItem.Assign(Source: TPersistent);
@@ -554,6 +627,11 @@ begin
   if not Supports(Collection, IGMOwnerLang, Intf) then Exit;
 
   Result := Intf.GetOwnerLang;
+end;
+
+function TGMInterfacedCollectionItem.PropToString: string;
+begin
+  Result := '';
 end;
 
 function TGMInterfacedCollectionItem.QueryInterface(const IID: TGUID;
@@ -650,6 +728,11 @@ begin
   ControlChanges;
 end;
 
+function TGMInterfacedCollection.PropToString: string;
+begin
+  Result := '';
+end;
+
 function TGMInterfacedCollection.QueryInterface(const IID: TGUID;
   out Obj): HResult;
 begin
@@ -671,6 +754,78 @@ end;
 function TGMInterfacedCollection._Release: Integer;
 begin
   Result := -1;
+end;
+
+{ EGMNotValidRealNumber }
+
+constructor EGMNotValidRealNumber.Create(const Args: array of const;
+  Lang: TGMLang);
+begin
+  inherited Create(1, Args, Lang);
+end;
+
+{ EGMWithoutOwner }
+
+constructor EGMWithoutOwner.Create(Lang: TGMLang);
+begin
+  inherited Create(2, [], Lang);
+end;
+
+{ EGMOwnerWithoutJS }
+
+constructor EGMOwnerWithoutJS.Create(Lang: TGMLang);
+begin
+  inherited Create(3, [], Lang);
+end;
+
+{ EGMJSError }
+
+constructor EGMJSError.Create(const Args: array of const; Lang: TGMLang);
+begin
+  inherited Create(4, Args, Lang);
+end;
+
+{ EGMUnassignedObject }
+
+constructor EGMUnassignedObject.Create(const Args: array of const;
+  Lang: TGMLang);
+begin
+  inherited Create(5, Args, Lang);
+end;
+
+{ EGMMapIsActive }
+
+constructor EGMMapIsActive.Create(Lang: TGMLang);
+begin
+  inherited Create(6, [], Lang);
+end;
+
+{ EGMIncorrectBrowser }
+
+constructor EGMIncorrectBrowser.Create(Lang: TGMLang);
+begin
+  inherited Create(7, [], Lang);
+end;
+
+{ EGMCanLoadResource }
+
+constructor EGMCanLoadResource.Create(Lang: TGMLang);
+begin
+  inherited Create(8, [], Lang);
+end;
+
+{ EGMTimeOut }
+
+constructor EGMTimeOut.Create(Lang: TGMLang);
+begin
+  inherited Create(9, [], Lang);
+end;
+
+{ EGMNotActive }
+
+constructor EGMNotActive.Create(Lang: TGMLang);
+begin
+  inherited Create(10, [], Lang);
 end;
 
 end.

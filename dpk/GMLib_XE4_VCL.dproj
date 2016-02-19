@@ -82,14 +82,14 @@
         <DCC_DcpOutput>..\lib\XE4\Delphi\VCL</DCC_DcpOutput>
         <DCC_UnitSearchPath>..\lib\XE4\Delphi;..\lib\XE4\Delphi\VCL;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_DcuOutput>..\lib\XE4\Delphi\VCL</DCC_DcuOutput>
-        <DCC_UsePackage>rtl;vcl;GMLib_XE4;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_UsePackage>rtl;vcl;GMLib_XE4;vclie;$(DCC_UsePackage)</DCC_UsePackage>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
-        <DCC_UsePackage>rtl;vcl;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_UsePackage>rtl;vcl;vclie;$(DCC_UsePackage)</DCC_UsePackage>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -117,6 +117,7 @@
         <DCCReference Include="rtl.dcp"/>
         <DCCReference Include="GMLib_XE4.dcp"/>
         <DCCReference Include="vcl.dcp"/>
+        <DCCReference Include="vclie.dcp"/>
         <DCCReference Include="..\src\VCL\GMClasses.VCL.pas"/>
         <DCCReference Include="..\src\VCL\GMMap.VCL.pas"/>
         <DCCReference Include="..\src\VCL\GMRegisterComp.VCL.pas"/>
@@ -196,11 +197,3 @@
     <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
     <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
 </Project>
-
-<!-- EurekaLog First Line
-[Exception Log]
-EurekaLog Version=7007
-Activate=0
-DeleteMapAfterCompile=1
-Encrypt Password=""
-EurekaLog Last Line -->

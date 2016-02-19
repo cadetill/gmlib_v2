@@ -3,6 +3,7 @@ Returns @code(True) if the given TGMLatLng is in the bounds.
 @param LatLng TGMLatLng to check.
 
 @return @code(True) if the given TGMLatLng is in the bounds, otherwise @code(False).
+
 @raises EGMWithoutOwner This exception is raised if the object don't have a owner.
 @raises EGMOwnerWithoutJS This exception is raised if the owner can't execute JavaScript functions.
 @raises EGMJSError This exception is raised if an error occurred executing JavaScript function.

@@ -1,1 +1,0 @@
-LoadHTMLCodeAndWait method load the map.html and wait until it is loaded

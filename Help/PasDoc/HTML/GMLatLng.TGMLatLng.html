@@ -1,0 +1,414 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>Google Maps Library: GMLatLng: Class TGMLatLng</title>
+<meta name="generator" content="PasDoc 0.14.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<table class="container"><tr><td class="navigation">
+<h2>Google Maps Library</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><a href="GVUses.png" class="navigation">Unit dependency graph</a></p><p><a href="GVClasses.png" class="navigation">Classes hierarchy graph</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div style="clear: both"></div>
+
+<script>
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        /* 10 items to display seems standard */
+        'show': 10,
+        /* For PasDoc docs, showing urls is not very useful,
+           since the page title already shows the unit and identifier. */
+        'showURL': false
+    });
+});
+</script>
+</p></td><td class="content">
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+</tr>
+</table>
+<hr noshade="" size="1">
+<a name="TGMLatLng"></a><h1 class="cio">Class TGMLatLng</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="GMLatLng.html">GMLatLng</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TGMLatLng = class(<a class="normal" href="GMClasses.TGMPersistentStr.html">TGMPersistentStr</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+A <code>TGMLatLng</code> is a point in geographical coordinates: latitude and longitude.</p>
+<p>
+ </p>
+
+<ul class="paragraph_spacing">
+  <li><p>Latitude ranges between -90 and 90 degrees, inclusive. Values above or below this range will be clamped to the range [-90, 90]. This means that if the value specified is less than -90, it will be set to -90. And if the value is greater than 90, it will be set to 90.</p></li>
+  <li><p>Longitude ranges between -180 and 180 degrees, inclusive. Values above or below this range will be wrapped so that they fall within the range. For example, a value of -190 will be converted to 170. A value of 190 will be converted to -170. This reflects the fact that longitudes wrap around the globe.</p></li>
+</ul>
+
+<p> Although the default map projection associates longitude with the x-coordinate of the map, and latitude with the y-coordinate, the latitude coordinate is always written first, followed by the longitude.<br><br> More information at <a  href="https://developers.google.com/maps/documentation/javascript/reference#LatLng">https://developers.google.com/maps/documentation/javascript/reference#LatLng</a> </p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TInterfacedPersistent</li>
+<li class="ancestor"><a class="normal" href="GMClasses.TGMInterfacedOwnedPersistent.html">TGMInterfacedOwnedPersistent</a></li>
+<li class="ancestor"><a class="normal" href="GMClasses.TGMPersistent.html">TGMPersistent</a></li>
+<li class="ancestor"><a class="normal" href="GMClasses.TGMPersistentStr.html">TGMPersistentStr</a></li>
+<li class="thisitem">TGMLatLng</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="GMLatLng.TGMLatLng.html#Create">Create</a></b>(Lat: Real = 0; Lng: Real = 0; NoWrap: Boolean = False; Lang: <a  href="GMSets.html#TGMLang">TGMLang</a> = lnEnglish); reintroduce; overload; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="GMLatLng.TGMLatLng.html#Create">Create</a></b>(AOwner: TPersistent; Lat: Real = 0; Lng: Real = 0; NoWrap: Boolean = False); reintroduce; overload; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMLatLng.TGMLatLng.html#IsEqual">IsEqual</a></b>(Other: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a>): Boolean; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMLatLng.TGMLatLng.html#LatToStr">LatToStr</a></b>(Precision: Integer = 6): string;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMLatLng.TGMLatLng.html#LngToStr">LngToStr</a></b>(Precision: Integer = 6): string;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMLatLng.TGMLatLng.html#PropToString">PropToString</a></b>: string; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMLatLng.TGMLatLng.html#StringToReal">StringToReal</a></b>(Value: string): Real;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMLatLng.TGMLatLng.html#ToStr">ToStr</a></b>(Precision: Integer = 6): string;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMLatLng.TGMLatLng.html#ToUrlValue">ToUrlValue</a></b>(Precision: Integer = 6): string;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMLatLng.TGMLatLng.html#GetOwnerLang">GetOwnerLang</a></b>: <a  href="GMSets.html#TGMLang">TGMLang</a>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="GMLatLng.TGMLatLng.html#Assign">Assign</a></b>(Source: TPersistent); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="GMLatLng.TGMLatLng.html#SetLang">SetLang</a></b>(Lang: <a  href="GMSets.html#TGMLang">TGMLang</a>);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="GMLatLng.TGMLatLng.html#LatLngToStr">LatLngToStr</a></b>(var aLat, aLng: string; Precision: Integer = 6);</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMLatLng.TGMLatLng.html#APIUrl">APIUrl</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMLatLng.TGMLatLng.html#Lat">Lat</a></b>: Double read FLat write SetLat;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMLatLng.TGMLatLng.html#Lng">Lng</a></b>: Double read FLng write SetLng;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMLatLng.TGMLatLng.html#NoWrap">NoWrap</a></b>: Boolean read FNoWrap write SetNoWrap default False;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(Lat: Real = 0; Lng: Real = 0; NoWrap: Boolean = False; Lang: <a  href="GMSets.html#TGMLang">TGMLang</a> = lnEnglish); reintroduce; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Constructor class.</p>
+<p>
+ Creates a LatLng object representing a geographic point. Latitude is specified in degrees within the range [-90, 90]. Longitude is specified in degrees within the range [-180, 180]. Set <a class="normal" href="GMLatLng.TGMLatLng.html#NoWrap">noWrap</a> to true to enable values outside of this range.     </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Lat</dt>
+<dd>Latitude. Default 0.</dd>
+<dt>Lng</dt>
+<dd>Longitude. Default 0.</dd>
+<dt>NoWrap</dt>
+<dd>Allows to put values outside the default range of <a class="normal" href="GMLatLng.TGMLatLng.html#Lat">lat</a>/<a class="normal" href="GMLatLng.TGMLatLng.html#Lng">lng</a>.</dd>
+<dt>Lang</dt>
+<dd>TLang to use in exceptions.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(AOwner: TPersistent; Lat: Real = 0; Lng: Real = 0; NoWrap: Boolean = False); reintroduce; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Constructor class.</p>
+<p>
+ Creates a LatLng object representing a geographic point. Latitude is specified in degrees within the range [-90, 90]. Longitude is specified in degrees within the range [-180, 180]. Set <a class="normal" href="GMLatLng.TGMLatLng.html#NoWrap">noWrap</a> to true to enable values outside of this range.     </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>AOwner</dt>
+<dd>Owner of the object.</dd>
+<dt>Lat</dt>
+<dd>Latitude. Default 0.</dd>
+<dt>Lng</dt>
+<dd>Longitude. Default 0.</dd>
+<dt>NoWrap</dt>
+<dd>Allows to put values outside the default range of <a class="normal" href="GMLatLng.TGMLatLng.html#Lat">lat</a>/<a class="normal" href="GMLatLng.TGMLatLng.html#Lng">lng</a>.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IsEqual"></a><code>function <b>IsEqual</b>(Other: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a>): Boolean; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns <code>True</code> if this LatLng is equals the given LatLng.   </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Other</dt>
+<dd>LatLng to compare.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> if equals, otherwise <code>False</code>.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LatToStr"></a><code>function <b>LatToStr</b>(Precision: Integer = 6): string;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Convert <a class="normal" href="GMLatLng.TGMLatLng.html#Lat">Lat</a> value to a string.   </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Precision</dt>
+<dd>Precision of value. Default 6.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">String with the latitude.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="LngToStr"></a><code>function <b>LngToStr</b>(Precision: Integer = 6): string;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Convert <a class="normal" href="GMLatLng.TGMLatLng.html#Lng">Lng</a> value to a string.   </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Precision</dt>
+<dd>Precision of value. Default 6.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">String with the longitude.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="PropToString"></a><code>function <b>PropToString</b>: string; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Converts all class properties values to a string separated by semicolon.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return">string with all properties.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="StringToReal"></a><code>function <b>StringToReal</b>(Value: string): Real;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Given a string, converts it to a real value considering the locale.    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Value</dt>
+<dd>String to convert to real.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Real with the conversion.</p><h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="GMClasses.EGMNotValidRealNumber.html">EGMNotValidRealNumber</a></dt>
+<dd>This exception is raised if it can't do transformation.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ToStr"></a><code>function <b>ToStr</b>(Precision: Integer = 6): string;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Convert LatLng to string representation in format (<a class="normal" href="GMLatLng.TGMLatLng.html#Lat">Lat</a>, <a class="normal" href="GMLatLng.TGMLatLng.html#Lng">Lng</a>).   </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Precision</dt>
+<dd>Precision of values. Default 6.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">String with the conversion.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ToUrlValue"></a><code>function <b>ToUrlValue</b>(Precision: Integer = 6): string;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns a string of the form &quot;<a class="normal" href="GMLatLng.TGMLatLng.html#Lat">lat</a>,<a class="normal" href="GMLatLng.TGMLatLng.html#Lng">lng</a>&quot; for this LatLng. By default, round the LatLng to 6 decimal.   </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Precision</dt>
+<dd>Precision of values. Default 6.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">String with the formatted LatLng.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="GetOwnerLang"></a><code>function <b>GetOwnerLang</b>: <a  href="GMSets.html#TGMLang">TGMLang</a>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns the Lang of the Owner.<br><br> If Owner is not assigned or not supports <a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a> interface then returns <code>lnEnglish</code>.)  </p>
+<h6 class="description_section">Returns</h6>
+<p class="return">TLang of the owner object.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Assign"></a><code>procedure <b>Assign</b>(Source: TPersistent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Call <code><code>Assign</code></code> to copy the properties or other attributes of one object from another. The standard form of a call to <code><code>Assign</code></code> is<br> <code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Source</dt>
+<dd>Object to copy the content.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="SetLang"></a><code>procedure <b>SetLang</b>(Lang: <a  href="GMSets.html#TGMLang">TGMLang</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Set a Lang to the object.  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Lang</dt>
+<dd>Language to set.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="LatLngToStr"></a><code>procedure <b>LatLngToStr</b>(var aLat, aLng: string; Precision: Integer = 6);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Converts the <a class="normal" href="GMLatLng.TGMLatLng.html#Lat">Lat</a> and <a class="normal" href="GMLatLng.TGMLatLng.html#Lng">Lng</a> property to a string values. It takes into account the locale.    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>aLat</dt>
+<dd>The latitude.</dd>
+<dt>aLng</dt>
+<dd>The longitude.</dd>
+<dt>Precision</dt>
+<dd>Precision of values. Default 6.</dd>
+</dl>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="APIUrl"></a><code>property <b>APIUrl</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+URL to Google Maps API class. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Lat"></a><code>property <b>Lat</b>: Double read FLat write SetLat;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Latitude in degrees. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Lng"></a><code>property <b>Lng</b>: Double read FLng write SetLng;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Longitude in degrees </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="NoWrap"></a><code>property <b>NoWrap</b>: Boolean read FNoWrap write SetNoWrap default False;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Allows to put values outside the default range of <a class="normal" href="GMLatLng.TGMLatLng.html#Lat">Lat</a>/<a class="normal" href="GMLatLng.TGMLatLng.html#Lng">Lng</a> properties.</p>
+</td></tr>
+</table>
+<br />
+<hr>
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+</tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+</span>
+</td></tr></table></body></html>

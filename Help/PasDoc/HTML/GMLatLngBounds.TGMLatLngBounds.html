@@ -1,0 +1,598 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>Google Maps Library: GMLatLngBounds: Class TGMLatLngBounds</title>
+<meta name="generator" content="PasDoc 0.14.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<table class="container"><tr><td class="navigation">
+<h2>Google Maps Library</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><a href="GVUses.png" class="navigation">Unit dependency graph</a></p><p><a href="GVClasses.png" class="navigation">Classes hierarchy graph</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div style="clear: both"></div>
+
+<script>
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        /* 10 items to display seems standard */
+        'show': 10,
+        /* For PasDoc docs, showing urls is not very useful,
+           since the page title already shows the unit and identifier. */
+        'showURL': false
+    });
+});
+</script>
+</p></td><td class="content">
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+</tr>
+</table>
+<hr noshade="" size="1">
+<a name="TGMLatLngBounds"></a><h1 class="cio">Class TGMLatLngBounds</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="GMLatLngBounds.html">GMLatLngBounds</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TGMLatLngBounds = class(<a class="normal" href="GMClasses.TGMPersistentStr.html">TGMPersistentStr</a>, <a class="normal" href="GMClasses.IGMControlChanges.html">IGMControlChanges</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+A <code>TGMLatLngBounds</code> instance represents a rectangle in geographical coordinates, including one that crosses the 180 degrees longitudinal meridian.</p>
+<p>
+ More information at <a  href="https://developers.google.com/maps/documentation/javascript/reference#LatLngBounds">https://developers.google.com/maps/documentation/javascript/reference#LatLngBounds</a> </p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TInterfacedPersistent</li>
+<li class="ancestor"><a class="normal" href="GMClasses.TGMInterfacedOwnedPersistent.html">TGMInterfacedOwnedPersistent</a></li>
+<li class="ancestor"><a class="normal" href="GMClasses.TGMPersistent.html">TGMPersistent</a></li>
+<li class="ancestor"><a class="normal" href="GMClasses.TGMPersistentStr.html">TGMPersistentStr</a></li>
+<li class="thisitem">TGMLatLngBounds</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#Create">Create</a></b>(SW, NE: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a>; Lang: <a  href="GMSets.html#TGMLang">TGMLang</a> = lnEnglish); reintroduce; overload; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#Create">Create</a></b>(AOwner: TPersistent; SWLat: Real = 0; SWLng: Real = 0; NELat: Real = 0; NELng: Real = 0); reintroduce; overload; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#Create">Create</a></b>(SWLat: Real = 0; SWLng: Real = 0; NELat: Real = 0; NELng: Real = 0; Lang: <a  href="GMSets.html#TGMLang">TGMLang</a> = lnEnglish); reintroduce; overload; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#Create">Create</a></b>(AOwner: TPersistent; SW, NE: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a>); reintroduce; overload; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#Contains">Contains</a></b>(LatLng: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a>): Boolean;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#Intersects">Intersects</a></b>(Other: <a  href="GMLatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a>): Boolean;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#IsEmpty">IsEmpty</a></b>: Boolean;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#IsEqual">IsEqual</a></b>(Other: <a  href="GMLatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a>): Boolean;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#PropToString">PropToString</a></b>: string; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#ToStr">ToStr</a></b>(Precision: Integer = 6): string;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#ToUrlValue">ToUrlValue</a></b>(Precision: Integer = 6): string;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#GetOwnerLang">GetOwnerLang</a></b>: <a  href="GMSets.html#TGMLang">TGMLang</a>; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#Assign">Assign</a></b>(Source: TPersistent); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#Extend">Extend</a></b>(LatLng: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a>);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#GetCenter">GetCenter</a></b>(LatLng: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a>);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#ToSpan">ToSpan</a></b>(LatLng: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a>);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#Union">Union</a></b>(Other: <a  href="GMLatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a>);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#PropertyChanged">PropertyChanged</a></b>(Prop: TPersistent);</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#APIUrl">APIUrl</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#NE">NE</a></b>: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a> read FNE write FNE;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMLatLngBounds.TGMLatLngBounds.html#SW">SW</a></b>: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a> read FSW write FSW;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(SW, NE: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a>; Lang: <a  href="GMSets.html#TGMLang">TGMLang</a> = lnEnglish); reintroduce; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Constructor class.    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>SW</dt>
+<dd>South-west corner.</dd>
+<dt>NE</dt>
+<dd>North-east corner.</dd>
+<dt>Lang</dt>
+<dd>TLang to use in exceptions.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(AOwner: TPersistent; SWLat: Real = 0; SWLng: Real = 0; NELat: Real = 0; NELng: Real = 0); reintroduce; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Constructor class.      </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>AOwner</dt>
+<dd>Owner of the object.</dd>
+<dt>SWLat</dt>
+<dd>South-west latitude. Default 0.</dd>
+<dt>SWLng</dt>
+<dd>South-west longitude. Default 0.</dd>
+<dt>NELat</dt>
+<dd>North-east latitude. Default 0.</dd>
+<dt>NELng</dt>
+<dd>North-east longitude. Default 0.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(SWLat: Real = 0; SWLng: Real = 0; NELat: Real = 0; NELng: Real = 0; Lang: <a  href="GMSets.html#TGMLang">TGMLang</a> = lnEnglish); reintroduce; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Constructor class.      </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>SWLat</dt>
+<dd>South-west latitude. Default 0.</dd>
+<dt>SWLng</dt>
+<dd>South-west longitude. Default 0.</dd>
+<dt>NELat</dt>
+<dd>North-east latitude. Default 0.</dd>
+<dt>NELng</dt>
+<dd>North-east longitude. Default 0.</dd>
+<dt>Lang</dt>
+<dd>TLang to use in exceptions.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(AOwner: TPersistent; SW, NE: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a>); reintroduce; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Constructor class.    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>AOwner</dt>
+<dd>Owner of the object.</dd>
+<dt>SW</dt>
+<dd>South-west corner.</dd>
+<dt>NE</dt>
+<dd>North-east corner.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Destructor class. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Contains"></a><code>function <b>Contains</b>(LatLng: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a>): Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns <code>True</code> if the given <a class="normal" href="GMLatLng.TGMLatLng.html">TGMLatLng</a> is in the bounds.
+
+<p>
+
+<p>
+
+<p>    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>LatLng</dt>
+<dd><a class="normal" href="GMLatLng.TGMLatLng.html">TGMLatLng</a> to check.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> if the given <a class="normal" href="GMLatLng.TGMLatLng.html">TGMLatLng</a> is in the bounds, otherwise <code>False</code>.</p><h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="GMClasses.EGMWithoutOwner.html">EGMWithoutOwner</a></dt>
+<dd>This exception is raised if the object don't have a owner.</dd>
+<dt><a class="normal" href="GMClasses.EGMOwnerWithoutJS.html">EGMOwnerWithoutJS</a></dt>
+<dd>This exception is raised if the owner can't execute JavaScript functions.</dd>
+<dt><a class="normal" href="GMClasses.EGMJSError.html">EGMJSError</a></dt>
+<dd>This exception is raised if an error occurred executing JavaScript function.</dd>
+<dt><a class="normal" href="GMClasses.EGMUnassignedObject.html">EGMUnassignedObject</a></dt>
+<dd>This exception is raised if LanLng param is unassigned.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Intersects"></a><code>function <b>Intersects</b>(Other: <a  href="GMLatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a>): Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns <code>True</code> if this bounds shares any points with this bounds.
+
+<p>
+
+<p>     </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Other</dt>
+<dd>Bounds to compare.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> if shares, otherwise <code>False</code>.</p><h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="GMClasses.EGMWithoutOwner.html">EGMWithoutOwner</a></dt>
+<dd>This exception is raised if the object don't have a owner.</dd>
+<dt><a class="normal" href="GMClasses.EGMOwnerWithoutJS.html">EGMOwnerWithoutJS</a></dt>
+<dd>This exception is raised if the owner can't execute JavaScript functions.</dd>
+<dt><a class="normal" href="GMClasses.EGMJSError.html">EGMJSError</a></dt>
+<dd>This exception is raised if an error occurred executing JavaScript function.</dd>
+<dt><a class="normal" href="GMClasses.EGMUnassignedObject.html">EGMUnassignedObject</a></dt>
+<dd>This exception is raised if LanLng param is unassigned.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IsEmpty"></a><code>function <b>IsEmpty</b>: Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns <code>True</code> if the bounds are empty.
+
+<p> </p>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> if empty, otherwise <code>False</code>.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="IsEqual"></a><code>function <b>IsEqual</b>(Other: <a  href="GMLatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a>): Boolean;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns <code>True</code> if this bounds is equals the given bounds.
+
+<p>
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Other</dt>
+<dd>Bounds to compare.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><code>True</code> if equals, otherwise <code>False</code>.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="PropToString"></a><code>function <b>PropToString</b>: string; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Converts all class properties values to a string separated by semicolon.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return">string with all properties.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ToStr"></a><code>function <b>ToStr</b>(Precision: Integer = 6): string;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Convert bounds to string representation.
+
+<p>
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Precision</dt>
+<dd>Precision of values. Default 6.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">String with the bounds.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ToUrlValue"></a><code>function <b>ToUrlValue</b>(Precision: Integer = 6): string;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns a string with format &quot;lat_lo,lng_lo,lat_hi,lng_hi&quot; for this bounds, where &quot;lo&quot; corresponds to the southwest corner of the bounding box and &quot;hi&quot; corresponds to the northeast corner of that box.
+
+<p>
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Precision</dt>
+<dd>Precision of values. Default 6.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Formatted string.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="GetOwnerLang"></a><code>function <b>GetOwnerLang</b>: <a  href="GMSets.html#TGMLang">TGMLang</a>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns the Lang of the Owner.<br><br> If Owner is not assigned or not supports <a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a> interface then returns <code>lnEnglish</code>.  </p>
+<h6 class="description_section">Returns</h6>
+<p class="return">TLang of the owner object.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Assign"></a><code>procedure <b>Assign</b>(Source: TPersistent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Call <code><code>Assign</code></code> to copy the properties or other attributes of one object from another. The standard form of a call to <code><code>Assign</code></code> is <br> <code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Source</dt>
+<dd>Object to copy the content.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Extend"></a><code>procedure <b>Extend</b>(LatLng: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Extends the bounds to contain the given point.
+
+<p>
+
+<p>    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>LatLng</dt>
+<dd><a class="normal" href="GMLatLng.TGMLatLng.html">TGMLatLng</a> to contain.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="GMClasses.EGMWithoutOwner.html">EGMWithoutOwner</a></dt>
+<dd>This exception is raised if the object don't have a owner.</dd>
+<dt><a class="normal" href="GMClasses.EGMOwnerWithoutJS.html">EGMOwnerWithoutJS</a></dt>
+<dd>This exception is raised if the owner can't execute JavaScript functions.</dd>
+<dt><a class="normal" href="GMClasses.EGMJSError.html">EGMJSError</a></dt>
+<dd>This exception is raised if an error occurred executing JavaScript function.</dd>
+<dt><a class="normal" href="GMClasses.EGMUnassignedObject.html">EGMUnassignedObject</a></dt>
+<dd>This exception is raised if LanLng param is unassigned.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="GetCenter"></a><code>procedure <b>GetCenter</b>(LatLng: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Get the center of current bounds.
+
+<p>
+
+<p>   </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>LatLng</dt>
+<dd><a class="normal" href="GMLatLng.TGMLatLng.html">TGMLatLng</a> representing the centre.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="GMClasses.EGMWithoutOwner.html">EGMWithoutOwner</a></dt>
+<dd>This exception is raised if the object don't have a owner.</dd>
+<dt><a class="normal" href="GMClasses.EGMOwnerWithoutJS.html">EGMOwnerWithoutJS</a></dt>
+<dd>This exception is raised if the owner can't execute JavaScript functions.</dd>
+<dt><a class="normal" href="GMClasses.EGMJSError.html">EGMJSError</a></dt>
+<dd>This exception is raised if an error occurred executing JavaScript function.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="ToSpan"></a><code>procedure <b>ToSpan</b>(LatLng: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Converts the given bounds to a lat/lng span.
+
+<p>
+
+<p>   </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>LatLng</dt>
+<dd><a class="normal" href="GMLatLng.TGMLatLng.html">TGMLatLng</a> with the span.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="GMClasses.EGMWithoutOwner.html">EGMWithoutOwner</a></dt>
+<dd>This exception is raised if the object don't have a owner.</dd>
+<dt><a class="normal" href="GMClasses.EGMOwnerWithoutJS.html">EGMOwnerWithoutJS</a></dt>
+<dd>This exception is raised if the owner can't execute JavaScript functions.</dd>
+<dt><a class="normal" href="GMClasses.EGMJSError.html">EGMJSError</a></dt>
+<dd>This exception is raised if an error occurred executing JavaScript function.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Union"></a><code>procedure <b>Union</b>(Other: <a  href="GMLatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a>);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Extends this bounds to contain the <code>union</code> of this and the given bounds.
+
+<p>
+
+<p>    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Other</dt>
+<dd><a class="normal" href="GMLatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a> to <code>union</code>.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="GMClasses.EGMWithoutOwner.html">EGMWithoutOwner</a></dt>
+<dd>This exception is raised if the object don't have a owner.</dd>
+<dt><a class="normal" href="GMClasses.EGMOwnerWithoutJS.html">EGMOwnerWithoutJS</a></dt>
+<dd>This exception is raised if the owner can't execute JavaScript functions.</dd>
+<dt><a class="normal" href="GMClasses.EGMJSError.html">EGMJSError</a></dt>
+<dd>This exception is raised if an error occurred executing JavaScript function.</dd>
+<dt><a class="normal" href="GMClasses.EGMUnassignedObject.html">EGMUnassignedObject</a></dt>
+<dd>This exception is raised if LanLng param is unassigned.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="PropertyChanged"></a><code>procedure <b>PropertyChanged</b>(Prop: TPersistent);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method to call of the owner object when changes a property of the object.  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Prop</dt>
+<dd>Object property that has changed.</dd>
+</dl>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="APIUrl"></a><code>property <b>APIUrl</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+URL to Google Maps API class. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="NE"></a><code>property <b>NE</b>: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a> read FNE write FNE;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+North-east coordinates. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="SW"></a><code>property <b>SW</b>: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a> read FSW write FSW;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+South-west coordinates. </p>
+</td></tr>
+</table>
+<br />
+<hr>
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+</tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+</span>
+</td></tr></table></body></html>

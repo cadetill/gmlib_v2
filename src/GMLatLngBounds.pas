@@ -54,19 +54,19 @@ type
     procedure Assign(Source: TPersistent); override;
 
     // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.Extend.txt)
-    procedure Extend(LatLng: TGMLatLng);
+    procedure Extend(LatLng: TGMLatLng);  (*1 *)
     // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.Union.txt)
-    procedure Union(Other: TGMLatLngBounds);
+    procedure Union(Other: TGMLatLngBounds);  (*1 *)
     // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.GetCenter.txt)
-    procedure GetCenter(LatLng: TGMLatLng);
+    procedure GetCenter(LatLng: TGMLatLng);  (*1 *)
     // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.ToSpan.txt)
-    procedure ToSpan(LatLng: TGMLatLng);
+    procedure ToSpan(LatLng: TGMLatLng);  (*1 *)
     // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.Contains.txt)
-    function Contains(LatLng: TGMLatLng): Boolean;
+    function Contains(LatLng: TGMLatLng): Boolean;  (*1 *)
     // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.IsEqual.txt)
     function IsEqual(Other: TGMLatLngBounds): Boolean;
     // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.Intersects.txt)
-    function Intersects(Other: TGMLatLngBounds): Boolean;
+    function Intersects(Other: TGMLatLngBounds): Boolean;  (*1 *)
     // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.IsEmpty.txt)
     function IsEmpty: Boolean;
     // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.ToStr.txt)
@@ -74,7 +74,7 @@ type
     // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.ToUrlValue.txt)
     function ToUrlValue(Precision: Integer = 6): string;
 
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.PropToString.txt)
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
 
     // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.APIUrl.txt)
@@ -135,11 +135,11 @@ var
   Intf: IGMExecJS;
 begin
   if not Assigned(GetOwner()) then
-    raise EGMWithoutOwner.Create(2, [], GetOwnerLang);
+    raise EGMWithoutOwner.Create(GetOwnerLang); // Owner not assigned.
   if not Supports(GetOwner(), IGMExecJS, Intf) then
-    raise EGMOwnerWithoutJS.Create(3, [], GetOwnerLang);
+    raise EGMOwnerWithoutJS.Create(GetOwnerLang);  // The object (or its owner) does not support JavaScript calls.
   if not Assigned(LatLng) then
-    raise EGMUnassignedObject.Create(5, ['LatLng'], GetOwnerLang);
+    raise EGMUnassignedObject.Create(['LatLng'], GetOwnerLang);  // Unassigned %s object.
 
   Params := Format(StrParams, [LatLng.LatToStr,
                                LatLng.LngToStr,
@@ -148,7 +148,7 @@ begin
                                FNE.LatToStr,
                                FNE.LngToStr
                                ]);
-  if Intf.ExecuteScript('LLB_Contains', Params) then
+  Intf.ExecuteJavaScript('LLB_Contains', Params);
   begin
     Result := True;
 //    FSW.Lat := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormSWLat), Precision);
@@ -156,8 +156,6 @@ begin
 //    FNE.Lat := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormNELat), Precision);
 //    FNE.Lng := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormNELng), Precision);
   end
-  else
-    raise EGMJSError.Create(4, ['LLB_Contains'], GetOwnerLang);
 end;
 
 constructor TGMLatLngBounds.Create(AOwner: TPersistent; SW, NE: TGMLatLng);
@@ -185,11 +183,11 @@ var
   Intf: IGMExecJS;
 begin
   if not Assigned(GetOwner()) then
-    raise EGMWithoutOwner.Create(2, [], GetOwnerLang);
+    raise EGMWithoutOwner.Create(GetOwnerLang);  // Owner not assigned.
   if not Supports(GetOwner(), IGMExecJS, Intf) then
-    raise EGMOwnerWithoutJS.Create(3, [], GetOwnerLang);
+    raise EGMOwnerWithoutJS.Create(GetOwnerLang);  // The object (or its owner) does not support JavaScript calls.
   if not Assigned(LatLng) then
-    raise EGMUnassignedObject.Create(5, ['LatLng'], GetOwnerLang);
+    raise EGMUnassignedObject.Create(['LatLng'], GetOwnerLang);  // Unassigned %s object.
 
   Params := Format(StrParams, [LatLng.LatToStr,
                                LatLng.LngToStr,
@@ -198,15 +196,13 @@ begin
                                FNE.LatToStr,
                                FNE.LngToStr
                                ]);
-  if Intf.ExecuteScript('LLB_Extend', Params) then
+  Intf.ExecuteJavaScript('LLB_Extend', Params);
   begin
 //    FSW.Lat := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormSWLat), Precision);
 //    FSW.Lng := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormSWLng), Precision);
 //    FNE.Lat := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormNELat), Precision);
 //    FNE.Lng := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormNELng), Precision);
   end
-  else
-    raise EGMJSError.Create(4, ['LLB_Extend'], GetOwnerLang);
 end;
 
 function TGMLatLngBounds.GetAPIUrl: string;
@@ -222,24 +218,22 @@ var
   Intf: IGMExecJS;
 begin
   if not Assigned(GetOwner()) then
-    raise EGMWithoutOwner.Create(2, [], GetOwnerLang);
+    raise EGMWithoutOwner.Create(GetOwnerLang);  // Owner not assigned.
   if not Supports(GetOwner(), IGMExecJS, Intf) then
-    raise EGMOwnerWithoutJS.Create(3, [], GetOwnerLang);
+    raise EGMOwnerWithoutJS.Create(GetOwnerLang);  // The object (or its owner) does not support JavaScript calls.
 
   Params := Format(StrParams, [FSW.LatToStr,
                                FSW.LngToStr,
                                FNE.LatToStr,
                                FNE.LngToStr
                                ]);
-  if Intf.ExecuteScript('LLB_Center', Params) then
+  Intf.ExecuteJavaScript('LLB_Center', Params);
   begin
 //    FSW.Lat := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormSWLat), Precision);
 //    FSW.Lng := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormSWLng), Precision);
 //    FNE.Lat := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormNELat), Precision);
 //    FNE.Lng := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormNELng), Precision);
   end
-  else
-    raise EGMJSError.Create(4, ['LLB_Center'], GetOwnerLang);
 end;
 
 function TGMLatLngBounds.GetOwnerLang: TGMLang;
@@ -254,21 +248,19 @@ var
   Intf: IGMExecJS;
 begin
   if not Assigned(GetOwner()) then
-    raise EGMWithoutOwner.Create(2, [], GetOwnerLang);
+    raise EGMWithoutOwner.Create(GetOwnerLang);  // Owner not assigned.
   if not Supports(GetOwner(), IGMExecJS, Intf) then
-    raise EGMOwnerWithoutJS.Create(3, [], GetOwnerLang);
+    raise EGMOwnerWithoutJS.Create(GetOwnerLang);  // The object (or its owner) does not support JavaScript calls.
   if not Assigned(Other) then
-    raise EGMUnassignedObject.Create(5, ['Other'], GetOwnerLang);
+    raise EGMUnassignedObject.Create(['Other'], GetOwnerLang);  // Unassigned %s object.
 
-  if Intf.ExecuteScript('LLB_Intersects', '') then
+  Intf.ExecuteJavaScript('LLB_Intersects', '');
   begin
 //    FSW.Lat := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormSWLat), Precision);
 //    FSW.Lng := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormSWLng), Precision);
 //    FNE.Lat := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormNELat), Precision);
 //    FNE.Lng := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormNELng), Precision);
   end
-  else
-    raise EGMJSError.Create(4, ['LLB_Intersects'], GetOwnerLang);
 end;
 
 function TGMLatLngBounds.IsEmpty: Boolean;
@@ -303,19 +295,17 @@ var
   Intf: IGMExecJS;
 begin
   if not Assigned(GetOwner()) then
-    raise EGMWithoutOwner.Create(2, [], GetOwnerLang);
+    raise EGMWithoutOwner.Create(GetOwnerLang);  // Owner not assigned.
   if not Supports(GetOwner(), IGMExecJS, Intf) then
-    raise EGMOwnerWithoutJS.Create(3, [], GetOwnerLang);
+    raise EGMOwnerWithoutJS.Create(GetOwnerLang);  // The object (or its owner) does not support JavaScript calls.
 
-  if Intf.ExecuteScript('LLB_Span', '') then
+  Intf.ExecuteJavaScript('LLB_Span', '');
   begin
 //    FSW.Lat := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormSWLat), Precision);
 //    FSW.Lng := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormSWLng), Precision);
 //    FNE.Lat := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormNELat), Precision);
 //    FNE.Lng := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormNELng), Precision);
   end
-  else
-    raise EGMJSError.Create(4, ['LLB_Span'], GetOwnerLang);
 end;
 
 function TGMLatLngBounds.ToStr(Precision: Integer): string;
@@ -340,11 +330,11 @@ var
   Intf: IGMExecJS;
 begin
   if not Assigned(GetOwner()) then
-    raise EGMWithoutOwner.Create(2, [], GetOwnerLang);
+    raise EGMWithoutOwner.Create(GetOwnerLang);  // Owner not assigned.
   if not Supports(GetOwner(), IGMExecJS, Intf) then
-    raise EGMOwnerWithoutJS.Create(3, [], GetOwnerLang);
+    raise EGMOwnerWithoutJS.Create(GetOwnerLang);  // The object (or its owner) does not support JavaScript calls.
   if not Assigned(Other) then
-    raise EGMUnassignedObject.Create(5, ['Other'], GetOwnerLang);
+    raise EGMUnassignedObject.Create(['Other'], GetOwnerLang);  // Unassigned %s object.
 
   Params := Format(StrParams, [Other.SW.LatToStr,
                                Other.SW.LngToStr,
@@ -355,15 +345,13 @@ begin
                                FNE.LatToStr,
                                FNE.LngToStr
                                ]);
-  if Intf.ExecuteScript('LLB_Union', Params) then
+  Intf.ExecuteJavaScript('LLB_Union', Params);
   begin
 //    FSW.Lat := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormSWLat), Precision);
 //    FSW.Lng := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormSWLng), Precision);
 //    FNE.Lat := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormNELat), Precision);
 //    FNE.Lng := ControlPrecision(FWC.GetFloatField(LatLngBoundsForm, LatLngBoundsFormNELng), Precision);
   end
-  else
-    raise EGMJSError.Create(4, ['LLB_Union'], GetOwnerLang);
 end;
 
 constructor TGMLatLngBounds.Create(AOwner: TPersistent; SWLat, SWLng, NELat,

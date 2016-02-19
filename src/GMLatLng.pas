@@ -68,7 +68,7 @@ type
     // @include(..\docs\GMLatLng.TGMLatLng.StringToReal.txt)
     function StringToReal(Value: string): Real;
 
-    // @include(..\docs\GMLatLng.TGMLatLng.PropToString.txt)
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
 
     // @include(..\docs\GMLatLng.TGMLatLng.APIUrl.txt)
@@ -250,7 +250,7 @@ begin
     Result := StrToFloat(Value);
   except
     on E: Exception do
-      raise EGMNotValidRealNumber.Create(1, [Value], GetOwnerLang);
+      raise EGMNotValidRealNumber.Create([Value], GetOwnerLang); // %d is not a valid real value.
   end;
 end;
 

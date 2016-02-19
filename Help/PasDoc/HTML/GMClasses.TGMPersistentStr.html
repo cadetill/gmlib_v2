@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>Google Maps Library: GMClasses: Class TGMPersistentStr</title>
+<meta name="generator" content="PasDoc 0.14.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<table class="container"><tr><td class="navigation">
+<h2>Google Maps Library</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><a href="GVUses.png" class="navigation">Unit dependency graph</a></p><p><a href="GVClasses.png" class="navigation">Classes hierarchy graph</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div style="clear: both"></div>
+
+<script>
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        /* 10 items to display seems standard */
+        'show': 10,
+        /* For PasDoc docs, showing urls is not very useful,
+           since the page title already shows the unit and identifier. */
+        'showURL': false
+    });
+});
+</script>
+</p></td><td class="content">
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+</tr>
+</table>
+<hr noshade="" size="1">
+<a name="TGMPersistentStr"></a><h1 class="cio">Class TGMPersistentStr</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td>Properties</td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="GMClasses.html">GMClasses</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TGMPersistentStr = class(<a class="normal" href="GMClasses.TGMPersistent.html">TGMPersistent</a>, <a class="normal" href="GMClasses.IGMToStr.html">IGMToStr</a>, <a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Base class for all classes that inherit from <code><a class="normal" href="GMClasses.TGMPersistent.html">TGMPersistent</a></code> into GMLib and implements <code><a class="normal" href="GMClasses.IGMToStr.html">IGMToStr</a></code> and <code><a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a></code> interfaces.</p>
+<p>
+ </p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TInterfacedPersistent</li>
+<li class="ancestor"><a class="normal" href="GMClasses.TGMInterfacedOwnedPersistent.html">TGMInterfacedOwnedPersistent</a></li>
+<li class="ancestor"><a class="normal" href="GMClasses.TGMPersistent.html">TGMPersistent</a></li>
+<li class="thisitem">TGMPersistentStr</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMClasses.TGMPersistentStr.html#GetOwnerLang">GetOwnerLang</a></b>: <a  href="GMSets.html#TGMLang">TGMLang</a>; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMClasses.TGMPersistentStr.html#PropToString">PropToString</a></b>: string; virtual;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="GetOwnerLang"></a><code>function <b>GetOwnerLang</b>: <a  href="GMSets.html#TGMLang">TGMLang</a>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns the Lang of the Owner.<br><br> If Owner is not assigned or not supports <a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a> interface then returns <code>lnEnglish</code>.) return TLang of the owner object. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="PropToString"></a><code>function <b>PropToString</b>: string; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Converts all class properties values to a string separated by semicolon.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return">string with all properties.</p></td></tr>
+</table>
+<br />
+<hr>
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+</tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+</span>
+</td></tr></table></body></html>

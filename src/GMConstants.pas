@@ -8,9 +8,14 @@
 }
 unit GMConstants;
 
-{$I ..\..\gmlib.inc}
+{$I ..\gmlib.inc}
 
 interface
+
+const
+  ct_RES_MAPA_CODE = 'RES_MAPCODE';
+  ct_API_KEY = 'API_KEY';
+  ct_API_VER = 'API_VER';
 
 implementation
 

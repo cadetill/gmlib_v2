@@ -1,0 +1,266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>Google Maps Library: GMClasses: Class TGMInterfacedCollection</title>
+<meta name="generator" content="PasDoc 0.14.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<table class="container"><tr><td class="navigation">
+<h2>Google Maps Library</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><a href="GVUses.png" class="navigation">Unit dependency graph</a></p><p><a href="GVClasses.png" class="navigation">Classes hierarchy graph</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div style="clear: both"></div>
+
+<script>
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        /* 10 items to display seems standard */
+        'show': 10,
+        /* For PasDoc docs, showing urls is not very useful,
+           since the page title already shows the unit and identifier. */
+        'showURL': false
+    });
+});
+</script>
+</p></td><td class="content">
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+</tr>
+</table>
+<hr noshade="" size="1">
+<a name="TGMInterfacedCollection"></a><h1 class="cio">Class TGMInterfacedCollection</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="GMClasses.html">GMClasses</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TGMInterfacedCollection = class(TCollection, <a class="normal" href="GMClasses.IGMControlChanges.html">IGMControlChanges</a>, <a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a>, <a class="normal" href="GMClasses.IGMToStr.html">IGMToStr</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Base class for all classes that inherit from <code>TCollection</code> into GMLib.</p>
+<p>
+ Implements <code><a class="normal" href="GMClasses.IGMControlChanges.html">IGMControlChanges</a></code>, <code><a class="normal" href="GMClasses.IGMToStr.html">IGMToStr</a></code> and <code><a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a></code> interfaces. </p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TCollection</li>
+<li class="thisitem">TGMInterfacedCollection</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="GMClasses.TGMInterfacedCollection.html#Create">Create</a></b>(AOwner: TPersistent; ItemClass: TCollectionItemClass); virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMClasses.TGMInterfacedCollection.html#GetOwner">GetOwner</a></b>: TPersistent; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMClasses.TGMInterfacedCollection.html#GetOwnerLang">GetOwnerLang</a></b>: <a  href="GMSets.html#TGMLang">TGMLang</a>; virtual;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMClasses.TGMInterfacedCollection.html#PropToString">PropToString</a></b>: string; virtual;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="GMClasses.TGMInterfacedCollection.html#Assign">Assign</a></b>(Source: TPersistent); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="GMClasses.TGMInterfacedCollection.html#Clear">Clear</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="GMClasses.TGMInterfacedCollection.html#Delete">Delete</a></b>(Index: Integer);</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="GMClasses.TGMInterfacedCollection.html#Move">Move</a></b>(CurIndex, NewIndex: Integer);</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="GMClasses.TGMInterfacedCollection.html#PropertyChanged">PropertyChanged</a></b>(Prop: TPersistent);</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMClasses.TGMInterfacedCollection.html#Items">Items</a></b>[I:Integer]: <a  href="GMClasses.TGMInterfacedCollectionItem.html">TGMInterfacedCollectionItem</a> read GetItems write SetItems;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMClasses.TGMInterfacedCollection.html#OnChange">OnChange</a></b>: TNotifyEvent read FOnChange write FOnChange;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(AOwner: TPersistent; ItemClass: TCollectionItemClass); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Constructor class.</p>
+<p>
+   </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>AOwner</dt>
+<dd>Object owner.</dd>
+<dt>ItemClass</dt>
+<dd>Identifies the TCollectionItem descendants that must be used to represent the <a class="normal" href="GMClasses.TGMInterfacedCollection.html#Items">items</a> in the collection.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="GetOwner"></a><code>function <b>GetOwner</b>: TPersistent; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Function that return the owner of object  </p>
+<h6 class="description_section">Returns</h6>
+<p class="return">Owner of object</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="GetOwnerLang"></a><code>function <b>GetOwnerLang</b>: <a  href="GMSets.html#TGMLang">TGMLang</a>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns the Lang of the Owner.<br><br> If Owner is not assigned or not supports <a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a> interface then returns <code>lnEnglish</code>.)  </p>
+<h6 class="description_section">Returns</h6>
+<p class="return">TLang of the owner object.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="PropToString"></a><code>function <b>PropToString</b>: string; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Converts all class properties values to a string separated by semicolon.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return">string with all properties.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Assign"></a><code>procedure <b>Assign</b>(Source: TPersistent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Call <code><code>Assign</code></code> to copy the properties or other attributes of one object from another. The standard form of a call to <code><code>Assign</code></code> is<br> <code>Destination.Assign(Source);</code><br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Source</dt>
+<dd>Object to copy the content.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Clear"></a><code>procedure <b>Clear</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Deletes all <a class="normal" href="GMClasses.TGMInterfacedCollection.html#Items">items</a> from the collection. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Delete"></a><code>procedure <b>Delete</b>(Index: Integer);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Deletes a single item from the collection.  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Index</dt>
+<dd>Position to <code>delete</code></dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Move"></a><code>procedure <b>Move</b>(CurIndex, NewIndex: Integer);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Moves a item to a new position into the collection.   </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>CurIndex</dt>
+<dd>Index of Item to <code>move</code></dd>
+<dt>NewIndex</dt>
+<dd>Destination index</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="PropertyChanged"></a><code>procedure <b>PropertyChanged</b>(Prop: TPersistent);</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Method to call of the owner object when changes a property of the object.  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Prop</dt>
+<dd>Object property that has changed.</dd>
+</dl>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Items"></a><code>property <b>Items</b>[I:Integer]: <a  href="GMClasses.TGMInterfacedCollectionItem.html">TGMInterfacedCollectionItem</a> read GetItems write SetItems;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+List of <code>items</code> from collection. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="OnChange"></a><code>property <b>OnChange</b>: TNotifyEvent read FOnChange write FOnChange;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event triggered when a property changes. </p>
+</td></tr>
+</table>
+<br />
+<hr>
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+</tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+</span>
+</td></tr></table></body></html>

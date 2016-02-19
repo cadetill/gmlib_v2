@@ -9,6 +9,7 @@
 unit GMMap;
 
 {$I ..\gmlib.inc}
+{$R ..\Resources\gmmapres.RES}
 
 interface
 
@@ -42,7 +43,7 @@ type
     // @include(..\docs\GMMap.TGMMapTypeControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMMapTypeControlOptions.PropToString.txt)
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
     // @include(..\docs\GMMap.TGMMapTypeControlOptions.MapTypeIds.txt)
@@ -69,7 +70,7 @@ type
     // @include(..\docs\GMMap.TGMOverviewMapControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMOverviewMapControlOptions.PropToString.txt)
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
     // @include(..\docs\GMMap.TGMOverviewMapControlOptions.Opened.txt)
@@ -92,7 +93,7 @@ type
     // @include(..\docs\GMMap.TGMPanControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMPanControlOptions.PropToString.txt)
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
     // @include(..\docs\GMMap.TGMPanControlOptions.Position.txt)
@@ -115,7 +116,7 @@ type
     // @include(..\docs\GMMap.TGMRotateControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMRotateControlOptions.PropToString.txt)
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
     // @include(..\docs\GMMap.TGMRotateControlOptions.Position.txt)
@@ -138,7 +139,7 @@ type
     // @include(..\docs\GMMap.TGMScaleControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMScaleControlOptions.PropToString.txt)
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
     // @include(..\docs\GMMap.TGMScaleControlOptions.Style.txt)
@@ -163,7 +164,7 @@ type
     // @include(..\docs\GMMap.TGMZoomControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMZoomControlOptions.PropToString.txt)
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
     // @include(..\docs\GMMap.TGMZoomControlOptions.Position.txt)
@@ -188,7 +189,7 @@ type
     // @include(..\docs\GMMap.TGMStreetViewControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMStreetViewControlOptions.PropToString.txt)
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
     // @include(..\docs\GMMap.TGMStreetViewControlOptions.Position.txt)
@@ -215,7 +216,7 @@ type
     // @exclude
     function GetAPIUrl: string; override;
 
-    // @include(..\docs\GMMap.TGMCustomMapTypeStyler.PropToString.txt)
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
 
     // @include(..\docs\GMMap.TGMCustomMapTypeStyler.Gamma.txt)
@@ -250,7 +251,7 @@ type
     // @exclude
     function GetAPIUrl: string; override;
 
-    // @include(..\docs\GMMap.TGMCustomMapTypeStyle.PropToString.txt)
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
 
     // @include(..\docs\GMMap.TGMCustomMapTypeStyle.ElementType.txt)
@@ -281,7 +282,7 @@ type
     // @include(..\docs\GMMap.TGMStreetViewAddressControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMStreetViewAddressControlOptions.PropToString.txt)
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
     // @include(..\docs\GMMap.TGMStreetViewAddressControlOptions.Position.txt)
@@ -306,7 +307,7 @@ type
     // @include(..\docs\GMMap.TGMStreetViewPov.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMStreetViewPov.PropToString.txt)
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
     // @include(..\docs\GMMap.TGMStreetViewPov.Heading.txt)
@@ -357,7 +358,7 @@ type
     // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.PropToString.txt)
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
     // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.AddressControl.txt)
@@ -450,7 +451,7 @@ type
     procedure SetStreetViewControl(const Value: Boolean);
     procedure SetZoomControl(const Value: Boolean);
   protected
-    // @include(..\docs\GMMap.TGMCustomMapOptions.PropToString.txt)
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
 
     // @include(..\docs\GMMap.TGMCustomMapOptions.Center.txt)
@@ -530,10 +531,8 @@ type
 
   { -------------------------------------------------------------------------- }
   // @include(..\docs\GMMap.TGMCustomGMMap.txt)
-  TGMCustomGMMap = class(TGMComponent)
+  TGMCustomGMMap = class(TGMComponent, IGMExecJS)
   private
-    FIsDoMap: Boolean;  // indicates if the map.html is loaded.
-
     FGoogleAPIVer: TGoogleAPIVer;
     FActive: Boolean;
     FGoogleAPIKey: string;
@@ -541,7 +540,7 @@ type
     FOnActiveChange: TNotifyEvent;
     FOnIntervalEventsChange: TNotifyEvent;
     procedure SetGoogleAPIVer(const Value: TGoogleAPIVer);
-    procedure SetActive(const Value: Boolean);
+    procedure SetActive(const Value: Boolean); {*1 *}
     procedure SetGoogleAPIKey(const Value: string);
     procedure SetIntervalEvents(const Value: Integer);
   protected
@@ -556,6 +555,8 @@ type
     procedure LoadBlankPage; virtual; abstract;
     // @include(..\docs\GMMap.TGMCustomGMMap.GetBaseHTMLCode.txt)
     function GetBaseHTMLCode: string;
+    // @include(..\docs\GMMap.TGMCustomGMMap.ExecuteJavaScript.txt)
+    procedure ExecuteJavaScript(NameFunct, Params: string); virtual; abstract;
     // @include(..\docs\GMMap.TGMCustomGMMap.OnTimer.txt)
     procedure OnTimer(Sender: TObject); virtual; (*1 *)
 
@@ -596,6 +597,15 @@ type
   end;
 
 implementation
+
+uses
+  {$IFDEF DELPHIXE2}
+  System.Types,
+  {$ELSE}
+  Windows,
+  {$ENDIF}
+
+  GMConstants;
 
 { TGMCustomMapOptions }
 
@@ -697,7 +707,7 @@ end;
 
 function TGMCustomMapOptions.PropToString: string;
 const
-  Str = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
+  Str = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
 begin
   Result := inherited PropToString;
   if Result <> '' then Result := Result + ',';
@@ -727,7 +737,7 @@ begin
                          LowerCase(TGMTransform.GMBoolToStr(FScaleControl, True)),
                          FScaleControlOptions.PropToString,
                          LowerCase(TGMTransform.GMBoolToStr(FScrollwheel, True)),
-                         //FStreetView.PropToString,
+                         FStreetView.PropToString,
                          LowerCase(TGMTransform.GMBoolToStr(FStreetViewControl, True)),
                          FStreetViewControlOptions.PropToString,
                          IntToStr(FTilt),
@@ -1216,8 +1226,8 @@ begin
   if Result <> '' then Result := Result + ',';
   Result := Result +
             Format(Str, [
-                         QuotedStr(TGMTransform.MapTypeStyleElementTypeToStr(FElementType)),
-                         QuotedStr(TGMTransform.MapTypeStyleFeatureTypeToStr(FeatureType))
+                         TGMTransform.MapTypeStyleElementTypeToStr(FElementType),
+                         TGMTransform.MapTypeStyleFeatureTypeToStr(FeatureType)
                          ]);
 end;
 
@@ -1278,11 +1288,12 @@ begin
   Result := inherited PropToString;
   if Result <> '' then Result := Result + ',';
   Result := Result +
-            Format(Str, [StringReplace(FloatToStr(FGamma), ',', '.', [rfReplaceAll]),
+            Format(Str, [
+                         StringReplace(FloatToStr(FGamma), ',', '.', [rfReplaceAll]),
                          LowerCase(TGMTransform.GMBoolToStr(FInvertLightness, True)),
                          IntToStr(FLightness),
                          IntToStr(FSaturation),
-                         QuotedStr(TGMTransform.VisibilityToStr(FVisibility)),
+                         TGMTransform.VisibilityToStr(FVisibility),
                          IntToStr(FWeight)
                          ]);
 end;
@@ -1360,22 +1371,29 @@ function TGMCustomGMMap.GetBaseHTMLCode: string;
 var
   List: TStringList;
   Stream: TResourceStream;
+  Ver: string;
 begin
+  if not Assigned(FWebBrowser) then
+    raise EGMUnassignedObject.Create(['WebBrowser'], Language); // Object %s unassigned.
+
   Result := '';
 
   List := TStringList.Create;
   try
     try
-      Stream := TResourceStream.Create(HInstance, RES_MAPA_CODE, RT_RCDATA);
+      Stream := TResourceStream.Create(HInstance, ct_RES_MAPA_CODE, RT_RCDATA);
       List.LoadFromStream(Stream);
       Result := List.Text;
-      Result := StringReplace(Result, C_API_KEY, FApiKey, []);
+      Result := StringReplace(Result, ct_API_KEY, FGoogleAPIKey, []);
+      if FGoogleAPIVer = apiNewest then Ver := '3.x'
+      else Ver := TGMTransform.GoogleAPIVerToStr(FGoogleAPIVer);
+      Result := StringReplace(Result, ct_API_VER, Ver, []);
     finally
       if Assigned(Stream) then FreeAndNil(Stream);
       if Assigned(List) then FreeAndNil(List);
     end;
   except
-    raise Exception.Create(GetTranslateText('No se ha podido cargar el recurso', Language));
+    raise EGMCanLoadResource.Create(Language);  // Can't load map resource.
   end;
 end;
 
@@ -1391,15 +1409,14 @@ begin
   FActive := Value;
 
   if csDesigning in ComponentState then Exit;
+
   if not Assigned(FWebBrowser) then Exit;
+    //raise EGMUnassignedObject.Create(['WebBrowser'], Language); // Object %s unassigned.
 
   if FActive then
     LoadMap
   else
-  begin
-    FIsDoMap := False;
     LoadBlankPage;
-  end;
 
   //SetEnableTimer(FActive);
 
@@ -1411,7 +1428,7 @@ begin
   if FGoogleAPIKey = Value then Exit;
 
   if FActive then
-    raise EGMMapIsActive.Create(6, [], Language);
+    raise EGMMapIsActive.Create(Language); // The map is active. Please, deactivate it before change this property.
 
   FGoogleAPIKey := Value;
 end;
@@ -1421,7 +1438,7 @@ begin
   if FGoogleAPIVer = Value then Exit;
 
   if FActive then
-    raise EGMMapIsActive.Create(6, [], Language);
+    raise EGMMapIsActive.Create(Language); // The map is active. Please, deactivate it before change this property.
 
   FGoogleAPIVer := Value;
 end;
@@ -1432,6 +1449,8 @@ begin
 
   FIntervalEvents := Value;
   SetIntervalTimer(FIntervalEvents);
+
+  if csDesigning in ComponentState then Exit;
 
   if Assigned(FOnIntervalEventsChange) then FOnIntervalEventsChange(Self);
 end;

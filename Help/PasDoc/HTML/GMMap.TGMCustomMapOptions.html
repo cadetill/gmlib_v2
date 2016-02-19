@@ -1,0 +1,604 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>Google Maps Library: GMMap: Class TGMCustomMapOptions</title>
+<meta name="generator" content="PasDoc 0.14.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<table class="container"><tr><td class="navigation">
+<h2>Google Maps Library</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><a href="GVUses.png" class="navigation">Unit dependency graph</a></p><p><a href="GVClasses.png" class="navigation">Classes hierarchy graph</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div style="clear: both"></div>
+
+<script>
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        /* 10 items to display seems standard */
+        'show': 10,
+        /* For PasDoc docs, showing urls is not very useful,
+           since the page title already shows the unit and identifier. */
+        'showURL': false
+    });
+});
+</script>
+</p></td><td class="content">
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+</tr>
+</table>
+<hr noshade="" size="1">
+<a name="TGMCustomMapOptions"></a><h1 class="cio">Class TGMCustomMapOptions</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="GMMap.html">GMMap</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TGMCustomMapOptions = class(<a class="normal" href="GMClasses.TGMPersistentStr.html">TGMPersistentStr</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Base class for <code>google.maps.MapOptions</code> object from Google Maps API.</p>
+<p>
+ More information at <a  href="https://developers.google.com/maps/documentation/javascript/reference#MapOptions">https://developers.google.com/maps/documentation/javascript/reference#MapOptions</a> </p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TInterfacedPersistent</li>
+<li class="ancestor"><a class="normal" href="GMClasses.TGMInterfacedOwnedPersistent.html">TGMInterfacedOwnedPersistent</a></li>
+<li class="ancestor"><a class="normal" href="GMClasses.TGMPersistent.html">TGMPersistent</a></li>
+<li class="ancestor"><a class="normal" href="GMClasses.TGMPersistentStr.html">TGMPersistentStr</a></li>
+<li class="thisitem">TGMCustomMapOptions</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="GMMap.TGMCustomMapOptions.html#Create">Create</a></b>(AOwner: TPersistent); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a  href="GMMap.TGMCustomMapOptions.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMMap.TGMCustomMapOptions.html#GetAPIUrl">GetAPIUrl</a></b>: string; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMMap.TGMCustomMapOptions.html#PropToString">PropToString</a></b>: string; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="GMMap.TGMCustomMapOptions.html#Assign">Assign</a></b>(Source: TPersistent); override;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#Center">Center</a></b>: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a> read FCenter write FCenter;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#DisableDefaultUI">DisableDefaultUI</a></b>: Boolean read FDisableDefaultUI write SetDisableDefaultUI default False;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#DisableDoubleClickZoom">DisableDoubleClickZoom</a></b>: Boolean read FDisableDoubleClickZoom write SetDisableDoubleClickZoom default True;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#Draggable">Draggable</a></b>: Boolean read FDraggable write SetDraggable default True;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#DraggableCursor">DraggableCursor</a></b>: string read FDraggableCursor write SetDraggableCursor;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#DraggingCursor">DraggingCursor</a></b>: string read FDraggingCursor write SetDraggingCursor;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#Heading">Heading</a></b>: Integer read FHeading write SetHeading default 0;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#KeyboardShortcuts">KeyboardShortcuts</a></b>: Boolean read FKeyboardShortcuts write SetKeyboardShortcuts default True;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#MapMaker">MapMaker</a></b>: Boolean read FMapMaker write SetMapMaker default False;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#MapTypeControl">MapTypeControl</a></b>: Boolean read FMapTypeControl write SetMapTypeControl default True;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#MapTypeControlOptions">MapTypeControlOptions</a></b>: <a  href="GMMap.TGMMapTypeControlOptions.html">TGMMapTypeControlOptions</a> read FMapTypeControlOptions write FMapTypeControlOptions;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#MapTypeId">MapTypeId</a></b>: <a  href="GMSets.html#TGMMapTypeId">TGMMapTypeId</a> read FMapTypeId write SetMapTypeId default mtROADMAP;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#MaxZoom">MaxZoom</a></b>: Integer read FMaxZoom write SetMaxZoom default 0;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#MinZoom">MinZoom</a></b>: Integer read FMinZoom write SetMinZoom default 0;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#NoClear">NoClear</a></b>: Boolean read FNoClear write SetNoClear default False;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#OverviewMapControl">OverviewMapControl</a></b>: Boolean read FOverviewMapControl write SetOverviewMapControl default True;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#OverviewMapControlOptions">OverviewMapControlOptions</a></b>: <a  href="GMMap.TGMOverviewMapControlOptions.html">TGMOverviewMapControlOptions</a> read FOverviewMapControlOptions write FOverviewMapControlOptions;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#PanControl">PanControl</a></b>: Boolean read FPanControl write SetPanControl default True;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#PanControlOptions">PanControlOptions</a></b>: <a  href="GMMap.TGMPanControlOptions.html">TGMPanControlOptions</a> read FPanControlOptions write FPanControlOptions;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#RotateControl">RotateControl</a></b>: Boolean read FRotateControl write SetRotateControl default True;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#RotateControlOptions">RotateControlOptions</a></b>: <a  href="GMMap.TGMRotateControlOptions.html">TGMRotateControlOptions</a> read FRotateControlOptions write FRotateControlOptions;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#ScaleControl">ScaleControl</a></b>: Boolean read FScaleControl write SetScaleControl default True;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#ScaleControlOptions">ScaleControlOptions</a></b>: <a  href="GMMap.TGMScaleControlOptions.html">TGMScaleControlOptions</a> read FScaleControlOptions write FScaleControlOptions;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#Scrollwheel">Scrollwheel</a></b>: Boolean read FScrollwheel write SetScrollwheel default True;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#StreetView">StreetView</a></b>: <a  href="GMMap.TGMStreetViewPanoramaOptions.html">TGMStreetViewPanoramaOptions</a> read FStreetView write FStreetView;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#StreetViewControl">StreetViewControl</a></b>: Boolean read FStreetViewControl write SetStreetViewControl default True;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#StreetViewControlOptions">StreetViewControlOptions</a></b>: <a  href="GMMap.TGMStreetViewControlOptions.html">TGMStreetViewControlOptions</a> read FStreetViewControlOptions write FStreetViewControlOptions;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#Tilt">Tilt</a></b>: Integer read FTilt write SetTilt default 0;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#Zoom">Zoom</a></b>: Integer read FZoom write SetZoom default 8;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#ZoomControl">ZoomControl</a></b>: Boolean read FZoomControl write SetZoomControl default True;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMCustomMapOptions.html#ZoomControlOptions">ZoomControlOptions</a></b>: <a  href="GMMap.TGMZoomControlOptions.html">TGMZoomControlOptions</a> read FZoomControlOptions write FZoomControlOptions;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(AOwner: TPersistent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Constructor class.</p>
+<p>
+ Creates a <a class="normal" href="GMMap.TGMCustomMapOptions.html">TGMCustomMapOptions</a> object.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>AOwner</dt>
+<dd>Owner of the object.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Destructor class.</p>
+<p>
+ </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="GetAPIUrl"></a><code>function <b>GetAPIUrl</b>: string; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+URL to Google Maps API class. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="PropToString"></a><code>function <b>PropToString</b>: string; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Converts all class properties values to a string separated by semicolon.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return">string with all properties.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Assign"></a><code>procedure <b>Assign</b>(Source: TPersistent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Call <code><code>Assign</code></code> to copy the properties or other attributes of one object from another. The standard form of a call to <code><code>Assign</code></code> is <br> <code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Source</dt>
+<dd>Object to copy the content.</dd>
+</dl>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Center"></a><code>property <b>Center</b>: <a  href="GMLatLng.TGMLatLng.html">TGMLatLng</a> read FCenter write FCenter;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Contains the lat/lng coordinates with the <code>center</code> of the map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DisableDefaultUI"></a><code>property <b>DisableDefaultUI</b>: Boolean read FDisableDefaultUI write SetDisableDefaultUI default False;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Enables/disables all default UI. May be overridden individually. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DisableDoubleClickZoom"></a><code>property <b>DisableDoubleClickZoom</b>: Boolean read FDisableDoubleClickZoom write SetDisableDoubleClickZoom default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Enables/disables <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">zoom</a> and <a class="normal" href="GMMap.TGMCustomMapOptions.html#Center">center</a> on double click. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Draggable"></a><code>property <b>Draggable</b>: Boolean read FDraggable write SetDraggable default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+If <code>false</code>, prevents the map from being dragged. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DraggableCursor"></a><code>property <b>DraggableCursor</b>: string read FDraggableCursor write SetDraggableCursor;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The name or url of the cursor to display when mousing over a <a class="normal" href="GMMap.TGMCustomMapOptions.html#Draggable">draggable</a> map. This property uses the css cursor attribute to change the icon. As with the css property, you must specify at least one fallback cursor that is not a URL. For example: <code>draggableCursor</code>: 'url(<a  href="http://www.example.com/icon.png">http://www.example.com/icon.png</a>), auto;'. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="DraggingCursor"></a><code>property <b>DraggingCursor</b>: string read FDraggingCursor write SetDraggingCursor;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The name or url of the cursor to display when the map is being dragged. This property uses the css cursor attribute to change the icon. As with the css property, you must specify at least one fallback cursor that is not a URL. For example: <code>draggingCursor</code>: 'url(<a  href="http://www.example.com/icon.png">http://www.example.com/icon.png</a>), auto;'. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Heading"></a><code>property <b>Heading</b>: Integer read FHeading write SetHeading default 0;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The <code>heading</code> for aerial imagery in degrees measured clockwise from cardinal direction North. Headings are snapped to the nearest available angle for which imagery is available. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="KeyboardShortcuts"></a><code>property <b>KeyboardShortcuts</b>: Boolean read FKeyboardShortcuts write SetKeyboardShortcuts default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+If <code>false</code>, prevents the map from being controlled by the keyboard. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="MapMaker"></a><code>property <b>MapMaker</b>: Boolean read FMapMaker write SetMapMaker default False;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<code>True</code> if Map Maker tiles should be used instead of regular tiles. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="MapTypeControl"></a><code>property <b>MapTypeControl</b>: Boolean read FMapTypeControl write SetMapTypeControl default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The initial enabled/disabled state of the Map type control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="MapTypeControlOptions"></a><code>property <b>MapTypeControlOptions</b>: <a  href="GMMap.TGMMapTypeControlOptions.html">TGMMapTypeControlOptions</a> read FMapTypeControlOptions write FMapTypeControlOptions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The initial display options for the Map type control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="MapTypeId"></a><code>property <b>MapTypeId</b>: <a  href="GMSets.html#TGMMapTypeId">TGMMapTypeId</a> read FMapTypeId write SetMapTypeId default mtROADMAP;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The initial Map <code>mapTypeId</code>. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="MaxZoom"></a><code>property <b>MaxZoom</b>: Integer read FMaxZoom write SetMaxZoom default 0;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The maximum <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">zoom</a> level which will be displayed on the map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="MinZoom"></a><code>property <b>MinZoom</b>: Integer read FMinZoom write SetMinZoom default 0;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The minimum <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">zoom</a> level which will be displayed on the map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="NoClear"></a><code>property <b>NoClear</b>: Boolean read FNoClear write SetNoClear default False;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+If <code>true</code>, do not clear the contents of the Map div. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="OverviewMapControl"></a><code>property <b>OverviewMapControl</b>: Boolean read FOverviewMapControl write SetOverviewMapControl default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The enabled/disabled state of the Overview Map control.<br> Note: The Overview Map control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Overview Map control available as part of the old control set. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="OverviewMapControlOptions"></a><code>property <b>OverviewMapControlOptions</b>: <a  href="GMMap.TGMOverviewMapControlOptions.html">TGMOverviewMapControlOptions</a> read FOverviewMapControlOptions write FOverviewMapControlOptions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The display options for the Overview Map control.<br> Note: The Overview Map control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Overview Map control available as part of the old control set. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="PanControl"></a><code>property <b>PanControl</b>: Boolean read FPanControl write SetPanControl default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The enabled/disabled state of the Pan control.<br> Note: The Pan control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Pan control available as part of the old control set. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="PanControlOptions"></a><code>property <b>PanControlOptions</b>: <a  href="GMMap.TGMPanControlOptions.html">TGMPanControlOptions</a> read FPanControlOptions write FPanControlOptions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The display options for the Pan control.<br> Note: The Pan control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Pan control available as part of the old control set. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="RotateControl"></a><code>property <b>RotateControl</b>: Boolean read FRotateControl write SetRotateControl default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The enabled/disabled state of the Rotate control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="RotateControlOptions"></a><code>property <b>RotateControlOptions</b>: <a  href="GMMap.TGMRotateControlOptions.html">TGMRotateControlOptions</a> read FRotateControlOptions write FRotateControlOptions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The display options for the Rotate control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ScaleControl"></a><code>property <b>ScaleControl</b>: Boolean read FScaleControl write SetScaleControl default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The initial enabled/disabled state of the Scale control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ScaleControlOptions"></a><code>property <b>ScaleControlOptions</b>: <a  href="GMMap.TGMScaleControlOptions.html">TGMScaleControlOptions</a> read FScaleControlOptions write FScaleControlOptions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The initial display options for the Scale control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Scrollwheel"></a><code>property <b>Scrollwheel</b>: Boolean read FScrollwheel write SetScrollwheel default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+If <code>false</code>, disables <code>scrollwheel</code> zooming on the map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="StreetView"></a><code>property <b>StreetView</b>: <a  href="GMMap.TGMStreetViewPanoramaOptions.html">TGMStreetViewPanoramaOptions</a> read FStreetView write FStreetView;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+A StreetViewPanorama to display when the Street View pegman is dropped on the map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="StreetViewControl"></a><code>property <b>StreetViewControl</b>: Boolean read FStreetViewControl write SetStreetViewControl default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The initial enabled/disabled state of the Street View Pegman control. This control is part of the default UI, and should be set to false when displaying a map type on which the Street View road overlay should not appear (e.g. a non-Earth map type). </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="StreetViewControlOptions"></a><code>property <b>StreetViewControlOptions</b>: <a  href="GMMap.TGMStreetViewControlOptions.html">TGMStreetViewControlOptions</a> read FStreetViewControlOptions write FStreetViewControlOptions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The initial display options for the Street View Pegman control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Tilt"></a><code>property <b>Tilt</b>: Integer read FTilt write SetTilt default 0;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Controls the automatic switching behavior for the angle of incidence of the map. The only allowed values are 0 and 45. The value 0 causes the map to always use a 0° overhead view regardless of the <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">zoom</a> level and viewport. The value 45 causes the <code>tilt</code> angle to automatically switch to 45 whenever 45° imagery is available for the current <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">zoom</a> level and viewport, and switch back to 0 whenever 45° imagery is not available (this is the default behavior). 45° imagery is only available for SATELLITE and HYBRID map types, within some locations, and at some <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">zoom</a> levels. Note: getTilt returns the current <code>tilt</code> angle, not the value specified by this option. Because getTilt and this option refer to different things, do not bind() the <code>tilt</code> property; doing so may yield unpredictable effects. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="Zoom"></a><code>property <b>Zoom</b>: Integer read FZoom write SetZoom default 8;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The enabled/disabled state of the <code>Zoom</code> control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ZoomControl"></a><code>property <b>ZoomControl</b>: Boolean read FZoomControl write SetZoomControl default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The initial Map <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">zoom</a> level. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="ZoomControlOptions"></a><code>property <b>ZoomControlOptions</b>: <a  href="GMMap.TGMZoomControlOptions.html">TGMZoomControlOptions</a> read FZoomControlOptions write FZoomControlOptions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The display options for the <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">Zoom</a> control. </p>
+</td></tr>
+</table>
+<br />
+<hr>
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+</tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+</span>
+</td></tr></table></body></html>

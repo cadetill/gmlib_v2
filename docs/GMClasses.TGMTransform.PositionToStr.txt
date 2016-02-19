@@ -1,3 +1,5 @@
 Returns a string that represents the Position.
+
 @param Position TGMControlPosition to convert to string
+
 @return string with the Position

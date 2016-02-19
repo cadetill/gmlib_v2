@@ -10,36 +10,152 @@
   body { height: 100%; margin: 0px; padding: 0px } 
   #map_canvas { height: 100% } 
 </style> 
-
-<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=API_VER&key=API_KEY&sensor=false"></script> 
+<!--
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=API_VER&key=API_KEY"></script> 
+-->
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.23&key="></script>
+<script type="text/javascript" src="https://rawgit.com/cadetill/gmlib_v2/master/resources/conversion.js"></script>
 
 <script language=javascript>
   document.onkeydown = function(){
     if (window.event && window.event.keyCode == 116) { 
-      // Capture and remap F5
+      /* Capture and remap F5 */
       window.event.keyCode = 505;
     }
     if(window.event && window.event.keyCode == 505) { 
-      // New action for F5
+      /* New action for F5 */
       return false;
-      // Must return false or the browser will refresh anyway
+      /* Must return false or the browser will refresh anyway */
     }
   }
   document.documentElement.style.overflowY = 'hidden';
 </script>
 
 <script type="text/javascript">
-  
   /******************************************************************************
      Variables y constantes globales
      Global variables and constants
   *******************************************************************************/
-  // var
+  /* var */
   var map = null; 
 
+  function DoMap(
+				 /* center */ Lat,Lng,NoWrap,
+				 disableDefaultUI,disableDoubleClickZoom,draggable,draggableCursor,draggingCursor,heading,keyboardShortcuts,mapMaker,mapTypeControl,
+				 /*mapTypeControlOptions*/mapTypeIds,mapTypePosition,mapTypeStyle,
+				 mapTypeId,maxZoom,minZoom,noClear,overviewMapControl,
+				 /*overviewMapControlOptions*/overviewMapControlOpened,
+				 panControl,
+				 /*panControlOptions*/panControlPosition,
+				 rotateControl,
+				 /*rotateControlOptions*/rotateControlPosition,
+				 scaleControl,
+				 /*rotateControlOptions*/scaleControlStyle,
+				 scrollwheel,
+				 /*streetView*/panAddressControl,panAddressControlPosition,panClickToGo,panDisableDefaultUI,panDisableDoubleClickZoom,panEnableCloseButton,panImageDateControl,panLinksControl,panPanControl,panPanPosition,panPovHeading,panPovPitch,panScrollwheel,panVisible,panZoomControl,panZoomPosition,panZoomStyle,
+				 streetViewControl,
+				 /*streetViewControlOptions*/streetViewPosition,
+				 tilt,zoom,zoomControl,
+				 /*zoomControlOptions*/zoomControlPosition,zoomControlStyle
+				) {
+    if (disableDefaultUI) {
+      mapTypeControl = false;
+      overviewMapControl = false;
+      panControl = false;
+      rotateControl = false;
+	  scaleControl = false;
+    }
+    
+    mapTypeIds = mapTypeIds.split(";"); 
+    for (i = 0; i < mapTypeIds.length; i++){ mapTypeIds[i] = StrToMapType(mapTypeIds[i]) }; 
+    mapTypePosition = StrToPosition(mapTypePosition); 
+    mapTypeStyle = StrToMapTypeControlStyle(mapTypeStyle); 
+    mapTypeId = StrToMapType(mapTypeId);
+    if (maxZoom = 0) maxZoom = null; 
+    if (minZoom = 0) minZoom = null; 
+	panControlPosition = StrToPosition(panControlPosition);  
+	rotateControlPosition = StrToPosition(rotateControlPosition);  
+	scaleControlStyle = StrToScaleControlStyle(scaleControlStyle); 
+	streetViewPosition = StrToPosition(streetViewPosition);  
+	panPanPosition = StrToPosition(panPanPosition);  
+	zoomControlPosition = StrToPosition(zoomControlPosition);  
+	zoomControlStyle = StrToZoomControlStyle(zoomControlStyle); 
+    
+    map = new google.maps.Map(document.getElementById('map'), {
+                              center: {lat: Lat, lng: Lng, noWrap: NoWrap},
+                              disableDefaultUI: disableDefaultUI,
+                              disableDoubleClickZoom: disableDoubleClickZoom,
+                              draggable: draggable,
+                              draggableCursor: draggableCursor,
+                              draggingCursor: draggingCursor,
+                              heading: heading,
+                              keyboardShortcuts: keyboardShortcuts,
+                              mapMaker: mapMaker,
+                              mapTypeControl: mapTypeControl,
+                              mapTypeControlOptions: {mapTypeIds: mapTypeIds, position: mapTypePosition, style: mapTypeStyle},
+                              mapTypeId: mapTypeId,
+                              maxZoom: maxZoom,
+                              minZoom: minZoom,
+                              noClear: noClear,
+                              overviewMapControl: overviewMapControl,
+                              overviewMapControlOptions: {opened: overviewMapControlOpened},
+                              panControl: panControl,
+                              panControlOptions: {position: panControlPosition},
+                              rotateControl: rotateControl,
+                              rotateControlOptions: {position: rotateControlPosition},
+                              scaleControl: scaleControl,
+                              scaleControlOptions: {style: scaleControlStyle},
+                              scrollwheel: scrollwheel,
+                              streetView: {addressControl: panAddressControl, 
+                                           addressControlOptions: {position: panAddressControlPosition},
+										   clickToGo: panClickToGo,
+										   disableDefaultUI: panDisableDefaultUI,
+										   disableDoubleClickZoom: panDisableDoubleClickZoom,
+										   enableCloseButton: panEnableCloseButton,
+										   imageDateControl: panImageDateControl,
+										   linksControl: panLinksControl,
+										   panControl: panPanControl,
+										   panControlOptions: {position: panPanPosition},
+										   pov: {heading: panPovHeading, pitch: panPovPitch},
+										   scrollwheel: panScrollwheel,
+										   visible: panVisible,
+										   zoomControl: panZoomControl,
+										   zoomControlOptions: {position: panZoomPosition, style: panZoomStyle}},
+                              streetViewControl: streetViewControl,
+                              streetViewControlOptions: {position: streetViewPosition},
+							  tilt: tilt,
+                              zoom: zoom,
+							  zoomControl: zoomControl,
+							  zoomControlOptions: {position: zoomControlPosition, style: zoomControlStyle}
+                              });
+    map.mapTypes.set("OSM", new google.maps.ImageMapType({
+                getTileUrl: function(coord, zoom) {
+                    return "http://tile.openstreetmap.org/" + zoom + "/" + coord.x + "/" + coord.y + ".png";
+                },
+                tileSize: new google.maps.Size(256, 256),
+                name: "OpenStreetMap",
+                maxZoom: 18
+            }));
+  }
+  
+/*
+,'#000000','setALL,sftALL&1,true,0,0,vOn,0,#000000,#000000&1,true,0,0,vOn,0,#000000,#000000¬setALL,sftALL&1,true,0,0,vOn,0,#000000,#000000&1,true,0,0,vOn,0,#000000,#000000&1,true,0,0,vOn,0,#000000,#000000'
+*/
 </script> 
 </head> 
+
 <body>
-  <div id="map_canvas" style="width:100%; height:100%"></div> 
+
+  <table border=1 align=center>
+    <tr>                                      
+      <td align=center width=70 onClick="DoMap(41.403185,2.1737250,false,false,false,true,'','',0,true,false,true,'mtHYBRID;mtROADMAP;mtSATELLITE;mtTERRAIN;mtOSM','cpTOP_RIGHT',
+					'mtcDEFAULT','mtROADMAP',0,0,false,true,false,true,'cpTOP_LEFT',true,'cpTOP_LEFT',true,'scDEFAULT',true,true,'cpTOP_LEFT',true,false,false,true,false,false,true,
+					'cpTOP_LEFT',0,0,true,false,true,'cpTOP_LEFT','zcDEFAULT',true,'cpTOP_LEFT',0,8,true,'cpTOP_LEFT','zcDEFAULT')">
+        Map
+      </td>
+    </tr>
+  </table>
+
+  <div id="map" style="width:100%; height:100%"></div> 
 </body> 
 </html>

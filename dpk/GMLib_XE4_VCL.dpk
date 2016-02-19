@@ -30,7 +30,8 @@ package GMLib_XE4_VCL;
 requires
   rtl,
   GMLib_XE4,
-  vcl;
+  vcl,
+  vclie;
 
 contains
   GMClasses.VCL in '..\src\VCL\GMClasses.VCL.pas',

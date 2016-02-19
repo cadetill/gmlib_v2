@@ -1,22 +1,3 @@
-  /* StrToMapType */
-  function StrToMapType(aMapType) { 
-    switch (aMapType) { 
-      case "mtHYBRID": return google.maps.MapTypeId.HYBRID; break; 
-      case "mtROADMAP": return google.maps.MapTypeId.ROADMAP; break; 
-      case "mtSATELLITE": return google.maps.MapTypeId.SATELLITE; break; 
-	  case "mtOSM": return "OSM"; break;
-      default: return google.maps.MapTypeId.TERRAIN; 
-    } 
-  }
-  
-  /* StrToMapTypeControlStyle */
-  function StrToMapTypeControlStyle(aStyleMenu) { 
-    switch (aStyleMenu) { 
-      case "mtcDROPDOWN_MENU": return google.maps.MapTypeControlStyle.DROPDOWN_MENU; break; 
-      case "mtcHORIZONTAL_BAR": return google.maps.MapTypeControlStyle.HORIZONTAL_BAR; break; 
-      default: return google.maps.MapTypeControlStyle.DEFAULT; 
-    } 
-  }
   
   /* StrToPosition */
   function StrToPosition(Pos) { 
@@ -37,10 +18,40 @@
     } 
   }
 
+  /* StrToMapType */
+  function StrToMapType(aMapType) { 
+    switch (aMapType) { 
+      case "mtHYBRID": return google.maps.MapTypeId.HYBRID; break; 
+      case "mtROADMAP": return google.maps.MapTypeId.ROADMAP; break; 
+      case "mtSATELLITE": return google.maps.MapTypeId.SATELLITE; break; 
+	  case "mtOSM": return "OSM"; break;
+      default: return google.maps.MapTypeId.TERRAIN; 
+    } 
+  }
+  
+  /* StrToMapTypeControlStyle */
+  function StrToMapTypeControlStyle(aStyleMenu) { 
+    switch (aStyleMenu) { 
+      case "mtcDROPDOWN_MENU": return google.maps.MapTypeControlStyle.DROPDOWN_MENU; break; 
+      case "mtcHORIZONTAL_BAR": return google.maps.MapTypeControlStyle.HORIZONTAL_BAR; break; 
+      default: return google.maps.MapTypeControlStyle.DEFAULT; 
+    } 
+  }
+
   /* StrToScaleControlStyle */
   function StrToScaleControlStyle(ScaleStyle) { 
     switch (ScaleStyle) { 
       case "scDEFAULT": return google.maps.ScaleControlStyle.DEFAULT; break; 
       default: return google.maps.ScaleControlStyle.DEFAULT; 
+    } 
+  } 
+ 
+  /* StrToZoomControlStyle */
+  function StrToZoomControlStyle(ZStyle) { 
+    switch (ZStyle) { 
+      case "zcDEFAULT": return google.maps.ZoomControlStyle.DEFAULT; break; 
+      case "zcLARGE": return google.maps.ZoomControlStyle.LARGE; break; 
+      case "zcSMALL": return google.maps.ZoomControlStyle.SMALL; break; 
+      default: return google.maps.ZoomControlStyle.DEFAULT; 
     } 
   } 

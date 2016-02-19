@@ -5,17 +5,16 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, GMClasses, GMMap,
-  GMMap.VCL;
+  GMMap.VCL, Vcl.OleCtrls, SHDocVw, Vcl.ExtCtrls;
 
 type
   TMainFrm = class(TForm)
-    Button1: TButton;
     GMMap1: TGMMap;
+    WebBrowser1: TWebBrowser;
+    Button1: TButton;
     procedure Button1Click(Sender: TObject);
   private
-    { Private declarations }
   public
-    { Public declarations }
   end;
 
 var
@@ -29,12 +28,13 @@ uses
 {$R *.dfm}
 
 procedure TMainFrm.Button1Click(Sender: TObject);
-var
-  Obj: TGMMapTypeStyle;
 begin
-  Obj := GMMap1.MapOptions.Styles.Add;
-  Obj.Name := 'lolo';
-  Obj.ElementType := setALL;
+  try
+    GMMap1.Active := not GMMap1.Active;
+  except
+    on E: Exception do
+      ShowMessage(E.Message);
+  end;
 end;
 
 end.

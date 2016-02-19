@@ -36,6 +36,8 @@ contains
   GMLatLngBounds in '..\src\GMLatLngBounds.pas',
   GMMap in '..\src\GMMap.pas',
   GMSets in '..\src\GMSets.pas',
-  GMTranslations in '..\src\GMTranslations.pas';
+  GMTranslations in '..\src\GMTranslations.pas',
+  GMConstants in '..\src\GMConstants.pas';
 
 end.
+

@@ -1,0 +1,1 @@
+@abstract(Exception raised when the TGMMap component isn't active.)
