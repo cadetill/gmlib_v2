@@ -124,6 +124,8 @@
 
   /* StrToStyles */
   function StrToStyles(StrStyle) { 
+    if ((StrStyle == '') || (typeof variable == 'undefined')) return [];
+	
     var MapTypeStyle = StrStyle.split("¬"); 
     for (i = 0; i < MapTypeStyle.length; i++) { 
       MapTypeStyle[i] = MapTypeStyle[i].split("&");
@@ -136,26 +138,26 @@
 
         var stylers = [];
         for (j = 1; j < MapTypeStyle[i].length; j++) {
-		  var data = MapTypeStyle[i][j].split(",");
-		  stylers.push({
-						color: data[6],
-						gamma: data[0],
-						hue: data[7],
-						invert_lightness: data[1],
-						lightness: data[2],
-						saturation: data[3],
-						visibility: data[4],
-						weight: data[5]
-					  });
+          var data = MapTypeStyle[i][j].split(",");
+          stylers.push({
+                        color: data[6],
+                        gamma: data[0],
+                        hue: data[7],
+                        invert_lightness: data[1],
+                        lightness: data[2],
+                        saturation: data[3],
+                        visibility: data[4],
+                        weight: data[5]
+                      });
         }
-		MapTypeStyle[i] = {
+        MapTypeStyle[i] = {
                             elementType: elementType,
                             featureType: featureType,
                             stylers: stylers
-						  }
+                          }
       }
     }
-	return MapTypeStyle;
+    return MapTypeStyle;
   }
 
   
