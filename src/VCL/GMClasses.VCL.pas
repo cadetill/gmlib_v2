@@ -28,14 +28,6 @@ type
     class function TColorToStr(Color: TColor): string; static;
   end;
 
-  { -------------------------------------------------------------------------- }
-  // @include(..\..\docs\GMClasses.VCL.TGMGenFuncVCL.txt)
-  TGMGenFuncVCL = record
-  public
-    // @include(..\..\docs\GMClasses.VCL.TGMGenFuncVCL.ProcessMessages.txt)
-    class procedure ProcessMessages; static;
-  end;
-
 implementation
 
 uses
@@ -70,17 +62,6 @@ begin
                    [GetRValue(tmpRGB),
                     GetGValue(tmpRGB),
                     GetBValue(tmpRGB)]);
-end;
-
-{ TGMGenFuncVCL }
-
-class procedure TGMGenFuncVCL.ProcessMessages;
-var
-  Msg: TMsg;
-begin
-  Sleep(1);
-  while PeekMessage(msg, 0, 0, 0, PM_REMOVE) do
-    DispatchMessage(msg);
 end;
 
 end.

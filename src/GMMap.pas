@@ -290,6 +290,29 @@ type
   end;
 
   { -------------------------------------------------------------------------- }
+  // @include(..\docs\GMMap.TGMFullScreenControlOptions.txt)
+  TGMFullScreenControlOptions = class(TGMPersistentStr)
+  private
+    FPosition: TGMControlPosition;
+    procedure SetPosition(const Value: TGMControlPosition);
+  protected
+    // @exclude
+    function GetAPIUrl: string; override;
+  public
+    // @include(..\docs\GMClasses.TGMInterfacedOwnedPersistent.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
+
+    // @include(..\docs\GMMap.TGMFullScreenControlOptions.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+  published
+    // @include(..\docs\GMMap.TGMFullScreenControlOptions.Position.txt)
+    property Position: TGMControlPosition read FPosition write SetPosition default cpRIGHT_TOP;
+  end;
+
+  { -------------------------------------------------------------------------- }
   // @include(..\docs\GMMap.TGMStreetViewPov.txt)
   TGMStreetViewPov = class(TGMPersistentStr)
   private
@@ -335,6 +358,8 @@ type
     FPov: TGMStreetViewPov;
     FImageDateControl: Boolean;
     FDisableDefaultUI: Boolean;
+    FFullScreenControlOptions: TGMFullScreenControlOptions;
+    FFullScreenControl: Boolean;
     procedure SetAddressControl(const Value: Boolean);
     procedure SetClickToGo(const Value: Boolean);
     procedure SetDisableDefaultUI(const Value: Boolean);
@@ -346,6 +371,7 @@ type
     procedure SetScrollwheel(const Value: Boolean);
     procedure SetVisible(const Value: Boolean);
     procedure SetZoomControl(const Value: Boolean);
+    procedure SetFullScreenControl(const Value: Boolean);
   protected
     // @exclude
     function GetAPIUrl: string; override;
@@ -373,6 +399,10 @@ type
     property DisableDoubleClickZoom: Boolean read FDisableDoubleClickZoom write SetDisableDoubleClickZoom default False;
     // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.EnableCloseButton.txt)
     property EnableCloseButton: Boolean read FEnableCloseButton write SetEnableCloseButton default True;
+    // @include(..\docs\GMMap.TGMCustomMapOptions.FullScreenControl.txt)
+    property FullScreenControl: Boolean read FFullScreenControl write SetFullScreenControl default True;
+    // @include(..\docs\GMMap.TGMCustomMapOptions.FullScreenControlOptions.txt)
+    property FullScreenControlOptions: TGMFullScreenControlOptions read FFullScreenControlOptions write FFullScreenControlOptions;
     // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.ImageDateControl.txt)
     property ImageDateControl: Boolean read FImageDateControl write SetImageDateControl default False;
     // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.LinksControl.txt)
@@ -428,6 +458,8 @@ type
     FZoomControl: Boolean;
     FZoomControlOptions: TGMZoomControlOptions;
     FStreetView: TGMStreetViewPanoramaOptions;
+    FFullScreenControl: Boolean;
+    FFullScreenControlOptions: TGMFullScreenControlOptions;
     procedure SetDisableDefaultUI(const Value: Boolean);
     procedure SetDisableDoubleClickZoom(const Value: Boolean);
     procedure SetDraggable(const Value: Boolean);
@@ -450,6 +482,7 @@ type
     procedure SetScaleControl(const Value: Boolean);
     procedure SetStreetViewControl(const Value: Boolean);
     procedure SetZoomControl(const Value: Boolean);
+    procedure SetFullScreenControl(const Value: Boolean);
   protected
     // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
@@ -466,6 +499,10 @@ type
     property DraggableCursor: string read FDraggableCursor write SetDraggableCursor;
     // @include(..\docs\GMMap.TGMCustomMapOptions.DraggingCursor.txt)
     property DraggingCursor: string read FDraggingCursor write SetDraggingCursor;
+    // @include(..\docs\GMMap.TGMCustomMapOptions.FullScreenControl.txt)
+    property FullScreenControl: Boolean read FFullScreenControl write SetFullScreenControl default True;
+    // @include(..\docs\GMMap.TGMCustomMapOptions.FullScreenControlOptions.txt)
+    property FullScreenControlOptions: TGMFullScreenControlOptions read FFullScreenControlOptions write FFullScreenControlOptions;
     // @include(..\docs\GMMap.TGMCustomMapOptions.Heading.txt)
     property Heading: Integer read FHeading write SetHeading default 0;
     // @include(..\docs\GMMap.TGMCustomMapOptions.KeyboardShortcuts.txt)
@@ -539,14 +576,20 @@ type
     FIntervalEvents: Integer;
     FOnActiveChange: TNotifyEvent;
     FOnIntervalEventsChange: TNotifyEvent;
+    FSignedIn: Boolean;
+    FAPILang: TGMAPILang;
     procedure SetGoogleAPIVer(const Value: TGoogleAPIVer);
     procedure SetActive(const Value: Boolean); {*1 *}
     procedure SetGoogleAPIKey(const Value: string);
     procedure SetIntervalEvents(const Value: Integer);
+    procedure SetSignedIn(const Value: Boolean);
+    procedure SetAPILang(const Value: TGMAPILang);
   protected
     // @include(..\docs\GMMap.TGMCustomGMMap.FWebBrowser.txt)
     FWebBrowser: TComponent;
 
+    // @include(..\docs\GMMap.TGMCustomGMMap.GetTempPath.txt)
+    function GetTempPath: string; virtual; abstract;
     // @include(..\docs\GMMap.TGMCustomGMMap.SetIntervalTimer.txt)
     procedure SetIntervalTimer(Interval: Integer); virtual; abstract;
     // @include(..\docs\GMMap.TGMCustomGMMap.LoadMap.txt)
@@ -560,9 +603,9 @@ type
     // @include(..\docs\GMMap.TGMCustomGMMap.OnTimer.txt)
     procedure OnTimer(Sender: TObject); virtual; (*1 *)
 
-{
+
     procedure FitBounds(Bounds: TGMLatLngBounds);
-    function GetBounds: TGMLatLngBounds;
+{    function GetBounds: TGMLatLngBounds;
     function GetCenter: TGMLatLng;
     function GetHeading: Real;
     function GetMapTypeId: TGMMapTypeId;
@@ -586,6 +629,10 @@ type
     property GoogleAPIKey: string read FGoogleAPIKey write SetGoogleAPIKey;
     // @include(..\docs\GMMap.TGMCustomGMMap.IntervalEvents.txt)
     property IntervalEvents: Integer read FIntervalEvents write SetIntervalEvents default 200;
+    // @include(..\docs\GMMap.TGMCustomGMMap.SignedIn.txt)
+    property SignedIn: Boolean read FSignedIn write SetSignedIn default False;
+    // @include(..\docs\GMMap.TGMCustomGMMap.APILang.txt)
+    property APILang: TGMAPILang read FAPILang write SetAPILang default lEnglish;
 
     // @include(..\docs\GMMap.TGMCustomGMMap.OnActiveChange.txt)
     property OnActiveChange: TNotifyEvent read FOnActiveChange write FOnActiveChange;
@@ -594,11 +641,17 @@ type
   public
     // @include(..\docs\GMMap.TGMCustomGMMap.Create.txt)
     constructor Create(AOwner: TComponent); override;
+
+    // @include(..\docs\GMClasses.TGMComponent.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
   end;
 
 implementation
 
 uses
+  {$IFDEF DELPHI2010}
+  System.IOUtils,
+  {$ENDIF}
   {$IFDEF DELPHIXE2}
   System.Types,
   {$ELSE}
@@ -621,6 +674,8 @@ begin
     Draggable := TGMCustomMapOptions(Source).Draggable;
     DraggableCursor := TGMCustomMapOptions(Source).DraggableCursor;
     DraggingCursor := TGMCustomMapOptions(Source).DraggingCursor;
+    FullScreenControl := TGMCustomMapOptions(Source).FullScreenControl;
+    FullScreenControlOptions.Assign(TGMCustomMapOptions(Source).FullScreenControlOptions);
     Heading := TGMCustomMapOptions(Source).Heading;
     KeyboardShortcuts := TGMCustomMapOptions(Source).KeyboardShortcuts;
     MapMaker := TGMCustomMapOptions(Source).MapMaker;
@@ -659,6 +714,8 @@ begin
   FDraggable := True;
   FDraggableCursor := '';
   FDraggingCursor := '';
+  FFullScreenControl := True;
+  FFullScreenControlOptions := TGMFullScreenControlOptions.Create(Self);
   FHeading := 0;
   FKeyboardShortcuts := True;
   FMapMaker := False;
@@ -689,6 +746,7 @@ end;
 destructor TGMCustomMapOptions.Destroy;
 begin
   if Assigned(FCenter) then FreeAndNil(FCenter);
+  if Assigned(FFullScreenControlOptions) then FreeAndNil(FFullScreenControlOptions);
   if Assigned(FMapTypeControlOptions) then FreeAndNil(FMapTypeControlOptions);
   if Assigned(FOverviewMapControlOptions) then FreeAndNil(FOverviewMapControlOptions);
   if Assigned(FPanControlOptions) then FreeAndNil(FPanControlOptions);
@@ -707,7 +765,7 @@ end;
 
 function TGMCustomMapOptions.PropToString: string;
 const
-  Str = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
+  Str = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
 begin
   Result := inherited PropToString;
   if Result <> '' then Result := Result + ',';
@@ -719,6 +777,8 @@ begin
                          LowerCase(TGMTransform.GMBoolToStr(FDraggable, True)),
                          QuotedStr(FDraggableCursor),
                          QuotedStr(FDraggingCursor),
+                         LowerCase(TGMTransform.GMBoolToStr(FFullScreenControl, True)),
+                         FFullScreenControlOptions.PropToString,
                          IntToStr(FHeading),
                          LowerCase(TGMTransform.GMBoolToStr(FKeyboardShortcuts, True)),
                          LowerCase(TGMTransform.GMBoolToStr(FMapMaker, True)),
@@ -784,6 +844,14 @@ begin
   if FDraggingCursor = Value then Exit;
 
   FDraggingCursor := Value;
+  ControlChanges;
+end;
+
+procedure TGMCustomMapOptions.SetFullScreenControl(const Value: Boolean);
+begin
+  if FFullScreenControl = Value then Exit;
+
+  FFullScreenControl := Value;
   ControlChanges;
 end;
 
@@ -1359,19 +1427,43 @@ end;
 
 { TGMCustomGMMap }
 
+procedure TGMCustomGMMap.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMCustomGMMap then
+  begin
+    Active := TGMCustomGMMap(Source).Active;
+    GoogleAPIVer := TGMCustomGMMap(Source).GoogleAPIVer;
+    GoogleAPIKey := TGMCustomGMMap(Source).GoogleAPIKey;
+    IntervalEvents := TGMCustomGMMap(Source).IntervalEvents;
+    SignedIn := TGMCustomGMMap(Source).SignedIn;
+    APILang := TGMCustomGMMap(Source).APILang;
+  end;
+end;
+
 constructor TGMCustomGMMap.Create(AOwner: TComponent);
 begin
   inherited;
 
+  FActive := False;
+  FGoogleAPIKey := '';
   FGoogleAPIVer := api323;
   FIntervalEvents := 200;
+  FSignedIn := False;
+  FAPILang := lEnglish;
+end;
+
+procedure TGMCustomGMMap.FitBounds(Bounds: TGMLatLngBounds);
+begin
+  Bounds.PropToString
 end;
 
 function TGMCustomGMMap.GetBaseHTMLCode: string;
 var
   List: TStringList;
   Stream: TResourceStream;
-  Ver: string;
+  StrTmp: string;
 begin
   if not Assigned(FWebBrowser) then
     raise EGMUnassignedObject.Create(['WebBrowser'], Language); // Object %s unassigned.
@@ -1383,11 +1475,30 @@ begin
     try
       Stream := TResourceStream.Create(HInstance, ct_RES_MAPA_CODE, RT_RCDATA);
       List.LoadFromStream(Stream);
-      Result := List.Text;
-      Result := StringReplace(Result, ct_API_KEY, FGoogleAPIKey, []);
-      if FGoogleAPIVer = apiNewest then Ver := '3.x'
-      else Ver := TGMTransform.GoogleAPIVerToStr(FGoogleAPIVer);
-      Result := StringReplace(Result, ct_API_VER, Ver, []);
+
+      // replaces API_KEY variable
+      List.Text := StringReplace(List.Text, ct_API_KEY, FGoogleAPIKey, []);
+
+      // replaces API_VER variable
+      StrTmp := TGMTransform.GoogleAPIVerToStr(FGoogleAPIVer);
+      List.Text := StringReplace(List.Text, ct_API_VER, StrTmp, []);
+
+      // replaces API_SIGNED variable
+      StrTmp := LowerCase(TGMTransform.GMBoolToStr(FSignedIn, True));
+      List.Text := StringReplace(List.Text, ct_API_SIGNED, StrTmp, []);
+
+      // replaces API_LAN variable
+      StrTmp := LowerCase(TGMTransform.APILangToStr(FAPILang));
+      List.Text := StringReplace(List.Text, ct_API_LAN, StrTmp, []);
+
+      {$IFDEF DELPHI2010}
+      StrTmp := IncludeTrailingPathDelimiter(TPath.GetTempPath) + ct_FILE_NAME;
+      {$ELSE}
+      StrTmp := IncludeTrailingPathDelimiter(GetTempPath) + ct_FILE_NAME;
+      {$ENDIF}
+      List.SaveToFile(StrTmp);
+
+      Result := StrTmp;
     finally
       if Assigned(Stream) then FreeAndNil(Stream);
       if Assigned(List) then FreeAndNil(List);
@@ -1411,23 +1522,32 @@ begin
   if csDesigning in ComponentState then Exit;
 
   if not Assigned(FWebBrowser) then Exit;
-    //raise EGMUnassignedObject.Create(['WebBrowser'], Language); // Object %s unassigned.
 
   if FActive then
     LoadMap
   else
     LoadBlankPage;
 
-  //SetEnableTimer(FActive);
+  //SetEnableTimer(FActive); (*1 *)
 
   if Assigned(FOnActiveChange) then FOnActiveChange(Self);
+end;
+
+procedure TGMCustomGMMap.SetAPILang(const Value: TGMAPILang);
+begin
+  if FAPILang = Value then Exit;
+
+  if FActive and not (csDesigning in ComponentState) and not (csLoading in ComponentState) then
+    raise EGMMapIsActive.Create(Language); // The map is active. Please, deactivate it before change this property.
+
+  FAPILang := Value;
 end;
 
 procedure TGMCustomGMMap.SetGoogleAPIKey(const Value: string);
 begin
   if FGoogleAPIKey = Value then Exit;
 
-  if FActive then
+  if FActive and not (csDesigning in ComponentState) and not (csLoading in ComponentState) then
     raise EGMMapIsActive.Create(Language); // The map is active. Please, deactivate it before change this property.
 
   FGoogleAPIKey := Value;
@@ -1437,7 +1557,7 @@ procedure TGMCustomGMMap.SetGoogleAPIVer(const Value: TGoogleAPIVer);
 begin
   if FGoogleAPIVer = Value then Exit;
 
-  if FActive then
+  if FActive and not (csDesigning in ComponentState) and not (csLoading in ComponentState) then
     raise EGMMapIsActive.Create(Language); // The map is active. Please, deactivate it before change this property.
 
   FGoogleAPIVer := Value;
@@ -1453,6 +1573,16 @@ begin
   if csDesigning in ComponentState then Exit;
 
   if Assigned(FOnIntervalEventsChange) then FOnIntervalEventsChange(Self);
+end;
+
+procedure TGMCustomGMMap.SetSignedIn(const Value: Boolean);
+begin
+  if FSignedIn = Value then Exit;
+
+  if FActive and not (csDesigning in ComponentState) and not (csLoading in ComponentState) then
+    raise EGMMapIsActive.Create(Language); // The map is active. Please, deactivate it before change this property.
+
+  FSignedIn := Value;
 end;
 
 { TGMZoomControlOptions }
@@ -1521,6 +1651,8 @@ begin
     DisableDefaultUI := TGMStreetViewPanoramaOptions(Source).DisableDefaultUI;
     DisableDoubleClickZoom := TGMStreetViewPanoramaOptions(Source).DisableDoubleClickZoom;
     EnableCloseButton := TGMStreetViewPanoramaOptions(Source).EnableCloseButton;
+    FullScreenControl := TGMStreetViewPanoramaOptions(Source).FullScreenControl;
+    FullScreenControlOptions.Assign(TGMStreetViewPanoramaOptions(Source).FullScreenControlOptions);
     ImageDateControl := TGMStreetViewPanoramaOptions(Source).ImageDateControl;
     LinksControl := TGMStreetViewPanoramaOptions(Source).LinksControl;
     PanControl := TGMStreetViewPanoramaOptions(Source).PanControl;
@@ -1543,6 +1675,8 @@ begin
   FDisableDefaultUI := False;
   FDisableDoubleClickZoom := False;
   FEnableCloseButton := True;
+  FFullScreenControl := True;
+  FFullScreenControlOptions := TGMFullScreenControlOptions.Create(Self);
   FImageDateControl := False;
   FLinksControl := False;
   FPanControl := True;
@@ -1557,6 +1691,7 @@ end;
 destructor TGMStreetViewPanoramaOptions.Destroy;
 begin
   if Assigned(FAddressControlOptions) then FreeAndNil(FAddressControlOptions);
+  if Assigned(FFullScreenControlOptions) then FreeAndNil(FFullScreenControlOptions);
   if Assigned(FPanControlOptions) then FreeAndNil(FPanControlOptions);
   if Assigned(FPov) then FreeAndNil(FPov);
   if Assigned(FZoomControlOptions) then FreeAndNil(FZoomControlOptions);
@@ -1571,7 +1706,7 @@ end;
 
 function TGMStreetViewPanoramaOptions.PropToString: string;
 const
-  Str = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
+  Str = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
 begin
   Result := inherited PropToString;
   if Result <> '' then Result := Result + ',';
@@ -1583,6 +1718,8 @@ begin
                          LowerCase(TGMTransform.GMBoolToStr(FDisableDefaultUI, True)),
                          LowerCase(TGMTransform.GMBoolToStr(FDisableDoubleClickZoom, True)),
                          LowerCase(TGMTransform.GMBoolToStr(FEnableCloseButton, True)),
+                         LowerCase(TGMTransform.GMBoolToStr(FFullScreenControl, True)),
+                         FFullScreenControlOptions.PropToString,
                          LowerCase(TGMTransform.GMBoolToStr(FImageDateControl, True)),
                          LowerCase(TGMTransform.GMBoolToStr(FLinksControl, True)),
                          LowerCase(TGMTransform.GMBoolToStr(FPanControl, True)),
@@ -1635,6 +1772,15 @@ begin
   if FEnableCloseButton = Value then Exit;
 
   FEnableCloseButton := Value;
+  ControlChanges;
+end;
+
+procedure TGMStreetViewPanoramaOptions.SetFullScreenControl(
+  const Value: Boolean);
+begin
+  if FFullScreenControl = Value then Exit;
+
+  FFullScreenControl := Value;
   ControlChanges;
 end;
 
@@ -1784,6 +1930,48 @@ begin
   if FPitch < -90 then FPitch := -90;
   if FPitch > 90 then FPitch := 90;
 
+  ControlChanges;
+end;
+
+{ TGMFullScreenControlOptions }
+
+procedure TGMFullScreenControlOptions.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMFullScreenControlOptions then
+  begin
+    Position := TGMFullScreenControlOptions(Source).Position;
+  end;
+end;
+
+constructor TGMFullScreenControlOptions.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FPosition := cpRIGHT_TOP;
+end;
+
+function TGMFullScreenControlOptions.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference#FullscreenControlOptions';
+end;
+
+function TGMFullScreenControlOptions.PropToString: string;
+const
+  Str = '%s';
+begin
+  Result := Format(Str, [
+                         QuotedStr(TGMTransform.PositionToStr(FPosition))
+                        ]);
+end;
+
+procedure TGMFullScreenControlOptions.SetPosition(
+  const Value: TGMControlPosition);
+begin
+  if FPosition = Value then Exit;
+
+  FPosition := Value;
   ControlChanges;
 end;
 

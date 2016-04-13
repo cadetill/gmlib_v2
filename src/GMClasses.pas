@@ -339,6 +339,8 @@ type
 
     // @include(..\docs\GMClasses.TGMTransform.GoogleAPIVerToStr.txt)
     class function GoogleAPIVerToStr(GoogleAPIVer: TGoogleAPIVer): string; static;
+    // @include(..\docs\GMClasses.TGMTransform.APILangToStr.txt)
+    class function APILangToStr(APILang: TGMAPILang): string; static;
     // @include(..\docs\GMClasses.TGMTransform.VisibilityToStr.txt)
     class function VisibilityToStr(Visibility: TGMVisibility): string; static;
     // @include(..\docs\GMClasses.TGMTransform.StrToVisibility.txt)
@@ -451,6 +453,68 @@ end;
 
 { TGMTransform }
 
+class function TGMTransform.APILangToStr(APILang: TGMAPILang): string;
+begin
+  Result := GetEnumName(TypeInfo(TGMAPILang), Ord(APILang));
+
+  case APILang of
+    lArabic: Result := 'ar';
+    lBulgarian: Result := 'bg';
+    lBengali: Result := 'bn';
+    lCatalan: Result := 'ca';
+    lCzech: Result := 'cs';
+    lDanish: Result := 'da';
+    lGerman: Result := 'de';
+    lGreek: Result := 'el';
+    lEnglish: Result := 'en';
+    lEnglish_Aust: Result := 'en-AU';
+    lEnglish_GB: Result := 'en-GB';
+    lSpanish: Result := 'es';
+    lBasque: Result := 'eu';
+    lFarsi: Result := 'fa';
+    lFinnish: Result := 'fi';
+    lFilipino: Result := 'fil';
+    lFrench: Result := 'fr';
+    lGalician: Result := 'gl';
+    lGujarati: Result := 'gu';
+    lHindi: Result := 'hi';
+    lCroatian: Result := 'hr';
+    lHungarian: Result := 'hu';
+    lIndonesian: Result := 'id';
+    lItalian: Result := 'it';
+    lHebrew: Result := 'iw';
+    lJapanese: Result := 'ja';
+    lKannada: Result := 'kn';
+    lKorean: Result := 'ko';
+    lLithuanian: Result := 'lt';
+    lLatvian: Result := 'lv';
+    lMalayalam: Result := 'ml';
+    lMarathi: Result := 'mr';
+    lDutch: Result := 'nl';
+    lNorwegian: Result := 'no';
+    lPolish: Result := 'pl';
+    lPortuguese: Result := 'pt';
+    lPortuguese_Br: Result := 'pt-BR';
+    lPortuguese_Ptg: Result := 'pt-PT';
+    lRomanian: Result := 'ro';
+    lRussian: Result := 'ru';
+    lSlovak: Result := 'sk';
+    lSlovenian: Result := 'sl';
+    lSerbian: Result := 'sr';
+    lSwedish: Result := 'sv';
+    lTamil: Result := 'ta';
+    lTelugu: Result := 'te';
+    lThai: Result := 'th';
+    lTagalog: Result := 'tl';
+    lTurkish: Result := 'tr';
+    lUkrainian: Result := 'uk';
+    lVietnamese: Result := 'vi';
+    lChinese_Simp: Result := 'zh-CN';
+    lChinese_Trad: Result := 'zh-TW';
+    lUndefined: Result := '';
+  end;
+end;
+
 class function TGMTransform.GMBoolToStr(B, UseBoolStrs: Boolean): string;
 const
   cSimpleBoolStrs: array [boolean] of string = ('0', '-1');
@@ -467,7 +531,13 @@ end;
 class function TGMTransform.GoogleAPIVerToStr(
   GoogleAPIVer: TGoogleAPIVer): string;
 begin
-  Result := GetEnumName(TypeInfo(TGoogleAPIVer), Ord(GoogleAPIVer));
+  case GoogleAPIVer of
+    api321: Result := '3.21';
+    api322: Result := '3.22';
+    api323: Result := '3.23';
+    api324: Result := '3.24';
+    apiNewest: Result := '3.x';
+  end;
 end;
 
 class function TGMTransform.MapTypeControlStyleToStr(

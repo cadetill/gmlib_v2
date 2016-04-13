@@ -147,6 +147,10 @@ type
     property DraggableCursor;
     // @include(..\..\docs\GMMap.VCL.TGMMapOptions.DraggingCursor.txt)
     property DraggingCursor;
+    // @include(..\..\docs\GMMap.TGMCustomMapOptions.FullScreenControl.txt)
+    property FullScreenControl;
+    // @include(..\..\docs\GMMap.TGMCustomMapOptions.FullScreenControlOptions.txt)
+    property FullScreenControlOptions;
     // @include(..\..\docs\GMMap.VCL.TGMMapOptions.Heading.txt)
     property Heading;
     // @include(..\..\docs\GMMap.VCL.TGMMapOptions.KeyboardShortcuts.txt)
@@ -236,6 +240,8 @@ type
     function GetWebBrowser: TWebBrowser;
     procedure SetWebBrowser(const Value: TWebBrowser); (*1 *)
   protected
+    // @include(..\docs\GMMap.TGMCustomGMMap.GetTempPath.txt)
+    function GetTempPath: string; override;
     // @include(..\..\docs\GMMap.TGMCustomGMMap.SetIntervalTimer.txt)
     procedure SetIntervalTimer(Interval: Integer); override;
     // @include(..\..\docs\GMMap.TGMCustomGMMap.LoadMap.txt)
@@ -246,6 +252,9 @@ type
     procedure ExecuteJavaScript(NameFunct, Params: string); override; (*1 *)
     // @include(..\..\docs\GMMap.VCL.TGMMap.DoMap.txt)
     procedure DoMap;
+
+    // @include(..\docs\GMMap.TGMCustomGMMap.SignedIn.txt)
+    property SignedIn;
   public
     // @include(..\..\docs\GMMap.VCL.TGMMap.Create.txt)
     constructor Create(AOwner: TComponent); override;
@@ -271,6 +280,8 @@ type
     property GoogleAPIKey;
     // @include(..\..\docs\GMMap.VCL.TGMMap.IntervalEvents.txt)
     property IntervalEvents;
+    // @include(..\docs\GMMap.TGMCustomGMMap.APILang.txt)
+    property APILang;
     // @include(..\..\docs\GMMap.VCL.TGMMap.WebBrowser.txt)
     property WebBrowser: TWebBrowser read GetWebBrowser write SetWebBrowser;
   end;
@@ -280,9 +291,9 @@ implementation
 uses
   MSHTML,
   {$IFDEF DELPHIXE2}
-  System.SysUtils, Winapi.ActiveX, system.DateUtils,
+  System.SysUtils, Winapi.ActiveX, system.DateUtils, Winapi.Windows,
   {$ELSE}
-  SysUtils, ActiveX, DateUtils,
+  SysUtils, ActiveX, DateUtils, Windows,
   {$ENDIF}
 
   GMClasses.VCL;
@@ -391,9 +402,10 @@ begin
   if Assigned(OldDocumentComplete) then
     OldDocumentComplete(ASender, pDisp, URL);
 
-  if (pDisp = CurDispatch) then  // si son iguales, la página se ha cargado
+  if (pDisp = CurDispatch) then  // if equals, page loaded
   begin
     FDocLoaded := True;
+    DoMap;
     CurDispatch := nil;
   end;
 end;
@@ -447,10 +459,7 @@ begin
     OldNavigateComplete2(ASender, pDisp, URL);
 
   if CurDispatch = nil then
-  begin
-    FDocLoaded := True; (*1 *)
     CurDispatch := pDisp;
-  end;
 end;
 
 constructor TGMMap.Create(AOwner: TComponent);
@@ -478,6 +487,24 @@ begin
   Result := 'https://developers.google.com/maps/documentation/javascript/reference#Map';
 end;
 
+function TGMMap.GetTempPath: string;
+var
+  Len: Integer;
+begin
+  SetLastError(ERROR_SUCCESS);
+
+  SetLength(Result, MAX_PATH);
+  Len := Winapi.Windows.GetTempPath(MAX_PATH, PChar(Result));
+  if Len <> 0 then
+  begin
+    Len := GetLongPathName(PChar(Result), nil, 0);
+    GetLongPathName(PChar(Result), PChar(Result), Len);
+    SetLength(Result, Len - 1);
+  end
+  else
+    Result := '';
+end;
+
 function TGMMap.GetWebBrowser: TWebBrowser;
 begin
   Result := nil;
@@ -496,11 +523,6 @@ begin
 end;
 
 procedure TGMMap.LoadMap;
-var
-  StringStream: TStringStream;
-  PersistStreamInit: IPersistStreamInit;
-  StreamAdapter: IStream;
-  EndTime: TDateTime;
 begin
   inherited;
 
@@ -509,36 +531,7 @@ begin
   if not (FWebBrowser is TWebBrowser) then
     raise EGMIncorrectBrowser.Create(Language);  // The browser is not of the desired type.
 
-  // stream with the html web page
-  StringStream := TStringStream.Create(GetBaseHTMLCode);
-  try
-    // if no page is loaded then loaded a blank page
-    if not Assigned(TWebBrowser(FWebBrowser).Document) then LoadBlankPage;
-
-    // access to Document's IPersistStreamInit interface
-    if TWebBrowser(FWebBrowser).Document.QueryInterface(IPersistStreamInit, PersistStreamInit) = S_OK then
-    begin
-      // clear actual data
-      if PersistStreamInit.InitNew = S_OK then
-      begin
-        StreamAdapter:= TStreamAdapter.Create(StringStream);
-        // load web page through IPersistStreamInit
-        PersistStreamInit.Load(StreamAdapter);
-      end;
-    end;
-  finally
-    StringStream.Free;
-  end;
-
-  // wait 500 milliseconds to have time to load map.html
-  EndTime := IncMilliSecond(Now, 500);
-  repeat
-    TGMGenFuncVCL.ProcessMessages;
-  until (Now > EndTime);
-  if not FDocLoaded then
-    raise EGMTimeOut.Create(Language);
-
-  DoMap;
+  TWebBrowser(FWebBrowser).Navigate(GetBaseHTMLCode);
 end;
 
 procedure TGMMap.SetIntervalTimer(Interval: Integer);

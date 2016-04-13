@@ -22,7 +22,16 @@ type
              lnFrench);
 
   // @include(..\docs\GMSets.TGoogleAPIVer.txt)
-  TGoogleAPIVer = (api321, api322, api323, apiNewest);
+  TGoogleAPIVer = (api321, api322, api323, api324, apiNewest);
+
+  // @include(..\docs\GMSets.TGMAPILang.txt)
+  TGMAPILang = (lArabic, lBulgarian, lBengali, lCatalan, lCzech, lDanish, lGerman, lGreek, lEnglish,
+                lEnglish_Aust, lEnglish_GB, lSpanish, lBasque, lFarsi, lFinnish, lFilipino, lFrench,
+                lGalician, lGujarati, lHindi, lCroatian, lHungarian, lIndonesian, lItalian, lHebrew,
+                lJapanese, lKannada, lKorean, lLithuanian, lLatvian, lMalayalam, lMarathi, lDutch,
+                lNorwegian, lPolish, lPortuguese, lPortuguese_Br, lPortuguese_Ptg, lRomanian, lRussian,
+                lSlovak, lSlovenian, lSerbian, lSwedish, lTamil, lTelugu, lThai, lTagalog, lTurkish,
+                lUkrainian, lVietnamese, lChinese_Simp, lChinese_Trad, lUndefined);
 
   // @include(..\docs\GMSets.TGMMapTypeId.txt)
   TGMMapTypeId = (mtHYBRID, mtROADMAP, mtSATELLITE, mtTERRAIN, mtOSM);

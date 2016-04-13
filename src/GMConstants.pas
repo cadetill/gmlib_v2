@@ -16,6 +16,9 @@ const
   ct_RES_MAPA_CODE = 'RES_MAPCODE';
   ct_API_KEY = 'API_KEY';
   ct_API_VER = 'API_VER';
+  ct_API_SIGNED = 'API_SIGNED';
+  ct_API_LAN = 'API_LAN';
+  ct_FILE_NAME = 'mapa.html';
 
 implementation
 
