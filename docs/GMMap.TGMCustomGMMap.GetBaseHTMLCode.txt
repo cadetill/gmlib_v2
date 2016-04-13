@@ -1,6 +1,6 @@
 Returns the HTML code of base map (map.html on gmmapres.res). Internal use only.
 
-@return String with the HTML code
+@return String with the HTML code.
 
 @raises EGMMapIsActive This exception is raised if the resoource of the map can't be load.
 @raises EGMCanLoadResource This exception is raised if the resoource of the map can't be load.

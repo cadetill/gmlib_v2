@@ -1,0 +1,4 @@
+@abstract(When you enable sign-in with the Google Maps JavaScript API, the maps on your site will be tailored to your users.)
+Users who are signed-in to their Google account will be able to save places for later viewing on the web or mobile devices. Places saved from the map can be attributed to your site or app. @br @br
+
+More info at https://developers.google.com/maps/documentation/javascript/signedin
