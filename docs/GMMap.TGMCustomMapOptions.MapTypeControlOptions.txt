@@ -1,1 +1,3 @@
-The initial display options for the Map type control.
+@abstract(The initial display options for the Map type control.)
+
+In order to take effect the change of this property, you must to restart the map.

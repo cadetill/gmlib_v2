@@ -1,1 +1,1 @@
-OnIntervalEventsChange event is fired when IntervalEvents property change.
+OnIntervalEventsChange event is fired when IntervalEvents property changes.

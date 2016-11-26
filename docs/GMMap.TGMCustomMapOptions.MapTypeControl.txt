@@ -1,1 +1,3 @@
-The initial enabled/disabled state of the Map type control.
+@abstract(The initial enabled/disabled state of the Map type control.)
+
+In order to take effect the change of this property, you must to restart the map.

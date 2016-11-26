@@ -1,1 +1,3 @@
-@code(True) if Map Maker tiles should be used instead of regular tiles.
+@abstract(@code(True) if Map Maker tiles should be used instead of regular tiles.)
+
+In order to take effect the change of this property, you must to restart the map.

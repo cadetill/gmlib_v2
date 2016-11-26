@@ -1,0 +1,5 @@
+@abstract(Returns the TGMControlPosition represented by the string Position.)
+
+@param Position string to convert to TGMControlPosition
+
+@return TGMControlPosition that represents the string

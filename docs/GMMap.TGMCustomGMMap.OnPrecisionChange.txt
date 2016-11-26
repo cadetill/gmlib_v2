@@ -1,0 +1,1 @@
+OnPrecisionChange event is fired when Precision property changes.

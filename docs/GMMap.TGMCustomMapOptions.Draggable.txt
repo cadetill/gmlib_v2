@@ -1,1 +1,3 @@
-If @code(false), prevents the map from being dragged.
+@Abastract(If @code(False), prevents the map from being dragged.)
+
+In order to take effect the change of this property, you must to restart the map.

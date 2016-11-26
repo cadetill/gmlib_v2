@@ -1,1 +1,6 @@
-The name or url of the cursor to display when the map is being dragged. This property uses the css cursor attribute to change the icon. As with the css property, you must specify at least one fallback cursor that is not a URL. For example: draggingCursor: 'url(http://www.example.com/icon.png), auto;'.
+@abstract(The name or url of the cursor to display when the map is being dragged.)
+
+This property uses the css cursor attribute to change the icon. As with the css property, you must specify at least one fallback cursor that is not a URL. For example: draggingCursor: 'url(http://www.example.com/icon.png), auto;'. @br@br
+
+In order to take effect the change of this property, you must to restart the map.
+

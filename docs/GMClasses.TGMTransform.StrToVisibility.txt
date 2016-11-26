@@ -1,3 +1,5 @@
 Returns the TGMVisibility represented by the string @code(Visibility).
+
 @param Visibility String to convert to TGMVisibility
+
 @return TGMVisibility that represents the string

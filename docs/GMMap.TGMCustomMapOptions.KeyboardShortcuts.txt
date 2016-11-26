@@ -1,1 +1,3 @@
-If @code(false), prevents the map from being controlled by the keyboard.
+@abstract(If @code(false), prevents the map from being controlled by the keyboard.)
+
+In order to take effect the change of this property, you must to restart the map.

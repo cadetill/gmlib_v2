@@ -1,1 +1,4 @@
-The enabled/disabled state of the Fullscreen control.
+@abstract(The enabled/disabled state of the Fullscreen control.)
+
+In order to take effect the change of this property, you must to restart the map.
+
