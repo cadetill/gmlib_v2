@@ -2,17 +2,17 @@
 <!DOCTYPE html> 
 <html> 
 <head> 
-<meta charset="utf-8" /> 
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no" /> 
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+<meta charset="utf-8"> 
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no"> 
 <style type="text/css"> 
   html { height: 100% } 
   body { height: 100%; margin: 0px; padding: 0px } 
   #map_canvas { height: 100% } 
 </style> 
 
-<script type="text/javascript" src="https://rawgit.com/cadetill/gmlib_v2/master/resources/conversion.js"></script>
-<script type="text/javascript" src="https://rawgit.com/cadetill/gmlib_v2/master/resources/map.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/cadetill/gmlib_v2/master/resources/conversion.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/cadetill/gmlib_v2/master/resources/map.js"></script>
 
 <script language=javascript>
   document.onkeydown = function(){
@@ -36,6 +36,21 @@
   *******************************************************************************/
   var map = null; 
 
+  /******************************************************************************
+     temporal function
+  *******************************************************************************/
+
+  function MapChangeProperty(PropName, Value) {
+	switch (PropName.toLowerCase()) {
+      case 'maptypeid': Value = StrToMapType(Value); map.setOptions({options: {mapTypeId: Value}}); break;
+      case 'zoom': map.setOptions({options: {zoom: Value}}); break;
+	}
+  }
+  
+  function MapChangeCenter(Lat,Lng,NoWrap) {
+    map.setCenter({lat: Lat, lng: Lng, noWrap: NoWrap}); 
+  }
+  
   /******************************************************************************
      Map create
   *******************************************************************************/
@@ -68,7 +83,8 @@
                  /*zoomControlOptions*/zoomControlPosition,zoomControlStyle,
                  backgroundColor,styles
                 ) {
-    if (disableDefaultUI) {
+alert('0');    
+    /*if (disableDefaultUI) {
       fullscreenControl = false;
       mapTypeControl = false;
       overviewMapControl = false;
@@ -78,14 +94,13 @@
       streetViewControl = false;
       zoomControl = false;
     }
-
     mapTypeIds = mapTypeIds.split(";"); 
     for (i = 0; i < mapTypeIds.length; i++){ mapTypeIds[i] = StrToMapType(mapTypeIds[i]) }; 
     fullscreenControlPosition = StrToPosition(fullscreenControlPosition); 
     mapTypePosition = StrToPosition(mapTypePosition); 
     mapTypeStyle = StrToMapTypeControlStyle(mapTypeStyle); 
-    mapTypeId = StrToMapType(mapTypeId);
-    if (maxZoom = 0) maxZoom = null; 
+    */mapTypeId = StrToMapType(mapTypeId);
+    /*if (maxZoom = 0) maxZoom = null; 
     if (minZoom = 0) minZoom = null; 
     panControlPosition = StrToPosition(panControlPosition);  
     rotateControlPosition = StrToPosition(rotateControlPosition);  
@@ -95,11 +110,10 @@
     zoomControlPosition = StrToPosition(zoomControlPosition);  
     zoomControlStyle = StrToZoomControlStyle(zoomControlStyle); 
     styles = StrToStyles(styles);
-    
-    map = new google.maps.Map(document.getElementById('map'), {
-                              backgroundColor: backgroundColor,	
+    */map = new google.maps.Map(document.getElementById('map_canvas'), {
+                              //backgroundColor: backgroundColor,	
                               center: {lat: Lat, lng: Lng, noWrap: NoWrap},
-                              disableDefaultUI: disableDefaultUI,
+                              /*disableDefaultUI: disableDefaultUI,
                               disableDoubleClickZoom: disableDoubleClickZoom,
                               draggable: draggable,
                               draggableCursor: draggableCursor,
@@ -111,8 +125,8 @@
                               mapMaker: mapMaker,
                               mapTypeControl: mapTypeControl,
                               mapTypeControlOptions: {mapTypeIds: mapTypeIds, position: mapTypePosition, style: mapTypeStyle},
-                              mapTypeId: mapTypeId,
-                              maxZoom: maxZoom,
+                              */mapTypeId: mapTypeId,
+                              /*maxZoom: maxZoom,
                               minZoom: minZoom,
                               noClear: noClear,
                               overviewMapControl: overviewMapControl,
@@ -147,10 +161,10 @@
                               streetViewControl: streetViewControl,
                               streetViewControlOptions: {position: streetViewPosition},
                               tilt: tilt,
-                              zoom: zoom,
-                              zoomControl: zoomControl,
+                              */zoom: zoom,
+                              /*zoomControl: zoomControl,
                               zoomControlOptions: {position: zoomControlPosition, style: zoomControlStyle}
-                              });
+                              */});
     
     map.mapTypes.set("OSM", new google.maps.ImageMapType({
                 getTileUrl: function(coord, zoom) {
@@ -205,11 +219,11 @@
     </tr>
   </table>
 
-  <div id="map" style="width:100%; height:100%"></div> 
+  <div id="map_canvas" style="width:100%; height:100%"></div> 
 
-  <script async defer src="https://maps.googleapis.com/maps/api/js?v=API_VER&key=API_KEY&signed_in=API_SIGNED&language=API_LAN"></script>
 <!--
-  <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.23&key=&signed_in=false&language="></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?v=API_VER&key=API_KEY&signed_in=API_SIGNED&language=API_LAN"></script>
 -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?v=3.23&key=&signed_in=false&language="></script>
 </body> 
 </html>
