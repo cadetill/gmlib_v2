@@ -28,7 +28,7 @@ const
       'El objeto (o su propietario) no suportan llamadas JavaScript.',
       'Error ejecutando la función JavaScript %s.'#13#13'Mensaje de error: %s',
       'Objeto %s no asignado.',
-      'El mapa está activo. Desactívelo antes de cambiar esta propiedad.',
+      'El mapa está activo. Debe desactivarlo antes de cambiar esta propiedad.',
       'El navegador no es del tipo esperado.',
       'No se ha podido cargar el recurso del mapa.',
       'Tiempo de espera excedido.',
@@ -44,7 +44,7 @@ const
       'The object (or its owner) does not support JavaScript calls.',
       'An error occurs executing %s JavaScript function.'#13#13'Error message: %s',
       'Unassigned %s object.',
-      'The map is active. Please, deactivate it before change this property.',
+      'The map is active. To change this property you must to deactivate it first.',
       'The browser is not of the desired type.',
       'Can''t load map resource.',
       'A timeout occurred.',
@@ -60,7 +60,7 @@ const
       'L''objet (ou son propriétaire) ne supporte pas appels JavaScript.',
       'Une erreur est survenue a l''exécution de la fonction javascript %s.'#13#13'Message d''erreur: %s',
       'Objet %s non initialisé.',
-      'La carte est active. Désactive cette propriété avant de la changer.',
+      'La carte est active. Tu dois le désactiver avant de changer cette propriété.',
       'Le navigateur n''est pas du type désiré.',
       'Impossible de charger la ressource de la carte.',
       'Un délai d''attente est produite.',
@@ -91,8 +91,7 @@ var
 begin
   Result := '';
 
-  Idx := 0;
-  while Idx <= MaxArray do
+  for Idx := 0 to MaxArray do
     if SameText(Text, Lang_EN[Idx]) then
     begin
       Result := GetTranslateText(Idx, Args, Lang);

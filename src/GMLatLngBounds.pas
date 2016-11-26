@@ -36,8 +36,8 @@ type
     // @exclude
     function GetAPIUrl: string; override;
 
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.PropertyChanged.txt)
-    procedure PropertyChanged(Prop: TPersistent);
+    // @include(..\docs\GMClasses.IGMControlChanges.PropertyChanged.txt)
+    procedure PropertyChanged(Prop: TPersistent; PropName: string);
   public
     // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.Create_1.txt)
     constructor Create(SWLat: Real = 0; SWLng: Real = 0; NELat: Real = 0; NELng: Real = 0; Lang: TGMLang = lnEnglish); reintroduce; overload; virtual;
@@ -273,9 +273,9 @@ begin
   Result := FNE.IsEqual(Other.NE) and FSW.IsEqual(Other.SW);
 end;
 
-procedure TGMLatLngBounds.PropertyChanged(Prop: TPersistent);
+procedure TGMLatLngBounds.PropertyChanged(Prop: TPersistent; PropName: string);
 begin
-  ControlChanges;
+  ControlChanges(PropName);
 end;
 
 function TGMLatLngBounds.PropToString: string;

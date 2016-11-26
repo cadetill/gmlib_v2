@@ -135,33 +135,33 @@ type
     // @include(..\..\docs\GMMap.VCL.TGMMapOptions.BackgroundColor.txt)
     property BackgroundColor: TColor read FBackgroundColor write SetBackgroundColor default clBlack;
 
-    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.Center.txt)
+    // @include(..\..\docs\GMMap.TGMCustomMapOptions.Center.txt)
     property Center;
-    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.DisableDefaultUI.txt)
+    // @include(..\..\docs\GMMap.TGMCustomMapOptions.DisableDefaultUI.txt)
     property DisableDefaultUI;
-    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.DisableDoubleClickZoom.txt)
+    // @include(..\..\docs\GMMap.TGMCustomMapOptions.DisableDoubleClickZoom.txt)
     property DisableDoubleClickZoom;
-    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.Draggable.txt)
+    // @include(..\..\docs\GMMap.TGMCustomMapOptions.Draggable.txt)
     property Draggable;
-    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.DraggableCursor.txt)
+    // @include(..\..\docs\GMMap.TGMCustomMapOptions.DraggableCursor.txt)
     property DraggableCursor;
-    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.DraggingCursor.txt)
+    // @include(..\..\docs\GMMap.TGMCustomMapOptions.DraggingCursor.txt)
     property DraggingCursor;
     // @include(..\..\docs\GMMap.TGMCustomMapOptions.FullScreenControl.txt)
     property FullScreenControl;
     // @include(..\..\docs\GMMap.TGMCustomMapOptions.FullScreenControlOptions.txt)
     property FullScreenControlOptions;
-    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.Heading.txt)
+    // @include(..\..\docs\GMMap.TGMCustomMapOptions.Heading.txt)
     property Heading;
-    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.KeyboardShortcuts.txt)
+    // @include(..\..\docs\GMMap.TGMCustomMapOptions.KeyboardShortcuts.txt)
     property KeyboardShortcuts;
-    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.MapMaker.txt)
+    // @include(..\..\docs\GMMap.TGMCustomMapOptions.MapMaker.txt)
     property MapMaker;
-    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.MapTypeControl.txt)
+    // @include(..\..\docs\GMMap.TGMCustomMapOptions.MapTypeControl.txt)
     property MapTypeControl;
-    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.MapTypeControlOptions.txt)
+    // @include(..\..\docs\GMMap.TGMCustomMapOptions.MapTypeControlOptions.txt)
     property MapTypeControlOptions;
-    // @include(..\..\docs\GMMap.VCL.TGMMapOptions.MapTypeId.txt)
+    // @include(..\..\docs\GMMap.TGMCustomMapOptions.MapTypeId.txt)
     property MapTypeId;
     // @include(..\..\docs\GMMap.VCL.TGMMapOptions.MaxZoom.txt)
     property MaxZoom;
@@ -240,7 +240,7 @@ type
     function GetWebBrowser: TWebBrowser;
     procedure SetWebBrowser(const Value: TWebBrowser); (*1 *)
   protected
-    // @include(..\docs\GMMap.TGMCustomGMMap.GetTempPath.txt)
+    // @include(..\..\docs\GMMap.TGMCustomGMMap.GetTempPath.txt)
     function GetTempPath: string; override;
     // @include(..\..\docs\GMMap.TGMCustomGMMap.SetIntervalTimer.txt)
     procedure SetIntervalTimer(Interval: Integer); override;
@@ -253,7 +253,7 @@ type
     // @include(..\..\docs\GMMap.VCL.TGMMap.DoMap.txt)
     procedure DoMap;
 
-    // @include(..\docs\GMMap.TGMCustomGMMap.SignedIn.txt)
+    // @include(..\..\docs\GMMap.TGMCustomGMMap.SignedIn.txt)
     property SignedIn;
   public
     // @include(..\..\docs\GMMap.VCL.TGMMap.Create.txt)
@@ -280,10 +280,21 @@ type
     property GoogleAPIKey;
     // @include(..\..\docs\GMMap.VCL.TGMMap.IntervalEvents.txt)
     property IntervalEvents;
-    // @include(..\docs\GMMap.TGMCustomGMMap.APILang.txt)
+    // @include(..\..\docs\GMMap.TGMCustomGMMap.APILang.txt)
     property APILang;
+    // @include(..\..\docs\GMMap.TGMCustomGMMap.Precision.txt)
+    property Precision;
     // @include(..\..\docs\GMMap.VCL.TGMMap.WebBrowser.txt)
     property WebBrowser: TWebBrowser read GetWebBrowser write SetWebBrowser;
+
+    // @include(..\..\docs\GMMap.TGMCustomGMMap.OnActiveChange.txt)
+    property OnActiveChange;
+    // @include(..\..\docs\GMMap.TGMCustomGMMap.OnIntervalEventsChange.txt)
+    property OnIntervalEventsChange;
+    // @include(..\..\docs\GMMap.TGMCustomGMMap.OnPrecisionChange.txt)
+    property OnPrecisionChange;
+    // @include(..\..\docs\GMMap.TGMCustomGMMap.OnPropertyChanges.txt)
+    property OnPropertyChanges;
   end;
 
 implementation
@@ -338,7 +349,7 @@ begin
   if FBackgroundColor = Value then Exit;
 
   FBackgroundColor := Value;
-  ControlChanges;
+  ControlChanges('BackgroundColor');
 end;
 
 { TGMMapTypeStyler }
@@ -361,7 +372,7 @@ begin
   if FColor = Value then Exit;
 
   FColor := Value;
-  ControlChanges;
+  ControlChanges('Color');
 end;
 
 procedure TGMMapTypeStyler.SetHue(const Value: TColor);
@@ -369,7 +380,7 @@ begin
   if FHue = Value then Exit;
 
   FHue := Value;
-  ControlChanges;
+  ControlChanges('Hue');
 end;
 
 { TGMMap }
@@ -405,7 +416,7 @@ begin
   if (pDisp = CurDispatch) then  // if equals, page loaded
   begin
     FDocLoaded := True;
-    DoMap;
+    if Active then DoMap;
     CurDispatch := nil;
   end;
 end;

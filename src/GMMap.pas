@@ -393,9 +393,9 @@ type
     property AddressControlOptions: TGMStreetViewAddressControlOptions read FAddressControlOptions write FAddressControlOptions;
     // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.ClickToGo.txt)
     property ClickToGo: Boolean read FClickToGo write SetClickToGo default True;
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.DisableDefaultUI.txt)
+    // @include(..\docs\GMMap.TGMCustomMapOptions.DisableDefaultUI.txt)
     property DisableDefaultUI: Boolean read FDisableDefaultUI write SetDisableDefaultUI default False;
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.DisableDoubleClickZoom.txt)
+    // @include(..\docs\GMMap.TGMCustomMapOptions.DisableDoubleClickZoom.txt)
     property DisableDoubleClickZoom: Boolean read FDisableDoubleClickZoom write SetDisableDoubleClickZoom default False;
     // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.EnableCloseButton.txt)
     property EnableCloseButton: Boolean read FEnableCloseButton write SetEnableCloseButton default True;
@@ -425,7 +425,7 @@ type
 
   { -------------------------------------------------------------------------- }
   // @include(..\docs\GMMap.TGMCustomMapOptions.txt)
-  TGMCustomMapOptions = class(TGMPersistentStr)
+  TGMCustomMapOptions = class(TGMPersistentStr, IGMControlChanges)
   private
     FTilt: Integer;
     FScrollwheel: Boolean;
@@ -484,6 +484,9 @@ type
     procedure SetZoomControl(const Value: Boolean);
     procedure SetFullScreenControl(const Value: Boolean);
   protected
+    // @include(..\docs\GMClasses.IGMControlChanges.PropertyChanged.txt)
+    procedure PropertyChanged(Prop: TPersistent; PropName: string);
+
     // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
 
@@ -568,7 +571,7 @@ type
 
   { -------------------------------------------------------------------------- }
   // @include(..\docs\GMMap.TGMCustomGMMap.txt)
-  TGMCustomGMMap = class(TGMComponent, IGMExecJS)
+  TGMCustomGMMap = class(TGMComponent, IGMExecJS, IGMControlChanges)
   private
     FGoogleAPIVer: TGoogleAPIVer;
     FActive: Boolean;
@@ -578,15 +581,22 @@ type
     FOnIntervalEventsChange: TNotifyEvent;
     FSignedIn: Boolean;
     FAPILang: TGMAPILang;
+    FPrecision: Integer;
+    FOnPrecisionChange: TNotifyEvent;
+    FOnPropertyChanges: TPropertyChanges;
     procedure SetGoogleAPIVer(const Value: TGoogleAPIVer);
     procedure SetActive(const Value: Boolean); {*1 *}
     procedure SetGoogleAPIKey(const Value: string);
     procedure SetIntervalEvents(const Value: Integer);
     procedure SetSignedIn(const Value: Boolean);
     procedure SetAPILang(const Value: TGMAPILang);
+    procedure SetPrecision(const Value: Integer);
   protected
     // @include(..\docs\GMMap.TGMCustomGMMap.FWebBrowser.txt)
     FWebBrowser: TComponent;
+
+    // @include(..\docs\GMClasses.IGMControlChanges.PropertyChanged.txt)
+    procedure PropertyChanged(Prop: TPersistent; PropName: string);
 
     // @include(..\docs\GMMap.TGMCustomGMMap.GetTempPath.txt)
     function GetTempPath: string; virtual; abstract;
@@ -604,7 +614,6 @@ type
     procedure OnTimer(Sender: TObject); virtual; (*1 *)
 
 
-    procedure FitBounds(Bounds: TGMLatLngBounds);
 {    function GetBounds: TGMLatLngBounds;
     function GetCenter: TGMLatLng;
     function GetHeading: Real;
@@ -633,17 +642,26 @@ type
     property SignedIn: Boolean read FSignedIn write SetSignedIn default False;
     // @include(..\docs\GMMap.TGMCustomGMMap.APILang.txt)
     property APILang: TGMAPILang read FAPILang write SetAPILang default lEnglish;
+    // @include(..\docs\GMMap.TGMCustomGMMap.Precision.txt)
+    property Precision: Integer read FPrecision write SetPrecision default 0;
 
     // @include(..\docs\GMMap.TGMCustomGMMap.OnActiveChange.txt)
     property OnActiveChange: TNotifyEvent read FOnActiveChange write FOnActiveChange;
     // @include(..\docs\GMMap.TGMCustomGMMap.OnIntervalEventsChange.txt)
     property OnIntervalEventsChange: TNotifyEvent read FOnIntervalEventsChange write FOnIntervalEventsChange;
+    // @include(..\docs\GMMap.TGMCustomGMMap.OnPrecisionChange.txt)
+    property OnPrecisionChange: TNotifyEvent read FOnPrecisionChange write FOnPrecisionChange;
+    // @include(..\docs\GMMap.TGMCustomGMMap.OnPropertyChanges.txt)
+    property OnPropertyChanges: TPropertyChanges read FOnPropertyChanges write FOnPropertyChanges;
   public
     // @include(..\docs\GMMap.TGMCustomGMMap.Create.txt)
     constructor Create(AOwner: TComponent); override;
 
     // @include(..\docs\GMClasses.TGMComponent.Assign.txt)
     procedure Assign(Source: TPersistent); override;
+
+    // @include(..\docs\GMMap.TGMCustomGMMap.FitBounds.txt)
+    procedure FitBounds(Bounds: TGMLatLngBounds);
   end;
 
 implementation
@@ -708,7 +726,7 @@ constructor TGMCustomMapOptions.Create(AOwner: TPersistent);
 begin
   inherited;
 
-  FCenter := TGMLatLng.Create(0, 0, False, GetOwnerLang);
+  FCenter := TGMLatLng.Create(Self, 0, 0, False);
   FDisableDefaultUI := False;
   FDisableDoubleClickZoom := True;
   FDraggable := True;
@@ -763,6 +781,22 @@ begin
   Result := 'https://developers.google.com/maps/documentation/javascript/reference#MapOptions';
 end;
 
+procedure TGMCustomMapOptions.PropertyChanged(Prop: TPersistent;
+  PropName: string);
+var
+  Intf: IGMControlChanges;
+begin
+  if (GetOwner <> nil) and Supports(GetOwner, IGMControlChanges, Intf) then
+  begin
+    if Assigned(Prop) then
+      Intf.PropertyChanged(Prop, PropName)
+    else
+      Intf.PropertyChanged(Self, PropName);
+  end
+  else
+    if Assigned(OnChange) then OnChange(Self);
+end;
+
 function TGMCustomMapOptions.PropToString: string;
 const
   Str = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
@@ -812,7 +846,7 @@ begin
   if FDisableDefaultUI = Value then Exit;
 
   FDisableDefaultUI := Value;
-  ControlChanges;
+  ControlChanges('DisableDefaultUI');
 end;
 
 procedure TGMCustomMapOptions.SetDisableDoubleClickZoom(const Value: Boolean);
@@ -820,7 +854,7 @@ begin
   if FDisableDoubleClickZoom = Value then Exit;
 
   FDisableDoubleClickZoom := Value;
-  ControlChanges;
+  ControlChanges('DisableDoubleClickZoom');
 end;
 
 procedure TGMCustomMapOptions.SetDraggable(const Value: Boolean);
@@ -828,7 +862,7 @@ begin
   if FDraggable = Value then Exit;
 
   FDraggable := Value;
-  ControlChanges;
+  ControlChanges('Draggable');
 end;
 
 procedure TGMCustomMapOptions.SetDraggableCursor(const Value: string);
@@ -836,7 +870,7 @@ begin
   if FDraggableCursor = Value then Exit;
 
   FDraggableCursor := Value;
-  ControlChanges;
+  ControlChanges('DraggableCursor');
 end;
 
 procedure TGMCustomMapOptions.SetDraggingCursor(const Value: string);
@@ -844,7 +878,7 @@ begin
   if FDraggingCursor = Value then Exit;
 
   FDraggingCursor := Value;
-  ControlChanges;
+  ControlChanges('DraggingCursor');
 end;
 
 procedure TGMCustomMapOptions.SetFullScreenControl(const Value: Boolean);
@@ -852,7 +886,7 @@ begin
   if FFullScreenControl = Value then Exit;
 
   FFullScreenControl := Value;
-  ControlChanges;
+  ControlChanges('FullScreenControl');
 end;
 
 procedure TGMCustomMapOptions.SetHeading(const Value: Integer);
@@ -860,7 +894,7 @@ begin
   if FHeading = Value then Exit;
 
   FHeading := Value;
-  ControlChanges;
+  ControlChanges('Heading');
 end;
 
 procedure TGMCustomMapOptions.SetKeyboardShortcuts(const Value: Boolean);
@@ -868,7 +902,7 @@ begin
   if FKeyboardShortcuts = Value then Exit;
 
   FKeyboardShortcuts := Value;
-  ControlChanges;
+  ControlChanges('KeyboardShortcuts');
 end;
 
 procedure TGMCustomMapOptions.SetMapMaker(const Value: Boolean);
@@ -876,7 +910,7 @@ begin
   if FMapMaker = Value then Exit;
 
   FMapMaker := Value;
-  ControlChanges;
+  ControlChanges('MapMaker');
 end;
 
 procedure TGMCustomMapOptions.SetMapTypeControl(const Value: Boolean);
@@ -884,7 +918,7 @@ begin
   if FMapTypeControl = Value then Exit;
 
   FMapTypeControl := Value;
-  ControlChanges;
+  ControlChanges('MapTypeControl');
 end;
 
 procedure TGMCustomMapOptions.SetMapTypeId(const Value: TGMMapTypeId);
@@ -892,7 +926,7 @@ begin
   if FMapTypeId = Value then Exit;
 
   FMapTypeId := Value;
-  ControlChanges;
+  ControlChanges('MapTypeId');
 end;
 
 procedure TGMCustomMapOptions.SetMaxZoom(const Value: Integer);
@@ -900,7 +934,7 @@ begin
   if FMaxZoom = Value then Exit;
 
   FMaxZoom := Value;
-  ControlChanges;
+  ControlChanges('MaxZoom');
 end;
 
 procedure TGMCustomMapOptions.SetMinZoom(const Value: Integer);
@@ -908,7 +942,7 @@ begin
   if FMinZoom = Value then Exit;
 
   FMinZoom := Value;
-  ControlChanges;
+  ControlChanges('MinZoom');
 end;
 
 procedure TGMCustomMapOptions.SetNoClear(const Value: Boolean);
@@ -916,7 +950,7 @@ begin
   if FNoClear = Value then Exit;
 
   FNoClear := Value;
-  ControlChanges;
+  ControlChanges('NoClear');
 end;
 
 procedure TGMCustomMapOptions.SetOverviewMapControl(const Value: Boolean);
@@ -924,7 +958,7 @@ begin
   if FOverviewMapControl = Value then Exit;
 
   FOverviewMapControl := Value;
-  ControlChanges;
+  ControlChanges('OverviewMapControl');
 end;
 
 procedure TGMCustomMapOptions.SetPanControl(const Value: Boolean);
@@ -932,7 +966,7 @@ begin
   if FPanControl = Value then Exit;
 
   FPanControl := Value;
-  ControlChanges;
+  ControlChanges('PanControl');
 end;
 
 procedure TGMCustomMapOptions.SetRotateControl(const Value: Boolean);
@@ -940,7 +974,7 @@ begin
   if FRotateControl = Value then Exit;
 
   FRotateControl := Value;
-  ControlChanges;
+  ControlChanges('RotateControl');
 end;
 
 procedure TGMCustomMapOptions.SetScaleControl(const Value: Boolean);
@@ -948,7 +982,7 @@ begin
   if FScaleControl = Value then Exit;
 
   FScaleControl := Value;
-  ControlChanges;
+  ControlChanges('ScaleControl');
 end;
 
 procedure TGMCustomMapOptions.SetScrollwheel(const Value: Boolean);
@@ -956,7 +990,7 @@ begin
   if FScrollwheel = Value then Exit;
 
   FScrollwheel := Value;
-  ControlChanges;
+  ControlChanges('Scrollwheel');
 end;
 
 procedure TGMCustomMapOptions.SetStreetViewControl(const Value: Boolean);
@@ -964,7 +998,7 @@ begin
   if FStreetViewControl = Value then Exit;
 
   FStreetViewControl := Value;
-  ControlChanges;
+  ControlChanges('StreetViewControl');
 end;
 
 procedure TGMCustomMapOptions.SetTilt(const Value: Integer);
@@ -972,7 +1006,7 @@ begin
   if FTilt = Value then Exit;
 
   FTilt := Value;
-  ControlChanges;
+  ControlChanges('Tilt');
 end;
 
 procedure TGMCustomMapOptions.SetZoom(const Value: Integer);
@@ -980,15 +1014,15 @@ begin
   if FZoom = Value then Exit;
 
   FZoom := Value;
-  ControlChanges;
+  ControlChanges('Zoom');
 end;
 
 procedure TGMCustomMapOptions.SetZoomControl(const Value: Boolean);
 begin
-  if ZoomControl = Value then Exit;
+  if FZoomControl = Value then Exit;
 
-  ZoomControl := Value;
-  ControlChanges;
+  FZoomControl := Value;
+  ControlChanges('ZoomControl');
 end;
 
 { TGMMapTypeControlOptions }
@@ -1035,7 +1069,7 @@ begin
   if FMapTypeIds = Value then Exit;
 
   FMapTypeIds := Value;
-  ControlChanges;
+  ControlChanges('MapTypeIds');
 end;
 
 procedure TGMMapTypeControlOptions.SetPosition(const Value: TGMControlPosition);
@@ -1043,7 +1077,7 @@ begin
   if FPosition = Value then Exit;
 
   FPosition := Value;
-  ControlChanges;
+  ControlChanges('Position');
 end;
 
 procedure TGMMapTypeControlOptions.SetStyle(const Value: TGMMapTypeControlStyle);
@@ -1051,7 +1085,7 @@ begin
   if FStyle = Value then Exit;
 
   FStyle := Value;
-  ControlChanges;
+  ControlChanges('Style');
 end;
 
 { TGMOverviewMapControlOptions }
@@ -1092,7 +1126,7 @@ begin
   if FOpened = Value then Exit;
 
   FOpened := Value;
-  ControlChanges;
+  ControlChanges('Opened');
 end;
 
 { TGMPanControlOptions }
@@ -1133,7 +1167,7 @@ begin
   if FPosition = Value then Exit;
 
   FPosition := Value;
-  ControlChanges;
+  ControlChanges('Position');
 end;
 
 { TGMRotateControlOptions }
@@ -1174,7 +1208,7 @@ begin
   if FPosition = Value then Exit;
 
   FPosition := Value;
-  ControlChanges;
+  ControlChanges('Position');
 end;
 
 { TGMScaleControlOptions }
@@ -1215,7 +1249,7 @@ begin
   if FStyle = Value then Exit;
 
   FStyle := Value;
-  ControlChanges;
+  ControlChanges('Style');
 end;
 
 { TGMStreetViewControlOptions }
@@ -1257,7 +1291,7 @@ begin
   if FPosition = Value then Exit;
 
   FPosition := Value;
-  ControlChanges;
+  ControlChanges('Position');
 end;
 
 { TGMCustomMapTypeStyle }
@@ -1304,7 +1338,7 @@ begin
   if FElementType = Value then Exit;
 
   FElementType := Value;
-  ControlChanges;
+  ControlChanges('ElementType');
 end;
 
 procedure TGMCustomMapTypeStyle.SetFeatureType(const Value: TGMMapTypeStyleFeatureType);
@@ -1312,7 +1346,7 @@ begin
   if FFeatureType = Value then Exit;
 
   FFeatureType := Value;
-  ControlChanges;
+  ControlChanges('FeatureType');
 end;
 
 { TGMCustomMapTypeStyler }
@@ -1374,7 +1408,7 @@ begin
   if FGamma < 0.01 then FGamma := 0.01;
   if FGamma > 10 then FGamma := 10;
 
-  ControlChanges;
+  ControlChanges('Gamma');
 end;
 
 procedure TGMCustomMapTypeStyler.SetInvertLightness(const Value: Boolean);
@@ -1382,7 +1416,7 @@ begin
   if FInvertLightness = Value then Exit;
 
   FInvertLightness := Value;
-  ControlChanges;
+  ControlChanges('InvertLightness');
 end;
 
 procedure TGMCustomMapTypeStyler.SetLightness(const Value: Integer);
@@ -1393,7 +1427,7 @@ begin
   if FLightness < -100 then FGamma := -100;
   if FLightness > 100 then FGamma := 100;
 
-  ControlChanges;
+  ControlChanges('Lightness');
 end;
 
 procedure TGMCustomMapTypeStyler.SetSaturation(const Value: Integer);
@@ -1404,7 +1438,7 @@ begin
   if FSaturation < -100 then FGamma := -100;
   if FSaturation > 100 then FGamma := 100;
 
-  ControlChanges;
+  ControlChanges('Saturation');
 end;
 
 procedure TGMCustomMapTypeStyler.SetVisibility(const Value: TGMVisibility);
@@ -1412,7 +1446,7 @@ begin
   if FVisibility = Value then Exit;
 
   FVisibility := Value;
-  ControlChanges;
+  ControlChanges('Visibility');
 end;
 
 procedure TGMCustomMapTypeStyler.SetWeight(const Value: Integer);
@@ -1422,7 +1456,7 @@ begin
   FWeight := Value;
   if FWeight < 0 then FWeight := 0;
 
-  ControlChanges;
+  ControlChanges('Weight');
 end;
 
 { TGMCustomGMMap }
@@ -1456,7 +1490,7 @@ end;
 
 procedure TGMCustomGMMap.FitBounds(Bounds: TGMLatLngBounds);
 begin
-  Bounds.PropToString
+  ExecuteJavaScript('FitBounds', Bounds.PropToString);
 end;
 
 function TGMCustomGMMap.GetBaseHTMLCode: string;
@@ -1513,6 +1547,27 @@ begin
 
 end;
 
+procedure TGMCustomGMMap.PropertyChanged(Prop: TPersistent; PropName: string);
+const
+  Str1 = '%s';
+  Str2 = '%s,%s';
+begin
+  if not FActive then Exit;
+
+  if (Prop is TGMCustomMapOptions) and SameText(PropName, 'Zoom') then
+    ExecuteJavaScript('MapChangeProperty', Format(Str2, [
+                                                         QuotedStr(PropName),
+                                                         IntToStr(TGMCustomMapOptions(Prop).Zoom)
+                                                        ]));
+  if (Prop is TGMLatLng) then
+    ExecuteJavaScript('MapChangeCenter', Format(Str1, [
+                                                       TGMLatLng(Prop).PropToString
+                                                      ]));
+
+
+  if Assigned(FOnPropertyChanges) then FOnPropertyChanges(Prop, PropName);
+end;
+
 procedure TGMCustomGMMap.SetActive(const Value: Boolean);
 begin
   if FActive = Value then Exit;
@@ -1538,7 +1593,7 @@ begin
   if FAPILang = Value then Exit;
 
   if FActive and not (csDesigning in ComponentState) and not (csLoading in ComponentState) then
-    raise EGMMapIsActive.Create(Language); // The map is active. Please, deactivate it before change this property.
+    raise EGMMapIsActive.Create(Language); // The map is active. To change this property you must to deactivate it first.
 
   FAPILang := Value;
 end;
@@ -1548,7 +1603,7 @@ begin
   if FGoogleAPIKey = Value then Exit;
 
   if FActive and not (csDesigning in ComponentState) and not (csLoading in ComponentState) then
-    raise EGMMapIsActive.Create(Language); // The map is active. Please, deactivate it before change this property.
+    raise EGMMapIsActive.Create(Language); // The map is active. To change this property you must to deactivate it first.
 
   FGoogleAPIKey := Value;
 end;
@@ -1558,7 +1613,7 @@ begin
   if FGoogleAPIVer = Value then Exit;
 
   if FActive and not (csDesigning in ComponentState) and not (csLoading in ComponentState) then
-    raise EGMMapIsActive.Create(Language); // The map is active. Please, deactivate it before change this property.
+    raise EGMMapIsActive.Create(Language); // The map is active. To change this property you must to deactivate it first.
 
   FGoogleAPIVer := Value;
 end;
@@ -1575,12 +1630,24 @@ begin
   if Assigned(FOnIntervalEventsChange) then FOnIntervalEventsChange(Self);
 end;
 
+procedure TGMCustomGMMap.SetPrecision(const Value: Integer);
+begin
+  if FPrecision = Value then Exit;
+
+  FPrecision := Value;
+
+  if FPrecision < 0 then FPrecision := 0;
+  if FPrecision > 17 then FPrecision := 17;
+
+  if Assigned(FOnPrecisionChange) then FOnPrecisionChange(Self);
+end;
+
 procedure TGMCustomGMMap.SetSignedIn(const Value: Boolean);
 begin
   if FSignedIn = Value then Exit;
 
   if FActive and not (csDesigning in ComponentState) and not (csLoading in ComponentState) then
-    raise EGMMapIsActive.Create(Language); // The map is active. Please, deactivate it before change this property.
+    raise EGMMapIsActive.Create(Language); // The map is active. To change this property you must to deactivate it first.
 
   FSignedIn := Value;
 end;
@@ -1626,7 +1693,7 @@ begin
   if FPosition = Value then Exit;
 
   FPosition := Value;
-  ControlChanges;
+  ControlChanges('Position');
 end;
 
 procedure TGMZoomControlOptions.SetStyle(const Value: TGMZoomControlStyle);
@@ -1634,7 +1701,7 @@ begin
   if FStyle = Value then Exit;
 
   FStyle := Value;
-  ControlChanges;
+  ControlChanges('Style');
 end;
 
 { TGMStreetViewPanoramaOptions }
@@ -1737,7 +1804,7 @@ begin
   if FAddressControl = Value then Exit;
 
   FAddressControl := Value;
-  ControlChanges;
+  ControlChanges('AddressControl');
 end;
 
 procedure TGMStreetViewPanoramaOptions.SetClickToGo(const Value: Boolean);
@@ -1745,7 +1812,7 @@ begin
   if FClickToGo = Value then Exit;
 
   FClickToGo := Value;
-  ControlChanges;
+  ControlChanges('ClickToGo');
 end;
 
 procedure TGMStreetViewPanoramaOptions.SetDisableDefaultUI(
@@ -1754,7 +1821,7 @@ begin
   if FDisableDefaultUI = Value then Exit;
 
   FDisableDefaultUI := Value;
-  ControlChanges;
+  ControlChanges('DisableDefaultUI');
 end;
 
 procedure TGMStreetViewPanoramaOptions.SetDisableDoubleClickZoom(
@@ -1763,7 +1830,7 @@ begin
   if FDisableDoubleClickZoom = Value then Exit;
 
   FDisableDoubleClickZoom := Value;
-  ControlChanges;
+  ControlChanges('DisableDoubleClickZoom');
 end;
 
 procedure TGMStreetViewPanoramaOptions.SetEnableCloseButton(
@@ -1772,7 +1839,7 @@ begin
   if FEnableCloseButton = Value then Exit;
 
   FEnableCloseButton := Value;
-  ControlChanges;
+  ControlChanges('EnableCloseButton');
 end;
 
 procedure TGMStreetViewPanoramaOptions.SetFullScreenControl(
@@ -1781,7 +1848,7 @@ begin
   if FFullScreenControl = Value then Exit;
 
   FFullScreenControl := Value;
-  ControlChanges;
+  ControlChanges('FullScreenControl');
 end;
 
 procedure TGMStreetViewPanoramaOptions.SetImageDateControl(
@@ -1790,7 +1857,7 @@ begin
   if FImageDateControl = Value then Exit;
 
   FImageDateControl := Value;
-  ControlChanges;
+  ControlChanges('ImageDateControl');
 end;
 
 procedure TGMStreetViewPanoramaOptions.SetLinksControl(const Value: Boolean);
@@ -1798,7 +1865,7 @@ begin
   if FLinksControl = Value then Exit;
 
   FLinksControl := Value;
-  ControlChanges;
+  ControlChanges('LinksControl');
 end;
 
 procedure TGMStreetViewPanoramaOptions.SetPanControl(const Value: Boolean);
@@ -1806,7 +1873,7 @@ begin
   if FPanControl = Value then Exit;
 
   FPanControl := Value;
-  ControlChanges;
+  ControlChanges('PanControl');
 end;
 
 procedure TGMStreetViewPanoramaOptions.SetScrollwheel(const Value: Boolean);
@@ -1814,7 +1881,7 @@ begin
   if FScrollwheel = Value then Exit;
 
   FScrollwheel := Value;
-  ControlChanges;
+  ControlChanges('Scrollwheel');
 end;
 
 procedure TGMStreetViewPanoramaOptions.SetVisible(const Value: Boolean);
@@ -1822,7 +1889,7 @@ begin
   if FVisible = Value then Exit;
 
   FVisible := Value;
-  ControlChanges;
+  ControlChanges('Visible');
 end;
 
 procedure TGMStreetViewPanoramaOptions.SetZoomControl(const Value: Boolean);
@@ -1830,7 +1897,7 @@ begin
   if FZoomControl = Value then Exit;
 
   FZoomControl := Value;
-  ControlChanges;
+  ControlChanges('ZoomControl');
 end;
 
 { TGMStreetViewAddressControlOptions }
@@ -1872,7 +1939,7 @@ begin
   if FPosition = Value then Exit;
 
   FPosition := Value;
-  ControlChanges;
+  ControlChanges('Position');
 end;
 
 { TGMStreetViewPov }
@@ -1919,7 +1986,7 @@ begin
   if FHeading < 0 then FHeading := 0;
   if FHeading > 270 then FHeading := 270;
 
-  ControlChanges;
+  ControlChanges('Heading');
 end;
 
 procedure TGMStreetViewPov.SetPitch(const Value: Integer);
@@ -1930,7 +1997,7 @@ begin
   if FPitch < -90 then FPitch := -90;
   if FPitch > 90 then FPitch := 90;
 
-  ControlChanges;
+  ControlChanges('Pitch');
 end;
 
 { TGMFullScreenControlOptions }
@@ -1972,7 +2039,7 @@ begin
   if FPosition = Value then Exit;
 
   FPosition := Value;
-  ControlChanges;
+  ControlChanges('Position');
 end;
 
 end.

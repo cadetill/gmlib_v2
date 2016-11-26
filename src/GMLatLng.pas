@@ -214,7 +214,7 @@ begin
     if FLat > 90 then FLat := 90;
     if FLat < -90 then FLat := -90;
   end;
-  ControlChanges;
+  ControlChanges('Lat');
 end;
 
 procedure TGMLatLng.SetLng(const Value: Double);
@@ -227,7 +227,7 @@ begin
     if FLng > 180 then FLng := 180;
     if FLng < -180 then FLng := -180;
   end;
-  ControlChanges;
+  ControlChanges('Lng');
 end;
 
 procedure TGMLatLng.SetNoWrap(const Value: Boolean);
