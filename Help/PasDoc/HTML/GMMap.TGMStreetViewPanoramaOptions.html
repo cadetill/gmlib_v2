@@ -1,0 +1,402 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>Google Maps Library: GMMap: Class TGMStreetViewPanoramaOptions</title>
+<meta name="generator" content="PasDoc 0.14.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<table class="container"><tr><td class="navigation">
+<h2>Google Maps Library</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><a href="GVUses.png" class="navigation">Unit dependency graph</a></p><p><a href="GVClasses.png" class="navigation">Classes hierarchy graph</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div style="clear: both"></div>
+
+<script>
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        /* 10 items to display seems standard */
+        'show': 10,
+        /* For PasDoc docs, showing urls is not very useful,
+           since the page title already shows the unit and identifier. */
+        'showURL': false
+    });
+});
+</script>
+</p></td><td class="content">
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+</tr>
+</table>
+<hr noshade="" size="1">
+<a name="TGMStreetViewPanoramaOptions"></a><h1 class="cio">Class TGMStreetViewPanoramaOptions</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="GMMap.html">GMMap</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TGMStreetViewPanoramaOptions = class(<a class="normal" href="GMClasses.TGMPersistentStr.html">TGMPersistentStr</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+<code>google.maps.StreetViewPanoramaOptions</code> object from Google Maps API.</p>
+<p>
+ Options defining the properties of a <code>StreetViewPanorama</code> object.<br><br> More information at <a  href="https://developers.google.com/maps/documentation/javascript/reference#StreetViewPanoramaOptions">https://developers.google.com/maps/documentation/javascript/reference#StreetViewPanoramaOptions</a> </p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TInterfacedPersistent</li>
+<li class="ancestor"><a class="normal" href="GMClasses.TGMInterfacedOwnedPersistent.html">TGMInterfacedOwnedPersistent</a></li>
+<li class="ancestor"><a class="normal" href="GMClasses.TGMPersistent.html">TGMPersistent</a></li>
+<li class="ancestor"><a class="normal" href="GMClasses.TGMPersistentStr.html">TGMPersistentStr</a></li>
+<li class="thisitem">TGMStreetViewPanoramaOptions</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#Create">Create</a></b>(AOwner: TPersistent); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#PropToString">PropToString</a></b>: string; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#Assign">Assign</a></b>(Source: TPersistent); override;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#AddressControl">AddressControl</a></b>: Boolean read FAddressControl write SetAddressControl default True;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#AddressControlOptions">AddressControlOptions</a></b>: <a  href="GMMap.TGMStreetViewAddressControlOptions.html">TGMStreetViewAddressControlOptions</a> read FAddressControlOptions write FAddressControlOptions;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#ClickToGo">ClickToGo</a></b>: Boolean read FClickToGo write SetClickToGo default True;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#DisableDefaultUI">DisableDefaultUI</a></b>: Boolean read FDisableDefaultUI write SetDisableDefaultUI default False;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#DisableDoubleClickZoom">DisableDoubleClickZoom</a></b>: Boolean read FDisableDoubleClickZoom write SetDisableDoubleClickZoom default False;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#EnableCloseButton">EnableCloseButton</a></b>: Boolean read FEnableCloseButton write SetEnableCloseButton default True;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#FullScreenControl">FullScreenControl</a></b>: Boolean read FFullScreenControl write SetFullScreenControl default True;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#FullScreenControlOptions">FullScreenControlOptions</a></b>: <a  href="GMMap.TGMFullScreenControlOptions.html">TGMFullScreenControlOptions</a> read FFullScreenControlOptions write FFullScreenControlOptions;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#ImageDateControl">ImageDateControl</a></b>: Boolean read FImageDateControl write SetImageDateControl default False;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#LinksControl">LinksControl</a></b>: Boolean read FLinksControl write SetLinksControl default False;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#PanControl">PanControl</a></b>: Boolean read FPanControl write SetPanControl default True;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#PanControlOptions">PanControlOptions</a></b>: <a  href="GMMap.TGMPanControlOptions.html">TGMPanControlOptions</a> read FPanControlOptions write FPanControlOptions;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#Pov">Pov</a></b>: <a  href="GMMap.TGMStreetViewPov.html">TGMStreetViewPov</a> read FPov write FPov;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#Scrollwheel">Scrollwheel</a></b>: Boolean read FScrollwheel write SetScrollwheel default True;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#Visible">Visible</a></b>: Boolean read FVisible write SetVisible default False;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#ZoomControl">ZoomControl</a></b>: Boolean read FZoomControl write SetZoomControl default True;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.TGMStreetViewPanoramaOptions.html#ZoomControlOptions">ZoomControlOptions</a></b>: <a  href="GMMap.TGMZoomControlOptions.html">TGMZoomControlOptions</a> read FZoomControlOptions write FZoomControlOptions;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(AOwner: TPersistent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Constructor class.</p>
+<p>
+
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>AOwner</dt>
+<dd>Owner of the object.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Destructor class.</p>
+<p>
+ </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="PropToString"></a><code>function <b>PropToString</b>: string; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Converts all class properties values to a string separated by semicolon.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return">string with all properties.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Assign"></a><code>procedure <b>Assign</b>(Source: TPersistent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Call <code><code>Assign</code></code> to copy the properties or other attributes of one object from another. The standard form of a call to <code><code>Assign</code></code> is <br> <code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Source</dt>
+<dd>Object to copy the content.</dd>
+</dl>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="AddressControl"></a><code>property <b>AddressControl</b>: Boolean read FAddressControl write SetAddressControl default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The enabled/disabled state of the address control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="AddressControlOptions"></a><code>property <b>AddressControlOptions</b>: <a  href="GMMap.TGMStreetViewAddressControlOptions.html">TGMStreetViewAddressControlOptions</a> read FAddressControlOptions write FAddressControlOptions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The display options for the address control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="ClickToGo"></a><code>property <b>ClickToGo</b>: Boolean read FClickToGo write SetClickToGo default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The enabled/disabled state of click-to-go. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="DisableDefaultUI"></a><code>property <b>DisableDefaultUI</b>: Boolean read FDisableDefaultUI write SetDisableDefaultUI default False;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Enables/disables all default UI.</p>
+<p>
+
+
+<p>May be overridden individually. <br><br>
+
+<p>In order to take effect the change of this property, you must to restart the map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="DisableDoubleClickZoom"></a><code>property <b>DisableDoubleClickZoom</b>: Boolean read FDisableDoubleClickZoom write SetDisableDoubleClickZoom default False;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Enables/disables zoom and center on double click.</p>
+<p>
+ </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="EnableCloseButton"></a><code>property <b>EnableCloseButton</b>: Boolean read FEnableCloseButton write SetEnableCloseButton default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+If <code>true</code>, the close button is displayed. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="FullScreenControl"></a><code>property <b>FullScreenControl</b>: Boolean read FFullScreenControl write SetFullScreenControl default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The enabled/disabled state of the Fullscreen control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="FullScreenControlOptions"></a><code>property <b>FullScreenControlOptions</b>: <a  href="GMMap.TGMFullScreenControlOptions.html">TGMFullScreenControlOptions</a> read FFullScreenControlOptions write FFullScreenControlOptions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The display options for the Fullscreen control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="ImageDateControl"></a><code>property <b>ImageDateControl</b>: Boolean read FImageDateControl write SetImageDateControl default False;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The enabled/disabled state of the imagery acquisition date control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="LinksControl"></a><code>property <b>LinksControl</b>: Boolean read FLinksControl write SetLinksControl default False;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The enabled/disabled state of the links control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="PanControl"></a><code>property <b>PanControl</b>: Boolean read FPanControl write SetPanControl default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The enabled/disabled state of the pan control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="PanControlOptions"></a><code>property <b>PanControlOptions</b>: <a  href="GMMap.TGMPanControlOptions.html">TGMPanControlOptions</a> read FPanControlOptions write FPanControlOptions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The display options for the pan control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Pov"></a><code>property <b>Pov</b>: <a  href="GMMap.TGMStreetViewPov.html">TGMStreetViewPov</a> read FPov write FPov;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The camera orientation, specified as heading and pitch, for the panorama. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Scrollwheel"></a><code>property <b>Scrollwheel</b>: Boolean read FScrollwheel write SetScrollwheel default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+If <code>false</code>, disables <code>scrollwheel</code> zooming in Street View. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Visible"></a><code>property <b>Visible</b>: Boolean read FVisible write SetVisible default False;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+If <code>true</code>, the Street View panorama is <code>visible</code> on load. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="ZoomControl"></a><code>property <b>ZoomControl</b>: Boolean read FZoomControl write SetZoomControl default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The enabled/disabled state of the zoom control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="ZoomControlOptions"></a><code>property <b>ZoomControlOptions</b>: <a  href="GMMap.TGMZoomControlOptions.html">TGMZoomControlOptions</a> read FZoomControlOptions write FZoomControlOptions;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The display options for the zoom control. </p>
+</td></tr>
+</table>
+<br />
+<hr>
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+</tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+</span>
+</td></tr></table></body></html>

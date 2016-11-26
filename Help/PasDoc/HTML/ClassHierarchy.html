@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>Google Maps Library: Class Hierarchy</title>
+<meta name="generator" content="PasDoc 0.14.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<table class="container"><tr><td class="navigation">
+<h2>Google Maps Library</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><a href="GVUses.png" class="navigation">Unit dependency graph</a></p><p><a href="GVClasses.png" class="navigation">Classes hierarchy graph</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div style="clear: both"></div>
+
+<script>
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        /* 10 items to display seems standard */
+        'show': 10,
+        /* For PasDoc docs, showing urls is not very useful,
+           since the page title already shows the unit and identifier. */
+        'showURL': false
+    });
+});
+</script>
+</p></td><td class="content">
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+</tr>
+</table>
+<hr noshade="" size="1">
+<h1 class="allitems">Class Hierarchy</h1>
+<ul class="hierarchylevel">
+<li>IInterface<ul class="hierarchylevel">
+<li><a class="bold" href="GMClasses.IGMAPIUrl.html">IGMAPIUrl</a><li><a class="bold" href="GMClasses.IGMControlChanges.html">IGMControlChanges</a><li><a class="bold" href="GMClasses.IGMExecJS.html">IGMExecJS</a><li><a class="bold" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a><li><a class="bold" href="GMClasses.IGMToStr.html">IGMToStr</a></ul>
+</li>
+<li>TInterfacedObject<ul class="hierarchylevel">
+<li><a class="bold" href="GMClasses.TGMObject.html">TGMObject</a></ul>
+</li>
+<li>TObject<ul class="hierarchylevel">
+<li>Exception<ul class="hierarchylevel">
+<li><a class="bold" href="GMClasses.EGMException.html">EGMException</a><ul class="hierarchylevel">
+<li><a class="bold" href="GMClasses.EGMCanLoadResource.html">EGMCanLoadResource</a><li><a class="bold" href="GMClasses.EGMIncorrectBrowser.html">EGMIncorrectBrowser</a><li><a class="bold" href="GMClasses.EGMJSError.html">EGMJSError</a><li><a class="bold" href="GMClasses.EGMMapIsActive.html">EGMMapIsActive</a><li><a class="bold" href="GMClasses.EGMNotActive.html">EGMNotActive</a><li><a class="bold" href="GMClasses.EGMNotValidRealNumber.html">EGMNotValidRealNumber</a><li><a class="bold" href="GMClasses.EGMOwnerWithoutJS.html">EGMOwnerWithoutJS</a><li><a class="bold" href="GMClasses.EGMTimeOut.html">EGMTimeOut</a><li><a class="bold" href="GMClasses.EGMUnassignedObject.html">EGMUnassignedObject</a><li><a class="bold" href="GMClasses.EGMWithoutOwner.html">EGMWithoutOwner</a></ul>
+</li>
+</ul>
+</li>
+<li>TPersistent<ul class="hierarchylevel">
+<li>TCollection<ul class="hierarchylevel">
+<li><a class="bold" href="GMClasses.TGMInterfacedCollection.html">TGMInterfacedCollection</a><ul class="hierarchylevel">
+<li><a class="bold" href="GMMap.VCL.TGMMapTypeStylers.html">TGMMapTypeStylers</a><li><a class="bold" href="GMMap.VCL.TGMMapTypeStyles.html">TGMMapTypeStyles</a></ul>
+</li>
+</ul>
+</li>
+<li>TCollectionItem<ul class="hierarchylevel">
+<li><a class="bold" href="GMClasses.TGMInterfacedCollectionItem.html">TGMInterfacedCollectionItem</a><ul class="hierarchylevel">
+<li><a class="bold" href="GMMap.TGMCustomMapTypeStyle.html">TGMCustomMapTypeStyle</a><ul class="hierarchylevel">
+<li><a class="bold" href="GMMap.VCL.TGMMapTypeStyle.html">TGMMapTypeStyle</a></ul>
+</li>
+<li><a class="bold" href="GMMap.TGMCustomMapTypeStyler.html">TGMCustomMapTypeStyler</a><ul class="hierarchylevel">
+<li><a class="bold" href="GMMap.VCL.TGMMapTypeStyler.html">TGMMapTypeStyler</a></ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>TComponent<ul class="hierarchylevel">
+<li><a class="bold" href="GMClasses.TGMComponent.html">TGMComponent</a><ul class="hierarchylevel">
+<li><a class="bold" href="GMMap.TGMCustomGMMap.html">TGMCustomGMMap</a><ul class="hierarchylevel">
+<li><a class="bold" href="GMMap.VCL.TGMMap.html">TGMMap</a></ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>TInterfacedPersistent<ul class="hierarchylevel">
+<li><a class="bold" href="GMClasses.TGMInterfacedOwnedPersistent.html">TGMInterfacedOwnedPersistent</a><ul class="hierarchylevel">
+<li><a class="bold" href="GMClasses.TGMPersistent.html">TGMPersistent</a><ul class="hierarchylevel">
+<li><a class="bold" href="GMClasses.TGMPersistentStr.html">TGMPersistentStr</a><ul class="hierarchylevel">
+<li><a class="bold" href="GMMap.TGMCustomMapOptions.html">TGMCustomMapOptions</a><ul class="hierarchylevel">
+<li><a class="bold" href="GMMap.VCL.TGMMapOptions.html">TGMMapOptions</a></ul>
+</li>
+<li><a class="bold" href="GMMap.TGMFullScreenControlOptions.html">TGMFullScreenControlOptions</a><li><a class="bold" href="GMLatLng.TGMLatLng.html">TGMLatLng</a><li><a class="bold" href="GMLatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a><li><a class="bold" href="GMMap.TGMMapTypeControlOptions.html">TGMMapTypeControlOptions</a><li><a class="bold" href="GMMap.TGMOverviewMapControlOptions.html">TGMOverviewMapControlOptions</a><li><a class="bold" href="GMMap.TGMPanControlOptions.html">TGMPanControlOptions</a><li><a class="bold" href="GMMap.TGMRotateControlOptions.html">TGMRotateControlOptions</a><li><a class="bold" href="GMMap.TGMScaleControlOptions.html">TGMScaleControlOptions</a><li><a class="bold" href="GMMap.TGMStreetViewAddressControlOptions.html">TGMStreetViewAddressControlOptions</a><li><a class="bold" href="GMMap.TGMStreetViewControlOptions.html">TGMStreetViewControlOptions</a><li><a class="bold" href="GMMap.TGMStreetViewPanoramaOptions.html">TGMStreetViewPanoramaOptions</a><li><a class="bold" href="GMMap.TGMStreetViewPov.html">TGMStreetViewPov</a><li><a class="bold" href="GMMap.TGMZoomControlOptions.html">TGMZoomControlOptions</a></ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br />
+<hr>
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+</tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+</span>
+</td></tr></table></body></html>

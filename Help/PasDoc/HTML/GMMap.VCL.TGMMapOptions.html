@@ -1,0 +1,682 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>Google Maps Library: GMMap.VCL: Class TGMMapOptions</title>
+<meta name="generator" content="PasDoc 0.14.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<table class="container"><tr><td class="navigation">
+<h2>Google Maps Library</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><a href="GVUses.png" class="navigation">Unit dependency graph</a></p><p><a href="GVClasses.png" class="navigation">Classes hierarchy graph</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div style="clear: both"></div>
+
+<script>
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        /* 10 items to display seems standard */
+        'show': 10,
+        /* For PasDoc docs, showing urls is not very useful,
+           since the page title already shows the unit and identifier. */
+        'showURL': false
+    });
+});
+</script>
+</p></td><td class="content">
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+</tr>
+</table>
+<hr noshade="" size="1">
+<a name="TGMMapOptions"></a><h1 class="cio">Class TGMMapOptions</h1>
+<table class="sections wide_list">
+<tr>
+<td><a class="section" href="#PasDoc-Description">Description</a></td><td><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td><a class="section" href="#PasDoc-Properties">Properties</a></td></tr></table>
+<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a  href="GMMap.VCL.html">GMMap.VCL</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TGMMapOptions = class(<a class="normal" href="GMMap.TGMCustomMapOptions.html">TGMCustomMapOptions</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Class for <code>google.maps.MapOptions</code> object from Google Maps API.</p>
+<p>
+ More information at <a  href="https://developers.google.com/maps/documentation/javascript/reference#MapOptions">https://developers.google.com/maps/documentation/javascript/reference#MapOptions</a> </p>
+<a name="PasDoc-Hierarchy"></a><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TInterfacedPersistent</li>
+<li class="ancestor"><a class="normal" href="GMClasses.TGMInterfacedOwnedPersistent.html">TGMInterfacedOwnedPersistent</a></li>
+<li class="ancestor"><a class="normal" href="GMClasses.TGMPersistent.html">TGMPersistent</a></li>
+<li class="ancestor"><a class="normal" href="GMClasses.TGMPersistentStr.html">TGMPersistentStr</a></li>
+<li class="ancestor"><a class="normal" href="GMMap.TGMCustomMapOptions.html">TGMCustomMapOptions</a></li>
+<li class="thisitem">TGMMapOptions</li></ul><h2 class="overview">Overview</h2>
+<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <b><a  href="GMMap.VCL.TGMMapOptions.html#Create">Create</a></b>(AOwner: TPersistent); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <b><a  href="GMMap.VCL.TGMMapOptions.html#Destroy">Destroy</a></b>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <b><a  href="GMMap.VCL.TGMMapOptions.html#PropToString">PropToString</a></b>: string; override;</code></td>
+</tr>
+</table>
+<a name="PasDoc-Properties"></a><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#BackgroundColor">BackgroundColor</a></b>: TColor read FBackgroundColor write SetBackgroundColor default clBlack;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#Center">Center</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#CountStyles">CountStyles</a></b>: Integer read GetCountStyles;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#DisableDefaultUI">DisableDefaultUI</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#DisableDoubleClickZoom">DisableDoubleClickZoom</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#Draggable">Draggable</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#DraggableCursor">DraggableCursor</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#DraggingCursor">DraggingCursor</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#FullScreenControl">FullScreenControl</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#FullScreenControlOptions">FullScreenControlOptions</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#Heading">Heading</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#KeyboardShortcuts">KeyboardShortcuts</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#MapMaker">MapMaker</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#MapTypeControl">MapTypeControl</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#MapTypeControlOptions">MapTypeControlOptions</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#MapTypeId">MapTypeId</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#MaxZoom">MaxZoom</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#MinZoom">MinZoom</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#NoClear">NoClear</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#OverviewMapControl">OverviewMapControl</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#OverviewMapControlOptions">OverviewMapControlOptions</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#PanControl">PanControl</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#PanControlOptions">PanControlOptions</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#RotateControl">RotateControl</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#RotateControlOptions">RotateControlOptions</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#ScaleControl">ScaleControl</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#ScaleControlOptions">ScaleControlOptions</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#Scrollwheel">Scrollwheel</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#StreetView">StreetView</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#StreetViewControl">StreetViewControl</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#StreetViewControlOptions">StreetViewControlOptions</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#Styles">Styles</a></b>: <a  href="GMMap.VCL.TGMMapTypeStyles.html">TGMMapTypeStyles</a> read FStyles write FStyles;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#Tilt">Tilt</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#Zoom">Zoom</a></b>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#ZoomControl">ZoomControl</a></b>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <b><a  href="GMMap.VCL.TGMMapOptions.html#ZoomControlOptions">ZoomControlOptions</a></b>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Create"></a><code>constructor <b>Create</b>(AOwner: TPersistent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Constructor class.</p>
+<p>
+ Creates a <a class="normal" href="GMMap.TGMCustomMapOptions.html">TGMCustomMapOptions</a> object.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>AOwner</dt>
+<dd>Owner of the object.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="Destroy"></a><code>destructor <b>Destroy</b>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Destructor class.</p>
+<p>
+ </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><a name="PropToString"></a><code>function <b>PropToString</b>: string; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Converts all class properties values to a string separated by semicolon.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return">string with all properties.</p></td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="BackgroundColor"></a><code>property <b>BackgroundColor</b>: TColor read FBackgroundColor write SetBackgroundColor default clBlack;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Color used for the background of the Map div.</p>
+<p>
+
+
+<p>This color will be visible when tiles have not yet loaded as the user pans. <br><br>
+
+<p>In order to take effect the change of this property, you must to restart the map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Center"></a><code>property <b>Center</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Contains the lat/lng coordinates with the <code>center</code> of the map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><a name="CountStyles"></a><code>property <b>CountStyles</b>: Integer read GetCountStyles;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Returns the number of items in the collection.</p>
+<p>
+ Count contains the number of items in the <code><a class="normal" href="GMMap.VCL.TGMMapOptions.html#Styles">Styles</a></code> array. Since <code><a class="normal" href="GMMap.VCL.TGMMapOptions.html#Styles">Styles</a></code> is indexed starting with 0, the value of Count is always one greater than the index of the last member of <code><a class="normal" href="GMMap.VCL.TGMMapOptions.html#Styles">Styles</a></code>.
+
+<p></p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="DisableDefaultUI"></a><code>property <b>DisableDefaultUI</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Enables/disables all default UI.</p>
+<p>
+
+
+<p>May be overridden individually. <br><br>
+
+<p>In order to take effect the change of this property, you must to restart the map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="DisableDoubleClickZoom"></a><code>property <b>DisableDoubleClickZoom</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Enables/disables <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">zoom</a> and <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Center">center</a> on double click.</p>
+<p>
+ </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Draggable"></a><code>property <b>Draggable</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+If false, prevents the map from being dragged. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="DraggableCursor"></a><code>property <b>DraggableCursor</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The url of the cursor to display when mousing over a <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Draggable">draggable</a> map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="DraggingCursor"></a><code>property <b>DraggingCursor</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The url of the cursor to display when the map is being dragged. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="FullScreenControl"></a><code>property <b>FullScreenControl</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The enabled/disabled state of the Fullscreen control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="FullScreenControlOptions"></a><code>property <b>FullScreenControlOptions</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The display options for the Fullscreen control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Heading"></a><code>property <b>Heading</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The <code>heading</code> for aerial imagery in degrees measured clockwise from cardinal direction North. Headings are snapped to the nearest available angle for which imagery is available. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="KeyboardShortcuts"></a><code>property <b>KeyboardShortcuts</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+If <code>false</code>, prevents the map from being controlled by the keyboard. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="MapMaker"></a><code>property <b>MapMaker</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<code>True</code> if Map Maker tiles should be used instead of regular tiles. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="MapTypeControl"></a><code>property <b>MapTypeControl</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The initial enabled/disabled state of the Map type control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="MapTypeControlOptions"></a><code>property <b>MapTypeControlOptions</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The initial display options for the Map type control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="MapTypeId"></a><code>property <b>MapTypeId</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The initial Map <code>mapTypeId</code>. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="MaxZoom"></a><code>property <b>MaxZoom</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The maximum <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">zoom</a> level which will be displayed on the map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="MinZoom"></a><code>property <b>MinZoom</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The minimum <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">zoom</a> level which will be displayed on the map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="NoClear"></a><code>property <b>NoClear</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+If <code>true</code>, do not clear the contents of the Map div. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OverviewMapControl"></a><code>property <b>OverviewMapControl</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The enabled/disabled state of the Overview Map control.</p>
+<p>
+
+
+<p>Note: The Overview Map control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Overview Map control available as part of the old control set. <br><br>
+
+<p><b>Will be deleted in future releases.</b></p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="OverviewMapControlOptions"></a><code>property <b>OverviewMapControlOptions</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The display options for the Overview Map control.</p>
+<p>
+
+
+<p>Note: The Overview Map control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Overview Map control available as part of the old control set.<br><br>
+
+<p><b>Will be deleted in future releases.</b></p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="PanControl"></a><code>property <b>PanControl</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The enabled/disabled state of the Pan control.</p>
+<p>
+
+
+<p>Note: The Pan control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Pan control available as part of the old control set.<br><br>
+
+<p><b>Will be deleted in future releases.</b></p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="PanControlOptions"></a><code>property <b>PanControlOptions</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The display options for the Pan control.</p>
+<p>
+
+
+<p>Note: The Pan control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Pan control available as part of the old control set.<br><br>
+
+<p><b>Will be deleted in future releases.</b></p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="RotateControl"></a><code>property <b>RotateControl</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The enabled/disabled state of the Rotate control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="RotateControlOptions"></a><code>property <b>RotateControlOptions</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The display options for the Rotate control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="ScaleControl"></a><code>property <b>ScaleControl</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The initial enabled/disabled state of the Scale control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="ScaleControlOptions"></a><code>property <b>ScaleControlOptions</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The initial display options for the Scale control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Scrollwheel"></a><code>property <b>Scrollwheel</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+If <code>false</code>, disables <code>scrollwheel</code> zooming on the map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="StreetView"></a><code>property <b>StreetView</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+A StreetViewPanorama to display when the Street View pegman is dropped on the map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="StreetViewControl"></a><code>property <b>StreetViewControl</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The initial enabled/disabled state of the Street View Pegman control. This control is part of the default UI, and should be set to false when displaying a map type on which the Street View road overlay should not appear (e.g. a non-Earth map type). </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="StreetViewControlOptions"></a><code>property <b>StreetViewControlOptions</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The initial display options for the Street View Pegman control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Styles"></a><code>property <b>Styles</b>: <a  href="GMMap.VCL.TGMMapTypeStyles.html">TGMMapTypeStyles</a> read FStyles write FStyles;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+<code>Styles</code> to apply to each of the default map types. Note that for mtSatellite/mtHybrid and mtTerrain modes, these <code>styles</code> will only apply to labels and geometry. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Tilt"></a><code>property <b>Tilt</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Controls the automatic switching behavior for the angle of incidence of the map. The only allowed values are 0 and 45. The value 0 causes the map to always use a 0° overhead view regardless of the <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">zoom</a> level and viewport. The value 45 causes the <code>tilt</code> angle to automatically switch to 45 whenever 45° imagery is available for the current <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">zoom</a> level and viewport, and switch back to 0 whenever 45° imagery is not available (this is the default behavior). 45° imagery is only available for SATELLITE and HYBRID map types, within some locations, and at some <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">zoom</a> levels. Note: getTilt returns the current <code>tilt</code> angle, not the value specified by this option. Because getTilt and this option refer to different things, do not bind() the <code>tilt</code> property; doing so may yield unpredictable effects. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="Zoom"></a><code>property <b>Zoom</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The initial Map <code>zoom</code> level. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="ZoomControl"></a><code>property <b>ZoomControl</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The enabled/disabled state of the <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">Zoom</a> control. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a  href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><a name="ZoomControlOptions"></a><code>property <b>ZoomControlOptions</b>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The display options for the <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">Zoom</a> control. </p>
+</td></tr>
+</table>
+<br />
+<hr>
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+</tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+</span>
+</td></tr></table></body></html>

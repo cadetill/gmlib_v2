@@ -1,0 +1,297 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>Google Maps Library: All Classes, Interfaces, Objects and Records</title>
+<meta name="generator" content="PasDoc 0.14.0">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
+<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<table class="container"><tr><td class="navigation">
+<h2>Google Maps Library</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><a href="GVUses.png" class="navigation">Unit dependency graph</a></p><p><a href="GVClasses.png" class="navigation">Classes hierarchy graph</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div style="clear: both"></div>
+
+<script>
+$(document).ready(function() {
+    $('#tipue_search_input').tipuesearch({
+        /* 10 items to display seems standard */
+        'show': 10,
+        /* For PasDoc docs, showing urls is not very useful,
+           since the page title already shows the unit and identifier. */
+        'showURL': false
+    });
+});
+</script>
+</p></td><td class="content">
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+</tr>
+</table>
+<hr noshade="" size="1">
+<h1 class="allitems">All Classes, Interfaces, Objects and Records</h1>
+<table class="itemstable wide_list">
+<tr class="listheader">
+<th class="itemname">Name</th>
+<th class="itemunit">Unit</th>
+<th class="itemdesc">Description</th>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMClasses.EGMCanLoadResource.html">EGMCanLoadResource</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Exception raised when the resource of the map can't be load.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMClasses.EGMException.html">EGMException</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Base class for all <code>Exception</code> on GMLib.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMClasses.EGMIncorrectBrowser.html">EGMIncorrectBrowser</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Exception raised when the class of assigned browser isn't correct.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMClasses.EGMJSError.html">EGMJSError</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Exception raised when a JavaScript error occurs.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMClasses.EGMMapIsActive.html">EGMMapIsActive</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Exception raised when you try to change a property dependant of <code><a class="normal" href="GMMap.VCL.TGMMap.html#Active">TGMMap.Active</a></code> property and this is set to <code>True</code>.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMClasses.EGMNotActive.html">EGMNotActive</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Exception raised when the <a class="normal" href="GMMap.VCL.TGMMap.html">TGMMap</a> component isn't active.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMClasses.EGMNotValidRealNumber.html">EGMNotValidRealNumber</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Exception raised when GMLib try to convert a string to a Real/Integer value.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMClasses.EGMOwnerWithoutJS.html">EGMOwnerWithoutJS</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Exception raised when GMLib needs to execute a JavaScript function and the object (or its owner) not support <a class="normal" href="GMClasses.IGMExecJS.html">IGMExecJS</a>.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMClasses.EGMTimeOut.html">EGMTimeOut</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Exception raised when a occurs a timeout.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMClasses.EGMUnassignedObject.html">EGMUnassignedObject</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Exception raised when a GMLib method receives an object param and it is unassigned.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMClasses.EGMWithoutOwner.html">EGMWithoutOwner</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Exception raised when an GMLib object needs an Owner to do something.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMClasses.IGMAPIUrl.html">IGMAPIUrl</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Interface that provide access to an URL from Google Maps API.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMClasses.IGMControlChanges.html">IGMControlChanges</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Interface that defines the method to call of the owner object when changes a property of the object.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMClasses.IGMExecJS.html">IGMExecJS</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Interface that defines the method to call to execute a JavaScript function.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Interface that defines the method to call of the owner object to know his TLang.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMClasses.IGMToStr.html">IGMToStr</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Interface that provide access to convert all object properties to string.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMClasses.TGMComponent.html">TGMComponent</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Base class for all classes that inherit from <code>TComponent</code> into GMLib.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMMap.TGMCustomGMMap.html">TGMCustomGMMap</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.html">GMMap</a></td>
+<td class="itemdesc"><p>Base class for <code>google.maps.Map</code> class and implements <code><a class="normal" href="GMClasses.IGMExecJS.html">IGMExecJS</a></code> and <code><a class="normal" href="GMClasses.IGMControlChanges.html">IGMControlChanges</a></code> interfaces.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMMap.TGMCustomMapOptions.html">TGMCustomMapOptions</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.html">GMMap</a></td>
+<td class="itemdesc"><p>Base class for <code>google.maps.MapOptions</code> object from Google Maps API.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMMap.TGMCustomMapTypeStyle.html">TGMCustomMapTypeStyle</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.html">GMMap</a></td>
+<td class="itemdesc"><p>Base class for <code>google.maps.MapTypeStyle</code> object from Google Maps API.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMMap.TGMCustomMapTypeStyler.html">TGMCustomMapTypeStyler</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.html">GMMap</a></td>
+<td class="itemdesc"><p>Base class for <code>google.maps.MapTypeStyler</code> object from Google Maps API.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMMap.TGMFullScreenControlOptions.html">TGMFullScreenControlOptions</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.html">GMMap</a></td>
+<td class="itemdesc"><p><code>google.maps.FullscreenControlOptions</code> object from Google Maps API.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMClasses.TGMInterfacedCollection.html">TGMInterfacedCollection</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Base class for all classes that inherit from <code>TCollection</code> into GMLib.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMClasses.TGMInterfacedCollectionItem.html">TGMInterfacedCollectionItem</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Base class for all classes that inherit from <code>TCollectionItem</code> into GMLib.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMClasses.TGMInterfacedOwnedPersistent.html">TGMInterfacedOwnedPersistent</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Base class for all classes that inherit from <code>TPersistent</code> into GMLib and need to be interfaced and to have an Owner.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMLatLng.TGMLatLng.html">TGMLatLng</a></td>
+<td class="itemunit"><a class="bold" href="GMLatLng.html">GMLatLng</a></td>
+<td class="itemdesc"><p>A <code>TGMLatLng</code> is a point in geographical coordinates: latitude and longitude.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMLatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a></td>
+<td class="itemunit"><a class="bold" href="GMLatLngBounds.html">GMLatLngBounds</a></td>
+<td class="itemdesc"><p>A <code>TGMLatLngBounds</code> instance represents a rectangle in geographical coordinates, including one that crosses the 180 degrees longitudinal meridian.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMMap.VCL.TGMMap.html">TGMMap</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.VCL.html">GMMap.VCL</a></td>
+<td class="itemdesc"><p><code>google.maps.Map</code> class</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMMap.VCL.TGMMapOptions.html">TGMMapOptions</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.VCL.html">GMMap.VCL</a></td>
+<td class="itemdesc"><p>Class for <code>google.maps.MapOptions</code> object from Google Maps API.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMMap.TGMMapTypeControlOptions.html">TGMMapTypeControlOptions</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.html">GMMap</a></td>
+<td class="itemdesc"><p><code>google.maps.MapTypeControlOptions</code> object from Google Maps API.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMMap.VCL.TGMMapTypeStyle.html">TGMMapTypeStyle</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.VCL.html">GMMap.VCL</a></td>
+<td class="itemdesc"><p><code>google.maps.MapTypeStyle</code> object from Google Maps API.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMMap.VCL.TGMMapTypeStyler.html">TGMMapTypeStyler</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.VCL.html">GMMap.VCL</a></td>
+<td class="itemdesc"><p><code>google.maps.MapTypeStyler</code> object from Google Maps API.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMMap.VCL.TGMMapTypeStylers.html">TGMMapTypeStylers</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.VCL.html">GMMap.VCL</a></td>
+<td class="itemdesc"><p><code>google.maps.MapTypeStyler</code> list objects from Google Maps API.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMMap.VCL.TGMMapTypeStyles.html">TGMMapTypeStyles</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.VCL.html">GMMap.VCL</a></td>
+<td class="itemdesc"><p><code>google.maps.MapTypeStyle</code> list objects from Google Maps API.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMClasses.TGMObject.html">TGMObject</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Base class for all classes that inherit from <code>TObject</code> into GMLib.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMMap.TGMOverviewMapControlOptions.html">TGMOverviewMapControlOptions</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.html">GMMap</a></td>
+<td class="itemdesc"><p><code>google.maps.OverviewMapControlOptions</code> object from Google Maps API.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMMap.TGMPanControlOptions.html">TGMPanControlOptions</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.html">GMMap</a></td>
+<td class="itemdesc"><p><code>google.maps.PanControlOptions</code> object from Google Maps API.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMClasses.TGMPersistent.html">TGMPersistent</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Base class for all classes that inherit from <code><a class="normal" href="GMClasses.TGMInterfacedOwnedPersistent.html">TGMInterfacedOwnedPersistent</a></code> into GMLib and implements <code><a class="normal" href="GMClasses.IGMAPIUrl.html">IGMAPIUrl</a></code> interface.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMClasses.TGMPersistentStr.html">TGMPersistentStr</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Base class for all classes that inherit from <code><a class="normal" href="GMClasses.TGMPersistent.html">TGMPersistent</a></code> into GMLib and implements <code><a class="normal" href="GMClasses.IGMToStr.html">IGMToStr</a></code> and <code><a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a></code> interfaces.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMMap.TGMRotateControlOptions.html">TGMRotateControlOptions</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.html">GMMap</a></td>
+<td class="itemdesc"><p><code>google.maps.RotateControlOptions</code> object from Google Maps API.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMMap.TGMScaleControlOptions.html">TGMScaleControlOptions</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.html">GMMap</a></td>
+<td class="itemdesc"><p><code>google.maps.ScaleControlOptions</code> object from Google Maps API.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMMap.TGMStreetViewAddressControlOptions.html">TGMStreetViewAddressControlOptions</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.html">GMMap</a></td>
+<td class="itemdesc"><p><code>google.maps.StreetViewAddressControlOptions</code> object from Google Maps API.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMMap.TGMStreetViewControlOptions.html">TGMStreetViewControlOptions</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.html">GMMap</a></td>
+<td class="itemdesc"><p><code>google.maps.StreetViewControlOptions</code> object from Google Maps API.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMMap.TGMStreetViewPanoramaOptions.html">TGMStreetViewPanoramaOptions</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.html">GMMap</a></td>
+<td class="itemdesc"><p><code>google.maps.StreetViewPanoramaOptions</code> object from Google Maps API.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMMap.TGMStreetViewPov.html">TGMStreetViewPov</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.html">GMMap</a></td>
+<td class="itemdesc"><p><code>google.maps.StreetViewPov</code> object from Google Maps API.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMClasses.TGMTransform.html">TGMTransform</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.html">GMClasses</a></td>
+<td class="itemdesc"><p>Contains methods of transformations.</p></td>
+</tr>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMClasses.VCL.TGMTransformVCL.html">TGMTransformVCL</a></td>
+<td class="itemunit"><a class="bold" href="GMClasses.VCL.html">GMClasses.VCL</a></td>
+<td class="itemdesc"><p>Contains methods of transformations.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMMap.TGMZoomControlOptions.html">TGMZoomControlOptions</a></td>
+<td class="itemunit"><a class="bold" href="GMMap.html">GMMap</a></td>
+<td class="itemdesc"><p><code>google.maps.ZoomControlOptions</code> object from Google Maps API.</p></td>
+</tr>
+</table>
+<br />
+<hr>
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+</tr>
+</table>
+<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+</span>
+</td></tr></table></body></html>

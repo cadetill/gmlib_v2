@@ -1,0 +1,98 @@
+[Main]
+StoreRelativePaths=1
+Language=en
+OutputDir=HTML
+GenerateFormat=0
+ProjectName=
+Verbosity=2
+ClassMembers_0=1
+ClassMembers_1=1
+ClassMembers_2=1
+ClassMembers_3=0
+ClassMembers_4=0
+ClassMembers_5=0
+ClassMembers_6=1
+ClassMembers_7=0
+ImplicitVisibility=0
+Sorting_0=0
+Sorting_1=0
+Sorting_2=0
+Sorting_3=0
+Sorting_4=0
+Sorting_5=0
+Sorting_6=0
+Sorting_7=0
+Sorting_8=1
+Sorting_9=1
+CssFileName=pasdoc.css
+IntroductionFileName=
+ConclusionFileName=
+WriteUsesList=1
+AutoAbstract=0
+AutoLink=1
+HandleMacros=1
+UseTipueSearch=1
+LineBreakQuality=0
+SpecialMarkerTreatment=1
+Title=Google Maps Library
+VizGraphClasses=1
+VizGraphUses=1
+CheckSpelling=1
+LatexGraphicsPackage=0
+
+[Defines]
+Count=4
+Item_0=FPC
+Item_1=MSWINDOWS
+Item_2=WIN32
+Item_3=CPU386
+
+[Header]
+Count=7
+Item_0=<table class="container">
+Item_1=<tr>
+Item_2=<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+Item_3=<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+Item_4=</tr>
+Item_5=</table>
+Item_6=<hr noshade="" size="1">
+
+[Footer]
+Count=8
+Item_0=<br />
+Item_1=<hr>
+Item_2=<table class="container">
+Item_3=<tr>
+Item_4=<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+Item_5=<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+Item_6=</tr>
+Item_7=</table>
+
+[IncludeDirectories]
+Count=3
+Item_0=..\..\src
+Item_1=..\..\src\VCL
+Item_2=..\..\resources
+
+[Files]
+Count=9
+Item_0=..\..\src\GMClasses.pas
+Item_1=..\..\src\GMLatLng.pas
+Item_2=..\..\src\GMLatLngBounds.pas
+Item_3=..\..\src\GMMap.pas
+Item_4=..\..\src\GMSets.pas
+Item_5=..\..\src\GMTranslations.pas
+Item_6=..\..\src\VCL\GMClasses.VCL.pas
+Item_7=..\..\src\VCL\GMMap.VCL.pas
+Item_8=..\..\src\VCL\GMRegisterComp.VCL.pas
+
+[HyphenatedWords]
+Count=0
+
+[SpecialMarkers]
+Count=2
+Item_0=*----------------------------------------------------------------------------
+Item_1=----------------------------------------------------------------------------*
+
+[IgnoreWords]
+Count=0
