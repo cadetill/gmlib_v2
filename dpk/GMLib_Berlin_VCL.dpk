@@ -1,4 +1,4 @@
-package GMLib_Seattle10_VCL;
+package GMLib_Berlin_VCL;
 
 {$R *.res}
 {$R '..\resources\gmlibres.RES'}
@@ -32,7 +32,6 @@ package GMLib_Seattle10_VCL;
 requires
   rtl,
   vcl,
-  GMLib_Seattle10,
   vclie;
 
 contains

@@ -3,19 +3,19 @@
 	<Transactions>
     <Transaction>2015/08/22 00:25:18.000.152,=rtl.dcp</Transaction>
     <Transaction>2015/08/23 10:23:34.000.877,=rtl.dcp</Transaction>
-    <Transaction>2015/08/23 10:25:25.000.234,D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\dpk\GMLib_XE4.dproj=d:\Docs\RAD Studio\Projects\Package1.dproj</Transaction>
+    <Transaction>2015/08/23 10:25:25.000.234,d:\Docs\RAD Studio\Projects\Package1.dproj=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\dpk\GMLib_XE4.dproj</Transaction>
+    <Transaction>2016/01/01 21:39:15.000.122,=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMClasses.pas</Transaction>
     <Transaction>2016/01/01 21:39:15.000.161,=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMMap.pas</Transaction>
-    <Transaction>2016/01/01 21:39:15.000.166,=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMSets.pas</Transaction>
     <Transaction>2016/01/01 21:39:15.000.155,=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMLatLngBounds.pas</Transaction>
     <Transaction>2016/01/01 21:39:15.000.173,=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMTranslations.pas</Transaction>
+    <Transaction>2016/01/01 21:39:15.000.166,=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMSets.pas</Transaction>
     <Transaction>2016/01/01 21:39:15.000.151,=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMLatLng.pas</Transaction>
-    <Transaction>2016/01/01 21:39:15.000.122,=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMClasses.pas</Transaction>
     <Transaction>2016/01/01 21:39:34.000.684,=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\VCL\GMClasses.VCL.pas</Transaction>
     <Transaction>2016/01/01 21:39:35.000.665,=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\VCL\GMMap.VCL.pas</Transaction>
-    <Transaction>2016/01/01 21:39:44.000.074,D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\VCL\GMMap.VCL.pas=</Transaction>
     <Transaction>2016/01/01 21:39:44.000.025,D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\VCL\GMClasses.VCL.pas=</Transaction>
+    <Transaction>2016/01/01 21:39:44.000.074,D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\VCL\GMMap.VCL.pas=</Transaction>
     <Transaction>2016/01/01 21:46:35.000.453,=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\dpk\Unit1.pas</Transaction>
-    <Transaction>2016/01/01 21:46:57.000.270,D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\dpk\Unit1.pas=d:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMRegisterComp.pas</Transaction>
+    <Transaction>2016/01/01 21:46:57.000.270,d:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMRegisterComp.pas=D:\Docs\DropBox\Programacio\GoogleMaps\Components\test\dpk\Unit1.pas</Transaction>
     <Transaction>2016/01/02 00:21:48.000.675,d:\Docs\DropBox\Programacio\GoogleMaps\Components\test\src\GMRegisterComp.pas=</Transaction>
     <Transaction>2016/02/14 16:03:37.000.729,=d:\Docs\DropBox\Programacio\GoogleMaps\Components\gmlib_v2\dpk\Unit1.pas</Transaction>
     <Transaction>2016/02/14 16:04:36.000.337,=d:\Docs\DropBox\Programacio\GoogleMaps\Components\gmlib_v2\src\GMConstants.pas</Transaction>

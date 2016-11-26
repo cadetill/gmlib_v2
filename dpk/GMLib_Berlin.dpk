@@ -1,7 +1,6 @@
-package GMLib_Seattle10_VCL;
+package GMLib_Berlin;
 
 {$R *.res}
-{$R '..\resources\gmlibres.RES'}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
 {$ASSERTIONS ON}
@@ -30,14 +29,15 @@ package GMLib_Seattle10_VCL;
 {$IMPLICITBUILD ON}
 
 requires
-  rtl,
-  vcl,
-  GMLib_Seattle10,
-  vclie;
+  rtl;
 
 contains
-  GMClasses.VCL in '..\src\VCL\GMClasses.VCL.pas',
-  GMMap.VCL in '..\src\VCL\GMMap.VCL.pas',
-  GMRegisterComp.VCL in '..\src\VCL\GMRegisterComp.VCL.pas';
+  GMClasses in '..\src\GMClasses.pas',
+  GMConstants in '..\src\GMConstants.pas',
+  GMLatLng in '..\src\GMLatLng.pas',
+  GMLatLngBounds in '..\src\GMLatLngBounds.pas',
+  GMMap in '..\src\GMMap.pas',
+  GMSets in '..\src\GMSets.pas',
+  GMTranslations in '..\src\GMTranslations.pas';
 
 end.
