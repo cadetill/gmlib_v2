@@ -23,6 +23,13 @@ uses
 
 type
   { ************************************************************************** }
+  { *************************  Events definition  **************************** }
+  { ************************************************************************** }
+
+  // @include(..\docs\GMClasses.TPropertyChanges.txt)
+  TPropertyChanges = procedure(Owner: TObject; PropName: string) of object;
+
+  { ************************************************************************** }
   { ***********************  Interfaces definition  ************************** }
   { ************************************************************************** }
 
@@ -46,7 +53,7 @@ type
   IGMControlChanges = interface(IInterface)
     ['{4731A754-4D4B-4AA2-978E-AF2838925A06}']
     // @include(..\docs\GMClasses.IGMControlChanges.PropertyChanged.txt)
-    procedure PropertyChanged(Prop: TPersistent);
+    procedure PropertyChanged(Prop: TPersistent; PropName: string);
   end;
 
   // @include(..\docs\GMClasses.IGMOwnerLang.txt)
@@ -170,7 +177,7 @@ type
     // @include(..\docs\GMClasses.TGMInterfacedOwnedPersistent.GetOwner.txt)
     function GetOwner: TPersistent; override;
     // @exclude
-    procedure ControlChanges; virtual;
+    procedure ControlChanges(PropName: string); virtual;
 
     // @include(..\docs\GMClasses.TGMInterfacedOwnedPersistent.OnChange.txt)
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
@@ -254,7 +261,7 @@ type
     function GetOwnerLang: TGMLang; virtual;
 
     // @exclude
-    procedure ControlChanges; virtual;
+    procedure ControlChanges(PropName: string); virtual;
 
     // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.OnChange.txt)
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
@@ -300,10 +307,10 @@ type
     function GetOwner: TPersistent; override;
 
     // @exclude
-    procedure ControlChanges; virtual;
+    procedure ControlChanges(PropName: string); virtual;
 
-    // @include(..\docs\GMClasses.TGMInterfacedCollection.PropertyChanged.txt)
-    procedure PropertyChanged(Prop: TPersistent);
+    // @include(..\docs\GMClasses.IGMControlChanges.PropertyChanged.txt)
+    procedure PropertyChanged(Prop: TPersistent; PropName: string);
 
     // @include(..\docs\GMClasses.TGMInterfacedCollection.Delete.txt)
     procedure Delete(Index: Integer);
@@ -359,6 +366,9 @@ type
     class function MapTypeStyleFeatureTypeToStr(MapTypeStyleFeatureType: TGMMapTypeStyleFeatureType): string; static;
     // @include(..\docs\GMClasses.TGMTransform.MapTypeIdToStr.txt)
     class function MapTypeIdToStr(MapTypeId: TGMMapTypeId): string; static;
+
+    // @include(..\docs\GMClasses.TGMTransform.StrToPosition.txt)
+    class function StrToPosition(Position: string): TGMControlPosition; static;
   end;
 
 implementation
@@ -424,12 +434,12 @@ end;
 
 { TGMInterfacedOwnedPersistent }
 
-procedure TGMInterfacedOwnedPersistent.ControlChanges;
+procedure TGMInterfacedOwnedPersistent.ControlChanges(PropName: string);
 var
   Intf: IGMControlChanges;
 begin
   if (FOwner <> nil) and Supports(FOwner, IGMControlChanges, Intf) then
-    Intf.PropertyChanged(Self)
+    Intf.PropertyChanged(Self, PropName)
   else
     if Assigned(FOnChange) then FOnChange(Self);
 end;
@@ -607,6 +617,11 @@ begin
   Result := GetEnumName(TypeInfo(TGMScaleControlStyle), Ord(ScaleControlStyle));
 end;
 
+class function TGMTransform.StrToPosition(Position: string): TGMControlPosition;
+begin
+  Result := TGMControlPosition(GetEnumValue(TypeInfo(TGMControlPosition), Position));
+end;
+
 class function TGMTransform.StrToVisibility(Visibility: string): TGMVisibility;
 begin
   Result := TGMVisibility(GetEnumValue(TypeInfo(TGMVisibility), Visibility));
@@ -656,12 +671,12 @@ begin
   end;
 end;
 
-procedure TGMInterfacedCollectionItem.ControlChanges;
+procedure TGMInterfacedCollectionItem.ControlChanges(PropName: string);
 var
   Intf: IGMControlChanges;
 begin
   if (GetOwner <> nil) and Supports(GetOwner, IGMControlChanges, Intf) then
-    Intf.PropertyChanged(Self)
+    Intf.PropertyChanged(Self, PropName)
   else
     if Assigned(FOnChange) then FOnChange(Self);
 end;
@@ -735,15 +750,15 @@ procedure TGMInterfacedCollection.Clear;
 begin
   inherited Clear;
 
-  ControlChanges;
+  ControlChanges('');
 end;
 
-procedure TGMInterfacedCollection.ControlChanges;
+procedure TGMInterfacedCollection.ControlChanges(PropName: string);
 var
   Intf: IGMControlChanges;
 begin
   if (GetOwner <> nil) and Supports(GetOwner, IGMControlChanges, Intf) then
-    Intf.PropertyChanged(Self)
+    Intf.PropertyChanged(Self, PropName)
   else
     if Assigned(FOnChange) then FOnChange(Self);
 end;
@@ -760,7 +775,7 @@ procedure TGMInterfacedCollection.Delete(Index: Integer);
 begin
   inherited Delete(Index);
 
-  ControlChanges;
+  ControlChanges('');
 end;
 
 function TGMInterfacedCollection.GetItems(
@@ -790,12 +805,13 @@ procedure TGMInterfacedCollection.Move(CurIndex, NewIndex: Integer);
 begin
   Items[CurIndex].Index := NewIndex;
 
-  ControlChanges;
+  ControlChanges('');
 end;
 
-procedure TGMInterfacedCollection.PropertyChanged(Prop: TPersistent);
+procedure TGMInterfacedCollection.PropertyChanged(Prop: TPersistent;
+  PropName: string);
 begin
-  ControlChanges;
+  ControlChanges(PropName);
 end;
 
 function TGMInterfacedCollection.PropToString: string;
