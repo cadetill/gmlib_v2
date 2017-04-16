@@ -160,4 +160,13 @@
     return MapTypeStyle;
   }
 
+  /* StrToVisibility */
+  function StrToGestureHandling(gestureHandling) {
+    switch (gestureHandling) { 
+      case "ghCooperative": return 'cooperative'; break; 
+      case "ghGreedy": return 'greedy'; break; 
+      case "ghNone": return 'none'; break; 
+      default: return 'auto'; 
+    } 
+  } 
   
