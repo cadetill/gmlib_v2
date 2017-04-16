@@ -160,7 +160,7 @@
     return MapTypeStyle;
   }
 
-  /* StrToVisibility */
+  /* StrToGestureHandling */
   function StrToGestureHandling(gestureHandling) {
     switch (gestureHandling) { 
       case "ghCooperative": return 'cooperative'; break; 
