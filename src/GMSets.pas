@@ -11,7 +11,7 @@ unit GMSets;
 interface
 
 type
-  // @include(..\docs\GMSets.TGMLang.txt)
+  // @include(..\Help\docs\GMSets.TGMLang.txt)
   TGMLang = (// unknown exception language
              lnUnknown,
              // Spanish exception language
@@ -21,10 +21,10 @@ type
              // French exception language
              lnFrench);
 
-  // @include(..\docs\GMSets.TGoogleAPIVer.txt)
+  // @include(..\Help\docs\GMSets.TGoogleAPIVer.txt)
   TGoogleAPIVer = (api321, api322, api323, api324, apiNewest);
 
-  // @include(..\docs\GMSets.TGMAPILang.txt)
+  // @include(..\Help\docs\GMSets.TGMAPILang.txt)
   TGMAPILang = (lArabic, lBulgarian, lBengali, lCatalan, lCzech, lDanish, lGerman, lGreek, lEnglish,
                 lEnglish_Aust, lEnglish_GB, lSpanish, lBasque, lFarsi, lFinnish, lFilipino, lFrench,
                 lGalician, lGujarati, lHindi, lCroatian, lHungarian, lIndonesian, lItalian, lHebrew,
@@ -33,29 +33,29 @@ type
                 lSlovak, lSlovenian, lSerbian, lSwedish, lTamil, lTelugu, lThai, lTagalog, lTurkish,
                 lUkrainian, lVietnamese, lChinese_Simp, lChinese_Trad, lUndefined);
 
-  // @include(..\docs\GMSets.TGMMapTypeId.txt)
+  // @include(..\Help\docs\GMSets.TGMMapTypeId.txt)
   TGMMapTypeId = (mtHYBRID, mtROADMAP, mtSATELLITE, mtTERRAIN, mtOSM);
-  // @include(..\docs\GMSets.TGMMapTypeIds.txt)
+  // @include(..\Help\docs\GMSets.TGMMapTypeIds.txt)
   TGMMapTypeIds = set of TGMMapTypeId;
 
-  // @include(..\docs\GMSets.TGMControlPosition.txt)
+  // @include(..\Help\docs\GMSets.TGMControlPosition.txt)
   TGMControlPosition = (cpBOTTOM_CENTER, cpBOTTOM_LEFT, cpBOTTOM_RIGHT,
                         cpLEFT_BOTTOM, cpLEFT_CENTER, cpLEFT_TOP,
                         cpRIGHT_BOTTOM, cpRIGHT_CENTER, cpRIGHT_TOP,
                         cpTOP_CENTER, cpTOP_LEFT, cpTOP_RIGHT);
 
-  // @include(..\docs\GMSets.TGMMapTypeControlStyle.txt)
+  // @include(..\Help\docs\GMSets.TGMMapTypeControlStyle.txt)
   TGMMapTypeControlStyle = (mtcDEFAULT, mtcDROPDOWN_MENU, mtcHORIZONTAL_BAR);
 
-  // @include(..\docs\GMSets.TGMScaleControlStyle.txt)
+  // @include(..\Help\docs\GMSets.TGMScaleControlStyle.txt)
   TGMScaleControlStyle = (scDEFAULT);
 
-  // @include(..\docs\GMSets.TGMMapTypeStyleElementType.txt)
+  // @include(..\Help\docs\GMSets.TGMMapTypeStyleElementType.txt)
   TGMMapTypeStyleElementType = (setALL, setGEOMETRY, setGEOMETRY_FILL, setGEOMETRY_STROKE,
                         setLABELS, setLABELS_ICON, setLABELS_TEXT, setLABELS_TEXT_FILL,
                         setLABELS_TEXT_STROKE);
 
-  // @include(..\docs\GMSets.TGMMapTypeStyleFeatureType.txt)
+  // @include(..\Help\docs\GMSets.TGMMapTypeStyleFeatureType.txt)
   TGMMapTypeStyleFeatureType = (sftADMINISTRATIVE, sftADMINISTRATIVE_COUNTRY, sftADMINISTRATIVE_LAND__PARCEL,
               sftADMINISTRATIVE_LOCALITY, sftADMINISTRATIVE_NEIGHBORHOOD, sftADMINISTRATIVE_PROVINCE,
               sftALL, sftLANDSCAPE, sftLANDSCAPE_MAN__MADE, sftLANDSCAPE_NATURAL, sftLANDSCAPE_NATURAL_LANDCOVER,
@@ -65,10 +65,10 @@ type
               sftTRANSIT, sftTRANSIT_LINE, sftTRANSIT_STATION, sftTRANSIT_STATION_AIRPORT, sftTRANSIT_STATION_BUS,
               sftTRANSIT_STATION_RAIL, sftWATER);
 
-  // @include(..\docs\GMSets.TGMVisibility.txt)
+  // @include(..\Help\docs\GMSets.TGMVisibility.txt)
   TGMVisibility = (vOn, vOff, vSimplified);
 
-  // @include(..\docs\GMSets.TGMZoomControlStyle.txt)
+  // @include(..\Help\docs\GMSets.TGMZoomControlStyle.txt)
   TGMZoomControlStyle = (zcDEFAULT, zcLARGE, zcSMALL);
 
 implementation

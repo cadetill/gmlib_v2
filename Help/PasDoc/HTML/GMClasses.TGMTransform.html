@@ -1,48 +1,32 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/1999/REC-html401-19991224/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Google Maps Library: GMClasses: record TGMTransform</title>
-<meta name="generator" content="PasDoc 0.14.0">
-<meta http-equiv="content-type" content="text/html; charset=utf-8">
-<script type="text/javascript" src="tipuesearch/jquery.min.js"></script>
-<script type="text/javascript" src="tipuesearch/tipuesearch_data.js"></script>
+<title>Google Maps Library: GMClasses: Record TGMTransform</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 0.15.0">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
-<script type="text/javascript" src="tipuesearch/tipuesearch_set.js"></script>
-<script type="text/javascript" src="tipuesearch/tipuesearch.js"></script>
 
 <link rel="StyleSheet" type="text/css" href="pasdoc.css">
 </head>
 <body>
-<table class="container"><tr><td class="navigation">
-<h2>Google Maps Library</h2><p><a href="AllUnits.html" class="navigation">Units</a></p><p><a href="ClassHierarchy.html" class="navigation">Class Hierarchy</a></p><p><a href="AllClasses.html" class="navigation">Classes, Interfaces, Objects and Records</a></p><p><a href="AllTypes.html" class="navigation">Types</a></p><p><a href="AllVariables.html" class="navigation">Variables</a></p><p><a href="AllConstants.html" class="navigation">Constants</a></p><p><a href="AllFunctions.html" class="navigation">Functions and Procedures</a></p><p><a href="AllIdentifiers.html" class="navigation">Identifiers</a></p><p><a href="GVUses.png" class="navigation">Unit dependency graph</a></p><p><a href="GVClasses.png" class="navigation">Classes hierarchy graph</a></p><p><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input"></div><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></form>
+<div class="container"><div class="navigation">
+<h2><a href="index.html">Google Maps Library</a></h2><ul><li><a href="AllUnits.html">Units</a></li><li><a href="ClassHierarchy.html">Class Hierarchy</a></li><li><a href="AllClasses.html">Classes, Interfaces, Objects and Records</a></li><li><a href="AllTypes.html">Types</a></li><li><a href="AllVariables.html">Variables</a></li><li><a href="AllConstants.html">Constants</a></li><li><a href="AllFunctions.html">Functions and Procedures</a></li><li><a href="AllIdentifiers.html">Identifiers</a></li><li><a href="GVUses.png">Unit dependency graph</a></li><li><a href="GVClasses.png">Classes hierarchy graph</a></li><li><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input" pattern=".{3,}" title="At least 3 characters" required><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></div></form>
 <div style="clear: both"></div>
-
-<script>
-$(document).ready(function() {
-    $('#tipue_search_input').tipuesearch({
-        /* 10 items to display seems standard */
-        'show': 10,
-        /* For PasDoc docs, showing urls is not very useful,
-           since the page title already shows the unit and identifier. */
-        'showURL': false
-    });
-});
-</script>
-</p></td><td class="content">
+</li></ul></div><div class="content">
 <table class="container">
 <tr>
 <td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
-<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+<td class="cadetill">Copyright Â© Xavier MartÃ­nez (cadetill).</td>
 </tr>
 </table>
 <hr noshade="" size="1">
-<a name="TGMTransform"></a><h1 class="cio">record TGMTransform</h1>
-<table class="sections wide_list">
-<tr>
-<td><a class="section" href="#PasDoc-Description">Description</a></td><td>Hierarchy</td><td>Fields</td><td><a class="section" href="#PasDoc-Methods">Methods</a></td><td>Properties</td></tr></table>
-<a name="PasDoc-Description"></a><h2 class="unit">Unit</h2>
+<span id="TGMTransform"></span><h1 class="cio">Record TGMTransform</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section">Hierarchy</div><div class="one_section">Fields</div><div class="one_section"><a class="section" href="#PasDoc-Methods">Methods</a></div><div class="one_section">Properties</div></div>
+<span id="PasDoc-Description"></span><h2 class="unit">Unit</h2>
 <p class="unitlink">
-<a  href="GMClasses.html">GMClasses</a></p>
+<a href="GMClasses.html">GMClasses</a></p>
 <h2 class="declaration">Declaration</h2>
 <p class="declaration">
 <code>type TGMTransform = record</code></p>
@@ -52,55 +36,73 @@ Contains methods of transformations.</p>
 <p>
  </p>
 <h2 class="overview">Overview</h2>
-<a name="PasDoc-Methods"></a><h3 class="summary">Methods</h3>
+<span id="PasDoc-Methods"></span><h3 class="summary">Methods</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code>class function <b><a  href="GMClasses.TGMTransform.html#APILangToStr">APILangToStr</a></b>(APILang: <a  href="GMSets.html#TGMAPILang">TGMAPILang</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class function <strong><a href="GMClasses.TGMTransform.html#APILangToStr">APILangToStr</a></strong>(APILang: <a href="GMSets.html#TGMAPILang">TGMAPILang</a>): string; static;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>class function <b><a  href="GMClasses.TGMTransform.html#GMBoolToStr">GMBoolToStr</a></b>(B: Boolean; UseBoolStrs: Boolean = False): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class function <strong><a href="GMClasses.TGMTransform.html#GMBoolToStr">GMBoolToStr</a></strong>(B: Boolean; UseBoolStrs: Boolean = False): string; static;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>class function <b><a  href="GMClasses.TGMTransform.html#GoogleAPIVerToStr">GoogleAPIVerToStr</a></b>(GoogleAPIVer: <a  href="GMSets.html#TGoogleAPIVer">TGoogleAPIVer</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class function <strong><a href="GMClasses.TGMTransform.html#GoogleAPIVerToStr">GoogleAPIVerToStr</a></strong>(GoogleAPIVer: <a href="GMSets.html#TGoogleAPIVer">TGoogleAPIVer</a>): string; static;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>class function <b><a  href="GMClasses.TGMTransform.html#MapTypeControlStyleToStr">MapTypeControlStyleToStr</a></b>(MapTypeControlStyle: <a  href="GMSets.html#TGMMapTypeControlStyle">TGMMapTypeControlStyle</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class function <strong><a href="GMClasses.TGMTransform.html#MapTypeControlStyleToStr">MapTypeControlStyleToStr</a></strong>(MapTypeControlStyle: <a href="GMSets.html#TGMMapTypeControlStyle">TGMMapTypeControlStyle</a>): string; static;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>class function <b><a  href="GMClasses.TGMTransform.html#MapTypeIdsToStr">MapTypeIdsToStr</a></b>(MapTypeIds: <a  href="GMSets.html#TGMMapTypeIds">TGMMapTypeIds</a>; Delimiter: Char = ';'): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class function <strong><a href="GMClasses.TGMTransform.html#MapTypeIdsToStr">MapTypeIdsToStr</a></strong>(MapTypeIds: <a href="GMSets.html#TGMMapTypeIds">TGMMapTypeIds</a>; Delimiter: Char = ';'): string; static;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>class function <b><a  href="GMClasses.TGMTransform.html#MapTypeIdToStr">MapTypeIdToStr</a></b>(MapTypeId: <a  href="GMSets.html#TGMMapTypeId">TGMMapTypeId</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class function <strong><a href="GMClasses.TGMTransform.html#MapTypeIdToStr">MapTypeIdToStr</a></strong>(MapTypeId: <a href="GMSets.html#TGMMapTypeId">TGMMapTypeId</a>): string; static;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>class function <b><a  href="GMClasses.TGMTransform.html#MapTypeStyleElementTypeToStr">MapTypeStyleElementTypeToStr</a></b>(MapTypeStyleElementType: <a  href="GMSets.html#TGMMapTypeStyleElementType">TGMMapTypeStyleElementType</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class function <strong><a href="GMClasses.TGMTransform.html#MapTypeStyleElementTypeToStr">MapTypeStyleElementTypeToStr</a></strong>(MapTypeStyleElementType: <a href="GMSets.html#TGMMapTypeStyleElementType">TGMMapTypeStyleElementType</a>): string; static;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>class function <b><a  href="GMClasses.TGMTransform.html#MapTypeStyleFeatureTypeToStr">MapTypeStyleFeatureTypeToStr</a></b>(MapTypeStyleFeatureType: <a  href="GMSets.html#TGMMapTypeStyleFeatureType">TGMMapTypeStyleFeatureType</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class function <strong><a href="GMClasses.TGMTransform.html#MapTypeStyleFeatureTypeToStr">MapTypeStyleFeatureTypeToStr</a></strong>(MapTypeStyleFeatureType: <a href="GMSets.html#TGMMapTypeStyleFeatureType">TGMMapTypeStyleFeatureType</a>): string; static;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>class function <b><a  href="GMClasses.TGMTransform.html#PositionToStr">PositionToStr</a></b>(Position: <a  href="GMSets.html#TGMControlPosition">TGMControlPosition</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class function <strong><a href="GMClasses.TGMTransform.html#PositionToStr">PositionToStr</a></strong>(Position: <a href="GMSets.html#TGMControlPosition">TGMControlPosition</a>): string; static;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>class function <b><a  href="GMClasses.TGMTransform.html#ScaleControlStyleToStr">ScaleControlStyleToStr</a></b>(ScaleControlStyle: <a  href="GMSets.html#TGMScaleControlStyle">TGMScaleControlStyle</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class function <strong><a href="GMClasses.TGMTransform.html#ScaleControlStyleToStr">ScaleControlStyleToStr</a></strong>(ScaleControlStyle: <a href="GMSets.html#TGMScaleControlStyle">TGMScaleControlStyle</a>): string; static;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>class function <b><a  href="GMClasses.TGMTransform.html#StrToVisibility">StrToVisibility</a></b>(Visibility: string): <a  href="GMSets.html#TGMVisibility">TGMVisibility</a>; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class function <strong><a href="GMClasses.TGMTransform.html#StrToPosition">StrToPosition</a></strong>(Position: string): <a href="GMSets.html#TGMControlPosition">TGMControlPosition</a>; static;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code>class function <b><a  href="GMClasses.TGMTransform.html#VisibilityToStr">VisibilityToStr</a></b>(Visibility: <a  href="GMSets.html#TGMVisibility">TGMVisibility</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class function <strong><a href="GMClasses.TGMTransform.html#StrToVisibility">StrToVisibility</a></strong>(Visibility: string): <a href="GMSets.html#TGMVisibility">TGMVisibility</a>; static;</code></td>
 </tr>
 <tr class="list">
-<td class="itemcode"><code>class function <b><a  href="GMClasses.TGMTransform.html#ZoomControlStyleToStr">ZoomControlStyleToStr</a></b>(ZoomControlStyle: <a  href="GMSets.html#TGMZoomControlStyle">TGMZoomControlStyle</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class function <strong><a href="GMClasses.TGMTransform.html#VisibilityToStr">VisibilityToStr</a></strong>(Visibility: <a href="GMSets.html#TGMVisibility">TGMVisibility</a>): string; static;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>class function <strong><a href="GMClasses.TGMTransform.html#ZoomControlStyleToStr">ZoomControlStyleToStr</a></strong>(ZoomControlStyle: <a href="GMSets.html#TGMZoomControlStyle">TGMZoomControlStyle</a>): string; static;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
 <h3 class="detail">Methods</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="APILangToStr"></a><code>class function <b>APILangToStr</b>(APILang: <a  href="GMSets.html#TGMAPILang">TGMAPILang</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="APILangToStr"></span><code>class function <strong>APILangToStr</strong>(APILang: <a href="GMSets.html#TGMAPILang">TGMAPILang</a>): string; static;</code></td>
 </tr>
-<tr><td colspan="1">
+<tr><td colspan="2">
 <p>
 Returns a string that represents the APILang.
 
@@ -117,9 +119,10 @@ Returns a string that represents the APILang.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="GMBoolToStr"></a><code>class function <b>GMBoolToStr</b>(B: Boolean; UseBoolStrs: Boolean = False): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="GMBoolToStr"></span><code>class function <strong>GMBoolToStr</strong>(B: Boolean; UseBoolStrs: Boolean = False): string; static;</code></td>
 </tr>
-<tr><td colspan="1">
+<tr><td colspan="2">
 <p>
 Returns a string that represents a boolean value. This function have sense since some people have localized the original Delphi function.
 
@@ -138,9 +141,10 @@ Returns a string that represents a boolean value. This function have sense since
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="GoogleAPIVerToStr"></a><code>class function <b>GoogleAPIVerToStr</b>(GoogleAPIVer: <a  href="GMSets.html#TGoogleAPIVer">TGoogleAPIVer</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="GoogleAPIVerToStr"></span><code>class function <strong>GoogleAPIVerToStr</strong>(GoogleAPIVer: <a href="GMSets.html#TGoogleAPIVer">TGoogleAPIVer</a>): string; static;</code></td>
 </tr>
-<tr><td colspan="1">
+<tr><td colspan="2">
 <p>
 Returns a string that represents the GoogleAPIVer.
 
@@ -157,9 +161,10 @@ Returns a string that represents the GoogleAPIVer.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="MapTypeControlStyleToStr"></a><code>class function <b>MapTypeControlStyleToStr</b>(MapTypeControlStyle: <a  href="GMSets.html#TGMMapTypeControlStyle">TGMMapTypeControlStyle</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="MapTypeControlStyleToStr"></span><code>class function <strong>MapTypeControlStyleToStr</strong>(MapTypeControlStyle: <a href="GMSets.html#TGMMapTypeControlStyle">TGMMapTypeControlStyle</a>): string; static;</code></td>
 </tr>
-<tr><td colspan="1">
+<tr><td colspan="2">
 <p>
 Returns a string that represents the MapTypeControlStyle.
 
@@ -176,9 +181,10 @@ Returns a string that represents the MapTypeControlStyle.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="MapTypeIdsToStr"></a><code>class function <b>MapTypeIdsToStr</b>(MapTypeIds: <a  href="GMSets.html#TGMMapTypeIds">TGMMapTypeIds</a>; Delimiter: Char = ';'): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="MapTypeIdsToStr"></span><code>class function <strong>MapTypeIdsToStr</strong>(MapTypeIds: <a href="GMSets.html#TGMMapTypeIds">TGMMapTypeIds</a>; Delimiter: Char = ';'): string; static;</code></td>
 </tr>
-<tr><td colspan="1">
+<tr><td colspan="2">
 <p>
 Returns a string with the MapTypeId included into MapTypeIds.    </p>
 <h6 class="description_section">Parameters</h6>
@@ -193,9 +199,10 @@ Returns a string with the MapTypeId included into MapTypeIds.    </p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="MapTypeIdToStr"></a><code>class function <b>MapTypeIdToStr</b>(MapTypeId: <a  href="GMSets.html#TGMMapTypeId">TGMMapTypeId</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="MapTypeIdToStr"></span><code>class function <strong>MapTypeIdToStr</strong>(MapTypeId: <a href="GMSets.html#TGMMapTypeId">TGMMapTypeId</a>): string; static;</code></td>
 </tr>
-<tr><td colspan="1">
+<tr><td colspan="2">
 <p>
 Returns a string that represents the MapTypeId.   </p>
 <h6 class="description_section">Parameters</h6>
@@ -208,9 +215,10 @@ Returns a string that represents the MapTypeId.   </p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="MapTypeStyleElementTypeToStr"></a><code>class function <b>MapTypeStyleElementTypeToStr</b>(MapTypeStyleElementType: <a  href="GMSets.html#TGMMapTypeStyleElementType">TGMMapTypeStyleElementType</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="MapTypeStyleElementTypeToStr"></span><code>class function <strong>MapTypeStyleElementTypeToStr</strong>(MapTypeStyleElementType: <a href="GMSets.html#TGMMapTypeStyleElementType">TGMMapTypeStyleElementType</a>): string; static;</code></td>
 </tr>
-<tr><td colspan="1">
+<tr><td colspan="2">
 <p>
 Returns a string that represents the MapTypeStyleElementType.   </p>
 <h6 class="description_section">Parameters</h6>
@@ -223,9 +231,10 @@ Returns a string that represents the MapTypeStyleElementType.   </p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="MapTypeStyleFeatureTypeToStr"></a><code>class function <b>MapTypeStyleFeatureTypeToStr</b>(MapTypeStyleFeatureType: <a  href="GMSets.html#TGMMapTypeStyleFeatureType">TGMMapTypeStyleFeatureType</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="MapTypeStyleFeatureTypeToStr"></span><code>class function <strong>MapTypeStyleFeatureTypeToStr</strong>(MapTypeStyleFeatureType: <a href="GMSets.html#TGMMapTypeStyleFeatureType">TGMMapTypeStyleFeatureType</a>): string; static;</code></td>
 </tr>
-<tr><td colspan="1">
+<tr><td colspan="2">
 <p>
 Returns a string that represents the MapTypeStyleFeatureType.   </p>
 <h6 class="description_section">Parameters</h6>
@@ -238,9 +247,10 @@ Returns a string that represents the MapTypeStyleFeatureType.   </p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="PositionToStr"></a><code>class function <b>PositionToStr</b>(Position: <a  href="GMSets.html#TGMControlPosition">TGMControlPosition</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="PositionToStr"></span><code>class function <strong>PositionToStr</strong>(Position: <a href="GMSets.html#TGMControlPosition">TGMControlPosition</a>): string; static;</code></td>
 </tr>
-<tr><td colspan="1">
+<tr><td colspan="2">
 <p>
 Returns a string that represents the Position.
 
@@ -257,9 +267,10 @@ Returns a string that represents the Position.
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="ScaleControlStyleToStr"></a><code>class function <b>ScaleControlStyleToStr</b>(ScaleControlStyle: <a  href="GMSets.html#TGMScaleControlStyle">TGMScaleControlStyle</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="ScaleControlStyleToStr"></span><code>class function <strong>ScaleControlStyleToStr</strong>(ScaleControlStyle: <a href="GMSets.html#TGMScaleControlStyle">TGMScaleControlStyle</a>): string; static;</code></td>
 </tr>
-<tr><td colspan="1">
+<tr><td colspan="2">
 <p>
 Returns a string that represents the ScaleControlStyle.   </p>
 <h6 class="description_section">Parameters</h6>
@@ -272,9 +283,32 @@ Returns a string that represents the ScaleControlStyle.   </p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="StrToVisibility"></a><code>class function <b>StrToVisibility</b>(Visibility: string): <a  href="GMSets.html#TGMVisibility">TGMVisibility</a>; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="StrToPosition"></span><code>class function <strong>StrToPosition</strong>(Position: string): <a href="GMSets.html#TGMControlPosition">TGMControlPosition</a>; static;</code></td>
 </tr>
-<tr><td colspan="1">
+<tr><td colspan="2">
+<p>
+Returns the <a class="normal" href="GMSets.html#TGMControlPosition">TGMControlPosition</a> represented by the string Position.</p>
+<p>
+
+
+<p>
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Position</dt>
+<dd>string to convert to <a class="normal" href="GMSets.html#TGMControlPosition">TGMControlPosition</a></dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return"><a class="normal" href="GMSets.html#TGMControlPosition">TGMControlPosition</a> that represents the string</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="StrToVisibility"></span><code>class function <strong>StrToVisibility</strong>(Visibility: string): <a href="GMSets.html#TGMVisibility">TGMVisibility</a>; static;</code></td>
+</tr>
+<tr><td colspan="2">
 <p>
 Returns the <a class="normal" href="GMSets.html#TGMVisibility">TGMVisibility</a> represented by the string <code>Visibility</code>.
 
@@ -291,9 +325,10 @@ Returns the <a class="normal" href="GMSets.html#TGMVisibility">TGMVisibility</a>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="VisibilityToStr"></a><code>class function <b>VisibilityToStr</b>(Visibility: <a  href="GMSets.html#TGMVisibility">TGMVisibility</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="VisibilityToStr"></span><code>class function <strong>VisibilityToStr</strong>(Visibility: <a href="GMSets.html#TGMVisibility">TGMVisibility</a>): string; static;</code></td>
 </tr>
-<tr><td colspan="1">
+<tr><td colspan="2">
 <p>
 Returns a string that represents the <code>Visibility</code>.   </p>
 <h6 class="description_section">Parameters</h6>
@@ -306,9 +341,10 @@ Returns a string that represents the <code>Visibility</code>.   </p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><a name="ZoomControlStyleToStr"></a><code>class function <b>ZoomControlStyleToStr</b>(ZoomControlStyle: <a  href="GMSets.html#TGMZoomControlStyle">TGMZoomControlStyle</a>): string; static;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="ZoomControlStyleToStr"></span><code>class function <strong>ZoomControlStyleToStr</strong>(ZoomControlStyle: <a href="GMSets.html#TGMZoomControlStyle">TGMZoomControlStyle</a>): string; static;</code></td>
 </tr>
-<tr><td colspan="1">
+<tr><td colspan="2">
 <p>
 Returns a string that represents the ZoomControlStyle.   </p>
 <h6 class="description_section">Parameters</h6>
@@ -324,9 +360,9 @@ Returns a string that represents the ZoomControlStyle.   </p>
 <table class="container">
 <tr>
 <td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
-<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+<td class="cadetill">Copyright Â© Xavier MartÃ­nez (cadetill).</td>
 </tr>
 </table>
-<hr noshade size="1"><span class="appinfo"><em>Generated by <a  href="http://pasdoc.sourceforge.net/">PasDoc 0.14.0</a>. </em>
+<hr><span class="appinfo"><em>Generated by <a href="https://github.com/pasdoc/pasdoc/wiki">PasDoc 0.15.0</a>. </em>
 </span>
-</td></tr></table></body></html>
+</div></div></body></html>

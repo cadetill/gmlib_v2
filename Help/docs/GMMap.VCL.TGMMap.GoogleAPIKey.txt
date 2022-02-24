@@ -10,5 +10,6 @@ Google Maps limits:
      @item(Geolocation limits usage: https://developers.google.com/maps/documentation/geolocation/usage-limits)
      @item(Roads limits usage: https://developers.google.com/maps/documentation/roads/usage-limits)
      @item(Time Zone limits usage: https://developers.google.com/maps/documentation/timezone/usage-limits)
+	 @item(General prices: https://mapsplatform.google.com/pricing/)
    )
-@code(EGMMapIsActive) exception is raised when @code(Active) property is @code(True).
+@code(EGMMapIsActive) exception is raised when you try to change this property when the @code(Active) property is @code(True).

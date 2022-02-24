@@ -26,47 +26,47 @@ type
   { *************************  Events definition  **************************** }
   { ************************************************************************** }
 
-  // @include(..\docs\GMClasses.TPropertyChanges.txt)
+  // @include(..\Help\docs\GMClasses.TPropertyChanges.txt)
   TPropertyChanges = procedure(Owner: TObject; PropName: string) of object;
 
   { ************************************************************************** }
   { ***********************  Interfaces definition  ************************** }
   { ************************************************************************** }
 
-  // @include(..\docs\GMClasses.IGMAPIUrl.txt)
+  // @include(..\Help\docs\GMClasses.IGMAPIUrl.txt)
   IGMAPIUrl = interface(IInterface)
     ['{BF91F436-B314-4128-ADA3-02147063A90C}']
     // @exclude
     function GetAPIUrl: string;
-    // @include(..\docs\GMClasses.IGMAPIUrl.APIUrl.txt)
+    // @include(..\Help\docs\GMClasses.IGMAPIUrl.APIUrl.txt)
     property APIUrl: string read GetAPIUrl;
   end;
 
-  // @include(..\docs\GMClasses.IGMToStr.txt)
+  // @include(..\Help\docs\GMClasses.IGMToStr.txt)
   IGMToStr = interface(IInterface)
     ['{314C6DAD-B258-4D0C-A275-229491430B65}']
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string;
   end;
 
-  // @include(..\docs\GMClasses.IGMControlChanges.txt)
+  // @include(..\Help\docs\GMClasses.IGMControlChanges.txt)
   IGMControlChanges = interface(IInterface)
     ['{4731A754-4D4B-4AA2-978E-AF2838925A06}']
-    // @include(..\docs\GMClasses.IGMControlChanges.PropertyChanged.txt)
+    // @include(..\Help\docs\GMClasses.IGMControlChanges.PropertyChanged.txt)
     procedure PropertyChanged(Prop: TPersistent; PropName: string);
   end;
 
-  // @include(..\docs\GMClasses.IGMOwnerLang.txt)
+  // @include(..\Help\docs\GMClasses.IGMOwnerLang.txt)
   IGMOwnerLang = interface(IInterface)
     ['{98DE1EC1-454C-494A-893A-2B57DC4C341F}']
-    // @include(..\docs\GMClasses.IGMOwnerLang.GetOwnerLang.txt)
+    // @include(..\Help\docs\GMClasses.IGMOwnerLang.GetOwnerLang.txt)
     function GetOwnerLang: TGMLang;
   end;
 
-  // @include(..\docs\GMClasses.IGMExecJS.txt)
+  // @include(..\Help\docs\GMClasses.IGMExecJS.txt)
   IGMExecJS = interface(IInterface)
     ['{C1C87DC5-BDFD-4AA1-9BF7-C5FF01290339}']
-    // @include(..\docs\GMClasses.IGMExecJS.ExecuteJavaScript.txt)
+    // @include(..\Help\docs\GMClasses.IGMExecJS.ExecuteJavaScript.txt)
     procedure ExecuteJavaScript(NameFunct, Params: string);
   end;
 
@@ -74,142 +74,142 @@ type
   { *************************  classes definition  *************************** }
   { ************************************************************************** }
 
-  // @include(..\docs\GMClasses.EGMException.txt)
+  // @include(..\Help\docs\GMClasses.EGMException.txt)
   EGMException = class(Exception)
   public
-    // @include(..\docs\GMClasses.EGMException.Create_1.txt)
+    // @include(..\Help\docs\GMClasses.EGMException.Create_1.txt)
     constructor Create(const Msg: string; const Args: array of const; Lang: TGMLang); reintroduce; overload; virtual;
-    // @include(..\docs\GMClasses.EGMException.Create_2.txt)
+    // @include(..\Help\docs\GMClasses.EGMException.Create_2.txt)
     constructor Create(const Idx: Integer; const Args: array of const; Lang: TGMLang); reintroduce; overload; virtual;
   end;
 
-  // @include(..\docs\GMClasses.EGMNotValidRealNumber.txt)
+  // @include(..\Help\docs\GMClasses.EGMNotValidRealNumber.txt)
   EGMNotValidRealNumber = class(EGMException)
   public
-    // @include(..\docs\GMClasses.EGMNotValidRealNumber.Create.txt)
+    // @include(..\Help\docs\GMClasses.EGMNotValidRealNumber.Create.txt)
     constructor Create(const Args: array of const; Lang: TGMLang); reintroduce; overload; virtual;
   end;
 
-  // @include(..\docs\GMClasses.EGMWithoutOwner.txt)
+  // @include(..\Help\docs\GMClasses.EGMWithoutOwner.txt)
   EGMWithoutOwner = class(EGMException)
   public
-    // @include(..\docs\GMClasses.EGMWithoutOwner.Create.txt)
+    // @include(..\Help\docs\GMClasses.EGMWithoutOwner.Create.txt)
     constructor Create(Lang: TGMLang); reintroduce; overload; virtual;
   end;
 
-  // @include(..\docs\GMClasses.EGMOwnerWithoutJS.txt)
+  // @include(..\Help\docs\GMClasses.EGMOwnerWithoutJS.txt)
   EGMOwnerWithoutJS = class(EGMException)
   public
-    // @include(..\docs\GMClasses.EGMOwnerWithoutJS.Create.txt)
+    // @include(..\Help\docs\GMClasses.EGMOwnerWithoutJS.Create.txt)
     constructor Create(Lang: TGMLang); reintroduce; overload; virtual;
   end;
 
-  // @include(..\docs\GMClasses.EGMJSError.txt)
+  // @include(..\Help\docs\GMClasses.EGMJSError.txt)
   EGMJSError = class(EGMException)
   public
-    // @include(..\docs\GMClasses.EGMJSError.Create.txt)
+    // @include(..\Help\docs\GMClasses.EGMJSError.Create.txt)
     constructor Create(const Args: array of const; Lang: TGMLang); reintroduce; overload; virtual;
   end;
 
-  // @include(..\docs\GMClasses.EGMUnassignedObject.txt)
+  // @include(..\Help\docs\GMClasses.EGMUnassignedObject.txt)
   EGMUnassignedObject = class(EGMException)
   public
-    // @include(..\docs\GMClasses.EGMUnassignedObject.Create.txt)
+    // @include(..\Help\docs\GMClasses.EGMUnassignedObject.Create.txt)
     constructor Create(const Args: array of const; Lang: TGMLang); reintroduce; overload; virtual;
   end;
 
-  // @include(..\docs\GMClasses.EGMMapIsActive.txt)
+  // @include(..\Help\docs\GMClasses.EGMMapIsActive.txt)
   EGMMapIsActive = class(EGMException)
   public
-    // @include(..\docs\GMClasses.EGMMapIsActive.Create.txt)
+    // @include(..\Help\docs\GMClasses.EGMMapIsActive.Create.txt)
     constructor Create(Lang: TGMLang); reintroduce; overload; virtual;
   end;
 
-  // @include(..\docs\GMClasses.EGMIncorrectBrowser.txt)
+  // @include(..\Help\docs\GMClasses.EGMIncorrectBrowser.txt)
   EGMIncorrectBrowser = class(EGMException)
   public
-    // @include(..\docs\GMClasses.EGMIncorrectBrowser.Create.txt)
+    // @include(..\Help\docs\GMClasses.EGMIncorrectBrowser.Create.txt)
     constructor Create(Lang: TGMLang); reintroduce; overload; virtual;
   end;
 
-  // @include(..\docs\GMClasses.EGMCanLoadResource.txt)
+  // @include(..\Help\docs\GMClasses.EGMCanLoadResource.txt)
   EGMCanLoadResource = class(EGMException)
   public
-    // @include(..\docs\GMClasses.EGMCanLoadResource.Create.txt)
+    // @include(..\Help\docs\GMClasses.EGMCanLoadResource.Create.txt)
     constructor Create(Lang: TGMLang); reintroduce; overload; virtual;
   end;
 
-  // @include(..\docs\GMClasses.EGMTimeOut.txt)
+  // @include(..\Help\docs\GMClasses.EGMTimeOut.txt)
   EGMTimeOut = class(EGMException)
   public
-    // @include(..\docs\GMClasses.EGMTimeOut.Create.txt)
+    // @include(..\Help\docs\GMClasses.EGMTimeOut.Create.txt)
     constructor Create(Lang: TGMLang); reintroduce; overload; virtual;
   end;
 
-  // @include(..\docs\GMClasses.EGMNotActive.txt)
+  // @include(..\Help\docs\GMClasses.EGMNotActive.txt)
   EGMNotActive = class(EGMException)
   public
-    // @include(..\docs\GMClasses.EGMNotActive.Create.txt)
+    // @include(..\Help\docs\GMClasses.EGMNotActive.Create.txt)
     constructor Create(Lang: TGMLang); reintroduce; overload; virtual;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMClasses.TGMObject.txt)
+  // @include(..\Help\docs\GMClasses.TGMObject.txt)
   TGMObject = class(TInterfacedObject, IGMAPIUrl)
   protected
     // @exclude
     function GetAPIUrl: string; virtual;
 
-    // @include(..\docs\GMClasses.TGMObject.APIUrl.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.APIUrl.txt)
     property APIUrl: string read GetAPIUrl;
   public
-    // @include(..\docs\GMClasses.TGMObject.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TObject); virtual;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMClasses.TGMInterfacedOwnedPersistent.txt)
+  // @include(..\Help\docs\GMClasses.TGMInterfacedOwnedPersistent.txt)
   TGMInterfacedOwnedPersistent = class(TInterfacedPersistent)
   private
     FOwner: TPersistent;
     FOnChange: TNotifyEvent;
   protected
-    // @include(..\docs\GMClasses.TGMInterfacedOwnedPersistent.GetOwner.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedOwnedPersistent.GetOwner.txt)
     function GetOwner: TPersistent; override;
     // @exclude
     procedure ControlChanges(PropName: string); virtual;
 
-    // @include(..\docs\GMClasses.TGMInterfacedOwnedPersistent.OnChange.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedOwnedPersistent.OnChange.txt)
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
   public
-    // @include(..\docs\GMClasses.TGMInterfacedOwnedPersistent.Create.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedOwnedPersistent.Create.txt)
     constructor Create(AOwner: TPersistent); virtual;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMClasses.TGMPersistent.txt)
+  // @include(..\Help\docs\GMClasses.TGMPersistent.txt)
   TGMPersistent = class(TGMInterfacedOwnedPersistent, IGMAPIUrl)
   protected
     // @exclude
     function GetAPIUrl: string; virtual;
 
-    // @include(..\docs\GMClasses.TGMPersistent.APIUrl.txt)
+    // @include(..\Help\docs\GMClasses.TGMPersistent.APIUrl.txt)
     property APIUrl: string read GetAPIUrl;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMClasses.TGMPersistentStr.txt)
+  // @include(..\Help\docs\GMClasses.TGMPersistentStr.txt)
   TGMPersistentStr = class(TGMPersistent, IGMToStr, IGMOwnerLang)
   protected
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; virtual;
 
-    // @include(..\docs\GMClasses.TGMPersistentStr.GetOwnerLang.txt)
+    // @include(..\Help\docs\GMClasses.TGMPersistentStr.GetOwnerLang.txt)
     function GetOwnerLang: TGMLang; virtual;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMClasses.TGMComponent.txt)
+  // @include(..\Help\docs\GMClasses.TGMComponent.txt)
   TGMComponent = class(TComponent, IGMAPIUrl)
   private
     FLanguage: TGMLang;
@@ -218,23 +218,23 @@ type
     // @exclude
     function GetAPIUrl: string; virtual;
 
-    // @include(..\docs\GMClasses.TGMComponent.APIUrl.txt)
+    // @include(..\Help\docs\GMClasses.TGMComponent.APIUrl.txt)
     property APIUrl: string read GetAPIUrl;
 
-    // @include(..\docs\GMClasses.TGMComponent.Language.txt)
+    // @include(..\Help\docs\GMClasses.TGMComponent.Language.txt)
     property Language: TGMLang read FLanguage write FLanguage default lnEnglish;
-    // @include(..\docs\GMClasses.TGMComponent.AboutGMLib.txt)
+    // @include(..\Help\docs\GMClasses.TGMComponent.AboutGMLib.txt)
     property AboutGMLib: string read FAboutGMLib stored False;
   public
-    // @include(..\docs\GMClasses.TGMComponent.Create.txt)
+    // @include(..\Help\docs\GMClasses.TGMComponent.Create.txt)
     constructor Create(AOwner: TComponent); override;
 
-    // @include(..\docs\GMClasses.TGMComponent.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMComponent.Assign.txt)
     procedure Assign(Source: TPersistent); override;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.txt)
+  // @include(..\Help\docs\GMClasses.TGMInterfacedCollectionItem.txt)
   TGMInterfacedCollectionItem = class(TCollectionItem, IGMToStr, IGMOwnerLang, IGMAPIUrl)
   private
     FOnChange: TNotifyEvent;
@@ -248,41 +248,41 @@ type
     function _AddRef: Integer; virtual; stdcall;
     // @exclude
     function _Release: Integer; virtual; stdcall;
-    // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.GetDisplayName.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedCollectionItem.GetDisplayName.txt)
     function GetDisplayName: string; override;
 
     // @exclude
     function GetAPIUrl: string; virtual;
 
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; virtual;
 
-    // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.GetOwnerLang.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedCollectionItem.GetOwnerLang.txt)
     function GetOwnerLang: TGMLang; virtual;
 
     // @exclude
     procedure ControlChanges(PropName: string); virtual;
 
-    // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.OnChange.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedCollectionItem.OnChange.txt)
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
   public
-    // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedCollectionItem.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.APIUrl.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedCollectionItem.APIUrl.txt)
     property APIUrl: string read GetAPIUrl;
 
-    // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.FObject.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedCollectionItem.FObject.txt)
     property FObject: TObject read FFObject write FFObject;
   published
-    // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.Tag.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedCollectionItem.Tag.txt)
     property Tag: Integer read FTag write FTag default 0;
-    // @include(..\docs\GMClasses.TGMInterfacedCollectionItem.Name.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedCollectionItem.Name.txt)
     property Name: string read FName write FName;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMClasses.TGMInterfacedCollection.txt)
+  // @include(..\Help\docs\GMClasses.TGMInterfacedCollection.txt)
   TGMInterfacedCollection = class(TCollection, IGMControlChanges, IGMOwnerLang, IGMToStr)
   private
     FOnChange: TNotifyEvent;
@@ -300,74 +300,74 @@ type
     // @exclude
     function _Release: Integer; virtual; stdcall;
 
-    // @include(..\docs\GMClasses.TGMInterfacedCollection.GetOwnerLang.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedCollection.GetOwnerLang.txt)
     function GetOwnerLang: TGMLang; virtual;
 
-    // @include(..\docs\GMClasses.TGMInterfacedCollection.GetOwner.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedCollection.GetOwner.txt)
     function GetOwner: TPersistent; override;
 
     // @exclude
     procedure ControlChanges(PropName: string); virtual;
 
-    // @include(..\docs\GMClasses.IGMControlChanges.PropertyChanged.txt)
+    // @include(..\Help\docs\GMClasses.IGMControlChanges.PropertyChanged.txt)
     procedure PropertyChanged(Prop: TPersistent; PropName: string);
 
-    // @include(..\docs\GMClasses.TGMInterfacedCollection.Delete.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedCollection.Delete.txt)
     procedure Delete(Index: Integer);
-    // @include(..\docs\GMClasses.TGMInterfacedCollection.Move.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedCollection.Move.txt)
     procedure Move(CurIndex, NewIndex: Integer);
-    // @include(..\docs\GMClasses.TGMInterfacedCollection.Clear.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedCollection.Clear.txt)
     procedure Clear;
 
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; virtual;
 
-    // @include(..\docs\GMClasses.TGMInterfacedCollection.OnChange.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedCollection.OnChange.txt)
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
-    // @include(..\docs\GMClasses.TGMInterfacedCollection.Items.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedCollection.Items.txt)
     property Items[I: Integer]: TGMInterfacedCollectionItem read GetItems write SetItems; default;
   public
-    // @include(..\docs\GMClasses.TGMInterfacedCollection.Create.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedCollection.Create.txt)
     constructor Create(AOwner: TPersistent; ItemClass: TCollectionItemClass); virtual;
 
-    // @include(..\docs\GMClasses.TGMInterfacedCollection.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedCollection.Assign.txt)
     procedure Assign(Source: TPersistent); override;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMClasses.TGMTransform.txt)
+  // @include(..\Help\docs\GMClasses.TGMTransform.txt)
   TGMTransform = record
   public
-    // @include(..\docs\GMClasses.TGMTransform.GMBoolToStr.txt)
+    // @include(..\Help\docs\GMClasses.TGMTransform.GMBoolToStr.txt)
     class function GMBoolToStr(B: Boolean; UseBoolStrs: Boolean = False): string; static;
 
-    // @include(..\docs\GMClasses.TGMTransform.MapTypeIdsToStr.txt)
+    // @include(..\Help\docs\GMClasses.TGMTransform.MapTypeIdsToStr.txt)
     class function MapTypeIdsToStr(MapTypeIds: TGMMapTypeIds; Delimiter: Char = ';'): string; static;
 
-    // @include(..\docs\GMClasses.TGMTransform.GoogleAPIVerToStr.txt)
+    // @include(..\Help\docs\GMClasses.TGMTransform.GoogleAPIVerToStr.txt)
     class function GoogleAPIVerToStr(GoogleAPIVer: TGoogleAPIVer): string; static;
-    // @include(..\docs\GMClasses.TGMTransform.APILangToStr.txt)
+    // @include(..\Help\docs\GMClasses.TGMTransform.APILangToStr.txt)
     class function APILangToStr(APILang: TGMAPILang): string; static;
-    // @include(..\docs\GMClasses.TGMTransform.VisibilityToStr.txt)
+    // @include(..\Help\docs\GMClasses.TGMTransform.VisibilityToStr.txt)
     class function VisibilityToStr(Visibility: TGMVisibility): string; static;
-    // @include(..\docs\GMClasses.TGMTransform.StrToVisibility.txt)
+    // @include(..\Help\docs\GMClasses.TGMTransform.StrToVisibility.txt)
     class function StrToVisibility(Visibility: string): TGMVisibility; static;
-    // @include(..\docs\GMClasses.TGMTransform.PositionToStr.txt)
+    // @include(..\Help\docs\GMClasses.TGMTransform.PositionToStr.txt)
     class function PositionToStr(Position: TGMControlPosition): string; static;
-    // @include(..\docs\GMClasses.TGMTransform.MapTypeControlStyleToStr.txt)
+    // @include(..\Help\docs\GMClasses.TGMTransform.MapTypeControlStyleToStr.txt)
     class function MapTypeControlStyleToStr(MapTypeControlStyle: TGMMapTypeControlStyle): string; static;
-    // @include(..\docs\GMClasses.TGMTransform.ScaleControlStyleToStr.txt)
+    // @include(..\Help\docs\GMClasses.TGMTransform.ScaleControlStyleToStr.txt)
     class function ScaleControlStyleToStr(ScaleControlStyle: TGMScaleControlStyle): string; static;
-    // @include(..\docs\GMClasses.TGMTransform.ZoomControlStyleToStr.txt)
+    // @include(..\Help\docs\GMClasses.TGMTransform.ZoomControlStyleToStr.txt)
     class function ZoomControlStyleToStr(ZoomControlStyle: TGMZoomControlStyle): string; static;
-    // @include(..\docs\GMClasses.TGMTransform.MapTypeStyleElementTypeToStr.txt)
+    // @include(..\Help\docs\GMClasses.TGMTransform.MapTypeStyleElementTypeToStr.txt)
     class function MapTypeStyleElementTypeToStr(MapTypeStyleElementType: TGMMapTypeStyleElementType): string; static;
-    // @include(..\docs\GMClasses.TGMTransform.MapTypeStyleFeatureTypeToStr.txt)
+    // @include(..\Help\docs\GMClasses.TGMTransform.MapTypeStyleFeatureTypeToStr.txt)
     class function MapTypeStyleFeatureTypeToStr(MapTypeStyleFeatureType: TGMMapTypeStyleFeatureType): string; static;
-    // @include(..\docs\GMClasses.TGMTransform.MapTypeIdToStr.txt)
+    // @include(..\Help\docs\GMClasses.TGMTransform.MapTypeIdToStr.txt)
     class function MapTypeIdToStr(MapTypeId: TGMMapTypeId): string; static;
 
-    // @include(..\docs\GMClasses.TGMTransform.StrToPosition.txt)
+    // @include(..\Help\docs\GMClasses.TGMTransform.StrToPosition.txt)
     class function StrToPosition(Position: string): TGMControlPosition; static;
   end;
 

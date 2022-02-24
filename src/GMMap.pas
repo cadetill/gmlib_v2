@@ -24,7 +24,7 @@ uses
 
 type
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMMap.TGMMapTypeControlOptions.txt)
+  // @include(..\Help\docs\GMMap.TGMMapTypeControlOptions.txt)
   TGMMapTypeControlOptions = class(TGMPersistentStr)
   private
     FMapTypeIds: TGMMapTypeIds;
@@ -37,25 +37,25 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @include(..\docs\GMMap.TGMMapTypeControlOptions.Create.txt)
+    // @include(..\Help\docs\GMMap.TGMMapTypeControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMMapTypeControlOptions.Assign.txt)
+    // @include(..\Help\docs\GMMap.TGMMapTypeControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
-    // @include(..\docs\GMMap.TGMMapTypeControlOptions.MapTypeIds.txt)
+    // @include(..\Help\docs\GMMap.TGMMapTypeControlOptions.MapTypeIds.txt)
     property MapTypeIds: TGMMapTypeIds read FMapTypeIds write SetMapTypeIds default [mtHYBRID, mtROADMAP, mtSATELLITE, mtTERRAIN, mtOSM];
-    // @include(..\docs\GMMap.TGMMapTypeControlOptions.Position.txt)
+    // @include(..\Help\docs\GMMap.TGMMapTypeControlOptions.Position.txt)
     property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_RIGHT;
-    // @include(..\docs\GMMap.TGMMapTypeControlOptions.Style.txt)
+    // @include(..\Help\docs\GMMap.TGMMapTypeControlOptions.Style.txt)
     property Style: TGMMapTypeControlStyle read FStyle write SetStyle default mtcDEFAULT;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMMap.TGMOverviewMapControlOptions.txt)
+  // @include(..\Help\docs\GMMap.TGMOverviewMapControlOptions.txt)
   TGMOverviewMapControlOptions = class(TGMPersistentStr)
   private
     FOpened: Boolean;
@@ -64,21 +64,21 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @include(..\docs\GMMap.TGMOverviewMapControlOptions.Create.txt)
+    // @include(..\Help\docs\GMMap.TGMOverviewMapControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMOverviewMapControlOptions.Assign.txt)
+    // @include(..\Help\docs\GMMap.TGMOverviewMapControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
-    // @include(..\docs\GMMap.TGMOverviewMapControlOptions.Opened.txt)
+    // @include(..\Help\docs\GMMap.TGMOverviewMapControlOptions.Opened.txt)
     property Opened: Boolean read FOpened write SetOpened default False;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMMap.TGMPanControlOptions.txt)
+  // @include(..\Help\docs\GMMap.TGMPanControlOptions.txt)
   TGMPanControlOptions = class(TGMPersistentStr)
   private
     FPosition: TGMControlPosition;
@@ -87,21 +87,21 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @include(..\docs\GMMap.TGMPanControlOptions.Create.txt)
+    // @include(..\Help\docs\GMMap.TGMPanControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMPanControlOptions.Assign.txt)
+    // @include(..\Help\docs\GMMap.TGMPanControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
-    // @include(..\docs\GMMap.TGMPanControlOptions.Position.txt)
+    // @include(..\Help\docs\GMMap.TGMPanControlOptions.Position.txt)
     property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_LEFT;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMMap.TGMRotateControlOptions.txt)
+  // @include(..\Help\docs\GMMap.TGMRotateControlOptions.txt)
   TGMRotateControlOptions = class(TGMPersistentStr)
   private
     FPosition: TGMControlPosition;
@@ -110,21 +110,21 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @include(..\docs\GMMap.TGMRotateControlOptions.Create.txt)
+    // @include(..\Help\docs\GMMap.TGMRotateControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMRotateControlOptions.Assign.txt)
+    // @include(..\Help\docs\GMMap.TGMRotateControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
-    // @include(..\docs\GMMap.TGMRotateControlOptions.Position.txt)
+    // @include(..\Help\docs\GMMap.TGMRotateControlOptions.Position.txt)
     property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_LEFT;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMMap.TGMScaleControlOptions.txt)
+  // @include(..\Help\docs\GMMap.TGMScaleControlOptions.txt)
   TGMScaleControlOptions = class(TGMPersistentStr)
   private
     FStyle: TGMScaleControlStyle;
@@ -133,21 +133,21 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @include(..\docs\GMMap.TGMScaleControlOptions.Create.txt)
+    // @include(..\Help\docs\GMMap.TGMScaleControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMScaleControlOptions.Assign.txt)
+    // @include(..\Help\docs\GMMap.TGMScaleControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
-    // @include(..\docs\GMMap.TGMScaleControlOptions.Style.txt)
+    // @include(..\Help\docs\GMMap.TGMScaleControlOptions.Style.txt)
     property Style: TGMScaleControlStyle read FStyle write SetStyle default scDEFAULT;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMMap.TGMZoomControlOptions.txt)
+  // @include(..\Help\docs\GMMap.TGMZoomControlOptions.txt)
   TGMZoomControlOptions = class(TGMPersistentStr)
   private
     FStyle: TGMZoomControlStyle;
@@ -158,23 +158,23 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @include(..\docs\GMMap.TGMZoomControlOptions.Create.txt)
+    // @include(..\Help\docs\GMMap.TGMZoomControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMZoomControlOptions.Assign.txt)
+    // @include(..\Help\docs\GMMap.TGMZoomControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
-    // @include(..\docs\GMMap.TGMZoomControlOptions.Position.txt)
+    // @include(..\Help\docs\GMMap.TGMZoomControlOptions.Position.txt)
     property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_LEFT;
-    // @include(..\docs\GMMap.TGMZoomControlOptions.Style.txt)
+    // @include(..\Help\docs\GMMap.TGMZoomControlOptions.Style.txt)
     property Style: TGMZoomControlStyle read FStyle write SetStyle default zcDEFAULT;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMMap.TGMStreetViewControlOptions.txt)
+  // @include(..\Help\docs\GMMap.TGMStreetViewControlOptions.txt)
   TGMStreetViewControlOptions = class(TGMPersistentStr)
   private
     FPosition: TGMControlPosition;
@@ -183,21 +183,21 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @include(..\docs\GMMap.TGMStreetViewControlOptions.Create.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMStreetViewControlOptions.Assign.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
-    // @include(..\docs\GMMap.TGMStreetViewControlOptions.Position.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewControlOptions.Position.txt)
     property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_LEFT;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMMap.TGMCustomMapTypeStyler.txt)
+  // @include(..\Help\docs\GMMap.TGMCustomMapTypeStyler.txt)
   TGMCustomMapTypeStyler = class(TGMInterfacedCollectionItem)
   private
     FSaturation: Integer;
@@ -216,31 +216,31 @@ type
     // @exclude
     function GetAPIUrl: string; override;
 
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
 
-    // @include(..\docs\GMMap.TGMCustomMapTypeStyler.Gamma.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapTypeStyler.Gamma.txt)
     property Gamma: Real read FGamma write SetGamma;
-    // @include(..\docs\GMMap.TGMCustomMapTypeStyler.InvertLightness.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapTypeStyler.InvertLightness.txt)
     property InvertLightness: Boolean read FInvertLightness write SetInvertLightness default True;
-    // @include(..\docs\GMMap.TGMCustomMapTypeStyler.Lightness.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapTypeStyler.Lightness.txt)
     property Lightness: Integer read FLightness write SetLightness default 0;
-    // @include(..\docs\GMMap.TGMCustomMapTypeStyler.Saturation.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapTypeStyler.Saturation.txt)
     property Saturation: Integer read FSaturation write SetSaturation default 0;
-    // @include(..\docs\GMMap.TGMCustomMapTypeStyler.Visibility.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapTypeStyler.Visibility.txt)
     property Visibility: TGMVisibility read FVisibility write SetVisibility default vOn;
-    // @include(..\docs\GMMap.TGMCustomMapTypeStyler.Weight.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapTypeStyler.Weight.txt)
     property Weight: Integer read FWeight write SetWeight default 0;
   public
-    // @include(..\docs\GMMap.TGMCustomMapTypeStyler.Create.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapTypeStyler.Create.txt)
     constructor Create(Collection: TCollection); override;
 
-    // @include(..\docs\GMMap.TGMCustomMapTypeStyler.Assign.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapTypeStyler.Assign.txt)
     procedure Assign(Source: TPersistent); override;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMMap.TGMCustomMapTypeStyle.txt)
+  // @include(..\Help\docs\GMMap.TGMCustomMapTypeStyle.txt)
   TGMCustomMapTypeStyle = class(TGMInterfacedCollectionItem)
   private
     FElementType: TGMMapTypeStyleElementType;
@@ -251,23 +251,23 @@ type
     // @exclude
     function GetAPIUrl: string; override;
 
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
 
-    // @include(..\docs\GMMap.TGMCustomMapTypeStyle.ElementType.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapTypeStyle.ElementType.txt)
     property ElementType: TGMMapTypeStyleElementType read FElementType write SetElementType default setALL;
-    // @include(..\docs\GMMap.TGMCustomMapTypeStyle.FeatureType.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapTypeStyle.FeatureType.txt)
     property FeatureType: TGMMapTypeStyleFeatureType read FFeatureType write SetFeatureType default sftALL;
   public
-    // @include(..\docs\GMMap.TGMCustomMapTypeStyle.Create.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapTypeStyle.Create.txt)
     constructor Create(Collection: TCollection); override;
 
-    // @include(..\docs\GMMap.TGMCustomMapTypeStyle.Assign.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapTypeStyle.Assign.txt)
     procedure Assign(Source: TPersistent); override;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMMap.TGMStreetViewAddressControlOptions.txt)
+  // @include(..\Help\docs\GMMap.TGMStreetViewAddressControlOptions.txt)
   TGMStreetViewAddressControlOptions = class(TGMPersistentStr)
   private
     FPosition: TGMControlPosition;
@@ -276,21 +276,21 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @include(..\docs\GMMap.TGMStreetViewAddressControlOptions.Create.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewAddressControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMStreetViewAddressControlOptions.Assign.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewAddressControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
-    // @include(..\docs\GMMap.TGMStreetViewAddressControlOptions.Position.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewAddressControlOptions.Position.txt)
     property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_LEFT;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMMap.TGMFullScreenControlOptions.txt)
+  // @include(..\Help\docs\GMMap.TGMFullScreenControlOptions.txt)
   TGMFullScreenControlOptions = class(TGMPersistentStr)
   private
     FPosition: TGMControlPosition;
@@ -299,21 +299,21 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @include(..\docs\GMClasses.TGMInterfacedOwnedPersistent.Create.txt)
+    // @include(..\Help\docs\GMClasses.TGMInterfacedOwnedPersistent.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMFullScreenControlOptions.Assign.txt)
+    // @include(..\Help\docs\GMMap.TGMFullScreenControlOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
-    // @include(..\docs\GMMap.TGMFullScreenControlOptions.Position.txt)
+    // @include(..\Help\docs\GMMap.TGMFullScreenControlOptions.Position.txt)
     property Position: TGMControlPosition read FPosition write SetPosition default cpRIGHT_TOP;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMMap.TGMStreetViewPov.txt)
+  // @include(..\Help\docs\GMMap.TGMStreetViewPov.txt)
   TGMStreetViewPov = class(TGMPersistentStr)
   private
     FPitch: Integer;
@@ -324,23 +324,23 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @include(..\docs\GMMap.TGMStreetViewPov.Create.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPov.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMStreetViewPov.Assign.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPov.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
-    // @include(..\docs\GMMap.TGMStreetViewPov.Heading.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPov.Heading.txt)
     property Heading: Integer read FHeading write SetHeading default 0;
-    // @include(..\docs\GMMap.TGMStreetViewPov.Pitch.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPov.Pitch.txt)
     property Pitch: Integer read FPitch write SetPitch default 0;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.txt)
+  // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.txt)
   TGMStreetViewPanoramaOptions = class(TGMPersistentStr)
   private
     FAddressControlOptions: TGMStreetViewAddressControlOptions;
@@ -376,55 +376,55 @@ type
     // @exclude
     function GetAPIUrl: string; override;
   public
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.Create.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.Destroy.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.Destroy.txt)
     destructor Destroy; override;
 
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.Assign.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
   published
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.AddressControl.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.AddressControl.txt)
     property AddressControl: Boolean read FAddressControl write SetAddressControl default True;
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.AddressControlOptions.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.AddressControlOptions.txt)
     property AddressControlOptions: TGMStreetViewAddressControlOptions read FAddressControlOptions write FAddressControlOptions;
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.ClickToGo.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.ClickToGo.txt)
     property ClickToGo: Boolean read FClickToGo write SetClickToGo default True;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.DisableDefaultUI.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.DisableDefaultUI.txt)
     property DisableDefaultUI: Boolean read FDisableDefaultUI write SetDisableDefaultUI default False;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.DisableDoubleClickZoom.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.DisableDoubleClickZoom.txt)
     property DisableDoubleClickZoom: Boolean read FDisableDoubleClickZoom write SetDisableDoubleClickZoom default False;
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.EnableCloseButton.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.EnableCloseButton.txt)
     property EnableCloseButton: Boolean read FEnableCloseButton write SetEnableCloseButton default True;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.FullScreenControl.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.FullScreenControl.txt)
     property FullScreenControl: Boolean read FFullScreenControl write SetFullScreenControl default True;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.FullScreenControlOptions.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.FullScreenControlOptions.txt)
     property FullScreenControlOptions: TGMFullScreenControlOptions read FFullScreenControlOptions write FFullScreenControlOptions;
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.ImageDateControl.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.ImageDateControl.txt)
     property ImageDateControl: Boolean read FImageDateControl write SetImageDateControl default False;
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.LinksControl.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.LinksControl.txt)
     property LinksControl: Boolean read FLinksControl write SetLinksControl default False;
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.PanControl.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.PanControl.txt)
     property PanControl: Boolean read FPanControl write SetPanControl default True;
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.PanControlOptions.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.PanControlOptions.txt)
     property PanControlOptions: TGMPanControlOptions read FPanControlOptions write FPanControlOptions;
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.Pov.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.Pov.txt)
     property Pov: TGMStreetViewPov read FPov write FPov;
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.Scrollwheel.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.Scrollwheel.txt)
     property Scrollwheel: Boolean read FScrollwheel write SetScrollwheel default True;
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.Visible.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.Visible.txt)
     property Visible: Boolean read FVisible write SetVisible default False;
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.ZoomControl.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.ZoomControl.txt)
     property ZoomControl: Boolean read FZoomControl write SetZoomControl default True;
-    // @include(..\docs\GMMap.TGMStreetViewPanoramaOptions.ZoomControlOptions.txt)
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.ZoomControlOptions.txt)
     property ZoomControlOptions: TGMZoomControlOptions read FZoomControlOptions write FZoomControlOptions;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMMap.TGMCustomMapOptions.txt)
+  // @include(..\Help\docs\GMMap.TGMCustomMapOptions.txt)
   TGMCustomMapOptions = class(TGMPersistentStr, IGMControlChanges)
   private
     FTilt: Integer;
@@ -484,93 +484,93 @@ type
     procedure SetZoomControl(const Value: Boolean);
     procedure SetFullScreenControl(const Value: Boolean);
   protected
-    // @include(..\docs\GMClasses.IGMControlChanges.PropertyChanged.txt)
+    // @include(..\Help\docs\GMClasses.IGMControlChanges.PropertyChanged.txt)
     procedure PropertyChanged(Prop: TPersistent; PropName: string);
 
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
 
-    // @include(..\docs\GMMap.TGMCustomMapOptions.Center.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.Center.txt)
     property Center: TGMLatLng read FCenter write FCenter;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.DisableDefaultUI.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.DisableDefaultUI.txt)
     property DisableDefaultUI: Boolean read FDisableDefaultUI write SetDisableDefaultUI default False;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.DisableDoubleClickZoom.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.DisableDoubleClickZoom.txt)
     property DisableDoubleClickZoom: Boolean read FDisableDoubleClickZoom write SetDisableDoubleClickZoom default True;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.Draggable.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.Draggable.txt)
     property Draggable: Boolean read FDraggable write SetDraggable default True;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.DraggableCursor.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.DraggableCursor.txt)
     property DraggableCursor: string read FDraggableCursor write SetDraggableCursor;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.DraggingCursor.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.DraggingCursor.txt)
     property DraggingCursor: string read FDraggingCursor write SetDraggingCursor;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.FullScreenControl.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.FullScreenControl.txt)
     property FullScreenControl: Boolean read FFullScreenControl write SetFullScreenControl default True;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.FullScreenControlOptions.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.FullScreenControlOptions.txt)
     property FullScreenControlOptions: TGMFullScreenControlOptions read FFullScreenControlOptions write FFullScreenControlOptions;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.Heading.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.Heading.txt)
     property Heading: Integer read FHeading write SetHeading default 0;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.KeyboardShortcuts.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.KeyboardShortcuts.txt)
     property KeyboardShortcuts: Boolean read FKeyboardShortcuts write SetKeyboardShortcuts default True;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.MapMaker.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.MapMaker.txt)
     property MapMaker: Boolean read FMapMaker write SetMapMaker default False;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.MapTypeControl.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.MapTypeControl.txt)
     property MapTypeControl: Boolean read FMapTypeControl write SetMapTypeControl default True;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.MapTypeControlOptions.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.MapTypeControlOptions.txt)
     property MapTypeControlOptions: TGMMapTypeControlOptions read FMapTypeControlOptions write FMapTypeControlOptions;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.MapTypeId.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.MapTypeId.txt)
     property MapTypeId: TGMMapTypeId read FMapTypeId write SetMapTypeId default mtROADMAP;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.MaxZoom.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.MaxZoom.txt)
     property MaxZoom: Integer read FMaxZoom write SetMaxZoom default 0;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.MinZoom.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.MinZoom.txt)
     property MinZoom: Integer read FMinZoom write SetMinZoom default 0;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.NoClear.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.NoClear.txt)
     property NoClear: Boolean read FNoClear write SetNoClear default False;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.OverviewMapControl.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.OverviewMapControl.txt)
     property OverviewMapControl: Boolean read FOverviewMapControl write SetOverviewMapControl default True;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.OverviewMapControlOptions.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.OverviewMapControlOptions.txt)
     property OverviewMapControlOptions: TGMOverviewMapControlOptions read FOverviewMapControlOptions write FOverviewMapControlOptions;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.PanControl.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.PanControl.txt)
     property PanControl: Boolean read FPanControl write SetPanControl default True;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.PanControlOptions.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.PanControlOptions.txt)
     property PanControlOptions: TGMPanControlOptions read FPanControlOptions write FPanControlOptions;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.RotateControl.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.RotateControl.txt)
     property RotateControl: Boolean read FRotateControl write SetRotateControl default True;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.RotateControlOptions.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.RotateControlOptions.txt)
     property RotateControlOptions: TGMRotateControlOptions read FRotateControlOptions write FRotateControlOptions;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.ScaleControl.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.ScaleControl.txt)
     property ScaleControl: Boolean read FScaleControl write SetScaleControl default True;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.ScaleControlOptions.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.ScaleControlOptions.txt)
     property ScaleControlOptions: TGMScaleControlOptions read FScaleControlOptions write FScaleControlOptions;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.Scrollwheel.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.Scrollwheel.txt)
     property Scrollwheel: Boolean read FScrollwheel write SetScrollwheel default True;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.StreetView.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.StreetView.txt)
     property StreetView: TGMStreetViewPanoramaOptions read FStreetView write FStreetView;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.StreetViewControl.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.StreetViewControl.txt)
     property StreetViewControl: Boolean read FStreetViewControl write SetStreetViewControl default True;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.StreetViewControlOptions.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.StreetViewControlOptions.txt)
     property StreetViewControlOptions: TGMStreetViewControlOptions read FStreetViewControlOptions write FStreetViewControlOptions;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.Tilt.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.Tilt.txt)
     property Tilt: Integer read FTilt write SetTilt default 0;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.Zoom.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.Zoom.txt)
     property Zoom: Integer read FZoom write SetZoom default 8;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.ZoomControl.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.ZoomControl.txt)
     property ZoomControl: Boolean read FZoomControl write SetZoomControl default True;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.ZoomControlOptions.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.ZoomControlOptions.txt)
     property ZoomControlOptions: TGMZoomControlOptions read FZoomControlOptions write FZoomControlOptions;
   public
-    // @include(..\docs\GMMap.TGMCustomMapOptions.Create.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
-    // @include(..\docs\GMMap.TGMCustomMapOptions.Destroy.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.Destroy.txt)
     destructor Destroy; override;
 
-    // @include(..\docs\GMMap.TGMCustomMapOptions.GetAPIUrl.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.GetAPIUrl.txt)
     function GetAPIUrl: string; override;
 
-    // @include(..\docs\GMMap.TGMCustomMapOptions.Assign.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.Assign.txt)
     procedure Assign(Source: TPersistent); override;
   end;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMMap.TGMCustomGMMap.txt)
+  // @include(..\Help\docs\GMMap.TGMCustomGMMap.txt)
   TGMCustomGMMap = class(TGMComponent, IGMExecJS, IGMControlChanges)
   private
     FGoogleAPIVer: TGoogleAPIVer;
@@ -579,7 +579,6 @@ type
     FIntervalEvents: Integer;
     FOnActiveChange: TNotifyEvent;
     FOnIntervalEventsChange: TNotifyEvent;
-    FSignedIn: Boolean;
     FAPILang: TGMAPILang;
     FPrecision: Integer;
     FOnPrecisionChange: TNotifyEvent;
@@ -588,29 +587,28 @@ type
     procedure SetActive(const Value: Boolean); {*1 *}
     procedure SetGoogleAPIKey(const Value: string);
     procedure SetIntervalEvents(const Value: Integer);
-    procedure SetSignedIn(const Value: Boolean);
     procedure SetAPILang(const Value: TGMAPILang);
     procedure SetPrecision(const Value: Integer);
   protected
-    // @include(..\docs\GMMap.TGMCustomGMMap.FWebBrowser.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.FWebBrowser.txt)
     FWebBrowser: TComponent;
 
-    // @include(..\docs\GMClasses.IGMControlChanges.PropertyChanged.txt)
+    // @include(..\Help\docs\GMClasses.IGMControlChanges.PropertyChanged.txt)
     procedure PropertyChanged(Prop: TPersistent; PropName: string);
 
-    // @include(..\docs\GMMap.TGMCustomGMMap.GetTempPath.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.GetTempPath.txt)
     function GetTempPath: string; virtual; abstract;
-    // @include(..\docs\GMMap.TGMCustomGMMap.SetIntervalTimer.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.SetIntervalTimer.txt)
     procedure SetIntervalTimer(Interval: Integer); virtual; abstract;
-    // @include(..\docs\GMMap.TGMCustomGMMap.LoadMap.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.LoadMap.txt)
     procedure LoadMap; virtual; abstract;
-    // @include(..\docs\GMMap.TGMCustomGMMap.LoadBlankPage.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.LoadBlankPage.txt)
     procedure LoadBlankPage; virtual; abstract;
-    // @include(..\docs\GMMap.TGMCustomGMMap.GetBaseHTMLCode.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.GetBaseHTMLCode.txt)
     function GetBaseHTMLCode: string;
-    // @include(..\docs\GMMap.TGMCustomGMMap.ExecuteJavaScript.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.ExecuteJavaScript.txt)
     procedure ExecuteJavaScript(NameFunct, Params: string); virtual; abstract;
-    // @include(..\docs\GMMap.TGMCustomGMMap.OnTimer.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.OnTimer.txt)
     procedure OnTimer(Sender: TObject); virtual; (*1 *)
 
 
@@ -630,37 +628,35 @@ type
     procedure SetZoom(Zoom: Integer);
 }
 
-    // @include(..\docs\GMMap.TGMCustomGMMap.Active.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.Active.txt)
     property Active: Boolean read FActive write SetActive default False;
-    // @include(..\docs\GMMap.TGMCustomGMMap.GoogleAPIVer.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.GoogleAPIVer.txt)
     property GoogleAPIVer: TGoogleAPIVer read FGoogleAPIVer write SetGoogleAPIVer default api323;
-    // @include(..\docs\GMMap.TGMCustomGMMap.GoogleAPIKey.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.GoogleAPIKey.txt)
     property GoogleAPIKey: string read FGoogleAPIKey write SetGoogleAPIKey;
-    // @include(..\docs\GMMap.TGMCustomGMMap.IntervalEvents.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.IntervalEvents.txt)
     property IntervalEvents: Integer read FIntervalEvents write SetIntervalEvents default 200;
-    // @include(..\docs\GMMap.TGMCustomGMMap.SignedIn.txt)
-    property SignedIn: Boolean read FSignedIn write SetSignedIn default False;
-    // @include(..\docs\GMMap.TGMCustomGMMap.APILang.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.APILang.txt)
     property APILang: TGMAPILang read FAPILang write SetAPILang default lEnglish;
-    // @include(..\docs\GMMap.TGMCustomGMMap.Precision.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.Precision.txt)
     property Precision: Integer read FPrecision write SetPrecision default 0;
 
-    // @include(..\docs\GMMap.TGMCustomGMMap.OnActiveChange.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.OnActiveChange.txt)
     property OnActiveChange: TNotifyEvent read FOnActiveChange write FOnActiveChange;
-    // @include(..\docs\GMMap.TGMCustomGMMap.OnIntervalEventsChange.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.OnIntervalEventsChange.txt)
     property OnIntervalEventsChange: TNotifyEvent read FOnIntervalEventsChange write FOnIntervalEventsChange;
-    // @include(..\docs\GMMap.TGMCustomGMMap.OnPrecisionChange.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.OnPrecisionChange.txt)
     property OnPrecisionChange: TNotifyEvent read FOnPrecisionChange write FOnPrecisionChange;
-    // @include(..\docs\GMMap.TGMCustomGMMap.OnPropertyChanges.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.OnPropertyChanges.txt)
     property OnPropertyChanges: TPropertyChanges read FOnPropertyChanges write FOnPropertyChanges;
   public
-    // @include(..\docs\GMMap.TGMCustomGMMap.Create.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.Create.txt)
     constructor Create(AOwner: TComponent); override;
 
-    // @include(..\docs\GMClasses.TGMComponent.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMComponent.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMMap.TGMCustomGMMap.FitBounds.txt)
+    // @include(..\Help\docs\GMMap.TGMCustomGMMap.FitBounds.txt)
     procedure FitBounds(Bounds: TGMLatLngBounds);
   end;
 
@@ -1471,7 +1467,6 @@ begin
     GoogleAPIVer := TGMCustomGMMap(Source).GoogleAPIVer;
     GoogleAPIKey := TGMCustomGMMap(Source).GoogleAPIKey;
     IntervalEvents := TGMCustomGMMap(Source).IntervalEvents;
-    SignedIn := TGMCustomGMMap(Source).SignedIn;
     APILang := TGMCustomGMMap(Source).APILang;
   end;
 end;
@@ -1484,7 +1479,6 @@ begin
   FGoogleAPIKey := '';
   FGoogleAPIVer := api323;
   FIntervalEvents := 200;
-  FSignedIn := False;
   FAPILang := lEnglish;
 end;
 
@@ -1516,10 +1510,6 @@ begin
       // replaces API_VER variable
       StrTmp := TGMTransform.GoogleAPIVerToStr(FGoogleAPIVer);
       List.Text := StringReplace(List.Text, ct_API_VER, StrTmp, []);
-
-      // replaces API_SIGNED variable
-      StrTmp := LowerCase(TGMTransform.GMBoolToStr(FSignedIn, True));
-      List.Text := StringReplace(List.Text, ct_API_SIGNED, StrTmp, []);
 
       // replaces API_LAN variable
       StrTmp := LowerCase(TGMTransform.APILangToStr(FAPILang));
@@ -1640,16 +1630,6 @@ begin
   if FPrecision > 17 then FPrecision := 17;
 
   if Assigned(FOnPrecisionChange) then FOnPrecisionChange(Self);
-end;
-
-procedure TGMCustomGMMap.SetSignedIn(const Value: Boolean);
-begin
-  if FSignedIn = Value then Exit;
-
-  if FActive and not (csDesigning in ComponentState) and not (csLoading in ComponentState) then
-    raise EGMMapIsActive.Create(Language); // The map is active. To change this property you must to deactivate it first.
-
-  FSignedIn := Value;
 end;
 
 { TGMZoomControlOptions }

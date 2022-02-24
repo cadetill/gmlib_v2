@@ -23,7 +23,7 @@ uses
 
 type
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMLatLng.TGMLatLng.txt)
+  // @include(..\Help\docs\GMLatLng.TGMLatLng.txt)
   TGMLatLng = class(TGMPersistentStr)
   private
     FLang: TGMLang;
@@ -34,51 +34,51 @@ type
     procedure SetLng(const Value: Double);
     procedure SetNoWrap(const Value: Boolean);
   protected
-    // @include(..\docs\GMLatLng.TGMLatLng.LatLngToStr.txt)
+    // @include(..\Help\docs\GMLatLng.TGMLatLng.LatLngToStr.txt)
     procedure LatLngToStr(var aLat, aLng: string; Precision: Integer = 6);
 
     // @exclude
     function GetAPIUrl: string; override;
 
-    // @include(..\docs\GMLatLng.TGMLatLng.GetOwnerLang.txt)
+    // @include(..\Help\docs\GMLatLng.TGMLatLng.GetOwnerLang.txt)
     function GetOwnerLang: TGMLang; override;
   public
-    // @include(..\docs\GMLatLng.TGMLatLng.Create_1.txt)
+    // @include(..\Help\docs\GMLatLng.TGMLatLng.Create_1.txt)
     constructor Create(Lat: Real = 0; Lng: Real = 0; NoWrap: Boolean = False; Lang: TGMLang = lnEnglish); reintroduce; overload; virtual;
-    // @include(..\docs\GMLatLng.TGMLatLng.Create_2.txt)
+    // @include(..\Help\docs\GMLatLng.TGMLatLng.Create_2.txt)
     constructor Create(AOwner: TPersistent; Lat: Real = 0; Lng: Real = 0; NoWrap: Boolean = False); reintroduce; overload; virtual;
 
-    // @include(..\docs\GMLatLng.TGMLatLng.Assign.txt)
+    // @include(..\Help\docs\GMLatLng.TGMLatLng.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMLatLng.TGMLatLng.SetLang.txt)
+    // @include(..\Help\docs\GMLatLng.TGMLatLng.SetLang.txt)
     procedure SetLang(Lang: TGMLang);
 
-    // @include(..\docs\GMLatLng.TGMLatLng.LatToStr.txt)
+    // @include(..\Help\docs\GMLatLng.TGMLatLng.LatToStr.txt)
     function LatToStr(Precision: Integer = 6): string;
-    // @include(..\docs\GMLatLng.TGMLatLng.LngToStr.txt)
+    // @include(..\Help\docs\GMLatLng.TGMLatLng.LngToStr.txt)
     function LngToStr(Precision: Integer = 6): string;
-    // @include(..\docs\GMLatLng.TGMLatLng.IsEqual.txt)
+    // @include(..\Help\docs\GMLatLng.TGMLatLng.IsEqual.txt)
     function IsEqual(Other: TGMLatLng): Boolean; virtual;
-    // @include(..\docs\GMLatLng.TGMLatLng.ToStr.txt)
+    // @include(..\Help\docs\GMLatLng.TGMLatLng.ToStr.txt)
     function ToStr(Precision: Integer = 6): string;
-    // @include(..\docs\GMLatLng.TGMLatLng.ToUrlValue.txt)
+    // @include(..\Help\docs\GMLatLng.TGMLatLng.ToUrlValue.txt)
     function ToUrlValue(Precision: Integer = 6): string;
 
-    // @include(..\docs\GMLatLng.TGMLatLng.StringToReal.txt)
+    // @include(..\Help\docs\GMLatLng.TGMLatLng.StringToReal.txt)
     function StringToReal(Value: string): Real;
 
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
 
-    // @include(..\docs\GMLatLng.TGMLatLng.APIUrl.txt)
+    // @include(..\Help\docs\GMLatLng.TGMLatLng.APIUrl.txt)
     property APIUrl;
   published
-    // @include(..\docs\GMLatLng.TGMLatLng.Lat.txt)
+    // @include(..\Help\docs\GMLatLng.TGMLatLng.Lat.txt)
     property Lat: Double read FLat write SetLat;
-    // @include(..\docs\GMLatLng.TGMLatLng.Lng.txt)
+    // @include(..\Help\docs\GMLatLng.TGMLatLng.Lng.txt)
     property Lng: Double read FLng write SetLng;
-    // @include(..\docs\GMLatLng.TGMLatLng.NoWrap.txt)
+    // @include(..\Help\docs\GMLatLng.TGMLatLng.NoWrap.txt)
     property NoWrap: Boolean read FNoWrap write SetNoWrap default False;
   end;
 

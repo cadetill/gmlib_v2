@@ -5,6 +5,7 @@ DiGraph Uses {
   "GMClasses" [href="GMClasses.html"]
   "GMClasses.VCL" -> "Graphics"
   "GMClasses.VCL" [href="GMClasses.VCL.html"]
+  "GMConstants" [href="GMConstants.html"]
   "GMLatLng" -> "Classes"
   "GMLatLng" -> "GMSets"
   "GMLatLng" -> "GMClasses"

@@ -21,10 +21,10 @@ uses
 
 type
   { -------------------------------------------------------------------------- }
-  // @include(..\..\docs\GMClasses.VCL.TGMTransformVCL.txt)
+  // @include(..\..\Help\docs\GMClasses.VCL.TGMTransformVCL.txt)
   TGMTransformVCL = record
   public
-    // @include(..\..\docs\GMClasses.VCL.TGMTransformVCL.TColorToStr.txt)
+    // @include(..\..\Help\docs\GMClasses.VCL.TGMTransformVCL.TColorToStr.txt)
     class function TColorToStr(Color: TColor): string; static;
   end;
 

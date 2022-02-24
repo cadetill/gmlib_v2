@@ -1,0 +1,2 @@
+Method to call of the owner object to know his @link(TGMLang).
+@return @link(TGMLang) of the owner object.

@@ -18,7 +18,6 @@ uses
 const
   // @exclude
   MaxArray = 10;
-
   // Array with exception messages in Spanish language.
   // @exclude
   Lang_ES: array[0..MaxArray] of string = (
@@ -68,11 +67,11 @@ const
   );
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMTranslations.GetTranslateText_1.txt)
+  // @include(..\Help\docs\GMTranslations.GetTranslateText_1.txt)
   function GetTranslateText(Text: string; const Args: array of const; Lang: TGMLang): string; overload;
 
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMTranslations.GetTranslateText_2.txt)
+  // @include(..\Help\docs\GMTranslations.GetTranslateText_2.txt)
   function GetTranslateText(Idx: Integer; const Args: array of const; Lang: TGMLang): string; overload;
 
 implementation

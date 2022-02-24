@@ -23,66 +23,66 @@ uses
 
 type
   { -------------------------------------------------------------------------- }
-  // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.txt)
+  // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.txt)
   TGMLatLngBounds = class(TGMPersistentStr, IGMControlChanges)
   private
     FLang: TGMLang;
     FNE: TGMLatLng;
     FSW: TGMLatLng;
   protected
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.GetOwnerLang.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.GetOwnerLang.txt)
     function GetOwnerLang: TGMLang; override;
 
     // @exclude
     function GetAPIUrl: string; override;
 
-    // @include(..\docs\GMClasses.IGMControlChanges.PropertyChanged.txt)
+    // @include(..\Help\docs\GMClasses.IGMControlChanges.PropertyChanged.txt)
     procedure PropertyChanged(Prop: TPersistent; PropName: string);
   public
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.Create_1.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Create_1.txt)
     constructor Create(SWLat: Real = 0; SWLng: Real = 0; NELat: Real = 0; NELng: Real = 0; Lang: TGMLang = lnEnglish); reintroduce; overload; virtual;
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.Create_2.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Create_2.txt)
     constructor Create(SW, NE: TGMLatLng; Lang: TGMLang = lnEnglish); reintroduce; overload; virtual;
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.Create_3.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Create_3.txt)
     constructor Create(AOwner: TPersistent; SWLat: Real = 0; SWLng: Real = 0; NELat: Real = 0; NELng: Real = 0); reintroduce; overload; virtual;
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.Create_4.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Create_4.txt)
     constructor Create(AOwner: TPersistent; SW, NE: TGMLatLng); reintroduce; overload; virtual;
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.Destroy.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Destroy.txt)
     destructor Destroy; override;
 
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.Assign.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.Extend.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Extend.txt)
     procedure Extend(LatLng: TGMLatLng);  (*1 *)
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.Union.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Union.txt)
     procedure Union(Other: TGMLatLngBounds);  (*1 *)
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.GetCenter.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.GetCenter.txt)
     procedure GetCenter(LatLng: TGMLatLng);  (*1 *)
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.ToSpan.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.ToSpan.txt)
     procedure ToSpan(LatLng: TGMLatLng);  (*1 *)
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.Contains.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Contains.txt)
     function Contains(LatLng: TGMLatLng): Boolean;  (*1 *)
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.IsEqual.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.IsEqual.txt)
     function IsEqual(Other: TGMLatLngBounds): Boolean;
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.Intersects.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Intersects.txt)
     function Intersects(Other: TGMLatLngBounds): Boolean;  (*1 *)
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.IsEmpty.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.IsEmpty.txt)
     function IsEmpty: Boolean;
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.ToStr.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.ToStr.txt)
     function ToStr(Precision: Integer = 6): string;
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.ToUrlValue.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.ToUrlValue.txt)
     function ToUrlValue(Precision: Integer = 6): string;
 
-    // @include(..\docs\GMClasses.IGMToStr.PropToString.txt)
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
 
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.APIUrl.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.APIUrl.txt)
     property APIUrl;
   published
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.SW.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.SW.txt)
     property SW: TGMLatLng read FSW write FSW;
-    // @include(..\docs\GMLatLngBounds.TGMLatLngBounds.NE.txt)
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.NE.txt)
     property NE: TGMLatLng read FNE write FNE;
   end;
 

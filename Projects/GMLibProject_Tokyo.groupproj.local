@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2016/08/11 23:48:56.000.962,D:\Docs\DropBox\Programacio\GoogleMaps\Components\gmlib_v2\GMLibProject_Berlin.groupproj=C:\Users\cadet\OneDrive\Documentos\Embarcadero\Studio\Projects\ProjectGroup1.groupproj</Transaction>
+    <Transaction>2022/02/24 17:10:20.060,D:\Documents\GitHub\gmlib_v2\Projects\GMLibProject_Tokyo.groupproj=D:\Documents\GitHub\gmlib_v2\GMLibProject_Berlin.groupproj</Transaction>
+  </Transactions>
+	<Default.Personality>
+		<Projects ActiveProject="D:\Documents\GitHub\gmlib_v2\dpk\GMLib_Tokyo.dproj"/>
+	</Default.Personality>
+</BorlandProject>
