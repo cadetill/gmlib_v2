@@ -69,7 +69,7 @@ Item_1=<hr>
 Item_2=<table class="container">
 Item_3=<tr>
 Item_4=<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
-Item_5=<td class="cadetill">Copyright &copy; ÌXavier Mart&iacute;nez (cadetill).</td>
+Item_5=<td class="cadetill">Copyright &copy; Xavier Mart&iacute;nez (cadetill).</td>
 Item_6=</tr>
 Item_7=</table>
 [IncludeDirectories]
