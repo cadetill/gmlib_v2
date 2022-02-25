@@ -58,7 +58,7 @@ Count=7
 Item_0=<table class="container">
 Item_1=<tr>
 Item_2=<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
-Item_3=<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+Item_3=<td class="cadetill">Copyright &copy; Xavier Mart&iacute;nez (cadetill).</td>
 Item_4=</tr>
 Item_5=</table>
 Item_6=<hr noshade="" size="1">
@@ -69,7 +69,7 @@ Item_1=<hr>
 Item_2=<table class="container">
 Item_3=<tr>
 Item_4=<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
-Item_5=<td class="cadetill">Copyright © Xavier Martínez (cadetill).</td>
+Item_5=<td class="cadetill">Copyright &copy; �Xavier Mart&iacute;nez (cadetill).</td>
 Item_6=</tr>
 Item_7=</table>
 [IncludeDirectories]
