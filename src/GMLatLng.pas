@@ -40,7 +40,7 @@ type
     // @exclude
     function GetAPIUrl: string; override;
 
-    // @include(..\Help\docs\GMLatLng.TGMLatLng.GetOwnerLang.txt)
+    // @include(..\Help\docs\GMClasses.IGMOwnerLang.GetOwnerLang.txt)
     function GetOwnerLang: TGMLang; override;
   public
     // @include(..\Help\docs\GMLatLng.TGMLatLng.Create_1.txt)
@@ -48,7 +48,7 @@ type
     // @include(..\Help\docs\GMLatLng.TGMLatLng.Create_2.txt)
     constructor Create(AOwner: TPersistent; Lat: Real = 0; Lng: Real = 0; NoWrap: Boolean = False); reintroduce; overload; virtual;
 
-    // @include(..\Help\docs\GMLatLng.TGMLatLng.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
     // @include(..\Help\docs\GMLatLng.TGMLatLng.SetLang.txt)
@@ -71,7 +71,7 @@ type
     // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
 
-    // @include(..\Help\docs\GMLatLng.TGMLatLng.APIUrl.txt)
+    // @include(..\Help\docs\GMClasses.IGMAPIUrl.APIUrl.txt)
     property APIUrl;
   published
     // @include(..\Help\docs\GMLatLng.TGMLatLng.Lat.txt)

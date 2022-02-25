@@ -1,5 +1,6 @@
 Constructor class.
-@param AOwner Owner of the object.
+
+@param AOwner Object owner.
 @param SWLat South-west latitude. Default 0.
 @param SWLng South-west longitude. Default 0.
 @param NELat North-east latitude. Default 0.

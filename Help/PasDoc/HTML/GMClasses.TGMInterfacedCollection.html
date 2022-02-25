@@ -99,9 +99,11 @@ Base class for all classes that inherit from <code>TCollection</code> into GMLib
 </tr>
 <tr><td colspan="2">
 <p>
-Constructor class.</p>
+Class constructor.</p>
 <p>
-   </p>
+
+
+<p>  </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>AOwner</dt>
@@ -118,7 +120,9 @@ Constructor class.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Function that return the owner of object  </p>
+Function that return the object owner.
+
+<p> </p>
 <h6 class="description_section">Returns</h6>
 <p class="return">Owner of object</p></td></tr>
 </table>
@@ -129,9 +133,15 @@ Function that return the owner of object  </p>
 </tr>
 <tr><td colspan="2">
 <p>
-Returns the Lang of the Owner.<br><br> If Owner is not assigned or not supports <a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a> interface then returns <code><a class="normal" href="GMSets.html#lnEnglish">lnEnglish</a></code>.)  </p>
+Returns the <a class="normal" href="GMSets.html#TGMLang">TGMLang</a> of the Owner.</p>
+<p>
+
+
+<p>If Owner is not assigned or not supports <a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a> interface then should be returned <code><a class="normal" href="GMSets.html#lnEnglish">lnEnglish</a></code>.
+
+<p> </p>
 <h6 class="description_section">Returns</h6>
-<p class="return">TLang of the owner object.</p></td></tr>
+<p class="return"><a class="normal" href="GMSets.html#TGMLang">TGMLang</a> of the owner object.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -153,7 +163,13 @@ Converts all class properties values to a string separated by semicolon.
 </tr>
 <tr><td colspan="2">
 <p>
-Call <code><code>Assign</code></code> to copy the properties or other attributes of one object from another. The standard form of a call to <code><code>Assign</code></code> is<br> <code>Destination.Assign(Source);</code><br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.  </p>
+Call <code><code>Assign</code></code> to copy the properties or other attributes of one object from another.</p>
+<p>
+
+
+<p>The standard form of a call to <code><code>Assign</code></code> method is <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
+
+<p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Source</dt>
@@ -210,7 +226,7 @@ Moves a item to a new position into the collection.   </p>
 </tr>
 <tr><td colspan="2">
 <p>
-Method to call of the owner object when changes a property of the object.
+Method to call into the owner object when changes a property into the current object.
 
 <p>  </p>
 <h6 class="description_section">Parameters</h6>

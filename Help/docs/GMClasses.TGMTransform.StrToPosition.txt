@@ -1,5 +1,5 @@
-@abstract(Returns the TGMControlPosition represented by the string Position.)
+@abstract(Returns the @link(TGMControlPosition) represented by the string Position.)
 
-@param Position string to convert to TGMControlPosition
+@param Position string to convert to @link(TGMControlPosition).
 
-@return TGMControlPosition that represents the string
+@return @link(TGMControlPosition) that represents the string.

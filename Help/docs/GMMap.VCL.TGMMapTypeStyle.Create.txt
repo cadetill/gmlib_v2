@@ -1,4 +1,4 @@
-@abstract(Constructor class.)
+@abstract(Class constructor.)
 
 @param AOwner Object owner.
 @param ItemClass Identifies the TCollectionItem descendants that must be used to represent the items in the collection.

@@ -4,4 +4,4 @@
   @item(Longitude ranges between -180 and 180 degrees, inclusive. Values above or below this range will be wrapped so that they fall within the range. For example, a value of -190 will be converted to 170. A value of 190 will be converted to -170. This reflects the fact that longitudes wrap around the globe.)
 )
 Although the default map projection associates longitude with the x-coordinate of the map, and latitude with the y-coordinate, the latitude coordinate is always written first, followed by the longitude.@br@br
-More information at https://developers.google.com/maps/documentation/javascript/reference#LatLng
+More information at @url(https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLng google.maps.LatLng class).

@@ -1,2 +1,3 @@
-Function that return the owner of object
+Function that return the object owner.
+
 @return Owner of object

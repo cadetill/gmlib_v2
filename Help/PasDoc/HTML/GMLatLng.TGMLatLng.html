@@ -41,7 +41,7 @@ A <code>TGMLatLng</code> is a point in geographical coordinates: latitude and lo
   <li><p>Longitude ranges between -180 and 180 degrees, inclusive. Values above or below this range will be wrapped so that they fall within the range. For example, a value of -190 will be converted to 170. A value of 190 will be converted to -170. This reflects the fact that longitudes wrap around the globe.</p></li>
 </ul>
 
-<p> Although the default map projection associates longitude with the x-coordinate of the map, and latitude with the y-coordinate, the latitude coordinate is always written first, followed by the longitude.<br><br> More information at <a href="https://developers.google.com/maps/documentation/javascript/reference#LatLng">https://developers.google.com/maps/documentation/javascript/reference#LatLng</a> </p>
+<p> Although the default map projection associates longitude with the x-coordinate of the map, and latitude with the y-coordinate, the latitude coordinate is always written first, followed by the longitude.<br><br> More information at <a href="https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLng">google.maps.LatLng class</a>. </p>
 <span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor">TPersistent</li>
@@ -135,7 +135,11 @@ A <code>TGMLatLng</code> is a point in geographical coordinates: latitude and lo
 <p>
 Constructor class.</p>
 <p>
- Creates a LatLng object representing a geographic point. Latitude is specified in degrees within the range [-90, 90]. Longitude is specified in degrees within the range [-180, 180]. Set <a class="normal" href="GMLatLng.TGMLatLng.html#NoWrap">noWrap</a> to true to enable values outside of this range.     </p>
+
+
+<p>Creates a LatLng object representing a geographic point. Latitude is specified in degrees within the range [-90, 90]. Longitude is specified in degrees within the range [-180, 180]. Set <a class="normal" href="GMLatLng.TGMLatLng.html#NoWrap">noWrap</a> to true to enable values outside of this range.
+
+<p>    </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Lat</dt>
@@ -145,7 +149,7 @@ Constructor class.</p>
 <dt>NoWrap</dt>
 <dd>Allows to put values outside the default range of <a class="normal" href="GMLatLng.TGMLatLng.html#Lat">lat</a>/<a class="normal" href="GMLatLng.TGMLatLng.html#Lng">lng</a>.</dd>
 <dt>Lang</dt>
-<dd>TLang to use in exceptions.</dd>
+<dd><a class="normal" href="GMSets.html#TGMLang">TGMLang</a> to use in exceptions.</dd>
 </dl>
 </td></tr>
 </table>
@@ -179,11 +183,15 @@ Constructor class.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Returns <code>True</code> if this LatLng is equals the given LatLng.   </p>
+Returns <code>True</code> if this LatLng is equals the given LatLng.
+
+<p>
+
+<p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Other</dt>
-<dd>LatLng to compare.</dd>
+<dd><a class="normal" href="GMLatLng.TGMLatLng.html">TGMLatLng</a> to compare.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return"><code>True</code> if equals, otherwise <code>False</code>.</p></td></tr>
@@ -240,7 +248,13 @@ Converts all class properties values to a string separated by semicolon.
 </tr>
 <tr><td colspan="2">
 <p>
-Given a string, converts it to a real value considering the locale.    </p>
+Given a string, converts it to a real value considering the locale.
+
+<p>
+
+<p>
+
+<p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Value</dt>
@@ -261,7 +275,11 @@ Given a string, converts it to a real value considering the locale.    </p>
 </tr>
 <tr><td colspan="2">
 <p>
-Convert LatLng to string representation in format (<a class="normal" href="GMLatLng.TGMLatLng.html#Lat">Lat</a>, <a class="normal" href="GMLatLng.TGMLatLng.html#Lng">Lng</a>).   </p>
+Convert LatLng to string representation in format <code>(<a class="normal" href="GMLatLng.TGMLatLng.html#Lat">Lat</a>, <a class="normal" href="GMLatLng.TGMLatLng.html#Lng">Lng</a>)</code>.
+
+<p>
+
+<p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Precision</dt>
@@ -277,7 +295,11 @@ Convert LatLng to string representation in format (<a class="normal" href="GMLat
 </tr>
 <tr><td colspan="2">
 <p>
-Returns a string of the form &quot;<a class="normal" href="GMLatLng.TGMLatLng.html#Lat">lat</a>,<a class="normal" href="GMLatLng.TGMLatLng.html#Lng">lng</a>&quot; for this LatLng. By default, round the LatLng to 6 decimal.   </p>
+Returns a string of the form <code>&quot;<a class="normal" href="GMLatLng.TGMLatLng.html#Lat">lat</a>,<a class="normal" href="GMLatLng.TGMLatLng.html#Lng">lng</a>&quot;</code> for this LatLng. By default, round the LatLng to 6 decimal.
+
+<p>
+
+<p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Precision</dt>
@@ -293,9 +315,15 @@ Returns a string of the form &quot;<a class="normal" href="GMLatLng.TGMLatLng.ht
 </tr>
 <tr><td colspan="2">
 <p>
-Returns the Lang of the Owner.<br><br> If Owner is not assigned or not supports <a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a> interface then returns <code><a class="normal" href="GMSets.html#lnEnglish">lnEnglish</a></code>.)  </p>
+Returns the <a class="normal" href="GMSets.html#TGMLang">TGMLang</a> of the Owner.</p>
+<p>
+
+
+<p>If Owner is not assigned or not supports <a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a> interface then should be returned <code><a class="normal" href="GMSets.html#lnEnglish">lnEnglish</a></code>.
+
+<p> </p>
 <h6 class="description_section">Returns</h6>
-<p class="return">TLang of the owner object.</p></td></tr>
+<p class="return"><a class="normal" href="GMSets.html#TGMLang">TGMLang</a> of the owner object.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -304,7 +332,13 @@ Returns the Lang of the Owner.<br><br> If Owner is not assigned or not supports 
 </tr>
 <tr><td colspan="2">
 <p>
-Call <code><code>Assign</code></code> to copy the properties or other attributes of one object from another. The standard form of a call to <code><code>Assign</code></code> is<br> <code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.  </p>
+Call <code><code>Assign</code></code> to copy the properties or other attributes of one object from another.</p>
+<p>
+
+
+<p>The standard form of a call to <code><code>Assign</code></code> method is <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
+
+<p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Source</dt>
@@ -354,7 +388,7 @@ Converts the <a class="normal" href="GMLatLng.TGMLatLng.html#Lat">Lat</a> and <a
 </tr>
 <tr><td colspan="2">
 <p>
-URL to Google Maps API class. </p>
+URL to Google Maps API class page. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">

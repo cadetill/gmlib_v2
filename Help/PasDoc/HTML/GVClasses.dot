@@ -79,8 +79,6 @@ DiGraph Classes {
   "TGMLatLngBounds" [href="GMLatLngBounds.TGMLatLngBounds.html"]
   "TGMMapTypeControlOptions" -> "TGMPersistentStr"
   "TGMMapTypeControlOptions" [href="GMMap.TGMMapTypeControlOptions.html"]
-  "TGMOverviewMapControlOptions" -> "TGMPersistentStr"
-  "TGMOverviewMapControlOptions" [href="GMMap.TGMOverviewMapControlOptions.html"]
   "TGMPanControlOptions" -> "TGMPersistentStr"
   "TGMPanControlOptions" [href="GMMap.TGMPanControlOptions.html"]
   "TGMRotateControlOptions" -> "TGMPersistentStr"

@@ -171,8 +171,6 @@ type
     property NoClear;
     // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.OverviewMapControl.txt)
     property OverviewMapControl;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.OverviewMapControlOptions.txt)
-    property OverviewMapControlOptions;
     // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.PanControl.txt)
     property PanControl;
     // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.PanControlOptions.txt)
@@ -267,11 +265,11 @@ type
     property Active;
     // @include(..\..\Help\docs\GMMap.VCL.TGMMap.GoogleAPIVer.txt)
     property GoogleAPIVer;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMap.Language.txt)
+    // @include(..\..\Help\docs\GMClasses.TGMComponent.Language.txt)
     property Language;
     // @include(..\..\Help\docs\GMMap.VCL.TGMMap.AboutGMLib.txt)
     property AboutGMLib;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMap.APIUrl.txt)
+    // @include(..\..\Help\docs\GMClasses.IGMAPIUrl.APIUrl.txt)
     property APIUrl;
     // @include(..\..\Help\docs\GMMap.VCL.TGMMap.GoogleAPIKey.txt)
     property GoogleAPIKey;

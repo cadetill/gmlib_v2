@@ -1,4 +1,4 @@
-@abstract(Constructor class.)
+@abstract(Class constructor.)
 
 @param Args Array of arguments to apply to the message.
 @param Lang Language to translate.

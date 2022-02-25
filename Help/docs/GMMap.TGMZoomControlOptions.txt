@@ -1,3 +1,4 @@
 @abstract(@code(google.maps.ZoomControlOptions) object from Google Maps API.)
+
 Options for the rendering of the zoom control.@br@br
-More information at https://developers.google.com/maps/documentation/javascript/reference#ZoomControlOptions
+More information at @url(https://developers.google.com/maps/documentation/javascript/reference/control#ZoomControlOptions google.maps.ZoomControlOptions interface).

@@ -68,9 +68,6 @@ type
   // @include(..\Help\docs\GMSets.TGMVisibility.txt)
   TGMVisibility = (vOn, vOff, vSimplified);
 
-  // @include(..\Help\docs\GMSets.TGMZoomControlStyle.txt)
-  TGMZoomControlStyle = (zcDEFAULT, zcLARGE, zcSMALL);
-
 implementation
 
 end.

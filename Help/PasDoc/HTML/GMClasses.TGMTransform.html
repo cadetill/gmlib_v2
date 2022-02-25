@@ -90,10 +90,6 @@ Contains methods of transformations.</p>
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>class function <strong><a href="GMClasses.TGMTransform.html#VisibilityToStr">VisibilityToStr</a></strong>(Visibility: <a href="GMSets.html#TGMVisibility">TGMVisibility</a>): string; static;</code></td>
 </tr>
-<tr class="list2">
-<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>class function <strong><a href="GMClasses.TGMTransform.html#ZoomControlStyleToStr">ZoomControlStyleToStr</a></strong>(ZoomControlStyle: <a href="GMSets.html#TGMZoomControlStyle">TGMZoomControlStyle</a>): string; static;</code></td>
-</tr>
 </table>
 <h2 class="description">Description</h2>
 <h3 class="detail">Methods</h3>
@@ -104,18 +100,18 @@ Contains methods of transformations.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Returns a string that represents the APILang.
+Returns a string that represents the <code>APILang</code>.
 
 <p>
 
 <p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
-<dt>APILang</dt>
+<dt>@code(APILang)</dt>
 <dd><a class="normal" href="GMSets.html#TGMAPILang">TGMAPILang</a> to convert to string</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">string with the APILang</p></td></tr>
+<p class="return">string with the <code>APILang</code></p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -124,7 +120,11 @@ Returns a string that represents the APILang.
 </tr>
 <tr><td colspan="2">
 <p>
-Returns a string that represents a boolean value. This function have sense since some people have localized the original Delphi function.
+Returns a string that represents a boolean value.</p>
+<p>
+
+
+<p>This function have sense because some people have localized the original Delphi function.
 
 <p> 
 
@@ -134,7 +134,7 @@ Returns a string that represents a boolean value. This function have sense since
 <dt>B</dt>
 <dd>Boolean value to convert.</dd>
 <dt>UseBoolStrs</dt>
-<dd>If true, returns a string value with &quot;true&quot; or &quot;false&quot; values, else returns &quot;0&quot; or &quot;-1&quot;.</dd>
+<dd>If <code>true</code>, returns a string value with &quot;true&quot; or &quot;false&quot; values, else returns &quot;0&quot; or &quot;-1&quot;.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return">string that represents the boolean value.</p></td></tr>
@@ -157,7 +157,7 @@ Returns a string that represents the GoogleAPIVer.
 <dd><a class="normal" href="GMSets.html#TGoogleAPIVer">TGoogleAPIVer</a> to convert to string</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">string with the GoogleAPIVer.</p></td></tr>
+<p class="return">string with the GoogleAPIVer value.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -174,10 +174,10 @@ Returns a string that represents the MapTypeControlStyle.
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>MapTypeControlStyle</dt>
-<dd><a class="normal" href="GMSets.html#TGMMapTypeControlStyle">TGMMapTypeControlStyle</a> to convert to string</dd>
+<dd><a class="normal" href="GMSets.html#TGMMapTypeControlStyle">TGMMapTypeControlStyle</a> to convert to string.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">string with the MapTypeControlStyle</p></td></tr>
+<p class="return">string with the MapTypeControlStyle value.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -186,16 +186,20 @@ Returns a string that represents the MapTypeControlStyle.
 </tr>
 <tr><td colspan="2">
 <p>
-Returns a string with the MapTypeId included into MapTypeIds.    </p>
+Returns a string with the MapTypeId included into MapTypeIds.
+
+<p> 
+
+<p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>MapTypeIds</dt>
-<dd><a class="normal" href="GMSets.html#TGMMapTypeIds">TGMMapTypeIds</a> to convert to string</dd>
+<dd><a class="normal" href="GMSets.html#TGMMapTypeIds">TGMMapTypeIds</a> to convert to string.</dd>
 <dt>Delimiter</dt>
-<dd>Delimiter between MapTypeId</dd>
+<dd>Delimiter between MapTypeId.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">string with the MapTypeIds</p></td></tr>
+<p class="return">string with the MapTypeIds value.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -204,14 +208,18 @@ Returns a string with the MapTypeId included into MapTypeIds.    </p>
 </tr>
 <tr><td colspan="2">
 <p>
-Returns a string that represents the MapTypeId.   </p>
+Returns a string that represents the MapTypeId.
+
+<p>
+
+<p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>MapTypeId</dt>
-<dd>TMapTypeId to convert to string</dd>
+<dd><code>TMapTypeId</code> to convert to string.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">string with the MapTypeId</p></td></tr>
+<p class="return">string with the MapTypeId value.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -220,14 +228,18 @@ Returns a string that represents the MapTypeId.   </p>
 </tr>
 <tr><td colspan="2">
 <p>
-Returns a string that represents the MapTypeStyleElementType.   </p>
+Returns a string that represents the MapTypeStyleElementType.
+
+<p>
+
+<p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>MapTypeStyleElementType</dt>
-<dd><a class="normal" href="GMSets.html#TGMMapTypeStyleElementType">TGMMapTypeStyleElementType</a> to convert to string</dd>
+<dd><a class="normal" href="GMSets.html#TGMMapTypeStyleElementType">TGMMapTypeStyleElementType</a> to convert to string.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">string with the MapTypeStyleElementType</p></td></tr>
+<p class="return">string with the MapTypeStyleElementType value.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -236,14 +248,18 @@ Returns a string that represents the MapTypeStyleElementType.   </p>
 </tr>
 <tr><td colspan="2">
 <p>
-Returns a string that represents the MapTypeStyleFeatureType.   </p>
+Returns a string that represents the MapTypeStyleFeatureType.
+
+<p>
+
+<p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>MapTypeStyleFeatureType</dt>
-<dd><a class="normal" href="GMSets.html#TGMMapTypeStyleFeatureType">TGMMapTypeStyleFeatureType</a> to convert to string</dd>
+<dd><a class="normal" href="GMSets.html#TGMMapTypeStyleFeatureType">TGMMapTypeStyleFeatureType</a> to convert to string.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">string with the MapTypeStyleFeatureType</p></td></tr>
+<p class="return">string with the MapTypeStyleFeatureType value.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -260,10 +276,10 @@ Returns a string that represents the Position.
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Position</dt>
-<dd><a class="normal" href="GMSets.html#TGMControlPosition">TGMControlPosition</a> to convert to string</dd>
+<dd><a class="normal" href="GMSets.html#TGMControlPosition">TGMControlPosition</a> to convert to string.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">string with the Position</p></td></tr>
+<p class="return">string with the Position value.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -272,14 +288,18 @@ Returns a string that represents the Position.
 </tr>
 <tr><td colspan="2">
 <p>
-Returns a string that represents the ScaleControlStyle.   </p>
+Returns a string that represents the ScaleControlStyle.
+
+<p>
+
+<p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>ScaleControlStyle</dt>
-<dd><a class="normal" href="GMSets.html#TGMScaleControlStyle">TGMScaleControlStyle</a> to convert to string</dd>
+<dd><a class="normal" href="GMSets.html#TGMScaleControlStyle">TGMScaleControlStyle</a> to convert to string.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">string with the ScaleControlStyle</p></td></tr>
+<p class="return">string with the ScaleControlStyle.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -298,10 +318,10 @@ Returns the <a class="normal" href="GMSets.html#TGMControlPosition">TGMControlPo
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Position</dt>
-<dd>string to convert to <a class="normal" href="GMSets.html#TGMControlPosition">TGMControlPosition</a></dd>
+<dd>string to convert to <a class="normal" href="GMSets.html#TGMControlPosition">TGMControlPosition</a>.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return"><a class="normal" href="GMSets.html#TGMControlPosition">TGMControlPosition</a> that represents the string</p></td></tr>
+<p class="return"><a class="normal" href="GMSets.html#TGMControlPosition">TGMControlPosition</a> that represents the string.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -318,10 +338,10 @@ Returns the <a class="normal" href="GMSets.html#TGMVisibility">TGMVisibility</a>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Visibility</dt>
-<dd>String to convert to <a class="normal" href="GMSets.html#TGMVisibility">TGMVisibility</a></dd>
+<dd>String to convert to <a class="normal" href="GMSets.html#TGMVisibility">TGMVisibility</a>.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return"><a class="normal" href="GMSets.html#TGMVisibility">TGMVisibility</a> that represents the string</p></td></tr>
+<p class="return"><a class="normal" href="GMSets.html#TGMVisibility">TGMVisibility</a> that represents the string.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -330,30 +350,18 @@ Returns the <a class="normal" href="GMSets.html#TGMVisibility">TGMVisibility</a>
 </tr>
 <tr><td colspan="2">
 <p>
-Returns a string that represents the <code>Visibility</code>.   </p>
+Returns a string that represents the <code>Visibility</code>.
+
+<p>
+
+<p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Visibility</dt>
 <dd><a class="normal" href="GMSets.html#TGMVisibility">TGMVisibility</a> to convert to string.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return">string with the Visibility.</p></td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><span id="ZoomControlStyleToStr"></span><code>class function <strong>ZoomControlStyleToStr</strong>(ZoomControlStyle: <a href="GMSets.html#TGMZoomControlStyle">TGMZoomControlStyle</a>): string; static;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Returns a string that represents the ZoomControlStyle.   </p>
-<h6 class="description_section">Parameters</h6>
-<dl class="parameters">
-<dt>ZoomControlStyle</dt>
-<dd><a class="normal" href="GMSets.html#TGMZoomControlStyle">TGMZoomControlStyle</a> to convert to string</dd>
-</dl>
-<h6 class="description_section">Returns</h6>
-<p class="return">string with the ZoomControlStyle</p></td></tr>
+<p class="return">string with the <code>Visibility</code> value.</p></td></tr>
 </table>
 <br />
 <hr>

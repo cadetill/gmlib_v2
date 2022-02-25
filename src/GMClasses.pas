@@ -160,7 +160,7 @@ type
     // @exclude
     function GetAPIUrl: string; virtual;
 
-    // @include(..\Help\docs\GMClasses.TGMObject.APIUrl.txt)
+    // @include(..\Help\docs\GMClasses.IGMAPIUrl.APIUrl.txt)
     property APIUrl: string read GetAPIUrl;
   public
     // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
@@ -193,7 +193,7 @@ type
     // @exclude
     function GetAPIUrl: string; virtual;
 
-    // @include(..\Help\docs\GMClasses.TGMPersistent.APIUrl.txt)
+    // @include(..\Help\docs\GMClasses.IGMAPIUrl.APIUrl.txt)
     property APIUrl: string read GetAPIUrl;
   end;
 
@@ -204,7 +204,7 @@ type
     // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; virtual;
 
-    // @include(..\Help\docs\GMClasses.TGMPersistentStr.GetOwnerLang.txt)
+    // @include(..\Help\docs\GMClasses.IGMOwnerLang.GetOwnerLang.txt)
     function GetOwnerLang: TGMLang; virtual;
   end;
 
@@ -218,7 +218,7 @@ type
     // @exclude
     function GetAPIUrl: string; virtual;
 
-    // @include(..\Help\docs\GMClasses.TGMComponent.APIUrl.txt)
+    // @include(..\Help\docs\GMClasses.IGMAPIUrl.APIUrl.txt)
     property APIUrl: string read GetAPIUrl;
 
     // @include(..\Help\docs\GMClasses.TGMComponent.Language.txt)
@@ -229,7 +229,7 @@ type
     // @include(..\Help\docs\GMClasses.TGMComponent.Create.txt)
     constructor Create(AOwner: TComponent); override;
 
-    // @include(..\Help\docs\GMClasses.TGMComponent.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
   end;
 
@@ -257,7 +257,7 @@ type
     // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; virtual;
 
-    // @include(..\Help\docs\GMClasses.TGMInterfacedCollectionItem.GetOwnerLang.txt)
+    // @include(..\Help\docs\GMClasses.IGMOwnerLang.GetOwnerLang.txt)
     function GetOwnerLang: TGMLang; virtual;
 
     // @exclude
@@ -266,10 +266,10 @@ type
     // @include(..\Help\docs\GMClasses.TGMInterfacedCollectionItem.OnChange.txt)
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
   public
-    // @include(..\Help\docs\GMClasses.TGMInterfacedCollectionItem.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\Help\docs\GMClasses.TGMInterfacedCollectionItem.APIUrl.txt)
+    // @include(..\Help\docs\GMClasses.IGMAPIUrl.APIUrl.txt)
     property APIUrl: string read GetAPIUrl;
 
     // @include(..\Help\docs\GMClasses.TGMInterfacedCollectionItem.FObject.txt)
@@ -300,7 +300,7 @@ type
     // @exclude
     function _Release: Integer; virtual; stdcall;
 
-    // @include(..\Help\docs\GMClasses.TGMInterfacedCollection.GetOwnerLang.txt)
+    // @include(..\Help\docs\GMClasses.IGMOwnerLang.GetOwnerLang.txt)
     function GetOwnerLang: TGMLang; virtual;
 
     // @include(..\Help\docs\GMClasses.TGMInterfacedCollection.GetOwner.txt)
@@ -330,7 +330,7 @@ type
     // @include(..\Help\docs\GMClasses.TGMInterfacedCollection.Create.txt)
     constructor Create(AOwner: TPersistent; ItemClass: TCollectionItemClass); virtual;
 
-    // @include(..\Help\docs\GMClasses.TGMInterfacedCollection.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
   end;
 
@@ -358,8 +358,6 @@ type
     class function MapTypeControlStyleToStr(MapTypeControlStyle: TGMMapTypeControlStyle): string; static;
     // @include(..\Help\docs\GMClasses.TGMTransform.ScaleControlStyleToStr.txt)
     class function ScaleControlStyleToStr(ScaleControlStyle: TGMScaleControlStyle): string; static;
-    // @include(..\Help\docs\GMClasses.TGMTransform.ZoomControlStyleToStr.txt)
-    class function ZoomControlStyleToStr(ZoomControlStyle: TGMZoomControlStyle): string; static;
     // @include(..\Help\docs\GMClasses.TGMTransform.MapTypeStyleElementTypeToStr.txt)
     class function MapTypeStyleElementTypeToStr(MapTypeStyleElementType: TGMMapTypeStyleElementType): string; static;
     // @include(..\Help\docs\GMClasses.TGMTransform.MapTypeStyleFeatureTypeToStr.txt)
@@ -630,12 +628,6 @@ end;
 class function TGMTransform.VisibilityToStr(Visibility: TGMVisibility): string;
 begin
   Result := GetEnumName(TypeInfo(TGMVisibility), Ord(Visibility));
-end;
-
-class function TGMTransform.ZoomControlStyleToStr(
-  ZoomControlStyle: TGMZoomControlStyle): string;
-begin
-  Result := GetEnumName(TypeInfo(TGMZoomControlStyle), Ord(ZoomControlStyle));
 end;
 
 { TGMPersistentStr }

@@ -34,7 +34,9 @@
 <p>
 <code>google.maps.ZoomControlOptions</code> object from Google Maps API.</p>
 <p>
- Options for the rendering of the zoom control.<br><br> More information at <a href="https://developers.google.com/maps/documentation/javascript/reference#ZoomControlOptions">https://developers.google.com/maps/documentation/javascript/reference#ZoomControlOptions</a> </p>
+
+
+<p>Options for the rendering of the zoom control.<br><br> More information at <a href="https://developers.google.com/maps/documentation/javascript/reference/control#ZoomControlOptions">google.maps.ZoomControlOptions interface</a>. </p>
 <span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor">TPersistent</li>
@@ -64,10 +66,6 @@
 <td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <strong><a href="GMMap.TGMZoomControlOptions.html#Position">Position</a></strong>: <a href="GMSets.html#TGMControlPosition">TGMControlPosition</a> read FPosition write SetPosition default <a href="GMSets.html#cpTOP_LEFT">cpTOP_LEFT</a>;</code></td>
 </tr>
-<tr class="list2">
-<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMMap.TGMZoomControlOptions.html#Style">Style</a></strong>: <a href="GMSets.html#TGMZoomControlStyle">TGMZoomControlStyle</a> read FStyle write SetStyle default <a href="GMSets.html#zcDEFAULT">zcDEFAULT</a>;</code></td>
-</tr>
 </table>
 <h2 class="description">Description</h2>
 <h3 class="detail">Methods</h3>
@@ -78,7 +76,7 @@
 </tr>
 <tr><td colspan="2">
 <p>
-Constructor class.</p>
+Class constructor.</p>
 <p>
 
 
@@ -110,7 +108,11 @@ Converts all class properties values to a string separated by semicolon.
 </tr>
 <tr><td colspan="2">
 <p>
-Call <code><code>Assign</code></code> to copy the properties or other attributes of one object from another. The standard form of a call to <code><code>Assign</code></code> is <br> <code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
+Call <code><code>Assign</code></code> to copy the properties or other attributes of one object from another.</p>
+<p>
+
+
+<p>The standard form of a call to <code><code>Assign</code></code> method is <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
 
 <p> </p>
 <h6 class="description_section">Parameters</h6>
@@ -129,16 +131,6 @@ Call <code><code>Assign</code></code> to copy the properties or other attributes
 <tr><td colspan="2">
 <p>
 <code>Position</code> id. Used to specify the <code>position</code> of the control on the map. </p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><span id="Style"></span><code>property <strong>Style</strong>: <a href="GMSets.html#TGMZoomControlStyle">TGMZoomControlStyle</a> read FStyle write SetStyle default <a href="GMSets.html#zcDEFAULT">zcDEFAULT</a>;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-<code>Style</code> id. Used to select what <code>style</code> of scale control to display. </p>
 </td></tr>
 </table>
 <br />

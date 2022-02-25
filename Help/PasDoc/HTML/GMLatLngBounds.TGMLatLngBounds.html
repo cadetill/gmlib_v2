@@ -34,7 +34,9 @@
 <p>
 A <code>TGMLatLngBounds</code> instance represents a rectangle in geographical coordinates, including one that crosses the 180 degrees longitudinal meridian.</p>
 <p>
- More information at <a href="https://developers.google.com/maps/documentation/javascript/reference#LatLngBounds">https://developers.google.com/maps/documentation/javascript/reference#LatLngBounds</a> </p>
+
+
+<p>More information at <a href="https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds">google.maps.LatLngBounds class</a> </p>
 <span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor">TPersistent</li>
@@ -146,11 +148,13 @@ A <code>TGMLatLngBounds</code> instance represents a rectangle in geographical c
 </tr>
 <tr><td colspan="2">
 <p>
-Constructor class.      </p>
+Constructor class.
+
+<p>     </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>AOwner</dt>
-<dd>Owner of the object.</dd>
+<dd>Object owner.</dd>
 <dt>SWLat</dt>
 <dd>South-west latitude. Default 0.</dd>
 <dt>SWLng</dt>
@@ -169,7 +173,9 @@ Constructor class.      </p>
 </tr>
 <tr><td colspan="2">
 <p>
-Constructor class.    </p>
+Constructor class.
+
+<p>   </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>SW</dt>
@@ -177,7 +183,7 @@ Constructor class.    </p>
 <dt>NE</dt>
 <dd>North-east corner.</dd>
 <dt>Lang</dt>
-<dd>TLang to use in exceptions.</dd>
+<dd><a class="normal" href="GMSets.html#TGMLang">TGMLang</a> to use in exceptions.</dd>
 </dl>
 </td></tr>
 </table>
@@ -188,7 +194,9 @@ Constructor class.    </p>
 </tr>
 <tr><td colspan="2">
 <p>
-Constructor class.      </p>
+Constructor class.
+
+<p>     </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>SWLat</dt>
@@ -200,7 +208,7 @@ Constructor class.      </p>
 <dt>NELng</dt>
 <dd>North-east longitude. Default 0.</dd>
 <dt>Lang</dt>
-<dd>TLang to use in exceptions.</dd>
+<dd><a class="normal" href="GMSets.html#TGMLang">TGMLang</a> to use in exceptions.</dd>
 </dl>
 </td></tr>
 </table>
@@ -211,11 +219,13 @@ Constructor class.      </p>
 </tr>
 <tr><td colspan="2">
 <p>
-Constructor class.    </p>
+Constructor class.
+
+<p>   </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>AOwner</dt>
-<dd>Owner of the object.</dd>
+<dd>Object owner.</dd>
 <dt>SW</dt>
 <dd>South-west corner.</dd>
 <dt>NE</dt>
@@ -304,7 +314,7 @@ Returns <code>True</code> if this bounds shares any points with this bounds.
 </tr>
 <tr><td colspan="2">
 <p>
-Returns <code>True</code> if the bounds are empty.
+Returns <code>True</code> if the bounds is empty.
 
 <p> </p>
 <h6 class="description_section">Returns</h6>
@@ -370,7 +380,7 @@ Convert bounds to string representation.
 </tr>
 <tr><td colspan="2">
 <p>
-Returns a string with format &quot;lat_lo,lng_lo,lat_hi,lng_hi&quot; for this bounds, where &quot;lo&quot; corresponds to the southwest corner of the bounding box and &quot;hi&quot; corresponds to the northeast corner of that box.
+Returns a string with format <code>&quot;lat_lo,lng_lo,lat_hi,lng_hi&quot;</code> for this bounds, where &quot;lo&quot; corresponds to the southwest corner of the bounding box and &quot;hi&quot; corresponds to the northeast corner of that box.
 
 <p>
 
@@ -390,9 +400,15 @@ Returns a string with format &quot;lat_lo,lng_lo,lat_hi,lng_hi&quot; for this bo
 </tr>
 <tr><td colspan="2">
 <p>
-Returns the Lang of the Owner.<br><br> If Owner is not assigned or not supports <a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a> interface then returns <code><a class="normal" href="GMSets.html#lnEnglish">lnEnglish</a></code>.  </p>
+Returns the <a class="normal" href="GMSets.html#TGMLang">TGMLang</a> of the Owner.</p>
+<p>
+
+
+<p>If Owner is not assigned or not supports <a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a> interface then should be returned <code><a class="normal" href="GMSets.html#lnEnglish">lnEnglish</a></code>.
+
+<p> </p>
 <h6 class="description_section">Returns</h6>
-<p class="return">TLang of the owner object.</p></td></tr>
+<p class="return"><a class="normal" href="GMSets.html#TGMLang">TGMLang</a> of the owner object.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -401,7 +417,13 @@ Returns the Lang of the Owner.<br><br> If Owner is not assigned or not supports 
 </tr>
 <tr><td colspan="2">
 <p>
-Call <code><code>Assign</code></code> to copy the properties or other attributes of one object from another. The standard form of a call to <code><code>Assign</code></code> is <br> <code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.  </p>
+Call <code><code>Assign</code></code> to copy the properties or other attributes of one object from another.</p>
+<p>
+
+
+<p>The standard form of a call to <code><code>Assign</code></code> method is <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
+
+<p> </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Source</dt>
@@ -532,7 +554,7 @@ Extends this bounds to contain the <code>union</code> of this and the given boun
 </tr>
 <tr><td colspan="2">
 <p>
-Method to call of the owner object when changes a property of the object.
+Method to call into the owner object when changes a property into the current object.
 
 <p>  </p>
 <h6 class="description_section">Parameters</h6>
@@ -552,7 +574,7 @@ Method to call of the owner object when changes a property of the object.
 </tr>
 <tr><td colspan="2">
 <p>
-URL to Google Maps API class. </p>
+URL to Google Maps API class page. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">

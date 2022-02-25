@@ -1,3 +1,4 @@
 @abstract(@code(google.maps.MapTypeControlOptions) object from Google Maps API.)
+
 Options for the rendering of the map type control.@br@br
-More information at https://developers.google.com/maps/documentation/javascript/reference#MapTypeControlOptions
+More information at @url(https://developers.google.com/maps/documentation/javascript/reference/control#MapTypeControlOptions google.maps.MapTypeControlOptions interface).

@@ -1,5 +1,5 @@
 Returns a string that represents the GoogleAPIVer.
 
-@param GoogleAPIVer TGoogleAPIVer to convert to string
+@param GoogleAPIVer @link(TGoogleAPIVer) to convert to string
 
-@return string with the GoogleAPIVer.
+@return string with the GoogleAPIVer value.

@@ -1,1 +1,3 @@
 @abstract(Exception raised when a GMLib method receives an object param and it is unassigned.)
+
+Displayed message: @italic(Unassigned %s object.)

@@ -30,7 +30,7 @@ type
     FNE: TGMLatLng;
     FSW: TGMLatLng;
   protected
-    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.GetOwnerLang.txt)
+    // @include(..\Help\docs\GMClasses.IGMOwnerLang.GetOwnerLang.txt)
     function GetOwnerLang: TGMLang; override;
 
     // @exclude
@@ -50,7 +50,7 @@ type
     // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Destroy.txt)
     destructor Destroy; override;
 
-    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
     // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Extend.txt)
@@ -77,7 +77,7 @@ type
     // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
 
-    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.APIUrl.txt)
+    // @include(..\Help\docs\GMClasses.IGMAPIUrl.APIUrl.txt)
     property APIUrl;
   published
     // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.SW.txt)

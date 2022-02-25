@@ -28,7 +28,7 @@ const
       'Error ejecutando la función JavaScript %s.'#13#13'Mensaje de error: %s',
       'Objeto %s no asignado.',
       'El mapa está activo. Debe desactivarlo antes de cambiar esta propiedad.',
-      'El navegador no es del tipo esperado.',
+      'El navegador no es de la clase esperada.',
       'No se ha podido cargar el recurso del mapa.',
       'Tiempo de espera excedido.',
       'El mapa no está activo.'
@@ -44,7 +44,7 @@ const
       'An error occurs executing %s JavaScript function.'#13#13'Error message: %s',
       'Unassigned %s object.',
       'The map is active. To change this property you must to deactivate it first.',
-      'The browser is not of the desired type.',
+      'The browser is not of the correct class.',
       'Can''t load map resource.',
       'A timeout occurred.',
       'Map is not active.'

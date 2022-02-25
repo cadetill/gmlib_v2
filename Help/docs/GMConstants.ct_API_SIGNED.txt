@@ -1,0 +1,1 @@
+API signed value into HTML map

@@ -1,3 +1,5 @@
 Returns a string that represents the MapTypeStyleElementType.
-@param MapTypeStyleElementType TGMMapTypeStyleElementType to convert to string
-@return string with the MapTypeStyleElementType
+
+@param MapTypeStyleElementType @link(TGMMapTypeStyleElementType) to convert to string.
+
+@return string with the MapTypeStyleElementType value.

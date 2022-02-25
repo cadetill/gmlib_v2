@@ -1,2 +1,0 @@
-Returns the Lang of the Owner.@br@br If Owner is not assigned or not supports IGMOwnerLang interface then returns @code(lnEnglish).)
-@return TLang of the owner object.

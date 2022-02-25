@@ -1,4 +1,5 @@
 Constructor class.
-@param AOwner Owner of the object.
+
+@param AOwner Object owner.
 @param SW South-west corner.
 @param NE North-east corner.

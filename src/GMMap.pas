@@ -40,7 +40,7 @@ type
     // @include(..\Help\docs\GMMap.TGMMapTypeControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\Help\docs\GMMap.TGMMapTypeControlOptions.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
     // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
@@ -52,29 +52,6 @@ type
     property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_RIGHT;
     // @include(..\Help\docs\GMMap.TGMMapTypeControlOptions.Style.txt)
     property Style: TGMMapTypeControlStyle read FStyle write SetStyle default mtcDEFAULT;
-  end;
-
-  { -------------------------------------------------------------------------- }
-  // @include(..\Help\docs\GMMap.TGMOverviewMapControlOptions.txt)
-  TGMOverviewMapControlOptions = class(TGMPersistentStr)
-  private
-    FOpened: Boolean;
-    procedure SetOpened(const Value: Boolean);
-  protected
-    // @exclude
-    function GetAPIUrl: string; override;
-  public
-    // @include(..\Help\docs\GMMap.TGMOverviewMapControlOptions.Create.txt)
-    constructor Create(AOwner: TPersistent); override;
-
-    // @include(..\Help\docs\GMMap.TGMOverviewMapControlOptions.Assign.txt)
-    procedure Assign(Source: TPersistent); override;
-
-    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
-    function PropToString: string; override;
-  published
-    // @include(..\Help\docs\GMMap.TGMOverviewMapControlOptions.Opened.txt)
-    property Opened: Boolean read FOpened write SetOpened default False;
   end;
 
   { -------------------------------------------------------------------------- }
@@ -90,7 +67,7 @@ type
     // @include(..\Help\docs\GMMap.TGMPanControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\Help\docs\GMMap.TGMPanControlOptions.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
     // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
@@ -113,7 +90,7 @@ type
     // @include(..\Help\docs\GMMap.TGMRotateControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\Help\docs\GMMap.TGMRotateControlOptions.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
     // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
@@ -136,7 +113,7 @@ type
     // @include(..\Help\docs\GMMap.TGMScaleControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\Help\docs\GMMap.TGMScaleControlOptions.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
     // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
@@ -150,9 +127,7 @@ type
   // @include(..\Help\docs\GMMap.TGMZoomControlOptions.txt)
   TGMZoomControlOptions = class(TGMPersistentStr)
   private
-    FStyle: TGMZoomControlStyle;
     FPosition: TGMControlPosition;
-    procedure SetStyle(const Value: TGMZoomControlStyle);
     procedure SetPosition(const Value: TGMControlPosition);
   protected
     // @exclude
@@ -161,7 +136,7 @@ type
     // @include(..\Help\docs\GMMap.TGMZoomControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\Help\docs\GMMap.TGMZoomControlOptions.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
     // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
@@ -169,8 +144,6 @@ type
   published
     // @include(..\Help\docs\GMMap.TGMZoomControlOptions.Position.txt)
     property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_LEFT;
-    // @include(..\Help\docs\GMMap.TGMZoomControlOptions.Style.txt)
-    property Style: TGMZoomControlStyle read FStyle write SetStyle default zcDEFAULT;
   end;
 
   { -------------------------------------------------------------------------- }
@@ -186,7 +159,7 @@ type
     // @include(..\Help\docs\GMMap.TGMStreetViewControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\Help\docs\GMMap.TGMStreetViewControlOptions.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
     // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
@@ -235,7 +208,7 @@ type
     // @include(..\Help\docs\GMMap.TGMCustomMapTypeStyler.Create.txt)
     constructor Create(Collection: TCollection); override;
 
-    // @include(..\Help\docs\GMMap.TGMCustomMapTypeStyler.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
   end;
 
@@ -262,7 +235,7 @@ type
     // @include(..\Help\docs\GMMap.TGMCustomMapTypeStyle.Create.txt)
     constructor Create(Collection: TCollection); override;
 
-    // @include(..\Help\docs\GMMap.TGMCustomMapTypeStyle.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
   end;
 
@@ -279,7 +252,7 @@ type
     // @include(..\Help\docs\GMMap.TGMStreetViewAddressControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\Help\docs\GMMap.TGMStreetViewAddressControlOptions.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
     // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
@@ -302,7 +275,7 @@ type
     // @include(..\Help\docs\GMClasses.TGMInterfacedOwnedPersistent.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\Help\docs\GMMap.TGMFullScreenControlOptions.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
     // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
@@ -327,7 +300,7 @@ type
     // @include(..\Help\docs\GMMap.TGMStreetViewPov.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
-    // @include(..\Help\docs\GMMap.TGMStreetViewPov.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
     // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
@@ -381,7 +354,7 @@ type
     // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.Destroy.txt)
     destructor Destroy; override;
 
-    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
     // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
@@ -446,7 +419,6 @@ type
     FMapTypeControl: Boolean;
     FMapTypeControlOptions: TGMMapTypeControlOptions;
     FOverviewMapControl: Boolean;
-    FOverviewMapControlOptions: TGMOverviewMapControlOptions;
     FPanControlOptions: TGMPanControlOptions;
     FPanControl: Boolean;
     FRotateControl: Boolean;
@@ -526,8 +498,6 @@ type
     property NoClear: Boolean read FNoClear write SetNoClear default False;
     // @include(..\Help\docs\GMMap.TGMCustomMapOptions.OverviewMapControl.txt)
     property OverviewMapControl: Boolean read FOverviewMapControl write SetOverviewMapControl default True;
-    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.OverviewMapControlOptions.txt)
-    property OverviewMapControlOptions: TGMOverviewMapControlOptions read FOverviewMapControlOptions write FOverviewMapControlOptions;
     // @include(..\Help\docs\GMMap.TGMCustomMapOptions.PanControl.txt)
     property PanControl: Boolean read FPanControl write SetPanControl default True;
     // @include(..\Help\docs\GMMap.TGMCustomMapOptions.PanControlOptions.txt)
@@ -565,7 +535,7 @@ type
     // @include(..\Help\docs\GMMap.TGMCustomMapOptions.GetAPIUrl.txt)
     function GetAPIUrl: string; override;
 
-    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
   end;
 
@@ -653,7 +623,7 @@ type
     // @include(..\Help\docs\GMMap.TGMCustomGMMap.Create.txt)
     constructor Create(AOwner: TComponent); override;
 
-    // @include(..\Help\docs\GMClasses.TGMComponent.Assign.txt)
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
     // @include(..\Help\docs\GMMap.TGMCustomGMMap.FitBounds.txt)
@@ -700,7 +670,6 @@ begin
     MinZoom := TGMCustomMapOptions(Source).MinZoom;
     NoClear := TGMCustomMapOptions(Source).NoClear;
     OverviewMapControl := TGMCustomMapOptions(Source).OverviewMapControl;
-    OverviewMapControlOptions.Assign(TGMCustomMapOptions(Source).OverviewMapControlOptions);
     PanControl := TGMCustomMapOptions(Source).PanControl;
     PanControlOptions.Assign(TGMCustomMapOptions(Source).PanControlOptions);
     RotateControl := TGMCustomMapOptions(Source).RotateControl;
@@ -740,7 +709,6 @@ begin
   FMinZoom := 0;
   FNoClear := False;
   FOverviewMapControl := True;
-  FOverviewMapControlOptions := TGMOverviewMapControlOptions.Create(Self);
   FPanControl := True;
   FPanControlOptions := TGMPanControlOptions.Create(Self);
   FRotateControl := True;
@@ -762,7 +730,6 @@ begin
   if Assigned(FCenter) then FreeAndNil(FCenter);
   if Assigned(FFullScreenControlOptions) then FreeAndNil(FFullScreenControlOptions);
   if Assigned(FMapTypeControlOptions) then FreeAndNil(FMapTypeControlOptions);
-  if Assigned(FOverviewMapControlOptions) then FreeAndNil(FOverviewMapControlOptions);
   if Assigned(FPanControlOptions) then FreeAndNil(FPanControlOptions);
   if Assigned(FScaleControlOptions) then FreeAndNil(FScaleControlOptions);
   if Assigned(FStreetView) then FreeAndNil(FStreetView);
@@ -795,7 +762,7 @@ end;
 
 function TGMCustomMapOptions.PropToString: string;
 const
-  Str = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
+  Str = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
 begin
   Result := inherited PropToString;
   if Result <> '' then Result := Result + ',';
@@ -819,7 +786,6 @@ begin
                          IntToStr(FMinZoom),
                          LowerCase(TGMTransform.GMBoolToStr(FNoClear, True)),
                          LowerCase(TGMTransform.GMBoolToStr(FOverviewMapControl, True)),
-                         FOverviewMapControlOptions.PropToString,
                          LowerCase(TGMTransform.GMBoolToStr(FPanControl, True)),
                          FPanControlOptions.PropToString,
                          LowerCase(TGMTransform.GMBoolToStr(FRotateControl, True)),
@@ -1082,47 +1048,6 @@ begin
 
   FStyle := Value;
   ControlChanges('Style');
-end;
-
-{ TGMOverviewMapControlOptions }
-
-procedure TGMOverviewMapControlOptions.Assign(Source: TPersistent);
-begin
-  inherited;
-
-  if Source is TGMOverviewMapControlOptions then
-  begin
-    Opened := TGMOverviewMapControlOptions(Source).Opened;
-  end;
-end;
-
-constructor TGMOverviewMapControlOptions.Create(AOwner: TPersistent);
-begin
-  inherited;
-
-  FOpened := False;
-end;
-
-function TGMOverviewMapControlOptions.GetAPIUrl: string;
-begin
-  Result := 'https://developers.google.com/maps/documentation/javascript/reference#OverviewMapControlOptions';
-end;
-
-function TGMOverviewMapControlOptions.PropToString: string;
-const
-  Str = '%s';
-begin
-  Result := Format(Str, [
-                         LowerCase(TGMTransform.GMBoolToStr(Opened, True))
-                        ]);
-end;
-
-procedure TGMOverviewMapControlOptions.SetOpened(const Value: Boolean);
-begin
-  if FOpened = Value then Exit;
-
-  FOpened := Value;
-  ControlChanges('Opened');
 end;
 
 { TGMPanControlOptions }
@@ -1641,7 +1566,6 @@ begin
   if Source is TGMZoomControlOptions then
   begin
     Position := TGMZoomControlOptions(Source).Position;
-    Style := TGMZoomControlOptions(Source).Style;
   end;
 end;
 
@@ -1650,7 +1574,6 @@ begin
   inherited;
 
   FPosition := cpTOP_LEFT;
-  FStyle := zcDEFAULT;
 end;
 
 function TGMZoomControlOptions.GetAPIUrl: string;
@@ -1660,11 +1583,10 @@ end;
 
 function TGMZoomControlOptions.PropToString: string;
 const
-  Str = '%s,%s';
+  Str = '%s';
 begin
   Result := Format(Str, [
-                         QuotedStr(TGMTransform.PositionToStr(Position)),
-                         QuotedStr(TGMTransform.ZoomControlStyleToStr(Style))
+                         QuotedStr(TGMTransform.PositionToStr(Position))
                         ]);
 end;
 
@@ -1674,14 +1596,6 @@ begin
 
   FPosition := Value;
   ControlChanges('Position');
-end;
-
-procedure TGMZoomControlOptions.SetStyle(const Value: TGMZoomControlStyle);
-begin
-  if FStyle = Value then Exit;
-
-  FStyle := Value;
-  ControlChanges('Style');
 end;
 
 { TGMStreetViewPanoramaOptions }
