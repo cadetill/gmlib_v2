@@ -6,6 +6,6 @@
     <Transaction>2022/02/27 13:13:23.219,D:\cadetill\Documents\GitHub\gmlib_v2\Projects\GMLibProject_Alexandria.groupproj=D:\cadetill\Documents\GitHub\gmlib_v2\Projects\GMLibProject_Tokyo.groupproj</Transaction>
   </Transactions>
 	<Default.Personality>
-		<Projects ActiveProject="D:\Documents\GitHub\gmlib_v2\dpk\GMLib_Tokyo.dproj"/>
+		<Projects ActiveProject="D:\cadetill\Documents\GitHub\gmlib_v2\dpk\GMLib_Alexandria.dproj"/>
 	</Default.Personality>
 </BorlandProject>
