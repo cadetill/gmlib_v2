@@ -1,2 +1,0 @@
-Sets the weight of the feature, in pixels.@br 
-Valid values: Integers greater than or equal to zero.

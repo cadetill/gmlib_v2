@@ -1,1 +1,0 @@
-If @code(false), prevents the map from being controlled by the keyboard.

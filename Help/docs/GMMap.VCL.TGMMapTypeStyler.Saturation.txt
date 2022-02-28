@@ -1,2 +1,0 @@
-Shifts the saturation of colors by a percentage of the original value if decreasing and a percentage of the remaining value if increasing.@br 
-Valid values: [-100, 100].

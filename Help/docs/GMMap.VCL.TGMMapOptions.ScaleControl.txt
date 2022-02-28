@@ -1,1 +1,0 @@
-The initial enabled/disabled state of the Scale control.

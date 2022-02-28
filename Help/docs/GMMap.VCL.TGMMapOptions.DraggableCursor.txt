@@ -1,1 +1,0 @@
-The url of the cursor to display when mousing over a draggable map. 

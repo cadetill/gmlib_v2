@@ -1,4 +1,4 @@
 @abstract(Base class for @code(google.maps.MapTypeStyle) object from Google Maps API.)
 
-The TMapTypeStyle is a collection of selectors and stylers that define how the map should be styled. Selectors specify what map elements should be affected and stylers specify how those elements should be modified.@br@br
+The TGMCustomMapTypeStyle is the base class for a collection of selectors and stylers that define how the map should be styled. Selectors specify what map elements should be affected and stylers specify how those elements should be modified.@br@br
 More information at @url(https://developers.google.com/maps/documentation/javascript/reference/map#MapTypeStyle google.maps.MapTypeStyle interface)
