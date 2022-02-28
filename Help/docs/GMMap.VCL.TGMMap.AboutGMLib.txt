@@ -1,1 +1,0 @@
-This property shows an “About” form with info of the GMLib.

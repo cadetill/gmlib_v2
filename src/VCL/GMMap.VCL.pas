@@ -40,15 +40,15 @@ type
     property Hue: TColor read FHue write SetHue default clBlack;
     // @include(..\..\Help\docs\GMMap.VCL.TGMMapTypeStyler.Gamma.txt)
     property Gamma;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapTypeStyler.InvertLightness.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapTypeStyler.InvertLightness.txt)
     property InvertLightness;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapTypeStyler.Lightness.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapTypeStyler.Lightness.txt)
     property Lightness;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapTypeStyler.Saturation.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapTypeStyler.Saturation.txt)
     property Saturation;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapTypeStyler.Visibility.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapTypeStyler.Visibility.txt)
     property Visibility;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapTypeStyler.Weight.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapTypeStyler.Weight.txt)
     property Weight;
   end;
 
@@ -85,9 +85,9 @@ type
     // @include(..\..\Help\docs\GMMap.VCL.TGMMapTypeStyle.Destroy.txt)
     destructor Destroy; override;
   published
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapTypeStyle.ElementType.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapTypeStyle.ElementType.txt)
     property ElementType;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapTypeStyle.FeatureType.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapTypeStyle.FeatureType.txt)
     property FeatureType;
     // @include(..\..\Help\docs\GMMap.VCL.TGMMapTypeStyle.Stylers.txt)
     property Stylers: TGMMapTypeStylers read FStylers write FStylers;
@@ -161,37 +161,37 @@ type
     property MapTypeControlOptions;
     // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.MapTypeId.txt)
     property MapTypeId;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.MaxZoom.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.MaxZoom.txt)
     property MaxZoom;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.MinZoom.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.MinZoom.txt)
     property MinZoom;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.NoClear.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.NoClear.txt)
     property NoClear;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.RotateControl.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.RotateControl.txt)
     property RotateControl;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.RotateControlOptions.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.RotateControlOptions.txt)
     property RotateControlOptions;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.ScaleControl.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.ScaleControl.txt)
     property ScaleControl;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.ScaleControlOptions.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.ScaleControlOptions.txt)
     property ScaleControlOptions;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.Scrollwheel.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.Scrollwheel.txt)
     property Scrollwheel;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.StreetView.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.StreetView.txt)
     property StreetView;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.StreetViewControl.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.StreetViewControl.txt)
     property StreetViewControl;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.StreetViewControlOptions.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.StreetViewControlOptions.txt)
     property StreetViewControlOptions;
     // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.Styles.txt)
     property Styles: TGMMapTypeStyles read FStyles write FStyles;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.Tilt.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.Tilt.txt)
     property Tilt;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.Zoom.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.Zoom.txt)
     property Zoom;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.ZoomControl.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.ZoomControl.txt)
     property ZoomControl;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.ZoomControlOptions.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.ZoomControlOptions.txt)
     property ZoomControlOptions;
   end;
 
@@ -248,24 +248,24 @@ type
     // @include(..\..\Help\docs\GMMap.VCL.TGMMap.Destroy.txt)
     destructor Destroy; override;
 
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMap.GetAPIUrl.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.GetAPIUrl.txt)
     function GetAPIUrl: string; override;
   published
     // @include(..\..\Help\docs\GMMap.VCL.TGMMap.MapOptions.txt)
     property MapOptions: TGMMapOptions read FMapOptions write FMapOptions;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMap.Active.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomGMMap.Active.txt)
     property Active;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMap.GoogleAPIVer.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomGMMap.GoogleAPIVer.txt)
     property GoogleAPIVer;
     // @include(..\..\Help\docs\GMClasses.TGMComponent.Language.txt)
     property Language;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMap.AboutGMLib.txt)
+    // @include(..\..\Help\docs\GMClasses.TGMComponent.AboutGMLib.txt)
     property AboutGMLib;
     // @include(..\..\Help\docs\GMClasses.IGMAPIUrl.APIUrl.txt)
     property APIUrl;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMap.GoogleAPIKey.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomGMMap.GoogleAPIKey.txt)
     property GoogleAPIKey;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMap.IntervalEvents.txt)
+    // @include(..\..\Help\docs\GMMap.TGMCustomGMMap.IntervalEvents.txt)
     property IntervalEvents;
     // @include(..\..\Help\docs\GMMap.TGMCustomGMMap.APILang.txt)
     property APILang;

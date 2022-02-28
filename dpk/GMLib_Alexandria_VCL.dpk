@@ -35,8 +35,8 @@ requires
   vclie;
 
 contains
-  GMClasses.VCL,
-  GMMap.VCL,
-  GMRegisterComp.VCL;
+  GMMap.VCL in '..\src\VCL\GMMap.VCL.pas',
+  GMRegisterComp.VCL in '..\src\VCL\GMRegisterComp.VCL.pas',
+  GMClasses.VCL in '..\src\VCL\GMClasses.VCL.pas';
 
 end.
