@@ -32,11 +32,11 @@
 <code>type TGMCustomGMMap = class(<a class="normal" href="GMClasses.TGMComponent.html">TGMComponent</a>, <a class="normal" href="GMClasses.IGMExecJS.html">IGMExecJS</a>, <a class="normal" href="GMClasses.IGMControlChanges.html">IGMControlChanges</a>)</code></p>
 <h2 class="description">Description</h2>
 <p>
-Base class for <code>google.maps.Map</code> class and implements <code>IGMExecJS</code> and <code>IGMControlChanges</code> interfaces.</p>
+Base class for <code>google.maps.Map</code> class and implements UNKNOWN and UNKNOWN interfaces.</p>
 <p>
 
 
-<p>More information at <a href="https://developers.google.com/maps/documentation/javascript/reference/map#Map">https://developers.google.com/maps/documentation/javascript/reference/map#Map</a> </p>
+<p>More information at <a href="https://developers.google.com/maps/documentation/javascript/reference/map#Map">google.maps.Map class</a> </p>
 <span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor">TPersistent</li>
@@ -181,7 +181,7 @@ Class constructor.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Returns the HTML code of base map (map.html on gmmapres.res). Internal use only.
+Returns the HTML code of base map (<em>map.html</em> on <em>gmmapres.res</em>). Internal use only.
 
 <p>
 
@@ -189,8 +189,8 @@ Returns the HTML code of base map (map.html on gmmapres.res). Internal use only.
 <h6 class="description_section">Returns</h6>
 <p class="return">String with the HTML code.</p><h6 class="description_section">Exceptions raised</h6>
 <dl class="exceptions_raised">
-<dt><a class="normal" href="GMClasses.EGMMapIsActive.html">EGMMapIsActive</a></dt>
-<dd>This exception is raised if the resoource of the map can't be load.</dd>
+<dt><a class="normal" href="GMClasses.EGMUnassignedObject.html">EGMUnassignedObject</a></dt>
+<dd>This exception is raised when the WebBrowser property is not assigned.</dd>
 <dt><a class="normal" href="GMClasses.EGMCanLoadResource.html">EGMCanLoadResource</a></dt>
 <dd>This exception is raised if the resoource of the map can't be load.</dd>
 </dl>
@@ -247,7 +247,7 @@ Sets the viewport to contain the given bounds.</p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Bounds</dt>
-<dd>The TGMLatLngBounds.</dd>
+<dd>The <a class="normal" href="GMLatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a>.</dd>
 </dl>
 </td></tr>
 </table>
@@ -284,7 +284,7 @@ LoadBlankPage method load the about:blank page.
 <p></p>
 <h6 class="description_section">Exceptions raised</h6>
 <dl class="exceptions_raised">
-<dt><code>EGMIncorrectBrowse</code></dt>
+<dt><a class="normal" href="GMClasses.EGMIncorrectBrowser.html">EGMIncorrectBrowser</a></dt>
 <dd>This exception is raised when the WebBrowser object isn't of the expected class.</dd>
 </dl>
 </td></tr>
@@ -296,7 +296,7 @@ LoadBlankPage method load the about:blank page.
 </tr>
 <tr><td colspan="2">
 <p>
-LoadMap method loads and shows the map.html to use Google Maps API.</p>
+LoadMap method loads and shows the <em>map.html</em> to use Google Maps API.</p>
 <p>
  The timeout for load page is 15 seconds.
 
@@ -385,7 +385,7 @@ By default the API will attempt to load the most appropriate language based on t
 <p>
  But some APIs allow you to explicitly set a language when you make a request. <br> <br>
 
-<p>More info at <a href="https://developers.google.com/maps/faq#languagesupport">https://developers.google.com/maps/faq#languagesupport</a> </p>
+<p>More info at <a href="https://developers.google.com/maps/faq?hl=en#languagesupport">Supported Languages</a></p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -410,7 +410,14 @@ APIKey is the Key to use on Google Maps.</p>
   <li><p>Time Zone limits usage: <a href="https://developers.google.com/maps/documentation/timezone/usage-limits">https://developers.google.com/maps/documentation/timezone/usage-limits</a></p></li>
 </ul>
 
-<p> <code>EGMMapIsActive</code> exception is raised when <code>Active</code> property is <code>True</code>. </p>
+<p>
+
+<p> </p>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="GMClasses.EGMMapIsActive.html">EGMMapIsActive</a></dt>
+<dd>This exception is raised when <code>Active</code> property is <code>True</code>.</dd>
+</dl>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -424,7 +431,12 @@ Version of the Google Maps API to use.</p>
 <p>
 
 
-<p>raises EGMMapIsActive This exception is raised when <code>Active</code> property is <code>True</code>. </p>
+<p> </p>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="GMClasses.EGMMapIsActive.html">EGMMapIsActive</a></dt>
+<dd>This exception is raised when <code>Active</code> property is <code>True</code>.</dd>
+</dl>
 </td></tr>
 </table>
 <table class="detail wide_list">

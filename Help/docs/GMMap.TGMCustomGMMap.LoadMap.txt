@@ -1,4 +1,4 @@
-@abstract(LoadMap method loads and shows the map.html to use Google Maps API.)
+@abstract(LoadMap method loads and shows the @italic(map.html) to use Google Maps API.)
 The timeout for load page is 15 seconds.
 
 @raises EGMIncorrectBrowser This exception is raised when the class of assigned browser isn't correct.

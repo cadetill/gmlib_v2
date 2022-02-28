@@ -1,6 +1,6 @@
-Returns the HTML code of base map (map.html on gmmapres.res). Internal use only.
+Returns the HTML code of base map (@italic(map.html) on @italic(gmmapres.res)). Internal use only.
 
 @return String with the HTML code.
 
-@raises EGMMapIsActive This exception is raised if the resoource of the map can't be load.
+@raises EGMUnassignedObject This exception is raised when the WebBrowser property is not assigned.
 @raises EGMCanLoadResource This exception is raised if the resoource of the map can't be load.

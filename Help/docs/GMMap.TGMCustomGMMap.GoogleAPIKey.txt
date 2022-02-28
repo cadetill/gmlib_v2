@@ -11,4 +11,5 @@ Google Maps limits:
      @item(Roads limits usage: https://developers.google.com/maps/documentation/roads/usage-limits)
      @item(Time Zone limits usage: https://developers.google.com/maps/documentation/timezone/usage-limits)
    )
-@code(EGMMapIsActive) exception is raised when @code(Active) property is @code(True).
+
+@raises EGMMapIsActive This exception is raised when @code(Active) property is @code(True).
