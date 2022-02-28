@@ -1,3 +1,4 @@
 @abstract(@code(google.maps.StreetViewAddressControlOptions) object from Google Maps API.)
+
 Options for the rendering of the Street View address control.@br@br
-More information at https://developers.google.com/maps/documentation/javascript/reference#StreetViewAddressControlOptions
+More information at @url(https://developers.google.com/maps/documentation/javascript/reference/street-view#StreetViewAddressControlOptions google.maps.StreetViewAddressControlOptions interface)

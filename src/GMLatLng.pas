@@ -62,11 +62,10 @@ type
     function IsEqual(Other: TGMLatLng): Boolean; virtual;
     // @include(..\Help\docs\GMLatLng.TGMLatLng.ToStr.txt)
     function ToStr(Precision: Integer = 6): string;
+    // @include(..\Help\docs\GMLatLng.TGMLatLng.ToJson.txt)
+    function ToJson(Precision: Integer = 6): string;
     // @include(..\Help\docs\GMLatLng.TGMLatLng.ToUrlValue.txt)
     function ToUrlValue(Precision: Integer = 6): string;
-
-    // @include(..\Help\docs\GMLatLng.TGMLatLng.StringToReal.txt)
-    function StringToReal(Value: string): Real;
 
     // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
@@ -242,16 +241,14 @@ begin
   end;
 end;
 
-function TGMLatLng.StringToReal(Value: string): Real;
+function TGMLatLng.ToJson(Precision: Integer): string;
+const
+  Str = '{"Lat": "%s", "Lng": "%s"}';
+var
+  La, Ln: string;
 begin
-  if {$IFDEF DELPHIXE}FormatSettings.DecimalSeparator{$ELSE}DecimalSeparator{$ENDIF} = ',' then
-    Value := StringReplace(Value, '.', ',', [rfReplaceAll]);
-  try
-    Result := StrToFloat(Value);
-  except
-    on E: Exception do
-      raise EGMNotValidRealNumber.Create([Value], GetOwnerLang); // %d is not a valid real value.
-  end;
+  LatLngToStr(La, Ln, Precision);
+  Result := Format(Str, [La, Ln]);
 end;
 
 function TGMLatLng.ToStr(Precision: Integer): string;

@@ -1,2 +1,3 @@
 @abstract(Identifiers for scale control ids.)
-More info at https://developers.google.com/maps/documentation/javascript/reference#ScaleControlStyle
+
+More info at @url(https://developers.google.com/maps/documentation/javascript/reference/control#ScaleControlStyle google.maps.ScaleControlStyle constants)

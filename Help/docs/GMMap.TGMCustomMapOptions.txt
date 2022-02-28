@@ -1,4 +1,4 @@
 @abstract(Base class for @code(google.maps.MapOptions) object from Google Maps API.)
  
 This class implements @code(IGMControlChanges) interface.
-More information at https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+More information at @url(https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions google.maps.MapOptions interface)

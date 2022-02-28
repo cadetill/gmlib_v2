@@ -1,3 +1,4 @@
 @abstract(@code(google.maps.MapTypeStyleElementType) object specification)
+
 Each TGMMapTypeStyleElementType distinguishes between the different representations of a feature.@br@br
-More info at https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyleElementType
+More info at @url(https://developers.google.com/maps/documentation/javascript/style-reference#style-elements elementType)

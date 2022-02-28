@@ -1,7 +1,0 @@
-Given a string, converts it to a real value considering the locale.
-
-@raises EGMNotValidRealNumber This exception is raised if it can't do transformation.
-
-@param Value String to convert to real.
-
-@return Real with the conversion.

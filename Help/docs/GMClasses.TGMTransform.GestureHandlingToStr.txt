@@ -1,0 +1,5 @@
+Returns a string that represents the GestureHandling.
+
+@param GestureHandling @link(TGMGestureHandling) to convert to string.
+
+@return string with the GestureHandling value.

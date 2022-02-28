@@ -53,26 +53,28 @@ type
     // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
-    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Extend.txt)
-    procedure Extend(LatLng: TGMLatLng);  (*1 *)
-    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Union.txt)
-    procedure Union(Other: TGMLatLngBounds);  (*1 *)
-    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.GetCenter.txt)
-    procedure GetCenter(LatLng: TGMLatLng);  (*1 *)
-    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.ToSpan.txt)
-    procedure ToSpan(LatLng: TGMLatLng);  (*1 *)
     // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Contains.txt)
-    function Contains(LatLng: TGMLatLng): Boolean;  (*1 *)
+    function Contains(LatLng: TGMLatLng): Boolean;
     // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.IsEqual.txt)
     function IsEqual(Other: TGMLatLngBounds): Boolean;
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Extend.txt)
+    procedure Extend(LatLng: TGMLatLng);
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.GetCenter.txt)
+    procedure GetCenter(LatLng: TGMLatLng);
     // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Intersects.txt)
-    function Intersects(Other: TGMLatLngBounds): Boolean;  (*1 *)
+    function Intersects(Other: TGMLatLngBounds): Boolean;
     // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.IsEmpty.txt)
     function IsEmpty: Boolean;
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.ToJson.txt)
+    function ToJson(Precision: Integer = 6): string;
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.ToSpan.txt)
+    procedure ToSpan(LatLng: TGMLatLng);
     // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.ToStr.txt)
     function ToStr(Precision: Integer = 6): string;
     // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.ToUrlValue.txt)
     function ToUrlValue(Precision: Integer = 6): string;
+    // @include(..\Help\docs\GMLatLngBounds.TGMLatLngBounds.Union.txt)
+    procedure Union(Other: TGMLatLngBounds);
 
     // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
     function PropToString: string; override;
@@ -288,6 +290,13 @@ begin
             Format(Str, [FNE.PropToString,
                          FSW.PropToString
                          ]);
+end;
+
+function TGMLatLngBounds.ToJson(Precision: Integer = 6): string;
+const
+  Str = '{"NE": %s, "SW": %s}';
+begin
+  Result := Format(Str, [FSW.ToJson(Precision), FNE.ToJson(Precision)]);
 end;
 
 procedure TGMLatLngBounds.ToSpan(LatLng: TGMLatLng);

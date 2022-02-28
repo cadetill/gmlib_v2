@@ -111,43 +111,27 @@ Class for <code>google.maps.MapOptions</code> object from Google Maps API.</p>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMMap.VCL.TGMMapOptions.html#MapMaker">MapMaker</a></strong>;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <strong><a href="GMMap.VCL.TGMMapOptions.html#MapTypeControl">MapTypeControl</a></strong>;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <strong><a href="GMMap.VCL.TGMMapOptions.html#MapTypeControlOptions">MapTypeControlOptions</a></strong>;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <strong><a href="GMMap.VCL.TGMMapOptions.html#MapTypeId">MapTypeId</a></strong>;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <strong><a href="GMMap.VCL.TGMMapOptions.html#MaxZoom">MaxZoom</a></strong>;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <strong><a href="GMMap.VCL.TGMMapOptions.html#MinZoom">MinZoom</a></strong>;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
 <td class="itemcode"><code>property <strong><a href="GMMap.VCL.TGMMapOptions.html#NoClear">NoClear</a></strong>;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMMap.VCL.TGMMapOptions.html#OverviewMapControl">OverviewMapControl</a></strong>;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMMap.VCL.TGMMapOptions.html#PanControl">PanControl</a></strong>;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMMap.VCL.TGMMapOptions.html#PanControlOptions">PanControlOptions</a></strong>;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
@@ -274,7 +258,7 @@ Color used for the background of the Map div.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Contains the lat/lng coordinates with the <code>center</code> of the map. </p>
+Contains the lat/lng coordinates with the center of the map. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -286,7 +270,7 @@ Contains the lat/lng coordinates with the <code>center</code> of the map. </p>
 <p>
 Returns the number of items in the collection.</p>
 <p>
- Count contains the number of items in the <code><a class="normal" href="GMMap.VCL.TGMMapOptions.html#Styles">Styles</a></code> array. Since <code><a class="normal" href="GMMap.VCL.TGMMapOptions.html#Styles">Styles</a></code> is indexed starting with 0, the value of Count is always one greater than the index of the last member of <code><a class="normal" href="GMMap.VCL.TGMMapOptions.html#Styles">Styles</a></code>.
+ Count contains the number of items in the <code>Styles</code> array. Since <code>Styles</code> is indexed starting with 0, the value of Count is always one greater than the index of the last member of <code>Styles</code>.
 
 <p></p>
 </td></tr>
@@ -314,7 +298,7 @@ Enables/disables all default UI.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Enables/disables <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">zoom</a> and <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Center">center</a> on double click.</p>
+Enables/disables zoom and center on double click.</p>
 <p>
 
 
@@ -340,11 +324,11 @@ Enables/disables <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">zoom
 </tr>
 <tr><td colspan="2">
 <p>
-The name or url of the cursor to display when mousing over a <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Draggable">draggable</a> map.</p>
+The name or url of the cursor to display when mousing over a draggable map.</p>
 <p>
 
 
-<p>This property uses the css cursor attribute to change the icon. As with the css property, you must specify at least one fallback cursor that is not a URL. For example: <code>draggableCursor</code>: 'url(<a href="http://www.example.com/icon.png">http://www.example.com/icon.png</a>), auto;'. <br><br>
+<p>This property uses the css cursor attribute to change the icon. As with the css property, you must specify at least one fallback cursor that is not a URL. For example: draggableCursor: 'url(<a href="http://www.example.com/icon.png">http://www.example.com/icon.png</a>), auto;'. <br><br>
 
 <p>In order to take effect the change of this property, you must to restart the map.
 
@@ -362,7 +346,7 @@ The name or url of the cursor to display when the map is being dragged.</p>
 <p>
 
 
-<p>This property uses the css cursor attribute to change the icon. As with the css property, you must specify at least one fallback cursor that is not a URL. For example: <code>draggingCursor</code>: 'url(<a href="http://www.example.com/icon.png">http://www.example.com/icon.png</a>), auto;'. <br><br>
+<p>This property uses the css cursor attribute to change the icon. As with the css property, you must specify at least one fallback cursor that is not a URL. For example: draggingCursor: 'url(<a href="http://www.example.com/icon.png">http://www.example.com/icon.png</a>), auto;'. <br><br>
 
 <p>In order to take effect the change of this property, you must to restart the map.
 
@@ -404,7 +388,7 @@ The display options for the Fullscreen control.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-The <code>heading</code> for aerial imagery in degrees measured clockwise from cardinal direction North.</p>
+The heading for aerial imagery in degrees measured clockwise from cardinal direction North.</p>
 <p>
 
 
@@ -421,20 +405,6 @@ The <code>heading</code> for aerial imagery in degrees measured clockwise from c
 <tr><td colspan="2">
 <p>
 If <code>false</code>, prevents the map from being controlled by the keyboard.</p>
-<p>
-
-
-<p>In order to take effect the change of this property, you must to restart the map. </p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><span id="MapMaker"></span><code>property <strong>MapMaker</strong>;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-<code>True</code> if Map Maker tiles should be used instead of regular tiles.</p>
 <p>
 
 
@@ -476,7 +446,7 @@ The initial display options for the Map type control.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-The initial Map <code>mapTypeId</code>.</p>
+The initial Map mapTypeId.</p>
 <p>
  </p>
 </td></tr>
@@ -488,7 +458,7 @@ The initial Map <code>mapTypeId</code>.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-The maximum <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">zoom</a> level which will be displayed on the map. </p>
+The maximum zoom level which will be displayed on the map. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -498,7 +468,7 @@ The maximum <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">zoom</a> 
 </tr>
 <tr><td colspan="2">
 <p>
-The minimum <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">zoom</a> level which will be displayed on the map. </p>
+The minimum zoom level which will be displayed on the map. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -509,54 +479,6 @@ The minimum <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">zoom</a> 
 <tr><td colspan="2">
 <p>
 If <code>true</code>, do not clear the contents of the Map div. </p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><span id="OverviewMapControl"></span><code>property <strong>OverviewMapControl</strong>;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-The enabled/disabled state of the Overview Map control.</p>
-<p>
-
-
-<p>Note: The Overview Map control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Overview Map control available as part of the old control set. <br><br>
-
-<p><strong>Will be deleted in future releases.</strong></p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><span id="PanControl"></span><code>property <strong>PanControl</strong>;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-The enabled/disabled state of the Pan control.</p>
-<p>
-
-
-<p>Note: The Pan control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Pan control available as part of the old control set.<br><br>
-
-<p><strong>Will be deleted in future releases.</strong></p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><span id="PanControlOptions"></span><code>property <strong>PanControlOptions</strong>;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-The display options for the Pan control.</p>
-<p>
-
-
-<p>Note: The Pan control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Pan control available as part of the old control set.<br><br>
-
-<p><strong>Will be deleted in future releases.</strong></p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -606,7 +528,7 @@ The initial display options for the Scale control. </p>
 </tr>
 <tr><td colspan="2">
 <p>
-If <code>false</code>, disables <code>scrollwheel</code> zooming on the map. </p>
+If <code>false</code>, disables scrollwheel zooming on the map. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -646,7 +568,7 @@ The initial display options for the Street View Pegman control. </p>
 </tr>
 <tr><td colspan="2">
 <p>
-<code>Styles</code> to apply to each of the default map types. Note that for <a class="normal" href="GMSets.html#mtSATELLITE">mtSatellite</a>/<a class="normal" href="GMSets.html#mtHYBRID">mtHybrid</a> and <a class="normal" href="GMSets.html#mtTERRAIN">mtTerrain</a> modes, these <code>styles</code> will only apply to labels and geometry. </p>
+Styles to apply to each of the default map types. Note that for mtSatellite/mtHybrid and mtTerrain modes, these styles will only apply to labels and geometry. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -656,7 +578,7 @@ The initial display options for the Street View Pegman control. </p>
 </tr>
 <tr><td colspan="2">
 <p>
-Controls the automatic switching behavior for the angle of incidence of the map. The only allowed values are 0 and 45. The value 0 causes the map to always use a 0Â° overhead view regardless of the <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">zoom</a> level and viewport. The value 45 causes the <code>tilt</code> angle to automatically switch to 45 whenever 45Â° imagery is available for the current <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">zoom</a> level and viewport, and switch back to 0 whenever 45Â° imagery is not available (this is the default behavior). 45Â° imagery is only available for SATELLITE and HYBRID map types, within some locations, and at some <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">zoom</a> levels. Note: getTilt returns the current <code>tilt</code> angle, not the value specified by this option. Because getTilt and this option refer to different things, do not bind() the <code>tilt</code> property; doing so may yield unpredictable effects. </p>
+Controls the automatic switching behavior for the angle of incidence of the map. The only allowed values are 0 and 45. The value 0 causes the map to always use a 0Â° overhead view regardless of the zoom level and viewport. The value 45 causes the tilt angle to automatically switch to 45 whenever 45Â° imagery is available for the current zoom level and viewport, and switch back to 0 whenever 45Â° imagery is not available (this is the default behavior). 45Â° imagery is only available for SATELLITE and HYBRID map types, within some locations, and at some zoom levels. Note: getTilt returns the current tilt angle, not the value specified by this option. Because getTilt and this option refer to different things, do not bind() the tilt property; doing so may yield unpredictable effects. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -666,7 +588,7 @@ Controls the automatic switching behavior for the angle of incidence of the map.
 </tr>
 <tr><td colspan="2">
 <p>
-The initial Map <code>zoom</code> level. </p>
+The initial Map zoom level. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -676,7 +598,7 @@ The initial Map <code>zoom</code> level. </p>
 </tr>
 <tr><td colspan="2">
 <p>
-The enabled/disabled state of the <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">Zoom</a> control. </p>
+The enabled/disabled state of the Zoom control. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -686,7 +608,7 @@ The enabled/disabled state of the <a class="normal" href="GMMap.VCL.TGMMapOption
 </tr>
 <tr><td colspan="2">
 <p>
-The display options for the <a class="normal" href="GMMap.VCL.TGMMapOptions.html#Zoom">Zoom</a> control. </p>
+The display options for the Zoom control. </p>
 </td></tr>
 </table>
 <br />

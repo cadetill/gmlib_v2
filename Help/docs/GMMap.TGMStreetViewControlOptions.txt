@@ -1,4 +1,4 @@
 @abstract(@code(google.maps.StreetViewControlOptions) object from Google Maps API.)
 
 Options for the rendering of the Street View pegman control on the map.@br@br
-More information at @uel(https://developers.google.com/maps/documentation/javascript/reference/control#StreetViewControlOptions google.maps.StreetViewControlOptions interface).
+More information at @url(https://developers.google.com/maps/documentation/javascript/reference/control#StreetViewControlOptions google.maps.StreetViewControlOptions interface).

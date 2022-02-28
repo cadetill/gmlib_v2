@@ -1,0 +1,3 @@
+@abstract(Defines a boundary that restricts the area of the map accessible to users.)
+
+When set, a user can only pan and zoom while the camera view stays inside the limits of the boundary.

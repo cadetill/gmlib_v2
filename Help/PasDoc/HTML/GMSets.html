@@ -30,7 +30,7 @@ Sets for GMLib.</p>
 <p>
    
 
-<p>The <code>GMSets</code> unit contains all sets used by GMLib.</p>
+<p>The GMSets unit contains all sets used by GMLib.</p>
 <span id="PasDoc-Uses"></span><h2 class="overview">Overview</h2>
 <span id="PasDoc-Types"></span><h3 class="summary">Types</h3>
 <table class="summary wide_list">
@@ -66,6 +66,9 @@ Sets for GMLib.</p>
 </tr>
 <tr class="list">
 <td class="itemcode"><code><strong><a href="GMSets.html#TGMVisibility">TGMVisibility</a></strong> = (...);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><strong><a href="GMSets.html#TGMGestureHandling">TGMGestureHandling</a></strong> = (...);</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -244,7 +247,9 @@ By default the API will attempt to load the most appropriate language based on t
 <p>
 Identifiers for common MapTypes.</p>
 <p>
- More info at <a href="https://developers.google.com/maps/documentation/javascript/reference#MapTypeId">https://developers.google.com/maps/documentation/javascript/reference#MapTypeId</a> </p>
+
+
+<p>More info at <a href="https://developers.google.com/maps/documentation/javascript/reference/map#MapTypeId">google.maps.MapTypeId constants</a> </p>
 <h6 class="description_section">Values</h6>
 <ul>
 <li>
@@ -266,7 +271,7 @@ Identifiers for common MapTypes.</p>
 </tr>
 <tr><td colspan="1">
 <p>
-Set of <a class="normal" href="GMSets.html#TGMMapTypeId">TGMMapTypeId</a>.</p>
+Set of TGMMapTypeId.</p>
 <p>
  </p>
 </td></tr>
@@ -279,7 +284,9 @@ Set of <a class="normal" href="GMSets.html#TGMMapTypeId">TGMMapTypeId</a>.</p>
 <p>
 Identifiers used to specify the placement of controls on the map.</p>
 <p>
- Controls are positioned relative to other controls in the same layout position. Controls that are added first are positioned closer to the edge of the map. </p>
+
+
+<p>Controls are positioned relative to other controls in the same layout position. Controls that are added first are positioned closer to the edge of the map. </p>
 
 <pre class="longcode"> +----------------+
 + TL    TC    TR +
@@ -291,7 +298,9 @@ Identifiers used to specify the placement of controls on the map.</p>
 + BL    BC    BR +
 +----------------+</pre>
 
-<p> Elements in the top or bottom row flow towards the middle of the row. Elements in the left or right column flow towards the middle of the column.<br><br> More info at <a href="https://developers.google.com/maps/documentation/javascript/reference#ControlPosition">https://developers.google.com/maps/documentation/javascript/reference#ControlPosition</a> </p>
+<p>
+
+<p>Elements in the top or bottom row flow towards the middle of the row. Elements in the left or right column flow towards the middle of the column.<br><br> More info at <a href="https://developers.google.com/maps/documentation/javascript/reference/control#ControlPosition">google.maps.ControlPosition constants</a> </p>
 <h6 class="description_section">Values</h6>
 <ul>
 <li>
@@ -329,7 +338,9 @@ Identifiers used to specify the placement of controls on the map.</p>
 <p>
 Identifiers for common MapTypesControls.</p>
 <p>
- More info at <a href="https://developers.google.com/maps/documentation/javascript/reference#MapTypeControlStyle">https://developers.google.com/maps/documentation/javascript/reference#MapTypeControlStyle</a> </p>
+
+
+<p>More info at <a href="https://developers.google.com/maps/documentation/javascript/reference/control#MapTypeControlStyle">google.maps.MapTypeControlStyle constants</a> </p>
 <h6 class="description_section">Values</h6>
 <ul>
 <li>
@@ -349,7 +360,9 @@ Identifiers for common MapTypesControls.</p>
 <p>
 Identifiers for scale control ids.</p>
 <p>
- More info at <a href="https://developers.google.com/maps/documentation/javascript/reference#ScaleControlStyle">https://developers.google.com/maps/documentation/javascript/reference#ScaleControlStyle</a> </p>
+
+
+<p>More info at <a href="https://developers.google.com/maps/documentation/javascript/reference/control#ScaleControlStyle">google.maps.ScaleControlStyle constants</a> </p>
 <h6 class="description_section">Values</h6>
 <ul>
 <li>
@@ -365,7 +378,9 @@ Identifiers for scale control ids.</p>
 <p>
 <code>google.maps.MapTypeStyleElementType</code> object specification</p>
 <p>
- Each <code>TGMMapTypeStyleElementType</code> distinguishes between the different representations of a feature.<br><br> More info at <a href="https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyleElementType">https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyleElementType</a> </p>
+
+
+<p>Each TGMMapTypeStyleElementType distinguishes between the different representations of a feature.<br><br> More info at <a href="https://developers.google.com/maps/documentation/javascript/style-reference#style-elements">elementType</a> </p>
 <h6 class="description_section">Values</h6>
 <ul>
 <li>
@@ -397,7 +412,9 @@ Identifiers for scale control ids.</p>
 <p>
 <code>google.maps.MapTypeStyleFeatureType</code> object specification</p>
 <p>
- Possible values for feature types. Stylers applied to a parent feature type automatically apply to all child feature types. Note however that parent features may include some additional features that are not included in one of their child feature types.<br><br> More info at <a href="https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyleFeatureType">https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyleFeatureType</a> </p>
+
+
+<p>Possible values for feature types. Stylers applied to a parent feature type automatically apply to all child feature types. Note however that parent features may include some additional features that are not included in one of their child feature types.<br><br> More info at <a href="https://developers.google.com/maps/documentation/javascript/style-reference#style-features">featureType</a> </p>
 <h6 class="description_section">Values</h6>
 <ul>
 <li>
@@ -486,6 +503,28 @@ Possible values for visibility property from MapTypeStyler object.</p>
 <span id="vOff">vOff</span></li>
 <li>
 <span id="vSimplified">vSimplified</span></li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMGestureHandling"></span><code><strong>TGMGestureHandling</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+This setting controls how the API handles gestures on the map. Allowed values:
+
+<p>&quot;cooperative&quot;: Scroll events and one-finger touch gestures scroll the page, and do not zoom or pan the map. Two-finger touch gestures pan and zoom the map. Scroll events with a ctrl key or key pressed zoom the map. In this mode the map cooperates with the page. &quot;greedy&quot;: All touch gestures and scroll events pan or zoom the map. &quot;none&quot;: The map cannot be panned or zoomed by user gestures. &quot;auto&quot;: (default) Gesture handling is either cooperative or greedy, depending on whether the page is scrollable or in an iframe.</p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="ghCooperative">ghCooperative</span></li>
+<li>
+<span id="ghGreedy">ghGreedy</span></li>
+<li>
+<span id="ghNone">ghNone</span></li>
+<li>
+<span id="ghAuto">ghAuto</span></li>
 </ul>
 </td></tr>
 </table>

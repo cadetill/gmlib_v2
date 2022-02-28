@@ -364,6 +364,8 @@ type
     class function MapTypeStyleFeatureTypeToStr(MapTypeStyleFeatureType: TGMMapTypeStyleFeatureType): string; static;
     // @include(..\Help\docs\GMClasses.TGMTransform.MapTypeIdToStr.txt)
     class function MapTypeIdToStr(MapTypeId: TGMMapTypeId): string; static;
+    // @include(..\Help\docs\GMClasses.TGMTransform.GestureHandlingToStr.txt)
+    class function GestureHandlingToStr(GestureHandling: TGMGestureHandling): string; static;
 
     // @include(..\Help\docs\GMClasses.TGMTransform.StrToPosition.txt)
     class function StrToPosition(Position: string): TGMControlPosition; static;
@@ -521,6 +523,12 @@ begin
     lChinese_Trad: Result := 'zh-TW';
     lUndefined: Result := '';
   end;
+end;
+
+class function TGMTransform.GestureHandlingToStr(
+  GestureHandling: TGMGestureHandling): string;
+begin
+  Result := GetEnumName(TypeInfo(TGMGestureHandling), Ord(GestureHandling));
 end;
 
 class function TGMTransform.GMBoolToStr(B, UseBoolStrs: Boolean): string;

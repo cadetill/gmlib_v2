@@ -36,7 +36,7 @@ Base class for <code>google.maps.MapOptions</code> object from Google Maps API.<
 <p>
 
 
-<p>This class implements <code><a class="normal" href="GMClasses.IGMControlChanges.html">IGMControlChanges</a></code> interface. More information at <a href="https://developers.google.com/maps/documentation/javascript/reference#MapOptions">https://developers.google.com/maps/documentation/javascript/reference#MapOptions</a> </p>
+<p>This class implements <code>IGMControlChanges</code> interface. More information at <a href="https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions">google.maps.MapOptions interface</a> </p>
 <span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor">TPersistent</li>
@@ -80,6 +80,14 @@ Base class for <code>google.maps.MapOptions</code> object from Google Maps API.<
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMMap.TGMCustomMapOptions.html#ClickableIcons">ClickableIcons</a></strong>: Boolean read FClickableIcons write SetClickableIcons;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMMap.TGMCustomMapOptions.html#ControlSize">ControlSize</a></strong>: Integer read FControlSize write SetControlSize;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <strong><a href="GMMap.TGMCustomMapOptions.html#DisableDefaultUI">DisableDefaultUI</a></strong>: Boolean read FDisableDefaultUI write SetDisableDefaultUI default False;</code></td>
 </tr>
 <tr class="list">
@@ -108,15 +116,15 @@ Base class for <code>google.maps.MapOptions</code> object from Google Maps API.<
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMMap.TGMCustomMapOptions.html#Heading">Heading</a></strong>: Integer read FHeading write SetHeading default 0;</code></td>
+<td class="itemcode"><code>property <strong><a href="GMMap.TGMCustomMapOptions.html#GestureHandling">GestureHandling</a></strong>: <a href="GMSets.html#TGMGestureHandling">TGMGestureHandling</a> read FGestureHandling write SetGestureHandling;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMMap.TGMCustomMapOptions.html#KeyboardShortcuts">KeyboardShortcuts</a></strong>: Boolean read FKeyboardShortcuts write SetKeyboardShortcuts default True;</code></td>
+<td class="itemcode"><code>property <strong><a href="GMMap.TGMCustomMapOptions.html#Heading">Heading</a></strong>: Integer read FHeading write SetHeading default 0;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMMap.TGMCustomMapOptions.html#MapMaker">MapMaker</a></strong>: Boolean read FMapMaker write SetMapMaker default False;</code></td>
+<td class="itemcode"><code>property <strong><a href="GMMap.TGMCustomMapOptions.html#KeyboardShortcuts">KeyboardShortcuts</a></strong>: Boolean read FKeyboardShortcuts write SetKeyboardShortcuts default True;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
@@ -144,15 +152,7 @@ Base class for <code>google.maps.MapOptions</code> object from Google Maps API.<
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMMap.TGMCustomMapOptions.html#OverviewMapControl">OverviewMapControl</a></strong>: Boolean read FOverviewMapControl write SetOverviewMapControl default True;</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMMap.TGMCustomMapOptions.html#PanControl">PanControl</a></strong>: Boolean read FPanControl write SetPanControl default True;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMMap.TGMCustomMapOptions.html#PanControlOptions">PanControlOptions</a></strong>: <a href="GMMap.TGMPanControlOptions.html">TGMPanControlOptions</a> read FPanControlOptions write FPanControlOptions;</code></td>
+<td class="itemcode"><code>property <strong><a href="GMMap.TGMCustomMapOptions.html#Restriction">Restriction</a></strong>: <a href="GMMap.TGMRestriction.html">TGMRestriction</a> read FRestriction write FRestriction;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
@@ -268,11 +268,11 @@ Converts all class properties values to a string separated by semicolon.
 </tr>
 <tr><td colspan="2">
 <p>
-Call <code><code>Assign</code></code> to copy the properties or other attributes of one object from another.</p>
+Call <code>Assign</code> to copy the properties or other attributes of one object from another.</p>
 <p>
 
 
-<p>The standard form of a call to <code><code>Assign</code></code> method is <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
+<p>The standard form of a call to <code>Assign</code> method is <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
 
 <p> </p>
 <h6 class="description_section">Parameters</h6>
@@ -309,7 +309,29 @@ Method to call into the owner object when changes a property into the current ob
 </tr>
 <tr><td colspan="2">
 <p>
-Contains the lat/lng coordinates with the <code>center</code> of the map. </p>
+Contains the lat/lng coordinates with the center of the map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="ClickableIcons"></span><code>property <strong>ClickableIcons</strong>: Boolean read FClickableIcons write SetClickableIcons;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+When <code>false</code>, map icons are not clickable. A map icon represents a point of interest, also known as a POI. By default map icons are clickable. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="ControlSize"></span><code>property <strong>ControlSize</strong>: Integer read FControlSize write SetControlSize;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Size in pixels of the controls appearing on the map.</p>
+<p>
+ This value must be supplied directly when creating the Map, updating this value later may bring the controls into an undefined state. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -335,7 +357,7 @@ Enables/disables all default UI.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Enables/disables <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">zoom</a> and <a class="normal" href="GMMap.TGMCustomMapOptions.html#Center">center</a> on double click.</p>
+Enables/disables zoom and center on double click.</p>
 <p>
 
 
@@ -361,11 +383,11 @@ Enables/disables <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">zo
 </tr>
 <tr><td colspan="2">
 <p>
-The name or url of the cursor to display when mousing over a <a class="normal" href="GMMap.TGMCustomMapOptions.html#Draggable">draggable</a> map.</p>
+The name or url of the cursor to display when mousing over a draggable map.</p>
 <p>
 
 
-<p>This property uses the css cursor attribute to change the icon. As with the css property, you must specify at least one fallback cursor that is not a URL. For example: <code>draggableCursor</code>: 'url(<a href="http://www.example.com/icon.png">http://www.example.com/icon.png</a>), auto;'. <br><br>
+<p>This property uses the css cursor attribute to change the icon. As with the css property, you must specify at least one fallback cursor that is not a URL. For example: draggableCursor: 'url(<a href="http://www.example.com/icon.png">http://www.example.com/icon.png</a>), auto;'. <br><br>
 
 <p>In order to take effect the change of this property, you must to restart the map.
 
@@ -383,7 +405,7 @@ The name or url of the cursor to display when the map is being dragged.</p>
 <p>
 
 
-<p>This property uses the css cursor attribute to change the icon. As with the css property, you must specify at least one fallback cursor that is not a URL. For example: <code>draggingCursor</code>: 'url(<a href="http://www.example.com/icon.png">http://www.example.com/icon.png</a>), auto;'. <br><br>
+<p>This property uses the css cursor attribute to change the icon. As with the css property, you must specify at least one fallback cursor that is not a URL. For example: draggingCursor: 'url(<a href="http://www.example.com/icon.png">http://www.example.com/icon.png</a>), auto;'. <br><br>
 
 <p>In order to take effect the change of this property, you must to restart the map.
 
@@ -421,11 +443,25 @@ The display options for the Fullscreen control.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="GestureHandling"></span><code>property <strong>GestureHandling</strong>: <a href="GMSets.html#TGMGestureHandling">TGMGestureHandling</a> read FGestureHandling write SetGestureHandling;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+This setting controls how the API handles gestures on the map.</p>
+<p>
+
+
+<p>Allowed values: &quot;cooperative&quot;: Scroll events and one-finger touch gestures scroll the page, and do not zoom or pan the map. Two-finger touch gestures pan and zoom the map. Scroll events with a ctrl key or key pressed zoom the map. In this mode the map cooperates with the page. &quot;greedy&quot;: All touch gestures and scroll events pan or zoom the map. &quot;none&quot;: The map cannot be panned or zoomed by user gestures. &quot;auto&quot;: (default) Gesture handling is either cooperative or greedy, depending on whether the page is scrollable or in an iframe.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><span id="Heading"></span><code>property <strong>Heading</strong>: Integer read FHeading write SetHeading default 0;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-The <code>heading</code> for aerial imagery in degrees measured clockwise from cardinal direction North.</p>
+The heading for aerial imagery in degrees measured clockwise from cardinal direction North.</p>
 <p>
 
 
@@ -442,20 +478,6 @@ The <code>heading</code> for aerial imagery in degrees measured clockwise from c
 <tr><td colspan="2">
 <p>
 If <code>false</code>, prevents the map from being controlled by the keyboard.</p>
-<p>
-
-
-<p>In order to take effect the change of this property, you must to restart the map. </p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><span id="MapMaker"></span><code>property <strong>MapMaker</strong>: Boolean read FMapMaker write SetMapMaker default False;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-<code>True</code> if Map Maker tiles should be used instead of regular tiles.</p>
 <p>
 
 
@@ -497,7 +519,7 @@ The initial display options for the Map type control.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-The initial Map <code>mapTypeId</code>.</p>
+The initial Map mapTypeId.</p>
 <p>
  </p>
 </td></tr>
@@ -509,7 +531,7 @@ The initial Map <code>mapTypeId</code>.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-The maximum <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">zoom</a> level which will be displayed on the map. </p>
+The maximum zoom level which will be displayed on the map. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -519,7 +541,7 @@ The maximum <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">zoom</a
 </tr>
 <tr><td colspan="2">
 <p>
-The minimum <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">zoom</a> level which will be displayed on the map. </p>
+The minimum zoom level which will be displayed on the map. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -535,49 +557,15 @@ If <code>true</code>, do not clear the contents of the Map div. </p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><span id="OverviewMapControl"></span><code>property <strong>OverviewMapControl</strong>: Boolean read FOverviewMapControl write SetOverviewMapControl default True;</code></td>
+<td class="itemcode"><span id="Restriction"></span><code>property <strong>Restriction</strong>: <a href="GMMap.TGMRestriction.html">TGMRestriction</a> read FRestriction write FRestriction;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-The enabled/disabled state of the Overview Map control.</p>
+Defines a boundary that restricts the area of the map accessible to users.</p>
 <p>
 
 
-<p>Note: The Overview Map control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Overview Map control available as part of the old control set.<br> <br>
-
-<p><strong>Will be deleted in future releases.</strong></p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><span id="PanControl"></span><code>property <strong>PanControl</strong>: Boolean read FPanControl write SetPanControl default True;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-The enabled/disabled state of the Pan control.</p>
-<p>
-
-
-<p>Note: The Pan control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Pan control available as part of the old control set.<br> <br>
-
-<p><strong>Will be deleted in future releases.</strong></p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><span id="PanControlOptions"></span><code>property <strong>PanControlOptions</strong>: <a href="GMMap.TGMPanControlOptions.html">TGMPanControlOptions</a> read FPanControlOptions write FPanControlOptions;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-The display options for the Pan control.</p>
-<p>
-
-
-<p>Note: The Pan control is not available in the new set of controls introduced in v3.22 of the Google Maps JavaScript API. While using v3.22 and v3.23, you can choose to use the earlier set of controls rather than the new controls, thus making the Pan control available as part of the old control set.<br> <br>
-
-<p><strong>Will be deleted in future releases.</strong></p>
+<p>When set, a user can only pan and zoom while the camera view stays inside the limits of the boundary. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -627,7 +615,7 @@ The initial display options for the Scale control. </p>
 </tr>
 <tr><td colspan="2">
 <p>
-If <code>false</code>, disables <code>scrollwheel</code> zooming on the map. </p>
+If <code>false</code>, disables scrollwheel zooming on the map. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -667,7 +655,7 @@ The initial display options for the Street View Pegman control. </p>
 </tr>
 <tr><td colspan="2">
 <p>
-Controls the automatic switching behavior for the angle of incidence of the map. The only allowed values are 0 and 45. The value 0 causes the map to always use a 0Â° overhead view regardless of the <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">zoom</a> level and viewport. The value 45 causes the <code>tilt</code> angle to automatically switch to 45 whenever 45Â° imagery is available for the current <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">zoom</a> level and viewport, and switch back to 0 whenever 45Â° imagery is not available (this is the default behavior). 45Â° imagery is only available for SATELLITE and HYBRID map types, within some locations, and at some <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">zoom</a> levels. Note: getTilt returns the current <code>tilt</code> angle, not the value specified by this option. Because getTilt and this option refer to different things, do not bind() the <code>tilt</code> property; doing so may yield unpredictable effects. </p>
+Controls the automatic switching behavior for the angle of incidence of the map. The only allowed values are 0 and 45. The value 0 causes the map to always use a 0Â° overhead view regardless of the zoom level and viewport. The value 45 causes the tilt angle to automatically switch to 45 whenever 45Â° imagery is available for the current zoom level and viewport, and switch back to 0 whenever 45Â° imagery is not available (this is the default behavior). 45Â° imagery is only available for SATELLITE and HYBRID map types, within some locations, and at some zoom levels. Note: getTilt returns the current tilt angle, not the value specified by this option. Because getTilt and this option refer to different things, do not bind() the tilt property; doing so may yield unpredictable effects. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -677,7 +665,7 @@ Controls the automatic switching behavior for the angle of incidence of the map.
 </tr>
 <tr><td colspan="2">
 <p>
-The enabled/disabled state of the <code>Zoom</code> control. </p>
+The enabled/disabled state of the Zoom control. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -687,7 +675,7 @@ The enabled/disabled state of the <code>Zoom</code> control. </p>
 </tr>
 <tr><td colspan="2">
 <p>
-The initial Map <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">zoom</a> level. </p>
+The initial Map zoom level. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -697,7 +685,7 @@ The initial Map <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">zoo
 </tr>
 <tr><td colspan="2">
 <p>
-The display options for the <a class="normal" href="GMMap.TGMCustomMapOptions.html#Zoom">Zoom</a> control. </p>
+The display options for the Zoom control. </p>
 </td></tr>
 </table>
 <br />

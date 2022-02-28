@@ -1,3 +1,4 @@
 @abstract(@code(google.maps.StreetViewPov) object from Google Maps API.)
+
 A point of view object which specifies the camera's orientation at the Street View panorama's position. The point of view is defined as heading and pitch.@br@br
-More information at https://developers.google.com/maps/documentation/javascript/reference#StreetViewPov
+More information at @url(https://developers.google.com/maps/documentation/javascript/reference/street-view#StreetViewPov google.maps.StreetViewPov interface)

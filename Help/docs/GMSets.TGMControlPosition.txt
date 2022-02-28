@@ -1,4 +1,5 @@
 @abstract(Identifiers used to specify the placement of controls on the map.)
+
 Controls are positioned relative to other controls in the same layout position. Controls that are added first are positioned closer to the edge of the map.
 @longcode(#  +----------------+
  + TL    TC    TR +
@@ -9,5 +10,6 @@ Controls are positioned relative to other controls in the same layout position. 
  + LB          RB +
  + BL    BC    BR +
  +----------------+#)
+ 
 Elements in the top or bottom row flow towards the middle of the row. Elements in the left or right column flow towards the middle of the column.@br@br
-More info at https://developers.google.com/maps/documentation/javascript/reference#ControlPosition
+More info at @url(https://developers.google.com/maps/documentation/javascript/reference/control#ControlPosition google.maps.ControlPosition constants)

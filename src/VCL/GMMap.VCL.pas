@@ -155,8 +155,6 @@ type
     property Heading;
     // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.KeyboardShortcuts.txt)
     property KeyboardShortcuts;
-    // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.MapMaker.txt)
-    property MapMaker;
     // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.MapTypeControl.txt)
     property MapTypeControl;
     // @include(..\..\Help\docs\GMMap.TGMCustomMapOptions.MapTypeControlOptions.txt)
@@ -169,12 +167,6 @@ type
     property MinZoom;
     // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.NoClear.txt)
     property NoClear;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.OverviewMapControl.txt)
-    property OverviewMapControl;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.PanControl.txt)
-    property PanControl;
-    // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.PanControlOptions.txt)
-    property PanControlOptions;
     // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.RotateControl.txt)
     property RotateControl;
     // @include(..\..\Help\docs\GMMap.VCL.TGMMapOptions.RotateControlOptions.txt)

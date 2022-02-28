@@ -1,0 +1,5 @@
+Convert bounds to Json representation.
+
+@param Precision Precision of values. Default 6.
+
+@return Json with the bounds.

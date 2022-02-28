@@ -4,7 +4,7 @@
   @created(Septembre 30, 2015)
   @lastmod(October 1, 2015)
 
-  The GMMap contains the implementation of TCustomGMMap class that encapsulate the @code(google.maps.Map) class from Google Maps API and other related classes.
+  The GMMap contains the implementation of TCustomGMMap class that encapsulate the @code(google.maps.Map) class from Google Maps API and others related classes.
 }
 unit GMMap;
 
@@ -313,6 +313,29 @@ type
   end;
 
   { -------------------------------------------------------------------------- }
+  // @include(..\Help\docs\GMMap.TGMMotionTrackingControlOptions.txt)
+  TGMMotionTrackingControlOptions = class(TGMPersistentStr)
+  private
+    FPosition: TGMControlPosition;
+    procedure SetPosition(const Value: TGMControlPosition);
+  protected
+    // @exclude
+    function GetAPIUrl: string; override;
+  public
+    // @include(..\Help\docs\GMClasses.TGMInterfacedOwnedPersistent.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
+
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+  published
+    // @include(..\Help\docs\GMMap.TGMMotionTrackingControlOptions.Position.txt)
+    property Position: TGMControlPosition read FPosition write SetPosition default cpRIGHT_BOTTOM;
+  end;
+
+  { -------------------------------------------------------------------------- }
   // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.txt)
   TGMStreetViewPanoramaOptions = class(TGMPersistentStr)
   private
@@ -333,6 +356,12 @@ type
     FDisableDefaultUI: Boolean;
     FFullScreenControlOptions: TGMFullScreenControlOptions;
     FFullScreenControl: Boolean;
+    FControlSize: Integer;
+    FMotionTracking: Boolean;
+    FMotionTrackingControlOptions: TGMMotionTrackingControlOptions;
+    FMotionTrackingControl: Boolean;
+    FShowRoadLabels: Boolean;
+    FZoom: Integer;
     procedure SetAddressControl(const Value: Boolean);
     procedure SetClickToGo(const Value: Boolean);
     procedure SetDisableDefaultUI(const Value: Boolean);
@@ -345,6 +374,11 @@ type
     procedure SetVisible(const Value: Boolean);
     procedure SetZoomControl(const Value: Boolean);
     procedure SetFullScreenControl(const Value: Boolean);
+    procedure SetControlSize(const Value: Integer);
+    procedure SetMotionTracking(const Value: Boolean);
+    procedure SetMotionTrackingControl(const Value: Boolean);
+    procedure SetShowRoadLabels(const Value: Boolean);
+    procedure SetZoom(const Value: Integer);
   protected
     // @exclude
     function GetAPIUrl: string; override;
@@ -366,6 +400,8 @@ type
     property AddressControlOptions: TGMStreetViewAddressControlOptions read FAddressControlOptions write FAddressControlOptions;
     // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.ClickToGo.txt)
     property ClickToGo: Boolean read FClickToGo write SetClickToGo default True;
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.ControlSize.txt)
+    property ControlSize: Integer read FControlSize write SetControlSize;
     // @include(..\Help\docs\GMMap.TGMCustomMapOptions.DisableDefaultUI.txt)
     property DisableDefaultUI: Boolean read FDisableDefaultUI write SetDisableDefaultUI default False;
     // @include(..\Help\docs\GMMap.TGMCustomMapOptions.DisableDoubleClickZoom.txt)
@@ -380,6 +416,12 @@ type
     property ImageDateControl: Boolean read FImageDateControl write SetImageDateControl default False;
     // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.LinksControl.txt)
     property LinksControl: Boolean read FLinksControl write SetLinksControl default False;
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.MotionTracking.txt)
+    property MotionTracking: Boolean read FMotionTracking write SetMotionTracking;
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.MotionTrackingControl.txt)
+    property MotionTrackingControl: Boolean read FMotionTrackingControl write SetMotionTrackingControl;
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.MotionTrackingControlOptions.txt)
+    property MotionTrackingControlOptions: TGMMotionTrackingControlOptions read FMotionTrackingControlOptions write FMotionTrackingControlOptions;
     // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.PanControl.txt)
     property PanControl: Boolean read FPanControl write SetPanControl default True;
     // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.PanControlOptions.txt)
@@ -388,12 +430,48 @@ type
     property Pov: TGMStreetViewPov read FPov write FPov;
     // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.Scrollwheel.txt)
     property Scrollwheel: Boolean read FScrollwheel write SetScrollwheel default True;
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.ShowRoadLabels.txt)
+    property ShowRoadLabels: Boolean read FShowRoadLabels write SetShowRoadLabels;
     // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.Visible.txt)
     property Visible: Boolean read FVisible write SetVisible default False;
+    // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.Zoom.txt)
+    property Zoom: Integer read FZoom write SetZoom;
     // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.ZoomControl.txt)
     property ZoomControl: Boolean read FZoomControl write SetZoomControl default True;
     // @include(..\Help\docs\GMMap.TGMStreetViewPanoramaOptions.ZoomControlOptions.txt)
     property ZoomControlOptions: TGMZoomControlOptions read FZoomControlOptions write FZoomControlOptions;
+  end;
+
+  { -------------------------------------------------------------------------- }
+  // @include(..\Help\docs\GMMap.TGMRestriction.txt)
+  TGMRestriction = class(TGMPersistentStr)
+  private
+    FEnabled: Boolean;
+    FStrictBounds: Boolean;
+    FLatLngBounds: TGMLatLngBounds;
+    procedure SetEnabled(const Value: Boolean);
+    procedure SetStrictBounds(const Value: Boolean);
+  protected
+    // @exclude
+    function GetAPIUrl: string; override;
+  public
+    // @include(..\Help\docs\GMMap.TGMRestriction.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
+    // @include(..\Help\docs\GMMap.TGMRestriction.Destroy.txt)
+    destructor Destroy; override;
+
+    // @include(..\Help\docs\GMClasses.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMClasses.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+  published
+    // @include(..\Help\docs\GMMap.TGMRestriction.LatLngBounds.txt)
+    property LatLngBounds: TGMLatLngBounds read FLatLngBounds write FLatLngBounds;
+    // @include(..\Help\docs\GMMap.TGMRestriction.StrictBounds.txt)
+    property StrictBounds: Boolean read FStrictBounds write SetStrictBounds;
+    // @include(..\Help\docs\GMMap.TGMRestriction.Enabled.txt)
+    property Enabled: Boolean read FEnabled write SetEnabled;
   end;
 
   { -------------------------------------------------------------------------- }
@@ -415,12 +493,8 @@ type
     FCenter: TGMLatLng;
     FZoom: Integer;
     FMaxZoom: Integer;
-    FMapMaker: Boolean;
     FMapTypeControl: Boolean;
     FMapTypeControlOptions: TGMMapTypeControlOptions;
-    FOverviewMapControl: Boolean;
-    FPanControlOptions: TGMPanControlOptions;
-    FPanControl: Boolean;
     FRotateControl: Boolean;
     FRotateControlOptions: TGMRotateControlOptions;
     FScaleControlOptions: TGMScaleControlOptions;
@@ -432,6 +506,10 @@ type
     FStreetView: TGMStreetViewPanoramaOptions;
     FFullScreenControl: Boolean;
     FFullScreenControlOptions: TGMFullScreenControlOptions;
+    FClickableIcons: Boolean;
+    FControlSize: Integer;
+    FGestureHandling: TGMGestureHandling;
+    FRestriction: TGMRestriction;
     procedure SetDisableDefaultUI(const Value: Boolean);
     procedure SetDisableDoubleClickZoom(const Value: Boolean);
     procedure SetDraggable(const Value: Boolean);
@@ -439,7 +517,6 @@ type
     procedure SetDraggingCursor(const Value: string);
     procedure SetHeading(const Value: Integer);
     procedure SetKeyboardShortcuts(const Value: Boolean);
-    procedure SetMapMaker(const Value: Boolean);
     procedure SetMapTypeId(const Value: TGMMapTypeId);
     procedure SetMaxZoom(const Value: Integer);
     procedure SetMinZoom(const Value: Integer);
@@ -448,13 +525,14 @@ type
     procedure SetTilt(const Value: Integer);
     procedure SetZoom(const Value: Integer);
     procedure SetMapTypeControl(const Value: Boolean);
-    procedure SetOverviewMapControl(const Value: Boolean);
-    procedure SetPanControl(const Value: Boolean);
     procedure SetRotateControl(const Value: Boolean);
     procedure SetScaleControl(const Value: Boolean);
     procedure SetStreetViewControl(const Value: Boolean);
     procedure SetZoomControl(const Value: Boolean);
     procedure SetFullScreenControl(const Value: Boolean);
+    procedure SetClickableIcons(const Value: Boolean);
+    procedure SetControlSize(const Value: Integer);
+    procedure SetGestureHandling(const Value: TGMGestureHandling);
   protected
     // @include(..\Help\docs\GMClasses.IGMControlChanges.PropertyChanged.txt)
     procedure PropertyChanged(Prop: TPersistent; PropName: string);
@@ -464,6 +542,10 @@ type
 
     // @include(..\Help\docs\GMMap.TGMCustomMapOptions.Center.txt)
     property Center: TGMLatLng read FCenter write FCenter;
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.ClickableIcons.txt)
+    property ClickableIcons: Boolean read FClickableIcons write SetClickableIcons;
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.ControlSize.txt)
+    property ControlSize: Integer read FControlSize write SetControlSize;
     // @include(..\Help\docs\GMMap.TGMCustomMapOptions.DisableDefaultUI.txt)
     property DisableDefaultUI: Boolean read FDisableDefaultUI write SetDisableDefaultUI default False;
     // @include(..\Help\docs\GMMap.TGMCustomMapOptions.DisableDoubleClickZoom.txt)
@@ -478,12 +560,12 @@ type
     property FullScreenControl: Boolean read FFullScreenControl write SetFullScreenControl default True;
     // @include(..\Help\docs\GMMap.TGMCustomMapOptions.FullScreenControlOptions.txt)
     property FullScreenControlOptions: TGMFullScreenControlOptions read FFullScreenControlOptions write FFullScreenControlOptions;
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.GestureHandling.txt)
+    property GestureHandling: TGMGestureHandling read FGestureHandling write SetGestureHandling;
     // @include(..\Help\docs\GMMap.TGMCustomMapOptions.Heading.txt)
     property Heading: Integer read FHeading write SetHeading default 0;
     // @include(..\Help\docs\GMMap.TGMCustomMapOptions.KeyboardShortcuts.txt)
     property KeyboardShortcuts: Boolean read FKeyboardShortcuts write SetKeyboardShortcuts default True;
-    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.MapMaker.txt)
-    property MapMaker: Boolean read FMapMaker write SetMapMaker default False;
     // @include(..\Help\docs\GMMap.TGMCustomMapOptions.MapTypeControl.txt)
     property MapTypeControl: Boolean read FMapTypeControl write SetMapTypeControl default True;
     // @include(..\Help\docs\GMMap.TGMCustomMapOptions.MapTypeControlOptions.txt)
@@ -496,12 +578,8 @@ type
     property MinZoom: Integer read FMinZoom write SetMinZoom default 0;
     // @include(..\Help\docs\GMMap.TGMCustomMapOptions.NoClear.txt)
     property NoClear: Boolean read FNoClear write SetNoClear default False;
-    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.OverviewMapControl.txt)
-    property OverviewMapControl: Boolean read FOverviewMapControl write SetOverviewMapControl default True;
-    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.PanControl.txt)
-    property PanControl: Boolean read FPanControl write SetPanControl default True;
-    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.PanControlOptions.txt)
-    property PanControlOptions: TGMPanControlOptions read FPanControlOptions write FPanControlOptions;
+    // @include(..\Help\docs\GMMap.TGMCustomMapOptions.Restriction.txt)
+    property Restriction: TGMRestriction read FRestriction write FRestriction;
     // @include(..\Help\docs\GMMap.TGMCustomMapOptions.RotateControl.txt)
     property RotateControl: Boolean read FRotateControl write SetRotateControl default True;
     // @include(..\Help\docs\GMMap.TGMCustomMapOptions.RotateControlOptions.txt)
@@ -662,16 +740,12 @@ begin
     FullScreenControlOptions.Assign(TGMCustomMapOptions(Source).FullScreenControlOptions);
     Heading := TGMCustomMapOptions(Source).Heading;
     KeyboardShortcuts := TGMCustomMapOptions(Source).KeyboardShortcuts;
-    MapMaker := TGMCustomMapOptions(Source).MapMaker;
     MapTypeControl := TGMCustomMapOptions(Source).MapTypeControl;
     MapTypeControlOptions.Assign(TGMCustomMapOptions(Source).MapTypeControlOptions);
     MapTypeId := TGMCustomMapOptions(Source).MapTypeId;
     MaxZoom := TGMCustomMapOptions(Source).MaxZoom;
     MinZoom := TGMCustomMapOptions(Source).MinZoom;
     NoClear := TGMCustomMapOptions(Source).NoClear;
-    OverviewMapControl := TGMCustomMapOptions(Source).OverviewMapControl;
-    PanControl := TGMCustomMapOptions(Source).PanControl;
-    PanControlOptions.Assign(TGMCustomMapOptions(Source).PanControlOptions);
     RotateControl := TGMCustomMapOptions(Source).RotateControl;
     RotateControlOptions.Assign(TGMCustomMapOptions(Source).RotateControlOptions);
     ScaleControl := TGMCustomMapOptions(Source).ScaleControl;
@@ -701,16 +775,12 @@ begin
   FFullScreenControlOptions := TGMFullScreenControlOptions.Create(Self);
   FHeading := 0;
   FKeyboardShortcuts := True;
-  FMapMaker := False;
   FMapTypeControl := True;
   FMapTypeControlOptions := TGMMapTypeControlOptions.Create(Self);
   FMapTypeId := mtROADMAP;
   FMaxZoom := 0;
   FMinZoom := 0;
   FNoClear := False;
-  FOverviewMapControl := True;
-  FPanControl := True;
-  FPanControlOptions := TGMPanControlOptions.Create(Self);
   FRotateControl := True;
   FRotateControlOptions := TGMRotateControlOptions.Create(Self);
   FScaleControl := True;
@@ -730,7 +800,6 @@ begin
   if Assigned(FCenter) then FreeAndNil(FCenter);
   if Assigned(FFullScreenControlOptions) then FreeAndNil(FFullScreenControlOptions);
   if Assigned(FMapTypeControlOptions) then FreeAndNil(FMapTypeControlOptions);
-  if Assigned(FPanControlOptions) then FreeAndNil(FPanControlOptions);
   if Assigned(FScaleControlOptions) then FreeAndNil(FScaleControlOptions);
   if Assigned(FStreetView) then FreeAndNil(FStreetView);
   if Assigned(FStreetViewControlOptions) then FreeAndNil(FStreetViewControlOptions);
@@ -769,6 +838,8 @@ begin
   Result := Result +
             Format(Str, [
                          FCenter.PropToString,
+                         LowerCase(TGMTransform.GMBoolToStr(FClickableIcons, True)),
+                         IntToStr(FControlSize),
                          LowerCase(TGMTransform.GMBoolToStr(FDisableDefaultUI, True)),
                          LowerCase(TGMTransform.GMBoolToStr(FDisableDoubleClickZoom, True)),
                          LowerCase(TGMTransform.GMBoolToStr(FDraggable, True)),
@@ -776,18 +847,16 @@ begin
                          QuotedStr(FDraggingCursor),
                          LowerCase(TGMTransform.GMBoolToStr(FFullScreenControl, True)),
                          FFullScreenControlOptions.PropToString,
+                         QuotedStr(TGMTransform.GestureHandlingToStr(FGestureHandling)),
                          IntToStr(FHeading),
                          LowerCase(TGMTransform.GMBoolToStr(FKeyboardShortcuts, True)),
-                         LowerCase(TGMTransform.GMBoolToStr(FMapMaker, True)),
                          LowerCase(TGMTransform.GMBoolToStr(FMapTypeControl, True)),
                          FMapTypeControlOptions.PropToString,
                          QuotedStr(TGMTransform.MapTypeIdToStr(FMapTypeId)),
                          IntToStr(FMaxZoom),
                          IntToStr(FMinZoom),
                          LowerCase(TGMTransform.GMBoolToStr(FNoClear, True)),
-                         LowerCase(TGMTransform.GMBoolToStr(FOverviewMapControl, True)),
-                         LowerCase(TGMTransform.GMBoolToStr(FPanControl, True)),
-                         FPanControlOptions.PropToString,
+                         FRestriction.PropToString,
                          LowerCase(TGMTransform.GMBoolToStr(FRotateControl, True)),
                          FRotateControlOptions.PropToString,
                          LowerCase(TGMTransform.GMBoolToStr(FScaleControl, True)),
@@ -801,6 +870,22 @@ begin
                          LowerCase(TGMTransform.GMBoolToStr(FZoomControl, True)),
                          FZoomControlOptions.PropToString
                          ]);
+end;
+
+procedure TGMCustomMapOptions.SetClickableIcons(const Value: Boolean);
+begin
+  if FClickableIcons = Value then Exit;
+
+  FClickableIcons := Value;
+  ControlChanges('ClickableIcons');
+end;
+
+procedure TGMCustomMapOptions.SetControlSize(const Value: Integer);
+begin
+  if FControlSize = Value then Exit;
+
+  FControlSize := Value;
+  ControlChanges('ControlSize');
 end;
 
 procedure TGMCustomMapOptions.SetDisableDefaultUI(const Value: Boolean);
@@ -851,6 +936,15 @@ begin
   ControlChanges('FullScreenControl');
 end;
 
+procedure TGMCustomMapOptions.SetGestureHandling(
+  const Value: TGMGestureHandling);
+begin
+  if FGestureHandling = Value then Exit;
+
+  FGestureHandling := Value;
+  ControlChanges('GestureHandling');
+end;
+
 procedure TGMCustomMapOptions.SetHeading(const Value: Integer);
 begin
   if FHeading = Value then Exit;
@@ -865,14 +959,6 @@ begin
 
   FKeyboardShortcuts := Value;
   ControlChanges('KeyboardShortcuts');
-end;
-
-procedure TGMCustomMapOptions.SetMapMaker(const Value: Boolean);
-begin
-  if FMapMaker = Value then Exit;
-
-  FMapMaker := Value;
-  ControlChanges('MapMaker');
 end;
 
 procedure TGMCustomMapOptions.SetMapTypeControl(const Value: Boolean);
@@ -913,22 +999,6 @@ begin
 
   FNoClear := Value;
   ControlChanges('NoClear');
-end;
-
-procedure TGMCustomMapOptions.SetOverviewMapControl(const Value: Boolean);
-begin
-  if FOverviewMapControl = Value then Exit;
-
-  FOverviewMapControl := Value;
-  ControlChanges('OverviewMapControl');
-end;
-
-procedure TGMCustomMapOptions.SetPanControl(const Value: Boolean);
-begin
-  if FPanControl = Value then Exit;
-
-  FPanControl := Value;
-  ControlChanges('PanControl');
 end;
 
 procedure TGMCustomMapOptions.SetRotateControl(const Value: Boolean);
@@ -1633,6 +1703,7 @@ begin
   FAddressControl := True;
   FAddressControlOptions := TGMStreetViewAddressControlOptions.Create(Self);
   FClickToGo := True;
+  FControlSize := 0;
   FDisableDefaultUI := False;
   FDisableDoubleClickZoom := False;
   FEnableCloseButton := True;
@@ -1640,11 +1711,16 @@ begin
   FFullScreenControlOptions := TGMFullScreenControlOptions.Create(Self);
   FImageDateControl := False;
   FLinksControl := False;
+  FMotionTracking := True;
+  FMotionTrackingControl := True;
+  FMotionTrackingControlOptions := TGMMotionTrackingControlOptions.Create(Self);
   FPanControl := True;
   FPanControlOptions := TGMPanControlOptions.Create(Self);
   FPov := TGMStreetViewPov.Create(Self);
   FScrollwheel := True;
+  FShowRoadLabels := True;
   FVisible := False;
+  FZoom := 0;
   FZoomControl := True;
   FZoomControlOptions := TGMZoomControlOptions.Create(Self);
 end;
@@ -1656,18 +1732,19 @@ begin
   if Assigned(FPanControlOptions) then FreeAndNil(FPanControlOptions);
   if Assigned(FPov) then FreeAndNil(FPov);
   if Assigned(FZoomControlOptions) then FreeAndNil(FZoomControlOptions);
+  if Assigned(FMotionTrackingControlOptions) then FreeAndNil(FMotionTrackingControlOptions);
 
   inherited;
 end;
 
 function TGMStreetViewPanoramaOptions.GetAPIUrl: string;
 begin
-  Result := 'https://developers.google.com/maps/documentation/javascript/reference#StreetViewPanoramaOptions';
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/street-view#StreetViewPanoramaOptions';
 end;
 
 function TGMStreetViewPanoramaOptions.PropToString: string;
 const
-  Str = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
+  Str = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
 begin
   Result := inherited PropToString;
   if Result <> '' then Result := Result + ',';
@@ -1676,6 +1753,7 @@ begin
                          LowerCase(TGMTransform.GMBoolToStr(FAddressControl, True)),
                          FAddressControlOptions.PropToString,
                          LowerCase(TGMTransform.GMBoolToStr(FClickToGo, True)),
+                         IntToStr(FControlSize),
                          LowerCase(TGMTransform.GMBoolToStr(FDisableDefaultUI, True)),
                          LowerCase(TGMTransform.GMBoolToStr(FDisableDoubleClickZoom, True)),
                          LowerCase(TGMTransform.GMBoolToStr(FEnableCloseButton, True)),
@@ -1683,11 +1761,16 @@ begin
                          FFullScreenControlOptions.PropToString,
                          LowerCase(TGMTransform.GMBoolToStr(FImageDateControl, True)),
                          LowerCase(TGMTransform.GMBoolToStr(FLinksControl, True)),
+                         LowerCase(TGMTransform.GMBoolToStr(FMotionTracking, True)),
+                         LowerCase(TGMTransform.GMBoolToStr(FMotionTrackingControl, True)),
+                         FMotionTrackingControlOptions.PropToString,
                          LowerCase(TGMTransform.GMBoolToStr(FPanControl, True)),
                          FPanControlOptions.PropToString,
                          FPov.PropToString,
                          LowerCase(TGMTransform.GMBoolToStr(FScrollwheel, True)),
+                         LowerCase(TGMTransform.GMBoolToStr(FShowRoadLabels, True)),
                          LowerCase(TGMTransform.GMBoolToStr(FVisible, True)),
+                         IntToStr(FZoom),
                          LowerCase(TGMTransform.GMBoolToStr(FZoomControl, True)),
                          FZoomControlOptions.PropToString
                          ]);
@@ -1707,6 +1790,14 @@ begin
 
   FClickToGo := Value;
   ControlChanges('ClickToGo');
+end;
+
+procedure TGMStreetViewPanoramaOptions.SetControlSize(const Value: Integer);
+begin
+  if FControlSize = Value then Exit;
+
+  FControlSize := Value;
+  ControlChanges('ControlSize');
 end;
 
 procedure TGMStreetViewPanoramaOptions.SetDisableDefaultUI(
@@ -1762,6 +1853,23 @@ begin
   ControlChanges('LinksControl');
 end;
 
+procedure TGMStreetViewPanoramaOptions.SetMotionTracking(const Value: Boolean);
+begin
+  if FMotionTracking = Value then Exit;
+
+  FMotionTracking := Value;
+  ControlChanges('MotionTracking');
+end;
+
+procedure TGMStreetViewPanoramaOptions.SetMotionTrackingControl(
+  const Value: Boolean);
+begin
+  if FMotionTrackingControl = Value then Exit;
+
+  FMotionTrackingControl := Value;
+  ControlChanges('MotionTrackingControl');
+end;
+
 procedure TGMStreetViewPanoramaOptions.SetPanControl(const Value: Boolean);
 begin
   if FPanControl = Value then Exit;
@@ -1778,12 +1886,28 @@ begin
   ControlChanges('Scrollwheel');
 end;
 
+procedure TGMStreetViewPanoramaOptions.SetShowRoadLabels(const Value: Boolean);
+begin
+  if FShowRoadLabels = Value then Exit;
+
+  FShowRoadLabels := Value;
+  ControlChanges('ShowRoadLabels');
+end;
+
 procedure TGMStreetViewPanoramaOptions.SetVisible(const Value: Boolean);
 begin
   if FVisible = Value then Exit;
 
   FVisible := Value;
   ControlChanges('Visible');
+end;
+
+procedure TGMStreetViewPanoramaOptions.SetZoom(const Value: Integer);
+begin
+  if FZoom = Value then Exit;
+
+  FZoom := Value;
+  ControlChanges('Zoom');
 end;
 
 procedure TGMStreetViewPanoramaOptions.SetZoomControl(const Value: Boolean);
@@ -1934,6 +2058,113 @@ begin
 
   FPosition := Value;
   ControlChanges('Position');
+end;
+
+{ TGMMotionTrackingControlOptions }
+
+procedure TGMMotionTrackingControlOptions.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMMotionTrackingControlOptions then
+  begin
+    Position := TGMMotionTrackingControlOptions(Source).Position;
+  end;
+end;
+
+constructor TGMMotionTrackingControlOptions.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FPosition := cpRIGHT_BOTTOM;
+end;
+
+function TGMMotionTrackingControlOptions.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/control#MotionTrackingControlOptions';
+end;
+
+function TGMMotionTrackingControlOptions.PropToString: string;
+const
+  Str = '%s';
+begin
+  Result := Format(Str, [
+                         QuotedStr(TGMTransform.PositionToStr(FPosition))
+                        ]);
+end;
+
+procedure TGMMotionTrackingControlOptions.SetPosition(
+  const Value: TGMControlPosition);
+begin
+  if FPosition = Value then Exit;
+
+  FPosition := Value;
+  ControlChanges('Position');
+end;
+
+{ TGMRestriction }
+
+procedure TGMRestriction.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMRestriction then
+  begin
+    LatLngBounds.Assign(TGMRestriction(Source).LatLngBounds);
+    StrictBounds := TGMRestriction(Source).StrictBounds;
+    Enabled := TGMRestriction(Source).Enabled;
+  end;
+end;
+
+constructor TGMRestriction.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FLatLngBounds := TGMLatLngBounds.Create(Self);
+  FStrictBounds := False;
+  FEnabled := False;
+end;
+
+destructor TGMRestriction.Destroy;
+begin
+  if Assigned(FLatLngBounds) then FreeAndNil(FLatLngBounds);
+
+  inherited;
+end;
+
+function TGMRestriction.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/map#MapRestriction';
+end;
+
+function TGMRestriction.PropToString: string;
+const
+  Str = '%s,%s,%s';
+begin
+  Result := inherited PropToString;
+  if Result <> '' then Result := Result + ',';
+  Result := Result +
+            Format(Str, [
+                         FLatLngBounds.ToStr,
+                         LowerCase(TGMTransform.GMBoolToStr(FStrictBounds, True)),
+                         LowerCase(TGMTransform.GMBoolToStr(FEnabled, True))
+                         ]);
+end;
+
+procedure TGMRestriction.SetEnabled(const Value: Boolean);
+begin
+  if FEnabled = Value then Exit;
+
+  FEnabled := Value;
+  ControlChanges('Enabled');
+end;
+
+procedure TGMRestriction.SetStrictBounds(const Value: Boolean);
+begin
+  if FStrictBounds = Value then Exit;
+
+  FStrictBounds := Value;
+  ControlChanges('StrictBounds');
 end;
 
 end.

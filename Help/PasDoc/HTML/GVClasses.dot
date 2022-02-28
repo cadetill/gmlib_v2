@@ -79,8 +79,12 @@ DiGraph Classes {
   "TGMLatLngBounds" [href="GMLatLngBounds.TGMLatLngBounds.html"]
   "TGMMapTypeControlOptions" -> "TGMPersistentStr"
   "TGMMapTypeControlOptions" [href="GMMap.TGMMapTypeControlOptions.html"]
+  "TGMMotionTrackingControlOptions" -> "TGMPersistentStr"
+  "TGMMotionTrackingControlOptions" [href="GMMap.TGMMotionTrackingControlOptions.html"]
   "TGMPanControlOptions" -> "TGMPersistentStr"
   "TGMPanControlOptions" [href="GMMap.TGMPanControlOptions.html"]
+  "TGMRestriction" -> "TGMPersistentStr"
+  "TGMRestriction" [href="GMMap.TGMRestriction.html"]
   "TGMRotateControlOptions" -> "TGMPersistentStr"
   "TGMRotateControlOptions" [href="GMMap.TGMRotateControlOptions.html"]
   "TGMScaleControlOptions" -> "TGMPersistentStr"

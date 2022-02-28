@@ -1,1 +1,0 @@
-@code(True) if Map Maker tiles should be used instead of regular tiles.

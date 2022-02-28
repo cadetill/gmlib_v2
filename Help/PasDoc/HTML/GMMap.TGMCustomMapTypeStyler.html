@@ -34,7 +34,9 @@
 <p>
 Base class for <code>google.maps.MapTypeStyler</code> object from Google Maps API.</p>
 <p>
- A styler affects how a map's elements will be styled. Each MapTypeStyler should contain one and only one key. If more than one key is specified in a single MapTypeStyler, all but one will be ignored.<br><br> More information at <a href="https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyler">https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyler</a> </p>
+
+
+<p>A styler affects how a map's elements will be styled. Each MapTypeStyler should contain one and only one key. If more than one key is specified in a single MapTypeStyler, all but one will be ignored.<br><br> More information at <a href="https://developers.google.com/maps/documentation/javascript/style-reference#stylers">Style Reference</a> </p>
 <span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor">TPersistent</li>
@@ -124,11 +126,11 @@ Converts all class properties values to a string separated by semicolon.
 </tr>
 <tr><td colspan="2">
 <p>
-Call <code><code>Assign</code></code> to copy the properties or other attributes of one object from another.</p>
+Call <code>Assign</code> to copy the properties or other attributes of one object from another.</p>
 <p>
 
 
-<p>The standard form of a call to <code><code>Assign</code></code> method is <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
+<p>The standard form of a call to <code>Assign</code> method is <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
 
 <p> </p>
 <h6 class="description_section">Parameters</h6>
@@ -146,7 +148,7 @@ Call <code><code>Assign</code></code> to copy the properties or other attributes
 </tr>
 <tr><td colspan="2">
 <p>
-Modifies the <code>gamma</code> by raising the <a class="normal" href="GMMap.TGMCustomMapTypeStyler.html#Lightness">lightness</a> to the given power.<br> Valid values: Floating point numbers, [0.01, 10], with 1.0 representing no change. </p>
+Modifies the gamma by raising the lightness to the given power.<br> <br> Valid values: Floating point numbers, [0.01, 10], with 1.0 representing no change. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -156,7 +158,7 @@ Modifies the <code>gamma</code> by raising the <a class="normal" href="GMMap.TGM
 </tr>
 <tr><td colspan="2">
 <p>
-A value of true will invert the <a class="normal" href="GMMap.TGMCustomMapTypeStyler.html#Lightness">lightness</a> of the feature while preserving the hue and <a class="normal" href="GMMap.TGMCustomMapTypeStyler.html#Saturation">saturation</a>. </p>
+A value of true will invert the lightness of the feature while preserving the hue and saturation. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -166,7 +168,7 @@ A value of true will invert the <a class="normal" href="GMMap.TGMCustomMapTypeSt
 </tr>
 <tr><td colspan="2">
 <p>
-Shifts <code>lightness</code> of colors by a percentage of the original value if decreasing and a percentage of the remaining value if increasing.<br> Valid values: [-100, 100]. </p>
+Shifts lightness of colors by a percentage of the original value if decreasing and a percentage of the remaining value if increasing.<br><br> Valid values: [-100, 100]. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -176,7 +178,9 @@ Shifts <code>lightness</code> of colors by a percentage of the original value if
 </tr>
 <tr><td colspan="2">
 <p>
-Shifts the <code>saturation</code> of colors by a percentage of the original value if decreasing and a percentage of the remaining value if increasing.<br> Valid values: [-100, 100]. </p>
+Shifts the saturation of colors by a percentage of the original value if decreasing and a percentage of the remaining value if increasing.<br> <br>
+
+<p>Valid values: [-100, 100]. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -186,7 +190,7 @@ Shifts the <code>saturation</code> of colors by a percentage of the original val
 </tr>
 <tr><td colspan="2">
 <p>
-Sets the <code>visibility</code> of the feature. </p>
+Sets the visibility of the feature. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -196,7 +200,9 @@ Sets the <code>visibility</code> of the feature. </p>
 </tr>
 <tr><td colspan="2">
 <p>
-Sets the <code>weight</code> of the feature, in pixels.<br> Valid values: Integers greater than or equal to zero. </p>
+Sets the weight of the feature, in pixels.<br><br>
+
+<p>Valid values: Integers greater than or equal to zero. </p>
 </td></tr>
 </table>
 <br />

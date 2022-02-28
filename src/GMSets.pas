@@ -68,6 +68,9 @@ type
   // @include(..\Help\docs\GMSets.TGMVisibility.txt)
   TGMVisibility = (vOn, vOff, vSimplified);
 
+  // @include(..\Help\docs\GMSets.TGMGestureHandling.txt)
+  TGMGestureHandling = (ghCooperative, ghGreedy, ghNone, ghAuto);
+
 implementation
 
 end.

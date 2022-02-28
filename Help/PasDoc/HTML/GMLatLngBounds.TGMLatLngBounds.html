@@ -32,7 +32,7 @@
 <code>type TGMLatLngBounds = class(<a class="normal" href="GMClasses.TGMPersistentStr.html">TGMPersistentStr</a>, <a class="normal" href="GMClasses.IGMControlChanges.html">IGMControlChanges</a>)</code></p>
 <h2 class="description">Description</h2>
 <p>
-A <code>TGMLatLngBounds</code> instance represents a rectangle in geographical coordinates, including one that crosses the 180 degrees longitudinal meridian.</p>
+A TGMLatLngBounds instance represents a rectangle in geographical coordinates, including one that crosses the 180 degrees longitudinal meridian.</p>
 <p>
 
 
@@ -49,19 +49,19 @@ A <code>TGMLatLngBounds</code> instance represents a rectangle in geographical c
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#Create">Create</a></strong>(AOwner: TPersistent; SWLat: Real = 0; SWLng: Real = 0; NELat: Real = 0; NELng: Real = 0); reintroduce; overload; virtual;</code></td>
+<td class="itemcode"><code>constructor <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#Create">Create</a></strong>(SW, NE: <a href="GMLatLng.TGMLatLng.html">TGMLatLng</a>; Lang: <a href="GMSets.html#TGMLang">TGMLang</a> = <a href="GMSets.html#lnEnglish">lnEnglish</a>); reintroduce; overload; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#Create">Create</a></strong>(SW, NE: <a href="GMLatLng.TGMLatLng.html">TGMLatLng</a>; Lang: <a href="GMSets.html#TGMLang">TGMLang</a> = <a href="GMSets.html#lnEnglish">lnEnglish</a>); reintroduce; overload; virtual;</code></td>
+<td class="itemcode"><code>constructor <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#Create">Create</a></strong>(AOwner: TPersistent; SWLat: Real = 0; SWLng: Real = 0; NELat: Real = 0; NELng: Real = 0); reintroduce; overload; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#Create">Create</a></strong>(SWLat: Real = 0; SWLng: Real = 0; NELat: Real = 0; NELng: Real = 0; Lang: <a href="GMSets.html#TGMLang">TGMLang</a> = <a href="GMSets.html#lnEnglish">lnEnglish</a>); reintroduce; overload; virtual;</code></td>
+<td class="itemcode"><code>constructor <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#Create">Create</a></strong>(AOwner: TPersistent; SW, NE: <a href="GMLatLng.TGMLatLng.html">TGMLatLng</a>); reintroduce; overload; virtual;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#Create">Create</a></strong>(AOwner: TPersistent; SW, NE: <a href="GMLatLng.TGMLatLng.html">TGMLatLng</a>); reintroduce; overload; virtual;</code></td>
+<td class="itemcode"><code>constructor <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#Create">Create</a></strong>(SWLat: Real = 0; SWLng: Real = 0; NELat: Real = 0; NELng: Real = 0; Lang: <a href="GMSets.html#TGMLang">TGMLang</a> = <a href="GMSets.html#lnEnglish">lnEnglish</a>); reintroduce; overload; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -89,37 +89,41 @@ A <code>TGMLatLngBounds</code> instance represents a rectangle in geographical c
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#ToStr">ToStr</a></strong>(Precision: Integer = 6): string;</code></td>
+<td class="itemcode"><code>function <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#ToJson">ToJson</a></strong>(Precision: Integer = 6): string;</code></td>
 </tr>
 <tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#ToStr">ToStr</a></strong>(Precision: Integer = 6): string;</code></td>
+</tr>
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>function <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#ToUrlValue">ToUrlValue</a></strong>(Precision: Integer = 6): string;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>function <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#GetOwnerLang">GetOwnerLang</a></strong>: <a href="GMSets.html#TGMLang">TGMLang</a>; override;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#Assign">Assign</a></strong>(Source: TPersistent); override;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#Extend">Extend</a></strong>(LatLng: <a href="GMLatLng.TGMLatLng.html">TGMLatLng</a>);</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#GetCenter">GetCenter</a></strong>(LatLng: <a href="GMLatLng.TGMLatLng.html">TGMLatLng</a>);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#ToSpan">ToSpan</a></strong>(LatLng: <a href="GMLatLng.TGMLatLng.html">TGMLatLng</a>);</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#Union">Union</a></strong>(Other: <a href="GMLatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a>);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLatLngBounds.TGMLatLngBounds.html#PropertyChanged">PropertyChanged</a></strong>(Prop: TPersistent; PropName: string);</code></td>
 </tr>
@@ -141,6 +145,27 @@ A <code>TGMLatLngBounds</code> instance represents a rectangle in geographical c
 </table>
 <h2 class="description">Description</h2>
 <h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="Create"></span><code>constructor <strong>Create</strong>(SW, NE: <a href="GMLatLng.TGMLatLng.html">TGMLatLng</a>; Lang: <a href="GMSets.html#TGMLang">TGMLang</a> = <a href="GMSets.html#lnEnglish">lnEnglish</a>); reintroduce; overload; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Constructor class.
+
+<p>   </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>SW</dt>
+<dd>South-west corner.</dd>
+<dt>NE</dt>
+<dd>North-east corner.</dd>
+<dt>Lang</dt>
+<dd><a class="normal" href="GMSets.html#TGMLang">TGMLang</a> to use in exceptions.</dd>
+</dl>
+</td></tr>
+</table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -169,7 +194,7 @@ Constructor class.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><span id="Create"></span><code>constructor <strong>Create</strong>(SW, NE: <a href="GMLatLng.TGMLatLng.html">TGMLatLng</a>; Lang: <a href="GMSets.html#TGMLang">TGMLang</a> = <a href="GMSets.html#lnEnglish">lnEnglish</a>); reintroduce; overload; virtual;</code></td>
+<td class="itemcode"><span id="Create"></span><code>constructor <strong>Create</strong>(AOwner: TPersistent; SW, NE: <a href="GMLatLng.TGMLatLng.html">TGMLatLng</a>); reintroduce; overload; virtual;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -178,12 +203,12 @@ Constructor class.
 <p>   </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
+<dt>AOwner</dt>
+<dd>Object owner.</dd>
 <dt>SW</dt>
 <dd>South-west corner.</dd>
 <dt>NE</dt>
 <dd>North-east corner.</dd>
-<dt>Lang</dt>
-<dd><a class="normal" href="GMSets.html#TGMLang">TGMLang</a> to use in exceptions.</dd>
 </dl>
 </td></tr>
 </table>
@@ -215,27 +240,6 @@ Constructor class.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><span id="Create"></span><code>constructor <strong>Create</strong>(AOwner: TPersistent; SW, NE: <a href="GMLatLng.TGMLatLng.html">TGMLatLng</a>); reintroduce; overload; virtual;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Constructor class.
-
-<p>   </p>
-<h6 class="description_section">Parameters</h6>
-<dl class="parameters">
-<dt>AOwner</dt>
-<dd>Object owner.</dd>
-<dt>SW</dt>
-<dd>South-west corner.</dd>
-<dt>NE</dt>
-<dd>North-east corner.</dd>
-</dl>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><span id="Destroy"></span><code>destructor <strong>Destroy</strong>; override;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -250,7 +254,7 @@ Destructor class. </p>
 </tr>
 <tr><td colspan="2">
 <p>
-Returns <code>True</code> if the given <a class="normal" href="GMLatLng.TGMLatLng.html">TGMLatLng</a> is in the bounds.
+Returns <code>True</code> if the given TGMLatLng is in the bounds.
 
 <p>
 
@@ -260,10 +264,10 @@ Returns <code>True</code> if the given <a class="normal" href="GMLatLng.TGMLatLn
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>LatLng</dt>
-<dd><a class="normal" href="GMLatLng.TGMLatLng.html">TGMLatLng</a> to check.</dd>
+<dd>TGMLatLng to check.</dd>
 </dl>
 <h6 class="description_section">Returns</h6>
-<p class="return"><code>True</code> if the given <a class="normal" href="GMLatLng.TGMLatLng.html">TGMLatLng</a> is in the bounds, otherwise <code>False</code>.</p><h6 class="description_section">Exceptions raised</h6>
+<p class="return"><code>True</code> if the given TGMLatLng is in the bounds, otherwise <code>False</code>.</p><h6 class="description_section">Exceptions raised</h6>
 <dl class="exceptions_raised">
 <dt><a class="normal" href="GMClasses.EGMWithoutOwner.html">EGMWithoutOwner</a></dt>
 <dd>This exception is raised if the object don't have a owner.</dd>
@@ -356,6 +360,26 @@ Converts all class properties values to a string separated by semicolon.
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="ToJson"></span><code>function <strong>ToJson</strong>(Precision: Integer = 6): string;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Convert bounds to Json representation.
+
+<p>
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Precision</dt>
+<dd>Precision of values. Default 6.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Json with the bounds.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><span id="ToStr"></span><code>function <strong>ToStr</strong>(Precision: Integer = 6): string;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -404,7 +428,7 @@ Returns the <a class="normal" href="GMSets.html#TGMLang">TGMLang</a> of the Owne
 <p>
 
 
-<p>If Owner is not assigned or not supports <a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a> interface then should be returned <code><a class="normal" href="GMSets.html#lnEnglish">lnEnglish</a></code>.
+<p>If Owner is not assigned or not supports <a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a> interface then should be returned <code>lnEnglish</code>.
 
 <p> </p>
 <h6 class="description_section">Returns</h6>
@@ -417,11 +441,11 @@ Returns the <a class="normal" href="GMSets.html#TGMLang">TGMLang</a> of the Owne
 </tr>
 <tr><td colspan="2">
 <p>
-Call <code><code>Assign</code></code> to copy the properties or other attributes of one object from another.</p>
+Call <code>Assign</code> to copy the properties or other attributes of one object from another.</p>
 <p>
 
 
-<p>The standard form of a call to <code><code>Assign</code></code> method is <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
+<p>The standard form of a call to <code>Assign</code> method is <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
 
 <p> </p>
 <h6 class="description_section">Parameters</h6>
@@ -446,7 +470,7 @@ Extends the bounds to contain the given point.
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>LatLng</dt>
-<dd><a class="normal" href="GMLatLng.TGMLatLng.html">TGMLatLng</a> to contain.</dd>
+<dd>TGMLatLng to contain.</dd>
 </dl>
 <h6 class="description_section">Exceptions raised</h6>
 <dl class="exceptions_raised">
@@ -476,7 +500,7 @@ Get the center of current bounds.
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>LatLng</dt>
-<dd><a class="normal" href="GMLatLng.TGMLatLng.html">TGMLatLng</a> representing the centre.</dd>
+<dd>TGMLatLng representing the centre.</dd>
 </dl>
 <h6 class="description_section">Exceptions raised</h6>
 <dl class="exceptions_raised">
@@ -504,7 +528,7 @@ Converts the given bounds to a lat/lng span.
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>LatLng</dt>
-<dd><a class="normal" href="GMLatLng.TGMLatLng.html">TGMLatLng</a> with the span.</dd>
+<dd>TGMLatLng with the span.</dd>
 </dl>
 <h6 class="description_section">Exceptions raised</h6>
 <dl class="exceptions_raised">
@@ -524,7 +548,7 @@ Converts the given bounds to a lat/lng span.
 </tr>
 <tr><td colspan="2">
 <p>
-Extends this bounds to contain the <code>union</code> of this and the given bounds.
+Extends this bounds to contain the union of this and the given bounds.
 
 <p>
 
@@ -532,7 +556,7 @@ Extends this bounds to contain the <code>union</code> of this and the given boun
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Other</dt>
-<dd><a class="normal" href="GMLatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a> to <code>union</code>.</dd>
+<dd>TGMLatLngBounds to union.</dd>
 </dl>
 <h6 class="description_section">Exceptions raised</h6>
 <dl class="exceptions_raised">

@@ -34,7 +34,7 @@
 <p>
 Base class for all classes that inherit from <code>TCollectionItem</code> into GMLib.</p>
 <p>
- Implements <code><a class="normal" href="GMClasses.IGMAPIUrl.html">IGMAPIUrl</a></code>, <code><a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a></code> and <code><a class="normal" href="GMClasses.IGMAPIUrl.html">IGMAPIUrl</a></code> interfaces. </p>
+ Implements <code>IGMAPIUrl</code>, <code>IGMOwnerLang</code> and <code>IGMAPIUrl</code> interfaces. </p>
 <span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor">TPersistent</li>
@@ -91,9 +91,9 @@ Base class for all classes that inherit from <code>TCollectionItem</code> into G
 </tr>
 <tr><td colspan="2">
 <p>
-Returns the <a class="normal" href="GMClasses.TGMInterfacedCollectionItem.html#Name">name</a> of the collection item as it appears in the collection editor. See Delphi documentation for more details.  </p>
+Returns the name of the collection item as it appears in the collection editor. See Delphi documentation for more details.  </p>
 <h6 class="description_section">Returns</h6>
-<p class="return">String with the <a class="normal" href="GMClasses.TGMInterfacedCollectionItem.html#Name">name</a></p></td></tr>
+<p class="return">String with the name</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -106,7 +106,7 @@ Returns the <a class="normal" href="GMSets.html#TGMLang">TGMLang</a> of the Owne
 <p>
 
 
-<p>If Owner is not assigned or not supports <a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a> interface then should be returned <code><a class="normal" href="GMSets.html#lnEnglish">lnEnglish</a></code>.
+<p>If Owner is not assigned or not supports <a class="normal" href="GMClasses.IGMOwnerLang.html">IGMOwnerLang</a> interface then should be returned <code>lnEnglish</code>.
 
 <p> </p>
 <h6 class="description_section">Returns</h6>
@@ -132,11 +132,11 @@ Converts all class properties values to a string separated by semicolon.
 </tr>
 <tr><td colspan="2">
 <p>
-Call <code><code>Assign</code></code> to copy the properties or other attributes of one object from another.</p>
+Call <code>Assign</code> to copy the properties or other attributes of one object from another.</p>
 <p>
 
 
-<p>The standard form of a call to <code><code>Assign</code></code> method is <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
+<p>The standard form of a call to <code>Assign</code> method is <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
 
 <p> </p>
 <h6 class="description_section">Parameters</h6>
@@ -174,7 +174,7 @@ Represents an object that is associated with the item. </p>
 </tr>
 <tr><td colspan="2">
 <p>
-<code>Name</code> to display into the TCollectionItemList. </p>
+Name to display into the TCollectionItemList. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -194,7 +194,7 @@ Event triggered when a property changes. </p>
 </tr>
 <tr><td colspan="2">
 <p>
-<code>Tag</code> property has no predefined meaning. It can store any additional integer value for the convenience of developers. </p>
+Tag property has no predefined meaning. It can store any additional integer value for the convenience of developers. </p>
 </td></tr>
 </table>
 <br />

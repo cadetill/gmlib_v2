@@ -32,7 +32,7 @@
 <code>type TGMCustomGMMap = class(<a class="normal" href="GMClasses.TGMComponent.html">TGMComponent</a>, <a class="normal" href="GMClasses.IGMExecJS.html">IGMExecJS</a>, <a class="normal" href="GMClasses.IGMControlChanges.html">IGMControlChanges</a>)</code></p>
 <h2 class="description">Description</h2>
 <p>
-Base class for <code>google.maps.Map</code> class and implements <code><a class="normal" href="GMClasses.IGMExecJS.html">IGMExecJS</a></code> and <code><a class="normal" href="GMClasses.IGMControlChanges.html">IGMControlChanges</a></code> interfaces.</p>
+Base class for <code>google.maps.Map</code> class and implements <code>IGMExecJS</code> and <code>IGMControlChanges</code> interfaces.</p>
 <p>
 
 
@@ -218,11 +218,11 @@ Returns temporary path.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Call <code><code>Assign</code></code> to copy the properties or other attributes of one object from another.</p>
+Call <code>Assign</code> to copy the properties or other attributes of one object from another.</p>
 <p>
 
 
-<p>The standard form of a call to <code><code>Assign</code></code> method is <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
+<p>The standard form of a call to <code>Assign</code> method is <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
 
 <p> </p>
 <h6 class="description_section">Parameters</h6>
@@ -247,7 +247,7 @@ Sets the viewport to contain the given bounds.</p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Bounds</dt>
-<dd>The <a class="normal" href="GMLatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a>.</dd>
+<dd>The TGMLatLngBounds.</dd>
 </dl>
 </td></tr>
 </table>
@@ -279,7 +279,7 @@ Execute the JavaScript fucntion <code>NameFunct</code> with parameters <code>Par
 </tr>
 <tr><td colspan="2">
 <p>
-<code>LoadBlankPage</code> method load the about:blank page.
+LoadBlankPage method load the about:blank page.
 
 <p></p>
 <h6 class="description_section">Exceptions raised</h6>
@@ -296,7 +296,7 @@ Execute the JavaScript fucntion <code>NameFunct</code> with parameters <code>Par
 </tr>
 <tr><td colspan="2">
 <p>
-<code>LoadMap</code> method loads and shows the map.html to use Google Maps API.</p>
+LoadMap method loads and shows the map.html to use Google Maps API.</p>
 <p>
  The timeout for load page is 15 seconds.
 
@@ -317,7 +317,7 @@ Execute the JavaScript fucntion <code>NameFunct</code> with parameters <code>Par
 </tr>
 <tr><td colspan="2">
 <p>
-<code>OnTimer</code> control event of Timer that check events from map. Internal use only.
+OnTimer control event of Timer that check events from map. Internal use only.
 
 <p> </p>
 <h6 class="description_section">Parameters</h6>
@@ -381,9 +381,9 @@ Activate or deactivate access to the map. </p>
 </tr>
 <tr><td colspan="2">
 <p>
-By default the API will attempt to load the most appropriate <a class="normal" href="GMClasses.TGMComponent.html#Language">language</a> based on the users location or browser settings.</p>
+By default the API will attempt to load the most appropriate language based on the users location or browser settings.</p>
 <p>
- But some APIs allow you to explicitly set a <a class="normal" href="GMClasses.TGMComponent.html#Language">language</a> when you make a request. <br> <br>
+ But some APIs allow you to explicitly set a language when you make a request. <br> <br>
 
 <p>More info at <a href="https://developers.google.com/maps/faq#languagesupport">https://developers.google.com/maps/faq#languagesupport</a> </p>
 </td></tr>
@@ -410,7 +410,7 @@ APIKey is the Key to use on Google Maps.</p>
   <li><p>Time Zone limits usage: <a href="https://developers.google.com/maps/documentation/timezone/usage-limits">https://developers.google.com/maps/documentation/timezone/usage-limits</a></p></li>
 </ul>
 
-<p> <code><a class="normal" href="GMClasses.EGMMapIsActive.html">EGMMapIsActive</a></code> exception is raised when <code><a class="normal" href="GMMap.TGMCustomGMMap.html#Active">Active</a></code> property is <code>True</code>. </p>
+<p> <code>EGMMapIsActive</code> exception is raised when <code>Active</code> property is <code>True</code>. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -424,7 +424,7 @@ Version of the Google Maps API to use.</p>
 <p>
 
 
-<p>raises <a class="normal" href="GMClasses.EGMMapIsActive.html">EGMMapIsActive</a> This exception is raised when <code><a class="normal" href="GMMap.TGMCustomGMMap.html#Active">Active</a></code> property is <code>True</code>. </p>
+<p>raises EGMMapIsActive This exception is raised when <code>Active</code> property is <code>True</code>. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -444,7 +444,7 @@ Interval of time to check the events of map. </p>
 </tr>
 <tr><td colspan="2">
 <p>
-<code>OnActiveChange</code> event is fired when <a class="normal" href="GMMap.TGMCustomGMMap.html#Active">Active</a> property changes. </p>
+OnActiveChange event is fired when Active property changes. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -454,7 +454,7 @@ Interval of time to check the events of map. </p>
 </tr>
 <tr><td colspan="2">
 <p>
-<code>OnIntervalEventsChange</code> event is fired when <a class="normal" href="GMMap.TGMCustomGMMap.html#IntervalEvents">IntervalEvents</a> property changes. </p>
+OnIntervalEventsChange event is fired when IntervalEvents property changes. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -464,7 +464,7 @@ Interval of time to check the events of map. </p>
 </tr>
 <tr><td colspan="2">
 <p>
-<code>OnPrecisionChange</code> event is fired when <a class="normal" href="GMMap.TGMCustomGMMap.html#Precision">Precision</a> property changes.</p>
+OnPrecisionChange event is fired when Precision property changes.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -474,7 +474,7 @@ Interval of time to check the events of map. </p>
 </tr>
 <tr><td colspan="2">
 <p>
-<code>OnPropertyChanges</code> event is fired when a property changes.</p>
+OnPropertyChanges event is fired when a property changes.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -484,11 +484,11 @@ Interval of time to check the events of map. </p>
 </tr>
 <tr><td colspan="2">
 <p>
-<code>Precision</code> for lat and lng values.</p>
+Precision for lat and lng values.</p>
 <p>
 
 
-<p>Possibles values: 0 =&gt; Max <code>precision</code> 1..17 =&gt; Decimal <code>precision</code> </p>
+<p>Possibles values: 0 =&gt; Max precision 1..17 =&gt; Decimal precision </p>
 </td></tr>
 </table>
 <br />
