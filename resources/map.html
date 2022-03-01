@@ -42,8 +42,8 @@
 
   function MapChangeProperty(PropName, Value) {
 	switch (PropName.toLowerCase()) {
-       case 'maptypeid': Value = StrToMapType(Value); map.setOptions({options: {mapTypeId: Value}}); break;
-       case 'zoom': map.setOptions({options: {zoom: Value}}); break;
+      case 'maptypeid': Value = StrToMapType(Value); map.setOptions({options: {mapTypeId: Value}}); break;
+      case 'zoom': map.setOptions({options: {zoom: Value}}); break;
 	}
   }
   
