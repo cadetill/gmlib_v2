@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
   Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, GMClasses,
   Vcl.OleCtrls, SHDocVw, Vcl.ExtCtrls, GMMap, GMMap.VCL, Vcl.ComCtrls,
-  Vcl.Buttons, Vcl.Samples.Spin, Vcl.CheckLst;
+  Vcl.Buttons, Vcl.Samples.Spin, Vcl.CheckLst, Winapi.WebView2, Winapi.ActiveX,
+  Vcl.Edge;
 
 type
   TMainFrm = class(TForm)
@@ -53,6 +54,7 @@ type
     sbMap: TScrollBox;
     Splitter1: TSplitter;
     GMMap1: TGMMap;
+    EdgeBrowser1: TEdgeBrowser;
     procedure bMapSetCenterClick(Sender: TObject);
     procedure cbMapBgColorChange(Sender: TObject);
     procedure bMapActiveClick(Sender: TObject);

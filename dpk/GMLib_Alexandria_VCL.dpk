@@ -32,7 +32,8 @@ package GMLib_Alexandria_VCL;
 requires
   rtl,
   vcl,
-  vclie;
+  vclie,
+  GMLib_Alexandria;
 
 contains
   GMMap.VCL in '..\src\VCL\GMMap.VCL.pas',

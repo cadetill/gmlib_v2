@@ -2,7 +2,7 @@ object MainFrm: TMainFrm
   Left = 0
   Top = 0
   Caption = 'MegaDemo GMLib'
-  ClientHeight = 544
+  ClientHeight = 706
   ClientWidth = 971
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -10,13 +10,12 @@ object MainFrm: TMainFrm
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   PixelsPerInch = 96
   TextHeight = 13
   object Splitter1: TSplitter
     Left = 637
     Top = 0
-    Height = 544
+    Height = 706
     Align = alRight
     ExplicitLeft = 496
     ExplicitTop = 240
@@ -26,15 +25,12 @@ object MainFrm: TMainFrm
     Left = 0
     Top = 0
     Width = 637
-    Height = 544
+    Height = 706
     Align = alClient
     TabOrder = 0
-    ExplicitLeft = 3
-    ExplicitTop = 43
-    ExplicitWidth = 406
-    ExplicitHeight = 319
+    ExplicitHeight = 544
     ControlData = {
-      4C000000D6410000393800000000000000000000000000000000000000000000
+      4C000000AB340000603A00000000000000000000000000000000000000000000
       000000004C000000000000000000000001000000E0D057007335CF11AE690800
       2B2E126208000000000000004C0000000114020000000000C000000000000046
       8000000000000000000000000000000000000000000000000000000000000000
@@ -44,19 +40,16 @@ object MainFrm: TMainFrm
     Left = 640
     Top = 0
     Width = 331
-    Height = 544
-    ActivePage = TabSheet1
+    Height = 706
+    ActivePage = tsMap
     Align = alRight
     TabOrder = 1
+    ExplicitHeight = 544
     object tsMap: TTabSheet
       Caption = 'Map'
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         323
-        516)
+        678)
       object bMapActive: TButton
         Left = 16
         Top = 9
@@ -70,13 +63,14 @@ object MainFrm: TMainFrm
         Left = 2
         Top = 40
         Width = 317
-        Height = 475
+        Height = 637
         Anchors = [akLeft, akTop, akRight, akBottom]
         TabOrder = 1
+        ExplicitHeight = 475
         object Panel1: TPanel
           Left = 0
           Top = 0
-          Width = 296
+          Width = 292
           Height = 242
           Align = alTop
           BevelOuter = bvNone
@@ -207,7 +201,7 @@ object MainFrm: TMainFrm
         object Panel2: TPanel
           Left = 0
           Top = 269
-          Width = 296
+          Width = 292
           Height = 122
           Align = alTop
           BevelOuter = bvNone
@@ -270,7 +264,7 @@ object MainFrm: TMainFrm
         object pMapFullScreenControl: TPanel
           Left = 0
           Top = 242
-          Width = 296
+          Width = 292
           Height = 27
           Align = alTop
           BevelOuter = bvNone
@@ -311,7 +305,7 @@ object MainFrm: TMainFrm
         object pMapMapTypeControl: TPanel
           Left = 0
           Top = 391
-          Width = 296
+          Width = 292
           Height = 135
           Align = alTop
           Caption = ' '
@@ -388,14 +382,13 @@ object MainFrm: TMainFrm
             Top = 6
             Width = 142
             Height = 75
-            ItemHeight = 13
             TabOrder = 0
           end
         end
         object Panel3: TPanel
           Left = 0
           Top = 526
-          Width = 296
+          Width = 292
           Height = 122
           Align = alTop
           BevelOuter = bvNone
@@ -409,18 +402,30 @@ object MainFrm: TMainFrm
       ImageIndex = 1
       DesignSize = (
         323
-        516)
+        678)
       object sbMap: TScrollBox
         Left = 6
         Top = 41
         Width = 317
-        Height = 475
+        Height = 637
         Anchors = [akLeft, akTop, akRight, akBottom]
         TabOrder = 0
       end
     end
   end
+  object EdgeBrowser1: TEdgeBrowser
+    Left = 368
+    Top = 296
+    Width = 228
+    Height = 129
+    TabOrder = 2
+  end
   object GMMap1: TGMMap
+    MapOptions.StreetView.ControlSize = 0
+    MapOptions.StreetView.MotionTracking = True
+    MapOptions.StreetView.MotionTrackingControl = True
+    MapOptions.StreetView.ShowRoadLabels = True
+    MapOptions.StreetView.Zoom = 0
     MapOptions.Styles = <>
     WebBrowser = WebBrowser1
     Left = 176

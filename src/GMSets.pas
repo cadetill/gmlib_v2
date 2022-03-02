@@ -22,7 +22,7 @@ type
              lnFrench);
 
   // @include(..\Help\docs\GMSets.TGoogleAPIVer.txt)
-  TGoogleAPIVer = (api321, api322, api323, api324, apiNewest);
+  TGoogleAPIVer = (api348, apiNewest);
 
   // @include(..\Help\docs\GMSets.TGMAPILang.txt)
   TGMAPILang = (lArabic, lBulgarian, lBengali, lCatalan, lCzech, lDanish, lGerman, lGreek, lEnglish,

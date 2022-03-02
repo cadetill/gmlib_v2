@@ -548,10 +548,7 @@ class function TGMTransform.GoogleAPIVerToStr(
   GoogleAPIVer: TGoogleAPIVer): string;
 begin
   case GoogleAPIVer of
-    api321: Result := '3.21';
-    api322: Result := '3.22';
-    api323: Result := '3.23';
-    api324: Result := '3.24';
+    api348: Result := '3.48';
     apiNewest: Result := '3.x';
   end;
 end;

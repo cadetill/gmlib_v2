@@ -679,7 +679,7 @@ type
     // @include(..\Help\docs\GMMap.TGMCustomGMMap.Active.txt)
     property Active: Boolean read FActive write SetActive default False;
     // @include(..\Help\docs\GMMap.TGMCustomGMMap.GoogleAPIVer.txt)
-    property GoogleAPIVer: TGoogleAPIVer read FGoogleAPIVer write SetGoogleAPIVer default api323;
+    property GoogleAPIVer: TGoogleAPIVer read FGoogleAPIVer write SetGoogleAPIVer default api348;
     // @include(..\Help\docs\GMMap.TGMCustomGMMap.GoogleAPIKey.txt)
     property GoogleAPIKey: string read FGoogleAPIKey write SetGoogleAPIKey;
     // @include(..\Help\docs\GMMap.TGMCustomGMMap.IntervalEvents.txt)
@@ -1472,7 +1472,7 @@ begin
 
   FActive := False;
   FGoogleAPIKey := '';
-  FGoogleAPIVer := api323;
+  FGoogleAPIVer := api348;
   FIntervalEvents := 200;
   FAPILang := lEnglish;
 end;

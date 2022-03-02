@@ -227,8 +227,8 @@ type
       var URL: OleVariant);
     {$ENDIF}
 
-    function GetWebBrowser: TWebBrowser;
-    procedure SetWebBrowser(const Value: TWebBrowser); (*1 *)
+    function GetWebBrowser: TComponent;
+    procedure SetWebBrowser(const Value: TComponent); (*1 *)
   protected
     // @include(..\..\Help\docs\GMMap.TGMCustomGMMap.GetTempPath.txt)
     function GetTempPath: string; override;
@@ -272,7 +272,7 @@ type
     // @include(..\..\Help\docs\GMMap.TGMCustomGMMap.Precision.txt)
     property Precision;
     // @include(..\..\Help\docs\GMMap.VCL.TGMMap.WebBrowser.txt)
-    property WebBrowser: TWebBrowser read GetWebBrowser write SetWebBrowser;
+    property WebBrowser: TComponent read GetWebBrowser write SetWebBrowser;
 
     // @include(..\..\Help\docs\GMMap.TGMCustomGMMap.OnActiveChange.txt)
     property OnActiveChange;
@@ -292,6 +292,9 @@ uses
   System.SysUtils, Winapi.ActiveX, system.DateUtils, Winapi.Windows,
   {$ELSE}
   SysUtils, ActiveX, DateUtils, Windows,
+  {$ENDIF}
+  {$IFDEF DELPHIALEXANDRIA}
+  Vcl.Edge,
   {$ENDIF}
 
   GMClasses.VCL;
@@ -428,18 +431,26 @@ begin
   if not Active then
     raise EGMNotActive.Create(Language);  // Map is not active.
 
-  if not (FWebBrowser is TWebBrowser) then
+  if not (FWebBrowser is TWebBrowser) {$IFDEF DELPHIALEXANDRIA}and not (FWebBrowser is TEdgeBrowser){$ENDIF} then
     raise EGMIncorrectBrowser.Create(Language);  // The browser is not of the desired type.
 
-  Doc2 := TWebBrowser(FWebBrowser).Document as IHTMLDocument2;
-  Win2 := Doc2.parentWindow;
+  if FWebBrowser is TWebBrowser then
+  begin
+    Doc2 := TWebBrowser(FWebBrowser).Document as IHTMLDocument2;
+    Win2 := Doc2.parentWindow;
 
-  try
-    Win2.execScript(NameFunct + '(' + Params + ')', 'JavaScript');
-  except
-    on E: Exception do
-      raise EGMJSError.Create([NameFunct, E.Message], Language);
+    try
+      Win2.execScript(NameFunct + '(' + Params + ')', 'JavaScript');
+    except
+      on E: Exception do
+        raise EGMJSError.Create([NameFunct, E.Message], Language);
+    end;
   end;
+  {$IFDEF DELPHIALEXANDRIA}
+  if FWebBrowser is TEdgeBrowser then
+  begin
+  end;
+  {$ENDIF}
 
   //if MapIsNull then
   //  raise Exception.Create(GetTranslateText('El mapa todavía no ha sido creado', Language));
@@ -503,21 +514,31 @@ begin
     Result := '';
 end;
 
-function TGMMap.GetWebBrowser: TWebBrowser;
+function TGMMap.GetWebBrowser: TComponent;
 begin
   Result := nil;
   if FWebBrowser is TWebBrowser then
     Result := TWebBrowser(FWebBrowser);
+
+  {$IFDEF DELPHIALEXANDRIA}
+  if FWebBrowser is TEdgeBrowser then
+    Result := TEdgeBrowser(FWebBrowser);
+  {$ENDIF}
 end;
 
 procedure TGMMap.LoadBlankPage;
 begin
   inherited;
 
-  if not (FWebBrowser is TWebBrowser) then
+  if not (FWebBrowser is TWebBrowser){$IFDEF DELPHIALEXANDRIA}and not (FWebBrowser is TEdgeBrowser){$ENDIF} then
     raise EGMIncorrectBrowser.Create(Language);  // The browser is not of the desired type.
 
-  TWebBrowser(FWebBrowser).Navigate('about:blank');
+  if FWebBrowser is TWebBrowser then
+    TWebBrowser(FWebBrowser).Navigate('about:blank');
+  {$IFDEF DELPHIALEXANDRIA}
+  if FWebBrowser is TEdgeBrowser then
+    TEdgeBrowser(FWebBrowser).Navigate('about:blank');
+  {$ENDIF}
 end;
 
 procedure TGMMap.LoadMap;
@@ -526,10 +547,15 @@ begin
 
   if not Assigned(FWebBrowser) then
     raise EGMUnassignedObject.Create(['WebBrowser'], Language); // Object %s unassigned.
-  if not (FWebBrowser is TWebBrowser) then
+  if not (FWebBrowser is TWebBrowser) {$IFDEF DELPHIALEXANDRIA}and not (FWebBrowser is TEdgeBrowser){$ENDIF} then
     raise EGMIncorrectBrowser.Create(Language);  // The browser is not of the desired type.
 
-  TWebBrowser(FWebBrowser).Navigate(GetBaseHTMLCode);
+  if FWebBrowser is TWebBrowser then
+    TWebBrowser(FWebBrowser).Navigate(GetBaseHTMLCode);
+  {$IFDEF DELPHIALEXANDRIA}
+  if FWebBrowser is TEdgeBrowser then
+    TEdgeBrowser(FWebBrowser).Navigate(GetBaseHTMLCode);
+  {$ENDIF}
 end;
 
 procedure TGMMap.SetIntervalTimer(Interval: Integer);
@@ -539,16 +565,24 @@ begin
   if Assigned(FTimer) then FTimer.Interval := Interval;
 end;
 
-procedure TGMMap.SetWebBrowser(const Value: TWebBrowser);
+procedure TGMMap.SetWebBrowser(const Value: TComponent);
 begin
   if FWebBrowser = Value then Exit;
 
-  if (Value <> FWebBrowser) and Assigned(FWebBrowser) then
+  if Assigned(FWebBrowser) and not (FWebBrowser is TWebBrowser) {$IFDEF DELPHIALEXANDRIA}and not (FWebBrowser is TEdgeBrowser){$ENDIF} then
+    raise EGMIncorrectBrowser.Create(Language);  // The browser is not of the correct class
+
+  if (Value <> FWebBrowser) and Assigned(FWebBrowser) and (FWebBrowser is TWebBrowser) then
   begin
     TWebBrowser(FWebBrowser).OnBeforeNavigate2 := OldBeforeNavigate2;
     TWebBrowser(FWebBrowser).OnDocumentComplete := OldDocumentComplete;
     TWebBrowser(FWebBrowser).OnNavigateComplete2 := OldNavigateComplete2;
   end;
+  {$IFDEF DELPHIALEXANDRIA}
+  if (Value <> FWebBrowser) and Assigned(FWebBrowser) and (FWebBrowser is TEdgeBrowser) then
+  begin
+  end;
+  {$ENDIF}
 
   FWebBrowser := Value;
 {
@@ -556,7 +590,7 @@ begin
 }
   if csDesigning in ComponentState then Exit;
 
-  if Assigned(FWebBrowser) then
+  if Assigned(FWebBrowser) and (FWebBrowser is TWebBrowser) then
   begin
     OldBeforeNavigate2 := TWebBrowser(FWebBrowser).OnBeforeNavigate2;
     OldDocumentComplete := TWebBrowser(FWebBrowser).OnDocumentComplete;
@@ -571,6 +605,11 @@ begin
     else
       LoadBlankPage;
   end;
+  {$IFDEF DELPHIALEXANDRIA}
+  if Assigned(FWebBrowser) and (FWebBrowser is TEdgeBrowser) then
+  begin
+  end;
+  {$ENDIF}
 end;
 
 { TGMMapTypeStyles }
