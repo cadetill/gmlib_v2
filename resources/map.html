@@ -1,32 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-	
-<style type="text/css"> 
-#map {
-  height: 100%;
-}
+    <style type="text/css"> 
+      #map {
+            height: 100%;
+           }
 
-/* Optional: Makes the sample page fill the window. */
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-</style> 	
+      /* Optional: Makes the sample page fill the window. */
+      html,
+      body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+           }
+    </style> 	
 	
     <script>
-	//let map;
-	function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 8
-  });
-}
-	</script>
+	  let map;
+	  
+      function MapChangeProperties() {
+      }
+	  
+      function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+                    center: { lat: 42.5050848, lng: 1.5116108 },
+                    zoom: 10
+                  });
+      }
+    </script>
   </head>
   <body>
+  <table border=1 align=center>
+    <tr>                                      
+      <td align=center onClick="DoMap()">DoMap</td>
+      <td align=center onClick="MapChangeProperties()">MapChangeProperties</td>
+    </tr>
+  </table>
+  
+  
     <div id="map"></div>
 
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
