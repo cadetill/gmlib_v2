@@ -18,7 +18,17 @@
     <script>
 	  let map;
 	  
-      function MapChangeProperties() {
+      function MapChangeProperties(
+                                    /* center */ Lat,Lng,NoWrap,
+                                    ClickableIcons
+                                  ) {
+        //alert('change');
+        var mapOptions = {
+                          zoom: 8,
+                          center: new google.maps.LatLng(Lat,Lng,NoWrap),
+                          mapTypeId: 'satellite'
+                         };
+        map.setOptions(mapOptions);
       }
 	  
       function initMap() {
@@ -33,7 +43,7 @@
   <table border=1 align=center>
     <tr>                                      
       <td align=center onClick="DoMap()">DoMap</td>
-      <td align=center onClick="MapChangeProperties()">MapChangeProperties</td>
+      <td align=center onClick="MapChangeProperties(44, -110, true)">MapChangeProperties</td>
     </tr>
   </table>
   
