@@ -37,6 +37,11 @@
                     zoom: 10
                   });
       }
+      
+      function change() {
+      alert(document.eventsMap.test.value);
+        document.eventsMap.test.value = Math.floor(Math.random() * 6) + 1;
+      }
     </script>
   </head>
   <body>
@@ -44,6 +49,7 @@
     <tr>                                      
       <td align=center onClick="DoMap()">DoMap</td>
       <td align=center onClick="MapChangeProperties(44, -110, true)">MapChangeProperties</td>
+      <td align=center onclick="change()">Change</td>
     </tr>
   </table>
   
@@ -56,5 +62,9 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv6O0wivFINKcQyg7SuHZJi8Z_Lgjdh3c&callback=initMap"
       async
     ></script>
+    
+    <form action="#" id="eventsMap" name="eventsMap">
+      <input type="hidden" name="test" value="0"/>
+    </form> 
   </body>
 </html>
