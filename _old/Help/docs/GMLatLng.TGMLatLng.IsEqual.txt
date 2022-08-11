@@ -1,0 +1,5 @@
+Returns @code(True) if this LatLng is equals the given LatLng.
+
+@param Other @link(TGMLatLng) to compare.
+
+@return @code(True) if equals, otherwise @code(False).

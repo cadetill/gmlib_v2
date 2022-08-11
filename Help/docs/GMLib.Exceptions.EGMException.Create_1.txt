@@ -1,0 +1,5 @@
+@abstract(Constructor class.)
+
+@param Msg Message to show translation (must be in English).
+@param Args Array of arguments to apply to the message.
+@param Lang Language to translate.

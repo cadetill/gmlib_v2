@@ -290,7 +290,7 @@
   {$DEFINE DELPHISYDNEY}
 {$ENDIF}
 
-// Alexandria 10.5
+// Alexandria 11.0/11.1
 {$IFDEF VER350}
   {$DEFINE DELPHI6}
   {$DEFINE DELPHI7}

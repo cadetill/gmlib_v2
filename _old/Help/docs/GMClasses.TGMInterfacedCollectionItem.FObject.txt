@@ -1,0 +1,1 @@
+Represents an object that is associated with the item.

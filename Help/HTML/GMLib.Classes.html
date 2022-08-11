@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Google Maps Library: GMLib.Classes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 0.15.0">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<div class="container"><div class="navigation">
+<h2><a href="index.html">Google Maps Library</a></h2><ul><li><a href="AllUnits.html">Units</a></li><li><a href="ClassHierarchy.html">Class Hierarchy</a></li><li><a href="AllClasses.html">Classes, Interfaces, Objects and Records</a></li><li><a href="AllTypes.html">Types</a></li><li><a href="AllVariables.html">Variables</a></li><li><a href="AllConstants.html">Constants</a></li><li><a href="AllFunctions.html">Functions and Procedures</a></li><li><a href="AllIdentifiers.html">Identifiers</a></li><li><a href="GVUses.png">Unit dependency graph</a></li><li><a href="GVClasses.png">Classes hierarchy graph</a></li><li><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input" pattern=".{3,}" title="At least 3 characters" required><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></div></form>
+<div style="clear: both"></div>
+</li></ul></div><div class="content">
+<table class="container">
+<tr>
+<td><i><a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></i></td>
+<td align ="right"><i>Copyright &copy; Xavier Mart&iacute;nez (cadetill)</i></td>
+</tr>
+</table>
+<hr noshade="" size="1">
+<h1 class="unit">Unit GMLib.Classes</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Uses">Uses</a></div><div class="one_section"><a class="section" href="#PasDoc-Classes">Classes, Interfaces, Objects and Records</a></div><div class="one_section">Functions and Procedures</div><div class="one_section"><a class="section" href="#PasDoc-Types">Types</a></div><div class="one_section">Constants</div><div class="one_section">Variables</div></div>
+<span id="PasDoc-Description"></span><h2 class="description">Description</h2>
+<p>
+Interfaces, base classes and support classes for GMLib.</p>
+<p>
+   
+
+<p>The GMLib.Classes unit provides access to interfaces and base classes used into GMLib.</p>
+<span id="PasDoc-Uses"></span><h2 class="uses">Uses</h2>
+<ul class="useslist"><li>SysUtils</li><li>Classes</li><li><a href="GMLib.Sets.html">GMLib.Sets</a></li></ul><h2 class="overview">Overview</h2>
+<span id="PasDoc-Classes"></span><h3 class="cio">Classes, Interfaces, Objects and Records</h3>
+<table class="classestable wide_list">
+<tr class="listheader">
+<th class="itemname">Name</th>
+<th class="itemdesc">Description</th>
+</tr>
+<tr class="list">
+<td class="itemname">Interface&nbsp;<a class="bold" href="GMLib.Classes.IGMAPIUrl.html"><code>IGMAPIUrl</code></a></td>
+<td class="itemdesc">Interface that provide access to an URL to Google Maps API page.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Interface&nbsp;<a class="bold" href="GMLib.Classes.IGMToStr.html"><code>IGMToStr</code></a></td>
+<td class="itemdesc">Interface that provide access to convert all object properties to a string.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Interface&nbsp;<a class="bold" href="GMLib.Classes.IGMControlChanges.html"><code>IGMControlChanges</code></a></td>
+<td class="itemdesc">Interface that defines the method to call of the owner object when changes a property of the object.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Interface&nbsp;<a class="bold" href="GMLib.Classes.IGMOwnerLang.html"><code>IGMOwnerLang</code></a></td>
+<td class="itemdesc">Interface that defines the method to call of the owner object to know his <a class="normal" href="GMLib.Sets.html#TGMLang">TGMLang</a>.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Interface&nbsp;<a class="bold" href="GMLib.Classes.IGMExecJS.html"><code>IGMExecJS</code></a></td>
+<td class="itemdesc">Interface that defines the method to call to execute a JavaScript function.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold" href="GMLib.Classes.TGMObject.html"><code>TGMObject</code></a></td>
+<td class="itemdesc">Base class for all classes that inherit from <code>TObject</code> into GMLib.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="GMLib.Classes.TGMInterfacedOwnedPersistent.html"><code>TGMInterfacedOwnedPersistent</code></a></td>
+<td class="itemdesc">Base class for all classes that inherit from <code>TPersistent</code> into GMLib and need to be interfaced and to have an Owner.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold" href="GMLib.Classes.TGMPersistent.html"><code>TGMPersistent</code></a></td>
+<td class="itemdesc">Base class for all classes that inherit from <code><a class="normal" href="GMLib.Classes.TGMInterfacedOwnedPersistent.html">TGMInterfacedOwnedPersistent</a></code> into GMLib and implements <code><a class="normal" href="GMLib.Classes.IGMAPIUrl.html">IGMAPIUrl</a></code> interface.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="GMLib.Classes.TGMPersistentStr.html"><code>TGMPersistentStr</code></a></td>
+<td class="itemdesc">Base class for all classes that inherit from <code><a class="normal" href="GMLib.Classes.TGMPersistent.html">TGMPersistent</a></code> into GMLib and implements <code><a class="normal" href="GMLib.Classes.IGMToStr.html">IGMToStr</a></code> and <code><a class="normal" href="GMLib.Classes.IGMOwnerLang.html">IGMOwnerLang</a></code> interfaces.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold" href="GMLib.Classes.TGMComponent.html"><code>TGMComponent</code></a></td>
+<td class="itemdesc">Base class for all classes that inherit from <code>TComponent</code> into GMLib.</td>
+</tr>
+<tr class="list">
+<td class="itemname">Class&nbsp;<a class="bold" href="GMLib.Classes.TGMInterfacedCollectionItem.html"><code>TGMInterfacedCollectionItem</code></a></td>
+<td class="itemdesc">Base class for all classes that inherit from <code>TCollectionItem</code> into GMLib.</td>
+</tr>
+<tr class="list2">
+<td class="itemname">Class&nbsp;<a class="bold" href="GMLib.Classes.TGMInterfacedCollection.html"><code>TGMInterfacedCollection</code></a></td>
+<td class="itemdesc">Base class for all classes that inherit from <code>TCollection</code> into GMLib.</td>
+</tr>
+</table>
+<span id="PasDoc-Types"></span><h3 class="summary">Types</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><strong><a href="GMLib.Classes.html#TPropertyChanges">TPropertyChanges</a></strong> = procedure(Owner: TObject; PropName: string) of object;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Types</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TPropertyChanges"></span><code><strong>TPropertyChanges</strong> = procedure(Owner: TObject; PropName: string) of object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Event fired when a property from and object changes.</p>
+<p>
+
+
+<p>  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Owner</dt>
+<dd>Owner of property.</dd>
+<dt>PropName</dt>
+<dd>Property name.</dd>
+</dl>
+</td></tr>
+</table>
+<h2 class="authors">Author</h2>
+<ul class="authors">
+<li>Xavier Martinez (cadetill) &lt;<a href="mailto:cadetill@gmail.com">cadetill@gmail.com</a>&gt;</li>
+</ul>
+<h2 class="created">Created</h2>
+<p>
+August 2, 2022
+</p>
+<h2 class="modified">Last Modified</h2>
+<p>
+August 2, 2022
+</p>
+<hr><span class="appinfo"><em>Generated by <a href="https://github.com/pasdoc/pasdoc/wiki">PasDoc 0.15.0</a>. </em>
+</span>
+</div></div></body></html>

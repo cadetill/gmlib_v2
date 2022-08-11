@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Google Maps Library: GMSets</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 0.15.0">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<div class="container"><div class="navigation">
+<h2><a href="index.html">Google Maps Library</a></h2><ul><li><a href="AllUnits.html">Units</a></li><li><a href="ClassHierarchy.html">Class Hierarchy</a></li><li><a href="AllClasses.html">Classes, Interfaces, Objects and Records</a></li><li><a href="AllTypes.html">Types</a></li><li><a href="AllVariables.html">Variables</a></li><li><a href="AllConstants.html">Constants</a></li><li><a href="AllFunctions.html">Functions and Procedures</a></li><li><a href="AllIdentifiers.html">Identifiers</a></li><li><a href="GVUses.png">Unit dependency graph</a></li><li><a href="GVClasses.png">Classes hierarchy graph</a></li><li><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input" pattern=".{3,}" title="At least 3 characters" required><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></div></form>
+<div style="clear: both"></div>
+</li></ul></div><div class="content">
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright &copy; Xavier Mart&iacute;nez (cadetill).</td>
+</tr>
+</table>
+<hr noshade="" size="1">
+<h1 class="unit">Unit GMSets</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section">Uses</div><div class="one_section">Classes, Interfaces, Objects and Records</div><div class="one_section">Functions and Procedures</div><div class="one_section"><a class="section" href="#PasDoc-Types">Types</a></div><div class="one_section">Constants</div><div class="one_section">Variables</div></div>
+<span id="PasDoc-Description"></span><h2 class="description">Description</h2>
+<p>
+Sets for GMLib.</p>
+<p>
+   
+
+<p>The GMSets unit contains all sets used by GMLib.</p>
+<span id="PasDoc-Uses"></span><h2 class="overview">Overview</h2>
+<span id="PasDoc-Types"></span><h3 class="summary">Types</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><strong><a href="GMSets.html#TGMLang">TGMLang</a></strong> = (...);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><strong><a href="GMSets.html#TGoogleAPIVer">TGoogleAPIVer</a></strong> = (...);</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><strong><a href="GMSets.html#TGMAPILang">TGMAPILang</a></strong> = (...);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><strong><a href="GMSets.html#TGMMapTypeId">TGMMapTypeId</a></strong> = (...);</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><strong><a href="GMSets.html#TGMMapTypeIds">TGMMapTypeIds</a></strong> = set of <a href="GMSets.html#TGMMapTypeId">TGMMapTypeId</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><strong><a href="GMSets.html#TGMControlPosition">TGMControlPosition</a></strong> = (...);</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><strong><a href="GMSets.html#TGMMapTypeControlStyle">TGMMapTypeControlStyle</a></strong> = (...);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><strong><a href="GMSets.html#TGMScaleControlStyle">TGMScaleControlStyle</a></strong> = (...);</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><strong><a href="GMSets.html#TGMMapTypeStyleElementType">TGMMapTypeStyleElementType</a></strong> = (...);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><strong><a href="GMSets.html#TGMMapTypeStyleFeatureType">TGMMapTypeStyleFeatureType</a></strong> = (...);</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><strong><a href="GMSets.html#TGMVisibility">TGMVisibility</a></strong> = (...);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><strong><a href="GMSets.html#TGMGestureHandling">TGMGestureHandling</a></strong> = (...);</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Types</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMLang"></span><code><strong>TGMLang</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Language in which messages are displayed the exceptions shown by GMLib. </p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="lnUnknown">lnUnknown</span>: unknown exception language</li>
+<li>
+<span id="lnEspanol">lnEspanol</span>: Spanish exception language</li>
+<li>
+<span id="lnEnglish">lnEnglish</span>: English exception language</li>
+<li>
+<span id="lnFrench">lnFrench</span>: French exception language</li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGoogleAPIVer"></span><code><strong>TGoogleAPIVer</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Version of the Google Maps API to use
+
+<p>For more info see <a href="https://developers.google.com/maps/documentation/javascript/versions">Versioning</a> on Google Maps</p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="api347">api347</span></li>
+<li>
+<span id="api348">api348</span></li>
+<li>
+<span id="apiWeekly">apiWeekly</span></li>
+<li>
+<span id="apiQuarterly">apiQuarterly</span></li>
+<li>
+<span id="apiBeta">apiBeta</span></li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMAPILang"></span><code><strong>TGMAPILang</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+By default the API will attempt to load the most appropriate language based on the users location or browser settings.</p>
+<p>
+ But some APIs allow you to explicitly set a language when you make a request. <br> <br>
+
+<p>More info at <a href="https://developers.google.com/maps/faq#languagesupport">https://developers.google.com/maps/faq#languagesupport</a> </p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="lArabic">lArabic</span></li>
+<li>
+<span id="lBulgarian">lBulgarian</span></li>
+<li>
+<span id="lBengali">lBengali</span></li>
+<li>
+<span id="lCatalan">lCatalan</span></li>
+<li>
+<span id="lCzech">lCzech</span></li>
+<li>
+<span id="lDanish">lDanish</span></li>
+<li>
+<span id="lGerman">lGerman</span></li>
+<li>
+<span id="lGreek">lGreek</span></li>
+<li>
+<span id="lEnglish">lEnglish</span></li>
+<li>
+<span id="lEnglish_Aust">lEnglish_Aust</span></li>
+<li>
+<span id="lEnglish_GB">lEnglish_GB</span></li>
+<li>
+<span id="lSpanish">lSpanish</span></li>
+<li>
+<span id="lBasque">lBasque</span></li>
+<li>
+<span id="lFarsi">lFarsi</span></li>
+<li>
+<span id="lFinnish">lFinnish</span></li>
+<li>
+<span id="lFilipino">lFilipino</span></li>
+<li>
+<span id="lFrench">lFrench</span></li>
+<li>
+<span id="lGalician">lGalician</span></li>
+<li>
+<span id="lGujarati">lGujarati</span></li>
+<li>
+<span id="lHindi">lHindi</span></li>
+<li>
+<span id="lCroatian">lCroatian</span></li>
+<li>
+<span id="lHungarian">lHungarian</span></li>
+<li>
+<span id="lIndonesian">lIndonesian</span></li>
+<li>
+<span id="lItalian">lItalian</span></li>
+<li>
+<span id="lHebrew">lHebrew</span></li>
+<li>
+<span id="lJapanese">lJapanese</span></li>
+<li>
+<span id="lKannada">lKannada</span></li>
+<li>
+<span id="lKorean">lKorean</span></li>
+<li>
+<span id="lLithuanian">lLithuanian</span></li>
+<li>
+<span id="lLatvian">lLatvian</span></li>
+<li>
+<span id="lMalayalam">lMalayalam</span></li>
+<li>
+<span id="lMarathi">lMarathi</span></li>
+<li>
+<span id="lDutch">lDutch</span></li>
+<li>
+<span id="lNorwegian">lNorwegian</span></li>
+<li>
+<span id="lPolish">lPolish</span></li>
+<li>
+<span id="lPortuguese">lPortuguese</span></li>
+<li>
+<span id="lPortuguese_Br">lPortuguese_Br</span></li>
+<li>
+<span id="lPortuguese_Ptg">lPortuguese_Ptg</span></li>
+<li>
+<span id="lRomanian">lRomanian</span></li>
+<li>
+<span id="lRussian">lRussian</span></li>
+<li>
+<span id="lSlovak">lSlovak</span></li>
+<li>
+<span id="lSlovenian">lSlovenian</span></li>
+<li>
+<span id="lSerbian">lSerbian</span></li>
+<li>
+<span id="lSwedish">lSwedish</span></li>
+<li>
+<span id="lTamil">lTamil</span></li>
+<li>
+<span id="lTelugu">lTelugu</span></li>
+<li>
+<span id="lThai">lThai</span></li>
+<li>
+<span id="lTagalog">lTagalog</span></li>
+<li>
+<span id="lTurkish">lTurkish</span></li>
+<li>
+<span id="lUkrainian">lUkrainian</span></li>
+<li>
+<span id="lVietnamese">lVietnamese</span></li>
+<li>
+<span id="lChinese_Simp">lChinese_Simp</span></li>
+<li>
+<span id="lChinese_Trad">lChinese_Trad</span></li>
+<li>
+<span id="lUndefined">lUndefined</span></li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMMapTypeId"></span><code><strong>TGMMapTypeId</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Identifiers for common MapTypes.</p>
+<p>
+
+
+<p>More info at <a href="https://developers.google.com/maps/documentation/javascript/reference/map#MapTypeId">google.maps.MapTypeId constants</a> </p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="mtHYBRID">mtHYBRID</span></li>
+<li>
+<span id="mtROADMAP">mtROADMAP</span></li>
+<li>
+<span id="mtSATELLITE">mtSATELLITE</span></li>
+<li>
+<span id="mtTERRAIN">mtTERRAIN</span></li>
+<li>
+<span id="mtOSM">mtOSM</span></li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMMapTypeIds"></span><code><strong>TGMMapTypeIds</strong> = set of <a href="GMSets.html#TGMMapTypeId">TGMMapTypeId</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Set of TGMMapTypeId.</p>
+<p>
+ </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMControlPosition"></span><code><strong>TGMControlPosition</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Identifiers used to specify the placement of controls on the map.</p>
+<p>
+
+
+<p>Controls are positioned relative to other controls in the same layout position. Controls that are added first are positioned closer to the edge of the map. </p>
+
+<pre class="longcode"> +----------------+
++ TL    TC    TR +
++ LT          RT +
++                +
++ LC          RC +
++                +
++ LB          RB +
++ BL    BC    BR +
++----------------+</pre>
+
+<p>
+
+<p>Elements in the top or bottom row flow towards the middle of the row. Elements in the left or right column flow towards the middle of the column.<br><br> More info at <a href="https://developers.google.com/maps/documentation/javascript/reference/control#ControlPosition">google.maps.ControlPosition constants</a> </p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="cpBOTTOM_CENTER">cpBOTTOM_CENTER</span></li>
+<li>
+<span id="cpBOTTOM_LEFT">cpBOTTOM_LEFT</span></li>
+<li>
+<span id="cpBOTTOM_RIGHT">cpBOTTOM_RIGHT</span></li>
+<li>
+<span id="cpLEFT_BOTTOM">cpLEFT_BOTTOM</span></li>
+<li>
+<span id="cpLEFT_CENTER">cpLEFT_CENTER</span></li>
+<li>
+<span id="cpLEFT_TOP">cpLEFT_TOP</span></li>
+<li>
+<span id="cpRIGHT_BOTTOM">cpRIGHT_BOTTOM</span></li>
+<li>
+<span id="cpRIGHT_CENTER">cpRIGHT_CENTER</span></li>
+<li>
+<span id="cpRIGHT_TOP">cpRIGHT_TOP</span></li>
+<li>
+<span id="cpTOP_CENTER">cpTOP_CENTER</span></li>
+<li>
+<span id="cpTOP_LEFT">cpTOP_LEFT</span></li>
+<li>
+<span id="cpTOP_RIGHT">cpTOP_RIGHT</span></li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMMapTypeControlStyle"></span><code><strong>TGMMapTypeControlStyle</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Identifiers for common MapTypesControls.</p>
+<p>
+
+
+<p>More info at <a href="https://developers.google.com/maps/documentation/javascript/reference/control#MapTypeControlStyle">google.maps.MapTypeControlStyle constants</a> </p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="mtcDEFAULT">mtcDEFAULT</span></li>
+<li>
+<span id="mtcDROPDOWN_MENU">mtcDROPDOWN_MENU</span></li>
+<li>
+<span id="mtcHORIZONTAL_BAR">mtcHORIZONTAL_BAR</span></li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMScaleControlStyle"></span><code><strong>TGMScaleControlStyle</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Identifiers for scale control ids.</p>
+<p>
+
+
+<p>More info at <a href="https://developers.google.com/maps/documentation/javascript/reference/control#ScaleControlStyle">google.maps.ScaleControlStyle constants</a> </p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="scDEFAULT">scDEFAULT</span></li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMMapTypeStyleElementType"></span><code><strong>TGMMapTypeStyleElementType</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+<code>google.maps.MapTypeStyleElementType</code> object specification</p>
+<p>
+
+
+<p>Each TGMMapTypeStyleElementType distinguishes between the different representations of a feature.<br><br> More info at <a href="https://developers.google.com/maps/documentation/javascript/style-reference#style-elements">elementType</a> </p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="setALL">setALL</span></li>
+<li>
+<span id="setGEOMETRY">setGEOMETRY</span></li>
+<li>
+<span id="setGEOMETRY_FILL">setGEOMETRY_FILL</span></li>
+<li>
+<span id="setGEOMETRY_STROKE">setGEOMETRY_STROKE</span></li>
+<li>
+<span id="setLABELS">setLABELS</span></li>
+<li>
+<span id="setLABELS_ICON">setLABELS_ICON</span></li>
+<li>
+<span id="setLABELS_TEXT">setLABELS_TEXT</span></li>
+<li>
+<span id="setLABELS_TEXT_FILL">setLABELS_TEXT_FILL</span></li>
+<li>
+<span id="setLABELS_TEXT_STROKE">setLABELS_TEXT_STROKE</span></li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMMapTypeStyleFeatureType"></span><code><strong>TGMMapTypeStyleFeatureType</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+<code>google.maps.MapTypeStyleFeatureType</code> object specification</p>
+<p>
+
+
+<p>Possible values for feature types. Stylers applied to a parent feature type automatically apply to all child feature types. Note however that parent features may include some additional features that are not included in one of their child feature types.<br><br> More info at <a href="https://developers.google.com/maps/documentation/javascript/style-reference#style-features">featureType</a> </p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="sftADMINISTRATIVE">sftADMINISTRATIVE</span></li>
+<li>
+<span id="sftADMINISTRATIVE_COUNTRY">sftADMINISTRATIVE_COUNTRY</span></li>
+<li>
+<span id="sftADMINISTRATIVE_LAND__PARCEL">sftADMINISTRATIVE_LAND__PARCEL</span></li>
+<li>
+<span id="sftADMINISTRATIVE_LOCALITY">sftADMINISTRATIVE_LOCALITY</span></li>
+<li>
+<span id="sftADMINISTRATIVE_NEIGHBORHOOD">sftADMINISTRATIVE_NEIGHBORHOOD</span></li>
+<li>
+<span id="sftADMINISTRATIVE_PROVINCE">sftADMINISTRATIVE_PROVINCE</span></li>
+<li>
+<span id="sftALL">sftALL</span></li>
+<li>
+<span id="sftLANDSCAPE">sftLANDSCAPE</span></li>
+<li>
+<span id="sftLANDSCAPE_MAN__MADE">sftLANDSCAPE_MAN__MADE</span></li>
+<li>
+<span id="sftLANDSCAPE_NATURAL">sftLANDSCAPE_NATURAL</span></li>
+<li>
+<span id="sftLANDSCAPE_NATURAL_LANDCOVER">sftLANDSCAPE_NATURAL_LANDCOVER</span></li>
+<li>
+<span id="sftLANDSCAPE_NATURAL_TERRAIN">sftLANDSCAPE_NATURAL_TERRAIN</span></li>
+<li>
+<span id="sftPOI">sftPOI</span></li>
+<li>
+<span id="sftPOI_ATTRACTION">sftPOI_ATTRACTION</span></li>
+<li>
+<span id="sftPOI_BUSINESS">sftPOI_BUSINESS</span></li>
+<li>
+<span id="sftPOI_GOVERNMENT">sftPOI_GOVERNMENT</span></li>
+<li>
+<span id="sftPOI_MEDICAL">sftPOI_MEDICAL</span></li>
+<li>
+<span id="sftPOI_PARK">sftPOI_PARK</span></li>
+<li>
+<span id="sftPOI_PLACE__OF__WORSHIP">sftPOI_PLACE__OF__WORSHIP</span></li>
+<li>
+<span id="sftPOI_SCHOOL">sftPOI_SCHOOL</span></li>
+<li>
+<span id="sftPOI_SPORTS__COMPLEX">sftPOI_SPORTS__COMPLEX</span></li>
+<li>
+<span id="sftROAD">sftROAD</span></li>
+<li>
+<span id="sftROAD_ARTERIAL">sftROAD_ARTERIAL</span></li>
+<li>
+<span id="sftROAD_HIGHWAY">sftROAD_HIGHWAY</span></li>
+<li>
+<span id="sftROAD_HIGHWAY_CONTROLLED__ACCESS">sftROAD_HIGHWAY_CONTROLLED__ACCESS</span></li>
+<li>
+<span id="sftROAD_LOCAL">sftROAD_LOCAL</span></li>
+<li>
+<span id="sftTRANSIT">sftTRANSIT</span></li>
+<li>
+<span id="sftTRANSIT_LINE">sftTRANSIT_LINE</span></li>
+<li>
+<span id="sftTRANSIT_STATION">sftTRANSIT_STATION</span></li>
+<li>
+<span id="sftTRANSIT_STATION_AIRPORT">sftTRANSIT_STATION_AIRPORT</span></li>
+<li>
+<span id="sftTRANSIT_STATION_BUS">sftTRANSIT_STATION_BUS</span></li>
+<li>
+<span id="sftTRANSIT_STATION_RAIL">sftTRANSIT_STATION_RAIL</span></li>
+<li>
+<span id="sftWATER">sftWATER</span></li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMVisibility"></span><code><strong>TGMVisibility</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Possible values for visibility property from MapTypeStyler object.</p>
+<p>
+ More info at <a href="https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyler">https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyler</a> </p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="vOn">vOn</span></li>
+<li>
+<span id="vOff">vOff</span></li>
+<li>
+<span id="vSimplified">vSimplified</span></li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMGestureHandling"></span><code><strong>TGMGestureHandling</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+This setting controls how the API handles gestures on the map. Allowed values:
+
+<p>&quot;cooperative&quot;: Scroll events and one-finger touch gestures scroll the page, and do not zoom or pan the map. Two-finger touch gestures pan and zoom the map. Scroll events with a ctrl key or key pressed zoom the map. In this mode the map cooperates with the page. &quot;greedy&quot;: All touch gestures and scroll events pan or zoom the map. &quot;none&quot;: The map cannot be panned or zoomed by user gestures. &quot;auto&quot;: (default) Gesture handling is either cooperative or greedy, depending on whether the page is scrollable or in an iframe.</p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="ghCooperative">ghCooperative</span></li>
+<li>
+<span id="ghGreedy">ghGreedy</span></li>
+<li>
+<span id="ghNone">ghNone</span></li>
+<li>
+<span id="ghAuto">ghAuto</span></li>
+</ul>
+</td></tr>
+</table>
+<h2 class="authors">Author</h2>
+<ul class="authors">
+<li>Xavier Martinez (cadetill) &lt;<a href="mailto:cadetill@gmail.com">cadetill@gmail.com</a>&gt;</li>
+</ul>
+<h2 class="created">Created</h2>
+<p>
+Septembre 30, 2015
+</p>
+<h2 class="modified">Last Modified</h2>
+<p>
+Septembre 30, 2015
+</p>
+<br />
+<hr>
+<table class="container">
+<tr>
+<td>Go to <a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></td>
+<td class="cadetill">Copyright &copy; Xavier Mart&iacute;nez (cadetill).</td>
+</tr>
+</table>
+<hr><span class="appinfo"><em>Generated by <a href="https://github.com/pasdoc/pasdoc/wiki">PasDoc 0.15.0</a>. </em>
+</span>
+</div></div></body></html>

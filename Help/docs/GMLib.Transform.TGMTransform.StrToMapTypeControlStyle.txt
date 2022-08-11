@@ -1,0 +1,5 @@
+@abstract(Returns the @link(TGMMapTypeControlStyle) represented by the string Value.)
+
+@param Value string to convert to @link(TGMMapTypeControlStyle).
+
+@return @link(TGMMapTypeControlStyle) that represents the string.

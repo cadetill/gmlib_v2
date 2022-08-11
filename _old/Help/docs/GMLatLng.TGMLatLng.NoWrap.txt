@@ -1,0 +1,1 @@
+Allows to put values outside the default range of Lat/Lng properties.

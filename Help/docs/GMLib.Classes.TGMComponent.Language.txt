@@ -1,0 +1,1 @@
+@abstract(Language property specifies the language in which messages are displayed the exceptions raised by GMLib.)

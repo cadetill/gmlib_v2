@@ -1,0 +1,56 @@
+DiGraph Classes {
+  "IGMAPIUrl" -> "IInterface"
+  "IGMAPIUrl" [href="GMLib.Classes.IGMAPIUrl.html"]
+  "IGMControlChanges" -> "IInterface"
+  "IGMControlChanges" [href="GMLib.Classes.IGMControlChanges.html"]
+  "IGMExecJS" -> "IInterface"
+  "IGMExecJS" [href="GMLib.Classes.IGMExecJS.html"]
+  "IGMOwnerLang" -> "IInterface"
+  "IGMOwnerLang" [href="GMLib.Classes.IGMOwnerLang.html"]
+  "IGMToStr" -> "IInterface"
+  "IGMToStr" [href="GMLib.Classes.IGMToStr.html"]
+  "TGMObject" -> "TInterfacedObject"
+  "TGMObject" [href="GMLib.Classes.TGMObject.html"]
+  "Exception" -> "TObject"
+  "EGMException" -> "Exception"
+  "EGMException" [href="GMLib.Exceptions.EGMException.html"]
+  "EGMCanLoadResource" -> "EGMException"
+  "EGMCanLoadResource" [href="GMLib.Exceptions.EGMCanLoadResource.html"]
+  "EGMIncorrectBrowser" -> "EGMException"
+  "EGMIncorrectBrowser" [href="GMLib.Exceptions.EGMIncorrectBrowser.html"]
+  "EGMJSError" -> "EGMException"
+  "EGMJSError" [href="GMLib.Exceptions.EGMJSError.html"]
+  "EGMMapIsActive" -> "EGMException"
+  "EGMMapIsActive" [href="GMLib.Exceptions.EGMMapIsActive.html"]
+  "EGMNotActive" -> "EGMException"
+  "EGMNotActive" [href="GMLib.Exceptions.EGMNotActive.html"]
+  "EGMNotValidRealNumber" -> "EGMException"
+  "EGMNotValidRealNumber" [href="GMLib.Exceptions.EGMNotValidRealNumber.html"]
+  "EGMOwnerWithoutJS" -> "EGMException"
+  "EGMOwnerWithoutJS" [href="GMLib.Exceptions.EGMOwnerWithoutJS.html"]
+  "EGMTimeOut" -> "EGMException"
+  "EGMTimeOut" [href="GMLib.Exceptions.EGMTimeOut.html"]
+  "EGMUnassignedObject" -> "EGMException"
+  "EGMUnassignedObject" [href="GMLib.Exceptions.EGMUnassignedObject.html"]
+  "EGMWithoutOwner" -> "EGMException"
+  "EGMWithoutOwner" [href="GMLib.Exceptions.EGMWithoutOwner.html"]
+  "TPersistent" -> "TObject"
+  "TCollection" -> "TPersistent"
+  "TGMInterfacedCollection" -> "TCollection"
+  "TGMInterfacedCollection" [href="GMLib.Classes.TGMInterfacedCollection.html"]
+  "TCollectionItem" -> "TPersistent"
+  "TGMInterfacedCollectionItem" -> "TCollectionItem"
+  "TGMInterfacedCollectionItem" [href="GMLib.Classes.TGMInterfacedCollectionItem.html"]
+  "TComponent" -> "TPersistent"
+  "TGMComponent" -> "TComponent"
+  "TGMComponent" [href="GMLib.Classes.TGMComponent.html"]
+  "TInterfacedPersistent" -> "TPersistent"
+  "TGMInterfacedOwnedPersistent" -> "TInterfacedPersistent"
+  "TGMInterfacedOwnedPersistent" [href="GMLib.Classes.TGMInterfacedOwnedPersistent.html"]
+  "TGMPersistent" -> "TGMInterfacedOwnedPersistent"
+  "TGMPersistent" [href="GMLib.Classes.TGMPersistent.html"]
+  "TGMPersistentStr" -> "TGMPersistent"
+  "TGMPersistentStr" [href="GMLib.Classes.TGMPersistentStr.html"]
+  "TGMLatLng" -> "TGMPersistentStr"
+  "TGMLatLng" [href="GMLib.LatLng.TGMLatLng.html"]
+}

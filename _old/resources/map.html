@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style type="text/css"> 
+    html { height: 100% } 
+    body { height: 100%; margin: 0px; padding: 0px } 
+    #map_canvas { height: 100% } 
+  </style>
+  
+  <script type="text/javascript" src="./map.js" charset="utf-8"></script>
+
+</head>
+
+<body">
+  <p><button onclick="setMapOptions(41.656264, -0.8790698, 10)">SetOptions</button></p>
+  
+  <form action="#" id="eventsMap" name="eventsMap"> 
+    <input type="text" id="eventsMapEventfired" name="eventfired" value="0"/> 
+	<!-- eventos para el mapa / map events -->
+    <input type="text" id="eventsMapLat" name="lat" value="0"/> 
+    <input type="text" id="eventsMapLng" name="lng" value="0"/> 
+    <input type="text" id="eventsMapX" name="x" value="0"/> 
+    <input type="text" id="eventsMapY" name="y" value="0"/> 
+    <input type="text" id="eventsMapMouseMove" name="mouseMove" value="0"/> 
+
+    <input type="text" name="boundsChange" value="0"/> 
+    <input type="text" name="centerChange" value="0"/> 
+    <input type="text" name="click" value="0"/> 
+    <input type="text" name="dblclick" value="0"/> 
+    <input type="text" name="drag" value="0"/> 
+    <input type="text" name="dragEnd" value="0"/> 
+    <input type="text" name="dragStart" value="0"/> 
+    <input type="text" name="mapTypeId_changed" value="0"/> 
+    <input type="text" name="mouseOut" value="0"/> 
+    <input type="text" name="mouseOver" value="0"/> 
+    <input type="text" name="rightClick" value="0"/> 
+    <input type="text" name="tilesLoaded" value="0"/> 
+    <input type="text" name="zoomChanged" value="0"/> 
+    <input type="text" name="swLat" value="0"/> 
+    <input type="text" name="swLng" value="0"/> 
+    <input type="text" name="neLat" value="0"/> 
+    <input type="text" name="neLng" value="0"/> 
+    <input type="text" name="mapTypeId" value=""/> 
+    <input type="text" name="zoom" value="0"/> 
+    <input type="text" name="weatherClick" value="0"/> 
+    <input type="text" name="weatherLat" value="0"/> 
+    <input type="text" name="weatherLng" value="0"/> 
+    <input type="text" name="weatherFeature" value=""/> 
+    <input type="text" name="panoClick" value="0"/> 
+    <input type="text" name="panoLat" value="0"/> 
+    <input type="text" name="panoLng" value="0"/> 
+    <input type="text" name="panoAuthor" value=""/> 
+    <input type="text" name="panoPhotoId" value=""/> 
+    <input type="text" name="panoTitle" value=""/> 
+    <input type="text" name="panoUrl" value=""/> 
+    <input type="text" name="panoUserId" value=""/> 
+    <input type="text" name="circleComplete" value=""/> 
+  </form> 
+
+  <div id="googleMap" style="width:100%;height:100%;"></div>
+
+  <script type="text/javascript">
+    function myMap() {
+      var mapOptions = {
+                        center:new google.maps.LatLng(41.656264, -0.8790698),
+                        zoom: 8
+                       };
+      map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
+      
+      mapAssignEvents();
+    }
+  </script>
+
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-gNOocyb6U4vdESUrFSMdSoUv1rm2s0&callback=myMap"></script>
+  
+
+  <form action="#" id="eventsMap" name="eventsMap">
+    <input type="hidden" name="test" value="0"/>
+  </form> 
+  
+
+</body>
+</html>

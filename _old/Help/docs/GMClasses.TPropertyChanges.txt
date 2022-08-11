@@ -1,0 +1,4 @@
+@abstract(Event fired when a property from and object changes.)
+
+@param Owner Owner of property.
+@param PropName Property name.

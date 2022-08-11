@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Google Maps Library: GMLib.Translations</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 0.15.0">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<div class="container"><div class="navigation">
+<h2><a href="index.html">Google Maps Library</a></h2><ul><li><a href="AllUnits.html">Units</a></li><li><a href="ClassHierarchy.html">Class Hierarchy</a></li><li><a href="AllClasses.html">Classes, Interfaces, Objects and Records</a></li><li><a href="AllTypes.html">Types</a></li><li><a href="AllVariables.html">Variables</a></li><li><a href="AllConstants.html">Constants</a></li><li><a href="AllFunctions.html">Functions and Procedures</a></li><li><a href="AllIdentifiers.html">Identifiers</a></li><li><a href="GVUses.png">Unit dependency graph</a></li><li><a href="GVClasses.png">Classes hierarchy graph</a></li><li><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input" pattern=".{3,}" title="At least 3 characters" required><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></div></form>
+<div style="clear: both"></div>
+</li></ul></div><div class="content">
+<table class="container">
+<tr>
+<td><i><a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></i></td>
+<td align ="right"><i>Copyright &copy; Xavier Mart&iacute;nez (cadetill)</i></td>
+</tr>
+</table>
+<hr noshade="" size="1">
+<h1 class="unit">Unit GMLib.Translations</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Uses">Uses</a></div><div class="one_section">Classes, Interfaces, Objects and Records</div><div class="one_section"><a class="section" href="#PasDoc-FuncsProcs">Functions and Procedures</a></div><div class="one_section">Types</div><div class="one_section">Constants</div><div class="one_section">Variables</div></div>
+<span id="PasDoc-Description"></span><h2 class="description">Description</h2>
+<p>
+Exceptions and messages translations from GMLib.</p>
+<p>
+   
+
+<p>The GMLib.Translations contains all translations for the exceptions raised by GMLib. <br><br> If you want to add a new translation you must to do: </p>
+
+<ul class="paragraph_spacing">
+  <li><p>Into GMLib.Sets unit: add new language into TGMLang set</p></li>
+  <li><p>In this unit: add a new Array into const section with translation</p></li>
+  <li><p>In this unit: modify GetTranslateText function (the second function, the one with Idx as parameter) to add the new language in case statement</p></li>
+</ul>
+
+<p></p>
+<span id="PasDoc-Uses"></span><h2 class="uses">Uses</h2>
+<ul class="useslist"><li><a href="GMLib.Sets.html">GMLib.Sets</a></li></ul><h2 class="overview">Overview</h2>
+<span id="PasDoc-FuncsProcs"></span><h3 class="summary">Functions and Procedures</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code>function <strong><a href="GMLib.Translations.html#GetTranslateText">GetTranslateText</a></strong>(Text: string; const Args: array of const; Lang: <a href="GMLib.Sets.html#TGMLang">TGMLang</a>): string; overload;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code>function <strong><a href="GMLib.Translations.html#GetTranslateText">GetTranslateText</a></strong>(Idx: Integer; const Args: array of const; Lang: <a href="GMLib.Sets.html#TGMLang">TGMLang</a>): string; overload;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Functions and Procedures</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="GetTranslateText"></span><code>function <strong>GetTranslateText</strong>(Text: string; const Args: array of const; Lang: <a href="GMLib.Sets.html#TGMLang">TGMLang</a>): string; overload;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+<code>GetTranslateText</code> function retrieves a translated string into the <a class="normal" href="GMLib.Sets.html#TGMLang">TGMLang</a> language.</p>
+<p>
+
+
+<p>Is used to generate exception messages.<br> The language of <code>Text</code> param must be in English language.<br><br> <strong>For internal use only!</strong>
+
+<p>  
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Text</dt>
+<dd>String to translate</dd>
+<dt>Args</dt>
+<dd>Array of arguments to apply to the message</dd>
+<dt>Lang</dt>
+<dd>Destination language</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Translated string</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="GetTranslateText"></span><code>function <strong>GetTranslateText</strong>(Idx: Integer; const Args: array of const; Lang: <a href="GMLib.Sets.html#TGMLang">TGMLang</a>): string; overload;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+<code>GetTranslateText</code> fucntion retrieves a translated string into the <a class="normal" href="GMLib.Sets.html#TGMLang">TGMLang</a> language.</p>
+<p>
+
+
+<p>Is used to generate exception messages.<br><br> <strong>For internal use only!</strong>
+
+<p>  
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Idx</dt>
+<dd>Index of array</dd>
+<dt>Args</dt>
+<dd>Array of arguments to apply to the message</dd>
+<dt>Lang</dt>
+<dd>Destination language</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Translated string</p></td></tr>
+</table>
+<h2 class="authors">Author</h2>
+<ul class="authors">
+<li>Xavier Martinez (cadetill) &lt;<a href="mailto:cadetill@gmail.com">cadetill@gmail.com</a>&gt;</li>
+</ul>
+<h2 class="created">Created</h2>
+<p>
+August 2, 2022
+</p>
+<h2 class="modified">Last Modified</h2>
+<p>
+August 2, 2022
+</p>
+<hr><span class="appinfo"><em>Generated by <a href="https://github.com/pasdoc/pasdoc/wiki">PasDoc 0.15.0</a>. </em>
+</span>
+</div></div></body></html>

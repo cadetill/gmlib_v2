@@ -1,0 +1,5 @@
+@abstract(Returns the @link(TGMScaleControlStyle) represented by the string Value.)
+
+@param Value string to convert to @link(TGMScaleControlStyle).
+
+@return @link(TGMScaleControlStyle) that represents the string.

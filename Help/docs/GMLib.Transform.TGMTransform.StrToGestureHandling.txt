@@ -1,0 +1,5 @@
+@abstract(Returns the @link(TGMGestureHandling) represented by the string Value.)
+
+@param Value string to convert to @link(TGMGestureHandling).
+
+@return @link(TGMGestureHandling) that represents the string.

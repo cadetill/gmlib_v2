@@ -1,0 +1,3 @@
+@abstract(Exception raised when you try to change a property dependant of @code(@link(TGMMap.Active)) property and it is @code(True).)
+
+Displayed message: @italic(The map is active. To change this property you must to deactivate it first.)

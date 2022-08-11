@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Google Maps Library: GMLib.Sets</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 0.15.0">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<div class="container"><div class="navigation">
+<h2><a href="index.html">Google Maps Library</a></h2><ul><li><a href="AllUnits.html">Units</a></li><li><a href="ClassHierarchy.html">Class Hierarchy</a></li><li><a href="AllClasses.html">Classes, Interfaces, Objects and Records</a></li><li><a href="AllTypes.html">Types</a></li><li><a href="AllVariables.html">Variables</a></li><li><a href="AllConstants.html">Constants</a></li><li><a href="AllFunctions.html">Functions and Procedures</a></li><li><a href="AllIdentifiers.html">Identifiers</a></li><li><a href="GVUses.png">Unit dependency graph</a></li><li><a href="GVClasses.png">Classes hierarchy graph</a></li><li><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input" pattern=".{3,}" title="At least 3 characters" required><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></div></form>
+<div style="clear: both"></div>
+</li></ul></div><div class="content">
+<table class="container">
+<tr>
+<td><i><a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></i></td>
+<td align ="right"><i>Copyright &copy; Xavier Mart&iacute;nez (cadetill)</i></td>
+</tr>
+</table>
+<hr noshade="" size="1">
+<h1 class="unit">Unit GMLib.Sets</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section">Uses</div><div class="one_section">Classes, Interfaces, Objects and Records</div><div class="one_section">Functions and Procedures</div><div class="one_section"><a class="section" href="#PasDoc-Types">Types</a></div><div class="one_section">Constants</div><div class="one_section">Variables</div></div>
+<span id="PasDoc-Description"></span><h2 class="description">Description</h2>
+<p>
+Sets for GMLib.</p>
+<p>
+   
+
+<p>The GMLib.Sets unit contains all sets used by GMLib.</p>
+<span id="PasDoc-Uses"></span><h2 class="overview">Overview</h2>
+<span id="PasDoc-Types"></span><h3 class="summary">Types</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="itemcode"><code><strong><a href="GMLib.Sets.html#TGMLang">TGMLang</a></strong> = (...);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><strong><a href="GMLib.Sets.html#TGMControlPosition">TGMControlPosition</a></strong> = (...);</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><strong><a href="GMLib.Sets.html#TGMGestureHandling">TGMGestureHandling</a></strong> = (...);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><strong><a href="GMLib.Sets.html#TGMMapTypeId">TGMMapTypeId</a></strong> = (...);</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><strong><a href="GMLib.Sets.html#TGMMapTypeIds">TGMMapTypeIds</a></strong> = set of <a href="GMLib.Sets.html#TGMMapTypeId">TGMMapTypeId</a>;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><strong><a href="GMLib.Sets.html#TGMMapTypeControlStyle">TGMMapTypeControlStyle</a></strong> = (...);</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><strong><a href="GMLib.Sets.html#TGMScaleControlStyle">TGMScaleControlStyle</a></strong> = (...);</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Types</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMLang"></span><code><strong>TGMLang</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Language in which messages are displayed of the exceptions raised by GMLib. </p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="lnUnknown">lnUnknown</span>: unknown exception language</li>
+<li>
+<span id="lnEspanol">lnEspanol</span>: Spanish exception language</li>
+<li>
+<span id="lnEnglish">lnEnglish</span>: English exception language</li>
+<li>
+<span id="lnFrench">lnFrench</span>: French exception language</li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMControlPosition"></span><code><strong>TGMControlPosition</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Identifiers used to specify the placement of controls on the map.</p>
+<p>
+
+
+<p>Controls are positioned relative to other controls in the same layout position. Controls that are added first are positioned closer to the edge of the map. </p>
+
+<pre class="longcode"> +----------------+
++ TL    TC    TR +
++ LT          RT +
++                +
++ LC          RC +
++                +
++ LB          RB +
++ BL    BC    BR +
++----------------+</pre>
+
+<p>
+
+<p>Elements in the top or bottom row flow towards the middle of the row. Elements in the left or right column flow towards the middle of the column.<br><br>
+
+<p>More info at <a href="https://developers.google.com/maps/documentation/javascript/reference/control#ControlPosition">google.maps.ControlPosition constants</a> </p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="cpBOTTOM_CENTER">cpBOTTOM_CENTER</span></li>
+<li>
+<span id="cpBOTTOM_LEFT">cpBOTTOM_LEFT</span></li>
+<li>
+<span id="cpBOTTOM_RIGHT">cpBOTTOM_RIGHT</span></li>
+<li>
+<span id="cpLEFT_BOTTOM">cpLEFT_BOTTOM</span></li>
+<li>
+<span id="cpLEFT_CENTER">cpLEFT_CENTER</span></li>
+<li>
+<span id="cpLEFT_TOP">cpLEFT_TOP</span></li>
+<li>
+<span id="cpRIGHT_BOTTOM">cpRIGHT_BOTTOM</span></li>
+<li>
+<span id="cpRIGHT_CENTER">cpRIGHT_CENTER</span></li>
+<li>
+<span id="cpRIGHT_TOP">cpRIGHT_TOP</span></li>
+<li>
+<span id="cpTOP_CENTER">cpTOP_CENTER</span></li>
+<li>
+<span id="cpTOP_LEFT">cpTOP_LEFT</span></li>
+<li>
+<span id="cpTOP_RIGHT">cpTOP_RIGHT</span></li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMGestureHandling"></span><code><strong>TGMGestureHandling</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+This setting controls how the API handles gestures on the map.</p>
+<p>
+
+
+<p>More info at <a href="https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions.gestureHandling">MapOptions.gestureHandling property</a> </p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="ghCooperative">ghCooperative</span></li>
+<li>
+<span id="ghGreedy">ghGreedy</span></li>
+<li>
+<span id="ghNone">ghNone</span></li>
+<li>
+<span id="ghAuto">ghAuto</span></li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMMapTypeId"></span><code><strong>TGMMapTypeId</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Identifiers for common MapTypes.</p>
+<p>
+
+
+<p>More info at <a href="https://developers.google.com/maps/documentation/javascript/reference/map#MapTypeId">google.maps.MapTypeId constants</a> </p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="mtHYBRID">mtHYBRID</span></li>
+<li>
+<span id="mtROADMAP">mtROADMAP</span></li>
+<li>
+<span id="mtSATELLITE">mtSATELLITE</span></li>
+<li>
+<span id="mtTERRAIN">mtTERRAIN</span></li>
+<li>
+<span id="mtOSM">mtOSM</span></li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMMapTypeIds"></span><code><strong>TGMMapTypeIds</strong> = set of <a href="GMLib.Sets.html#TGMMapTypeId">TGMMapTypeId</a>;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Set of <a class="normal" href="GMLib.Sets.html#TGMMapTypeId">TGMMapTypeId</a>.</p>
+<p>
+ </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMMapTypeControlStyle"></span><code><strong>TGMMapTypeControlStyle</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Identifiers for common MapTypeControlStyle.</p>
+<p>
+
+
+<p>More info at <a href="https://developers.google.com/maps/documentation/javascript/reference/control#MapTypeControlStyle">google.maps.MapTypeControlStyle constants</a> </p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="mtcDEFAULT">mtcDEFAULT</span></li>
+<li>
+<span id="mtcDROPDOWN_MENU">mtcDROPDOWN_MENU</span></li>
+<li>
+<span id="mtcHORIZONTAL_BAR">mtcHORIZONTAL_BAR</span></li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMScaleControlStyle"></span><code><strong>TGMScaleControlStyle</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Identifiers for scale control ids.</p>
+<p>
+
+
+<p>More info at <a href="https://developers.google.com/maps/documentation/javascript/reference/control#ScaleControlStyle">google.maps.ScaleControlStyle constants</a> </p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="scsDEFAULT">scsDEFAULT</span></li>
+</ul>
+</td></tr>
+</table>
+<h2 class="authors">Author</h2>
+<ul class="authors">
+<li>Xavier Martinez (cadetill) &lt;<a href="mailto:cadetill@gmail.com">cadetill@gmail.com</a>&gt;</li>
+</ul>
+<h2 class="created">Created</h2>
+<p>
+August 2, 2022
+</p>
+<h2 class="modified">Last Modified</h2>
+<p>
+August 2, 2022
+</p>
+<hr><span class="appinfo"><em>Generated by <a href="https://github.com/pasdoc/pasdoc/wiki">PasDoc 0.15.0</a>. </em>
+</span>
+</div></div></body></html>

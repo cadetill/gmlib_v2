@@ -1,0 +1,1 @@
+@abstract(Base class for all classes that inherit from @code(@link(TGMInterfacedOwnedPersistent)) into GMLib and implements @code(@link(IGMAPIUrl)) interface.)

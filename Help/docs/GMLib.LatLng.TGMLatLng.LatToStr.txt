@@ -1,0 +1,5 @@
+Convert Lat value to a string.
+
+@param Precision Precision of value. Default 6.
+
+@return String with the latitude.

@@ -1,0 +1,6 @@
+Returns a string with the MapTypeId included into Values and separated by Delimiter.
+
+@param Values @link(TGMMapTypeIds) to convert to string.
+@param Delimiter Delimiter between MapTypeId.
+
+@return string with the MapTypeIds value.

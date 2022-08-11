@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<BorlandProject>
-	<Transactions>
-    <Transaction>2015/09/29 09:34:25.000.392,D:\Documents\Embarcadero\Studio\Projects\ProjectGroup1.groupproj=D:\Documents\Dropbox\Programacio\GoogleMaps\Components\test\GMLibProject_Seattle10.groupproj</Transaction>
-  </Transactions>
-	<Default.Personality>
-		<Projects ActiveProject="D:\Documents\Dropbox\Programacio\GoogleMaps\Components\gmlib_v2\dpk\GMLib_Seattle10.dproj"/>
-	</Default.Personality>
-</BorlandProject>

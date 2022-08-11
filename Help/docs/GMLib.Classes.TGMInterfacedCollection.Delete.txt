@@ -1,0 +1,3 @@
+Deletes a single item from the collection.
+
+@param Index Position to delete

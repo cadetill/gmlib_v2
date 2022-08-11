@@ -1,0 +1,18 @@
+DiGraph Uses {
+  "GMLib.Classes" -> "SysUtils"
+  "GMLib.Classes" -> "Classes"
+  "GMLib.Classes" -> "GMLib.Sets"
+  "GMLib.Classes" [href="GMLib.Classes.html"]
+  "GMLib.Exceptions" -> "SysUtils"
+  "GMLib.Exceptions" -> "GMLib.Sets"
+  "GMLib.Exceptions" [href="GMLib.Exceptions.html"]
+  "GMLib.LatLng" -> "Classes"
+  "GMLib.LatLng" -> "GMLib.Sets"
+  "GMLib.LatLng" -> "GMLib.Classes"
+  "GMLib.LatLng" [href="GMLib.LatLng.html"]
+  "GMLib.Sets" [href="GMLib.Sets.html"]
+  "GMLib.Transform" -> "GMLib.Sets"
+  "GMLib.Transform" [href="GMLib.Transform.html"]
+  "GMLib.Translations" -> "GMLib.Sets"
+  "GMLib.Translations" [href="GMLib.Translations.html"]
+}

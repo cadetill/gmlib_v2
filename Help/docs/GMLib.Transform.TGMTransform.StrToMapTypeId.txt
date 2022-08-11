@@ -1,0 +1,5 @@
+@abstract(Returns the @link(TGMMapTypeId) represented by the string Value.)
+
+@param Value string to convert to @link(TGMMapTypeId).
+
+@return @link(TGMMapTypeId) that represents the string.

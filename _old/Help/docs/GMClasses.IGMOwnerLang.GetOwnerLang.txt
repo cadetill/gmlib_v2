@@ -1,0 +1,5 @@
+@abstract(Returns the @link(TGMLang) of the Owner.)
+
+If Owner is not assigned or not supports @link(IGMOwnerLang) interface then should be returned @code(lnEnglish).
+
+@return @link(TGMLang) of the owner object.
