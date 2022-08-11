@@ -1,0 +1,5 @@
+Returns a string that represents the @code(APILang).
+
+@param Value @link(TGMAPILang) to convert to string
+
+@return string with the @code(APILang)

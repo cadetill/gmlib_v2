@@ -1,0 +1,5 @@
+Returns a string that represents the @code(APIRegion).
+
+@param Value @link(TGMAPIRegion) to convert to string
+
+@return string with the @code(APIRegion)

@@ -1,0 +1,5 @@
+Returns a string that represents the @code(APIVer).
+
+@param Value @link(TGMAPIVer) to convert to string
+
+@return string with the @code(APIVer)

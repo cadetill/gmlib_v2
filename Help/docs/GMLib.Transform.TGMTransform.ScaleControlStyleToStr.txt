@@ -1,5 +1,5 @@
 Returns a string that represents the ScaleControlStyle.
 
-@param ScaleControlStyle @link(TGMScaleControlStyle) to convert to string.
+@param Value @link(TGMScaleControlStyle) to convert to string.
 
 @return string with the ScaleControlStyle.

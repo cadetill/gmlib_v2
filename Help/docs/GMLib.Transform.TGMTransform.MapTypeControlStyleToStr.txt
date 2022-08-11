@@ -1,5 +1,5 @@
 Returns a string that represents the MapTypeControlStyle.
 
-@param MapTypeControlStyle @link(TGMMapTypeControlStyle) to convert to string.
+@param Value @link(TGMMapTypeControlStyle) to convert to string.
 
 @return string with the MapTypeControlStyle value.
