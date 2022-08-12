@@ -1,0 +1,5 @@
+@abstract(Version of the Google Maps API to use.)
+
+More info at @url(https://developers.google.com/maps/documentation/javascript/versions Versioning)
+
+@raises EGMMapIsActive This exception is raised when @code(Active) property is @code(True).

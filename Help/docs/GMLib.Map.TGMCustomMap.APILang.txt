@@ -1,0 +1,7 @@
+@abstract(By default the API will attempt to load the most appropriate language based on the users location or browser settings.)
+
+But some APIs allow you to explicitly set a language when you make a request. @br @br
+
+More info at @url(https://developers.google.com/maps/documentation/javascript/localization Localizing the Map) and more specific at @url(https://developers.google.com/maps/faq?hl=en#languagesupport Supported Languages)
+
+@raises EGMMapIsActive This exception is raised when @code(Active) property is @code(True).

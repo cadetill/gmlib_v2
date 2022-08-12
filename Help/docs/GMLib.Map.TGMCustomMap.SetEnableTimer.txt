@@ -1,0 +1,5 @@
+@abstract(Enables or disables the Timer that controls the map events.)
+
+For internal use.
+
+@param State Value to be set to Timer status

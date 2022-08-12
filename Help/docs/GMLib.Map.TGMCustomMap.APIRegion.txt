@@ -1,0 +1,7 @@
+@abstract(When you load the Maps JavaScript API from maps.googleapis.com it applies a default bias for application behavior towards the United States.)
+
+If you want to alter your application to serve different map tiles or bias the application (such as biasing geocoding results towards the region), you can override this default behavior by adding a region.
+
+More info at @url(https://developers.google.com/maps/documentation/javascript/localization Localizing the Map) and more specific at @url(https://developers.google.com/maps/coverage Google Maps Platform Coverage Details)
+
+@raises EGMMapIsActive This exception is raised when @code(Active) property is @code(True).

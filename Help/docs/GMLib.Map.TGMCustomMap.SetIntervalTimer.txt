@@ -1,0 +1,5 @@
+@abstract(Set the interval of Timer that control de map events.) 
+
+Internal use only.
+
+@param Interval Interval in miliseconds

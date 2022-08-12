@@ -44,6 +44,8 @@ DiGraph Classes {
   "TComponent" -> "TPersistent"
   "TGMComponent" -> "TComponent"
   "TGMComponent" [href="GMLib.Classes.TGMComponent.html"]
+  "TGMCustomMap" -> "TGMComponent"
+  "TGMCustomMap" [href="GMLib.Map.TGMCustomMap.html"]
   "TInterfacedPersistent" -> "TPersistent"
   "TGMInterfacedOwnedPersistent" -> "TInterfacedPersistent"
   "TGMInterfacedOwnedPersistent" [href="GMLib.Classes.TGMInterfacedOwnedPersistent.html"]

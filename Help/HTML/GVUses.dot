@@ -3,6 +3,7 @@ DiGraph Uses {
   "GMLib.Classes" -> "Classes"
   "GMLib.Classes" -> "GMLib.Sets"
   "GMLib.Classes" [href="GMLib.Classes.html"]
+  "GMLib.Constants" [href="GMLib.Constants.html"]
   "GMLib.Exceptions" -> "SysUtils"
   "GMLib.Exceptions" -> "GMLib.Sets"
   "GMLib.Exceptions" [href="GMLib.Exceptions.html"]
@@ -10,6 +11,10 @@ DiGraph Uses {
   "GMLib.LatLng" -> "GMLib.Sets"
   "GMLib.LatLng" -> "GMLib.Classes"
   "GMLib.LatLng" [href="GMLib.LatLng.html"]
+  "GMLib.Map" -> "Classes"
+  "GMLib.Map" -> "GMLib.Classes"
+  "GMLib.Map" -> "GMLib.Sets"
+  "GMLib.Map" [href="GMLib.Map.html"]
   "GMLib.Sets" [href="GMLib.Sets.html"]
   "GMLib.Transform" -> "GMLib.Sets"
   "GMLib.Transform" [href="GMLib.Transform.html"]

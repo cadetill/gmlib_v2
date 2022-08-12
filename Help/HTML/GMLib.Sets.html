@@ -38,21 +38,30 @@ Sets for GMLib.</p>
 <td class="itemcode"><code><strong><a href="GMLib.Sets.html#TGMLang">TGMLang</a></strong> = (...);</code></td>
 </tr>
 <tr class="list2">
+<td class="itemcode"><code><strong><a href="GMLib.Sets.html#TGMAPIVer">TGMAPIVer</a></strong> = (...);</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><strong><a href="GMLib.Sets.html#TGMAPILang">TGMAPILang</a></strong> = (...);</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><strong><a href="GMLib.Sets.html#TGMAPIRegion">TGMAPIRegion</a></strong> = (...);</code></td>
+</tr>
+<tr class="list">
 <td class="itemcode"><code><strong><a href="GMLib.Sets.html#TGMControlPosition">TGMControlPosition</a></strong> = (...);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><strong><a href="GMLib.Sets.html#TGMGestureHandling">TGMGestureHandling</a></strong> = (...);</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><strong><a href="GMLib.Sets.html#TGMMapTypeId">TGMMapTypeId</a></strong> = (...);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><strong><a href="GMLib.Sets.html#TGMMapTypeIds">TGMMapTypeIds</a></strong> = set of <a href="GMLib.Sets.html#TGMMapTypeId">TGMMapTypeId</a>;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemcode"><code><strong><a href="GMLib.Sets.html#TGMMapTypeControlStyle">TGMMapTypeControlStyle</a></strong> = (...);</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemcode"><code><strong><a href="GMLib.Sets.html#TGMScaleControlStyle">TGMScaleControlStyle</a></strong> = (...);</code></td>
 </tr>
 </table>
@@ -75,6 +84,746 @@ Language in which messages are displayed of the exceptions raised by GMLib. </p>
 <span id="lnEnglish">lnEnglish</span>: English exception language</li>
 <li>
 <span id="lnFrench">lnFrench</span>: French exception language</li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMAPIVer"></span><code><strong>TGMAPIVer</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+Version of the Google Maps API to use
+
+<p>For more info see <a href="https://developers.google.com/maps/documentation/javascript/versions">Versioning</a> on Google Maps</p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="av347">av347</span></li>
+<li>
+<span id="av348">av348</span></li>
+<li>
+<span id="av349">av349</span></li>
+<li>
+<span id="avWeekly">avWeekly</span></li>
+<li>
+<span id="avQuarterly">avQuarterly</span></li>
+<li>
+<span id="avBeta">avBeta</span></li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMAPILang"></span><code><strong>TGMAPILang</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+By default the API will attempt to load the most appropriate language based on the users location or browser settings.</p>
+<p>
+
+
+<p>But some APIs allow you to explicitly set a language when you make a request. <br> <br>
+
+<p>More info at <a href="https://developers.google.com/maps/documentation/javascript/localization">Localizing the Map</a> and more specific at <a href="https://developers.google.com/maps/faq?hl=en#languagesupport">Supported Languages</a></p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="lAfrikaans">lAfrikaans</span></li>
+<li>
+<span id="lAlbanian">lAlbanian</span></li>
+<li>
+<span id="lAmharic">lAmharic</span></li>
+<li>
+<span id="lArabic">lArabic</span></li>
+<li>
+<span id="lArmenian">lArmenian</span></li>
+<li>
+<span id="lAzerbaijani">lAzerbaijani</span></li>
+<li>
+<span id="lBasque">lBasque</span></li>
+<li>
+<span id="lBelarusian">lBelarusian</span></li>
+<li>
+<span id="lBengali">lBengali</span></li>
+<li>
+<span id="lBosnian">lBosnian</span></li>
+<li>
+<span id="lBulgarian">lBulgarian</span></li>
+<li>
+<span id="lBurmese">lBurmese</span></li>
+<li>
+<span id="lCatalan">lCatalan</span></li>
+<li>
+<span id="lChinese">lChinese</span></li>
+<li>
+<span id="lChinese_Simp">lChinese_Simp</span></li>
+<li>
+<span id="lChinese_HK">lChinese_HK</span></li>
+<li>
+<span id="lChinese_Trad">lChinese_Trad</span></li>
+<li>
+<span id="lCroatian">lCroatian</span></li>
+<li>
+<span id="lCzech">lCzech</span></li>
+<li>
+<span id="lDanish">lDanish</span></li>
+<li>
+<span id="lDutch">lDutch</span></li>
+<li>
+<span id="lEnglish">lEnglish</span></li>
+<li>
+<span id="lEnglish_Aust">lEnglish_Aust</span></li>
+<li>
+<span id="lEnglish_GB">lEnglish_GB</span></li>
+<li>
+<span id="lEstonian">lEstonian</span></li>
+<li>
+<span id="lFarsi">lFarsi</span></li>
+<li>
+<span id="lFinnish">lFinnish</span></li>
+<li>
+<span id="lFilipino">lFilipino</span></li>
+<li>
+<span id="lFrench">lFrench</span></li>
+<li>
+<span id="lFrench_Ca">lFrench_Ca</span></li>
+<li>
+<span id="lGalician">lGalician</span></li>
+<li>
+<span id="lGeorgian">lGeorgian</span></li>
+<li>
+<span id="lGerman">lGerman</span></li>
+<li>
+<span id="lGreek">lGreek</span></li>
+<li>
+<span id="lGujarati">lGujarati</span></li>
+<li>
+<span id="lHebrew">lHebrew</span></li>
+<li>
+<span id="lHindi">lHindi</span></li>
+<li>
+<span id="lHungarian">lHungarian</span></li>
+<li>
+<span id="lIcelandic">lIcelandic</span></li>
+<li>
+<span id="lIndonesian">lIndonesian</span></li>
+<li>
+<span id="lItalian">lItalian</span></li>
+<li>
+<span id="lJapanese">lJapanese</span></li>
+<li>
+<span id="lKannada">lKannada</span></li>
+<li>
+<span id="lKazakh">lKazakh</span></li>
+<li>
+<span id="lKhmer">lKhmer</span></li>
+<li>
+<span id="lKorean">lKorean</span></li>
+<li>
+<span id="lKyrgyz">lKyrgyz</span></li>
+<li>
+<span id="lLao">lLao</span></li>
+<li>
+<span id="lLatvian">lLatvian</span></li>
+<li>
+<span id="lLithuanian">lLithuanian</span></li>
+<li>
+<span id="lMacedonian">lMacedonian</span></li>
+<li>
+<span id="lMalay">lMalay</span></li>
+<li>
+<span id="lMalayalam">lMalayalam</span></li>
+<li>
+<span id="lMarathi">lMarathi</span></li>
+<li>
+<span id="lMongolian">lMongolian</span></li>
+<li>
+<span id="lNepali">lNepali</span></li>
+<li>
+<span id="lNorwegian">lNorwegian</span></li>
+<li>
+<span id="lPolish">lPolish</span></li>
+<li>
+<span id="lPortuguese">lPortuguese</span></li>
+<li>
+<span id="lPortuguese_Br">lPortuguese_Br</span></li>
+<li>
+<span id="lPortuguese_Ptg">lPortuguese_Ptg</span></li>
+<li>
+<span id="lPunjabi">lPunjabi</span></li>
+<li>
+<span id="lRomanian">lRomanian</span></li>
+<li>
+<span id="lRussian">lRussian</span></li>
+<li>
+<span id="lSerbian">lSerbian</span></li>
+<li>
+<span id="lSinhalese">lSinhalese</span></li>
+<li>
+<span id="lSlovak">lSlovak</span></li>
+<li>
+<span id="lSlovenian">lSlovenian</span></li>
+<li>
+<span id="lSpanish">lSpanish</span></li>
+<li>
+<span id="lSpanish_LA">lSpanish_LA</span></li>
+<li>
+<span id="lSwahili">lSwahili</span></li>
+<li>
+<span id="lSwedish">lSwedish</span></li>
+<li>
+<span id="lTamil">lTamil</span></li>
+<li>
+<span id="lTelugu">lTelugu</span></li>
+<li>
+<span id="lThai">lThai</span></li>
+<li>
+<span id="lTurkish">lTurkish</span></li>
+<li>
+<span id="lUkrainian">lUkrainian</span></li>
+<li>
+<span id="lUrdu">lUrdu</span></li>
+<li>
+<span id="lUzbek">lUzbek</span></li>
+<li>
+<span id="lVietnamese">lVietnamese</span></li>
+<li>
+<span id="lZulu">lZulu</span></li>
+<li>
+<span id="lUndefined">lUndefined</span></li>
+</ul>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMAPIRegion"></span><code><strong>TGMAPIRegion</strong> = (...);</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+When you load the Maps JavaScript API from maps.googleapis.com it applies a default bias for application behavior towards the United States.</p>
+<p>
+
+
+<p>If you want to alter your application to serve different map tiles or bias the application (such as biasing geocoding results towards the region), you can override this default behavior by adding a region.
+
+<p>More info at <a href="https://developers.google.com/maps/documentation/javascript/localization">Localizing the Map</a> and more specific at <a href="https://developers.google.com/maps/coverage">Google Maps Platform Coverage Details</a></p>
+<h6 class="description_section">Values</h6>
+<ul>
+<li>
+<span id="rAfghanistan">rAfghanistan</span></li>
+<li>
+<span id="rAlbania">rAlbania</span></li>
+<li>
+<span id="rAlgeria">rAlgeria</span></li>
+<li>
+<span id="rAmerican_Samoa">rAmerican_Samoa</span></li>
+<li>
+<span id="rAndorra">rAndorra</span></li>
+<li>
+<span id="rAngola">rAngola</span></li>
+<li>
+<span id="rAnguilla">rAnguilla</span></li>
+<li>
+<span id="rAntarctica">rAntarctica</span></li>
+<li>
+<span id="rAntigua_Barbuda">rAntigua_Barbuda</span></li>
+<li>
+<span id="rArgentina">rArgentina</span></li>
+<li>
+<span id="rArmenia">rArmenia</span></li>
+<li>
+<span id="rAruba">rAruba</span></li>
+<li>
+<span id="rAscension_Island">rAscension_Island</span></li>
+<li>
+<span id="rAustralia">rAustralia</span></li>
+<li>
+<span id="rAustriam">rAustriam</span></li>
+<li>
+<span id="rAzerbaijan">rAzerbaijan</span></li>
+<li>
+<span id="rBahamas">rBahamas</span></li>
+<li>
+<span id="rBahrain">rBahrain</span></li>
+<li>
+<span id="rBangladesh">rBangladesh</span></li>
+<li>
+<span id="rBarbados">rBarbados</span></li>
+<li>
+<span id="rBelarus">rBelarus</span></li>
+<li>
+<span id="rBelgium">rBelgium</span></li>
+<li>
+<span id="rBelize">rBelize</span></li>
+<li>
+<span id="rBenin">rBenin</span></li>
+<li>
+<span id="rBermuda">rBermuda</span></li>
+<li>
+<span id="rBhutan">rBhutan</span></li>
+<li>
+<span id="rBolivia">rBolivia</span></li>
+<li>
+<span id="rBosnia_Herzegovina">rBosnia_Herzegovina</span></li>
+<li>
+<span id="rBotswana">rBotswana</span></li>
+<li>
+<span id="rBouvet_Island">rBouvet_Island</span></li>
+<li>
+<span id="rBrazil">rBrazil</span></li>
+<li>
+<span id="rBritish_Indian_OT">rBritish_Indian_OT</span></li>
+<li>
+<span id="rBritish_Virgin_Is">rBritish_Virgin_Is</span></li>
+<li>
+<span id="rBrunei">rBrunei</span></li>
+<li>
+<span id="rBulgaria">rBulgaria</span></li>
+<li>
+<span id="rBurkina_Faso">rBurkina_Faso</span></li>
+<li>
+<span id="rBurundi">rBurundi</span></li>
+<li>
+<span id="rCambodia">rCambodia</span></li>
+<li>
+<span id="rCameroon">rCameroon</span></li>
+<li>
+<span id="rCanada">rCanada</span></li>
+<li>
+<span id="rCanary_Islands">rCanary_Islands</span></li>
+<li>
+<span id="rCape_Verde">rCape_Verde</span></li>
+<li>
+<span id="rCaribbean_Netherlands">rCaribbean_Netherlands</span></li>
+<li>
+<span id="rCayman_Islands">rCayman_Islands</span></li>
+<li>
+<span id="rCentral_African_Rep">rCentral_African_Rep</span></li>
+<li>
+<span id="rCeuta_Melilla">rCeuta_Melilla</span></li>
+<li>
+<span id="rChad">rChad</span></li>
+<li>
+<span id="rChile">rChile</span></li>
+<li>
+<span id="rChina">rChina</span></li>
+<li>
+<span id="rChristmas_Island">rChristmas_Island</span></li>
+<li>
+<span id="rClipperton_Island">rClipperton_Island</span></li>
+<li>
+<span id="rCocos_Islands">rCocos_Islands</span></li>
+<li>
+<span id="rColombia">rColombia</span></li>
+<li>
+<span id="rComoros">rComoros</span></li>
+<li>
+<span id="rCongo_Brazzaville">rCongo_Brazzaville</span></li>
+<li>
+<span id="rCongo_Kinshasa">rCongo_Kinshasa</span></li>
+<li>
+<span id="rCook_Islands">rCook_Islands</span></li>
+<li>
+<span id="rCosta_Rica">rCosta_Rica</span></li>
+<li>
+<span id="rCroatia">rCroatia</span></li>
+<li>
+<span id="rCuba">rCuba</span></li>
+<li>
+<span id="rCuracao">rCuracao</span></li>
+<li>
+<span id="rCyprus">rCyprus</span></li>
+<li>
+<span id="rCzechia">rCzechia</span></li>
+<li>
+<span id="rCote_Ivoire">rCote_Ivoire</span></li>
+<li>
+<span id="rDenmark">rDenmark</span></li>
+<li>
+<span id="rDiego_Garcia">rDiego_Garcia</span></li>
+<li>
+<span id="rDjibouti">rDjibouti</span></li>
+<li>
+<span id="rDominica">rDominica</span></li>
+<li>
+<span id="rDominican_Republic">rDominican_Republic</span></li>
+<li>
+<span id="rEcuador">rEcuador</span></li>
+<li>
+<span id="rEgypt">rEgypt</span></li>
+<li>
+<span id="rEl_Salvador">rEl_Salvador</span></li>
+<li>
+<span id="rEquatorial_Guinea">rEquatorial_Guinea</span></li>
+<li>
+<span id="rEritrea">rEritrea</span></li>
+<li>
+<span id="rEstonia">rEstonia</span></li>
+<li>
+<span id="rEswatini">rEswatini</span></li>
+<li>
+<span id="rEthiopia">rEthiopia</span></li>
+<li>
+<span id="rFalkland_Islands">rFalkland_Islands</span></li>
+<li>
+<span id="rFaroe_Islands">rFaroe_Islands</span></li>
+<li>
+<span id="rFiji">rFiji</span></li>
+<li>
+<span id="rFinland">rFinland</span></li>
+<li>
+<span id="rFrance">rFrance</span></li>
+<li>
+<span id="rFrench_Guiana">rFrench_Guiana</span></li>
+<li>
+<span id="rFrench_Polynesia">rFrench_Polynesia</span></li>
+<li>
+<span id="rFrench_Southern_Territories">rFrench_Southern_Territories</span></li>
+<li>
+<span id="rGabon">rGabon</span></li>
+<li>
+<span id="rGambia">rGambia</span></li>
+<li>
+<span id="rGeorgia">rGeorgia</span></li>
+<li>
+<span id="rGermany">rGermany</span></li>
+<li>
+<span id="rGhana">rGhana</span></li>
+<li>
+<span id="rGibraltar">rGibraltar</span></li>
+<li>
+<span id="rGreece">rGreece</span></li>
+<li>
+<span id="rGreenland">rGreenland</span></li>
+<li>
+<span id="rGrenada">rGrenada</span></li>
+<li>
+<span id="rGuadeloupe">rGuadeloupe</span></li>
+<li>
+<span id="rGuam">rGuam</span></li>
+<li>
+<span id="rGuatemala">rGuatemala</span></li>
+<li>
+<span id="rGuernsey">rGuernsey</span></li>
+<li>
+<span id="rGuinea">rGuinea</span></li>
+<li>
+<span id="rGuinea_Bissau">rGuinea_Bissau</span></li>
+<li>
+<span id="rGuyana">rGuyana</span></li>
+<li>
+<span id="rHaiti">rHaiti</span></li>
+<li>
+<span id="rHeard_McDonald">rHeard_McDonald</span></li>
+<li>
+<span id="rHonduras">rHonduras</span></li>
+<li>
+<span id="rHong_Kong">rHong_Kong</span></li>
+<li>
+<span id="rHungary">rHungary</span></li>
+<li>
+<span id="rIceland">rIceland</span></li>
+<li>
+<span id="rIndia">rIndia</span></li>
+<li>
+<span id="rIndonesia">rIndonesia</span></li>
+<li>
+<span id="rIran">rIran</span></li>
+<li>
+<span id="rIraq">rIraq</span></li>
+<li>
+<span id="rIreland">rIreland</span></li>
+<li>
+<span id="rIsle_Man">rIsle_Man</span></li>
+<li>
+<span id="rIsrael">rIsrael</span></li>
+<li>
+<span id="rItaly">rItaly</span></li>
+<li>
+<span id="rJamaica">rJamaica</span></li>
+<li>
+<span id="rJapan">rJapan</span></li>
+<li>
+<span id="rJersey">rJersey</span></li>
+<li>
+<span id="rJordan">rJordan</span></li>
+<li>
+<span id="rKazakhstan">rKazakhstan</span></li>
+<li>
+<span id="rKenya">rKenya</span></li>
+<li>
+<span id="rKiribati">rKiribati</span></li>
+<li>
+<span id="rKosovo">rKosovo</span></li>
+<li>
+<span id="rKuwait">rKuwait</span></li>
+<li>
+<span id="rKyrgyzstan">rKyrgyzstan</span></li>
+<li>
+<span id="rLaos">rLaos</span></li>
+<li>
+<span id="rLatvia">rLatvia</span></li>
+<li>
+<span id="rLebanon">rLebanon</span></li>
+<li>
+<span id="rLesotho">rLesotho</span></li>
+<li>
+<span id="rLiberia">rLiberia</span></li>
+<li>
+<span id="rLibya">rLibya</span></li>
+<li>
+<span id="rLiechtenstein">rLiechtenstein</span></li>
+<li>
+<span id="rLithuania">rLithuania</span></li>
+<li>
+<span id="rLuxembourg">rLuxembourg</span></li>
+<li>
+<span id="rMacao">rMacao</span></li>
+<li>
+<span id="rMadagascar">rMadagascar</span></li>
+<li>
+<span id="rMalawi">rMalawi</span></li>
+<li>
+<span id="rMalaysia">rMalaysia</span></li>
+<li>
+<span id="rMaldives">rMaldives</span></li>
+<li>
+<span id="rMali">rMali</span></li>
+<li>
+<span id="rMalta">rMalta</span></li>
+<li>
+<span id="rMarshall_Islands">rMarshall_Islands</span></li>
+<li>
+<span id="rMartinique">rMartinique</span></li>
+<li>
+<span id="rMauritania">rMauritania</span></li>
+<li>
+<span id="rMauritius">rMauritius</span></li>
+<li>
+<span id="rMayotte">rMayotte</span></li>
+<li>
+<span id="rMexico">rMexico</span></li>
+<li>
+<span id="rMicronesia">rMicronesia</span></li>
+<li>
+<span id="rMoldova">rMoldova</span></li>
+<li>
+<span id="rMonaco">rMonaco</span></li>
+<li>
+<span id="rMongolia">rMongolia</span></li>
+<li>
+<span id="rMontenegro">rMontenegro</span></li>
+<li>
+<span id="rMontserrat">rMontserrat</span></li>
+<li>
+<span id="rMorocco">rMorocco</span></li>
+<li>
+<span id="rMozambique">rMozambique</span></li>
+<li>
+<span id="rMyanmar">rMyanmar</span></li>
+<li>
+<span id="rNamibia">rNamibia</span></li>
+<li>
+<span id="rNauru">rNauru</span></li>
+<li>
+<span id="rNepal">rNepal</span></li>
+<li>
+<span id="rNetherlands">rNetherlands</span></li>
+<li>
+<span id="rNew_Caledonia">rNew_Caledonia</span></li>
+<li>
+<span id="rNew_Zealand">rNew_Zealand</span></li>
+<li>
+<span id="rNicaragua">rNicaragua</span></li>
+<li>
+<span id="rNiger">rNiger</span></li>
+<li>
+<span id="rNigeria">rNigeria</span></li>
+<li>
+<span id="rNiue">rNiue</span></li>
+<li>
+<span id="rNorfolk_Island">rNorfolk_Island</span></li>
+<li>
+<span id="rNorth_Korea">rNorth_Korea</span></li>
+<li>
+<span id="rNorth_Macedonia">rNorth_Macedonia</span></li>
+<li>
+<span id="rNorthern_Mariana">rNorthern_Mariana</span></li>
+<li>
+<span id="rNorway">rNorway</span></li>
+<li>
+<span id="rOman">rOman</span></li>
+<li>
+<span id="rPakistan">rPakistan</span></li>
+<li>
+<span id="rPalau">rPalau</span></li>
+<li>
+<span id="rPalestine">rPalestine</span></li>
+<li>
+<span id="rPanama">rPanama</span></li>
+<li>
+<span id="rPapua_New_Guinea">rPapua_New_Guinea</span></li>
+<li>
+<span id="rParaguay">rParaguay</span></li>
+<li>
+<span id="rPeru">rPeru</span></li>
+<li>
+<span id="rPhilippines">rPhilippines</span></li>
+<li>
+<span id="rPitcairn_Islands">rPitcairn_Islands</span></li>
+<li>
+<span id="rPoland">rPoland</span></li>
+<li>
+<span id="rPortugal">rPortugal</span></li>
+<li>
+<span id="rPuerto_Rico">rPuerto_Rico</span></li>
+<li>
+<span id="rQatar">rQatar</span></li>
+<li>
+<span id="rRomania">rRomania</span></li>
+<li>
+<span id="rRussia">rRussia</span></li>
+<li>
+<span id="rRwanda">rRwanda</span></li>
+<li>
+<span id="rReunion">rReunion</span></li>
+<li>
+<span id="rSamoa">rSamoa</span></li>
+<li>
+<span id="rSan_Marino">rSan_Marino</span></li>
+<li>
+<span id="rSaudi_Arabia">rSaudi_Arabia</span></li>
+<li>
+<span id="rSenegal">rSenegal</span></li>
+<li>
+<span id="rSerbia">rSerbia</span></li>
+<li>
+<span id="rSeychelles">rSeychelles</span></li>
+<li>
+<span id="rSierra_Leone">rSierra_Leone</span></li>
+<li>
+<span id="rSingapore">rSingapore</span></li>
+<li>
+<span id="rSint_Maarten">rSint_Maarten</span></li>
+<li>
+<span id="rSlovakia">rSlovakia</span></li>
+<li>
+<span id="rSlovenia">rSlovenia</span></li>
+<li>
+<span id="rSolomon_Islands">rSolomon_Islands</span></li>
+<li>
+<span id="rSomalia">rSomalia</span></li>
+<li>
+<span id="rSouth_Africa">rSouth_Africa</span></li>
+<li>
+<span id="rSouth_Georgia_South_Sandwich">rSouth_Georgia_South_Sandwich</span></li>
+<li>
+<span id="rSouth_Korea">rSouth_Korea</span></li>
+<li>
+<span id="rSouth_Sudan">rSouth_Sudan</span></li>
+<li>
+<span id="rSpain">rSpain</span></li>
+<li>
+<span id="rSri_Lanka">rSri_Lanka</span></li>
+<li>
+<span id="rSt_Barthelemy">rSt_Barthelemy</span></li>
+<li>
+<span id="rSt_Helena">rSt_Helena</span></li>
+<li>
+<span id="rSt_Kitts_Nevis">rSt_Kitts_Nevis</span></li>
+<li>
+<span id="rSt_Lucia">rSt_Lucia</span></li>
+<li>
+<span id="rSt_Martin">rSt_Martin</span></li>
+<li>
+<span id="rSt_Pierre_Miquelon">rSt_Pierre_Miquelon</span></li>
+<li>
+<span id="rSt_Vincent_Grenadines">rSt_Vincent_Grenadines</span></li>
+<li>
+<span id="rSudan">rSudan</span></li>
+<li>
+<span id="rSuriname">rSuriname</span></li>
+<li>
+<span id="rSvalbard_Jan_Mayen">rSvalbard_Jan_Mayen</span></li>
+<li>
+<span id="rSweden">rSweden</span></li>
+<li>
+<span id="rSwitzerland">rSwitzerland</span></li>
+<li>
+<span id="rSyria">rSyria</span></li>
+<li>
+<span id="rSao_Tome_Principe">rSao_Tome_Principe</span></li>
+<li>
+<span id="rTaiwan">rTaiwan</span></li>
+<li>
+<span id="rTajikistan">rTajikistan</span></li>
+<li>
+<span id="rTanzania">rTanzania</span></li>
+<li>
+<span id="rThailand">rThailand</span></li>
+<li>
+<span id="rTimor_Leste">rTimor_Leste</span></li>
+<li>
+<span id="rTogo">rTogo</span></li>
+<li>
+<span id="rTokelau">rTokelau</span></li>
+<li>
+<span id="rTonga">rTonga</span></li>
+<li>
+<span id="rTrinidad_Tobago">rTrinidad_Tobago</span></li>
+<li>
+<span id="rTristan_da_Cunha">rTristan_da_Cunha</span></li>
+<li>
+<span id="rTunisia">rTunisia</span></li>
+<li>
+<span id="rTurkey">rTurkey</span></li>
+<li>
+<span id="rTurkmenistan">rTurkmenistan</span></li>
+<li>
+<span id="rTurks_Caicos_Islands">rTurks_Caicos_Islands</span></li>
+<li>
+<span id="rTuvalu">rTuvalu</span></li>
+<li>
+<span id="rUS_Outlying_Islands">rUS_Outlying_Islands</span></li>
+<li>
+<span id="rUS_Virgin_Islands">rUS_Virgin_Islands</span></li>
+<li>
+<span id="rUganda">rUganda</span></li>
+<li>
+<span id="rUkraine">rUkraine</span></li>
+<li>
+<span id="rUnited_Arab_Emirates">rUnited_Arab_Emirates</span></li>
+<li>
+<span id="rUnited_Kingdom">rUnited_Kingdom</span></li>
+<li>
+<span id="rUnited_States">rUnited_States</span></li>
+<li>
+<span id="rUruguay">rUruguay</span></li>
+<li>
+<span id="rUzbekistan">rUzbekistan</span></li>
+<li>
+<span id="rVanuatu">rVanuatu</span></li>
+<li>
+<span id="rVatican_City">rVatican_City</span></li>
+<li>
+<span id="rVenezuela">rVenezuela</span></li>
+<li>
+<span id="rVietnam">rVietnam</span></li>
+<li>
+<span id="rWallis_Futuna">rWallis_Futuna</span></li>
+<li>
+<span id="rWestern_Sahara">rWestern_Sahara</span></li>
+<li>
+<span id="rYemen">rYemen</span></li>
+<li>
+<span id="rZambia">rZambia</span></li>
+<li>
+<span id="rZimbabwe">rZimbabwe</span></li>
+<li>
+<span id="rAland_Islands">rAland_Islands</span></li>
+<li>
+<span id="rUndefined">rUndefined</span></li>
 </ul>
 </td></tr>
 </table>
@@ -245,7 +994,7 @@ August 2, 2022
 </p>
 <h2 class="modified">Last Modified</h2>
 <p>
-August 2, 2022
+August 11, 2022
 </p>
 <hr><span class="appinfo"><em>Generated by <a href="https://github.com/pasdoc/pasdoc/wiki">PasDoc 0.15.0</a>. </em>
 </span>

@@ -2,4 +2,4 @@
 
 But some APIs allow you to explicitly set a language when you make a request. @br @br
 
-More info at https://developers.google.com/maps/faq#languagesupport
+More info at @url(https://developers.google.com/maps/documentation/javascript/localization Localizing the Map) and more specific at @url(https://developers.google.com/maps/faq?hl=en#languagesupport Supported Languages)
