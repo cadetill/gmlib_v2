@@ -67,7 +67,7 @@ type
     // @include(..\Help\docs\GMLib.LatLngBounds.TGMLatLngBounds.ToJson.txt)
     function ToJson(Precision: Integer = 6): string;
     // @include(..\Help\docs\GMLib.LatLngBounds.TGMLatLngBounds.ToSpan.txt)
-    procedure ToSpan(LatLng: TGMLatLng);
+    function ToSpan: TGMLatLng;
     // @include(..\Help\docs\GMLib.LatLngBounds.TGMLatLngBounds.ToStr.txt)
     function ToStr(Precision: Integer = 6): string;
     // @include(..\Help\docs\GMLib.LatLngBounds.TGMLatLngBounds.ToUrlValue.txt)
@@ -139,7 +139,7 @@ begin
     if TmpStr = '1' then
       raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
 
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsContains_');
+    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsBoolVal_');
     Result := TmpStr = '1';
   end
 end;
@@ -235,8 +235,36 @@ begin
 end;
 
 function TGMLatLngBounds.GetCenter: TGMLatLng;
+const
+  StrParams = '%s,%s,%s,%s';
+var
+  Params: string;
+  Intf: IGMExecJS;
+  TmpStr: string;
 begin
+  if not Assigned(GetOwner()) then
+    raise EGMWithoutOwner.Create(GetOwnerLang);                                 // Owner not assigned.
+  if not Supports(GetOwner(), IGMExecJS, Intf) then
+    raise EGMOwnerWithoutJS.Create(GetOwnerLang);                               // The object (or its owner) does not support JavaScript calls.
 
+  Result := TGMLatLng.Create(0, 0, False, FLang);
+
+  Params := Format(StrParams, [FSW.LatToStr,
+                               FSW.LngToStr,
+                               FNE.LatToStr,
+                               FNE.LngToStr
+                               ]);
+  Intf.ExecuteJavaScript('llbGetCenter', Params);
+  begin
+    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsMapisnull_');
+    if TmpStr = '1' then
+      raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
+
+    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsLat_');
+    Result.Lat := TGMTransform.GetStrToDouble(TmpStr);
+    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsLng_');
+    Result.Lng := TGMTransform.GetStrToDouble(TmpStr);
+  end
 end;
 
 function TGMLatLngBounds.GetOwnerLang: TGMLang;
@@ -247,13 +275,43 @@ begin
 end;
 
 function TGMLatLngBounds.Intersects(Other: TGMLatLngBounds): Boolean;
+const
+  StrParams = '%s,%s,%s,%s,%s,%s,%s,%s';
+var
+  Params: string;
+  Intf: IGMExecJS;
+  TmpStr: string;
 begin
+  if not Assigned(GetOwner()) then
+    raise EGMWithoutOwner.Create(GetOwnerLang);                                 // Owner not assigned.
+  if not Supports(GetOwner(), IGMExecJS, Intf) then
+    raise EGMOwnerWithoutJS.Create(GetOwnerLang);                               // The object (or its owner) does not support JavaScript calls.
+  if not Assigned(Other) then
+    raise EGMUnassignedObject.Create(['Other'], GetOwnerLang);                  // Unassigned %s object.
 
+  Params := Format(StrParams, [Other.SW.LatToStr,
+                               Other.SW.LngToStr,
+                               Other.NE.LatToStr,
+                               Other.NE.LngToStr,
+                               FSW.LatToStr,
+                               FSW.LngToStr,
+                               FNE.LatToStr,
+                               FNE.LngToStr
+                               ]);
+  Intf.ExecuteJavaScript('llbIntersects', Params);
+  begin
+    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsMapisnull_');
+    if TmpStr = '1' then
+      raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
+
+    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsBoolVal_');
+    Result := TmpStr = '1';
+  end
 end;
 
 function TGMLatLngBounds.IsEmpty: Boolean;
 begin
-
+  Result := FSW.IsEqual(FNE);
 end;
 
 function TGMLatLngBounds.IsEqual(Other: TGMLatLngBounds): Boolean;
@@ -267,33 +325,110 @@ begin
 end;
 
 function TGMLatLngBounds.PropToString: string;
+const
+  Str = '%s,%s';
 begin
-
+  Result := inherited PropToString;
+  if Result <> '' then Result := Result + ',';
+  Result := Result +
+            Format(Str, [FNE.PropToString,
+                         FSW.PropToString
+                         ]);
 end;
 
 function TGMLatLngBounds.ToJson(Precision: Integer): string;
+const
+  Str = '{"NE": %s, "SW": %s}';
 begin
-
+  Result := Format(Str, [FSW.ToJson(Precision), FNE.ToJson(Precision)]);
 end;
 
-procedure TGMLatLngBounds.ToSpan(LatLng: TGMLatLng);
+function TGMLatLngBounds.ToSpan: TGMLatLng;
+const
+  StrParams = '%s,%s,%s,%s';
+var
+  Params: string;
+  Intf: IGMExecJS;
+  TmpStr: string;
 begin
+  if not Assigned(GetOwner()) then
+    raise EGMWithoutOwner.Create(GetOwnerLang);                                 // Owner not assigned.
+  if not Supports(GetOwner(), IGMExecJS, Intf) then
+    raise EGMOwnerWithoutJS.Create(GetOwnerLang);                               // The object (or its owner) does not support JavaScript calls.
 
+  Result := TGMLatLng.Create(0, 0, False, FLang);
+
+  Params := Format(StrParams, [FSW.LatToStr,
+                               FSW.LngToStr,
+                               FNE.LatToStr,
+                               FNE.LngToStr
+                               ]);
+  Intf.ExecuteJavaScript('llbToSpan', Params);
+  begin
+    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsMapisnull_');
+    if TmpStr = '1' then
+      raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
+
+    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsLat_');
+    Result.Lat := TGMTransform.GetStrToDouble(TmpStr);
+    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsLng_');
+    Result.Lng := TGMTransform.GetStrToDouble(TmpStr);
+  end
 end;
 
 function TGMLatLngBounds.ToStr(Precision: Integer): string;
+const
+  Str = '(%s, %s)';
 begin
-
+  Result := Format(Str, [FSW.ToStr(Precision), FNE.ToStr(Precision)]);
 end;
 
 function TGMLatLngBounds.ToUrlValue(Precision: Integer): string;
+const
+  Str = '%s,%s';
 begin
-
+  Result := Format(Str, [FSW.ToUrlValue(Precision), FNE.ToUrlValue(Precision)]);
 end;
 
 procedure TGMLatLngBounds.Union(Other: TGMLatLngBounds);
+const
+  StrParams = '%s,%s,%s,%s,%s,%s,%s,%s';
+var
+  Params: string;
+  Intf: IGMExecJS;
+  TmpStr: string;
 begin
+  if not Assigned(GetOwner()) then
+    raise EGMWithoutOwner.Create(GetOwnerLang);                                 // Owner not assigned.
+  if not Supports(GetOwner(), IGMExecJS, Intf) then
+    raise EGMOwnerWithoutJS.Create(GetOwnerLang);                               // The object (or its owner) does not support JavaScript calls.
+  if not Assigned(Other) then
+    raise EGMUnassignedObject.Create(['Other'], GetOwnerLang);                  // Unassigned %s object.
 
+  Params := Format(StrParams, [Other.SW.LatToStr,
+                               Other.SW.LngToStr,
+                               Other.NE.LatToStr,
+                               Other.NE.LngToStr,
+                               FSW.LatToStr,
+                               FSW.LngToStr,
+                               FNE.LatToStr,
+                               FNE.LngToStr
+                               ]);
+  Intf.ExecuteJavaScript('llbUnion', Params);
+  begin
+    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsMapisnull_');
+    if TmpStr = '1' then
+      raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
+
+    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsSwLat_');
+    FSW.Lat := TGMTransform.GetStrToDouble(TmpStr);
+    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsSwLng_');
+    FSW.Lng := TGMTransform.GetStrToDouble(TmpStr);
+    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsNeLat_');
+    FNE.Lat := TGMTransform.GetStrToDouble(TmpStr);
+    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsNeLng_');
+    FNE.Lng := TGMTransform.GetStrToDouble(TmpStr);
+  end;
 end;
 
 end.

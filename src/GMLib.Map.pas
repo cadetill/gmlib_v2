@@ -115,11 +115,7 @@ type
     property Enabled: Boolean read FEnabled write SetEnabled;
   end;
 
-  TGMZoomControlOptions = class(TGMPersistentStr)
-
-  end;
-
-  TGMScaleControlOptions = class(TGMPersistentStr)
+  TGMRotateControlOptions = class(TGMPersistentStr)
 
   end;
 
@@ -127,7 +123,11 @@ type
 
   end;
 
-  TGMRotateControlOptions = class(TGMPersistentStr)
+  TGMScaleControlOptions = class(TGMPersistentStr)
+
+  end;
+
+  TGMZoomControlOptions = class(TGMPersistentStr)
 
   end;
 
