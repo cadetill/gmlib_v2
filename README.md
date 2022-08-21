@@ -2,4 +2,4 @@
 
 
 
-Help file at [here](http://htmlpreview.github.io/?https://github.com/cadetill/gmlib_v2/blob/master/Help/HTML/index.html)
+Help file at [here](http://htmlpreview.github.io/?https://github.com/cadetill/gmlib_v2/master/Help/HTML/index.html)
