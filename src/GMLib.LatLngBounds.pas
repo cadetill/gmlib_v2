@@ -59,7 +59,7 @@ type
     // @include(..\Help\docs\GMLib.LatLngBounds.TGMLatLngBounds.Extend.txt)
     procedure Extend(LatLng: TGMLatLng);
     // @include(..\Help\docs\GMLib.LatLngBounds.TGMLatLngBounds.GetCenter.txt)
-    procedure GetCenter(LatLng: TGMLatLng);
+    function GetCenter: TGMLatLng;
     // @include(..\Help\docs\GMLib.LatLngBounds.TGMLatLngBounds.Intersects.txt)
     function Intersects(Other: TGMLatLngBounds): Boolean;
     // @include(..\Help\docs\GMLib.LatLngBounds.TGMLatLngBounds.IsEmpty.txt)
@@ -234,7 +234,7 @@ begin
   Result := 'https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds';
 end;
 
-procedure TGMLatLngBounds.GetCenter(LatLng: TGMLatLng);
+function TGMLatLngBounds.GetCenter: TGMLatLng;
 begin
 
 end;
