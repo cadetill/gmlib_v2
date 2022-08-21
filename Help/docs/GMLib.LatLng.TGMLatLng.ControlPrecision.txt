@@ -1,0 +1,7 @@
+@abstract(Rounds the Value to the number of decimal places defined by @link(FPrecision).) 
+
+If @link(FPrecision) is 0 it does nothing.
+
+@param Value Value to round.
+
+@return Value rounded to the specified precision.

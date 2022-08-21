@@ -55,30 +55,42 @@ Base class for <code>google.maps.Map</code> class.</p>
 <span id="PasDoc-Methods"></span><h3 class="summary">Methods</h3>
 <table class="summary wide_list">
 <tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <strong><a href="GMLib.Map.TGMCustomMap.html#Create">Create</a></strong>(AOwner: TComponent); override;</code></td>
+</tr>
+<tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>function <strong><a href="GMLib.Map.TGMCustomMap.html#GetHTMLCode">GetHTMLCode</a></strong>: string;</code></td>
 </tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <strong><a href="GMLib.Map.TGMCustomMap.html#GetValueFromHTML">GetValueFromHTML</a></strong>(FormName, FieldName: string): string; virtual; abstract;</code></td>
+</tr>
 <tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#Assign">Assign</a></strong>(Source: TPersistent); override;</code></td>
+</tr>
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#ExecuteJavaScript">ExecuteJavaScript</a></strong>(FunctName, Params: string); virtual; abstract;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#LoadBlankPage">LoadBlankPage</a></strong>; virtual; abstract;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#LoadMap">LoadMap</a></strong>; virtual; abstract;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#PropertyChanged">PropertyChanged</a></strong>(Prop: TPersistent; PropName: string);</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#SetEnableTimer">SetEnableTimer</a></strong>(State: Boolean); virtual; abstract;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#SetIntervalTimer">SetIntervalTimer</a></strong>(Interval: Integer); virtual; abstract;</code></td>
 </tr>
@@ -126,7 +138,7 @@ Base class for <code>google.maps.Map</code> class.</p>
 <td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnPropertyChanges">OnPropertyChanges</a></strong>: <a href="GMLib.Classes.html#TPropertyChanges">TPropertyChanges</a> read FOnPropertyChanges write FOnPropertyChanges;</code></td>
 </tr>
 <tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#Precision">Precision</a></strong>: Integer read FPrecision write SetPrecision default 0;</code></td>
 </tr>
 </table>
@@ -143,6 +155,27 @@ Browser where display the Google Maps map. </p>
 </td></tr>
 </table>
 <h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="Create"></span><code>constructor <strong>Create</strong>(AOwner: TComponent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Class constructor.</p>
+<p>
+
+
+<p>Creates a <a class="normal" href="GMLib.Map.TGMCustomMap.html">TGMCustomMap</a> object.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>AOwner</dt>
+<dd>Owner of the object.</dd>
+</dl>
+</td></tr>
+</table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
@@ -166,6 +199,48 @@ Returns the HTML code of <em>map.html</em> on <em>gmmapres.res</em>.</p>
 <dd>This exception is raised when the Browser property is not assigned.</dd>
 <dt><a class="normal" href="GMLib.Exceptions.EGMCanLoadResource.html">EGMCanLoadResource</a></dt>
 <dd>This exception is raised if the resoource of the map can't be load.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="GetValueFromHTML"></span><code>function <strong>GetValueFromHTML</strong>(FormName, FieldName: string): string; virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Gets the <code>FieldName</code> value from <code>FormName</code> form of the HTML code.</p>
+<p>
+
+
+<p>  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>FormName</dt>
+<dd>Name of the form where to look for the field.</dd>
+<dt>FieldName</dt>
+<dd>Name of the field from which to return the value.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="Assign"></span><code>procedure <strong>Assign</strong>(Source: TPersistent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Call <code>Assign</code> to copy the properties or other attributes form an object to another.</p>
+<p>
+
+
+<p>The standard form of a call to <code>Assign</code> method is <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Source</dt>
+<dd>Object to copy the content.</dd>
 </dl>
 </td></tr>
 </table>
@@ -468,7 +543,7 @@ Event fired when a property from and object changes.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><span id="Precision"></span><code>property <strong>Precision</strong>: Integer read FPrecision write SetPrecision default 0;</code></td>
 </tr>
 <tr><td colspan="2">

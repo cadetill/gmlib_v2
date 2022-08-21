@@ -2,7 +2,7 @@
   @abstract(Interfaces, base classes and support classes for GMLib.)
   @author(Xavier Martinez (cadetill) <cadetill@gmail.com>)
   @created(August 2, 2022)
-  @lastmod(August 2, 2022)
+  @lastmod(August 21, 2022)
 
   The GMLib.Classes unit provides access to interfaces and base classes used into GMLib.
 }
@@ -68,6 +68,8 @@ type
     ['{C1C87DC5-BDFD-4AA1-9BF7-C5FF01290339}']
     // @include(..\Help\docs\GMLib.Classes.IGMExecJS.ExecuteJavaScript.txt)
     procedure ExecuteJavaScript(FunctName, Params: string);
+    // @include(..\Help\docs\GMLib.Classes.IGMExecJS.GetValueFromHTML.txt)
+    function GetValueFromHTML(FormName, FieldName: string): string;
   end;
 
   { ************************************************************************** }

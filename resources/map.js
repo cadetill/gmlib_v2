@@ -162,10 +162,13 @@ function setMapOptions(BackgroundColor,
                        Lng,                              // --> Center
                        ClickableIcons,
                        DisableDoubleClickZoom,
+                       DraggableCursor,
+                       DraggingCursor,
                        FullscreenControl,
                        FullscreenControlOptionsPosition, // --> fullscreenControlOptions
                        GestureHandling,
                        Heading,
+                       IsFractionalZoomEnabled,
                        KeyboardShortcuts,
                        MapTypeControl,
                        MapTypeControlOptionsMapTypeIds,  // --> mapTypeControlOptions
@@ -175,13 +178,12 @@ function setMapOptions(BackgroundColor,
                        MaxZoom,
                        MinZoom,
                        NoClear,
-                       PanControl,
-                       PanControlOptionsPosition,        // --> panControlOptions
                        RestrictionSwLat,                 // --> restriction
                        RestrictionSwLng,                 // --> restriction
                        RestrictionNeLat,                 // --> restriction
                        RestrictionNeLng,                 // --> restriction
                        RestrictionStrictBounds,          // --> restriction
+                       RestrictionEnabled,               // --> restriction
                        RotateControl,
                        RotateControlOptionsPosition,     // --> rotateControlOptions
                        ScaleControl, 
@@ -205,6 +207,16 @@ function setMapOptions(BackgroundColor,
   RotateControlOptionsPosition = StrToPosition(RotateControlOptionsPosition); 
   ScaleControlOptionsStyle = StrToScaleControlStyle(ScaleControlOptionsStyle);
   ZoomControlOptionsPosition = StrToPosition(ZoomControlOptionsPosition); 
+  Restriction = null;
+  if (RestrictionEnabled) {
+    Restriction = {
+                    latLngBounds: new google.maps.LatLngBounds(
+                                                                new google.maps.LatLng(RestrictionSwLat, RestrictionSwLng), 
+                                                                new google.maps.LatLng(RestrictionNeLat, RestrictionNeLng)
+                                                              ),
+                    strictBounds: RestrictionStrictBounds
+                  }
+  }
   
   var mapOptions = {
                     backgroundColor: BackgroundColor,
@@ -213,16 +225,16 @@ function setMapOptions(BackgroundColor,
                     //controlSize: --> not coded
                     //disableDefaultUI: --> not coded
                     disableDoubleClickZoom: DisableDoubleClickZoom,
-                    //draggable: --> deprecated
-                    //draggableCursor: --> to code
-                    //draggingCursor: --> to code
+                    //draggable: --> deprecated, not coded
+                    draggableCursor: DraggableCursor,
+                    draggingCursor: DraggingCursor,
                     fullscreenControl: FullscreenControl,
                     fullscreenControlOptions: {
                                                position: FullscreenControlOptionsPosition
                                               },
                     gestureHandling: GestureHandling,
                     heading: Heading,
-                    //isFractionalZoomEnabled: --> to code
+                    isFractionalZoomEnabled: IsFractionalZoomEnabled,
                     keyboardShortcuts: KeyboardShortcuts,
                     //mapId: --> not coded 
                     mapTypeControl: MapTypeControl,
@@ -235,17 +247,7 @@ function setMapOptions(BackgroundColor,
                     maxZoom: MaxZoom,
                     minZoom: MinZoom,
                     noClear: NoClear,
-                    panControl: PanControl,
-                    panControlOptions: {
-                                        position: PanControlOptionsPosition
-                                       },
-                    restriction: {
-                                  latLngBounds: new google.maps.LatLngBounds(
-                                                                             new google.maps.LatLng(RestrictionSwLat, RestrictionSwLng), 
-                                                                             new google.maps.LatLng(RestrictionNeLat, RestrictionNeLng)
-                                                                            ),
-                                  strictBounds: RestrictionStrictBounds
-                                 },
+                    restriction: Restriction,
                     rotateControl: RotateControl,
                     rotateControlOptions: {
                                            position: RotateControlOptionsPosition

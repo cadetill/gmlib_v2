@@ -2,7 +2,7 @@
   @abstract(@code(google.maps.Map) class from Google Maps API.)
   @author(Xavier Martinez (cadetill) <cadetill@gmail.com>)
   @created(August 12, 2022)
-  @lastmod(August 12, 2022)
+  @lastmod(August 14, 2022)
 
   The GMLib.Map contains the implementation of TGMCustomMap class that encapsulate the @code(google.maps.Map) class from Google Maps API and others related classes.
 }
@@ -20,9 +20,249 @@ uses
   Classes,
   {$ENDIF}
 
-  GMLib.Classes, GMLib.Sets;
+  GMLib.Classes, GMLib.Sets, GMLib.LatLng, GMLib.LatLngBounds;
 
 type
+  // @include(..\Help\docs\GMLib.Map.TGMFullScreenControlOptions.txt)
+  TGMFullScreenControlOptions = class(TGMPersistentStr)
+  private
+    FPosition: TGMControlPosition;
+    procedure SetPosition(const Value: TGMControlPosition);
+  protected
+    // @exclude
+    function GetAPIUrl: string; override;
+  public
+    // @include(..\Help\docs\GMLib.Classes.TGMInterfacedOwnedPersistent.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
+    property APIUrl;
+  published
+    // @include(..\Help\docs\GMLib.Map.TGMFullScreenControlOptions.Position.txt)
+    property Position: TGMControlPosition read FPosition write SetPosition default cpRIGHT_TOP;
+  end;
+
+  // @include(..\Help\docs\GMLib.Map.TGMMapTypeControlOptions.txt)
+  TGMMapTypeControlOptions = class(TGMPersistentStr)
+  private
+    FMapTypeIds: TGMMapTypeIds;
+    FStyle: TGMMapTypeControlStyle;
+    FPosition: TGMControlPosition;
+    procedure SetMapTypeIds(const Value: TGMMapTypeIds);
+    procedure SetPosition(const Value: TGMControlPosition);
+    procedure SetStyle(const Value: TGMMapTypeControlStyle);
+  protected
+    // @exclude
+    function GetAPIUrl: string; override;
+  public
+    // @include(..\Help\docs\GMLib.Map.TGMMapTypeControlOptions.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
+    property APIUrl;
+  published
+    // @include(..\Help\docs\GMLib.Map.TGMMapTypeControlOptions.MapTypeIds.txt)
+    property MapTypeIds: TGMMapTypeIds read FMapTypeIds write SetMapTypeIds default [mtHYBRID, mtROADMAP, mtSATELLITE, mtTERRAIN, mtOSM];
+    // @include(..\Help\docs\GMLib.Map.TGMMapTypeControlOptions.Position.txt)
+    property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_RIGHT;
+    // @include(..\Help\docs\GMLib.Map.TGMMapTypeControlOptions.Style.txt)
+    property Style: TGMMapTypeControlStyle read FStyle write SetStyle default mtcDEFAULT;
+  end;
+
+  // @include(..\Help\docs\GMLib.Map.TGMRestriction.txt)
+  TGMRestriction = class(TGMPersistentStr)
+  private
+    FEnabled: Boolean;
+    FStrictBounds: Boolean;
+    FLatLngBounds: TGMLatLngBounds;
+    procedure SetEnabled(const Value: Boolean);
+    procedure SetStrictBounds(const Value: Boolean);
+  protected
+    // @exclude
+    function GetAPIUrl: string; override;
+  public
+    // @include(..\Help\docs\GMLib.Map.TGMRestriction.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
+    // @include(..\Help\docs\GMLib.Map.TGMRestriction.Destroy.txt)
+    destructor Destroy; override;
+
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
+    property APIUrl;
+  published
+    // @include(..\Help\docs\GMLib.Map.TGMRestriction.LatLngBounds.txt)
+    property LatLngBounds: TGMLatLngBounds read FLatLngBounds write FLatLngBounds;
+    // @include(..\Help\docs\GMLib.Map.TGMRestriction.StrictBounds.txt)
+    property StrictBounds: Boolean read FStrictBounds write SetStrictBounds;
+    // @include(..\Help\docs\GMLib.Map.TGMRestriction.Enabled.txt)
+    property Enabled: Boolean read FEnabled write SetEnabled;
+  end;
+
+  TGMZoomControlOptions = class(TGMPersistentStr)
+
+  end;
+
+  TGMScaleControlOptions = class(TGMPersistentStr)
+
+  end;
+
+  TGMStreetViewControlOptions = class(TGMPersistentStr)
+
+  end;
+
+  TGMRotateControlOptions = class(TGMPersistentStr)
+
+  end;
+
+  // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.txt)
+  TGMCustomMapOptions = class(TGMPersistentStr, IGMControlChanges)
+  private
+    FTilt: Integer;
+    FRestriction: TGMRestriction;
+    FIsFractionalZoomEnabled: Boolean;
+    FNoClear: Boolean;
+    FGestureHandling: TGMGestureHandling;
+    FZoomControlOptions: TGMZoomControlOptions;
+    FScaleControlOptions: TGMScaleControlOptions;
+    FClickableIcons: Boolean;
+    FKeyboardShortcuts: Boolean;
+    FMapTypeControlOptions: TGMMapTypeControlOptions;
+    FDraggingCursor: string;
+    FMinZoom: Integer;
+    FDisableDoubleClickZoom: Boolean;
+    FZoomControl: Boolean;
+    FScaleControl: Boolean;
+    FMapTypeControl: Boolean;
+    FMapTypeId: TGMMapTypeId;
+    FFullScreenControlOptions: TGMFullScreenControlOptions;
+    FStreetViewControlOptions: TGMStreetViewControlOptions;
+    FRotateControlOptions: TGMRotateControlOptions;
+    FFullScreenControl: Boolean;
+    FHeading: Integer;
+    FStreetViewControl: Boolean;
+    FRotateControl: Boolean;
+    FDraggableCursor: string;
+    FCenter: TGMLatLng;
+    FZoom: Integer;
+    FMaxZoom: Integer;
+    procedure SetClickableIcons(const Value: Boolean);
+    procedure SetDisableDoubleClickZoom(const Value: Boolean);
+    procedure SetDraggableCursor(const Value: string);
+    procedure SetDraggingCursor(const Value: string);
+    procedure SetFullScreenControl(const Value: Boolean);
+    procedure SetGestureHandling(const Value: TGMGestureHandling);
+    procedure SetHeading(const Value: Integer);
+    procedure SetIsFractionalZoomEnabled(const Value: Boolean);
+    procedure SetKeyboardShortcuts(const Value: Boolean);
+    procedure SetMapTypeControl(const Value: Boolean);
+    procedure SetMapTypeId(const Value: TGMMapTypeId);
+    procedure SetMaxZoom(const Value: Integer);
+    procedure SetMinZoom(const Value: Integer);
+    procedure SetNoClear(const Value: Boolean);
+    procedure SetRotateControl(const Value: Boolean);
+    procedure SetScaleControl(const Value: Boolean);
+    procedure SetStreetViewControl(const Value: Boolean);
+    procedure SetTilt(const Value: Integer);
+    procedure SetZoom(const Value: Integer);
+    procedure SetZoomControl(const Value: Boolean);
+  protected
+    // @include(..\Help\docs\GMLib.Classes.IGMControlChanges.PropertyChanged.txt)
+    procedure PropertyChanged(Prop: TPersistent; PropName: string);
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.Center.txt)
+    property Center: TGMLatLng read FCenter write FCenter;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.ClickableIcons.txt)
+    property ClickableIcons: Boolean read FClickableIcons write SetClickableIcons;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.DisableDoubleClickZoom.txt)
+    property DisableDoubleClickZoom: Boolean read FDisableDoubleClickZoom write SetDisableDoubleClickZoom default True;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.DraggableCursor.txt)
+    property DraggableCursor: string read FDraggableCursor write SetDraggableCursor;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.DraggingCursor.txt)
+    property DraggingCursor: string read FDraggingCursor write SetDraggingCursor;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.FullScreenControl.txt)
+    property FullScreenControl: Boolean read FFullScreenControl write SetFullScreenControl default True;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.FullScreenControlOptions.txt)
+    property FullScreenControlOptions: TGMFullScreenControlOptions read FFullScreenControlOptions write FFullScreenControlOptions;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.GestureHandling.txt)
+    property GestureHandling: TGMGestureHandling read FGestureHandling write SetGestureHandling;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.Heading.txt)
+    property Heading: Integer read FHeading write SetHeading default 0;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.IsFractionalZoomEnabled.txt)
+    property IsFractionalZoomEnabled: Boolean read FIsFractionalZoomEnabled write SetIsFractionalZoomEnabled;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.KeyboardShortcuts.txt)
+    property KeyboardShortcuts: Boolean read FKeyboardShortcuts write SetKeyboardShortcuts default True;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.MapTypeControl.txt)
+    property MapTypeControl: Boolean read FMapTypeControl write SetMapTypeControl default True;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.MapTypeControlOptions.txt)
+    property MapTypeControlOptions: TGMMapTypeControlOptions read FMapTypeControlOptions write FMapTypeControlOptions;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.MapTypeId.txt)
+    property MapTypeId: TGMMapTypeId read FMapTypeId write SetMapTypeId default mtROADMAP;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.MaxZoom.txt)
+    property MaxZoom: Integer read FMaxZoom write SetMaxZoom default 0;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.MinZoom.txt)
+    property MinZoom: Integer read FMinZoom write SetMinZoom default 0;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.NoClear.txt)
+    property NoClear: Boolean read FNoClear write SetNoClear default False;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.Restriction.txt)
+    property Restriction: TGMRestriction read FRestriction write FRestriction;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.RotateControl.txt)
+    property RotateControl: Boolean read FRotateControl write SetRotateControl default True;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.RotateControlOptions.txt)
+    property RotateControlOptions: TGMRotateControlOptions read FRotateControlOptions write FRotateControlOptions;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.ScaleControl.txt)
+    property ScaleControl: Boolean read FScaleControl write SetScaleControl default True;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.ScaleControlOptions.txt)
+    property ScaleControlOptions: TGMScaleControlOptions read FScaleControlOptions write FScaleControlOptions;
+    { @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.StreetView.txt) }
+    //property StreetView: TGMStreetViewPanoramaOptions read FStreetView write FStreetView;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.StreetViewControl.txt)
+    property StreetViewControl: Boolean read FStreetViewControl write SetStreetViewControl default True;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.StreetViewControlOptions.txt)
+    property StreetViewControlOptions: TGMStreetViewControlOptions read FStreetViewControlOptions write FStreetViewControlOptions;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.Tilt.txt)
+    property Tilt: Integer read FTilt write SetTilt default 0;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.Zoom.txt)
+    property Zoom: Integer read FZoom write SetZoom default 8;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.ZoomControl.txt)
+    property ZoomControl: Boolean read FZoomControl write SetZoomControl default True;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.ZoomControlOptions.txt)
+    property ZoomControlOptions: TGMZoomControlOptions read FZoomControlOptions write FZoomControlOptions;
+  public
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.Destroy.txt)
+    destructor Destroy; override;
+
+    // @exclude
+    function GetAPIUrl: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
+    property APIUrl;
+  end;
+
   // @include(..\Help\docs\GMLib.Map.TGMCustomMap.txt)
   TGMCustomMap = class(TGMComponent, IGMExecJS, IGMControlChanges)
   private
@@ -51,6 +291,12 @@ type
     // @include(..\Help\docs\GMLib.Classes.IGMControlChanges.PropertyChanged.txt)
     procedure PropertyChanged(Prop: TPersistent; PropName: string);
 
+    // @include(..\Help\docs\GMLib.Classes.IGMExecJS.ExecuteJavaScript.txt)
+    procedure ExecuteJavaScript(FunctName, Params: string); virtual; abstract;
+    // @include(..\Help\docs\GMLib.Classes.IGMExecJS.GetValueFromHTML.txt)
+    function GetValueFromHTML(FormName, FieldName: string): string; virtual; abstract;
+
+
     // @exclude
     function GetAPIUrl: string; override;
 
@@ -62,8 +308,6 @@ type
     procedure SetEnableTimer(State: Boolean); virtual; abstract;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.SetIntervalTimer.txt)
     procedure SetIntervalTimer(Interval: Integer); virtual; abstract;
-    // @include(..\Help\docs\GMLib.Classes.IGMExecJS.ExecuteJavaScript.txt)
-    procedure ExecuteJavaScript(FunctName, Params: string); virtual; abstract;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.GetHTMLCode.txt)
     function GetHTMLCode: string;
 
@@ -79,8 +323,6 @@ type
     property APIRegion: TGMAPIRegion read FAPIRegion write SetAPIRegion default rUndefined;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.IntervalEvents.txt)
     property IntervalEvents: Integer read FIntervalEvents write SetIntervalEvents default 200;
-    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.Precision.txt)
-    property Precision: Integer read FPrecision write SetPrecision default 0;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnActiveChange.txt)
     property OnActiveChange: TNotifyEvent read FOnActiveChange write FOnActiveChange;
@@ -90,6 +332,15 @@ type
     property OnPrecisionChange: TNotifyEvent read FOnPrecisionChange write FOnPrecisionChange;
     // @include(..\Help\docs\GMLib.Classes.TPropertyChanges.txt)
     property OnPropertyChanges: TPropertyChanges read FOnPropertyChanges write FOnPropertyChanges;
+  public
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.Create.txt)
+    constructor Create(AOwner: TComponent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.Precision.txt)
+    property Precision: Integer read FPrecision write SetPrecision default 0;
   end;
 
 implementation
@@ -107,6 +358,35 @@ uses
   GMLib.Exceptions, GMLib.Constants, GMLib.Transform;
 
 { TGMCustomMap }
+
+procedure TGMCustomMap.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMCustomMap then
+  begin
+    Active := TGMCustomMap(Source).Active;
+    APIVer := TGMCustomMap(Source).APIVer;
+    APIKey := TGMCustomMap(Source).APIKey;
+    APILang := TGMCustomMap(Source).APILang;
+    APIRegion := TGMCustomMap(Source).APIRegion;
+    IntervalEvents := TGMCustomMap(Source).IntervalEvents;
+    Precision := TGMCustomMap(Source).Precision;
+  end;
+end;
+
+constructor TGMCustomMap.Create(AOwner: TComponent);
+begin
+  inherited;
+
+  FActive := False;
+  FAPIKey := '';
+  FAPIVer := av349;
+  FAPILang := lEnglish;
+  FAPIRegion := rUnited_States;
+  FIntervalEvents := 200;
+  FPrecision := 6;
+end;
 
 function TGMCustomMap.GetAPIUrl: string;
 begin
@@ -272,6 +552,487 @@ begin
   if csDesigning in ComponentState then Exit;
 
   if Assigned(FOnPrecisionChange) then FOnPrecisionChange(Self);
+end;
+
+{ TGMCustomMapOptions }
+
+procedure TGMCustomMapOptions.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMCustomMapOptions then
+  begin
+    Center.Assign(TGMCustomMapOptions(Source).Center);
+    ClickableIcons := TGMCustomMapOptions(Source).ClickableIcons;
+    DisableDoubleClickZoom := TGMCustomMapOptions(Source).DisableDoubleClickZoom;
+    DraggableCursor := TGMCustomMapOptions(Source).DraggableCursor;
+    DraggingCursor := TGMCustomMapOptions(Source).DraggingCursor;
+    FullScreenControl := TGMCustomMapOptions(Source).FullScreenControl;
+    FullScreenControlOptions.Assign(TGMCustomMapOptions(Source).FullScreenControlOptions);
+    GestureHandling := TGMCustomMapOptions(Source).GestureHandling;
+    Heading := TGMCustomMapOptions(Source).Heading;
+    IsFractionalZoomEnabled := TGMCustomMapOptions(Source).IsFractionalZoomEnabled;
+    KeyboardShortcuts := TGMCustomMapOptions(Source).KeyboardShortcuts;
+    MapTypeControl := TGMCustomMapOptions(Source).MapTypeControl;
+    MapTypeControlOptions.Assign(TGMCustomMapOptions(Source).MapTypeControlOptions);
+    MapTypeId := TGMCustomMapOptions(Source).MapTypeId;
+    MaxZoom := TGMCustomMapOptions(Source).MaxZoom;
+    MinZoom := TGMCustomMapOptions(Source).MinZoom;
+    NoClear := TGMCustomMapOptions(Source).NoClear;
+    Restriction.Assign(TGMCustomMapOptions(Source).Restriction);
+    RotateControl := TGMCustomMapOptions(Source).RotateControl;
+    RotateControlOptions.Assign(TGMCustomMapOptions(Source).RotateControlOptions);
+    ScaleControl := TGMCustomMapOptions(Source).ScaleControl;
+    ScaleControlOptions.Assign(TGMCustomMapOptions(Source).ScaleControlOptions);
+    //StreetView.Assign(TGMCustomMapOptions(Source).StreetView);
+    StreetViewControl := TGMCustomMapOptions(Source).StreetViewControl;
+    StreetViewControlOptions.Assign(TGMCustomMapOptions(Source).StreetViewControlOptions);
+    Tilt := TGMCustomMapOptions(Source).Tilt;
+    Zoom := TGMCustomMapOptions(Source).Zoom;
+    ZoomControl := TGMCustomMapOptions(Source).ZoomControl;
+    ZoomControlOptions.Assign(TGMCustomMapOptions(Source).ZoomControlOptions);
+  end;
+end;
+
+constructor TGMCustomMapOptions.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FCenter := TGMLatLng.Create(Self, 0, 0, False);
+  FClickableIcons := True;
+  FDisableDoubleClickZoom := True;
+  FDraggableCursor := '';
+  FDraggingCursor := '';
+  FFullScreenControl := True;
+  FFullScreenControlOptions := TGMFullScreenControlOptions.Create(Self);
+  FGestureHandling := ghAuto;
+  FHeading := 0;
+  FIsFractionalZoomEnabled := True;
+  FKeyboardShortcuts := True;
+  FMapTypeControl := True;
+  FMapTypeControlOptions := TGMMapTypeControlOptions.Create(Self);
+  FMapTypeId := mtROADMAP;
+  FMaxZoom := 0;
+  FMinZoom := 0;
+  FNoClear := False;
+  FRestriction := TGMRestriction.Create(Self);
+  FRotateControl := True;
+  FRotateControlOptions := TGMRotateControlOptions.Create(Self);
+  FScaleControl := True;
+  FScaleControlOptions := TGMScaleControlOptions.Create(Self);
+  //FStreetView := TGMStreetViewPanoramaOptions.Create(Self);
+  FStreetViewControl := True;
+  FStreetViewControlOptions := TGMStreetViewControlOptions.Create(Self);
+  FTilt := 0;
+  FZoom := 8;
+  FZoomControl := True;
+  FZoomControlOptions := TGMZoomControlOptions.Create(Self);
+end;
+
+destructor TGMCustomMapOptions.Destroy;
+begin
+  if Assigned(FCenter) then FCenter.Free;
+  if Assigned(FFullScreenControlOptions) then FFullScreenControlOptions.Free;
+  if Assigned(FMapTypeControlOptions) then FMapTypeControlOptions.Free;
+  if Assigned(FRestriction) then FRestriction.Free;
+  if Assigned(FRotateControlOptions) then FRotateControlOptions.Free;
+  if Assigned(FScaleControlOptions) then FScaleControlOptions.Free;
+  //if Assigned(FStreetView) then FStreetView.Free;
+  if Assigned(FStreetViewControlOptions) then FStreetViewControlOptions.Free;
+  if Assigned(FZoomControlOptions) then FZoomControlOptions.Free;
+
+  inherited;
+end;
+
+function TGMCustomMapOptions.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions';
+end;
+
+procedure TGMCustomMapOptions.PropertyChanged(Prop: TPersistent;
+  PropName: string);
+var
+  Intf: IGMControlChanges;
+begin
+  if (GetOwner <> nil) and Supports(GetOwner, IGMControlChanges, Intf) then
+  begin
+    if Assigned(Prop) then
+      Intf.PropertyChanged(Prop, PropName)
+    else
+      Intf.PropertyChanged(Self, PropName);
+  end
+  else
+    if Assigned(OnChange) then OnChange(Self);
+end;
+
+function TGMCustomMapOptions.PropToString: string;
+const
+  Str = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
+begin
+  Result := inherited PropToString;
+  if Result <> '' then Result := Result + ',';
+  Result := Result +
+            Format(Str, [
+                         FCenter.PropToString,
+                         LowerCase(TGMTransform.GMBoolToStr(FClickableIcons, True)),
+                         LowerCase(TGMTransform.GMBoolToStr(FDisableDoubleClickZoom, True)),
+                         QuotedStr(FDraggableCursor),
+                         QuotedStr(FDraggingCursor),
+                         LowerCase(TGMTransform.GMBoolToStr(FFullScreenControl, True)),
+                         FFullScreenControlOptions.PropToString,
+                         QuotedStr(TGMTransform.GestureHandlingToStr(FGestureHandling)),
+                         IntToStr(FHeading),
+                         LowerCase(TGMTransform.GMBoolToStr(FIsFractionalZoomEnabled, True)),
+                         LowerCase(TGMTransform.GMBoolToStr(FKeyboardShortcuts, True)),
+                         LowerCase(TGMTransform.GMBoolToStr(FMapTypeControl, True)),
+                         FMapTypeControlOptions.PropToString,
+                         QuotedStr(TGMTransform.MapTypeIdToStr(FMapTypeId)),
+                         IntToStr(FMaxZoom),
+                         IntToStr(FMinZoom),
+                         LowerCase(TGMTransform.GMBoolToStr(FNoClear, True)),
+                         FRestriction.PropToString,
+                         LowerCase(TGMTransform.GMBoolToStr(FRotateControl, True)),
+                         FRotateControlOptions.PropToString,
+                         LowerCase(TGMTransform.GMBoolToStr(FScaleControl, True)),
+                         FScaleControlOptions.PropToString,
+                         LowerCase(TGMTransform.GMBoolToStr(FStreetViewControl, True)),
+                         FStreetViewControlOptions.PropToString,
+                         IntToStr(FTilt),
+                         IntToStr(FZoom),
+                         LowerCase(TGMTransform.GMBoolToStr(FZoomControl, True)),
+                         FZoomControlOptions.PropToString
+                         ]);
+end;
+
+procedure TGMCustomMapOptions.SetClickableIcons(const Value: Boolean);
+begin
+  if FClickableIcons = Value then Exit;
+
+  FClickableIcons := Value;
+  ControlChanges('ClickableIcons');
+end;
+
+procedure TGMCustomMapOptions.SetDisableDoubleClickZoom(const Value: Boolean);
+begin
+  if FDisableDoubleClickZoom = Value then Exit;
+
+  FDisableDoubleClickZoom := Value;
+  ControlChanges('DisableDoubleClickZoom');
+end;
+
+procedure TGMCustomMapOptions.SetDraggableCursor(const Value: string);
+begin
+  if FDraggableCursor = Value then Exit;
+
+  FDraggableCursor := Value;
+  ControlChanges('DraggableCursor');
+end;
+
+procedure TGMCustomMapOptions.SetDraggingCursor(const Value: string);
+begin
+  if FDraggingCursor = Value then Exit;
+
+  FDraggingCursor := Value;
+  ControlChanges('DraggingCursor');
+end;
+
+procedure TGMCustomMapOptions.SetFullScreenControl(const Value: Boolean);
+begin
+  if FFullScreenControl = Value then Exit;
+
+  FFullScreenControl := Value;
+  ControlChanges('FullScreenControl');
+end;
+
+procedure TGMCustomMapOptions.SetGestureHandling(
+  const Value: TGMGestureHandling);
+begin
+  if FGestureHandling = Value then Exit;
+
+  FGestureHandling := Value;
+  ControlChanges('GestureHandling');
+end;
+
+procedure TGMCustomMapOptions.SetHeading(const Value: Integer);
+begin
+  if FHeading = Value then Exit;
+
+  FHeading := Value;
+  ControlChanges('Heading');
+end;
+
+procedure TGMCustomMapOptions.SetIsFractionalZoomEnabled(const Value: Boolean);
+begin
+  if FIsFractionalZoomEnabled = Value then Exit;
+
+  FIsFractionalZoomEnabled := Value;
+  ControlChanges('IsFractionalZoomEnabled');
+end;
+
+procedure TGMCustomMapOptions.SetKeyboardShortcuts(const Value: Boolean);
+begin
+  if FKeyboardShortcuts = Value then Exit;
+
+  FKeyboardShortcuts := Value;
+  ControlChanges('KeyboardShortcuts');
+end;
+
+procedure TGMCustomMapOptions.SetMapTypeControl(const Value: Boolean);
+begin
+  if FMapTypeControl = Value then Exit;
+
+  FMapTypeControl := Value;
+  ControlChanges('MapTypeControl');
+end;
+
+procedure TGMCustomMapOptions.SetMapTypeId(const Value: TGMMapTypeId);
+begin
+  if FMapTypeId = Value then Exit;
+
+  FMapTypeId := Value;
+  ControlChanges('MapTypeId');
+end;
+
+procedure TGMCustomMapOptions.SetMaxZoom(const Value: Integer);
+begin
+  if FMaxZoom = Value then Exit;
+
+  FMaxZoom := Value;
+  ControlChanges('MaxZoom');
+end;
+
+procedure TGMCustomMapOptions.SetMinZoom(const Value: Integer);
+begin
+  if FMinZoom = Value then Exit;
+
+  FMinZoom := Value;
+  ControlChanges('MinZoom');
+end;
+
+procedure TGMCustomMapOptions.SetNoClear(const Value: Boolean);
+begin
+  if FNoClear = Value then Exit;
+
+  FNoClear := Value;
+  ControlChanges('NoClear');
+end;
+
+procedure TGMCustomMapOptions.SetRotateControl(const Value: Boolean);
+begin
+  if FRotateControl = Value then Exit;
+
+  FRotateControl := Value;
+  ControlChanges('RotateControl');
+end;
+
+procedure TGMCustomMapOptions.SetScaleControl(const Value: Boolean);
+begin
+  if FScaleControl = Value then Exit;
+
+  FScaleControl := Value;
+  ControlChanges('ScaleControl');
+end;
+
+procedure TGMCustomMapOptions.SetStreetViewControl(const Value: Boolean);
+begin
+  if FStreetViewControl = Value then Exit;
+
+  FStreetViewControl := Value;
+  ControlChanges('StreetViewControl');
+end;
+
+procedure TGMCustomMapOptions.SetTilt(const Value: Integer);
+begin
+  if FTilt = Value then Exit;
+
+  FTilt := Value;
+  ControlChanges('Tilt');
+end;
+
+procedure TGMCustomMapOptions.SetZoom(const Value: Integer);
+begin
+  if FZoom = Value then Exit;
+
+  FZoom := Value;
+  ControlChanges('Zoom');
+end;
+
+procedure TGMCustomMapOptions.SetZoomControl(const Value: Boolean);
+begin
+  if FZoomControl = Value then Exit;
+
+  FZoomControl := Value;
+  ControlChanges('ZoomControl');
+end;
+
+{ TGMFullScreenControlOptions }
+
+procedure TGMFullScreenControlOptions.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMFullScreenControlOptions then
+  begin
+    Position := TGMFullScreenControlOptions(Source).Position;
+  end;
+end;
+
+constructor TGMFullScreenControlOptions.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FPosition := cpRIGHT_TOP;
+end;
+
+function TGMFullScreenControlOptions.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/control#FullscreenControlOptions';
+end;
+
+function TGMFullScreenControlOptions.PropToString: string;
+const
+  Str = '%s';
+begin
+  Result := Format(Str, [
+                         QuotedStr(TGMTransform.PositionToStr(FPosition))
+                        ]);
+end;
+
+procedure TGMFullScreenControlOptions.SetPosition(
+  const Value: TGMControlPosition);
+begin
+  if FPosition = Value then Exit;
+
+  FPosition := Value;
+  ControlChanges('Position');
+end;
+
+{ TGMMapTypeControlOptions }
+
+procedure TGMMapTypeControlOptions.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMMapTypeControlOptions then
+  begin
+    MapTypeIds := TGMMapTypeControlOptions(Source).MapTypeIds;
+    Position := TGMMapTypeControlOptions(Source).Position;
+    Style := TGMMapTypeControlOptions(Source).Style;
+  end;
+end;
+
+constructor TGMMapTypeControlOptions.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FPosition := cpTOP_RIGHT;
+  FStyle := mtcDEFAULT;
+  FMapTypeIds := [mtHYBRID, mtROADMAP, mtSATELLITE, mtTERRAIN, mtOSM];
+end;
+
+function TGMMapTypeControlOptions.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/control#MapTypeControlOptions';
+end;
+
+function TGMMapTypeControlOptions.PropToString: string;
+const
+  Str = '%s,%s,%s';
+begin
+  Result := Format(Str, [
+                         QuotedStr(TGMTransform.MapTypeIdsToStr(MapTypeIds, ';')),
+                         QuotedStr(TGMTransform.PositionToStr(Position)),
+                         QuotedStr(TGMTransform.MapTypeControlStyleToStr(Style))
+                        ]);
+end;
+
+procedure TGMMapTypeControlOptions.SetMapTypeIds(const Value: TGMMapTypeIds);
+begin
+  if FMapTypeIds = Value then Exit;
+
+  FMapTypeIds := Value;
+  ControlChanges('MapTypeIds');
+end;
+
+procedure TGMMapTypeControlOptions.SetPosition(const Value: TGMControlPosition);
+begin
+  if FPosition = Value then Exit;
+
+  FPosition := Value;
+  ControlChanges('Position');
+end;
+
+procedure TGMMapTypeControlOptions.SetStyle(const Value: TGMMapTypeControlStyle);
+begin
+  if FStyle = Value then Exit;
+
+  FStyle := Value;
+  ControlChanges('Style');
+end;
+
+{ TGMRestriction }
+
+procedure TGMRestriction.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMRestriction then
+  begin
+    LatLngBounds.Assign(TGMRestriction(Source).LatLngBounds);
+    StrictBounds := TGMRestriction(Source).StrictBounds;
+    Enabled := TGMRestriction(Source).Enabled;
+  end;
+end;
+
+constructor TGMRestriction.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FLatLngBounds := TGMLatLngBounds.Create(Self);
+  FStrictBounds := False;
+  FEnabled := False;
+end;
+
+destructor TGMRestriction.Destroy;
+begin
+  if Assigned(FLatLngBounds) then FLatLngBounds.Free;
+
+  inherited;
+end;
+
+function TGMRestriction.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/map#MapRestriction';
+end;
+
+function TGMRestriction.PropToString: string;
+const
+  Str = '%s,%s,%s';
+begin
+  Result := inherited PropToString;
+  if Result <> '' then Result := Result + ',';
+  Result := Result +
+            Format(Str, [
+                         FLatLngBounds.ToStr,
+                         LowerCase(TGMTransform.GMBoolToStr(FStrictBounds, True)),
+                         LowerCase(TGMTransform.GMBoolToStr(FEnabled, True))
+                         ]);
+end;
+
+procedure TGMRestriction.SetEnabled(const Value: Boolean);
+begin
+  if FEnabled = Value then Exit;
+
+  FEnabled := Value;
+  ControlChanges('Enabled');
+end;
+
+procedure TGMRestriction.SetStrictBounds(const Value: Boolean);
+begin
+  if FStrictBounds = Value then Exit;
+
+  FStrictBounds := Value;
+  ControlChanges('StrictBounds');
 end;
 
 end.

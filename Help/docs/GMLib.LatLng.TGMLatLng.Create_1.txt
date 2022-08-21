@@ -5,4 +5,5 @@ Creates a LatLng object representing a geographic point. Latitude is specified i
 @param Lat Latitude. Default 0.
 @param Lng Longitude. Default 0.
 @param NoWrap Allows to put values outside the default range of lat/lng.
+@param Precision Precision value to show Lat and Lng. Default 6.
 @param Lang @link(TGMLang) to use in exceptions.

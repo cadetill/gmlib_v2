@@ -1,0 +1,1 @@
+@abstract(Default: true for vector maps and false for raster maps.)

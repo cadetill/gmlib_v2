@@ -1,0 +1,7 @@
+@abstract(Returns the double value represented by @code(Value) string.)
+
+If Value don't contains a double value, returns 0.
+
+@param Value Value to convert.
+
+@return Double value.

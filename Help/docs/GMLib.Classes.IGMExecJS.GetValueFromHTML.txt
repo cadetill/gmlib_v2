@@ -1,0 +1,4 @@
+@abstract(Gets the @code(FieldName) value from @code(FormName) form of the HTML code.)
+
+@param FormName Name of the form where to look for the field.
+@param FieldName Name of the field from which to return the value.

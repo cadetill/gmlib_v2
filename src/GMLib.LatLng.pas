@@ -33,9 +33,16 @@ type
     procedure SetLat(const Value: Double);
     procedure SetLng(const Value: Double);
     procedure SetNoWrap(const Value: Boolean);
+    function GetLat: Double;
+    function GetLng: Double;
   protected
+    // @include(..\Help\docs\GMLib.LatLng.TGMLatLng.FPrecision.txt)
+    FPrecision: Integer;
+
     // @include(..\Help\docs\GMLib.LatLng.TGMLatLng.LatLngToStr.txt)
     procedure LatLngToStr(var aLat, aLng: string; Precision: Integer = 6);
+    // @include(..\Help\docs\GMLib.LatLng.TGMLatLng.ControlPrecision.txt)
+    function ControlPrecision(Value: Double): Double; virtual;
 
     // @exclude
     function GetAPIUrl: string; override;
@@ -74,9 +81,9 @@ type
     property APIUrl;
   published
     // @include(..\Help\docs\GMLib.LatLng.TGMLatLng.Lat.txt)
-    property Lat: Double read FLat write SetLat;
+    property Lat: Double read GetLat write SetLat;
     // @include(..\Help\docs\GMLib.LatLng.TGMLatLng.Lng.txt)
-    property Lng: Double read FLng write SetLng;
+    property Lng: Double read GetLng write SetLng;
     // @include(..\Help\docs\GMLib.LatLng.TGMLatLng.NoWrap.txt)
     property NoWrap: Boolean read FNoWrap write SetNoWrap default False;
   end;
@@ -85,12 +92,12 @@ implementation
 
 uses
   {$IFDEF DELPHIXE2}
-  System.SysUtils,
+  System.SysUtils, System.Math,
   {$ELSE}
-  SysUtils,
+  SysUtils, Math,
   {$ENDIF}
 
-  GMLib.Transform;
+  GMLib.Transform, GMlib.Map;
 
 { TGMLatLng }
 
@@ -116,10 +123,23 @@ begin
   FLang := Lang;
 end;
 
+function TGMLatLng.ControlPrecision(Value: Double): Double;
+begin
+  Result := Value;
+
+  if FPrecision > 0 then
+    Result := RoundTo(Result, (-1) * FPrecision);
+end;
+
 constructor TGMLatLng.Create(AOwner: TPersistent; Lat, Lng: Real;
   NoWrap: Boolean);
 begin
   inherited Create(AOwner);
+
+  if Assigned(AOwner) and (AOwner is TGMCustomMap) then
+    FPrecision := TGMCustomMap(AOwner).Precision
+  else
+    FPrecision := 6;
 
   FNoWrap := NoWrap;
   FLat := Lat;
@@ -130,6 +150,22 @@ end;
 function TGMLatLng.GetAPIUrl: string;
 begin
   Result := 'https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLng';
+end;
+
+function TGMLatLng.GetLat: Double;
+begin
+  if Assigned(GetOwner()) and (GetOwner is TGMCustomMap) then
+    FPrecision := TGMCustomMap(GetOwner).Precision;
+
+  Result := ControlPrecision(FLat);
+end;
+
+function TGMLatLng.GetLng: Double;
+begin
+  if Assigned(GetOwner()) and (GetOwner is TGMCustomMap) then
+    FPrecision := TGMCustomMap(GetOwner).Precision;
+
+  Result := ControlPrecision(FLng);
 end;
 
 function TGMLatLng.GetOwnerLang: TGMLang;

@@ -1,0 +1,5 @@
+@abstract(The initial display options for the Map type control.)
+
+In order to take effect the change of this property, you must to restart the map.
+
+More info at @url(https://developers.google.com/maps/documentation/javascript/reference/control#MapTypeControlOptions MapTypeControlOptions interface)

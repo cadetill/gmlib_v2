@@ -22,6 +22,8 @@ DiGraph Classes {
   "EGMJSError" [href="GMLib.Exceptions.EGMJSError.html"]
   "EGMMapIsActive" -> "EGMException"
   "EGMMapIsActive" [href="GMLib.Exceptions.EGMMapIsActive.html"]
+  "EGMMapIsNull" -> "EGMException"
+  "EGMMapIsNull" [href="GMLib.Exceptions.EGMMapIsNull.html"]
   "EGMNotActive" -> "EGMException"
   "EGMNotActive" [href="GMLib.Exceptions.EGMNotActive.html"]
   "EGMNotValidRealNumber" -> "EGMException"
@@ -34,6 +36,8 @@ DiGraph Classes {
   "EGMUnassignedObject" [href="GMLib.Exceptions.EGMUnassignedObject.html"]
   "EGMWithoutOwner" -> "EGMException"
   "EGMWithoutOwner" [href="GMLib.Exceptions.EGMWithoutOwner.html"]
+  "TGenFunc" -> "TObject"
+  "TGenFunc" [href="GMLib.Functions.TGenFunc.html"]
   "TPersistent" -> "TObject"
   "TCollection" -> "TPersistent"
   "TGMInterfacedCollection" -> "TCollection"
@@ -53,6 +57,24 @@ DiGraph Classes {
   "TGMPersistent" [href="GMLib.Classes.TGMPersistent.html"]
   "TGMPersistentStr" -> "TGMPersistent"
   "TGMPersistentStr" [href="GMLib.Classes.TGMPersistentStr.html"]
+  "TGMCustomMapOptions" -> "TGMPersistentStr"
+  "TGMCustomMapOptions" [href="GMLib.Map.TGMCustomMapOptions.html"]
+  "TGMFullScreenControlOptions" -> "TGMPersistentStr"
+  "TGMFullScreenControlOptions" [href="GMLib.Map.TGMFullScreenControlOptions.html"]
   "TGMLatLng" -> "TGMPersistentStr"
   "TGMLatLng" [href="GMLib.LatLng.TGMLatLng.html"]
+  "TGMLatLngBounds" -> "TGMPersistentStr"
+  "TGMLatLngBounds" [href="GMLib.LatLngBounds.TGMLatLngBounds.html"]
+  "TGMMapTypeControlOptions" -> "TGMPersistentStr"
+  "TGMMapTypeControlOptions" [href="GMLib.Map.TGMMapTypeControlOptions.html"]
+  "TGMRestriction" -> "TGMPersistentStr"
+  "TGMRestriction" [href="GMLib.Map.TGMRestriction.html"]
+  "TGMRotateControlOptions" -> "TGMPersistentStr"
+  "TGMRotateControlOptions" [href="GMLib.Map.TGMRotateControlOptions.html"]
+  "TGMScaleControlOptions" -> "TGMPersistentStr"
+  "TGMScaleControlOptions" [href="GMLib.Map.TGMScaleControlOptions.html"]
+  "TGMStreetViewControlOptions" -> "TGMPersistentStr"
+  "TGMStreetViewControlOptions" [href="GMLib.Map.TGMStreetViewControlOptions.html"]
+  "TGMZoomControlOptions" -> "TGMPersistentStr"
+  "TGMZoomControlOptions" [href="GMLib.Map.TGMZoomControlOptions.html"]
 }

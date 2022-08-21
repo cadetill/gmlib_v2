@@ -7,13 +7,21 @@ DiGraph Uses {
   "GMLib.Exceptions" -> "SysUtils"
   "GMLib.Exceptions" -> "GMLib.Sets"
   "GMLib.Exceptions" [href="GMLib.Exceptions.html"]
+  "GMLib.Functions" [href="GMLib.Functions.html"]
   "GMLib.LatLng" -> "Classes"
   "GMLib.LatLng" -> "GMLib.Sets"
   "GMLib.LatLng" -> "GMLib.Classes"
   "GMLib.LatLng" [href="GMLib.LatLng.html"]
+  "GMLib.LatLngBounds" -> "Classes"
+  "GMLib.LatLngBounds" -> "GMLib.Classes"
+  "GMLib.LatLngBounds" -> "GMLib.Sets"
+  "GMLib.LatLngBounds" -> "GMLib.LatLng"
+  "GMLib.LatLngBounds" [href="GMLib.LatLngBounds.html"]
   "GMLib.Map" -> "Classes"
   "GMLib.Map" -> "GMLib.Classes"
   "GMLib.Map" -> "GMLib.Sets"
+  "GMLib.Map" -> "GMLib.LatLng"
+  "GMLib.Map" -> "GMLib.LatLngBounds"
   "GMLib.Map" [href="GMLib.Map.html"]
   "GMLib.Sets" [href="GMLib.Sets.html"]
   "GMLib.Transform" -> "GMLib.Sets"

@@ -38,6 +38,8 @@ contains
   GMLib.Translations in '..\src\GMLib.Translations.pas',
   GMLib.LatLng in '..\src\GMLib.LatLng.pas',
   GMLib.Map in '..\src\GMLib.Map.pas',
-  GMLib.Constants in '..\src\GMLib.Constants.pas';
+  GMLib.Constants in '..\src\GMLib.Constants.pas',
+  GMLib.LatLngBounds in '..\src\GMLib.LatLngBounds.pas',
+  GMLib.Functions in '..\src\GMLib.Functions.pas';
 
 end.

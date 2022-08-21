@@ -2,11 +2,13 @@
   @abstract(Transform a data from Delphi to JS ans JS to Delphi.)
   @author(Xavier Martinez (cadetill) <cadetill@gmail.com>)
   @created(August 2, 2022)
-  @lastmod(August 11, 2022)
+  @lastmod(August 21, 2022)
 
   The GMLib.Transform unit contains all functions needed to transform a JavaScript value to Delphi value and viceversa.
 }
 unit GMLib.Transform;
+
+{$I ..\gmlib.inc}
 
 interface
 
@@ -19,6 +21,8 @@ type
   public
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.GMBoolToStr.txt)
     class function GMBoolToStr(Value: Boolean; UseBoolStrs: Boolean = False): string; static;
+    // @include(..\Help\docs\GMLib.Transform.TGMTransform.GetStrToDouble.txt)
+    class function GetStrToDouble(Value: string): Double; static;
 
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.APIVerToStr.txt)
     class function APIVerToStr(Value: TGMAPIVer): string; static;
@@ -70,9 +74,9 @@ implementation
 
 uses
   {$IFDEF DELPHIXE2}
-  System.TypInfo
+  System.TypInfo, System.SysUtils
   {$ELSE}
-  TypInfo
+  TypInfo, SysUtils
   {$ENDIF}
   ;
 
@@ -445,6 +449,19 @@ end;
 class function TGMTransform.GestureHandlingToStr(Value: TGMGestureHandling): string;
 begin
   Result := GetEnumName(TypeInfo(TGMGestureHandling), Ord(Value));
+end;
+
+class function TGMTransform.GetStrToDouble(Value: string): Double;
+var
+  TmpStr: string;
+  Val: Extended;
+begin
+  Result := 0;
+
+  if {$IFDEF DELPHIXE}FormatSettings.DecimalSeparator{$ELSE}DecimalSeparator{$ENDIF} = ',' then
+    TmpStr := StringReplace(TmpStr, '.', ',', [rfReplaceAll]);
+  if (TmpStr <> '') and TryStrToFloat(TmpStr, Val) then
+    Result := Val;
 end;
 
 class function TGMTransform.GMBoolToStr(Value, UseBoolStrs: Boolean): string;

@@ -23,7 +23,7 @@
 <hr noshade="" size="1">
 <span id="TGMLatLng"></span><h1 class="cio">Class TGMLatLng</h1>
 <div class="sections">
-<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></div><div class="one_section">Fields</div><div class="one_section"><a class="section" href="#PasDoc-Methods">Methods</a></div><div class="one_section"><a class="section" href="#PasDoc-Properties">Properties</a></div></div>
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></div><div class="one_section"><a class="section" href="#PasDoc-Fields">Fields</a></div><div class="one_section"><a class="section" href="#PasDoc-Methods">Methods</a></div><div class="one_section"><a class="section" href="#PasDoc-Properties">Properties</a></div></div>
 <span id="PasDoc-Description"></span><h2 class="unit">Unit</h2>
 <p class="unitlink">
 <a href="GMLib.LatLng.html">GMLib.LatLng</a></p>
@@ -52,6 +52,13 @@ A TGMLatLng is a point in geographical coordinates: latitude and longitude.</p>
 <li class="ancestor"><a class="normal" href="GMLib.Classes.TGMPersistent.html">TGMPersistent</a></li>
 <li class="ancestor"><a class="normal" href="GMLib.Classes.TGMPersistentStr.html">TGMPersistentStr</a></li>
 <li class="thisitem">TGMLatLng</li></ul><h2 class="overview">Overview</h2>
+<span id="PasDoc-Fields"></span><h3 class="summary">Fields</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code><strong><a href="GMLib.LatLng.TGMLatLng.html#FPrecision">FPrecision</a></strong>: Integer;</code></td>
+</tr>
+</table>
 <span id="PasDoc-Methods"></span><h3 class="summary">Methods</h3>
 <table class="summary wide_list">
 <tr class="list">
@@ -92,17 +99,21 @@ A TGMLatLng is a point in geographical coordinates: latitude and longitude.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>function <strong><a href="GMLib.LatLng.TGMLatLng.html#GetOwnerLang">GetOwnerLang</a></strong>: <a href="GMLib.Sets.html#TGMLang">TGMLang</a>; override;</code></td>
+<td class="itemcode"><code>function <strong><a href="GMLib.LatLng.TGMLatLng.html#ControlPrecision">ControlPrecision</a></strong>(Value: Double): Double; virtual;</code></td>
 </tr>
 <tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <strong><a href="GMLib.LatLng.TGMLatLng.html#Assign">Assign</a></strong>(Source: TPersistent); override;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <strong><a href="GMLib.LatLng.TGMLatLng.html#GetOwnerLang">GetOwnerLang</a></strong>: <a href="GMLib.Sets.html#TGMLang">TGMLang</a>; override;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <strong><a href="GMLib.LatLng.TGMLatLng.html#SetLang">SetLang</a></strong>(Lang: <a href="GMLib.Sets.html#TGMLang">TGMLang</a>);</code></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.LatLng.TGMLatLng.html#Assign">Assign</a></strong>(Source: TPersistent); override;</code></td>
 </tr>
 <tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.LatLng.TGMLatLng.html#SetLang">SetLang</a></strong>(Lang: <a href="GMLib.Sets.html#TGMLang">TGMLang</a>);</code></td>
+</tr>
+<tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLib.LatLng.TGMLatLng.html#LatLngToStr">LatLngToStr</a></strong>(var aLat, aLng: string; Precision: Integer = 6);</code></td>
 </tr>
@@ -115,11 +126,11 @@ A TGMLatLng is a point in geographical coordinates: latitude and longitude.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMLib.LatLng.TGMLatLng.html#Lat">Lat</a></strong>: Double read FLat write SetLat;</code></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.LatLng.TGMLatLng.html#Lat">Lat</a></strong>: Double read GetLat write SetLat;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMLib.LatLng.TGMLatLng.html#Lng">Lng</a></strong>: Double read FLng write SetLng;</code></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.LatLng.TGMLatLng.html#Lng">Lng</a></strong>: Double read GetLng write SetLng;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
@@ -127,6 +138,17 @@ A TGMLatLng is a point in geographical coordinates: latitude and longitude.</p>
 </tr>
 </table>
 <h2 class="description">Description</h2>
+<h3 class="detail">Fields</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="FPrecision"></span><code><strong>FPrecision</strong>: Integer;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Precision value to show Lat and Lng. Default 6.</p>
+</td></tr>
+</table>
 <h3 class="detail">Methods</h3>
 <table class="detail wide_list">
 <tr class="list">
@@ -141,7 +163,7 @@ Constructor class.</p>
 
 <p>Creates a LatLng object representing a geographic point. Latitude is specified in degrees within the range [-90, 90]. Longitude is specified in degrees within the range [-180, 180]. Set noWrap to true to enable values outside of this range.
 
-<p>    </p>
+<p>     </p>
 <h6 class="description_section">Parameters</h6>
 <dl class="parameters">
 <dt>Lat</dt>
@@ -150,6 +172,8 @@ Constructor class.</p>
 <dd>Longitude. Default 0.</dd>
 <dt>NoWrap</dt>
 <dd>Allows to put values outside the default range of lat/lng.</dd>
+<dt>Precision</dt>
+<dd>Precision value to show Lat and Lng. Default 6.</dd>
 <dt>Lang</dt>
 <dd><a class="normal" href="GMLib.Sets.html#TGMLang">TGMLang</a> to use in exceptions.</dd>
 </dl>
@@ -322,6 +346,30 @@ Returns a string of the form <code>&quot;lat,lng&quot;</code> for this LatLng.</
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="ControlPrecision"></span><code>function <strong>ControlPrecision</strong>(Value: Double): Double; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Rounds the Value to the number of decimal places defined by <a class="normal" href="GMLib.LatLng.TGMLatLng.html#FPrecision">FPrecision</a>.</p>
+<p>
+
+
+<p>If <a class="normal" href="GMLib.LatLng.TGMLatLng.html#FPrecision">FPrecision</a> is 0 it does nothing.
+
+<p>
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Value</dt>
+<dd>Value to round.</dd>
+</dl>
+<h6 class="description_section">Returns</h6>
+<p class="return">Value rounded to the specified precision.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><span id="GetOwnerLang"></span><code>function <strong>GetOwnerLang</strong>: <a href="GMLib.Sets.html#TGMLang">TGMLang</a>; override;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -409,7 +457,7 @@ URL to Google Maps API page. </p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><span id="Lat"></span><code>property <strong>Lat</strong>: Double read FLat write SetLat;</code></td>
+<td class="itemcode"><span id="Lat"></span><code>property <strong>Lat</strong>: Double read GetLat write SetLat;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -419,7 +467,7 @@ Latitude in degrees. </p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><span id="Lng"></span><code>property <strong>Lng</strong>: Double read FLng write SetLng;</code></td>
+<td class="itemcode"><span id="Lng"></span><code>property <strong>Lng</strong>: Double read GetLng write SetLng;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>

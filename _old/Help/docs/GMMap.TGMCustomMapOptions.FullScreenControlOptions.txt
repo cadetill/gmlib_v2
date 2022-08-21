@@ -1,1 +1,0 @@
-@abstract(The display options for the Fullscreen control.)

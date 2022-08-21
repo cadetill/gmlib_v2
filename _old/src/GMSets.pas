@@ -8,6 +8,8 @@
 }
 unit GMSets;
 
+{$I ..\gmlib.inc}
+
 interface
 
 type

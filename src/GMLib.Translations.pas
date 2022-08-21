@@ -24,7 +24,7 @@ uses
 
 const
   // @exclude
-  MaxArray = 10;
+  MaxArray = 11;
   // Array with exception messages in Spanish language.
   // @exclude
   Lang_ES: array[0..MaxArray] of string = (
@@ -38,7 +38,8 @@ const
       'El navegador no es de la clase esperada.',
       'No se ha podido cargar el recurso del mapa.',
       'Tiempo de espera excedido.',
-      'El mapa no está activo.'
+      'El mapa no está activo.',
+      'El objeto Map en JavaScript es null.'
   );
 
   // Array with exception messages in English language.
@@ -54,7 +55,8 @@ const
       'The browser is not of the correct class.',
       'Can''t load map resource.',
       'A timeout occurred.',
-      'Map is not active.'
+      'Map is not active.',
+      'The Map object in JavaScript is null.'
   );
 
   // Array with exception messages in French language.
@@ -70,7 +72,8 @@ const
       'Le navigateur n''est pas du type désiré.',
       'Impossible de charger la ressource de la carte.',
       'Un délai d''attente est produite.',
-      'La carte n''est pas active.'
+      'La carte n''est pas active.',
+      'L''objet Map en JavaScript est null.'
   );
 
   { -------------------------------------------------------------------------- }

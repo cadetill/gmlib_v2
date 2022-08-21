@@ -100,6 +100,13 @@ type
     constructor Create(Lang: TGMLang); reintroduce; overload; virtual;
   end;
 
+  // @include(..\Help\docs\GMLib.Exceptions.EGMMapIsNull.txt)
+  EGMMapIsNull = class(EGMException)
+  public
+    // @include(..\Help\docs\GMLib.Exceptions.EGMMapIsNull.Create.txt)
+    constructor Create(Lang: TGMLang); reintroduce; overload; virtual;
+  end;
+
 implementation
 
 uses
@@ -189,6 +196,13 @@ end;
 constructor EGMNotActive.Create(Lang: TGMLang);
 begin
   inherited Create(10, [], Lang);
+end;
+
+{ EGMMapIsNull }
+
+constructor EGMMapIsNull.Create(Lang: TGMLang);
+begin
+  inherited Create(11, [], Lang);
 end;
 
 end.

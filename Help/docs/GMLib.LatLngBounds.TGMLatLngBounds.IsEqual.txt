@@ -1,0 +1,7 @@
+@abstract(Returns @code(True) if this bounds is equals the given bounds.)
+
+Two bounds are equals if his coordinates NE and SW are equals.
+
+@param Other Bounds to compare.
+
+@return @code(True) if equals, otherwise @code(False).
