@@ -73,23 +73,31 @@ A TGMLatLngBounds instance represents a rectangle in geographical coordinates, i
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <strong><a href="GMLib.LatLngBounds.TGMLatLngBounds.html#Intersects">Intersects</a></strong>(Other: <a href="GMLib.LatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a>): Boolean;</code></td>
+<td class="itemcode"><code>function <strong><a href="GMLib.LatLngBounds.TGMLatLngBounds.html#GetCenter">GetCenter</a></strong>: <a href="GMLib.LatLng.TGMLatLng.html">TGMLatLng</a>;</code></td>
 </tr>
 <tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <strong><a href="GMLib.LatLngBounds.TGMLatLngBounds.html#Intersects">Intersects</a></strong>(Other: <a href="GMLib.LatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a>): Boolean;</code></td>
+</tr>
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>function <strong><a href="GMLib.LatLngBounds.TGMLatLngBounds.html#IsEmpty">IsEmpty</a></strong>: Boolean;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>function <strong><a href="GMLib.LatLngBounds.TGMLatLngBounds.html#IsEqual">IsEqual</a></strong>(Other: <a href="GMLib.LatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a>): Boolean;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>function <strong><a href="GMLib.LatLngBounds.TGMLatLngBounds.html#PropToString">PropToString</a></strong>: string; override;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>function <strong><a href="GMLib.LatLngBounds.TGMLatLngBounds.html#ToJson">ToJson</a></strong>(Precision: Integer = 6): string;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <strong><a href="GMLib.LatLngBounds.TGMLatLngBounds.html#ToSpan">ToSpan</a></strong>: <a href="GMLib.LatLng.TGMLatLng.html">TGMLatLng</a>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -110,14 +118,6 @@ A TGMLatLngBounds instance represents a rectangle in geographical coordinates, i
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLib.LatLngBounds.TGMLatLngBounds.html#Extend">Extend</a></strong>(LatLng: <a href="GMLib.LatLng.TGMLatLng.html">TGMLatLng</a>);</code></td>
-</tr>
-<tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <strong><a href="GMLib.LatLngBounds.TGMLatLngBounds.html#GetCenter">GetCenter</a></strong>(LatLng: <a href="GMLib.LatLng.TGMLatLng.html">TGMLatLng</a>);</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <strong><a href="GMLib.LatLngBounds.TGMLatLngBounds.html#ToSpan">ToSpan</a></strong>(LatLng: <a href="GMLib.LatLng.TGMLatLng.html">TGMLatLng</a>);</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -283,6 +283,34 @@ Returns <code>True</code> if the given <a class="normal" href="GMLib.LatLng.TGML
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="GetCenter"></span><code>function <strong>GetCenter</strong>: <a href="GMLib.LatLng.TGMLatLng.html">TGMLatLng</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Get the center of current bounds.
+
+<p>
+
+<p>   </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>LatLng</dt>
+<dd>TGMLatLng representing the centre.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="GMLib.Exceptions.EGMWithoutOwner.html">EGMWithoutOwner</a></dt>
+<dd>This exception is raised if the object don't have a owner.</dd>
+<dt><a class="normal" href="GMLib.Exceptions.EGMOwnerWithoutJS.html">EGMOwnerWithoutJS</a></dt>
+<dd>This exception is raised if the owner can't execute JavaScript functions.</dd>
+<dt><a class="normal" href="GMLib.Exceptions.EGMJSError.html">EGMJSError</a></dt>
+<dd>This exception is raised if an error occurred executing JavaScript function.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><span id="Intersects"></span><code>function <strong>Intersects</strong>(Other: <a href="GMLib.LatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a>): Boolean;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -380,6 +408,34 @@ Convert bounds to Json representation.
 </dl>
 <h6 class="description_section">Returns</h6>
 <p class="return">Json with the bounds.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="ToSpan"></span><code>function <strong>ToSpan</strong>: <a href="GMLib.LatLng.TGMLatLng.html">TGMLatLng</a>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Converts the given bounds to a lat/lng span.
+
+<p>
+
+<p>   </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>LatLng</dt>
+<dd>TGMLatLng with the span.</dd>
+</dl>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="GMLib.Exceptions.EGMWithoutOwner.html">EGMWithoutOwner</a></dt>
+<dd>This exception is raised if the object don't have a owner.</dd>
+<dt><a class="normal" href="GMLib.Exceptions.EGMOwnerWithoutJS.html">EGMOwnerWithoutJS</a></dt>
+<dd>This exception is raised if the owner can't execute JavaScript functions.</dd>
+<dt><a class="normal" href="GMLib.Exceptions.EGMJSError.html">EGMJSError</a></dt>
+<dd>This exception is raised if an error occurred executing JavaScript function.</dd>
+</dl>
+</td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -486,62 +542,6 @@ Extends the bounds to contain the given point.
 <dd>This exception is raised if an error occurred executing JavaScript function.</dd>
 <dt><a class="normal" href="GMLib.Exceptions.EGMUnassignedObject.html">EGMUnassignedObject</a></dt>
 <dd>This exception is raised if LanLng param is unassigned.</dd>
-</dl>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><span id="GetCenter"></span><code>procedure <strong>GetCenter</strong>(LatLng: <a href="GMLib.LatLng.TGMLatLng.html">TGMLatLng</a>);</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Get the center of current bounds.
-
-<p>
-
-<p>   </p>
-<h6 class="description_section">Parameters</h6>
-<dl class="parameters">
-<dt>LatLng</dt>
-<dd>TGMLatLng representing the centre.</dd>
-</dl>
-<h6 class="description_section">Exceptions raised</h6>
-<dl class="exceptions_raised">
-<dt><a class="normal" href="GMLib.Exceptions.EGMWithoutOwner.html">EGMWithoutOwner</a></dt>
-<dd>This exception is raised if the object don't have a owner.</dd>
-<dt><a class="normal" href="GMLib.Exceptions.EGMOwnerWithoutJS.html">EGMOwnerWithoutJS</a></dt>
-<dd>This exception is raised if the owner can't execute JavaScript functions.</dd>
-<dt><a class="normal" href="GMLib.Exceptions.EGMJSError.html">EGMJSError</a></dt>
-<dd>This exception is raised if an error occurred executing JavaScript function.</dd>
-</dl>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><span id="ToSpan"></span><code>procedure <strong>ToSpan</strong>(LatLng: <a href="GMLib.LatLng.TGMLatLng.html">TGMLatLng</a>);</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Converts the given bounds to a lat/lng span.
-
-<p>
-
-<p>   </p>
-<h6 class="description_section">Parameters</h6>
-<dl class="parameters">
-<dt>LatLng</dt>
-<dd>TGMLatLng with the span.</dd>
-</dl>
-<h6 class="description_section">Exceptions raised</h6>
-<dl class="exceptions_raised">
-<dt><a class="normal" href="GMLib.Exceptions.EGMWithoutOwner.html">EGMWithoutOwner</a></dt>
-<dd>This exception is raised if the object don't have a owner.</dd>
-<dt><a class="normal" href="GMLib.Exceptions.EGMOwnerWithoutJS.html">EGMOwnerWithoutJS</a></dt>
-<dd>This exception is raised if the owner can't execute JavaScript functions.</dd>
-<dt><a class="normal" href="GMLib.Exceptions.EGMJSError.html">EGMJSError</a></dt>
-<dd>This exception is raised if an error occurred executing JavaScript function.</dd>
 </dl>
 </td></tr>
 </table>

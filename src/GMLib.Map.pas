@@ -115,20 +115,101 @@ type
     property Enabled: Boolean read FEnabled write SetEnabled;
   end;
 
+  // @include(..\Help\docs\GMLib.Map.TGMRotateControlOptions.txt)
   TGMRotateControlOptions = class(TGMPersistentStr)
+  private
+    FPosition: TGMControlPosition;
+    procedure SetPosition(const Value: TGMControlPosition);
+  protected
+    // @exclude
+    function GetAPIUrl: string; override;
+  public
+    // @include(..\Help\docs\GMLib.Map.TGMRotateControlOptions.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
 
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
+    property APIUrl;
+  published
+    // @include(..\Help\docs\GMLib.Map.TGMRotateControlOptions.Position.txt)
+    property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_LEFT;   // position
   end;
 
-  TGMStreetViewControlOptions = class(TGMPersistentStr)
-
-  end;
-
+  // @include(..\Help\docs\GMLib.Map.TGMScaleControlOptions.txt)
   TGMScaleControlOptions = class(TGMPersistentStr)
+  private
+    FStyle: TGMScaleControlStyle;
+    procedure SetStyle(const Value: TGMScaleControlStyle);
+  protected
+    // @exclude
+    function GetAPIUrl: string; override;
+  public
+    // @include(..\Help\docs\GMLib.Map.TGMScaleControlOptions.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
 
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
+    property APIUrl;
+  published
+    // @include(..\Help\docs\GMLib.Map.TGMScaleControlOptions.Style.txt)
+    property Style: TGMScaleControlStyle read FStyle write SetStyle default scsDEFAULT;
   end;
 
-  TGMZoomControlOptions = class(TGMPersistentStr)
+  // @include(..\Help\docs\GMLib.Map.TGMStreetViewControlOptions.txt)
+  TGMStreetViewControlOptions = class(TGMPersistentStr)
+  private
+    FPosition: TGMControlPosition;
+    procedure SetPosition(const Value: TGMControlPosition);
+  protected
+    // @exclude
+    function GetAPIUrl: string; override;
+  public
+    // @include(..\Help\docs\GMLib.Map.TGMStreetViewControlOptions.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
 
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
+    property APIUrl;
+  published
+    // @include(..\Help\docs\GMLib.Map.TGMStreetViewControlOptions.Position.txt)
+    property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_LEFT;
+  end;
+
+  // @include(..\Help\docs\GMLib.Map.TGMZoomControlOptions.txt)
+  TGMZoomControlOptions = class(TGMPersistentStr)
+  private
+    FPosition: TGMControlPosition;
+    procedure SetPosition(const Value: TGMControlPosition);
+  protected
+    // @exclude
+    function GetAPIUrl: string; override;
+  public
+    // @include(..\Help\docs\GMLib.Map.TGMZoomControlOptions.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+  published
+    // @include(..\Help\docs\GMLib.Map.TGMZoomControlOptions.Position.txt)
+    property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_LEFT;
   end;
 
   // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.txt)
@@ -404,8 +485,10 @@ begin
 
   Result := '';
 
-  List := TStringList.Create;
+  Stream := nil;
+  List := nil;
   try
+    List := TStringList.Create;
     try
       Stream := TResourceStream.Create(HInstance, ct_RES_MAPA_CODE, RT_RCDATA);
     except
@@ -940,9 +1023,9 @@ const
   Str = '%s,%s,%s';
 begin
   Result := Format(Str, [
-                         QuotedStr(TGMTransform.MapTypeIdsToStr(MapTypeIds, ';')),
-                         QuotedStr(TGMTransform.PositionToStr(Position)),
-                         QuotedStr(TGMTransform.MapTypeControlStyleToStr(Style))
+                         QuotedStr(TGMTransform.MapTypeIdsToStr(FMapTypeIds, ';')),
+                         QuotedStr(TGMTransform.PositionToStr(FPosition)),
+                         QuotedStr(TGMTransform.MapTypeControlStyleToStr(FStyle))
                         ]);
 end;
 
@@ -1016,7 +1099,7 @@ begin
                          FLatLngBounds.ToStr,
                          LowerCase(TGMTransform.GMBoolToStr(FStrictBounds, True)),
                          LowerCase(TGMTransform.GMBoolToStr(FEnabled, True))
-                         ]);
+                        ]);
 end;
 
 procedure TGMRestriction.SetEnabled(const Value: Boolean);
@@ -1033,6 +1116,174 @@ begin
 
   FStrictBounds := Value;
   ControlChanges('StrictBounds');
+end;
+
+{ TGMRotateControlOptions }
+
+procedure TGMRotateControlOptions.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMRotateControlOptions then
+  begin
+    Position := TGMRotateControlOptions(Source).Position;
+  end;
+end;
+
+constructor TGMRotateControlOptions.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FPosition := cpTOP_LEFT;
+end;
+
+function TGMRotateControlOptions.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/control#RotateControlOptions';
+end;
+
+function TGMRotateControlOptions.PropToString: string;
+const
+  Str = '%s';
+begin
+  Result := inherited PropToString;
+  if Result <> '' then Result := Result + ',';
+  Result := Result +
+            Format(Str, [
+                         QuotedStr(TGMTransform.PositionToStr(FPosition))
+                        ]);
+end;
+
+procedure TGMRotateControlOptions.SetPosition(const Value: TGMControlPosition);
+begin
+  if FPosition = Value then Exit;
+
+  FPosition := Value;
+  ControlChanges('Position');
+end;
+
+{ TGMScaleControlOptions }
+
+procedure TGMScaleControlOptions.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMScaleControlOptions then
+  begin
+    Style := TGMScaleControlOptions(Source).Style;
+  end;
+end;
+
+constructor TGMScaleControlOptions.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FStyle := scsDEFAULT;
+end;
+
+function TGMScaleControlOptions.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/control#ScaleControlOptions';
+end;
+
+function TGMScaleControlOptions.PropToString: string;
+const
+  Str = '%s';
+begin
+  Result := Format(Str, [
+                         QuotedStr(TGMTransform.ScaleControlStyleToStr(Style))
+                        ]);
+end;
+
+procedure TGMScaleControlOptions.SetStyle(const Value: TGMScaleControlStyle);
+begin
+  if FStyle = Value then Exit;
+
+  FStyle := Value;
+  ControlChanges('Style');
+end;
+
+{ TGMStreetViewControlOptions }
+
+procedure TGMStreetViewControlOptions.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMStreetViewControlOptions then
+  begin
+    Position := TGMStreetViewControlOptions(Source).Position;
+  end;
+end;
+
+constructor TGMStreetViewControlOptions.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FPosition := cpTOP_LEFT;
+end;
+
+function TGMStreetViewControlOptions.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/control#StreetViewControlOptions';
+end;
+
+function TGMStreetViewControlOptions.PropToString: string;
+const
+  Str = '%s';
+begin
+  Result := Format(Str, [
+                         QuotedStr(TGMTransform.PositionToStr(FPosition))
+                        ]);
+end;
+
+procedure TGMStreetViewControlOptions.SetPosition(
+  const Value: TGMControlPosition);
+begin
+  if FPosition = Value then Exit;
+
+  FPosition := Value;
+  ControlChanges('Position');
+end;
+
+{ TGMZoomControlOptions }
+
+procedure TGMZoomControlOptions.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMZoomControlOptions then
+  begin
+    Position := TGMZoomControlOptions(Source).Position;
+  end;
+end;
+
+constructor TGMZoomControlOptions.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FPosition := cpTOP_LEFT;
+end;
+
+function TGMZoomControlOptions.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/control#ZoomControlOptions';
+end;
+
+function TGMZoomControlOptions.PropToString: string;
+const
+  Str = '%s';
+begin
+  Result := Format(Str, [
+                         QuotedStr(TGMTransform.PositionToStr(FPosition))
+                        ]);
+end;
+
+procedure TGMZoomControlOptions.SetPosition(const Value: TGMControlPosition);
+begin
+  if FPosition = Value then Exit;
+
+  FPosition := Value;
+  ControlChanges('Position');
 end;
 
 end.
