@@ -314,8 +314,6 @@ type
     property ScaleControl: Boolean read FScaleControl write SetScaleControl default True;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.ScaleControlOptions.txt)
     property ScaleControlOptions: TGMScaleControlOptions read FScaleControlOptions write FScaleControlOptions;
-    { @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.StreetView.txt) }
-    //property StreetView: TGMStreetViewPanoramaOptions read FStreetView write FStreetView;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.StreetViewControl.txt)
     property StreetViewControl: Boolean read FStreetViewControl write SetStreetViewControl default True;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.StreetViewControlOptions.txt)
@@ -667,7 +665,6 @@ begin
     RotateControlOptions.Assign(TGMCustomMapOptions(Source).RotateControlOptions);
     ScaleControl := TGMCustomMapOptions(Source).ScaleControl;
     ScaleControlOptions.Assign(TGMCustomMapOptions(Source).ScaleControlOptions);
-    //StreetView.Assign(TGMCustomMapOptions(Source).StreetView);
     StreetViewControl := TGMCustomMapOptions(Source).StreetViewControl;
     StreetViewControlOptions.Assign(TGMCustomMapOptions(Source).StreetViewControlOptions);
     Tilt := TGMCustomMapOptions(Source).Tilt;
@@ -703,7 +700,6 @@ begin
   FRotateControlOptions := TGMRotateControlOptions.Create(Self);
   FScaleControl := True;
   FScaleControlOptions := TGMScaleControlOptions.Create(Self);
-  //FStreetView := TGMStreetViewPanoramaOptions.Create(Self);
   FStreetViewControl := True;
   FStreetViewControlOptions := TGMStreetViewControlOptions.Create(Self);
   FTilt := 0;
@@ -720,7 +716,6 @@ begin
   if Assigned(FRestriction) then FRestriction.Free;
   if Assigned(FRotateControlOptions) then FRotateControlOptions.Free;
   if Assigned(FScaleControlOptions) then FScaleControlOptions.Free;
-  //if Assigned(FStreetView) then FStreetView.Free;
   if Assigned(FStreetViewControlOptions) then FStreetViewControlOptions.Free;
   if Assigned(FZoomControlOptions) then FZoomControlOptions.Free;
 
