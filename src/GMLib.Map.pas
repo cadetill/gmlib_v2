@@ -23,6 +23,12 @@ uses
   GMLib.Classes, GMLib.Sets, GMLib.LatLng, GMLib.LatLngBounds;
 
 type
+  // @include(..\Help\docs\GMLib.Map.TGMEventsFired.txt)
+  TGMEventsFired = record
+    // @include(..\Help\docs\GMLib.Map.TGMEventsFired.Map.txt)
+    Map: Boolean;
+  end;
+
   // @include(..\Help\docs\GMLib.Map.TGMFullScreenControlOptions.txt)
   TGMFullScreenControlOptions = class(TGMPersistentStr)
   private
@@ -363,6 +369,8 @@ type
     procedure SetAPIRegion(const Value: TGMAPIRegion);
     procedure SetIntervalEvents(const Value: Integer);
     procedure SetPrecision(const Value: Integer);
+
+    function GetEventsFired(var EF: TGMEventsFired): Boolean;
   protected
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.FBrowser.txt)
     FBrowser: TComponent;
@@ -374,7 +382,6 @@ type
     procedure ExecuteJavaScript(FunctName, Params: string); virtual; abstract;
     // @include(..\Help\docs\GMLib.Classes.IGMExecJS.GetValueFromHTML.txt)
     function GetValueFromHTML(FormName, FieldName: string): string; virtual; abstract;
-
 
     // @exclude
     function GetAPIUrl: string; override;
@@ -389,6 +396,8 @@ type
     procedure SetIntervalTimer(Interval: Integer); virtual; abstract;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.GetHTMLCode.txt)
     function GetHTMLCode: string;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnTimer.txt)
+    procedure OnTimer(Sender: TObject); virtual;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.Active.txt)
     property Active: Boolean read FActive write SetActive default False;
@@ -472,6 +481,11 @@ begin
   Result := 'https://developers.google.com/maps/documentation/javascript/reference/map#Map';
 end;
 
+function TGMCustomMap.GetEventsFired(var EF: TGMEventsFired): Boolean;
+begin
+
+end;
+
 function TGMCustomMap.GetHTMLCode: string;
 var
   List: TStringList;
@@ -522,6 +536,16 @@ begin
     if Assigned(Stream) then Stream.Free;
     if Assigned(List) then List.Free;
   end;
+end;
+
+procedure TGMCustomMap.OnTimer(Sender: TObject);
+var
+  EventFired: TGMEventsFired;
+begin
+  if csDesigning in ComponentState then Exit;
+  if not Assigned(FBrowser) then Exit;
+  if not GetEventsFired(EventFired) then Exit;
+
 end;
 
 procedure TGMCustomMap.PropertyChanged(Prop: TPersistent; PropName: string);

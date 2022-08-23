@@ -17,43 +17,43 @@ uses
 
 type
   // @include(..\Help\docs\GMLib.Transform.TGMTransform.txt)
-  TGMTransform = record
+  TGMTransform = class
   public
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.GMBoolToStr.txt)
-    class function GMBoolToStr(Value: Boolean; UseBoolStrs: Boolean = False): string; static;
+    class function GMBoolToStr(Value: Boolean; UseBoolStrs: Boolean = False): string;
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.GetStrToDouble.txt)
-    class function GetStrToDouble(Value: string): Double; static;
+    class function GetStrToDouble(Value: string): Double;
 
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.APIVerToStr.txt)
-    class function APIVerToStr(Value: TGMAPIVer): string; static;
+    class function APIVerToStr(Value: TGMAPIVer): string;
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.APILangToStr.txt)
-    class function APILangToStr(Value: TGMAPILang): string; static;
+    class function APILangToStr(Value: TGMAPILang): string;
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.APIRegionToStr.txt)
-    class function APIRegionToStr(Value: TGMAPIRegion): string; static;
+    class function APIRegionToStr(Value: TGMAPIRegion): string;
 
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.PositionToStr.txt)
-    class function PositionToStr(Value: TGMControlPosition): string; static;
+    class function PositionToStr(Value: TGMControlPosition): string;
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.GestureHandlingToStr.txt)
-    class function GestureHandlingToStr(Value: TGMGestureHandling): string; static;
+    class function GestureHandlingToStr(Value: TGMGestureHandling): string;
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.MapTypeIdToStr.txt)
-    class function MapTypeIdToStr(Value: TGMMapTypeId): string; static;
+    class function MapTypeIdToStr(Value: TGMMapTypeId): string;
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.MapTypeIdsToStr.txt)
-    class function MapTypeIdsToStr(Values: TGMMapTypeIds; Delimiter: Char = ';'): string; static;
+    class function MapTypeIdsToStr(Values: TGMMapTypeIds; Delimiter: Char = ';'): string;
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.MapTypeControlStyleToStr.txt)
-    class function MapTypeControlStyleToStr(Value: TGMMapTypeControlStyle): string; static;
+    class function MapTypeControlStyleToStr(Value: TGMMapTypeControlStyle): string;
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.ScaleControlStyleToStr.txt)
-    class function ScaleControlStyleToStr(Value: TGMScaleControlStyle): string; static;
+    class function ScaleControlStyleToStr(Value: TGMScaleControlStyle): string;
 
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.StrToPosition.txt)
-    class function StrToPosition(Value: string): TGMControlPosition; static;
+    class function StrToPosition(Value: string): TGMControlPosition;
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.StrToGestureHandling.txt)
-    class function StrToGestureHandling(Value: string): TGMGestureHandling; static;
+    class function StrToGestureHandling(Value: string): TGMGestureHandling;
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.StrToMapTypeId.txt)
-    class function StrToMapTypeId(Value: string): TGMMapTypeId; static;
+    class function StrToMapTypeId(Value: string): TGMMapTypeId;
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.StrToMapTypeControlStyle.txt)
-    class function StrToMapTypeControlStyle(Value: string): TGMMapTypeControlStyle; static;
+    class function StrToMapTypeControlStyle(Value: string): TGMMapTypeControlStyle;
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.StrToScaleControlStyle.txt)
-    class function StrToScaleControlStyle(Value: string): TGMScaleControlStyle; static;
+    class function StrToScaleControlStyle(Value: string): TGMScaleControlStyle;
 
 (*
 

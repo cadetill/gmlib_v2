@@ -1,0 +1,1 @@
+@abstract(Record to identify what object has fired an event into the map.)

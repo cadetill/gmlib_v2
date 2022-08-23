@@ -84,13 +84,17 @@ Base class for <code>google.maps.Map</code> class.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#PropertyChanged">PropertyChanged</a></strong>(Prop: TPersistent; PropName: string);</code></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#OnTimer">OnTimer</a></strong>(Sender: TObject); virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#SetEnableTimer">SetEnableTimer</a></strong>(State: Boolean); virtual; abstract;</code></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#PropertyChanged">PropertyChanged</a></strong>(Prop: TPersistent; PropName: string);</code></td>
 </tr>
 <tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#SetEnableTimer">SetEnableTimer</a></strong>(State: Boolean); virtual; abstract;</code></td>
+</tr>
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#SetIntervalTimer">SetIntervalTimer</a></strong>(Interval: Integer); virtual; abstract;</code></td>
 </tr>
@@ -304,6 +308,23 @@ LoadMap method loads and shows the <em>map.html</em> to use Google Maps API.</p>
 <dd>This exception is raised when the class of assigned browser isn't correct.</dd>
 <dt><a class="normal" href="GMLib.Exceptions.EGMUnassignedObject.html">EGMUnassignedObject</a></dt>
 <dd>This exception is raised when the WebBrowser property is not assigned.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="OnTimer"></span><code>procedure <strong>OnTimer</strong>(Sender: TObject); virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+OnTimer control event of Timer that check events from map. Internal use only.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Sender</dt>
+<dd>Object that fire event</dd>
 </dl>
 </td></tr>
 </table>
