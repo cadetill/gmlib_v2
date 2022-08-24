@@ -12,11 +12,19 @@
   <script type="text/javascript" src="./transform.js" charset="utf-8"></script>
   <script type="text/javascript" src="./latlngbounds.js" charset="utf-8"></script>
 
+  <script type="text/javascript">
+    function showMessage(aMessage) {
+	  document.getElementById('eventsMapEventFired_').value = "999999"; 
+	  //alert(aMessage);
+    }
+  </script>
+
 </head>
 
 <body">
 
-  <p><button onclick="setMapOptions(41.656264, -0.8790698, 12)">SetOptions</button></p>
+  <p><button onclick="setMapOptions(41.656264, -0.8790698, 12)">SetOptions</button>
+     <button onclick="showMessage('felipeeeeee')">showMessage</button></p>
                                     
   
   <form action="#" id="eventsMap" name="eventsMap"> 

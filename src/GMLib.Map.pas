@@ -483,7 +483,7 @@ end;
 
 function TGMCustomMap.GetEventsFired(var EF: TGMEventsFired): Boolean;
 begin
-
+  Result := EF.Map;
 end;
 
 function TGMCustomMap.GetHTMLCode: string;
