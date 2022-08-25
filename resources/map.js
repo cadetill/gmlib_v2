@@ -1,4 +1,8 @@
 var map = null;
+    function showMessage(aMessage) {
+	  document.getElementById('eventsMapEventFired_').value = "999999"; 
+	  //alert(aMessage);
+    }
 
 /* **********************************
   this function activates the map events
