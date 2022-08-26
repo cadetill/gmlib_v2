@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Google Maps Library: GMLib.Map.Vcl: Class TGMMapChrm</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 0.15.0">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<div class="container"><div class="navigation">
+<h2><a href="index.html">Google Maps Library</a></h2><ul><li><a href="AllUnits.html">Units</a></li><li><a href="ClassHierarchy.html">Class Hierarchy</a></li><li><a href="AllClasses.html">Classes, Interfaces, Objects and Records</a></li><li><a href="AllTypes.html">Types</a></li><li><a href="AllVariables.html">Variables</a></li><li><a href="AllConstants.html">Constants</a></li><li><a href="AllFunctions.html">Functions and Procedures</a></li><li><a href="AllIdentifiers.html">Identifiers</a></li><li><a href="GVUses.png">Unit dependency graph</a></li><li><a href="GVClasses.png">Classes hierarchy graph</a></li><li><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input" pattern=".{3,}" title="At least 3 characters" required><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></div></form>
+<div style="clear: both"></div>
+</li></ul></div><div class="content">
+<table class="container">
+<tr>
+<td><i><a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></i></td>
+<td align ="right"><i>Copyright &copy; Xavier Mart&iacute;nez (cadetill)</i></td>
+</tr>
+</table>
+<hr noshade="" size="1">
+<span id="TGMMapChrm"></span><h1 class="cio">Class TGMMapChrm</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></div><div class="one_section">Fields</div><div class="one_section"><a class="section" href="#PasDoc-Methods">Methods</a></div><div class="one_section"><a class="section" href="#PasDoc-Properties">Properties</a></div></div>
+<span id="PasDoc-Description"></span><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a href="GMLib.Map.Vcl.html">GMLib.Map.Vcl</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TGMMapChrm = class(<a class="normal" href="GMLib.Map.Vcl.TGMMap.html">TGMMap</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Base class for <code>google.maps.Map</code> class.</p>
+<p>
+{$IFDEF CEF4Delphi} 
+
+<p>Implements <code><a class="normal" href="GMLib.Classes.IGMExecJS.html">IGMExecJS</a></code> and <code><a class="normal" href="GMLib.Classes.IGMControlChanges.html">IGMControlChanges</a></code> interfaces.<br><br>
+
+<p>More information at <a href="https://developers.google.com/maps/documentation/javascript/reference/map#Map">google.maps.Map class</a> </p>
+<span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="ancestor">TPersistent</li>
+<li class="ancestor">TComponent</li>
+<li class="ancestor"><a class="normal" href="GMLib.Classes.TGMComponent.html">TGMComponent</a></li>
+<li class="ancestor"><a class="normal" href="GMLib.Map.TGMCustomMap.html">TGMCustomMap</a></li>
+<li class="ancestor"><a class="normal" href="GMLib.Map.Vcl.TGMMap.html">TGMMap</a></li>
+<li class="thisitem">TGMMapChrm</li></ul><h2 class="overview">Overview</h2>
+<span id="PasDoc-Methods"></span><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <strong><a href="GMLib.Map.Vcl.TGMMapChrm.html#Create">Create</a></strong>(AOwner: TComponent); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <strong><a href="GMLib.Map.Vcl.TGMMapChrm.html#GetValueFromHTML">GetValueFromHTML</a></strong>(FieldNameId: string): string; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.Vcl.TGMMapChrm.html#ExecuteJavaScript">ExecuteJavaScript</a></strong>(FunctName, Params: string); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.Vcl.TGMMapChrm.html#LoadBlankPage">LoadBlankPage</a></strong>; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.Vcl.TGMMapChrm.html#LoadMap">LoadMap</a></strong>; override;</code></td>
+</tr>
+</table>
+<span id="PasDoc-Properties"></span><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.Vcl.TGMMapChrm.html#Active">Active</a></strong>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.Vcl.TGMMapChrm.html#APIKey">APIKey</a></strong>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.Vcl.TGMMapChrm.html#APILang">APILang</a></strong>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.Vcl.TGMMapChrm.html#APIRegion">APIRegion</a></strong>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.Vcl.TGMMapChrm.html#APIUrl">APIUrl</a></strong>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.Vcl.TGMMapChrm.html#APIVer">APIVer</a></strong>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.Vcl.TGMMapChrm.html#Browser">Browser</a></strong>: TChromium read GetWebBrowser write SetWebBrowser;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.Vcl.TGMMapChrm.html#IntervalEvents">IntervalEvents</a></strong>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.Vcl.TGMMapChrm.html#MapOptions">MapOptions</a></strong>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.Vcl.TGMMapChrm.html#OnActiveChange">OnActiveChange</a></strong>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.Vcl.TGMMapChrm.html#OnIntervalEventsChange">OnIntervalEventsChange</a></strong>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.Vcl.TGMMapChrm.html#OnPrecisionChange">OnPrecisionChange</a></strong>;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.Vcl.TGMMapChrm.html#OnPropertyChanges">OnPropertyChanges</a></strong>;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="Create"></span><code>constructor <strong>Create</strong>(AOwner: TComponent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Class constructor.</p>
+<p>
+
+
+<p>Creates a <a class="normal" href="GMLib.Map.TGMCustomMap.html">TGMCustomMap</a> object.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>AOwner</dt>
+<dd>Owner of the object.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="GetValueFromHTML"></span><code>function <strong>GetValueFromHTML</strong>(FieldNameId: string): string; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Gets the <code>FieldName</code> value from <code>FormName</code> form of the HTML code.</p>
+<p>
+
+
+<p>  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>FormName</dt>
+<dd>Name of the form where to look for the field.</dd>
+<dt>FieldName</dt>
+<dd>Name of the field from which to return the value.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="ExecuteJavaScript"></span><code>procedure <strong>ExecuteJavaScript</strong>(FunctName, Params: string); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Execute the JavaScript function <code>FunctName</code> with parameters <code>Params</code>.</p>
+<p>
+
+
+<p>If executed succefully returns <code>True</code>, otherwise <code>False</code>.
+
+<p>  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>FunctName</dt>
+<dd>JavaScript function name to execute.</dd>
+<dt>Params</dt>
+<dd>Function parameters.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="LoadBlankPage"></span><code>procedure <strong>LoadBlankPage</strong>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+LoadBlankPage method load the about:blank page.
+
+<p> </p>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="GMLib.Exceptions.EGMIncorrectBrowser.html">EGMIncorrectBrowser</a></dt>
+<dd>This exception is raised when the Browser object isn't of the correct class.</dd>
+<dt><a class="normal" href="GMLib.Exceptions.EGMUnassignedObject.html">EGMUnassignedObject</a></dt>
+<dd>This exception is raised when the Browser property is not assigned.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="LoadMap"></span><code>procedure <strong>LoadMap</strong>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+LoadMap method loads and shows the <em>map.html</em> to use Google Maps API.</p>
+<p>
+
+
+<p>The timeout for load page is 15 seconds.
+
+<p> </p>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="GMLib.Exceptions.EGMIncorrectBrowser.html">EGMIncorrectBrowser</a></dt>
+<dd>This exception is raised when the class of assigned browser isn't correct.</dd>
+<dt><a class="normal" href="GMLib.Exceptions.EGMUnassignedObject.html">EGMUnassignedObject</a></dt>
+<dd>This exception is raised when the Browser property is not assigned.</dd>
+</dl>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="Active"></span><code>property <strong>Active</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Activate or deactivate access to the map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="APIKey"></span><code>property <strong>APIKey</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+APIKey is the Key to use on Google Maps.</p>
+<p>
+
+
+<p>To obtaining Api Key please check: <a href="https://developers.google.com/maps/documentation/javascript/get-api-key">https://developers.google.com/maps/documentation/javascript/get-api-key</a> <br><br> Google Maps limits: </p>
+
+<ul class="paragraph_spacing">
+  <li><p>General info: <a href="https://developers.google.com/maps/documentation/javascript/usage">https://developers.google.com/maps/documentation/javascript/usage</a></p></li>
+  <li><p>Directions: <a href="https://developers.google.com/maps/documentation/directions/usage-limits">https://developers.google.com/maps/documentation/directions/usage-limits</a></p></li>
+  <li><p>Geocoding limits usage: <a href="https://developers.google.com/maps/documentation/geocoding/usage-limits">https://developers.google.com/maps/documentation/geocoding/usage-limits</a></p></li>
+  <li><p>Elevation limits usage: <a href="https://developers.google.com/maps/documentation/elevation/usage-limits">https://developers.google.com/maps/documentation/elevation/usage-limits</a></p></li>
+  <li><p>Distance-Matrix limits usage: <a href="https://developers.google.com/maps/documentation/distance-matrix/usage-limits">https://developers.google.com/maps/documentation/distance-matrix/usage-limits</a></p></li>
+  <li><p>Geolocation limits usage: <a href="https://developers.google.com/maps/documentation/geolocation/usage-limits">https://developers.google.com/maps/documentation/geolocation/usage-limits</a></p></li>
+  <li><p>Roads limits usage: <a href="https://developers.google.com/maps/documentation/roads/usage-limits">https://developers.google.com/maps/documentation/roads/usage-limits</a></p></li>
+  <li><p>Time Zone limits usage: <a href="https://developers.google.com/maps/documentation/timezone/usage-limits">https://developers.google.com/maps/documentation/timezone/usage-limits</a></p></li>
+</ul>
+
+<p>
+
+<p> </p>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="GMLib.Exceptions.EGMMapIsActive.html">EGMMapIsActive</a></dt>
+<dd>This exception is raised when <code>Active</code> property is <code>True</code>.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="APILang"></span><code>property <strong>APILang</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+By default the API will attempt to load the most appropriate language based on the users location or browser settings.</p>
+<p>
+
+
+<p>But some APIs allow you to explicitly set a language when you make a request. <br> <br>
+
+<p>More info at <a href="https://developers.google.com/maps/documentation/javascript/localization">Localizing the Map</a> and more specific at <a href="https://developers.google.com/maps/faq?hl=en#languagesupport">Supported Languages</a>
+
+<p> </p>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="GMLib.Exceptions.EGMMapIsActive.html">EGMMapIsActive</a></dt>
+<dd>This exception is raised when <code>Active</code> property is <code>True</code>.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="APIRegion"></span><code>property <strong>APIRegion</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+When you load the Maps JavaScript API from maps.googleapis.com it applies a default bias for application behavior towards the United States.</p>
+<p>
+
+
+<p>If you want to alter your application to serve different map tiles or bias the application (such as biasing geocoding results towards the region), you can override this default behavior by adding a region.
+
+<p>More info at <a href="https://developers.google.com/maps/documentation/javascript/localization">Localizing the Map</a> and more specific at <a href="https://developers.google.com/maps/coverage">Google Maps Platform Coverage Details</a>
+
+<p> </p>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="GMLib.Exceptions.EGMMapIsActive.html">EGMMapIsActive</a></dt>
+<dd>This exception is raised when <code>Active</code> property is <code>True</code>.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="APIUrl"></span><code>property <strong>APIUrl</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+URL to Google Maps API page. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="APIVer"></span><code>property <strong>APIVer</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Version of the Google Maps API to use.</p>
+<p>
+
+
+<p>More info at <a href="https://developers.google.com/maps/documentation/javascript/versions">Versioning</a>
+
+<p> </p>
+<h6 class="description_section">Exceptions raised</h6>
+<dl class="exceptions_raised">
+<dt><a class="normal" href="GMLib.Exceptions.EGMMapIsActive.html">EGMMapIsActive</a></dt>
+<dd>This exception is raised when <code>Active</code> property is <code>True</code>.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="Browser"></span><code>property <strong>Browser</strong>: TChromium read GetWebBrowser write SetWebBrowser;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Browser where display the Google Maps map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="IntervalEvents"></span><code>property <strong>IntervalEvents</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Interval of time to check the events of map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="MapOptions"></span><code>property <strong>MapOptions</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Base class for <code>google.maps.MapOptions</code> object from Google Maps API.</p>
+<p>
+
+
+<p>This class implements <code><a class="normal" href="GMLib.Classes.IGMControlChanges.html">IGMControlChanges</a></code> interface. More information at <a href="https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions">google.maps.MapOptions interface</a> </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="OnActiveChange"></span><code>property <strong>OnActiveChange</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+OnActiveChange event is fired when Active property value changes. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="OnIntervalEventsChange"></span><code>property <strong>OnIntervalEventsChange</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+OnIntervalEventsChange event is fired when IntervalEvents property value changes. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="OnPrecisionChange"></span><code>property <strong>OnPrecisionChange</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+OnPrecisionChange event is fired when Precision property value changes.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="OnPropertyChanges"></span><code>property <strong>OnPropertyChanges</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Event fired when a property from and object changes.</p>
+<p>
+
+
+<p>  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Owner</dt>
+<dd>Owner of property.</dd>
+<dt>PropName</dt>
+<dd>Property name.</dd>
+</dl>
+</td></tr>
+</table>
+<hr><span class="appinfo"><em>Generated by <a href="https://github.com/pasdoc/pasdoc/wiki">PasDoc 0.15.0</a>. </em>
+</span>
+</div></div></body></html>

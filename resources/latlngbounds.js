@@ -9,16 +9,16 @@ function llbContains(
                      NELat, 
                      NELng 
                     ) {
-  document.getElementById('llbResultsMapisnull_').value = "0"; 
+  document.getElementById('llbResultsMapisnull').value = "0"; 
   if (map != null) { 
     var latlng = new google.maps.LatLng(Lat, Lng); 
     var Bounds = new google.maps.LatLngBounds(new google.maps.LatLng(SWLat, SWLng), new google.maps.LatLng(NELat, NELng)); 
-    document.getElementById('llbResultsBoolVal_').value = "0";
+    document.getElementById('llbResultsBoolVal').value = "0";
     if (Bounds.contains(latlng))  
-      document.getElementById('llbResultsBoolVal_').value = "1"; 
+      document.getElementById('llbResultsBoolVal').value = "1"; 
   } 
   else 
-    document.getElementById('llbResultsMapisnull_').value = "1"; 
+    document.getElementById('llbResultsMapisnull').value = "1"; 
 }
 
 /* **********************************
@@ -32,18 +32,18 @@ function llbExtend(
                    NELat, 
                    NELng 
                   ) { 
-  document.getElementById('llbResultsMapisnull_').value = "0"; 
+  document.getElementById('llbResultsMapisnull').value = "0"; 
   if (map != null) { 
     var latlng = new google.maps.LatLng(Lat, Lng); 
     var Bounds = new google.maps.LatLngBounds(new google.maps.LatLng(SWLat, SWLng), new google.maps.LatLng(NELat, NELng)); 
     Bounds = Bounds.extend(latlng); 
-    document.getElementById('llbResultsSwLat_').value = Bounds.getSouthWest().lat(); 
-    document.getElementById('llbResultsSwLng_').value = Bounds.getSouthWest().lng(); 
-    document.getElementById('llbResultsNeLat_').value = Bounds.getNorthEast().lat(); 
-    document.getElementById('llbResultsNeLng_').value = Bounds.getNorthEast().lng(); 
+    document.getElementById('llbResultsSwLat').value = Bounds.getSouthWest().lat(); 
+    document.getElementById('llbResultsSwLng').value = Bounds.getSouthWest().lng(); 
+    document.getElementById('llbResultsNeLat').value = Bounds.getNorthEast().lat(); 
+    document.getElementById('llbResultsNeLng').value = Bounds.getNorthEast().lng(); 
   } 
   else 
-    document.getElementById('llbResultsMapisnull_').value = "1"; 
+    document.getElementById('llbResultsMapisnull').value = "1"; 
 }
 
 /* **********************************
@@ -55,15 +55,15 @@ function llbGetCenter(
                       NELat, 
                       NELng 
                      ) { 
-  document.getElementById('llbResultsMapisnull_').value = "0"; 
+  document.getElementById('llbResultsMapisnull').value = "0"; 
   if (map != null) { 
     var Bounds = new google.maps.LatLngBounds(new google.maps.LatLng(SWLat, SWLng), new google.maps.LatLng(NELat, NELng)); 
     var LatLng = Bounds.getCenter();
-    document.getElementById('llbResultsLat_').value = LatLng.lat(); 
-    document.getElementById('llbResultsLng_').value = LatLng.lng(); 
+    document.getElementById('llbResultsLat').value = LatLng.lat(); 
+    document.getElementById('llbResultsLng').value = LatLng.lng(); 
   } 
   else 
-    document.getElementById('llbResultsMapisnull_').value = "1"; 
+    document.getElementById('llbResultsMapisnull').value = "1"; 
 } 
 
 /* **********************************
@@ -73,22 +73,22 @@ function llbIntersects(
                       OtherSWLat, 
                       OtherSWLng, 
                       OtherNELat, 
-                      OtherNELng 
+                      OtherNELng,
                       SWLat, 
                       SWLng, 
                       NELat, 
                       NELng 
                      ) { 
-  document.getElementById('llbResultsMapisnull_').value = "0"; 
+  document.getElementById('llbResultsMapisnull').value = "0"; 
   if (map != null) { 
     var Bounds = new google.maps.LatLngBounds(new google.maps.LatLng(SWLat, SWLng), new google.maps.LatLng(NELat, NELng)); 
     var OtherBounds = new google.maps.LatLngBounds(new google.maps.LatLng(OtherSWLat, OtherSWLng), new google.maps.LatLng(OtherNELat, OtherNELng)); 
-    document.getElementById('llbResultsBoolVal_').value = "0";
+    document.getElementById('llbResultsBoolVal').value = "0";
     if (Bounds.intersects(OtherBounds))  
-      document.getElementById('llbResultsBoolVal_').value = "1"; 
+      document.getElementById('llbResultsBoolVal').value = "1"; 
   } 
   else 
-    document.getElementById('llbResultsMapisnull_').value = "1"; 
+    document.getElementById('llbResultsMapisnull').value = "1"; 
 } 
 
 /* **********************************
@@ -100,15 +100,15 @@ function llbToSpan(
                    NELat, 
                    NELng 
                   ) { 
-  document.getElementById('llbResultsMapisnull_').value = "0"; 
+  document.getElementById('llbResultsMapisnull').value = "0"; 
   if (map != null) { 
     var Bounds = new google.maps.LatLngBounds(new google.maps.LatLng(SWLat, SWLng), new google.maps.LatLng(NELat, NELng)); 
     var LatLng = Bounds.toSpan();
-    document.getElementById('llbResultsLat_').value = LatLng.lat(); 
-    document.getElementById('llbResultsLng_').value = LatLng.lng(); 
+    document.getElementById('llbResultsLat').value = LatLng.lat(); 
+    document.getElementById('llbResultsLng').value = LatLng.lng(); 
   } 
   else 
-    document.getElementById('llbResultsMapisnull_').value = "1"; 
+    document.getElementById('llbResultsMapisnull').value = "1"; 
 } 
 
 /* **********************************
@@ -118,22 +118,22 @@ function llbUnion(
                   OtherSWLat, 
                   OtherSWLng, 
                   OtherNELat, 
-                  OtherNELng 
+                  OtherNELng,
                   SWLat, 
                   SWLng, 
                   NELat, 
                   NELng 
                  ) { 
-  document.getElementById('llbResultsMapisnull_').value = "0"; 
+  document.getElementById('llbResultsMapisnull').value = "0"; 
   if (map != null) { 
     var Bounds = new google.maps.LatLngBounds(new google.maps.LatLng(SWLat, SWLng), new google.maps.LatLng(NELat, NELng)); 
     var OtherBounds = new google.maps.LatLngBounds(new google.maps.LatLng(OtherSWLat, OtherSWLng), new google.maps.LatLng(OtherNELat, OtherNELng)); 
     Bounds = Bounds.union(OtherBounds); 
-    document.getElementById('llbResultsSwLat_').value = Bounds.getSouthWest().lat(); 
-    document.getElementById('llbResultsSwLng_').value = Bounds.getSouthWest().lng(); 
-    document.getElementById('llbResultsNeLat_').value = Bounds.getNorthEast().lat(); 
-    document.getElementById('llbResultsNeLng_').value = Bounds.getNorthEast().lng(); 
+    document.getElementById('llbResultsSwLat').value = Bounds.getSouthWest().lat(); 
+    document.getElementById('llbResultsSwLng').value = Bounds.getSouthWest().lng(); 
+    document.getElementById('llbResultsNeLat').value = Bounds.getNorthEast().lat(); 
+    document.getElementById('llbResultsNeLng').value = Bounds.getNorthEast().lng(); 
   } 
   else 
-    document.getElementById('llbResultsMapisnull_').value = "1"; 
+    document.getElementById('llbResultsMapisnull').value = "1"; 
 } 

@@ -1,6 +1,9 @@
 var map = null;
-    function showMessage(aMessage) {
-	  document.getElementById('eventsMapEventFired_').value = "999999"; 
+var mapOptions = null;
+    
+	
+	function showMessage(aMessage) {
+	  document.getElementById('eventsMapEventFired').value = "999999"; 
 	  //alert(aMessage);
     }
 
@@ -15,12 +18,12 @@ function mapAssignEvents() {
                                              var SW = LatLngBounds.getSouthWest(); 
                                              var NE = LatLngBounds.getNorthEast(); 
                                
-                                             document.getElementById('eventsMapSwLat_').value = SW.lat(); 
-                                             document.getElementById('eventsMapSwLng_').value = SW.lng(); 
-                                             document.getElementById('eventsMapNeLat_').value = NE.lat(); 
-                                             document.getElementById('eventsMapNeLng_').value = NE.lng(); 
-                                             document.getElementById('eventsMapBoundsChange_').value = "1"; 
-                                             document.getElementById('eventsMapEventFired_').value = "1"; 
+                                             document.getElementById('eventsMapSwLat').value = SW.lat(); 
+                                             document.getElementById('eventsMapSwLng').value = SW.lng(); 
+                                             document.getElementById('eventsMapNeLat').value = NE.lat(); 
+                                             document.getElementById('eventsMapNeLng').value = NE.lng(); 
+                                             document.getElementById('eventsMapBoundsChange').value = "1"; 
+                                             document.getElementById('eventsMapEventFired').value = "1"; 
                                            }
                                ); 
   google.maps.event.addListener(map, 
@@ -30,12 +33,12 @@ function mapAssignEvents() {
                                              var proj = map.getProjection();
                                              var point = proj.fromLatLngToPoint(LatLng);
                                              
-                                             document.getElementById('eventsMapX_').value = point.x; 
-                                             document.getElementById('eventsMapY_').value = point.y; 
-                                             document.getElementById('eventsMapLat_').value = LatLng.lat(); 
-                                             document.getElementById('eventsMapLng_').value = LatLng.lng(); 
-                                             document.getElementById('eventsMapCenterChange_').value = "1"; 
-                                             document.getElementById('eventsMapEventFired_').value = "1"; 
+                                             document.getElementById('eventsMapX').value = point.x; 
+                                             document.getElementById('eventsMapY').value = point.y; 
+                                             document.getElementById('eventsMapLat').value = LatLng.lat(); 
+                                             document.getElementById('eventsMapLng').value = LatLng.lng(); 
+                                             document.getElementById('eventsMapCenterChange').value = "1"; 
+                                             document.getElementById('eventsMapEventFired').value = "1"; 
                                            }
                                ); 
   google.maps.event.addListener(map, 
@@ -44,12 +47,12 @@ function mapAssignEvents() {
                                                   var proj = map.getProjection();
                                                   var point = proj.fromLatLngToPoint(event.latLng);
                                                   
-                                                 document.getElementById('eventsMapX_').value = point.x; 
-                                                 document.getElementById('eventsMapY_').value = point.y; 
-                                                 document.getElementById('eventsMapLat_').value = event.latLng.lat(); 
-                                                 document.getElementById('eventsMapLng_').value = event.latLng.lng(); 
-                                                 document.getElementById('eventsMapClick_').value = "1"; 
-                                                 document.getElementById('eventsMapEventFired_').value = "1"; 
+                                                 document.getElementById('eventsMapX').value = point.x; 
+                                                 document.getElementById('eventsMapY').value = point.y; 
+                                                 document.getElementById('eventsMapLat').value = event.latLng.lat(); 
+                                                 document.getElementById('eventsMapLng').value = event.latLng.lng(); 
+                                                 document.getElementById('eventsMapClick').value = "1"; 
+                                                 document.getElementById('eventsMapEventFired').value = "1"; 
                                                 }
                                ); 
   google.maps.event.addListener(map, 
@@ -58,33 +61,33 @@ function mapAssignEvents() {
                                                   var proj = map.getProjection();
                                                   var point = proj.fromLatLngToPoint(event.latLng);
                                                   
-                                                 document.getElementById('eventsMapX_').value = point.x; 
-                                                 document.getElementById('eventsMapY_').value = point.y; 
-                                                 document.getElementById('eventsMapLat_').value = event.latLng.lat(); 
-                                                 document.getElementById('eventsMapLng_').value = event.latLng.lng(); 
-                                                 document.getElementById('eventsMapDblclick_').value = "1"; 
-                                                 document.getElementById('eventsMapEventFired_').value = "1"; 
+                                                 document.getElementById('eventsMapX').value = point.x; 
+                                                 document.getElementById('eventsMapY').value = point.y; 
+                                                 document.getElementById('eventsMapLat').value = event.latLng.lat(); 
+                                                 document.getElementById('eventsMapLng').value = event.latLng.lng(); 
+                                                 document.getElementById('eventsMapDblclick').value = "1"; 
+                                                 document.getElementById('eventsMapEventFired').value = "1"; 
                                                 }
                                ); 
   google.maps.event.addListener(map, 
                                 "drag", 
                                 function() { 
-                                             document.getElementById('eventsMapDrag_').value = "1"; 
-                                             document.getElementById('eventsMapEventFired_').value = "1"; 
+                                             document.getElementById('eventsMapDrag').value = "1"; 
+                                             document.getElementById('eventsMapEventFired').value = "1"; 
                                            }
                                ); 
   google.maps.event.addListener(map, 
                                 "dragend", 
                                 function() { 
-                                             document.getElementById('eventsMapDragEnd_').value = "1"; 
-                                             document.getElementById('eventsMapEventFired_').value = "1"; 
+                                             document.getElementById('eventsMapDragEnd').value = "1"; 
+                                             document.getElementById('eventsMapEventFired').value = "1"; 
                                            }
                                ); 
   google.maps.event.addListener(map, 
                                 "dragstart", 
                                 function() { 
-                                             document.getElementById('eventsMapDragStart_').value = "1"; 
-                                             document.getElementById('eventsMapEventFired_').value = "1"; 
+                                             document.getElementById('eventsMapDragStart').value = "1"; 
+                                             document.getElementById('eventsMapEventFired').value = "1"; 
                                            }
                                ); 
   google.maps.event.addListener(map,
@@ -92,9 +95,9 @@ function mapAssignEvents() {
                                 function() { 
                                              var MapType = map.getMapTypeId(); 
                                              
-                                             document.getElementById('eventsMapMapTypeId_').value = mapTypeIdToStr(MapType); 
-                                             document.getElementById('eventsMapMapTypeId_changed_').value = "1"; 
-                                             document.getElementById('eventsMapEventFired_').value = "1"; 
+                                             document.getElementById('eventsMapMapTypeId').value = mapTypeIdToStr(MapType); 
+                                             document.getElementById('eventsMapMapTypeId_changed').value = "1"; 
+                                             document.getElementById('eventsMapEventFired').value = "1"; 
                                            }
                                ); 
   google.maps.event.addListener(map, 
@@ -103,12 +106,12 @@ function mapAssignEvents() {
                                                  var proj = map.getProjection();
                                                  var point = proj.fromLatLngToPoint(event.latLng);
 
-                                                 document.getElementById('eventsMapX_').value = point.x; 
-                                                 document.getElementById('eventsMapY_').value = point.y; 
-                                                 document.getElementById('eventsMapLat_').value = event.latLng.lat(); 
-                                                 document.getElementById('eventsMapLng_').value = event.latLng.lng(); 
-                                                 document.getElementById('eventsMapMouseMove_').value = "1";
-                                                 document.getElementById('eventsMapEventFired_').value = "1"; 
+                                                 document.getElementById('eventsMapX').value = point.x; 
+                                                 document.getElementById('eventsMapY').value = point.y; 
+                                                 document.getElementById('eventsMapLat').value = event.latLng.lat(); 
+                                                 document.getElementById('eventsMapLng').value = event.latLng.lng(); 
+                                                 document.getElementById('eventsMapMouseMove').value = "1";
+                                                 document.getElementById('eventsMapEventFired').value = "1"; 
                                                 }
                                );
   google.maps.event.addListener(map, 
@@ -117,12 +120,12 @@ function mapAssignEvents() {
                                                   var proj = map.getProjection();
                                                   var point = proj.fromLatLngToPoint(event.latLng);
 
-                                                 document.getElementById('eventsMapX_').value = point.x; 
-                                                 document.getElementById('eventsMapY_').value = point.y; 
-                                                 document.getElementById('eventsMapLat_').value = event.latLng.lat(); 
-                                                 document.getElementById('eventsMapLng_').value = event.latLng.lng(); 
-                                                 document.getElementById('eventsMapMouseOut_').value = "1";
-                                                 document.getElementById('eventsMapEventFired_').value = "1"; 
+                                                 document.getElementById('eventsMapX').value = point.x; 
+                                                 document.getElementById('eventsMapY').value = point.y; 
+                                                 document.getElementById('eventsMapLat').value = event.latLng.lat(); 
+                                                 document.getElementById('eventsMapLng').value = event.latLng.lng(); 
+                                                 document.getElementById('eventsMapMouseOut').value = "1";
+                                                 document.getElementById('eventsMapEventFired').value = "1"; 
                                                 }
                                ); 
   google.maps.event.addListener(map, 
@@ -131,28 +134,28 @@ function mapAssignEvents() {
                                                   var proj = map.getProjection();
                                                   var point = proj.fromLatLngToPoint(event.latLng);
 
-                                                 document.getElementById('eventsMapX_').value = point.x; 
-                                                 document.getElementById('eventsMapY_').value = point.y; 
-                                                 document.getElementById('eventsMapLat_').value = event.latLng.lat(); 
-                                                 document.getElementById('eventsMapLng_').value = event.latLng.lng(); 
-                                                 document.getElementById('eventsMapMouseOver_').value = "1";
-                                                 document.getElementById('eventsMapEventFired_').value = "1"; 
+                                                 document.getElementById('eventsMapX').value = point.x; 
+                                                 document.getElementById('eventsMapY').value = point.y; 
+                                                 document.getElementById('eventsMapLat').value = event.latLng.lat(); 
+                                                 document.getElementById('eventsMapLng').value = event.latLng.lng(); 
+                                                 document.getElementById('eventsMapMouseOver').value = "1";
+                                                 document.getElementById('eventsMapEventFired').value = "1"; 
                                                 }
                                ); 
   google.maps.event.addListener(map, 
                                 "tilesloaded", 
                                 function() { 
-                                             document.getElementById('eventsMapTilesLoaded_').value = "1"; 
-                                             document.getElementById('eventsMapEventFired_').value = "1"; 
+                                             document.getElementById('eventsMapTilesLoaded').value = "1"; 
+                                             document.getElementById('eventsMapEventFired').value = "1"; 
                                            }
                                ); 
                                
   google.maps.event.addListener(map, 
                                 "zoom_changed", 
                                 function() { 
-                                             document.getElementById('eventsMapZoom_').value = map.getZoom(); 
-                                             document.getElementById('eventsMapZoomChanged_').value = "1"; 
-                                             document.getElementById('eventsMapEventFired_').value = "1"; 
+                                             document.getElementById('eventsMapZoom').value = map.getZoom(); 
+                                             document.getElementById('eventsMapZoomChanged').value = "1"; 
+                                             document.getElementById('eventsMapEventFired').value = "1"; 
                                            }
                                ); 
 }

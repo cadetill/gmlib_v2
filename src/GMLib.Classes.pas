@@ -69,7 +69,7 @@ type
     // @include(..\Help\docs\GMLib.Classes.IGMExecJS.ExecuteJavaScript.txt)
     procedure ExecuteJavaScript(FunctName, Params: string);
     // @include(..\Help\docs\GMLib.Classes.IGMExecJS.GetValueFromHTML.txt)
-    function GetValueFromHTML(FormName, FieldName: string): string;
+    function GetValueFromHTML(FieldNameId: string): string;
   end;
 
   { ************************************************************************** }

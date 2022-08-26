@@ -1,5 +1,8 @@
 { Configuration GMLib file }
 
+// CEF4DELPHI installed
+{$DEFINE CEF4Delphi}
+
 // delphi 6
 {$IFDEF VER140}
   {$DEFINE DELPHI6}

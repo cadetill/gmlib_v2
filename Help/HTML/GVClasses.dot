@@ -1,4 +1,8 @@
 DiGraph Classes {
+  "TGenFunc" -> "GMLib.Functions.TGenFunc"
+  "TGenFunc" [href="GMLib.Functions.TGenFunc.html"]
+  "TGMTransform" -> "GMLib.Transform.TGMTransform"
+  "TGMTransform" [href="GMLib.Transform.TGMTransform.html"]
   "IGMAPIUrl" -> "IInterface"
   "IGMAPIUrl" [href="GMLib.Classes.IGMAPIUrl.html"]
   "IGMControlChanges" -> "IInterface"
@@ -36,8 +40,6 @@ DiGraph Classes {
   "EGMUnassignedObject" [href="GMLib.Exceptions.EGMUnassignedObject.html"]
   "EGMWithoutOwner" -> "EGMException"
   "EGMWithoutOwner" [href="GMLib.Exceptions.EGMWithoutOwner.html"]
-  "TGenFunc" -> "TObject"
-  "TGenFunc" [href="GMLib.Functions.TGenFunc.html"]
   "TPersistent" -> "TObject"
   "TCollection" -> "TPersistent"
   "TGMInterfacedCollection" -> "TCollection"
@@ -50,6 +52,12 @@ DiGraph Classes {
   "TGMComponent" [href="GMLib.Classes.TGMComponent.html"]
   "TGMCustomMap" -> "TGMComponent"
   "TGMCustomMap" [href="GMLib.Map.TGMCustomMap.html"]
+  "TGMMap" -> "TGMCustomMap"
+  "TGMMap" [href="GMLib.Map.Vcl.TGMMap.html"]
+  "TGMMapChrm" -> "TGMMap"
+  "TGMMapChrm" [href="GMLib.Map.Vcl.TGMMapChrm.html"]
+  "TGMMapEdge" -> "TGMMap"
+  "TGMMapEdge" [href="GMLib.Map.Vcl.TGMMapEdge.html"]
   "TInterfacedPersistent" -> "TPersistent"
   "TGMInterfacedOwnedPersistent" -> "TInterfacedPersistent"
   "TGMInterfacedOwnedPersistent" [href="GMLib.Classes.TGMInterfacedOwnedPersistent.html"]
@@ -59,6 +67,8 @@ DiGraph Classes {
   "TGMPersistentStr" [href="GMLib.Classes.TGMPersistentStr.html"]
   "TGMCustomMapOptions" -> "TGMPersistentStr"
   "TGMCustomMapOptions" [href="GMLib.Map.TGMCustomMapOptions.html"]
+  "TGMMapOptions" -> "TGMCustomMapOptions"
+  "TGMMapOptions" [href="GMLib.Map.Vcl.TGMMapOptions.html"]
   "TGMFullScreenControlOptions" -> "TGMPersistentStr"
   "TGMFullScreenControlOptions" [href="GMLib.Map.TGMFullScreenControlOptions.html"]
   "TGMLatLng" -> "TGMPersistentStr"

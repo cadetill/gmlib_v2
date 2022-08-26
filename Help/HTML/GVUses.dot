@@ -8,6 +8,8 @@ DiGraph Uses {
   "GMLib.Exceptions" -> "GMLib.Sets"
   "GMLib.Exceptions" [href="GMLib.Exceptions.html"]
   "GMLib.Functions" [href="GMLib.Functions.html"]
+  "GMLib.Functions.Vcl" -> "GMLib.Functions"
+  "GMLib.Functions.Vcl" [href="GMLib.Functions.Vcl.html"]
   "GMLib.LatLng" -> "Classes"
   "GMLib.LatLng" -> "GMLib.Sets"
   "GMLib.LatLng" -> "GMLib.Classes"
@@ -23,9 +25,21 @@ DiGraph Uses {
   "GMLib.Map" -> "GMLib.LatLng"
   "GMLib.Map" -> "GMLib.LatLngBounds"
   "GMLib.Map" [href="GMLib.Map.html"]
+  "GMLib.Map.Vcl" -> "Graphics"
+  "GMLib.Map.Vcl" -> "Classes"
+  "GMLib.Map.Vcl" -> "ExtCtrls"
+  "GMLib.Map.Vcl" -> "uCEFChromium"
+  "GMLib.Map.Vcl" -> "uCEFChromiumEvents"
+  "GMLib.Map.Vcl" -> "uCEFInterfaces"
+  "GMLib.Map.Vcl" -> "uCEFTypes"
+  "GMLib.Map.Vcl" -> "GMLib.Map"
+  "GMLib.Map.Vcl" [href="GMLib.Map.Vcl.html"]
   "GMLib.Sets" [href="GMLib.Sets.html"]
   "GMLib.Transform" -> "GMLib.Sets"
   "GMLib.Transform" [href="GMLib.Transform.html"]
+  "GMLib.Transform.Vcl" -> "Graphics"
+  "GMLib.Transform.Vcl" -> "GMLib.Transform"
+  "GMLib.Transform.Vcl" [href="GMLib.Transform.Vcl.html"]
   "GMLib.Translations" -> "GMLib.Sets"
   "GMLib.Translations" [href="GMLib.Translations.html"]
 }

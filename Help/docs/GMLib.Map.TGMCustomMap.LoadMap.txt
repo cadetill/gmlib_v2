@@ -3,4 +3,4 @@
 The timeout for load page is 15 seconds.
 
 @raises EGMIncorrectBrowser This exception is raised when the class of assigned browser isn't correct.
-@raises EGMUnassignedObject This exception is raised when the WebBrowser property is not assigned.
+@raises EGMUnassignedObject This exception is raised when the Browser property is not assigned.

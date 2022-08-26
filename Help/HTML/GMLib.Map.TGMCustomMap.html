@@ -64,7 +64,7 @@ Base class for <code>google.maps.Map</code> class.</p>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>function <strong><a href="GMLib.Map.TGMCustomMap.html#GetValueFromHTML">GetValueFromHTML</a></strong>(FormName, FieldName: string): string; virtual; abstract;</code></td>
+<td class="itemcode"><code>function <strong><a href="GMLib.Map.TGMCustomMap.html#GetValueFromHTML">GetValueFromHTML</a></strong>(FieldNameId: string): string; virtual; abstract;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -209,7 +209,7 @@ Returns the HTML code of <em>map.html</em> on <em>gmmapres.res</em>.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><span id="GetValueFromHTML"></span><code>function <strong>GetValueFromHTML</strong>(FormName, FieldName: string): string; virtual; abstract;</code></td>
+<td class="itemcode"><span id="GetValueFromHTML"></span><code>function <strong>GetValueFromHTML</strong>(FieldNameId: string): string; virtual; abstract;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -280,11 +280,13 @@ Execute the JavaScript function <code>FunctName</code> with parameters <code>Par
 <p>
 LoadBlankPage method load the about:blank page.
 
-<p></p>
+<p> </p>
 <h6 class="description_section">Exceptions raised</h6>
 <dl class="exceptions_raised">
 <dt><a class="normal" href="GMLib.Exceptions.EGMIncorrectBrowser.html">EGMIncorrectBrowser</a></dt>
-<dd>This exception is raised when the WebBrowser object isn't of the expected class.</dd>
+<dd>This exception is raised when the Browser object isn't of the correct class.</dd>
+<dt><a class="normal" href="GMLib.Exceptions.EGMUnassignedObject.html">EGMUnassignedObject</a></dt>
+<dd>This exception is raised when the Browser property is not assigned.</dd>
 </dl>
 </td></tr>
 </table>
@@ -307,7 +309,7 @@ LoadMap method loads and shows the <em>map.html</em> to use Google Maps API.</p>
 <dt><a class="normal" href="GMLib.Exceptions.EGMIncorrectBrowser.html">EGMIncorrectBrowser</a></dt>
 <dd>This exception is raised when the class of assigned browser isn't correct.</dd>
 <dt><a class="normal" href="GMLib.Exceptions.EGMUnassignedObject.html">EGMUnassignedObject</a></dt>
-<dd>This exception is raised when the WebBrowser property is not assigned.</dd>
+<dd>This exception is raised when the Browser property is not assigned.</dd>
 </dl>
 </td></tr>
 </table>

@@ -381,7 +381,7 @@ type
     // @include(..\Help\docs\GMLib.Classes.IGMExecJS.ExecuteJavaScript.txt)
     procedure ExecuteJavaScript(FunctName, Params: string); virtual; abstract;
     // @include(..\Help\docs\GMLib.Classes.IGMExecJS.GetValueFromHTML.txt)
-    function GetValueFromHTML(FormName, FieldName: string): string; virtual; abstract;
+    function GetValueFromHTML(FieldNameId: string): string; virtual; abstract;
 
     // @exclude
     function GetAPIUrl: string; override;
@@ -474,6 +474,7 @@ begin
   FAPIRegion := rUnited_States;
   FIntervalEvents := 200;
   FPrecision := 6;
+  FBrowser := nil;
 end;
 
 function TGMCustomMap.GetAPIUrl: string;

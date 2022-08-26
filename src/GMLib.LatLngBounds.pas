@@ -135,11 +135,11 @@ begin
                                ]);
   Intf.ExecuteJavaScript('llbContains', Params);
   begin
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsMapisnull_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsMapisnull');
     if TmpStr = '1' then
       raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
 
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsBoolVal_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsBoolVal');
     Result := TmpStr = '1';
   end
 end;
@@ -214,17 +214,17 @@ begin
                                ]);
   Intf.ExecuteJavaScript('llbExtend', Params);
   begin
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsMapisnull_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsMapisnull');
     if TmpStr = '1' then
       raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
 
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsSwLat_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsSwLat');
     FSW.Lat := TGMTransform.GetStrToDouble(TmpStr);
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsSwLng_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsSwLng');
     FSW.Lng := TGMTransform.GetStrToDouble(TmpStr);
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsNeLat_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsNeLat');
     FNE.Lat := TGMTransform.GetStrToDouble(TmpStr);
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsNeLng_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsNeLng');
     FNE.Lng := TGMTransform.GetStrToDouble(TmpStr);
   end;
 end;
@@ -256,13 +256,13 @@ begin
                                ]);
   Intf.ExecuteJavaScript('llbGetCenter', Params);
   begin
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsMapisnull_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsMapisnull');
     if TmpStr = '1' then
       raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
 
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsLat_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsLat');
     Result.Lat := TGMTransform.GetStrToDouble(TmpStr);
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsLng_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsLng');
     Result.Lng := TGMTransform.GetStrToDouble(TmpStr);
   end
 end;
@@ -300,11 +300,11 @@ begin
                                ]);
   Intf.ExecuteJavaScript('llbIntersects', Params);
   begin
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsMapisnull_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsMapisnull');
     if TmpStr = '1' then
       raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
 
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsBoolVal_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsBoolVal');
     Result := TmpStr = '1';
   end
 end;
@@ -365,13 +365,13 @@ begin
                                ]);
   Intf.ExecuteJavaScript('llbToSpan', Params);
   begin
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsMapisnull_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsMapisnull');
     if TmpStr = '1' then
       raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
 
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsLat_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsLat');
     Result.Lat := TGMTransform.GetStrToDouble(TmpStr);
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsLng_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsLng');
     Result.Lng := TGMTransform.GetStrToDouble(TmpStr);
   end
 end;
@@ -416,17 +416,17 @@ begin
                                ]);
   Intf.ExecuteJavaScript('llbUnion', Params);
   begin
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsMapisnull_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsMapisnull');
     if TmpStr = '1' then
       raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
 
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsSwLat_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsSwLat');
     FSW.Lat := TGMTransform.GetStrToDouble(TmpStr);
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsSwLng_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsSwLng');
     FSW.Lng := TGMTransform.GetStrToDouble(TmpStr);
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsNeLat_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsNeLat');
     FNE.Lat := TGMTransform.GetStrToDouble(TmpStr);
-    TmpStr := Intf.GetValueFromHTML('llbResults', 'llbResultsNeLng_');
+    TmpStr := Intf.GetValueFromHTML('llbResultsNeLng');
     FNE.Lng := TGMTransform.GetStrToDouble(TmpStr);
   end;
 end;
