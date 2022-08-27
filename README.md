@@ -6,5 +6,10 @@ It can be compiled in earlier versions, but only maintaining compatibility with 
 
 For more information about CEF4Delphi see [this link](https://github.com/salvadordf/CEF4Delphi).
 
+Help file generated with [PasDoc](https://github.com/pasdoc/pasdoc/)
 
-Help file at [here](http://htmlpreview.github.io/?https://github.com/cadetill/gmlib_v2/master/Help/HTML/index.html)
+## Links
+
+* [Help file](http://htmlpreview.github.io/?https://github.com/cadetill/gmlib_v2/master/Help/HTML/index.html)
+
+
