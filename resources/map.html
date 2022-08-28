@@ -16,13 +16,15 @@
 
 <body>
 
-<!--
-  <p><button onclick="setMapOptions(41.656264, -0.8790698, 12)">SetOptions</button>
-     <button onclick="showMessage('felipeeeeee')">showMessage</button></p>
--->
+
+  <p>
+    <button onclick="setMapOptions(41.656264, -0.8790698, 12)">SetOptions</button>
+    <button onclick="myMap()">showMessage</button>
+  </p>
+     
   
   <form action="#" id="eventsMap" name="eventsMap"> 
-    <input type="text" id="eventsMapEventFired" name="eventsMapEventFired" value="0"/> 
+    <input type="hidden" id="eventsMapEventFired" name="eventsMapEventFired" value="0"/> 
 
     <input type="hidden" id="eventsMapLat" name="eventsMapLat" value="0"/> 
     <input type="hidden" id="eventsMapLng" name="eventsMapLng" value="0"/> 
@@ -79,11 +81,11 @@
       mapAssignEvents();
     }
   </script>
-
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=weekly&key=ES&language=ca&callback=myMap"></script>
 <!--
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=API_VER&key=API_KEY&region=API_REGION&language=API_LAN&callback=myMap"></script>
--->  
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=weekly&key=&region=ES&language=ca"></script>
+--> 
+
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=API_VER&key=API_KEY&region=API_REGION&language=API_LAN"></script>
 
   <form action="#" id="eventsMap" name="eventsMap">
     <input type="hidden" name="test" value="0"/>

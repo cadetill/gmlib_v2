@@ -591,7 +591,8 @@ begin
 
   SetEnableTimer(FActive);
 
-  if Assigned(FOnActiveChange) then FOnActiveChange(Self);
+  if Assigned(FOnActiveChange) then
+    FOnActiveChange(Self);
 end;
 
 procedure TGMCustomMap.SetAPILang(const Value: TGMAPILang);
@@ -602,6 +603,9 @@ begin
     raise EGMMapIsActive.Create(Language);                                      // The map is active. To change this property you must to deactivate it first.
 
   FAPILang := Value;
+
+  if Assigned(FOnPropertyChanges) then
+    FOnPropertyChanges(Self, 'APILang');
 end;
 
 procedure TGMCustomMap.SetAPIRegion(const Value: TGMAPIRegion);
@@ -612,6 +616,9 @@ begin
     raise EGMMapIsActive.Create(Language);                                      // The map is active. To change this property you must to deactivate it first.
 
   FAPIRegion := Value;
+
+  if Assigned(FOnPropertyChanges) then
+    FOnPropertyChanges(Self, 'APIRegion');
 end;
 
 procedure TGMCustomMap.SetAPIKey(const Value: string);
@@ -622,6 +629,9 @@ begin
     raise EGMMapIsActive.Create(Language);                                      // The map is active. To change this property you must to deactivate it first.
 
   FAPIKey := Value;
+
+  if Assigned(FOnPropertyChanges) then
+    FOnPropertyChanges(Self, 'APIKey');
 end;
 
 procedure TGMCustomMap.SetAPIVer(const Value: TGMAPIVer);
@@ -632,6 +642,9 @@ begin
     raise EGMMapIsActive.Create(Language);                                      // The map is active. To change this property you must to deactivate it first.
 
   FAPIVer := Value;
+
+  if Assigned(FOnPropertyChanges) then
+    FOnPropertyChanges(Self, 'APIVer');
 end;
 
 procedure TGMCustomMap.SetIntervalEvents(const Value: Integer);
@@ -643,7 +656,8 @@ begin
 
   if csDesigning in ComponentState then Exit;
 
-  if Assigned(FOnIntervalEventsChange) then FOnIntervalEventsChange(Self);
+  if Assigned(FOnIntervalEventsChange) then
+    FOnIntervalEventsChange(Self);
 end;
 
 procedure TGMCustomMap.SetPrecision(const Value: Integer);
@@ -657,7 +671,8 @@ begin
 
   if csDesigning in ComponentState then Exit;
 
-  if Assigned(FOnPrecisionChange) then FOnPrecisionChange(Self);
+  if Assigned(FOnPrecisionChange) then
+    FOnPrecisionChange(Self);
 end;
 
 { TGMCustomMapOptions }

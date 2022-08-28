@@ -2,33 +2,23 @@ object MainFrm: TMainFrm
   Left = 0
   Top = 0
   Caption = 'MainFrm'
-  ClientHeight = 587
-  ClientWidth = 1009
+  ClientHeight = 505
+  ClientWidth = 997
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  OnCloseQuery = FormCloseQuery
   TextHeight = 15
-  object CEFWindowParent1: TCEFWindowParent
-    Left = 0
-    Top = 81
-    Width = 1009
-    Height = 506
-    Align = alClient
-    TabStop = True
-    TabOrder = 0
-  end
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1009
+    Width = 997
     Height = 81
     Align = alTop
     Caption = ' '
-    TabOrder = 1
+    TabOrder = 0
     object lAPIKey: TLabel
       Left = 144
       Top = 8
@@ -54,31 +44,24 @@ object MainFrm: TMainFrm
       OnChange = eAPIKeyChange
     end
   end
-  object GMMapChrm1: TGMMapChrm
-    Browser = Chromium1
+  object EdgeBrowser1: TEdgeBrowser
+    Left = 0
+    Top = 81
+    Width = 997
+    Height = 424
+    Align = alClient
+    TabOrder = 1
+    OnNavigationCompleted = EdgeBrowser1NavigationCompleted
+  end
+  object GMMapEdge1: TGMMapEdge
+    Browser = EdgeBrowser1
     MapOptions.ClickableIcons = True
     MapOptions.GestureHandling = ghAuto
     MapOptions.IsFractionalZoomEnabled = True
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
-    APILang = lSpanish
-    APIRegion = rSpain
-    Left = 304
-    Top = 224
-  end
-  object Chromium1: TChromium
-    OnLoadEnd = Chromium1LoadEnd
-    OnAfterCreated = Chromium1AfterCreated
-    OnBeforeClose = Chromium1BeforeClose
-    OnClose = Chromium1Close
-    Left = 50
-    Top = 302
-  end
-  object Timer1: TTimer
-    Enabled = False
-    Interval = 300
-    OnTimer = Timer1Timer
-    Left = 49
-    Top = 225
+    APIRegion = rUnited_States
+    Left = 184
+    Top = 216
   end
 end

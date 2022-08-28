@@ -12,6 +12,9 @@
         <Projects Include="..\demos\SimpleChromium\SimpleChromium.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="..\demos\SimpleEdge\SimpleEdge.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -47,14 +50,23 @@
     <Target Name="SimpleChromium:Make">
         <MSBuild Projects="..\demos\SimpleChromium\SimpleChromium.dproj" Targets="Make"/>
     </Target>
+    <Target Name="SimpleEdge">
+        <MSBuild Projects="..\demos\SimpleEdge\SimpleEdge.dproj"/>
+    </Target>
+    <Target Name="SimpleEdge:Clean">
+        <MSBuild Projects="..\demos\SimpleEdge\SimpleEdge.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SimpleEdge:Make">
+        <MSBuild Projects="..\demos\SimpleEdge\SimpleEdge.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="GMLib_RS11_1;GMLib_RS11_1_Vcl;SimpleChromium"/>
+        <CallTarget Targets="GMLib_RS11_1;GMLib_RS11_1_Vcl;SimpleChromium;SimpleEdge"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="GMLib_RS11_1:Clean;GMLib_RS11_1_Vcl:Clean;SimpleChromium:Clean"/>
+        <CallTarget Targets="GMLib_RS11_1:Clean;GMLib_RS11_1_Vcl:Clean;SimpleChromium:Clean;SimpleEdge:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="GMLib_RS11_1:Make;GMLib_RS11_1_Vcl:Make;SimpleChromium:Make"/>
+        <CallTarget Targets="GMLib_RS11_1:Make;GMLib_RS11_1_Vcl:Make;SimpleChromium:Make;SimpleEdge:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
