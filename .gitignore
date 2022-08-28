@@ -67,7 +67,7 @@ __Win64/
 Win32/
 Win64/
 bin/
-lin/
+lib/
 
 # Castalia statistics file (since XE7 Castalia is distributed with Delphi)
 *.stat

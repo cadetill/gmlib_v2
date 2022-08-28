@@ -32,8 +32,11 @@ DiGraph Uses {
   "GMLib.Map.Vcl" -> "uCEFChromiumEvents"
   "GMLib.Map.Vcl" -> "uCEFInterfaces"
   "GMLib.Map.Vcl" -> "uCEFTypes"
+  "GMLib.Map.Vcl" -> "Vcl.Edge"
+  "GMLib.Map.Vcl" -> "Winapi.WebView2"
   "GMLib.Map.Vcl" -> "GMLib.Map"
   "GMLib.Map.Vcl" [href="GMLib.Map.Vcl.html"]
+  "GMLib.Register.Vcl" [href="GMLib.Register.Vcl.html"]
   "GMLib.Sets" [href="GMLib.Sets.html"]
   "GMLib.Transform" -> "GMLib.Sets"
   "GMLib.Transform" [href="GMLib.Transform.html"]

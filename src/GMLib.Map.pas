@@ -9,7 +9,7 @@
 unit GMLib.Map;
 
 {$I ..\gmlib.inc}
-//{$R ..\Resources\gmmapres.RES}
+{$R ..\Resources\gmmapres.RES}
 
 interface
 
@@ -406,7 +406,7 @@ type
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.APIKey.txt)
     property APIKey: string read FAPIKey write SetAPIKey;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.APILang.txt)
-    property APILang: TGMAPILang read FAPILang write SetAPILang default lUndefined;
+    property APILang: TGMAPILang read FAPILang write SetAPILang default lEnglish;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.APIRegion.txt)
     property APIRegion: TGMAPIRegion read FAPIRegion write SetAPIRegion default rUndefined;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.IntervalEvents.txt)
@@ -469,7 +469,7 @@ begin
 
   FActive := False;
   FAPIKey := '';
-  FAPIVer := av349;
+  FAPIVer := avWeekly;
   FAPILang := lEnglish;
   FAPIRegion := rUnited_States;
   FIntervalEvents := 200;

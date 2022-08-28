@@ -8,60 +8,61 @@
     #map_canvas { height: 100% } 
   </style>
   
-  <script type="text/javascript" src="./map.js" charset="utf-8"></script>
-  <script type="text/javascript" src="./transform.js" charset="utf-8"></script>
-  <script type="text/javascript" src="./latlngbounds.js" charset="utf-8"></script>
+  <script type="text/javascript" src="https://combinatronics.com/cadetill/gmlib_v2/master/resources/map.js" charset="utf-8"></script>
+  <script type="text/javascript" src="https://combinatronics.com/cadetill/gmlib_v2/master/resources/transform.js" charset="utf-8"></script>
+  <script type="text/javascript" src="https://combinatronics.com/cadetill/gmlib_v2/master/resources/latlngbounds.js" charset="utf-8"></script>
 
 </head>
 
-<body">
+<body>
 
+<!--
   <p><button onclick="setMapOptions(41.656264, -0.8790698, 12)">SetOptions</button>
      <button onclick="showMessage('felipeeeeee')">showMessage</button></p>
-                                    
+-->
   
   <form action="#" id="eventsMap" name="eventsMap"> 
     <input type="text" id="eventsMapEventFired" name="eventsMapEventFired" value="0"/> 
 
-    <input type="text" id="eventsMapLat" name="eventsMapLat" value="0"/> 
-    <input type="text" id="eventsMapLng" name="eventsMapLng" value="0"/> 
-    <input type="text" id="eventsMapX" name="eventsMapX" value="0"/> 
-    <input type="text" id="eventsMapY" name="eventsMapY" value="0"/> 
-    <input type="text" id="eventsMapCenterChange" name="eventsMapCenterChange" value="0"/> 
-    <input type="text" id="eventsMapClick" name="eventsMapClick" value="0"/> 
-    <input type="text" id="eventsMapDblclick" name="eventsMapDblclick" value="0"/> 
-    <input type="text" id="eventsMapMouseMove" name="eventsMapMouseMove" value="0"/> 
-    <input type="text" id="eventsMapMouseOut" name="eventsMapMouseOut" value="0"/> 
-    <input type="text" id="eventsMapMouseOver" name="eventsMapMouseOver" value="0"/> 
+    <input type="hidden" id="eventsMapLat" name="eventsMapLat" value="0"/> 
+    <input type="hidden" id="eventsMapLng" name="eventsMapLng" value="0"/> 
+    <input type="hidden" id="eventsMapX" name="eventsMapX" value="0"/> 
+    <input type="hidden" id="eventsMapY" name="eventsMapY" value="0"/> 
+    <input type="hidden" id="eventsMapCenterChange" name="eventsMapCenterChange" value="0"/> 
+    <input type="hidden" id="eventsMapClick" name="eventsMapClick" value="0"/> 
+    <input type="hidden" id="eventsMapDblclick" name="eventsMapDblclick" value="0"/> 
+    <input type="hidden" id="eventsMapMouseMove" name="eventsMapMouseMove" value="0"/> 
+    <input type="hidden" id="eventsMapMouseOut" name="eventsMapMouseOut" value="0"/> 
+    <input type="hidden" id="eventsMapMouseOver" name="eventsMapMouseOver" value="0"/> 
 
-    <input type="text" id="eventsMapDrag" name="eventsMapDrag" value="0"/> 
-    <input type="text" id="eventsMapDragEnd" name="eventsMapDragEnd" value="0"/> 
-    <input type="text" id="eventsMapDragStart" name="eventsMapDragStart" value="0"/> 
+    <input type="hidden" id="eventsMapDrag" name="eventsMapDrag" value="0"/> 
+    <input type="hidden" id="eventsMapDragEnd" name="eventsMapDragEnd" value="0"/> 
+    <input type="hidden" id="eventsMapDragStart" name="eventsMapDragStart" value="0"/> 
 
-    <input type="text" id="eventsMapMapTypeId" name="eventsMapMapTypeId" value=""/> 
-    <input type="text" id="eventsMapMapTypeId_changed" name="eventsMapMapTypeId_changed" value="0"/> 
+    <input type="hidden" id="eventsMapMapTypeId" name="eventsMapMapTypeId" value=""/> 
+    <input type="hidden" id="eventsMapMapTypeId_changed" name="eventsMapMapTypeId_changed" value="0"/> 
 
-    <input type="text" id="eventsMapTilesLoaded" name="eventsMapTilesLoaded" value="0"/> 
+    <input type="hidden" id="eventsMapTilesLoaded" name="eventsMapTilesLoaded" value="0"/> 
 
-    <input type="text" id="eventsMapSwLat" name="eventsMapSwLat" value="0"/> 
-    <input type="text" id="eventsMapSwLng" name="eventsMapSwLng" value="0"/> 
-    <input type="text" id="eventsMapNeLat" name="eventsMapNeLat" value="0"/> 
-    <input type="text" id="eventsMapNeLng" name="eventsMapNeLng" value="0"/> 
-    <input type="text" id="eventsMapBoundsChange" name="eventsMapBoundsChange" value="0"/> 
+    <input type="hidden" id="eventsMapSwLat" name="eventsMapSwLat" value="0"/> 
+    <input type="hidden" id="eventsMapSwLng" name="eventsMapSwLng" value="0"/> 
+    <input type="hidden" id="eventsMapNeLat" name="eventsMapNeLat" value="0"/> 
+    <input type="hidden" id="eventsMapNeLng" name="eventsMapNeLng" value="0"/> 
+    <input type="hidden" id="eventsMapBoundsChange" name="eventsMapBoundsChange" value="0"/> 
 
-    <input type="text" id="eventsMapZoom" name="eventsMapZoom" value="0"/> 
-    <input type="text" id="eventsMapZoomChanged" name="eventsMapZoomChanged" value="0"/> 
+    <input type="hidden" id="eventsMapZoom" name="eventsMapZoom" value="0"/> 
+    <input type="hidden" id="eventsMapZoomChanged" name="eventsMapZoomChanged" value="0"/> 
   </form> 
 
   <form action="#" id="llbResults" name="llbResults"> 
-    <input type="text" id="llbResultsMapisnull" name="llbResultsMapisnull" value="0"/> 
-    <input type="text" id="llbResultsBoolVal" name="llbResultsBoolVal" value="0"/> 
-    <input type="text" id="llbResultsSwLat" name="llbResultsSwLat" value="0"/> 
-    <input type="text" id="llbResultsSwLng" name="llbResultsSwLng" value="0"/> 
-    <input type="text" id="llbResultsNeLat" name="llbResultsNeLat" value="0"/> 
-    <input type="text" id="llbResultsNeLng" name="llbResultsNeLng" value="0"/> 
-    <input type="text" id="llbResultsLat" name="llbResultsLat" value="0"/> 
-    <input type="text" id="llbResultsLng" name="llbResultsLng" value="0"/> 
+    <input type="hidden" id="llbResultsMapisnull" name="llbResultsMapisnull" value="0"/> 
+    <input type="hidden" id="llbResultsBoolVal" name="llbResultsBoolVal" value="0"/> 
+    <input type="hidden" id="llbResultsSwLat" name="llbResultsSwLat" value="0"/> 
+    <input type="hidden" id="llbResultsSwLng" name="llbResultsSwLng" value="0"/> 
+    <input type="hidden" id="llbResultsNeLat" name="llbResultsNeLat" value="0"/> 
+    <input type="hidden" id="llbResultsNeLng" name="llbResultsNeLng" value="0"/> 
+    <input type="hidden" id="llbResultsLat" name="llbResultsLat" value="0"/> 
+    <input type="hidden" id="llbResultsLng" name="llbResultsLng" value="0"/> 
   </form> 
  
   <div id="googleMap" style="width:100%;height:100%;"></div>
