@@ -1,0 +1,3 @@
+@abstract(Assigns the new map center value readed from HTML map code.)
+
+@params LatLng The new @link(TGMLatLng)

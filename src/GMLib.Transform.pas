@@ -23,6 +23,8 @@ type
     class function GMBoolToStr(Value: Boolean; UseBoolStrs: Boolean = False): string;
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.GetStrToDouble.txt)
     class function GetStrToDouble(Value: string): Double;
+    // @include(..\Help\docs\GMLib.Transform.TGMTransform.GetStrToInteger.txt)
+    class function GetStrToInteger(Value: string; Default: Integer = 0): Integer;
 
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.APIVerToStr.txt)
     class function APIVerToStr(Value: TGMAPIVer): string;
@@ -461,6 +463,16 @@ begin
   if {$IFDEF DELPHIXE}FormatSettings.DecimalSeparator{$ELSE}DecimalSeparator{$ENDIF} = ',' then
     TmpStr := StringReplace(TmpStr, '.', ',', [rfReplaceAll]);
   if (TmpStr <> '') and TryStrToFloat(TmpStr, Val) then
+    Result := Val;
+end;
+
+class function TGMTransform.GetStrToInteger(Value: string; Default: Integer): Integer;
+var
+  Val: Integer;
+begin
+  Result := Default;
+
+  if (Value <> '') and TryStrToInt(Value, Val) then
     Result := Val;
 end;
 

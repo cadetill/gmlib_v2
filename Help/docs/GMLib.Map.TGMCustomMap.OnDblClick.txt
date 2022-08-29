@@ -1,0 +1,5 @@
+@abstract(This event is fired when the user double-clicks on the map.)
+
+Note that the click event will also fire, right before this one.
+
+See @link(TGMLatLngEvent) for more info.

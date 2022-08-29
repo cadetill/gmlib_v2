@@ -13,14 +13,26 @@ unit GMLib.Events;
 interface
 
 uses
-  GMLib.LatLngBounds;
+  GMLib.LatLngBounds, GMLib.LatLng, GMLib.Sets;
 
 type
-  // @include(..\Help\docs\GMLib.Events.TPropertyChanges.txt)
-  TPropertyChanges = procedure(Owner: TObject; PropName: string) of object;
+  // @include(..\Help\docs\GMLib.Events.TGMPropertyChangesEvent.txt)
+  TGMPropertyChangesEvent = procedure(Owner: TObject; PropName: string) of object;
 
-  // @include(..\Help\docs\GMLib.Events.TGMBoundsChanged.txt)
-  TGMBoundsChanged = procedure(Sender: TObject; NewBounds: TGMLatLngBounds) of object;
+  // @include(..\Help\docs\GMLib.Events.TGMBoundsChangedEvent.txt)
+  TGMBoundsChangedEvent = procedure(Sender: TObject; NewBounds: TGMLatLngBounds) of object;
+
+  // @include(..\Help\docs\GMLib.Events.TGMLatLngEvent.txt)
+  TGMLatLngEvent = procedure(Sender: TObject; LatLng: TGMLatLng; X, Y: Double) of object;
+
+  // @include(..\Help\docs\GMLib.Events.TGMMapTypeIdChangedEvent.txt)
+  TGMMapTypeIdChangedEvent = procedure(Sender: TObject; NewMapTypeId: TGMMapTypeId) of object;
+
+  // @include(..\Help\docs\GMLib.Events.TGMZoomChangedEvent.txt)
+  TGMZoomChangedEvent = procedure(Sender: TObject; NewZoom: Integer) of object;
+
+  // @include(..\Help\docs\GMLib.Events.TGMAfterPageLoaded.txt)
+  TGMAfterPageLoaded = procedure(Sender: TObject; First: Boolean) of object;
 
 implementation
 

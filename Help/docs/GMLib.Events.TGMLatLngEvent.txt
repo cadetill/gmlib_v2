@@ -1,0 +1,6 @@
+@abstract(TGMLatLngEvent is used for events that return a lat/lng formatted in LatLng and a X and Y.)
+
+@param Sender Owner object.
+@param LatLng Lat/lng coordinates.
+@param X X Coordinate.
+@param Y Y Coordinate.

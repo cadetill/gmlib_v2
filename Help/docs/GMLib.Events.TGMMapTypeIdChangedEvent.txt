@@ -1,0 +1,4 @@
+@abstract(This event is fired when the mapTypeId property changes.)
+
+@param Sender Owner object.
+@param NewMapTypeId The new @link(TGMMapTypeId).

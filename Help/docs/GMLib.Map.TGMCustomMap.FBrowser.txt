@@ -1,1 +1,1 @@
-Browser where display the Google Maps map.
+@abstract(Browser where display the Google Maps map.)

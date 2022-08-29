@@ -1,0 +1,4 @@
+AfterPageLoaded event is fired when the base HTML code es loaded (@code(First) param is @code(True)) or map is loaded (@code(First) param is @code(False)).
+
+@param Sender Owner object.
+@param First True when HTML code loaded. False when Google Maps map loaded.

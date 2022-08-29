@@ -1,0 +1,5 @@
+@abstract(AfterPageLoaded event is fired when page is loaded.)
+
+If param @code(First) is @code(True), the base HTML code es loaded. When @code(False) the map is loaded.
+
+See @link(TGMAfterPageLoaded) for more info.

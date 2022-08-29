@@ -1,0 +1,8 @@
+@abstract(Returns the integer value represented by @code(Value) string.)
+
+If Value don't contains a integer value, returns @code(Default) value.
+
+@param Value Value to convert.
+@param Default Default value to return.
+
+@return Integer value.

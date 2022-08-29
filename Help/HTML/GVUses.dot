@@ -4,6 +4,9 @@ DiGraph Uses {
   "GMLib.Classes" -> "GMLib.Sets"
   "GMLib.Classes" [href="GMLib.Classes.html"]
   "GMLib.Constants" [href="GMLib.Constants.html"]
+  "GMLib.Events" -> "GMLib.LatLngBounds"
+  "GMLib.Events" -> "GMLib.LatLng"
+  "GMLib.Events" [href="GMLib.Events.html"]
   "GMLib.Exceptions" -> "SysUtils"
   "GMLib.Exceptions" -> "GMLib.Sets"
   "GMLib.Exceptions" [href="GMLib.Exceptions.html"]
@@ -24,6 +27,7 @@ DiGraph Uses {
   "GMLib.Map" -> "GMLib.Sets"
   "GMLib.Map" -> "GMLib.LatLng"
   "GMLib.Map" -> "GMLib.LatLngBounds"
+  "GMLib.Map" -> "GMLib.Events"
   "GMLib.Map" [href="GMLib.Map.html"]
   "GMLib.Map.Vcl" -> "Graphics"
   "GMLib.Map.Vcl" -> "Classes"

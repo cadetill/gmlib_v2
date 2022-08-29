@@ -29,7 +29,7 @@ type
     Map: Boolean;
   end;
 
-  TEventsMapForm = record
+  TGMEventsMapForm = record
     Lat: string;
     Lng: string;
     X: string;
@@ -40,6 +40,7 @@ type
     MouseMove: string;
     MouseOut: string;
     MouseOver: string;
+    Contextmenu: string;
     MapDrag: string;
     DragEnd: string;
     DragStart: string;
@@ -385,10 +386,23 @@ type
     FActive: Boolean;
     FAPIRegion: TGMAPIRegion;
     FOnPrecisionChange: TNotifyEvent;
-    FOnPropertyChanges: TPropertyChanges;
+    FOnPropertyChanges: TGMPropertyChangesEvent;
     FOnActiveChange: TNotifyEvent;
     FOnIntervalEventsChange: TNotifyEvent;
-    FOnBoundsChanged: TGMBoundsChanged;
+    FOnBoundsChanged: TGMBoundsChangedEvent;
+    FOnCenterChanged: TGMLatLngEvent;
+    FOnContextmenu: TGMLatLngEvent;
+    FOnMouseMove: TGMLatLngEvent;
+    FOnMouseOut: TGMLatLngEvent;
+    FOnDblClick: TGMLatLngEvent;
+    FOnMouseOver: TGMLatLngEvent;
+    FOnClick: TGMLatLngEvent;
+    FOnDrag: TNotifyEvent;
+    FOnDragStart: TNotifyEvent;
+    FOnDragEnd: TNotifyEvent;
+    FOnMapTypeIdChanged: TGMMapTypeIdChangedEvent;
+    FOnZoomChanged: TGMZoomChangedEvent;
+    FAfterPageLoaded: TGMAfterPageLoaded;
     procedure SetActive(const Value: Boolean);
     procedure SetAPILang(const Value: TGMAPILang);
     procedure SetAPIKey(const Value: string);
@@ -400,6 +414,9 @@ type
     function GetEventsFired(var EF: TGMEventsFired): Boolean;
     procedure GetMapEvent;
   protected
+    // @exclude Indicates if the map is being updated
+    FIsUpdating: Boolean;
+
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.FBrowser.txt)
     FBrowser: TComponent;
 
@@ -410,6 +427,13 @@ type
     procedure ExecuteJavaScript(FunctName, Params: string); virtual; abstract;
     // @include(..\Help\docs\GMLib.Classes.IGMExecJS.GetValueFromHTML.txt)
     function GetValueFromHTML(FieldNameId: string): string; virtual; abstract;
+
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.SetCenterProperty.txt)
+    procedure SetCenterProperty(LatLng: TGMLatLng); virtual; abstract;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.SetMapTypeIdProperty.txt)
+    procedure SetMapTypeIdProperty(MapTypeId: TGMMapTypeId); virtual; abstract;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.SetZoomProperty.txt)
+    procedure SetZoomProperty(Zoom: Integer); virtual; abstract;
 
     // @exclude
     function GetAPIUrl: string; override;
@@ -446,10 +470,36 @@ type
     property OnIntervalEventsChange: TNotifyEvent read FOnIntervalEventsChange write FOnIntervalEventsChange;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnPrecisionChange.txt)
     property OnPrecisionChange: TNotifyEvent read FOnPrecisionChange write FOnPrecisionChange;
-    // @include(..\Help\docs\GMLib.Events.TPropertyChanges.txt)
-    property OnPropertyChanges: TPropertyChanges read FOnPropertyChanges write FOnPropertyChanges;
-    // @include(..\Help\docs\GMLib.Events.TGMBoundsChanged.txt)
-    property OnBoundsChanged: TGMBoundsChanged read FOnBoundsChanged write FOnBoundsChanged;
+    // @include(..\Help\docs\GMLib.Events.TGMPropertyChangesEvent.txt)
+    property OnPropertyChanges: TGMPropertyChangesEvent read FOnPropertyChanges write FOnPropertyChanges;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnBoundsChanged.txt)
+    property OnBoundsChanged: TGMBoundsChangedEvent read FOnBoundsChanged write FOnBoundsChanged;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnCenterChanged.txt)
+    property OnCenterChanged: TGMLatLngEvent read FOnCenterChanged write FOnCenterChanged;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnClick.txt)
+    property OnClick: TGMLatLngEvent read FOnClick write FOnClick;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnDblClick.txt)
+    property OnDblClick: TGMLatLngEvent read FOnDblClick write FOnDblClick;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnMouseMove.txt)
+    property OnMouseMove: TGMLatLngEvent read FOnMouseMove write FOnMouseMove;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnMouseOut.txt)
+    property OnMouseOut: TGMLatLngEvent read FOnMouseOut write FOnMouseOut;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnMouseOver.txt)
+    property OnMouseOver: TGMLatLngEvent read FOnMouseOver write FOnMouseOver;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnContextmenu.txt)
+    property OnContextmenu: TGMLatLngEvent read FOnContextmenu write FOnContextmenu;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnDrag.txt)
+    property OnDrag: TNotifyEvent read FOnDrag write FOnDrag;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnDragEnd.txt)
+    property OnDragEnd: TNotifyEvent read FOnDragEnd write FOnDragEnd;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnDragStart.txt)
+    property OnDragStart: TNotifyEvent read FOnDragStart write FOnDragStart;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnMapTypeIdChanged.txt)
+    property OnMapTypeIdChanged: TGMMapTypeIdChangedEvent read FOnMapTypeIdChanged write FOnMapTypeIdChanged;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnZoomChanged.txt)
+    property OnZoomChanged: TGMZoomChangedEvent read FOnZoomChanged write FOnZoomChanged;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.AfterPageLoaded.txt)
+    property AfterPageLoaded: TGMAfterPageLoaded read FAfterPageLoaded write FAfterPageLoaded;
   public
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.Create.txt)
     constructor Create(AOwner: TComponent); override;
@@ -505,6 +555,8 @@ begin
   FIntervalEvents := 200;
   FPrecision := 6;
   FBrowser := nil;
+
+  FIsUpdating := False;
 end;
 
 function TGMCustomMap.GetAPIUrl: string;
@@ -574,16 +626,39 @@ end;
 procedure TGMCustomMap.GetMapEvent;
 var
   LLB: TGMLatLngBounds;
-  EventsMap: TEventsMapForm;
+  LL: TGMLatLng;
+  EventsMap: TGMEventsMapForm;
+  MTId: TGMMapTypeId;
+  TmpInt: Integer;
 begin
-  // Map bounds_changed
-  if Assigned(FOnBoundsChanged) and (GetValueFromHTML('eventsMapBoundsChange') = '1') then
-  begin
-    EventsMap.SwLat := GetValueFromHTML('eventsMapSwLat');
-    EventsMap.SwLng := GetValueFromHTML('eventsMapSwLng');
-    EventsMap.NeLat := GetValueFromHTML('eventsMapNeLat');
-    EventsMap.NeLng := GetValueFromHTML('eventsMapNeLng');
+  EventsMap.BoundsChange := GetValueFromHTML('eventsMapBoundsChange');
+  EventsMap.SwLat := GetValueFromHTML('eventsMapSwLat');
+  EventsMap.SwLng := GetValueFromHTML('eventsMapSwLng');
+  EventsMap.NeLat := GetValueFromHTML('eventsMapNeLat');
+  EventsMap.NeLng := GetValueFromHTML('eventsMapNeLng');
+  EventsMap.CenterChange := GetValueFromHTML('eventsMapCenterChange');
+  EventsMap.Click := GetValueFromHTML('eventsMapClick');
+  EventsMap.Dblclick := GetValueFromHTML('eventsMapDblclick');
+  EventsMap.MouseMove := GetValueFromHTML('eventsMapMouseMove');
+  EventsMap.MouseOut := GetValueFromHTML('eventsMapMouseOut');
+  EventsMap.MouseOver := GetValueFromHTML('eventsMapMouseOver');
+  EventsMap.Contextmenu := GetValueFromHTML('eventsMapContextmenu');
+  EventsMap.X := GetValueFromHTML('eventsMapX');
+  EventsMap.Y := GetValueFromHTML('eventsMapY');
+  EventsMap.Lat := GetValueFromHTML('eventsMapLat');
+  EventsMap.Lng := GetValueFromHTML('eventsMapLng');
+  EventsMap.MapDrag := GetValueFromHTML('eventsMapDrag');
+  EventsMap.DragStart := GetValueFromHTML('eventsMapDragStart');
+  EventsMap.DragEnd := GetValueFromHTML('eventsMapDragEnd');
+  EventsMap.MapTypeId_changed := GetValueFromHTML('eventsMapMapTypeId_changed');
+  EventsMap.MapTypeId := GetValueFromHTML('eventsMapMapTypeId');
+  EventsMap.TilesLoaded := GetValueFromHTML('eventsMapTilesLoaded');
+  EventsMap.ZoomChanged := GetValueFromHTML('eventsMapZoomChanged');
+  EventsMap.MapZoom := GetValueFromHTML('eventsMapZoom');
 
+  // Map bounds_changed
+  if Assigned(FOnBoundsChanged) and (EventsMap.BoundsChange = '1') then
+  begin
     LLB := TGMLatLngBounds.Create(
                                   TGMTransform.GetStrToDouble(EventsMap.SWLat),
                                   TGMTransform.GetStrToDouble(EventsMap.SWLng),
@@ -596,6 +671,99 @@ begin
     finally
       FreeAndNil(LLB);
     end;
+  end;
+
+  // Map center_changed, click, dblclick, mousemove, mouseout, mouseover, rightclick
+  if (EventsMap.CenterChange = '1') or (EventsMap.Click = '1') or (EventsMap.Dblclick = '1') or
+     (EventsMap.MouseMove = '1') or (EventsMap.MouseOut = '1') or (EventsMap.MouseOver = '1') or
+     (EventsMap.Contextmenu = '1')
+  then
+  begin
+    LL := TGMLatLng.Create(
+                           TGMTransform.GetStrToDouble(EventsMap.Lat),
+                           TGMTransform.GetStrToDouble(EventsMap.Lng),
+                           False,
+                           Language
+                          );
+    try
+      if (EventsMap.CenterChange = '1') {and Assigned(FOnCenterChanged)} then
+      begin
+        if not FIsUpdating then
+        begin
+          FIsUpdating := True;
+          SetCenterProperty(LL);
+        end;
+        FIsUpdating := False;
+        if Assigned(FOnCenterChanged) then
+          FOnCenterChanged(Self, LL, TGMTransform.GetStrToDouble(EventsMap.X), TGMTransform.GetStrToDouble(EventsMap.Y));
+      end;
+      if (EventsMap.Click = '1') and Assigned(FOnClick) then
+        FOnClick(Self, LL, TGMTransform.GetStrToDouble(EventsMap.X), TGMTransform.GetStrToDouble(EventsMap.Y));
+      if (EventsMap.DblClick = '1') and Assigned(FOnDblClick) then
+        FOnDblClick(Self, LL, TGMTransform.GetStrToDouble(EventsMap.X), TGMTransform.GetStrToDouble(EventsMap.Y));
+      if (EventsMap.MouseMove = '1') and Assigned(FOnMouseMove) then
+        FOnMouseMove(Self, LL, TGMTransform.GetStrToDouble(EventsMap.X), TGMTransform.GetStrToDouble(EventsMap.Y));
+      if (EventsMap.MouseOut = '1') and Assigned(FOnMouseOut) then
+        FOnMouseOut(Self, LL, TGMTransform.GetStrToDouble(EventsMap.X), TGMTransform.GetStrToDouble(EventsMap.Y));
+      if (EventsMap.MouseOver = '1') and Assigned(FOnMouseOver) then
+        FOnMouseOver(Self, LL, TGMTransform.GetStrToDouble(EventsMap.X), TGMTransform.GetStrToDouble(EventsMap.Y));
+      if (EventsMap.Contextmenu = '1') and Assigned(FOnContextmenu) then
+        FOnContextmenu(Self, LL, TGMTransform.GetStrToDouble(EventsMap.X), TGMTransform.GetStrToDouble(EventsMap.Y));
+    finally
+      FreeAndNil(LL);
+    end;
+  end;
+
+  // Map drag, dargend, dragstart
+  if (EventsMap.MapDrag = '1') and Assigned(FOnDrag) then
+    FOnDrag(Self);
+  if (EventsMap.DragEnd = '1') and Assigned(FOnDragEnd) then
+  begin
+(*
+    LL := TLatLng.Create;
+    try
+      GetCenter(LL);
+      FRequiredProp.Center.Assign(LL);
+    finally
+      FreeAndNil(LL);
+    end;
+*)
+    if Assigned(FOnDragEnd) then
+      FOnDragEnd(Self);
+  end;
+  if (EventsMap.DragStart = '1') and Assigned(FOnDragStart) then
+    FOnDragStart(Self);
+
+  // Map MapTypeIdChanged
+  if EventsMap.MapTypeId_changed = '1' then
+  begin
+    if not FIsUpdating then
+    begin
+      FIsUpdating := True;
+      MTId := TGMTransform.StrToMapTypeId(EventsMap.MapTypeId);
+      SetMapTypeIdProperty(MTId);
+      if Assigned(FOnMapTypeIdChanged) then
+        FOnMapTypeIdChanged(Self, MTId);
+    end;
+    FIsUpdating := False;
+  end;
+
+  // Map TilesLoaded
+  if (EventsMap.TilesLoaded = '1') and Assigned(FAfterPageLoaded) then
+    FAfterPageLoaded(Self, False);
+
+  // Map ZoomChanged
+  if EventsMap.ZoomChanged = '1' then
+  begin
+    if not FIsUpdating then
+    begin
+      FIsUpdating := True;
+      TmpInt := TGMTransform.GetStrToInteger(EventsMap.MapZoom, 8);
+      SetZoomProperty(TmpInt);
+      if Assigned(FOnZoomChanged) then
+        FOnZoomChanged(Self, TmpInt);
+    end;
+    FIsUpdating := False;
   end;
 end;
 

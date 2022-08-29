@@ -1,0 +1,5 @@
+@abstract(This event is fired when the map center property changes.)
+
+This event changes the @link(Center) property.
+
+See @link(TGMLatLngEvent) for more info.

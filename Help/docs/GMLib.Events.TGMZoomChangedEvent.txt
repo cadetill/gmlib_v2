@@ -1,0 +1,4 @@
+@abstract(This event is fired when the map zoom property changes.)
+
+@param Sender Owner object.
+@param NewZoom The new zoom.

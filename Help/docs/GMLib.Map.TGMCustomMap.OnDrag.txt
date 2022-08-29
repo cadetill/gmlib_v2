@@ -1,0 +1,1 @@
+@abstract(This event is repeatedly fired while the user drags the map.)

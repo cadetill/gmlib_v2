@@ -131,6 +131,14 @@ Base class for <code>google.maps.Map</code> class.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnBoundsChanged">OnBoundsChanged</a></strong>: <a href="GMLib.Events.html#TGMBoundsChanged">TGMBoundsChanged</a> read FOnBoundsChanged write FOnBoundsChanged;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnCenterChanged">OnCenterChanged</a></strong>: <a href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> read FOnCenterChanged write FOnCenterChanged;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnIntervalEventsChange">OnIntervalEventsChange</a></strong>: TNotifyEvent read FOnIntervalEventsChange write FOnIntervalEventsChange;</code></td>
 </tr>
 <tr class="list">
@@ -139,7 +147,7 @@ Base class for <code>google.maps.Map</code> class.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnPropertyChanges">OnPropertyChanges</a></strong>: <a href="GMLib.Classes.html#TPropertyChanges">TPropertyChanges</a> read FOnPropertyChanges write FOnPropertyChanges;</code></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnPropertyChanges">OnPropertyChanges</a></strong>: <a href="GMLib.Events.html#TGMPropertyChanges">TGMPropertyChanges</a> read FOnPropertyChanges write FOnPropertyChanges;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -155,7 +163,9 @@ Base class for <code>google.maps.Map</code> class.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-Browser where display the Google Maps map. </p>
+Browser where display the Google Maps map.</p>
+<p>
+ </p>
 </td></tr>
 </table>
 <h3 class="detail">Methods</h3>
@@ -526,6 +536,52 @@ OnActiveChange event is fired when Active property value changes. </p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="OnBoundsChanged"></span><code>property <strong>OnBoundsChanged</strong>: <a href="GMLib.Events.html#TGMBoundsChanged">TGMBoundsChanged</a> read FOnBoundsChanged write FOnBoundsChanged;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+OnBoundsChanged event is fired when the bounds of map changed.</p>
+<p>
+
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Sender</dt>
+<dd>Owner object.</dd>
+<dt>NewBounds</dt>
+<dd>New map bounds.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="OnCenterChanged"></span><code>property <strong>OnCenterChanged</strong>: <a href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> read FOnCenterChanged write FOnCenterChanged;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+TLatLngEvent is used for events that return a lat/lng formatted in LatLng and a X and Y.</p>
+<p>
+
+
+<p>    </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Sender</dt>
+<dd>Owner object.</dd>
+<dt>LatLng</dt>
+<dd>Lat/lng coordinates.</dd>
+<dt>X</dt>
+<dd>X Coordinate.</dd>
+<dt>Y</dt>
+<dd>Y Coordinate.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><span id="OnIntervalEventsChange"></span><code>property <strong>OnIntervalEventsChange</strong>: TNotifyEvent read FOnIntervalEventsChange write FOnIntervalEventsChange;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -546,7 +602,7 @@ OnPrecisionChange event is fired when Precision property value changes.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><span id="OnPropertyChanges"></span><code>property <strong>OnPropertyChanges</strong>: <a href="GMLib.Classes.html#TPropertyChanges">TPropertyChanges</a> read FOnPropertyChanges write FOnPropertyChanges;</code></td>
+<td class="itemcode"><span id="OnPropertyChanges"></span><code>property <strong>OnPropertyChanges</strong>: <a href="GMLib.Events.html#TGMPropertyChanges">TGMPropertyChanges</a> read FOnPropertyChanges write FOnPropertyChanges;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>

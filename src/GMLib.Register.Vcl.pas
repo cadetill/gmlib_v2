@@ -32,10 +32,10 @@ procedure Register;
 begin
   {$IFDEF DELPHIXE2}
 //    {$IFDEF CEF4Delphi}
-  GroupDescendentsWith(TGMMapChrm, Vcl.Controls.TControl);
+//  GroupDescendentsWith(TGMMapChrm, Vcl.Controls.TControl);
 //    {$ENDIF}
 //    {$IFDEF DELPHIALEXANDRIA}
-  GroupDescendentsWith(TGMMapEdge, Vcl.Controls.TControl);
+//  GroupDescendentsWith(TGMMapEdge, Vcl.Controls.TControl);
 //    {$ENDIF}
   {$ENDIF}
 

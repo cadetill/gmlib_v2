@@ -27,7 +27,7 @@ uses
   Vcl.Edge, Winapi.WebView2,
 //  {$ENDIF}
 
-  GMLib.Map;
+  GMLib.Map, GMLib.LatLng, GMLib.Sets;
 
 type
   // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.txt)
@@ -117,6 +117,13 @@ type
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.SetIntervalTimer.txt)
     procedure SetIntervalTimer(Interval: Integer); override;
 
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.SetCenterProperty.txt)
+    procedure SetCenterProperty(LatLng: TGMLatLng); override;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.SetMapTypeIdProperty.txt)
+    procedure SetMapTypeIdProperty(MapTypeId: TGMMapTypeId); override;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.SetZoomProperty.txt)
+    procedure SetZoomProperty(Zoom: Integer); override;
+
     // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.txt)
     property MapOptions: TGMMapOptions read FMapOptions write FMapOptions;
   public
@@ -188,8 +195,36 @@ type
     property OnIntervalEventsChange;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnPrecisionChange.txt)
     property OnPrecisionChange;
-    // @include(..\Help\docs\GMLib.Classes.TPropertyChanges.txt)
+    // @include(..\Help\docs\GMLib.Events.TGMPropertyChanges.txt)
     property OnPropertyChanges;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnBoundsChanged.txt)
+    property OnBoundsChanged;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnCenterChanged.txt)
+    property OnCenterChanged;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnClick.txt)
+    property OnClick;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnDblClick.txt)
+    property OnDblClick;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnMouseMove.txt)
+    property OnMouseMove;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnMouseOut.txt)
+    property OnMouseOut;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnMouseOver.txt)
+    property OnMouseOver;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnContextmenu.txt)
+    property OnContextmenu;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnDrag.txt)
+    property OnDrag;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnDragEnd.txt)
+    property OnDragEnd;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnDragStart.txt)
+    property OnDragStart;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnMapTypeIdChanged.txt)
+    property OnMapTypeIdChanged;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnZoomChanged.txt)
+    property OnZoomChanged;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.AfterPageLoaded.txt)
+    property AfterPageLoaded;
   end;
 //  {$ENDIF}
 
@@ -250,8 +285,36 @@ type
     property OnIntervalEventsChange;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnPrecisionChange.txt)
     property OnPrecisionChange;
-    // @include(..\Help\docs\GMLib.Classes.TPropertyChanges.txt)
+    // @include(..\Help\docs\GMLib.Events.TGMPropertyChanges.txt)
     property OnPropertyChanges;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnBoundsChanged.txt)
+    property OnBoundsChanged;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnCenterChanged.txt)
+    property OnCenterChanged;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnClick.txt)
+    property OnClick;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnDblClick.txt)
+    property OnDblClick;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnMouseMove.txt)
+    property OnMouseMove;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnMouseOut.txt)
+    property OnMouseOut;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnMouseOver.txt)
+    property OnMouseOver;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnContextmenu.txt)
+    property OnContextmenu;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnDrag.txt)
+    property OnDrag;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnDragEnd.txt)
+    property OnDragEnd;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnDragStart.txt)
+    property OnDragStart;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnMapTypeIdChanged.txt)
+    property OnMapTypeIdChanged;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnZoomChanged.txt)
+    property OnZoomChanged;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.AfterPageLoaded.txt)
+    property AfterPageLoaded;
   end;
 //  {$ENDIF}
 
@@ -317,6 +380,13 @@ begin
   end;
 end;
 
+procedure TGMMap.SetCenterProperty(LatLng: TGMLatLng);
+begin
+  inherited;
+
+  FMapOptions.Center.Assign(LatLng);
+end;
+
 constructor TGMMap.Create(AOwner: TComponent);
 begin
   inherited;
@@ -349,6 +419,20 @@ begin
   inherited;
 
   FTimer.Interval := Interval;
+end;
+
+procedure TGMMap.SetMapTypeIdProperty(MapTypeId: TGMMapTypeId);
+begin
+  inherited;
+
+  FMapOptions.MapTypeId := MapTypeId;
+end;
+
+procedure TGMMap.SetZoomProperty(Zoom: Integer);
+begin
+  inherited;
+
+  FMapOptions.Zoom := Zoom;
 end;
 
 //{$IFDEF CEF4Delphi}
@@ -399,7 +483,7 @@ begin
   TChromium(FBrowser).ExecuteJavaScript(TempJSCode, 'about:blank');
   TmpNow := Now;
   repeat
-    Sleep(5);
+    Sleep(1);
     TGenFunc.ProcessMessages;
   until FReadedElem or (IncSecond(TmpNow, 2) < Now);
 
@@ -503,7 +587,7 @@ begin
   TEdgeBrowser(FBrowser).ExecuteScript(TempJSCode);
   TmpNow := Now;
   repeat
-    Sleep(5);
+    Sleep(1);
     TGenFunc.ProcessMessages;
   until FReadedElem or (IncSecond(TmpNow, 2) < Now);
 
