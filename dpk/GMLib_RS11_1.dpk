@@ -40,6 +40,7 @@ contains
   GMLib.Map in '..\src\GMLib.Map.pas',
   GMLib.Constants in '..\src\GMLib.Constants.pas',
   GMLib.LatLngBounds in '..\src\GMLib.LatLngBounds.pas',
-  GMLib.Functions in '..\src\GMLib.Functions.pas';
+  GMLib.Functions in '..\src\GMLib.Functions.pas',
+  GMLib.Events in '..\src\GMLib.Events.pas';
 
 end.

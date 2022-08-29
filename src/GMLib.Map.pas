@@ -20,13 +20,39 @@ uses
   Classes,
   {$ENDIF}
 
-  GMLib.Classes, GMLib.Sets, GMLib.LatLng, GMLib.LatLngBounds;
+  GMLib.Classes, GMLib.Sets, GMLib.LatLng, GMLib.LatLngBounds, GMLib.Events;
 
 type
   // @include(..\Help\docs\GMLib.Map.TGMEventsFired.txt)
   TGMEventsFired = record
     // @include(..\Help\docs\GMLib.Map.TGMEventsFired.Map.txt)
     Map: Boolean;
+  end;
+
+  TEventsMapForm = record
+    Lat: string;
+    Lng: string;
+    X: string;
+    Y: string;
+    CenterChange: string;
+    Click: string;
+    Dblclick: string;
+    MouseMove: string;
+    MouseOut: string;
+    MouseOver: string;
+    MapDrag: string;
+    DragEnd: string;
+    DragStart: string;
+    MapTypeId: string;
+    MapTypeId_changed: string;
+    TilesLoaded: string;
+    SwLat: string;
+    SwLng: string;
+    NeLat: string;
+    NeLng: string;
+    BoundsChange: string;
+    MapZoom: string;
+    ZoomChanged: string;
   end;
 
   // @include(..\Help\docs\GMLib.Map.TGMFullScreenControlOptions.txt)
@@ -362,6 +388,7 @@ type
     FOnPropertyChanges: TPropertyChanges;
     FOnActiveChange: TNotifyEvent;
     FOnIntervalEventsChange: TNotifyEvent;
+    FOnBoundsChanged: TGMBoundsChanged;
     procedure SetActive(const Value: Boolean);
     procedure SetAPILang(const Value: TGMAPILang);
     procedure SetAPIKey(const Value: string);
@@ -371,6 +398,7 @@ type
     procedure SetPrecision(const Value: Integer);
 
     function GetEventsFired(var EF: TGMEventsFired): Boolean;
+    procedure GetMapEvent;
   protected
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.FBrowser.txt)
     FBrowser: TComponent;
@@ -418,8 +446,10 @@ type
     property OnIntervalEventsChange: TNotifyEvent read FOnIntervalEventsChange write FOnIntervalEventsChange;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnPrecisionChange.txt)
     property OnPrecisionChange: TNotifyEvent read FOnPrecisionChange write FOnPrecisionChange;
-    // @include(..\Help\docs\GMLib.Classes.TPropertyChanges.txt)
+    // @include(..\Help\docs\GMLib.Events.TPropertyChanges.txt)
     property OnPropertyChanges: TPropertyChanges read FOnPropertyChanges write FOnPropertyChanges;
+    // @include(..\Help\docs\GMLib.Events.TGMBoundsChanged.txt)
+    property OnBoundsChanged: TGMBoundsChanged read FOnBoundsChanged write FOnBoundsChanged;
   public
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.Create.txt)
     constructor Create(AOwner: TComponent); override;
@@ -484,6 +514,8 @@ end;
 
 function TGMCustomMap.GetEventsFired(var EF: TGMEventsFired): Boolean;
 begin
+  EF.Map := GetValueFromHTML('eventsMapEventFired') = '1';
+
   Result := EF.Map;
 end;
 
@@ -539,6 +571,34 @@ begin
   end;
 end;
 
+procedure TGMCustomMap.GetMapEvent;
+var
+  LLB: TGMLatLngBounds;
+  EventsMap: TEventsMapForm;
+begin
+  // Map bounds_changed
+  if Assigned(FOnBoundsChanged) and (GetValueFromHTML('eventsMapBoundsChange') = '1') then
+  begin
+    EventsMap.SwLat := GetValueFromHTML('eventsMapSwLat');
+    EventsMap.SwLng := GetValueFromHTML('eventsMapSwLng');
+    EventsMap.NeLat := GetValueFromHTML('eventsMapNeLat');
+    EventsMap.NeLng := GetValueFromHTML('eventsMapNeLng');
+
+    LLB := TGMLatLngBounds.Create(
+                                  TGMTransform.GetStrToDouble(EventsMap.SWLat),
+                                  TGMTransform.GetStrToDouble(EventsMap.SWLng),
+                                  TGMTransform.GetStrToDouble(EventsMap.NELat),
+                                  TGMTransform.GetStrToDouble(EventsMap.NELng),
+                                  Language
+                                 );
+    try
+      FOnBoundsChanged(Self, LLB);
+    finally
+      FreeAndNil(LLB);
+    end;
+  end;
+end;
+
 procedure TGMCustomMap.OnTimer(Sender: TObject);
 var
   EventFired: TGMEventsFired;
@@ -547,6 +607,8 @@ begin
   if not Assigned(FBrowser) then Exit;
   if not GetEventsFired(EventFired) then Exit;
 
+  if EventFired.Map then
+    GetMapEvent;
 end;
 
 procedure TGMCustomMap.PropertyChanged(Prop: TPersistent; PropName: string);

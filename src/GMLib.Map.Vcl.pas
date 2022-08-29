@@ -177,6 +177,10 @@ type
     property APIRegion;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.IntervalEvents.txt)
     property IntervalEvents;
+    // @include(..\Help\docs\GMLib.Classes.TGMComponent.Language.txt)
+    property Language;
+    // @include(..\Help\docs\GMLib.Classes.TGMComponent.AboutGMLib.txt)
+    property AboutGMLib;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnActiveChange.txt)
     property OnActiveChange;
@@ -235,6 +239,10 @@ type
     property APIRegion;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.IntervalEvents.txt)
     property IntervalEvents;
+    // @include(..\Help\docs\GMLib.Classes.TGMComponent.Language.txt)
+    property Language;
+    // @include(..\Help\docs\GMLib.Classes.TGMComponent.AboutGMLib.txt)
+    property AboutGMLib;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnActiveChange.txt)
     property OnActiveChange;

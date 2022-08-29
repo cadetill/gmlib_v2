@@ -3,10 +3,10 @@
         <ProjectGuid>{EE13FA2C-97FA-4294-95D1-3E162ADDCDBA}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
-        <Projects Include="GMLib_RS11_1.dproj">
+        <Projects Include="..\dpk\GMLib_RS11_1.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="GMLib_RS11_1.Vcl.dproj">
+        <Projects Include="..\dpk\GMLib_RS11_1.Vcl.dproj">
             <Dependencies/>
         </Projects>
         <Projects Include="..\demos\SimpleChromium\SimpleChromium.dproj">
@@ -24,22 +24,22 @@
         </BorlandProject>
     </ProjectExtensions>
     <Target Name="GMLib_RS11_1">
-        <MSBuild Projects="GMLib_RS11_1.dproj"/>
+        <MSBuild Projects="..\dpk\GMLib_RS11_1.dproj"/>
     </Target>
     <Target Name="GMLib_RS11_1:Clean">
-        <MSBuild Projects="GMLib_RS11_1.dproj" Targets="Clean"/>
+        <MSBuild Projects="..\dpk\GMLib_RS11_1.dproj" Targets="Clean"/>
     </Target>
     <Target Name="GMLib_RS11_1:Make">
-        <MSBuild Projects="GMLib_RS11_1.dproj" Targets="Make"/>
+        <MSBuild Projects="..\dpk\GMLib_RS11_1.dproj" Targets="Make"/>
     </Target>
     <Target Name="GMLib_RS11_1_Vcl">
-        <MSBuild Projects="GMLib_RS11_1.Vcl.dproj"/>
+        <MSBuild Projects="..\dpk\GMLib_RS11_1.Vcl.dproj"/>
     </Target>
     <Target Name="GMLib_RS11_1_Vcl:Clean">
-        <MSBuild Projects="GMLib_RS11_1.Vcl.dproj" Targets="Clean"/>
+        <MSBuild Projects="..\dpk\GMLib_RS11_1.Vcl.dproj" Targets="Clean"/>
     </Target>
     <Target Name="GMLib_RS11_1_Vcl:Make">
-        <MSBuild Projects="GMLib_RS11_1.Vcl.dproj" Targets="Make"/>
+        <MSBuild Projects="..\dpk\GMLib_RS11_1.Vcl.dproj" Targets="Make"/>
     </Target>
     <Target Name="SimpleChromium">
         <MSBuild Projects="..\demos\SimpleChromium\SimpleChromium.dproj"/>

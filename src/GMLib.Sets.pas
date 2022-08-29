@@ -8,6 +8,8 @@
 }
 unit GMLib.Sets;
 
+{$I ..\gmlib.inc}
+
 interface
 
 type

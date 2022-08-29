@@ -8,9 +8,12 @@
 }
 unit GMLib.Constants;
 
+{$I ..\gmlib.inc}
+
 interface
 
 const
+  ctGMLib_Version = '[2.0.0.0]';
   // @include(..\Help\docs\GMLib.Constants.ct_RES_MAPA_CODE.txt)
   ct_RES_MAPA_CODE = 'RES_MAPCODE';
   // @include(..\Help\docs\GMLib.Constants.ct_API_KEY.txt)

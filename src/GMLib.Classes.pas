@@ -23,13 +23,6 @@ uses
 
 type
   { ************************************************************************** }
-  { *************************  Events definition  **************************** }
-  { ************************************************************************** }
-
-  // @include(..\Help\docs\GMLib.Classes.TPropertyChanges.txt)
-  TPropertyChanges = procedure(Owner: TObject; PropName: string) of object;
-
-  { ************************************************************************** }
   { ***********************  Interfaces definition  ************************** }
   { ************************************************************************** }
 
@@ -131,7 +124,7 @@ type
   TGMComponent = class(TComponent, IGMAPIUrl)
   private
     FLanguage: TGMLang;
-    FAboutGMLib: string;
+    function GetAboutGMLib: string;
   protected
     // @exclude
     function GetAPIUrl: string; virtual;
@@ -142,7 +135,7 @@ type
     // @include(..\Help\docs\GMLib.Classes.TGMComponent.Language.txt)
     property Language: TGMLang read FLanguage write FLanguage default lnEnglish;
     // @include(..\Help\docs\GMLib.Classes.TGMComponent.AboutGMLib.txt)
-    property AboutGMLib: string read FAboutGMLib stored False;
+    property AboutGMLib: string read GetAboutGMLib stored False;
   public
     // @include(..\Help\docs\GMLib.Classes.TGMComponent.Create.txt)
     constructor Create(AOwner: TComponent); override;
@@ -254,11 +247,12 @@ implementation
 
 uses
   {$IFDEF DELPHIXE2}
-  System.TypInfo
+  System.TypInfo,
   {$ELSE}
-  TypInfo
+  TypInfo,
   {$ENDIF}
-  ;
+
+  GMLib.Constants;
 
 { TGMObject }
 
@@ -289,6 +283,11 @@ begin
   inherited;
 
   FLanguage := lnEnglish;
+end;
+
+function TGMComponent.GetAboutGMLib: string;
+begin
+  Result := ctGMLib_Version;
 end;
 
 function TGMComponent.GetAPIUrl: string;
