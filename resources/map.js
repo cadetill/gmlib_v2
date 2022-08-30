@@ -158,7 +158,6 @@ function mapAssignEvents() {
                                              document.getElementById('eventsMapEventFired').value = "1"; 
                                            }
                                ); 
-                               
   google.maps.event.addListener(map, 
                                 "zoom_changed", 
                                 function() { 
@@ -168,7 +167,6 @@ function mapAssignEvents() {
                                            }
                                ); 
 }
-
 
 /* **********************************
   this function establish MapOptions object used to define the properties that can be set on a Map. 
@@ -289,4 +287,34 @@ function setMapOptions(BackgroundColor,
   map.setOptions(mapOptions);  
 }
 
+/* **********************************
+  this function initialize eventsMap form.
+********************************** */
+function iniEventsMap() {
+  document.getElementById('eventsMapEventFired').value = "0"; 
+  document.getElementById('eventsMapLat').value = "0"; 
+  document.getElementById('eventsMapLng').value = "0"; 
+  document.getElementById('eventsMapX').value = "0"; 
+  document.getElementById('eventsMapY').value = "0"; 
+  document.getElementById('eventsMapCenterChange').value = "0"; 
+  document.getElementById('eventsMapClick').value = "0"; 
+  document.getElementById('eventsMapContextmenu').value = "0"; 
+  document.getElementById('eventsMapDblclick').value = "0"; 
+  document.getElementById('eventsMapMouseMove').value = "0"; 
+  document.getElementById('eventsMapMouseOut').value = "0"; 
+  document.getElementById('eventsMapMouseOver').value = "0"; 
+  document.getElementById('eventsMapDrag').value = "0"; 
+  document.getElementById('eventsMapDragEnd').value = "0"; 
+  document.getElementById('eventsMapDragStart').value = "0"; 
+  document.getElementById('eventsMapMapTypeId').value = "0"; 
+  document.getElementById('eventsMapMapTypeId_changed').value = "0"; 
+  document.getElementById('eventsMapTilesLoaded').value = "0"; 
+  document.getElementById('eventsMapSwLat').value = "0"; 
+  document.getElementById('eventsMapSwLng').value = "0"; 
+  document.getElementById('eventsMapNeLat').value = "0"; 
+  document.getElementById('eventsMapNeLng').value = "0"; 
+  document.getElementById('eventsMapBoundsChange').value = "0"; 
+  document.getElementById('eventsMapZoom').value = "0"; 
+  document.getElementById('eventsMapZoomChanged').value = "0"; 
+}
 
