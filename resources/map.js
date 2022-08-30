@@ -290,7 +290,7 @@ function setMapOptions(BackgroundColor,
 /* **********************************
   this function initialize eventsMap form.
 ********************************** */
-function iniEventsMap() {
+function iniEventsMapForm() {
   document.getElementById('eventsMapEventFired').value = "0"; 
   document.getElementById('eventsMapLat').value = "0"; 
   document.getElementById('eventsMapLng').value = "0"; 
