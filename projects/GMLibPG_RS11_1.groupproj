@@ -9,10 +9,16 @@
         <Projects Include="..\dpk\GMLib_RS11_1.Vcl.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="..\demos\SimpleEdge\SimpleEdge.dproj">
+            <Dependencies/>
+        </Projects>
         <Projects Include="..\demos\SimpleChromium\SimpleChromium.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="..\demos\SimpleEdge\SimpleEdge.dproj">
+        <Projects Include="..\demos\GMMap Demo\GMMapDemo.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\GMMap Chr Demo\GMMapChrDemo.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -41,15 +47,6 @@
     <Target Name="GMLib_RS11_1_Vcl:Make">
         <MSBuild Projects="..\dpk\GMLib_RS11_1.Vcl.dproj" Targets="Make"/>
     </Target>
-    <Target Name="SimpleChromium">
-        <MSBuild Projects="..\demos\SimpleChromium\SimpleChromium.dproj"/>
-    </Target>
-    <Target Name="SimpleChromium:Clean">
-        <MSBuild Projects="..\demos\SimpleChromium\SimpleChromium.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="SimpleChromium:Make">
-        <MSBuild Projects="..\demos\SimpleChromium\SimpleChromium.dproj" Targets="Make"/>
-    </Target>
     <Target Name="SimpleEdge">
         <MSBuild Projects="..\demos\SimpleEdge\SimpleEdge.dproj"/>
     </Target>
@@ -59,14 +56,41 @@
     <Target Name="SimpleEdge:Make">
         <MSBuild Projects="..\demos\SimpleEdge\SimpleEdge.dproj" Targets="Make"/>
     </Target>
+    <Target Name="SimpleChromium">
+        <MSBuild Projects="..\demos\SimpleChromium\SimpleChromium.dproj"/>
+    </Target>
+    <Target Name="SimpleChromium:Clean">
+        <MSBuild Projects="..\demos\SimpleChromium\SimpleChromium.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SimpleChromium:Make">
+        <MSBuild Projects="..\demos\SimpleChromium\SimpleChromium.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMMapDemo">
+        <MSBuild Projects="..\demos\GMMap Demo\GMMapDemo.dproj"/>
+    </Target>
+    <Target Name="GMMapDemo:Clean">
+        <MSBuild Projects="..\demos\GMMap Demo\GMMapDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMMapDemo:Make">
+        <MSBuild Projects="..\demos\GMMap Demo\GMMapDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMMapChrDemo">
+        <MSBuild Projects="..\demos\GMMap Chr Demo\GMMapChrDemo.dproj"/>
+    </Target>
+    <Target Name="GMMapChrDemo:Clean">
+        <MSBuild Projects="..\demos\GMMap Chr Demo\GMMapChrDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMMapChrDemo:Make">
+        <MSBuild Projects="..\demos\GMMap Chr Demo\GMMapChrDemo.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="GMLib_RS11_1;GMLib_RS11_1_Vcl;SimpleChromium;SimpleEdge"/>
+        <CallTarget Targets="GMLib_RS11_1;GMLib_RS11_1_Vcl;SimpleEdge;SimpleChromium;GMMapDemo;GMMapChrDemo"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="GMLib_RS11_1:Clean;GMLib_RS11_1_Vcl:Clean;SimpleChromium:Clean;SimpleEdge:Clean"/>
+        <CallTarget Targets="GMLib_RS11_1:Clean;GMLib_RS11_1_Vcl:Clean;SimpleEdge:Clean;SimpleChromium:Clean;GMMapDemo:Clean;GMMapChrDemo:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="GMLib_RS11_1:Make;GMLib_RS11_1_Vcl:Make;SimpleChromium:Make;SimpleEdge:Make"/>
+        <CallTarget Targets="GMLib_RS11_1:Make;GMLib_RS11_1_Vcl:Make;SimpleEdge:Make;SimpleChromium:Make;GMMapDemo:Make;GMMapChrDemo:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

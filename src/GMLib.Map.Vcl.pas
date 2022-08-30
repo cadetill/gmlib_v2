@@ -24,7 +24,7 @@ uses
 //  {$ENDIF}
 
 //  {$IFDEF DELPHIALEXANDRIA}
-  Vcl.Edge, Winapi.WebView2,
+  Vcl.Edge, Vcl.OleCtrls, Winapi.WebView2,
 //  {$ENDIF}
 
   GMLib.Map, GMLib.LatLng, GMLib.Sets;
@@ -143,13 +143,16 @@ type
     FFieldValue: string;
     FFieldName: string;
     FReadedElem: Boolean;
-    FConsoleMessageEvent: TOnConsoleMessage;
+    FOldConsoleMessageEvent: TOnConsoleMessage;
+    FOldLoadEndEvent: TOnLoadEnd;
 
     function GetWebBrowser: TChromium;
     procedure SetWebBrowser(const Value: TChromium);
     procedure ConsoleMessageEvent(Sender: TObject;
       const browser: ICefBrowser; level: Cardinal; const message,
       source: ustring; line: Integer; out Result: Boolean);
+    procedure LoadEndEvent(Sender: TObject; const browser: ICefBrowser;
+      const frame: ICefFrame; httpStatusCode: Integer);
   protected
     // @include(..\Help\docs\GMLib.Classes.IGMExecJS.ExecuteJavaScript.txt)
     procedure ExecuteJavaScript(FunctName, Params: string); override;
@@ -235,11 +238,13 @@ type
     FFieldValue: string;
     FFieldName: string;
     FReadedElem: Boolean;
-    FWebMessageReceivedEvent: TWebMessageReceivedEvent;
+    FOldWebMessageReceivedEvent: TWebMessageReceivedEvent;
+    FOldNavigationCompletedEvent: TNavigationCompletedEvent;
 
     function GetWebBrowser: TEdgeBrowser;
     procedure SetWebBrowser(const Value: TEdgeBrowser);
-    procedure WebMessageReceived(Sender: TCustomEdgeBrowser; Args: TWebMessageReceivedEventArgs);
+    procedure WebMessageReceivedEvent(Sender: TCustomEdgeBrowser; Args: TWebMessageReceivedEventArgs);
+    procedure NavigationCompletedEvent(Sender: TCustomEdgeBrowser; IsSuccess: Boolean; WebErrorStatus: TOleEnum);
   protected
     // @include(..\Help\docs\GMLib.Classes.IGMExecJS.ExecuteJavaScript.txt)
     procedure ExecuteJavaScript(FunctName, Params: string); override;
@@ -449,8 +454,8 @@ begin
   FFieldValue := Copy(message, Pos('|', message) + 1, Length(message));
   FReadedElem := True;
 
-  if Assigned(FConsoleMessageEvent) then
-    FConsoleMessageEvent(Sender, browser, level, message, source, line, Result);
+  if Assigned(FOldConsoleMessageEvent) then
+    FOldConsoleMessageEvent(Sender, browser, level, message, source, line, Result);
 end;
 
 constructor TGMMapChrm.Create(AOwner: TComponent);
@@ -460,6 +465,7 @@ begin
   FFieldValue := '';
   FFieldName := '';
   FReadedElem := False;
+  FOldConsoleMessageEvent := nil;
 end;
 
 procedure TGMMapChrm.ExecuteJavaScript(FunctName, Params: string);
@@ -477,6 +483,9 @@ var
   TempJSCode: string;
   TmpNow: TDateTime;
 begin
+  if not Active then
+    Exit;
+
   FReadedElem := False;
 
   TempJSCode  := 'console.log("' + FieldNameId + '|" + ' + 'document.getElementById("' + FieldNameId + '").value' + ');';
@@ -509,7 +518,19 @@ begin
   if not (FBrowser is TChromium) then
     raise EGMIncorrectBrowser.Create(Language);                                 // The browser is not of the correct class.
 
+  FDocLoaded := False;
   TChromium(FBrowser).LoadURL('about:blank');
+end;
+
+procedure TGMMapChrm.LoadEndEvent(Sender: TObject; const browser: ICefBrowser;
+  const frame: ICefFrame; httpStatusCode: Integer);
+begin
+  FDocLoaded := True;
+  if not browser.HasDocument then
+    FDocLoaded := False;
+
+  if Assigned(FOldLoadEndEvent) then
+    FOldLoadEndEvent(Sender, browser, frame, httpStatusCode);
 end;
 
 procedure TGMMapChrm.LoadMap;
@@ -533,7 +554,8 @@ begin
 
   if (Value <> FBrowser) and Assigned(FBrowser) then
   begin
-    TChromium(FBrowser).OnConsoleMessage := FConsoleMessageEvent;
+    TChromium(FBrowser).OnConsoleMessage := FOldConsoleMessageEvent;
+    TChromium(FBrowser).OnLoadEnd := FOldLoadEndEvent;
   end;
 
   FBrowser := Value;
@@ -542,9 +564,11 @@ begin
 
   if Assigned(FBrowser) then
   begin
-    FConsoleMessageEvent := TChromium(FBrowser).OnConsoleMessage;
+    FOldConsoleMessageEvent := TChromium(FBrowser).OnConsoleMessage;
+    FOldLoadEndEvent := TChromium(FBrowser).OnLoadEnd;
 
     TChromium(FBrowser).OnConsoleMessage := ConsoleMessageEvent;
+    TChromium(FBrowser).OnLoadEnd := LoadEndEvent;
 
     if Active then
       LoadMap
@@ -564,6 +588,7 @@ begin
   FFieldValue := '';
   FFieldName := '';
   FReadedElem := False;
+  FOldWebMessageReceivedEvent := nil;
 end;
 
 procedure TGMMapEdge.ExecuteJavaScript(FunctName, Params: string);
@@ -578,6 +603,9 @@ var
   TempJSCode: string;
   TmpNow: TDateTime;
 begin
+  if not Active then
+    Exit;
+
   FReadedElem := False;
 
   TempJSCode := 'results = document.getElementById("' + FieldNameId + '").value; ' +
@@ -613,6 +641,7 @@ begin
   if not (FBrowser is TEdgeBrowser) then
     raise EGMIncorrectBrowser.Create(Language);                                 // The browser is not of the correct class.
 
+  FDocLoaded := False;
   TEdgeBrowser(FBrowser).Navigate('about:blank');
 end;
 
@@ -628,6 +657,15 @@ begin
   TEdgeBrowser(FBrowser).Navigate(GetHTMLCode);
 end;
 
+procedure TGMMapEdge.NavigationCompletedEvent(Sender: TCustomEdgeBrowser;
+  IsSuccess: Boolean; WebErrorStatus: TOleEnum);
+begin
+  FDocLoaded := True;
+
+  if Assigned(FOldNavigationCompletedEvent) then
+    FOldNavigationCompletedEvent(Sender, IsSuccess, WebErrorStatus);
+end;
+
 procedure TGMMapEdge.SetWebBrowser(const Value: TEdgeBrowser);
 begin
   if FBrowser = Value then Exit;
@@ -637,7 +675,8 @@ begin
 
   if (Value <> FBrowser) and Assigned(FBrowser) then
   begin
-    TEdgeBrowser(FBrowser).OnWebMessageReceived := FWebMessageReceivedEvent;
+    TEdgeBrowser(FBrowser).OnWebMessageReceived := FOldWebMessageReceivedEvent;
+    TEdgeBrowser(FBrowser).OnNavigationCompleted := FOldNavigationCompletedEvent;
   end;
 
   FBrowser := Value;
@@ -646,9 +685,11 @@ begin
 
   if Assigned(FBrowser) then
   begin
-    FWebMessageReceivedEvent := TEdgeBrowser(FBrowser).OnWebMessageReceived;
+    FOldWebMessageReceivedEvent := TEdgeBrowser(FBrowser).OnWebMessageReceived;
+    FOldNavigationCompletedEvent := TEdgeBrowser(FBrowser).OnNavigationCompleted;
 
-    TEdgeBrowser(FBrowser).OnWebMessageReceived := WebMessageReceived;
+    TEdgeBrowser(FBrowser).OnWebMessageReceived := WebMessageReceivedEvent;
+    TEdgeBrowser(FBrowser).OnNavigationCompleted := NavigationCompletedEvent;
 
     if Active then
       LoadMap
@@ -657,7 +698,7 @@ begin
   end;
 end;
 
-procedure TGMMapEdge.WebMessageReceived(Sender: TCustomEdgeBrowser;
+procedure TGMMapEdge.WebMessageReceivedEvent(Sender: TCustomEdgeBrowser;
   Args: TWebMessageReceivedEventArgs);
 var
   TmpStr : PWideChar;
@@ -673,8 +714,8 @@ begin
   FFieldValue := Copy(TmpStr, Pos('|', TmpStr) + 1, Length(TmpStr));
   FReadedElem := True;
 
-  if Assigned(FWebMessageReceivedEvent) then
-    FWebMessageReceivedEvent(Sender, Args);
+  if Assigned(FOldWebMessageReceivedEvent) then
+    FOldWebMessageReceivedEvent(Sender, Args);
 end;
 
 //{$ENDIF}

@@ -455,14 +455,13 @@ end;
 
 class function TGMTransform.GetStrToDouble(Value: string): Double;
 var
-  TmpStr: string;
   Val: Extended;
 begin
   Result := 0;
 
   if {$IFDEF DELPHIXE}FormatSettings.DecimalSeparator{$ELSE}DecimalSeparator{$ENDIF} = ',' then
-    TmpStr := StringReplace(TmpStr, '.', ',', [rfReplaceAll]);
-  if (TmpStr <> '') and TryStrToFloat(TmpStr, Val) then
+    Value := StringReplace(Value, '.', ',', [rfReplaceAll]);
+  if (Value <> '') and TryStrToFloat(Value, Val) then
     Result := Val;
 end;
 

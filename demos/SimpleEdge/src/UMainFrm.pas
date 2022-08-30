@@ -17,8 +17,6 @@ type
     EdgeBrowser1: TEdgeBrowser;
     procedure eAPIKeyChange(Sender: TObject);
     procedure cbActivateClick(Sender: TObject);
-    procedure EdgeBrowser1NavigationCompleted(Sender: TCustomEdgeBrowser;
-      IsSuccess: Boolean; WebErrorStatus: TOleEnum);
   private
     { Private declarations }
   public
@@ -40,12 +38,6 @@ end;
 procedure TMainFrm.eAPIKeyChange(Sender: TObject);
 begin
   GMMapEdge1.APIKey := eAPIKey.Text;
-end;
-
-procedure TMainFrm.EdgeBrowser1NavigationCompleted(Sender: TCustomEdgeBrowser;
-  IsSuccess: Boolean; WebErrorStatus: TOleEnum);
-begin
-Beep;
 end;
 
 end.

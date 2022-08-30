@@ -414,8 +414,10 @@ type
     function GetEventsFired(var EF: TGMEventsFired): Boolean;
     procedure GetMapEvent;
   protected
-    // @exclude Indicates if the map is being updated
+    // @exclude Indicates if the map is being updated.
     FIsUpdating: Boolean;
+    // @exclude Indicates if the Web page is fully loaded.
+    FDocLoaded: Boolean;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.FBrowser.txt)
     FBrowser: TComponent;
@@ -503,6 +505,8 @@ type
   public
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.Create.txt)
     constructor Create(AOwner: TComponent); override;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.Destroy.txt)
+    destructor Destroy; override;
 
     // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
@@ -557,6 +561,14 @@ begin
   FBrowser := nil;
 
   FIsUpdating := False;
+  FDocLoaded := False;
+end;
+
+destructor TGMCustomMap.Destroy;
+begin
+  SetActive(False);
+
+  inherited;
 end;
 
 function TGMCustomMap.GetAPIUrl: string;
@@ -624,37 +636,49 @@ begin
 end;
 
 procedure TGMCustomMap.GetMapEvent;
+  function GetFormValues: TGMEventsMapForm;
+  begin
+    Result.BoundsChange := GetValueFromHTML('eventsMapBoundsChange');
+    Result.SwLat := GetValueFromHTML('eventsMapSwLat');
+    Result.SwLng := GetValueFromHTML('eventsMapSwLng');
+    Result.NeLat := GetValueFromHTML('eventsMapNeLat');
+    Result.NeLng := GetValueFromHTML('eventsMapNeLng');
+    Result.CenterChange := GetValueFromHTML('eventsMapCenterChange');
+    Result.Click := GetValueFromHTML('eventsMapClick');
+    Result.Dblclick := GetValueFromHTML('eventsMapDblclick');
+    Result.MouseMove := GetValueFromHTML('eventsMapMouseMove');
+    Result.MouseOut := GetValueFromHTML('eventsMapMouseOut');
+    Result.MouseOver := GetValueFromHTML('eventsMapMouseOver');
+  //  Result.Contextmenu := GetValueFromHTML('eventsMapContextmenu');
+    Result.X := GetValueFromHTML('eventsMapX');
+    Result.Y := GetValueFromHTML('eventsMapY');
+    Result.Lat := GetValueFromHTML('eventsMapLat');
+    Result.Lng := GetValueFromHTML('eventsMapLng');
+    Result.MapDrag := GetValueFromHTML('eventsMapDrag');
+    Result.DragStart := GetValueFromHTML('eventsMapDragStart');
+    Result.DragEnd := GetValueFromHTML('eventsMapDragEnd');
+    Result.MapTypeId_changed := GetValueFromHTML('eventsMapMapTypeId_changed');
+    Result.MapTypeId := GetValueFromHTML('eventsMapMapTypeId');
+    Result.TilesLoaded := GetValueFromHTML('eventsMapTilesLoaded');
+    Result.ZoomChanged := GetValueFromHTML('eventsMapZoomChanged');
+    Result.MapZoom := GetValueFromHTML('eventsMapZoom');
+  end;
+
+  procedure InitializeValues;
+  begin
+    ExecuteJavaScript('iniEventsMapForm', '');
+  end;
 var
   LLB: TGMLatLngBounds;
   LL: TGMLatLng;
   EventsMap: TGMEventsMapForm;
   MTId: TGMMapTypeId;
   TmpInt: Integer;
+  TmpLat,
+  TmpLng: Double;
 begin
-  EventsMap.BoundsChange := GetValueFromHTML('eventsMapBoundsChange');
-  EventsMap.SwLat := GetValueFromHTML('eventsMapSwLat');
-  EventsMap.SwLng := GetValueFromHTML('eventsMapSwLng');
-  EventsMap.NeLat := GetValueFromHTML('eventsMapNeLat');
-  EventsMap.NeLng := GetValueFromHTML('eventsMapNeLng');
-  EventsMap.CenterChange := GetValueFromHTML('eventsMapCenterChange');
-  EventsMap.Click := GetValueFromHTML('eventsMapClick');
-  EventsMap.Dblclick := GetValueFromHTML('eventsMapDblclick');
-  EventsMap.MouseMove := GetValueFromHTML('eventsMapMouseMove');
-  EventsMap.MouseOut := GetValueFromHTML('eventsMapMouseOut');
-  EventsMap.MouseOver := GetValueFromHTML('eventsMapMouseOver');
-  EventsMap.Contextmenu := GetValueFromHTML('eventsMapContextmenu');
-  EventsMap.X := GetValueFromHTML('eventsMapX');
-  EventsMap.Y := GetValueFromHTML('eventsMapY');
-  EventsMap.Lat := GetValueFromHTML('eventsMapLat');
-  EventsMap.Lng := GetValueFromHTML('eventsMapLng');
-  EventsMap.MapDrag := GetValueFromHTML('eventsMapDrag');
-  EventsMap.DragStart := GetValueFromHTML('eventsMapDragStart');
-  EventsMap.DragEnd := GetValueFromHTML('eventsMapDragEnd');
-  EventsMap.MapTypeId_changed := GetValueFromHTML('eventsMapMapTypeId_changed');
-  EventsMap.MapTypeId := GetValueFromHTML('eventsMapMapTypeId');
-  EventsMap.TilesLoaded := GetValueFromHTML('eventsMapTilesLoaded');
-  EventsMap.ZoomChanged := GetValueFromHTML('eventsMapZoomChanged');
-  EventsMap.MapZoom := GetValueFromHTML('eventsMapZoom');
+  EventsMap := GetFormValues;
+  InitializeValues;
 
   // Map bounds_changed
   if Assigned(FOnBoundsChanged) and (EventsMap.BoundsChange = '1') then
@@ -679,9 +703,11 @@ begin
      (EventsMap.Contextmenu = '1')
   then
   begin
+    TmpLat := TGMTransform.GetStrToDouble(EventsMap.Lat);
+    TmpLng := TGMTransform.GetStrToDouble(EventsMap.Lng);
     LL := TGMLatLng.Create(
-                           TGMTransform.GetStrToDouble(EventsMap.Lat),
-                           TGMTransform.GetStrToDouble(EventsMap.Lng),
+                           TmpLat,
+                           TmpLng,
                            False,
                            Language
                           );
@@ -771,12 +797,18 @@ procedure TGMCustomMap.OnTimer(Sender: TObject);
 var
   EventFired: TGMEventsFired;
 begin
-  if csDesigning in ComponentState then Exit;
-  if not Assigned(FBrowser) then Exit;
-  if not GetEventsFired(EventFired) then Exit;
+  SetEnableTimer(False);
 
-  if EventFired.Map then
-    GetMapEvent;
+  try
+    if csDesigning in ComponentState then Exit;
+    if not Assigned(FBrowser) or not FDocLoaded then Exit;
+    if not GetEventsFired(EventFired) then Exit;
+
+    if EventFired.Map then
+      GetMapEvent;
+  finally
+    SetEnableTimer(True);
+  end;
 end;
 
 procedure TGMCustomMap.PropertyChanged(Prop: TPersistent; PropName: string);

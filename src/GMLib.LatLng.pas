@@ -103,8 +103,6 @@ uses
 
 procedure TGMLatLng.Assign(Source: TPersistent);
 begin
-  inherited;
-
   if Source is TGMLatLng then
   begin
     NoWrap := TGMLatLng(Source).NoWrap;
