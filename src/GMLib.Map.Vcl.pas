@@ -466,6 +466,7 @@ begin
   FFieldName := '';
   FReadedElem := False;
   FOldConsoleMessageEvent := nil;
+  FOldLoadEndEvent := nil;
 end;
 
 procedure TGMMapChrm.ExecuteJavaScript(FunctName, Params: string);
@@ -589,6 +590,7 @@ begin
   FFieldName := '';
   FReadedElem := False;
   FOldWebMessageReceivedEvent := nil;
+  FOldNavigationCompletedEvent := nil;
 end;
 
 procedure TGMMapEdge.ExecuteJavaScript(FunctName, Params: string);
@@ -661,6 +663,8 @@ procedure TGMMapEdge.NavigationCompletedEvent(Sender: TCustomEdgeBrowser;
   IsSuccess: Boolean; WebErrorStatus: TOleEnum);
 begin
   FDocLoaded := True;
+  if TEdgeBrowser(FBrowser).LocationURL = '' then
+    FDocLoaded := False;
 
   if Assigned(FOldNavigationCompletedEvent) then
     FOldNavigationCompletedEvent(Sender, IsSuccess, WebErrorStatus);
