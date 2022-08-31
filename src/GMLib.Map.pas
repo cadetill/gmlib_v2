@@ -677,8 +677,11 @@ var
   TmpLat,
   TmpLng: Double;
 begin
-  EventsMap := GetFormValues;
-  InitializeValues;
+  try
+    EventsMap := GetFormValues;
+  finally
+    InitializeValues;
+  end;
 
   // Map bounds_changed
   if Assigned(FOnBoundsChanged) and (EventsMap.BoundsChange = '1') then

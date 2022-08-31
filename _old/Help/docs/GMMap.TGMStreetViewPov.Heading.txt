@@ -1,1 +1,0 @@
-The camera heading in degrees relative to true north. True north is 0@html(&ordm;), east is 90@html(&ordm;), south is 180@html(&ordm;), west is 270@html(&ordm;).

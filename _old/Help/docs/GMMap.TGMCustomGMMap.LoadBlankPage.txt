@@ -1,3 +1,0 @@
-LoadBlankPage method load the about:blank page.
-
-@raises EGMIncorrectBrowser This exception is raised when the WebBrowser object isn't of the expected class.

@@ -1,5 +1,0 @@
-Convert LatLng to Json representation in format @code({"Lat": "xxx", "Lng": "yyy"}).
-
-@param Precision Precision of values. Default 6.
-
-@return Json with the conversion.

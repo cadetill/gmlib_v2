@@ -1,1 +1,0 @@
-If @code(false), disables scrollwheel zooming on the map.

@@ -1,7 +1,0 @@
-@abstract(Call @code(Assign) to copy the properties or other attributes of one object from another.)
-
-The standard form of a call to @code(Assign) method is @br 
-@html(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)@code(Destination.Assign(Source);) @br 
-which tells the @code(Destination) object to copy the contents of the @code(Source) object to itself.
-
-@param Source Object to copy the content.

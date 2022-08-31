@@ -1,2 +1,0 @@
-Returns the name of the collection item as it appears in the collection editor. See Delphi documentation for more details.
-@return String with the name

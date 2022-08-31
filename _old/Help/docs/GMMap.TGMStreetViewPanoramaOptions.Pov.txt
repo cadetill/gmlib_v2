@@ -1,1 +1,0 @@
-The camera orientation, specified as heading and pitch, for the panorama.

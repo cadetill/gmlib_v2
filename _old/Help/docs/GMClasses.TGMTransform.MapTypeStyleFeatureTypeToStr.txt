@@ -1,5 +1,0 @@
-Returns a string that represents the MapTypeStyleFeatureType.
-
-@param MapTypeStyleFeatureType @link(TGMMapTypeStyleFeatureType) to convert to string.
-
-@return string with the MapTypeStyleFeatureType value.

@@ -1,4 +1,0 @@
-@abstract(@code(google.maps.Map) class)
-
-@image(tgmmap.png) @br
-More information at @url(https://developers.google.com/maps/documentation/javascript/reference/map#Map google.maps.Map class)

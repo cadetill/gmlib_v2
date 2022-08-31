@@ -1,1 +1,0 @@
-Options for the rendering of the motion tracking control.

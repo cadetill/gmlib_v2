@@ -1,1 +1,0 @@
-@abstract(Base class for all classes that inherit from @code(TPersistent) into GMLib and need to be interfaced and to have an Owner.)

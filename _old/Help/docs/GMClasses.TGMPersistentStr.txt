@@ -1,1 +1,0 @@
-@abstract(Base class for all classes that inherit from @code(TGMPersistent) into GMLib and implements @code(IGMToStr) and @code(IGMOwnerLang) interfaces.)

@@ -1,5 +1,0 @@
-@abstract(Enables/disables all default UI.)
-
-May be overridden individually. @br@br
-
-In order to take effect the change of this property, you must to restart the map.

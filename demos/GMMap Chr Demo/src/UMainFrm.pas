@@ -99,6 +99,9 @@ end;
 
 procedure TMainFrm.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
+  if GMMapChrm1.Active then
+    GMMapChrm1.Active := False;
+
   CanClose := FCanClose;
   if not(FClosing) then
   begin

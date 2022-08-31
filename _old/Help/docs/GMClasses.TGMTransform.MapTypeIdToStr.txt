@@ -1,5 +1,0 @@
-Returns a string that represents the MapTypeId.
-
-@param MapTypeId @link(TMapTypeId) to convert to string.
-
-@return string with the MapTypeId value.

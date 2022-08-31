@@ -1,3 +1,0 @@
-@abstract(Returns the number of items in the collection.)
-Count contains the number of items in the @code(Styles) array. Since @code(Styles) is indexed starting with 0, the value of Count is always one greater than the index of the last member of @code(Styles). 
-

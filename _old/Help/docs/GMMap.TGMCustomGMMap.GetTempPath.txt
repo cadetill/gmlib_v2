@@ -1,3 +1,0 @@
-@abstract(Returns temporary path.)
-
-@return String with temp path.

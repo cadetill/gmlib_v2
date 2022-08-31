@@ -1,3 +1,0 @@
-@abstract(Exception raised when GMLib needs to execute a JavaScript function and the object (or its owner) not support IGMExecJS.)
-
-Displayed message: @italic(The object (or its owner) does not support JavaScript calls.)

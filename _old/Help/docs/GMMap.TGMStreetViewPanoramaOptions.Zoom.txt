@@ -1,1 +1,0 @@
-The zoom of the panorama, specified as a number. A zoom of 0 gives a 180 degrees Field of View.

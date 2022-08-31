@@ -1,8 +1,0 @@
-@abstract(Returns a string that represents a boolean value.)
-
-This function have sense because some people have localized the original Delphi function.
-
-@param B Boolean value to convert.
-@param UseBoolStrs If @code(true), returns a string value with "true" or "false" values, else returns "0" or "-1".
-
-@return string that represents the boolean value.

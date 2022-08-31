@@ -1,4 +1,0 @@
-@abstract(By default the API will attempt to load the most appropriate language based on the users location or browser settings.)
-But some APIs allow you to explicitly set a language when you make a request. @br @br
-
-More info at https://developers.google.com/maps/faq#languagesupport

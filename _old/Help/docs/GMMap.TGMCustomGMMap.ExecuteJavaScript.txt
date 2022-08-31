@@ -1,5 +1,0 @@
-@abstract(Execute the JavaScript fucntion @code(NameFunct) with parameters @code(Params).)
-If executed succefully returns @code(True), otherwise @code(False).
-
-@param NameFunct JavaScript function's name to execute.
-@param Params Function's parameters.

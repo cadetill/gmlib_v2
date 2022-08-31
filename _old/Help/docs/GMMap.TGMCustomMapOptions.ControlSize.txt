@@ -1,2 +1,0 @@
-@abstract(Size in pixels of the controls appearing on the map.)
-This value must be supplied directly when creating the Map, updating this value later may bring the controls into an undefined state.

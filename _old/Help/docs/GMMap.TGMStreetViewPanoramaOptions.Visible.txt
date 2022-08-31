@@ -1,1 +1,0 @@
-If @code(true), the Street View panorama is visible on load.

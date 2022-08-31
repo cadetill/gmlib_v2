@@ -1,1 +1,0 @@
-Position id. This is used to specify the position of this control on the panorama. The default position is @code(cpRIGHT_BOTTOM).

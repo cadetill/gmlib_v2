@@ -1,1 +1,0 @@
-API ver value into HTML map
