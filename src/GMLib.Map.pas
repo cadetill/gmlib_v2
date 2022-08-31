@@ -805,6 +805,7 @@ begin
   try
     if csDesigning in ComponentState then Exit;
     if not Assigned(FBrowser) or not FDocLoaded then Exit;
+    GetValueFromHTML;
     if not GetEventsFired(EventFired) then Exit;
 
     if EventFired.Map then

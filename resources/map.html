@@ -11,17 +11,18 @@
   <script type="text/javascript" src="https://combinatronics.com/cadetill/gmlib_v2/master/resources/map.js" charset="utf-8"></script>
   <script type="text/javascript" src="https://combinatronics.com/cadetill/gmlib_v2/master/resources/transform.js" charset="utf-8"></script>
   <script type="text/javascript" src="https://combinatronics.com/cadetill/gmlib_v2/master/resources/latlngbounds.js" charset="utf-8"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 </head>
 
 <body>
 
-
+<!--
   <p>
     <button onclick="setMapOptions(41.656264, -0.8790698, 12)">SetOptions</button>
-    <button onclick="readEventsMapForm()">copy3</button>
+    <button onclick="getFormToJson('eventsMap')">copy3</button>
   </p>
-     
+-->
   
   <form action="#" id="eventsMap" name="eventsMap"> 
     <input type="hidden" id="eventsMapEventFired" name="eventsMapEventFired" value="0"/> 
@@ -82,45 +83,40 @@
       mapAssignEvents();
     }
 
-  function readEventsMapForm() {
-    var formData = $('#eventsMap').serializeObject(); alert(formData);
-    $.extend(formData, { Contacts : myContacts});
-    $.extend(formData, { Address : myAddress});
-    var result = JSON.stringify(formData);
-    
-    var formData = 
-        'eventsMapEventFired_' + document.getElementById('eventsMapEventFired').value + '|' +
-        'eventsMapLat_' + document.getElementById('eventsMapLat').value + '|' +
-        'eventsMapLng_' + document.getElementById('eventsMapLng').value + '|' +
-        'eventsMapX_' + document.getElementById('eventsMapX').value + '|' +
-        'eventsMapY_' + document.getElementById('eventsMapY').value + '|' +
-        'eventsMapCenterChange_' + document.getElementById('eventsMapCenterChange').value + '|' +
-        'eventsMapClick_' + document.getElementById('eventsMapClick').value + '|' +
-        'eventsMapContextmenu_' + document.getElementById('eventsMapContextmenu').value + '|' +
-        'eventsMapDblclick_' + document.getElementById('eventsMapDblclick').value + '|' +
-        'eventsMapMouseMove_' + document.getElementById('eventsMapMouseMove').value + '|' +
-        'eventsMapMouseOut_' + document.getElementById('eventsMapMouseOut').value + '|' +
-        'eventsMapMouseOver_' + document.getElementById('eventsMapMouseOver').value + '|' +
-        'eventsMapDrag_' + document.getElementById('eventsMapDrag').value + '|' +
-        'eventsMapDragEnd_' + document.getElementById('eventsMapDragEnd').value + '|' +
-        'eventsMapDragStart_' + document.getElementById('eventsMapDragStart').value + '|' +
-        'eventsMapMapTypeId_' + document.getElementById('eventsMapMapTypeId').value + '|' +
-        'eventsMapMapTypeId_changed_' + document.getElementById('eventsMapMapTypeId_changed').value + '|' +
-        'eventsMapTilesLoaded_' + document.getElementById('eventsMapTilesLoaded').value + '|' +
-        'eventsMapSwLat_' + document.getElementById('eventsMapSwLat').value + '|' +
-        'eventsMapSwLng_' + document.getElementById('eventsMapSwLng').value + '|' +
-        'eventsMapNeLat_' + document.getElementById('eventsMapNeLat').value + '|' +
-        'eventsMapNeLng_' + document.getElementById('eventsMapNeLng').value + '|' +
-        'eventsMapBoundsChange_' + document.getElementById('eventsMapBoundsChange').value + '|' +
-        'eventsMapZoom_' + document.getElementById('eventsMapZoom').value + '|' +
-        'eventsMapZoomChanged_' + document.getElementById('eventsMapZoomChanged').value;
-        
-  alert(formData);
-  console.log(formData);
-  if (formData.length >= 1) 
-    window.chrome.webview.postMessage(formData);
-}
-</script>
+    $.fn.serializeObject = function() {
+      var o = {};
+      var a = this.serializeArray();
+      $.each(a, function() {
+        if (o[this.name]) {
+          if (!o[this.name].push) {
+            o[this.name] = [o[this.name]];
+          }
+          o[this.name].push(this.value || '');
+        } 
+        else {
+          o[this.name] = this.value || '';
+        }
+      }
+      );
+      return o;
+    };
+
+    function getFormToJson(formName) {
+      var jsonStr = 
+              '{' + 
+              '"eventsMap":' + JSON.stringify($("#eventsMap").serializeObject()) + ',' +
+              '"llbResults":' + JSON.stringify($("#llbResults").serializeObject()) + 
+              '}';
+      console.log(jsonStr);
+          
+      if (jsonStr.length >= 1) {
+        window.chrome.webview.postMessage(jsonStr);
+      }
+      else {
+        window.chrome.webview.postMessage("");
+      }
+    }
+  </script>
 <!--
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=weekly&key=&region=ES&language=ca"></script>
 --> 

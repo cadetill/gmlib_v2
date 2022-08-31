@@ -41,6 +41,8 @@ contains
   GMLib.Constants in '..\src\GMLib.Constants.pas',
   GMLib.LatLngBounds in '..\src\GMLib.LatLngBounds.pas',
   GMLib.Functions in '..\src\GMLib.Functions.pas',
-  GMLib.Events in '..\src\GMLib.Events.pas';
+  GMLib.Events in '..\src\GMLib.Events.pas',
+  GMLib.HTMLForms in '..\src\GMLib.HTMLForms.pas',
+  Pkg.Json.DTO in '..\src\Pkg.Json.DTO.pas';
 
 end.

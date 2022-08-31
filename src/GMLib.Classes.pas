@@ -61,8 +61,8 @@ type
     ['{C1C87DC5-BDFD-4AA1-9BF7-C5FF01290339}']
     // @include(..\Help\docs\GMLib.Classes.IGMExecJS.ExecuteJavaScript.txt)
     procedure ExecuteJavaScript(FunctName, Params: string);
-    // @include(..\Help\docs\GMLib.Classes.IGMExecJS.GetValueFromHTML.txt)
-    function GetValueFromHTML(FieldNameId: string): string;
+    // @include(..\Help\docs\GMLib.Classes.IGMExecJS.GetJsonFromHTMLForms.txt)
+    function GetJsonFromHTMLForms(FunctName: string): string;
   end;
 
   { ************************************************************************** }
