@@ -3,7 +3,9 @@ unit GMLib.HTMLForms;
 interface
 
 uses
-  Pkg.Json.DTO, System.Generics.Collections, REST.Json.Types;
+  System.Generics.Collections, REST.Json.Types,
+
+  Pkg.Json.DTO, GMLib.Classes;
 
 {$M+}
 
@@ -92,6 +94,9 @@ type
     constructor Create; override;
     destructor Destroy; override;
 
+    class function GetData(Intf: IGMExecJS): THTMLForms;
+    class procedure IniData(Intf: IGMExecJS);
+
     property EventsMap: TEventsMap read FEventsMap;
     property LlbResults: TLlbResults read FLlbResults;
   end;
@@ -114,6 +119,21 @@ begin
   FLlbResults.Free;
 
   inherited;
+end;
+
+class function THTMLForms.GetData(Intf: IGMExecJS): THTMLForms;
+begin
+  Result := nil;
+  if not Assigned(Intf) then
+    Exit;
+
+  Result := THTMLForms.Create;
+  Result.AsJson := Intf.GetJsonFromHTMLForms;
+end;
+
+class procedure THTMLForms.IniData(Intf: IGMExecJS);
+begin
+  Intf.ExecuteJavaScript('iniEventsMapForm', '');
 end;
 
 end.

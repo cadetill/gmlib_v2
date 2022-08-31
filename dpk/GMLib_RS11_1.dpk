@@ -28,7 +28,8 @@ package GMLib_RS11_1;
 {$IMPLICITBUILD ON}
 
 requires
-  rtl;
+  rtl,
+  RESTComponents;
 
 contains
   GMLib.Classes in '..\src\GMLib.Classes.pas',

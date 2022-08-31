@@ -156,8 +156,8 @@ type
   protected
     // @include(..\Help\docs\GMLib.Classes.IGMExecJS.ExecuteJavaScript.txt)
     procedure ExecuteJavaScript(FunctName, Params: string); override;
-    // @include(..\Help\docs\GMLib.Classes.IGMExecJS.GetValueFromHTML.txt)
-    function GetValueFromHTML(FieldNameId: string): string; override;
+    // @include(..\Help\docs\GMLib.Classes.IGMExecJS.GetJsonFromHTMLForms.txt)
+    function GetJsonFromHTMLForms: string; override;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.LoadMap.txt)
     procedure LoadMap; override;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.LoadBlankPage.txt)
@@ -248,8 +248,8 @@ type
   protected
     // @include(..\Help\docs\GMLib.Classes.IGMExecJS.ExecuteJavaScript.txt)
     procedure ExecuteJavaScript(FunctName, Params: string); override;
-    // @include(..\Help\docs\GMLib.Classes.IGMExecJS.GetValueFromHTML.txt)
-    function GetValueFromHTML(FieldNameId: string): string; override;
+    // @include(..\Help\docs\GMLib.Classes.IGMExecJS.GetJsonFromHTMLForms.txt)
+    function GetJsonFromHTMLForms: string; override;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.LoadMap.txt)
     procedure LoadMap; override;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.LoadBlankPage.txt)
@@ -447,11 +447,11 @@ procedure TGMMapChrm.ConsoleMessageEvent(Sender: TObject;
   const browser: ICefBrowser; level: Cardinal; const message, source: ustring;
   line: Integer; out Result: Boolean);
 begin
-  if (Length(message) = 0) or (Pos('|', message) = 0) then
+  if (Length(message) = 0) or (Pos('{', message) = 0) then
     Exit;
 
-  FFieldName := Copy(message, 1, Pos('|', message));
-  FFieldValue := Copy(message, Pos('|', message) + 1, Length(message));
+  //FFieldName := Copy(message, 1, Pos('|', message));
+  FFieldValue := message; //Copy(message, Pos('|', message) + 1, Length(message));
   FReadedElem := True;
 
   if Assigned(FOldConsoleMessageEvent) then
@@ -479,9 +479,9 @@ begin
     0 );
 end;
 
-function TGMMapChrm.GetValueFromHTML(FieldNameId: string): string;
+function TGMMapChrm.GetJsonFromHTMLForms: string;
 var
-  TempJSCode: string;
+//  TempJSCode: string;
   TmpNow: TDateTime;
 begin
   if not Active then
@@ -489,8 +489,11 @@ begin
 
   FReadedElem := False;
 
-  TempJSCode  := 'console.log("' + FieldNameId + '|" + ' + 'document.getElementById("' + FieldNameId + '").value' + ');';
-  TChromium(FBrowser).ExecuteJavaScript(TempJSCode, 'about:blank');
+  ExecuteJavaScript('getFormToJson', '');
+
+//  TempJSCode  := 'console.log("' + FieldNameId + '|" + ' + 'document.getElementById("' + FieldNameId + '").value' + ');';
+//  TChromium(FBrowser).ExecuteJavaScript(TempJSCode, 'about:blank');
+
   TmpNow := Now;
   repeat
     Sleep(1);
@@ -600,9 +603,9 @@ begin
   TEdgeBrowser(FBrowser).ExecuteScript(FunctName + '(' + Params + ')');
 end;
 
-function TGMMapEdge.GetValueFromHTML(FieldNameId: string): string;
+function TGMMapEdge.GetJsonFromHTMLForms: string;
 var
-  TempJSCode: string;
+//  TempJSCode: string;
   TmpNow: TDateTime;
 begin
   if not Active then
@@ -610,11 +613,13 @@ begin
 
   FReadedElem := False;
 
-  TempJSCode := 'results = document.getElementById("' + FieldNameId + '").value; ' +
-                'console.log("' + FieldNameId + '|" + results); ' +
-                'if (results.length >= 1) {window.chrome.webview.postMessage("' + FieldNameId + '|" + results);} ' +
-                'else {window.chrome.webview.postMessage("");}';
-  TEdgeBrowser(FBrowser).ExecuteScript(TempJSCode);
+  ExecuteJavaScript('getFormToJson', '');
+
+//  TempJSCode := 'results = document.getElementById("' + FieldNameId + '").value; ' +
+//                'console.log("' + FieldNameId + '|" + results); ' +
+//                'if (results.length >= 1) {window.chrome.webview.postMessage("' + FieldNameId + '|" + results);} ' +
+//                'else {window.chrome.webview.postMessage("");}';
+//  TEdgeBrowser(FBrowser).ExecuteScript(TempJSCode);
   TmpNow := Now;
   repeat
     Sleep(1);
@@ -711,11 +716,11 @@ begin
   Msg := Args as ICoreWebView2WebMessageReceivedEventArgs;
   Msg.TryGetWebMessageAsString(TmpStr);
 
-  if (Length(TmpStr) = 0) or (Pos('|', TmpStr) = 0) then
+  if (Length(TmpStr) = 0) or (Pos('{', TmpStr) = 0) then
     Exit;
 
-  FFieldName := Copy(TmpStr, 1, Pos('|', TmpStr));
-  FFieldValue := Copy(TmpStr, Pos('|', TmpStr) + 1, Length(TmpStr));
+  //FFieldName := Copy(TmpStr, 1, Pos('|', TmpStr));
+  FFieldValue := TmpStr; // Copy(TmpStr, Pos('|', TmpStr) + 1, Length(TmpStr));
   FReadedElem := True;
 
   if Assigned(FOldWebMessageReceivedEvent) then

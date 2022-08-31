@@ -1,4 +1,3 @@
-@abstract(Gets the @code(FieldName) value from @code(FormName) form of the HTML code.)
+@abstract(Reads all fields of all HTML forms and returns a Json with their values.)
 
-@param FormName Name of the form where to look for the field.
-@param FieldName Name of the field from which to return the value.
+@return Json with the info.

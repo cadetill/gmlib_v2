@@ -20,7 +20,8 @@ uses
   Classes,
   {$ENDIF}
 
-  GMLib.Classes, GMLib.Sets, GMLib.LatLng, GMLib.LatLngBounds, GMLib.Events;
+  GMLib.Classes, GMLib.Sets, GMLib.LatLng, GMLib.LatLngBounds, GMLib.Events,
+  GMLib.HTMLForms;
 
 type
   // @include(..\Help\docs\GMLib.Map.TGMEventsFired.txt)
@@ -411,8 +412,8 @@ type
     procedure SetIntervalEvents(const Value: Integer);
     procedure SetPrecision(const Value: Integer);
 
-    function GetEventsFired(var EF: TGMEventsFired): Boolean;
-    procedure GetMapEvent;
+    function GetEventsFired(Val: THTMLForms; var EF: TGMEventsFired): Boolean;
+    procedure GetMapEvent(Val: THTMLForms);
   protected
     // @exclude Indicates if the map is being updated.
     FIsUpdating: Boolean;
@@ -427,8 +428,8 @@ type
 
     // @include(..\Help\docs\GMLib.Classes.IGMExecJS.ExecuteJavaScript.txt)
     procedure ExecuteJavaScript(FunctName, Params: string); virtual; abstract;
-    // @include(..\Help\docs\GMLib.Classes.IGMExecJS.GetValueFromHTML.txt)
-    function GetValueFromHTML(FieldNameId: string): string; virtual; abstract;
+    // @include(..\Help\docs\GMLib.Classes.IGMExecJS.GetJsonFromHTMLForms.txt)
+    function GetJsonFromHTMLForms: string; virtual; abstract;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.SetCenterProperty.txt)
     procedure SetCenterProperty(LatLng: TGMLatLng); virtual; abstract;
@@ -576,9 +577,9 @@ begin
   Result := 'https://developers.google.com/maps/documentation/javascript/reference/map#Map';
 end;
 
-function TGMCustomMap.GetEventsFired(var EF: TGMEventsFired): Boolean;
+function TGMCustomMap.GetEventsFired(Val: THTMLForms; var EF: TGMEventsFired): Boolean;
 begin
-  EF.Map := GetValueFromHTML('eventsMapEventFired') = '1';
+  EF.Map := Val.EventsMap.EventsMapEventFired = '1';
 
   Result := EF.Map;
 end;
@@ -635,39 +636,7 @@ begin
   end;
 end;
 
-procedure TGMCustomMap.GetMapEvent;
-  function GetFormValues: TGMEventsMapForm;
-  begin
-    Result.BoundsChange := GetValueFromHTML('eventsMapBoundsChange');
-    Result.SwLat := GetValueFromHTML('eventsMapSwLat');
-    Result.SwLng := GetValueFromHTML('eventsMapSwLng');
-    Result.NeLat := GetValueFromHTML('eventsMapNeLat');
-    Result.NeLng := GetValueFromHTML('eventsMapNeLng');
-    Result.CenterChange := GetValueFromHTML('eventsMapCenterChange');
-    Result.Click := GetValueFromHTML('eventsMapClick');
-    Result.Dblclick := GetValueFromHTML('eventsMapDblclick');
-    Result.MouseMove := GetValueFromHTML('eventsMapMouseMove');
-    Result.MouseOut := GetValueFromHTML('eventsMapMouseOut');
-    Result.MouseOver := GetValueFromHTML('eventsMapMouseOver');
-  //  Result.Contextmenu := GetValueFromHTML('eventsMapContextmenu');
-    Result.X := GetValueFromHTML('eventsMapX');
-    Result.Y := GetValueFromHTML('eventsMapY');
-    Result.Lat := GetValueFromHTML('eventsMapLat');
-    Result.Lng := GetValueFromHTML('eventsMapLng');
-    Result.MapDrag := GetValueFromHTML('eventsMapDrag');
-    Result.DragStart := GetValueFromHTML('eventsMapDragStart');
-    Result.DragEnd := GetValueFromHTML('eventsMapDragEnd');
-    Result.MapTypeId_changed := GetValueFromHTML('eventsMapMapTypeId_changed');
-    Result.MapTypeId := GetValueFromHTML('eventsMapMapTypeId');
-    Result.TilesLoaded := GetValueFromHTML('eventsMapTilesLoaded');
-    Result.ZoomChanged := GetValueFromHTML('eventsMapZoomChanged');
-    Result.MapZoom := GetValueFromHTML('eventsMapZoom');
-  end;
-
-  procedure InitializeValues;
-  begin
-    ExecuteJavaScript('iniEventsMapForm', '');
-  end;
+procedure TGMCustomMap.GetMapEvent(Val: THTMLForms);
 var
   LLB: TGMLatLngBounds;
   LL: TGMLatLng;
@@ -677,12 +646,6 @@ var
   TmpLat,
   TmpLng: Double;
 begin
-  try
-    EventsMap := GetFormValues;
-  finally
-    InitializeValues;
-  end;
-
   // Map bounds_changed
   if Assigned(FOnBoundsChanged) and (EventsMap.BoundsChange = '1') then
   begin
@@ -799,17 +762,18 @@ end;
 procedure TGMCustomMap.OnTimer(Sender: TObject);
 var
   EventFired: TGMEventsFired;
+  Val: THTMLForms;
 begin
   SetEnableTimer(False);
-
   try
     if csDesigning in ComponentState then Exit;
     if not Assigned(FBrowser) or not FDocLoaded then Exit;
-    GetValueFromHTML;
-    if not GetEventsFired(EventFired) then Exit;
+    Val := THTMLForms.GetData(Self);
+    THTMLForms.IniData(Self); // ExecuteJavaScript('iniEventsMapForm', '');
+    if not GetEventsFired(Val, EventFired) then Exit;
 
     if EventFired.Map then
-      GetMapEvent;
+      GetMapEvent(Val);
   finally
     SetEnableTimer(True);
   end;

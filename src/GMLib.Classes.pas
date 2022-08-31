@@ -62,7 +62,7 @@ type
     // @include(..\Help\docs\GMLib.Classes.IGMExecJS.ExecuteJavaScript.txt)
     procedure ExecuteJavaScript(FunctName, Params: string);
     // @include(..\Help\docs\GMLib.Classes.IGMExecJS.GetJsonFromHTMLForms.txt)
-    function GetJsonFromHTMLForms(FunctName: string): string;
+    function GetJsonFromHTMLForms: string;
   end;
 
   { ************************************************************************** }

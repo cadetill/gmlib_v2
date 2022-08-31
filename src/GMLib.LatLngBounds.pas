@@ -19,7 +19,7 @@ uses
   Classes,
   {$ENDIF}
 
-  GMLib.Classes, GMLib.Sets, GMLib.LatLng;
+  GMLib.Classes, GMLib.Sets, GMLib.LatLng, GMLib.HTMLForms;
 
 type
   // @include(..\Help\docs\GMLib.LatLngBounds.TGMLatLngBounds.txt)
@@ -118,6 +118,7 @@ var
   Params: string;
   Intf: IGMExecJS;
   TmpStr: string;
+  Val: THTMLForms;
 begin
   if not Assigned(GetOwner()) then
     raise EGMWithoutOwner.Create(GetOwnerLang);                                 // Owner not assigned.
@@ -135,11 +136,12 @@ begin
                                ]);
   Intf.ExecuteJavaScript('llbContains', Params);
   begin
-    TmpStr := Intf.GetValueFromHTML('llbResultsMapisnull');
+    Val := THTMLForms.GetData(Intf);
+    TmpStr := Val.LlbResults.LlbResultsMapisnull;
     if TmpStr = '1' then
       raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
 
-    TmpStr := Intf.GetValueFromHTML('llbResultsBoolVal');
+    TmpStr := Val.LlbResults.LlbResultsBoolVal;
     Result := TmpStr = '1';
   end
 end;
@@ -197,6 +199,7 @@ var
   Params: string;
   Intf: IGMExecJS;
   TmpStr: string;
+  Val: THTMLForms;
 begin
   if not Assigned(GetOwner()) then
     raise EGMWithoutOwner.Create(GetOwnerLang);                                 // Owner not assigned.
@@ -214,17 +217,18 @@ begin
                                ]);
   Intf.ExecuteJavaScript('llbExtend', Params);
   begin
-    TmpStr := Intf.GetValueFromHTML('llbResultsMapisnull');
+    Val := THTMLForms.GetData(Intf);
+    TmpStr := Val.LlbResults.LlbResultsMapisnull;
     if TmpStr = '1' then
       raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
 
-    TmpStr := Intf.GetValueFromHTML('llbResultsSwLat');
+    TmpStr := Val.LlbResults.LlbResultsSwLat;
     FSW.Lat := TGMTransform.GetStrToDouble(TmpStr);
-    TmpStr := Intf.GetValueFromHTML('llbResultsSwLng');
+    TmpStr := Val.LlbResults.LlbResultsSwLng;
     FSW.Lng := TGMTransform.GetStrToDouble(TmpStr);
-    TmpStr := Intf.GetValueFromHTML('llbResultsNeLat');
+    TmpStr := Val.LlbResults.LlbResultsNeLat;
     FNE.Lat := TGMTransform.GetStrToDouble(TmpStr);
-    TmpStr := Intf.GetValueFromHTML('llbResultsNeLng');
+    TmpStr := Val.LlbResults.LlbResultsNeLng;
     FNE.Lng := TGMTransform.GetStrToDouble(TmpStr);
   end;
 end;
@@ -241,6 +245,7 @@ var
   Params: string;
   Intf: IGMExecJS;
   TmpStr: string;
+  Val: THTMLForms;
 begin
   if not Assigned(GetOwner()) then
     raise EGMWithoutOwner.Create(GetOwnerLang);                                 // Owner not assigned.
@@ -256,13 +261,14 @@ begin
                                ]);
   Intf.ExecuteJavaScript('llbGetCenter', Params);
   begin
-    TmpStr := Intf.GetValueFromHTML('llbResultsMapisnull');
+    Val := THTMLForms.GetData(Intf);
+    TmpStr := Val.LlbResults.LlbResultsMapisnull;
     if TmpStr = '1' then
       raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
 
-    TmpStr := Intf.GetValueFromHTML('llbResultsLat');
+    TmpStr := Val.LlbResults.LlbResultsLat;
     Result.Lat := TGMTransform.GetStrToDouble(TmpStr);
-    TmpStr := Intf.GetValueFromHTML('llbResultsLng');
+    TmpStr := Val.LlbResults.LlbResultsLng;
     Result.Lng := TGMTransform.GetStrToDouble(TmpStr);
   end
 end;
@@ -281,6 +287,7 @@ var
   Params: string;
   Intf: IGMExecJS;
   TmpStr: string;
+  Val: THTMLForms;
 begin
   if not Assigned(GetOwner()) then
     raise EGMWithoutOwner.Create(GetOwnerLang);                                 // Owner not assigned.
@@ -300,11 +307,11 @@ begin
                                ]);
   Intf.ExecuteJavaScript('llbIntersects', Params);
   begin
-    TmpStr := Intf.GetValueFromHTML('llbResultsMapisnull');
+    TmpStr := Val.LlbResults.LlbResultsMapisnull;
     if TmpStr = '1' then
       raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
 
-    TmpStr := Intf.GetValueFromHTML('llbResultsBoolVal');
+    TmpStr := Val.LlbResults.llbResultsBoolVal;
     Result := TmpStr = '1';
   end
 end;
@@ -350,6 +357,7 @@ var
   Params: string;
   Intf: IGMExecJS;
   TmpStr: string;
+  Val: THTMLForms;
 begin
   if not Assigned(GetOwner()) then
     raise EGMWithoutOwner.Create(GetOwnerLang);                                 // Owner not assigned.
@@ -365,13 +373,13 @@ begin
                                ]);
   Intf.ExecuteJavaScript('llbToSpan', Params);
   begin
-    TmpStr := Intf.GetValueFromHTML('llbResultsMapisnull');
+    TmpStr := Val.LlbResults.LlbResultsMapisnull;
     if TmpStr = '1' then
       raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
 
-    TmpStr := Intf.GetValueFromHTML('llbResultsLat');
+    TmpStr := Val.LlbResults.LlbResultsLat;
     Result.Lat := TGMTransform.GetStrToDouble(TmpStr);
-    TmpStr := Intf.GetValueFromHTML('llbResultsLng');
+    TmpStr := Val.LlbResults.LlbResultsLng;
     Result.Lng := TGMTransform.GetStrToDouble(TmpStr);
   end
 end;
@@ -397,6 +405,7 @@ var
   Params: string;
   Intf: IGMExecJS;
   TmpStr: string;
+  Val: THTMLForms;
 begin
   if not Assigned(GetOwner()) then
     raise EGMWithoutOwner.Create(GetOwnerLang);                                 // Owner not assigned.
@@ -416,17 +425,17 @@ begin
                                ]);
   Intf.ExecuteJavaScript('llbUnion', Params);
   begin
-    TmpStr := Intf.GetValueFromHTML('llbResultsMapisnull');
+    TmpStr := Val.LlbResults.LlbResultsMapisnull;
     if TmpStr = '1' then
       raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
 
-    TmpStr := Intf.GetValueFromHTML('llbResultsSwLat');
+    TmpStr := Val.LlbResults.LlbResultsSwLat;
     FSW.Lat := TGMTransform.GetStrToDouble(TmpStr);
-    TmpStr := Intf.GetValueFromHTML('llbResultsSwLng');
+    TmpStr := Val.LlbResults.LlbResultsSwLng;
     FSW.Lng := TGMTransform.GetStrToDouble(TmpStr);
-    TmpStr := Intf.GetValueFromHTML('llbResultsNeLat');
+    TmpStr := Val.LlbResults.LlbResultsNeLat;
     FNE.Lat := TGMTransform.GetStrToDouble(TmpStr);
-    TmpStr := Intf.GetValueFromHTML('llbResultsNeLng');
+    TmpStr := Val.LlbResults.LlbResultsNeLng;
     FNE.Lng := TGMTransform.GetStrToDouble(TmpStr);
   end;
 end;
