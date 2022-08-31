@@ -1,1 +1,0 @@
-OnPropertyChanges event is fired when a property changes.

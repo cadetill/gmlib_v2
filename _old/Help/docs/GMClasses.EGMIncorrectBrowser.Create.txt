@@ -1,3 +1,0 @@
-@abstract(Class constructor.)
-
-@param Lang Language to translate.

@@ -1,2 +1,0 @@
-Set a Lang to the object.
-@param Lang Language to set.

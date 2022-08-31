@@ -1,3 +1,0 @@
-@abstract(Exception raised when the TGMMap component isn't active.)
-
-Displayed message: @italic(Map is not active.)

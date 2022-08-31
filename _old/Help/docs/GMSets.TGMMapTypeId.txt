@@ -1,3 +1,0 @@
-@abstract(Identifiers for common MapTypes.)
-
-More info at @url(https://developers.google.com/maps/documentation/javascript/reference/map#MapTypeId google.maps.MapTypeId constants)

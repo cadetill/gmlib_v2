@@ -1,1 +1,0 @@
-The enabled/disabled state of the imagery acquisition date control.

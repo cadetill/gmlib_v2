@@ -1,5 +1,0 @@
-Convert LatLng to string representation in format @code((Lat, Lng)).
-
-@param Precision Precision of values. Default 6.
-
-@return String with the conversion.

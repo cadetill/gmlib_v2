@@ -1,1 +1,0 @@
-The style rules to apply to the selectors. The rules are applied to the map's elements in the order they are listed in this array.

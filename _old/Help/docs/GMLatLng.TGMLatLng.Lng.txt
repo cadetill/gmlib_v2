@@ -1,1 +1,0 @@
-Longitude in degrees

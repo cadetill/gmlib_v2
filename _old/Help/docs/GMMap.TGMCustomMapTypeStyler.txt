@@ -1,4 +1,0 @@
-@abstract(Base class for @code(google.maps.MapTypeStyler) object from Google Maps API.)
-
-A styler affects how a map's elements will be styled. Each MapTypeStyler should contain one and only one key. If more than one key is specified in a single MapTypeStyler, all but one will be ignored.@br@br
-More information at @url(https://developers.google.com/maps/documentation/javascript/style-reference#stylers Style Reference)

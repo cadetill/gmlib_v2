@@ -1,3 +1,0 @@
-@abstract(Creates a new @link(TGMMapTypeStyle) instance and adds it to the Items array.)
-
-@return New @link(TGMMapTypeStyle).

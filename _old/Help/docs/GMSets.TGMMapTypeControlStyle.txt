@@ -1,3 +1,0 @@
-@abstract(Identifiers for common MapTypesControls.)
-
-More info at @url(https://developers.google.com/maps/documentation/javascript/reference/control#MapTypeControlStyle google.maps.MapTypeControlStyle constants)

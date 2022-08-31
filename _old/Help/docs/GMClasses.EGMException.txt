@@ -1,8 +1,0 @@
-@abstract(Base class for all @code(Exception) on GMLib.)
-
-If you want to translate the exceptions, follow this steps:@br
-@orderedList(
-  @item(Create a new element into @link(GMSets.TGMLang) set representing the new language.)
-  @item(Create a new const array GMTranslations unit named @italic(Lang_XXX).)
-  @item(And put new set value into GMTranslations.GetTranslateText case.)
-  )

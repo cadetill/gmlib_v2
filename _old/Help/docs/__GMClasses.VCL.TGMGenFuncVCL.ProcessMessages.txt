@@ -1,1 +1,0 @@
-@abstract(Processes the messages queue.)

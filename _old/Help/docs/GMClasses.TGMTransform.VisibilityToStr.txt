@@ -1,5 +1,0 @@
-Returns a string that represents the @code(Visibility).
-
-@param Visibility @link(TGMVisibility) to convert to string.
-
-@return string with the @code(Visibility) value.

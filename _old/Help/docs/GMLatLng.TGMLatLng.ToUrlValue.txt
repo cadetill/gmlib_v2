@@ -1,5 +1,0 @@
-Returns a string of the form @code("lat,lng") for this LatLng. By default, round the LatLng to 6 decimal.
-
-@param Precision Precision of values. Default 6.
-
-@return String with the formatted LatLng.

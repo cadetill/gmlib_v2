@@ -1,3 +1,0 @@
-Version of the Google Maps API to use
-
-For more info see @url(https://developers.google.com/maps/documentation/javascript/versions Versioning) on Google Maps

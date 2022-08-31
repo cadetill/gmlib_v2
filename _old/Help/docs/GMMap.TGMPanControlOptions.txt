@@ -1,4 +1,0 @@
-@abstract(@code(google.maps.PanControlOptions) object from Google Maps API.)
-
-Options for the rendering of the pan control. @br@br
-More information at @url(https://developers.google.com/maps/documentation/javascript/reference/control#PanControlOptions google.maps.PanControlOptions interface).

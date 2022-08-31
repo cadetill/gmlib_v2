@@ -1,3 +1,0 @@
-@abstract(Sets the viewport to contain the given bounds.)
-
-@param Bounds The @link(TGMLatLngBounds).
