@@ -318,3 +318,38 @@ function iniEventsMapForm() {
   document.getElementById('eventsMapZoomChanged').value = "0"; 
 }
 
+/* **********************************
+  this function read eventsMap form.
+********************************** */
+function readEventsMapForm() {
+  var formData = 
+        'eventsMapEventFired_' + document.getElementById('eventsMapEventFired').value + '|' +
+        'eventsMapLat_' + document.getElementById('eventsMapLat').value + '|' +
+        'eventsMapLng_' + document.getElementById('eventsMapLng').value + '|' +
+        'eventsMapX_' + document.getElementById('eventsMapX').value + '|' +
+        'eventsMapY_' + document.getElementById('eventsMapY').value + '|' +
+        'eventsMapCenterChange_' + document.getElementById('eventsMapCenterChange').value + '|' +
+        'eventsMapClick_' + document.getElementById('eventsMapClick').value + '|' +
+        'eventsMapContextmenu_' + document.getElementById('eventsMapContextmenu').value + '|' +
+        'eventsMapDblclick_' + document.getElementById('eventsMapDblclick').value + '|' +
+        'eventsMapMouseMove_' + document.getElementById('eventsMapMouseMove').value + '|' +
+        'eventsMapMouseOut_' + document.getElementById('eventsMapMouseOut').value + '|' +
+        'eventsMapMouseOver_' + document.getElementById('eventsMapMouseOver').value + '|' +
+        'eventsMapDrag_' + document.getElementById('eventsMapDrag').value + '|' +
+        'eventsMapDragEnd_' + document.getElementById('eventsMapDragEnd').value + '|' +
+        'eventsMapDragStart_' + document.getElementById('eventsMapDragStart').value + '|' +
+        'eventsMapMapTypeId_' + document.getElementById('eventsMapMapTypeId').value + '|' +
+        'eventsMapMapTypeId_changed_' + document.getElementById('eventsMapMapTypeId_changed').value + '|' +
+        'eventsMapTilesLoaded_' + document.getElementById('eventsMapTilesLoaded').value + '|' +
+        'eventsMapSwLat_' + document.getElementById('eventsMapSwLat').value + '|' +
+        'eventsMapSwLng_' + document.getElementById('eventsMapSwLng').value + '|' +
+        'eventsMapNeLat_' + document.getElementById('eventsMapNeLat').value + '|' +
+        'eventsMapNeLng_' + document.getElementById('eventsMapNeLng').value + '|' +
+        'eventsMapBoundsChange_' + document.getElementById('eventsMapBoundsChange').value + '|' +
+        'eventsMapZoom_' + document.getElementById('eventsMapZoom').value + '|' +
+        'eventsMapZoomChanged_' + document.getElementById('eventsMapZoomChanged').value = "0";
+  console.log(formData);
+  if (results.length >= 1) 
+    window.chrome.webview.postMessage(formData);
+}
+
