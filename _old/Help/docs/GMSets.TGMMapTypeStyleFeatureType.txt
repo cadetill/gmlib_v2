@@ -1,0 +1,4 @@
+@abstract(@code(google.maps.MapTypeStyleFeatureType) object specification)
+
+Possible values for feature types. Stylers applied to a parent feature type automatically apply to all child feature types. Note however that parent features may include some additional features that are not included in one of their child feature types.@br@br
+More info at @url(https://developers.google.com/maps/documentation/javascript/style-reference#style-features featureType)

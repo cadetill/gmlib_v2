@@ -1,0 +1,2 @@
+@abstract(Possible values for visibility property from MapTypeStyler object.)
+More info at https://developers.google.com/maps/documentation/javascript/reference#MapTypeStyler

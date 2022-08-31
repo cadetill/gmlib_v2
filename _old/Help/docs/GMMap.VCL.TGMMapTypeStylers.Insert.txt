@@ -1,0 +1,5 @@
+Creates a new @link(TGMMapTypeStyler) instance and adds it to the Items array at the specified position.
+
+@params Index Position to insert.
+
+@return New @link(TGMMapTypeStyler).

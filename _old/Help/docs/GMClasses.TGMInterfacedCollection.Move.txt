@@ -1,0 +1,3 @@
+Moves a item to a new position into the collection.
+@param CurIndex Index of Item to move
+@param NewIndex Destination index

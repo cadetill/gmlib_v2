@@ -1,0 +1,4 @@
+@abstract(@code(google.maps.StreetViewPanoramaOptions) object from Google Maps API.)
+
+Options defining the properties of a @code(StreetViewPanorama) object.@br@br
+More information at @url(https://developers.google.com/maps/documentation/javascript/reference/street-view#StreetViewPanoramaOptions google.maps.StreetViewPanoramaOptions interface)

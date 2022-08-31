@@ -1,0 +1,2 @@
+@abstract(Class constructor.)
+@param AOwner Component owner.

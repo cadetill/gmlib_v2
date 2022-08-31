@@ -1,0 +1,1 @@
+The display options for the pan control.

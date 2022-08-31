@@ -1,0 +1,2 @@
+Modifies the gamma by raising the lightness to the given power.@br @br 
+Valid values: Floating point numbers, [0.01, 10], with 1.0 representing no change.

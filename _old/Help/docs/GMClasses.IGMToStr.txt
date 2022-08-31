@@ -1,0 +1,2 @@
+@abstract(Interface that provide access to convert all object properties to string.)
+It should be a protected method from class that define this interface.

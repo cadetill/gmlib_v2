@@ -1,0 +1,1 @@
+Style id. Used to select what style of map type control to display.

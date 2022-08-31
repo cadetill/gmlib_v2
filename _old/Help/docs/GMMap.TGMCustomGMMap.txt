@@ -1,0 +1,3 @@
+@abstract(Base class for @code(google.maps.Map) class and implements @link(@code(IGMExecJS)) and @link(@code(IGMControlChanges)) interfaces.)
+
+More information at @url(https://developers.google.com/maps/documentation/javascript/reference/map#Map google.maps.Map class)

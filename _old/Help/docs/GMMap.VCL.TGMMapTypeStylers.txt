@@ -1,0 +1,4 @@
+@abstract(@code(google.maps.MapTypeStyler) list objects from Google Maps API.)
+
+The TGMMapTypeStylers is a collection of @link(TGMMapTypeStyler).@br@br
+More information at @url(https://developers.google.com/maps/documentation/javascript/style-reference#stylers Style Reference)

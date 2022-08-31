@@ -1,0 +1,1 @@
+Position id. This id is used to specify the position of the control on the map.
