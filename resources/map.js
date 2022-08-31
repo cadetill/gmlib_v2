@@ -322,8 +322,8 @@ function iniEventsMapForm() {
   this function read eventsMap form.
 ********************************** */
 function readEventsMapForm() {
-  var formData = "";
-      formData = 'eventsMapEventFired_' + document.getElementById('eventsMapEventFired').value + '|' +
+  var formData = 
+        'eventsMapEventFired_' + document.getElementById('eventsMapEventFired').value + '|' +
         'eventsMapLat_' + document.getElementById('eventsMapLat').value + '|' +
         'eventsMapLng_' + document.getElementById('eventsMapLng').value + '|' +
         'eventsMapX_' + document.getElementById('eventsMapX').value + '|' +
@@ -347,7 +347,7 @@ function readEventsMapForm() {
         'eventsMapNeLng_' + document.getElementById('eventsMapNeLng').value + '|' +
         'eventsMapBoundsChange_' + document.getElementById('eventsMapBoundsChange').value + '|' +
         'eventsMapZoom_' + document.getElementById('eventsMapZoom').value + '|' +
-        'eventsMapZoomChanged_' + document.getElementById('eventsMapZoomChanged').value = "0";
+        'eventsMapZoomChanged_' + document.getElementById('eventsMapZoomChanged').value;
   console.log(formData);
   if (formData.length >= 1) 
     window.chrome.webview.postMessage(formData);
