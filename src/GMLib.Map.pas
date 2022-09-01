@@ -651,20 +651,19 @@ procedure TGMCustomMap.GetMapEvent(Val: THTMLForms);
 var
   LLB: TGMLatLngBounds;
   LL: TGMLatLng;
-  EventsMap: TGMEventsMapForm;
   MTId: TGMMapTypeId;
   TmpInt: Integer;
-  TmpLat,
+  TmpLat: Double;
   TmpLng: Double;
 begin
   // Map bounds_changed
-  if Assigned(FOnBoundsChanged) and (EventsMap.BoundsChange = '1') then
+  if Assigned(FOnBoundsChanged) and (Val.EventsMap.EventsMapBoundsChange = '1') then
   begin
     LLB := TGMLatLngBounds.Create(
-                                  TGMTransform.GetStrToDouble(EventsMap.SWLat),
-                                  TGMTransform.GetStrToDouble(EventsMap.SWLng),
-                                  TGMTransform.GetStrToDouble(EventsMap.NELat),
-                                  TGMTransform.GetStrToDouble(EventsMap.NELng),
+                                  TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapSwLat),
+                                  TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapSwLng),
+                                  TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapNeLat),
+                                  TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapNeLng),
                                   Language
                                  );
     try
@@ -675,13 +674,14 @@ begin
   end;
 
   // Map center_changed, click, dblclick, mousemove, mouseout, mouseover, rightclick
-  if (EventsMap.CenterChange = '1') or (EventsMap.Click = '1') or (EventsMap.Dblclick = '1') or
-     (EventsMap.MouseMove = '1') or (EventsMap.MouseOut = '1') or (EventsMap.MouseOver = '1') or
-     (EventsMap.Contextmenu = '1')
+  if (Val.EventsMap.EventsMapCenterChange = '1') or (Val.EventsMap.EventsMapClick = '1') or
+     (Val.EventsMap.EventsMapDblclick = '1') or (Val.EventsMap.EventsMapMouseMove = '1') or
+     (Val.EventsMap.EventsMapMouseOut = '1') or (Val.EventsMap.EventsMapMouseOver = '1') or
+     (Val.EventsMap.EventsMapContextmenu = '1')
   then
   begin
-    TmpLat := TGMTransform.GetStrToDouble(EventsMap.Lat);
-    TmpLng := TGMTransform.GetStrToDouble(EventsMap.Lng);
+    TmpLat := TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapLat);
+    TmpLng := TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapLng);
     LL := TGMLatLng.Create(
                            TmpLat,
                            TmpLng,
@@ -689,7 +689,7 @@ begin
                            Language
                           );
     try
-      if (EventsMap.CenterChange = '1') {and Assigned(FOnCenterChanged)} then
+      if (Val.EventsMap.EventsMapCenterChange = '1') {and Assigned(FOnCenterChanged)} then
       begin
         if not FIsUpdating then
         begin
@@ -698,52 +698,47 @@ begin
         end;
         FIsUpdating := False;
         if Assigned(FOnCenterChanged) then
-          FOnCenterChanged(Self, LL, TGMTransform.GetStrToDouble(EventsMap.X), TGMTransform.GetStrToDouble(EventsMap.Y));
+          FOnCenterChanged(Self,
+                           LL,
+                           TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapX),
+                           TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapY)
+                          );
       end;
-      if (EventsMap.Click = '1') and Assigned(FOnClick) then
-        FOnClick(Self, LL, TGMTransform.GetStrToDouble(EventsMap.X), TGMTransform.GetStrToDouble(EventsMap.Y));
-      if (EventsMap.DblClick = '1') and Assigned(FOnDblClick) then
-        FOnDblClick(Self, LL, TGMTransform.GetStrToDouble(EventsMap.X), TGMTransform.GetStrToDouble(EventsMap.Y));
-      if (EventsMap.MouseMove = '1') and Assigned(FOnMouseMove) then
-        FOnMouseMove(Self, LL, TGMTransform.GetStrToDouble(EventsMap.X), TGMTransform.GetStrToDouble(EventsMap.Y));
-      if (EventsMap.MouseOut = '1') and Assigned(FOnMouseOut) then
-        FOnMouseOut(Self, LL, TGMTransform.GetStrToDouble(EventsMap.X), TGMTransform.GetStrToDouble(EventsMap.Y));
-      if (EventsMap.MouseOver = '1') and Assigned(FOnMouseOver) then
-        FOnMouseOver(Self, LL, TGMTransform.GetStrToDouble(EventsMap.X), TGMTransform.GetStrToDouble(EventsMap.Y));
-      if (EventsMap.Contextmenu = '1') and Assigned(FOnContextmenu) then
-        FOnContextmenu(Self, LL, TGMTransform.GetStrToDouble(EventsMap.X), TGMTransform.GetStrToDouble(EventsMap.Y));
+      if (Val.EventsMap.EventsMapClick = '1') and Assigned(FOnClick) then
+        FOnClick(Self, LL, TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapX), TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapY));
+      if (Val.EventsMap.EventsMapDblclick = '1') and Assigned(FOnDblClick) then
+        FOnDblClick(Self, LL, TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapX), TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapY));
+      if (Val.EventsMap.EventsMapMouseMove = '1') and Assigned(FOnMouseMove) then
+        FOnMouseMove(Self, LL, TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapX), TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapY));
+      if (Val.EventsMap.EventsMapMouseOut = '1') and Assigned(FOnMouseOut) then
+        FOnMouseOut(Self, LL, TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapX), TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapY));
+      if (Val.EventsMap.EventsMapMouseOver = '1') and Assigned(FOnMouseOver) then
+        FOnMouseOver(Self, LL, TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapX), TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapY));
+      if (Val.EventsMap.EventsMapContextmenu = '1') and Assigned(FOnContextmenu) then
+        FOnContextmenu(Self, LL, TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapX), TGMTransform.GetStrToDouble(Val.EventsMap.EventsMapY));
     finally
       FreeAndNil(LL);
     end;
   end;
 
   // Map drag, dargend, dragstart
-  if (EventsMap.MapDrag = '1') and Assigned(FOnDrag) then
+  if (Val.EventsMap.EventsMapDrag = '1') and Assigned(FOnDrag) then
     FOnDrag(Self);
-  if (EventsMap.DragEnd = '1') and Assigned(FOnDragEnd) then
+  if (Val.EventsMap.EventsMapDragEnd = '1') and Assigned(FOnDragEnd) then
   begin
-(*
-    LL := TLatLng.Create;
-    try
-      GetCenter(LL);
-      FRequiredProp.Center.Assign(LL);
-    finally
-      FreeAndNil(LL);
-    end;
-*)
     if Assigned(FOnDragEnd) then
       FOnDragEnd(Self);
   end;
-  if (EventsMap.DragStart = '1') and Assigned(FOnDragStart) then
+  if (Val.EventsMap.EventsMapDragStart = '1') and Assigned(FOnDragStart) then
     FOnDragStart(Self);
 
   // Map MapTypeIdChanged
-  if EventsMap.MapTypeId_changed = '1' then
+  if Val.EventsMap.EventsMapMapTypeId_changed = '1' then
   begin
     if not FIsUpdating then
     begin
       FIsUpdating := True;
-      MTId := TGMTransform.StrToMapTypeId(EventsMap.MapTypeId);
+      MTId := TGMTransform.StrToMapTypeId(Val.EventsMap.EventsMapMapTypeId);
       SetMapTypeIdProperty(MTId);
       if Assigned(FOnMapTypeIdChanged) then
         FOnMapTypeIdChanged(Self, MTId);
@@ -752,16 +747,16 @@ begin
   end;
 
   // Map TilesLoaded
-  if (EventsMap.TilesLoaded = '1') and Assigned(FAfterPageLoaded) then
+  if (Val.EventsMap.EventsMapTilesLoaded = '1') and Assigned(FAfterPageLoaded) then
     FAfterPageLoaded(Self, False);
 
   // Map ZoomChanged
-  if EventsMap.ZoomChanged = '1' then
+  if Val.EventsMap.EventsMapZoomChanged = '1' then
   begin
     if not FIsUpdating then
     begin
       FIsUpdating := True;
-      TmpInt := TGMTransform.GetStrToInteger(EventsMap.MapZoom, 8);
+      TmpInt := TGMTransform.GetStrToInteger(Val.EventsMap.EventsMapZoom, 8);
       SetZoomProperty(TmpInt);
       if Assigned(FOnZoomChanged) then
         FOnZoomChanged(Self, TmpInt);

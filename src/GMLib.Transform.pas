@@ -33,8 +33,14 @@ type
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.APIRegionToStr.txt)
     class function APIRegionToStr(Value: TGMAPIRegion): string;
 
-    // @include(..\Help\docs\GMLib.Transform.TGMTransform.StrToScaleControlStyle.txt)
-    class function StrToScaleControlStyle(Value: string): TGMScaleControlStyle;
+    // @include(..\Help\docs\GMLib.Transform.TGMTransform.StrToAPILang.txt)
+    class function StrToAPILang(Value: string): TGMAPILang;
+    // @include(..\Help\docs\GMLib.Transform.TGMTransform.StrToAPIRegion.txt)
+    class function StrToAPIRegion(Value: string): TGMAPIRegion;
+    // @include(..\Help\docs\GMLib.Transform.TGMTransform.StrToAPIVer.txt)
+    class function StrToAPIVer(Value: string): TGMAPIVer;
+    // @include(..\Help\docs\GMLib.Transform.TGMTransform.StrToLang.txt)
+    class function StrToLang(Value: string): TGMLang;
 
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.PositionToStr.txt)
     class function PositionToStr(Value: TGMControlPosition): string;
@@ -544,9 +550,29 @@ begin
   Result := GetEnumName(TypeInfo(TGMScaleControlStyle), Ord(Value));
 end;
 
+class function TGMTransform.StrToAPILang(Value: string): TGMAPILang;
+begin
+  Result := TGMAPILang(GetEnumValue(TypeInfo(TGMAPILang), Value));
+end;
+
+class function TGMTransform.StrToAPIRegion(Value: string): TGMAPIRegion;
+begin
+  Result := TGMAPIRegion(GetEnumValue(TypeInfo(TGMAPIRegion), Value));
+end;
+
+class function TGMTransform.StrToAPIVer(Value: string): TGMAPIVer;
+begin
+  Result := TGMAPIVer(GetEnumValue(TypeInfo(TGMAPIVer), Value));
+end;
+
 class function TGMTransform.StrToGestureHandling(Value: string): TGMGestureHandling;
 begin
   Result := TGMGestureHandling(GetEnumValue(TypeInfo(TGMGestureHandling), Value));
+end;
+
+class function TGMTransform.StrToLang(Value: string): TGMLang;
+begin
+  Result := TGMLang(GetEnumValue(TypeInfo(TGMLang), Value));
 end;
 
 class function TGMTransform.StrToMapTypeControlStyle(Value: string): TGMMapTypeControlStyle;
