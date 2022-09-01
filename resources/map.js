@@ -283,8 +283,9 @@ function setMapOptions(BackgroundColor,
                     zoomControlOptions: {
                                          position: ZoomControlOptionsPosition
                                         }
-                   }; 
-  map.setOptions(mapOptions);  
+                   };
+  if (map != null)                   
+    map.setOptions(mapOptions);  
 }
 
 /* **********************************
