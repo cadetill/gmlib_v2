@@ -174,6 +174,7 @@ function mapAssignEvents() {
 function setMapOptions(BackgroundColor, 
                        Lat,                              // --> Center
                        Lng,                              // --> Center
+                       NoWrap,                           // --> Center
                        ClickableIcons,
                        DisableDoubleClickZoom,
                        DraggableCursor,
@@ -234,7 +235,7 @@ function setMapOptions(BackgroundColor,
   
   var mapOptions = {
                     backgroundColor: BackgroundColor,
-                    center: new google.maps.LatLng(Lat, Lng),
+                    center: new google.maps.LatLng(Lat, Lng, NoWrap),
                     clickableIcons: ClickableIcons,
                     //controlSize: --> not coded
                     //disableDefaultUI: --> not coded
