@@ -307,6 +307,7 @@ begin
                                ]);
   Intf.ExecuteJavaScript('llbIntersects', Params);
   begin
+    Val := THTMLForms.GetData(Intf);
     TmpStr := Val.LlbResults.LlbResultsMapisnull;
     if TmpStr = '1' then
       raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
@@ -373,6 +374,7 @@ begin
                                ]);
   Intf.ExecuteJavaScript('llbToSpan', Params);
   begin
+    Val := THTMLForms.GetData(Intf);
     TmpStr := Val.LlbResults.LlbResultsMapisnull;
     if TmpStr = '1' then
       raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.
@@ -425,6 +427,7 @@ begin
                                ]);
   Intf.ExecuteJavaScript('llbUnion', Params);
   begin
+    Val := THTMLForms.GetData(Intf);
     TmpStr := Val.LlbResults.LlbResultsMapisnull;
     if TmpStr = '1' then
       raise EGMMapIsNull.Create(GetOwnerLang);                                  // The Map object in JavaScript is null.

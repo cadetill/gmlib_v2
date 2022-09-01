@@ -15,43 +15,112 @@ object MainFrm: TMainFrm
   TextHeight = 15
   object CEFWindowParent1: TCEFWindowParent
     Left = 0
-    Top = 81
-    Width = 1009
-    Height = 506
+    Top = 0
+    Width = 708
+    Height = 587
     Align = alClient
     TabStop = True
     TabOrder = 0
+    ExplicitTop = 81
+    ExplicitWidth = 1009
+    ExplicitHeight = 506
   end
-  object Panel1: TPanel
-    Left = 0
+  object Panel2: TPanel
+    Left = 708
     Top = 0
-    Width = 1009
-    Height = 81
-    Align = alTop
+    Width = 301
+    Height = 587
+    Align = alRight
     Caption = ' '
     TabOrder = 1
+    ExplicitLeft = 696
+    ExplicitHeight = 505
     object lAPIKey: TLabel
-      Left = 144
-      Top = 8
+      Left = 16
+      Top = 48
       Width = 37
       Height = 15
       Caption = 'APIKey'
     end
-    object cbActivate: TCheckBox
-      Left = 32
-      Top = 35
+    object lAPILang: TLabel
+      Left = 16
+      Top = 96
+      Width = 44
+      Height = 15
+      Caption = 'APILang'
+    end
+    object lAPIRegion: TLabel
+      Left = 127
+      Top = 96
+      Width = 55
+      Height = 15
+      Caption = 'APIRegion'
+    end
+    object lAPIVersion: TLabel
+      Left = 16
+      Top = 144
+      Width = 56
+      Height = 15
+      Caption = 'APIVersion'
+    end
+    object lIntervalEvents: TLabel
+      Left = 16
+      Top = 202
+      Width = 76
+      Height = 15
+      Caption = 'Interval Events'
+    end
+    object cbActive: TCheckBox
+      Left = 16
+      Top = 19
       Width = 97
       Height = 17
-      Caption = 'Activate'
+      Caption = 'Active'
       TabOrder = 0
-      OnClick = cbActivateClick
+      OnClick = cbActiveClick
     end
     object eAPIKey: TEdit
-      Left = 144
-      Top = 32
-      Width = 377
+      Left = 16
+      Top = 64
+      Width = 273
       Height = 23
       TabOrder = 1
+      OnChange = eAPIKeyChange
+    end
+    object cbAPILang: TComboBox
+      Left = 16
+      Top = 112
+      Width = 105
+      Height = 22
+      Style = csOwnerDrawFixed
+      TabOrder = 2
+      OnChange = cbAPILangChange
+    end
+    object cbAPIRegion: TComboBox
+      Left = 127
+      Top = 112
+      Width = 162
+      Height = 22
+      Style = csOwnerDrawFixed
+      TabOrder = 3
+    end
+    object cbAPIVersion: TComboBox
+      Left = 16
+      Top = 160
+      Width = 105
+      Height = 22
+      Style = csOwnerDrawFixed
+      TabOrder = 4
+    end
+    object eIntervalEvents: TSpinEdit
+      Left = 16
+      Top = 218
+      Width = 81
+      Height = 24
+      MaxValue = 1000
+      MinValue = 1
+      TabOrder = 5
+      Value = 200
       OnChange = eAPIKeyChange
     end
   end

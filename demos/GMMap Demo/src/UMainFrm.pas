@@ -12,7 +12,7 @@ type
   TMainFrm = class(TForm)
     Panel1: TPanel;
     lAPIKey: TLabel;
-    cbActivate: TCheckBox;
+    cbActive: TCheckBox;
     eAPIKey: TEdit;
     GMMapEdge1: TGMMapEdge;
     EdgeBrowser1: TEdgeBrowser;
@@ -25,7 +25,7 @@ type
     lIntervalEvents: TLabel;
     eIntervalEvents: TSpinEdit;
     procedure eAPIKeyChange(Sender: TObject);
-    procedure cbActivateClick(Sender: TObject);
+    procedure cbActiveClick(Sender: TObject);
   private
     procedure GetAPILang;
     procedure GetAPIRegion;
@@ -45,9 +45,9 @@ uses
 
 {$R *.dfm}
 
-procedure TMainFrm.cbActivateClick(Sender: TObject);
+procedure TMainFrm.cbActiveClick(Sender: TObject);
 begin
-  GMMapEdge1.Active := cbActivate.Checked;
+  GMMapEdge1.Active := cbActive.Checked;
 end;
 
 constructor TMainFrm.Create(AOwner: TComponent);

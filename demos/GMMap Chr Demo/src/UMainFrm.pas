@@ -7,18 +7,26 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, GMLib.Classes, GMLib.Map, GMLib.Map.Vcl,
   Vcl.ExtCtrls, uCEFChromiumCore, uCEFChromium, uCEFWinControl, uCEFWindowParent,
 
-  uCEFConstants, uCEFInterfaces, uCEFTypes, Vcl.StdCtrls;
+  uCEFConstants, uCEFInterfaces, uCEFTypes, Vcl.StdCtrls, Vcl.Samples.Spin;
 
 type
   TMainFrm = class(TForm)
     GMMapChrm1: TGMMapChrm;
     CEFWindowParent1: TCEFWindowParent;
     Chromium1: TChromium;
-    Panel1: TPanel;
     Timer1: TTimer;
-    cbActivate: TCheckBox;
-    eAPIKey: TEdit;
+    Panel2: TPanel;
     lAPIKey: TLabel;
+    lAPILang: TLabel;
+    lAPIRegion: TLabel;
+    lAPIVersion: TLabel;
+    lIntervalEvents: TLabel;
+    cbActive: TCheckBox;
+    eAPIKey: TEdit;
+    cbAPILang: TComboBox;
+    cbAPIRegion: TComboBox;
+    cbAPIVersion: TComboBox;
+    eIntervalEvents: TSpinEdit;
     procedure Timer1Timer(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure Chromium1AfterCreated(Sender: TObject;
@@ -26,9 +34,13 @@ type
     procedure Chromium1Close(Sender: TObject; const browser: ICefBrowser;
       var aAction: TCefCloseBrowserAction);
     procedure Chromium1BeforeClose(Sender: TObject; const browser: ICefBrowser);
-    procedure cbActivateClick(Sender: TObject);
     procedure eAPIKeyChange(Sender: TObject);
+    procedure cbActiveClick(Sender: TObject);
+    procedure cbAPILangChange(Sender: TObject);
   private
+    procedure GetAPILang;
+    procedure GetAPIRegion;
+    procedure GetAPIVersion;
   protected
     // Variables to control when can we destroy the form safely
     FCanClose: Boolean;  // Set to True in TChromium.OnBeforeClose
@@ -48,6 +60,10 @@ var
 
 implementation
 
+uses
+  System.TypInfo,
+  GMLib.Sets, GMLib.Transform.Vcl;
+
 {$R *.dfm}
 
 { TMainFrm }
@@ -57,9 +73,14 @@ begin
   CEFWindowParent1.Free;
 end;
 
-procedure TMainFrm.cbActivateClick(Sender: TObject);
+procedure TMainFrm.cbActiveClick(Sender: TObject);
 begin
-  GMMapChrm1.Active := cbActivate.Checked;
+  GMMapChrm1.Active := cbActive.Checked;
+end;
+
+procedure TMainFrm.cbAPILangChange(Sender: TObject);
+begin
+  GMMapChrm1.APILang := TGMTransform.StrToAPILang(cbAPILang.Text);
 end;
 
 procedure TMainFrm.Chromium1AfterCreated(Sender: TObject;
@@ -86,6 +107,10 @@ constructor TMainFrm.Create(AOwner: TComponent);
 begin
   inherited;
 
+  GetAPILang;
+  GetAPIRegion;
+  GetAPIVersion;
+
   FCanClose := False;
   FClosing  := False;
   if not( Chromium1.CreateBrowser( CEFWindowParent1 ) ) then
@@ -109,6 +134,36 @@ begin
     Visible  := False;
     Chromium1.CloseBrowser(True);
   end;
+end;
+
+procedure TMainFrm.GetAPILang;
+var
+  Value: TGMAPILang;
+begin
+  cbAPILang.Items.Clear;
+  for Value := Low(TGMAPILang) to High(TGMAPILang) do
+    cbAPILang.Items.Add( GetEnumName(TypeInfo(TGMAPILang), Ord(Value)) );
+  cbAPILang.ItemIndex := cbAPILang.Items.IndexOf('lEnglish');
+end;
+
+procedure TMainFrm.GetAPIRegion;
+var
+  Value: TGMAPIRegion;
+begin
+  cbAPIRegion.Items.Clear;
+  for Value := Low(TGMAPIRegion) to High(TGMAPIRegion) do
+    cbAPIRegion.Items.Add( GetEnumName(TypeInfo(TGMAPIRegion), Ord(Value)) );
+  cbAPIRegion.ItemIndex := cbAPIRegion.Items.IndexOf('rAndorra');
+end;
+
+procedure TMainFrm.GetAPIVersion;
+var
+  Value: TGMAPIVer;
+begin
+  cbAPIVersion.Items.Clear;
+  for Value := Low(TGMAPIVer) to High(TGMAPIVer) do
+    cbAPIVersion.Items.Add( GetEnumName(TypeInfo(TGMAPIVer), Ord(Value)) );
+  cbAPIVersion.ItemIndex := cbAPIVersion.Items.IndexOf('avWeekly');
 end;
 
 procedure TMainFrm.Timer1Timer(Sender: TObject);

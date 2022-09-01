@@ -437,6 +437,8 @@ type
     procedure SetMapTypeIdProperty(MapTypeId: TGMMapTypeId); virtual; abstract;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.SetZoomProperty.txt)
     procedure SetZoomProperty(Zoom: Integer); virtual; abstract;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.DoOpenMap.txt)
+    procedure DoOpenMap; virtual;
 
     // @exclude
     function GetAPIUrl: string; override;
@@ -570,6 +572,15 @@ begin
   SetActive(False);
 
   inherited;
+end;
+
+procedure TGMCustomMap.DoOpenMap;
+var
+  Params: string;
+begin
+  Params := PropToString;
+  ExecuteJavaScript('setMapOptions', Params);
+  ExecuteJavaScript('doMap', '');
 end;
 
 function TGMCustomMap.GetAPIUrl: string;

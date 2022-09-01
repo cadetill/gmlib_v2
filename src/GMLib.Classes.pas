@@ -121,13 +121,16 @@ type
   end;
 
   // @include(..\Help\docs\GMLib.Classes.TGMComponent.txt)
-  TGMComponent = class(TComponent, IGMAPIUrl)
+  TGMComponent = class(TComponent, IGMAPIUrl, IGMToStr)
   private
     FLanguage: TGMLang;
     function GetAboutGMLib: string;
   protected
     // @exclude
     function GetAPIUrl: string; virtual;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; virtual;
 
     // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
     property APIUrl: string read GetAPIUrl;
@@ -293,6 +296,11 @@ end;
 function TGMComponent.GetAPIUrl: string;
 begin
   Result := 'https://developers.google.com/maps/documentation/javascript/reference';
+end;
+
+function TGMComponent.PropToString: string;
+begin
+  Result := '';
 end;
 
 { TGMInterfacedOwnedPersistent }

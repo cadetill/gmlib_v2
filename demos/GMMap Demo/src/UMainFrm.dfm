@@ -55,14 +55,14 @@ object MainFrm: TMainFrm
       Height = 15
       Caption = 'Interval Events'
     end
-    object cbActivate: TCheckBox
+    object cbActive: TCheckBox
       Left = 16
       Top = 19
       Width = 97
       Height = 17
-      Caption = 'Activate'
+      Caption = 'Active'
       TabOrder = 0
-      OnClick = cbActivateClick
+      OnClick = cbActiveClick
     end
     object eAPIKey: TEdit
       Left = 16

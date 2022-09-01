@@ -117,6 +117,9 @@ type
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.SetIntervalTimer.txt)
     procedure SetIntervalTimer(Interval: Integer); override;
 
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.SetCenterProperty.txt)
     procedure SetCenterProperty(LatLng: TGMLatLng); override;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.SetMapTypeIdProperty.txt)
@@ -412,6 +415,51 @@ begin
   inherited;
 end;
 
+function TGMMap.PropToString: string;
+const
+  StrParams = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
+begin
+  Result := inherited;
+
+  if Result <> '' then
+    Result := Result + ',';
+
+  Result := Result + Format(
+                            StrParams,
+                            [
+                             TGMTransform.TColorToStr(FMapOptions.BackgroundColor),
+                             FMapOptions.Center.PropToString,
+                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.ClickableIcons, True)),
+                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.DisableDoubleClickZoom, True)),
+                             QuotedStr(FMapOptions.DraggableCursor),
+                             QuotedStr(FMapOptions.DraggingCursor),
+                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.FullScreenControl, True)),
+                             FMapOptions.FullScreenControlOptions.PropToString,
+                             QuotedStr(TGMTransform.GestureHandlingToStr(FMapOptions.GestureHandling)),
+                             IntToStr(FMapOptions.Heading),
+                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.IsFractionalZoomEnabled, True)),
+                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.KeyboardShortcuts, True)),
+                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.MapTypeControl, True)),
+                             FMapOptions.MapTypeControlOptions.PropToString,
+                             QuotedStr(TGMTransform.MapTypeIdToStr(FMapOptions.MapTypeId)),
+                             IntToStr(FMapOptions.MaxZoom),
+                             IntToStr(FMapOptions.MinZoom),
+                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.NoClear, True)),
+                             FMapOptions.Restriction.PropToString,
+                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.RotateControl, True)),
+                             FMapOptions.RotateControlOptions.PropToString,
+                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.ScaleControl, True)),
+                             FMapOptions.ScaleControlOptions.PropToString,
+                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.StreetViewControl, True)),
+                             FMapOptions.StreetViewControlOptions.PropToString,
+                             IntToStr(FMapOptions.Tilt),
+                             IntToStr(FMapOptions.Zoom),
+                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.ZoomControl, True)),
+                             FMapOptions.ZoomControlOptions.PropToString
+                            ]
+                           );
+end;
+
 procedure TGMMap.SetEnableTimer(State: Boolean);
 begin
   inherited;
@@ -529,9 +577,20 @@ end;
 procedure TGMMapChrm.LoadEndEvent(Sender: TObject; const browser: ICefBrowser;
   const frame: ICefFrame; httpStatusCode: Integer);
 begin
+  if not FDocLoaded then
+    DoOpenMap;
+
   FDocLoaded := True;
   if not browser.HasDocument then
     FDocLoaded := False;
+
+  if Active and Assigned(AfterPageLoaded) then
+  begin
+    if FDocLoaded then
+      AfterPageLoaded(Self, False)
+    else
+      AfterPageLoaded(Self, True);
+  end;
 
   if Assigned(FOldLoadEndEvent) then
     FOldLoadEndEvent(Sender, browser, frame, httpStatusCode);

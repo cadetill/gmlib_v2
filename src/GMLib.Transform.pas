@@ -33,6 +33,9 @@ type
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.APIRegionToStr.txt)
     class function APIRegionToStr(Value: TGMAPIRegion): string;
 
+    // @include(..\Help\docs\GMLib.Transform.TGMTransform.StrToScaleControlStyle.txt)
+    class function StrToScaleControlStyle(Value: string): TGMScaleControlStyle;
+
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.PositionToStr.txt)
     class function PositionToStr(Value: TGMControlPosition): string;
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.GestureHandlingToStr.txt)
