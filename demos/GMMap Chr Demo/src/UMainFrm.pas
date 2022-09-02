@@ -35,6 +35,13 @@ type
     cbLanguage: TComboBox;
     lLanguage: TLabel;
     mEvents: TMemo;
+    lBackgroundColor: TLabel;
+    cbBackgroundColor: TColorBox;
+    gbCenter: TGroupBox;
+    lLat: TLabel;
+    eLat: TEdit;
+    eLng: TEdit;
+    lLng: TLabel;
     procedure Timer1Timer(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure Chromium1AfterCreated(Sender: TObject;
@@ -79,6 +86,7 @@ type
     procedure GetAPIRegion;
     procedure GetAPIVersion;
     procedure GetLanguages;
+    procedure SetPropToComponents;
   protected
     // Variables to control when can we destroy the form safely
     FCanClose: Boolean;  // Set to True in TChromium.OnBeforeClose
@@ -164,6 +172,8 @@ begin
   GetAPIRegion;
   GetAPIVersion;
   GetLanguages;
+
+  SetPropToComponents;
 
   FCanClose := False;
   FClosing  := False;
@@ -327,6 +337,13 @@ end;
 procedure TMainFrm.GMMapChrm1ZoomChanged(Sender: TObject; NewZoom: Integer);
 begin
   mEvents.Lines.Add('OnZoomChanged event fired: ' + NewZoom.ToString);
+end;
+
+procedure TMainFrm.SetPropToComponents;
+begin
+  cbBackgroundColor.Selected := GMMapChrm1.MapOptions.BackgroundColor;
+  eLat.Text := GMMapChrm1.MapOptions.Center.LatToStr;
+  eLng.Text := GMMapChrm1.MapOptions.Center.LngToStr;
 end;
 
 procedure TMainFrm.Timer1Timer(Sender: TObject);

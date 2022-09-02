@@ -467,7 +467,7 @@ type
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.APIRegion.txt)
     property APIRegion: TGMAPIRegion read FAPIRegion write SetAPIRegion default rUndefined;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.IntervalEvents.txt)
-    property IntervalEvents: Integer read FIntervalEvents write SetIntervalEvents default 200;
+    property IntervalEvents: Integer read FIntervalEvents write SetIntervalEvents default 50;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnActiveChange.txt)
     property OnActiveChange: TNotifyEvent read FOnActiveChange write FOnActiveChange;
@@ -559,7 +559,7 @@ begin
   FAPIVer := avWeekly;
   FAPILang := lEnglish;
   FAPIRegion := rUnited_States;
-  FIntervalEvents := 200;
+  FIntervalEvents := 50;
   FPrecision := 6;
   FBrowser := nil;
 
@@ -689,7 +689,7 @@ begin
                            Language
                           );
     try
-      if (Val.EventsMap.EventsMapCenterChange = '1') {and Assigned(FOnCenterChanged)} then
+      if Val.EventsMap.EventsMapCenterChange = '1' then
       begin
         if not FIsUpdating then
         begin
@@ -774,8 +774,8 @@ begin
   try
     if csDesigning in ComponentState then Exit;
     if not Assigned(FBrowser) or not FDocLoaded then Exit;
-    Val := THTMLForms.GetData(Self);
-    THTMLForms.IniData(Self); // ExecuteJavaScript('iniEventsMapForm', '');
+    Val := THTMLForms.GetData(Self);    // read HTML forms
+    THTMLForms.IniData(Self);           // initialize HTML forms (after read)
     if not GetEventsFired(Val, EventFired) then Exit;
 
     if EventFired.Map then

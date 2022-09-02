@@ -11,6 +11,7 @@ object MainFrm: TMainFrm
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnCloseQuery = FormCloseQuery
+  PixelsPerInch = 96
   TextHeight = 15
   object CEFWindowParent1: TCEFWindowParent
     Left = 0
@@ -47,7 +48,7 @@ object MainFrm: TMainFrm
       Top = 66
       Width = 299
       Height = 397
-      ActivePage = tsGeneral
+      ActivePage = tsMapOptions
       Align = alClient
       TabOrder = 1
       object tsGeneral: TTabSheet
@@ -153,6 +154,58 @@ object MainFrm: TMainFrm
       object tsMapOptions: TTabSheet
         Caption = 'MapOptions'
         ImageIndex = 1
+        object lBackgroundColor: TLabel
+          Left = 16
+          Top = 16
+          Width = 93
+          Height = 15
+          Caption = 'BackgroundColor'
+        end
+        object cbBackgroundColor: TColorBox
+          Left = 115
+          Top = 13
+          Width = 105
+          Height = 22
+          TabOrder = 0
+        end
+        object gbCenter: TGroupBox
+          Left = 3
+          Top = 41
+          Width = 285
+          Height = 64
+          Caption = 'Center'
+          TabOrder = 1
+          object lLat: TLabel
+            Left = 16
+            Top = 32
+            Width = 16
+            Height = 15
+            Caption = 'Lat'
+          end
+          object lLng: TLabel
+            Left = 149
+            Top = 32
+            Width = 20
+            Height = 15
+            Caption = 'Lng'
+          end
+          object eLat: TEdit
+            Left = 43
+            Top = 29
+            Width = 94
+            Height = 23
+            TabOrder = 0
+            OnChange = eAPIKeyChange
+          end
+          object eLng: TEdit
+            Left = 176
+            Top = 29
+            Width = 94
+            Height = 23
+            TabOrder = 1
+            OnChange = eAPIKeyChange
+          end
+        end
       end
     end
   end
@@ -167,6 +220,7 @@ object MainFrm: TMainFrm
   end
   object GMMapChrm1: TGMMapChrm
     Browser = Chromium1
+    MapOptions.BackgroundColor = clSilver
     MapOptions.ClickableIcons = True
     MapOptions.GestureHandling = ghAuto
     MapOptions.IsFractionalZoomEnabled = True

@@ -112,10 +112,19 @@ type
     FTimer: TTimer;  // TTimer for map events control
     FMapOptions: TGMMapOptions;
   protected
+    // @exclude
+    FFieldValue: string;
+    // @exclude
+    FFieldName: string;
+    // @exclude
+    FReadedElem: Boolean;
+
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.SetEnableTimer.txt)
     procedure SetEnableTimer(State: Boolean); override;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.SetIntervalTimer.txt)
     procedure SetIntervalTimer(Interval: Integer); override;
+    // @include(..\Help\docs\GMLib.Classes.IGMExecJS.GetJsonFromHTMLForms.txt)
+    function GetJsonFromHTMLForms: string; override;
 
     // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
     function PropToString: string; override;
@@ -143,9 +152,6 @@ type
   // @include(..\Help\docs\GMLib.Map.TGMCustomMap.txt)
   TGMMapChrm = class(TGMMap)
   private
-    FFieldValue: string;
-    FFieldName: string;
-    FReadedElem: Boolean;
     FOldConsoleMessageEvent: TOnConsoleMessage;
     FOldLoadEndEvent: TOnLoadEnd;
 
@@ -159,8 +165,6 @@ type
   protected
     // @include(..\Help\docs\GMLib.Classes.IGMExecJS.ExecuteJavaScript.txt)
     procedure ExecuteJavaScript(FunctName, Params: string); override;
-    // @include(..\Help\docs\GMLib.Classes.IGMExecJS.GetJsonFromHTMLForms.txt)
-    function GetJsonFromHTMLForms: string; override;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.LoadMap.txt)
     procedure LoadMap; override;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.LoadBlankPage.txt)
@@ -238,9 +242,6 @@ type
   // @include(..\Help\docs\GMLib.Map.TGMCustomMap.txt)
   TGMMapEdge = class(TGMMap)
   private
-    FFieldValue: string;
-    FFieldName: string;
-    FReadedElem: Boolean;
     FOldWebMessageReceivedEvent: TWebMessageReceivedEvent;
     FOldNavigationCompletedEvent: TNavigationCompletedEvent;
 
@@ -251,8 +252,6 @@ type
   protected
     // @include(..\Help\docs\GMLib.Classes.IGMExecJS.ExecuteJavaScript.txt)
     procedure ExecuteJavaScript(FunctName, Params: string); override;
-    // @include(..\Help\docs\GMLib.Classes.IGMExecJS.GetJsonFromHTMLForms.txt)
-    function GetJsonFromHTMLForms: string; override;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.LoadMap.txt)
     procedure LoadMap; override;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.LoadBlankPage.txt)
@@ -415,6 +414,29 @@ begin
   inherited;
 end;
 
+function TGMMap.GetJsonFromHTMLForms: string;
+var
+  TmpNow: TDateTime;
+begin
+  if not Active then
+    Exit;
+
+  FReadedElem := False;
+
+  ExecuteJavaScript('getFormToJson', '');
+
+  TmpNow := Now;
+  repeat
+    Sleep(1);
+    TGenFunc.ProcessMessages;
+  until FReadedElem or (IncSecond(TmpNow, 2) < Now);
+
+  if not FReadedElem then
+    raise EGMTimeOut.Create(Language);                                          // A timeout occurred.
+
+  Result := FFieldValue;
+end;
+
 function TGMMap.PropToString: string;
 const
   StrParams = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
@@ -527,33 +549,6 @@ begin
     0 );
 end;
 
-function TGMMapChrm.GetJsonFromHTMLForms: string;
-var
-//  TempJSCode: string;
-  TmpNow: TDateTime;
-begin
-  if not Active then
-    Exit;
-
-  FReadedElem := False;
-
-  ExecuteJavaScript('getFormToJson', '');
-
-//  TempJSCode  := 'console.log("' + FieldNameId + '|" + ' + 'document.getElementById("' + FieldNameId + '").value' + ');';
-//  TChromium(FBrowser).ExecuteJavaScript(TempJSCode, 'about:blank');
-
-  TmpNow := Now;
-  repeat
-    Sleep(1);
-    TGenFunc.ProcessMessages;
-  until FReadedElem or (IncSecond(TmpNow, 2) < Now);
-
-  if not FReadedElem then
-    raise EGMTimeOut.Create(Language);                                          // A timeout occurred.
-
-  Result := FFieldValue;
-end;
-
 function TGMMapChrm.GetWebBrowser: TChromium;
 begin
   Result := nil;
@@ -662,35 +657,6 @@ begin
   TEdgeBrowser(FBrowser).ExecuteScript(FunctName + '(' + Params + ')');
 end;
 
-function TGMMapEdge.GetJsonFromHTMLForms: string;
-var
-//  TempJSCode: string;
-  TmpNow: TDateTime;
-begin
-  if not Active then
-    Exit;
-
-  FReadedElem := False;
-
-  ExecuteJavaScript('getFormToJson', '');
-
-//  TempJSCode := 'results = document.getElementById("' + FieldNameId + '").value; ' +
-//                'console.log("' + FieldNameId + '|" + results); ' +
-//                'if (results.length >= 1) {window.chrome.webview.postMessage("' + FieldNameId + '|" + results);} ' +
-//                'else {window.chrome.webview.postMessage("");}';
-//  TEdgeBrowser(FBrowser).ExecuteScript(TempJSCode);
-  TmpNow := Now;
-  repeat
-    Sleep(1);
-    TGenFunc.ProcessMessages;
-  until FReadedElem or (IncSecond(TmpNow, 2) < Now);
-
-  if not FReadedElem then
-    raise EGMTimeOut.Create(Language);                                          // A timeout occurred.
-
-  Result := FFieldValue;
-end;
-
 function TGMMapEdge.GetWebBrowser: TEdgeBrowser;
 begin
   Result := nil;
@@ -726,9 +692,20 @@ end;
 procedure TGMMapEdge.NavigationCompletedEvent(Sender: TCustomEdgeBrowser;
   IsSuccess: Boolean; WebErrorStatus: TOleEnum);
 begin
+  if not FDocLoaded then
+    DoOpenMap;
+
   FDocLoaded := True;
   if TEdgeBrowser(FBrowser).LocationURL = '' then
     FDocLoaded := False;
+
+  if Active and Assigned(AfterPageLoaded) then
+  begin
+    if FDocLoaded then
+      AfterPageLoaded(Self, False)
+    else
+      AfterPageLoaded(Self, True);
+  end;
 
   if Assigned(FOldNavigationCompletedEvent) then
     FOldNavigationCompletedEvent(Sender, IsSuccess, WebErrorStatus);
