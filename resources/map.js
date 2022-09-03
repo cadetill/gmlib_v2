@@ -231,54 +231,54 @@ function setMapOptions(BackgroundColor,
   mapOptions = {
                     backgroundColor: BackgroundColor,
                     center: new google.maps.LatLng(Lat, Lng, NoWrap),
-//                    clickableIcons: ClickableIcons,
+                    clickableIcons: ClickableIcons,
                     //controlSize: --> not coded
                     //disableDefaultUI: --> not coded
-//                    disableDoubleClickZoom: DisableDoubleClickZoom,
+                    disableDoubleClickZoom: DisableDoubleClickZoom,
                     //draggable: --> deprecated, not coded
-//                    draggableCursor: DraggableCursor,
-//                    draggingCursor: DraggingCursor,
-//                    fullscreenControl: FullscreenControl,
-//                    fullscreenControlOptions: {
-//                                               position: FullscreenControlOptionsPosition
-//                                              },
-//                    gestureHandling: GestureHandling,
-//                    heading: Heading,
-//                    isFractionalZoomEnabled: IsFractionalZoomEnabled,
-//                    keyboardShortcuts: KeyboardShortcuts,
+                    draggableCursor: DraggableCursor,
+                    draggingCursor: DraggingCursor,
+                    fullscreenControl: FullscreenControl,
+                    fullscreenControlOptions: {
+                                               position: FullscreenControlOptionsPosition
+                                              },
+                    gestureHandling: GestureHandling,
+                    heading: Heading,
+                    isFractionalZoomEnabled: IsFractionalZoomEnabled,
+                    keyboardShortcuts: KeyboardShortcuts,
                     //mapId: --> not coded 
-//                    mapTypeControl: MapTypeControl,
-//                    mapTypeControlOptions: {
-//                                            mapTypeIds: MapTypeControlOptionsMapTypeIds,
-//                                            position: MapTypeControlOptionsPosition,
-//                                            style: MapTypeControlOptionsStyle
-//                                           },
-//                    mapTypeId: MapTypeId,
-//                    maxZoom: MaxZoom,
-//                    minZoom: MinZoom,
-//                    noClear: NoClear,
-//                    restriction: Restriction,
-//                    rotateControl: RotateControl,
-//                    rotateControlOptions: {
-//                                           position: RotateControlOptionsPosition
-//                                          },
-//                    scaleControl: ScaleControl,
-//                    scaleControlOptions: {
-//                                          style: ScaleControlOptionsStyle
-//                                         },
+                    mapTypeControl: MapTypeControl,
+                    mapTypeControlOptions: {
+                                            mapTypeIds: MapTypeControlOptionsMapTypeIds,
+                                            position: MapTypeControlOptionsPosition,
+                                            style: MapTypeControlOptionsStyle
+                                           },
+                    mapTypeId: MapTypeId,
+                    maxZoom: MaxZoom,
+                    minZoom: MinZoom,
+                    noClear: NoClear,
+                    restriction: Restriction,
+                    rotateControl: RotateControl,
+                    rotateControlOptions: {
+                                           position: RotateControlOptionsPosition
+                                          },
+                    scaleControl: ScaleControl,
+                    scaleControlOptions: {
+                                          style: ScaleControlOptionsStyle
+                                         },
                     //scrollwheel: --> not recommended, use gestureHandling instead
                     //streetView:  --> to code
-//                    streetViewControl: StreetViewControl,
-//                    streetViewControlOptions: {
-//                                               position: StreetViewControlOptionsPosition
-//                                              },
+                    streetViewControl: StreetViewControl,
+                    streetViewControlOptions: {
+                                               position: StreetViewControlOptionsPosition
+                                              },
                     //styles: --> to code
-//                    tilt: Tilt,
-                    zoom: Zoom
-//                    zoomControl: ZoomControl,
-//                    zoomControlOptions: {
-//                                         position: ZoomControlOptionsPosition
-//                                        }
+                    tilt: Tilt,
+                    zoom: Zoom,
+                    zoomControl: ZoomControl,
+                    zoomControlOptions: {
+                                         position: ZoomControlOptionsPosition
+                                        }
                    };
   if (map != null)                   
     map.setOptions(mapOptions);  
