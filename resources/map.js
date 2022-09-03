@@ -218,7 +218,6 @@ function setMapOptions(BackgroundColor,
   };
   MapTypeControlOptionsPosition = StrToPosition(MapTypeControlOptionsPosition); 
   MapTypeControlOptionsStyle = StrToMapTypeControlStyle(MapTypeControlOptionsStyle);
-  PanControlOptionsPosition = StrToPosition(PanControlOptionsPosition); 
   RotateControlOptionsPosition = StrToPosition(RotateControlOptionsPosition); 
   ScaleControlOptionsStyle = StrToScaleControlStyle(ScaleControlOptionsStyle);
   ZoomControlOptionsPosition = StrToPosition(ZoomControlOptionsPosition); 
