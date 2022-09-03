@@ -7,19 +7,69 @@
     body { height: 100%; margin: 0px; padding: 0px } 
     #map_canvas { height: 100% } 
   </style>
-  
-  <script type="text/javascript" src="https://combinatronics.com/cadetill/gmlib_v2/master/resources/map.js" charset="utf-8"></script>
+<!--  
   <script type="text/javascript" src="https://combinatronics.com/cadetill/gmlib_v2/master/resources/transform.js" charset="utf-8"></script>
-  <script type="text/javascript" src="https://combinatronics.com/cadetill/gmlib_v2/master/resources/latlngbounds.js" charset="utf-8"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://combinatronics.com/cadetill/gmlib_v2/master/resources/map.js" charset="utf-8"></script>
+-->
+  <script>
+    var map = null;
+    var mapOptions = null;
+  </script>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="transform.js" charset="utf-8"></script>
+  <script type="text/javascript" src="map.js" charset="utf-8"></script>
+  <script type="text/javascript" src="https://combinatronics.com/cadetill/gmlib_v2/master/resources/latlngbounds.js" charset="utf-8"></script>
+
+  <script type="text/javascript">  // 
+    function doMap() {
+      map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
+      
+      mapAssignEvents();
+    }
+
+    $.fn.serializeObject = function() {
+      var o = {};
+      var a = this.serializeArray();
+      $.each(a, function() {
+        if (o[this.name]) {
+          if (!o[this.name].push) {
+            o[this.name] = [o[this.name]];
+          }
+          o[this.name].push(this.value || '');
+        } 
+        else {
+          o[this.name] = this.value || '';
+        }
+      }
+      );
+      return o;
+    };
+
+    function getFormToJson() {
+      var jsonStr = 
+              '{' + 
+              '"eventsMap":' + JSON.stringify($("#eventsMap").serializeObject()) + ',' +
+              '"llbResults":' + JSON.stringify($("#llbResults").serializeObject()) + 
+              '}';
+      console.log(jsonStr);
+          
+      if (jsonStr.length >= 1) {
+        window.chrome.webview.postMessage(jsonStr);
+      }
+      else {
+        window.chrome.webview.postMessage("");
+      }
+    }
+  </script>
+  
 </head>
 
 <body>
 
 
   <p>
-    <button onclick="setMapOptions('#C0C0C0',0,0,false,true,true,'','',true,'cpRIGHT_TOP','ghAuto',0,true,true,true,'mtHYBRID;mtROADMAP;mtSATELLITE;mtTERRAIN;mtOSM','cpTOP_RIGHT','mtcDEFAULT','mtROADMAP',0,0,false,0,0,0,0,false,false,true,'cpTOP_LEFT',true,'scsDEFAULT',true,'cpTOP_LEFT',0,8,true,'cpTOP_LEFT')">SetOptions</button>
+    <button onclick="setMapOptions('#000000',0,0,false,true,true,'','',true,'cpRIGHT_TOP','ghAuto',0,true,true,true,'mtHYBRID;mtROADMAP;mtSATELLITE;mtTERRAIN;mtOSM','cpTOP_RIGHT','mtcDEFAULT','mtROADMAP',0,0,false,0,0,0,0,false,false,true,'cpTOP_LEFT',true,'scsDEFAULT',true,'cpTOP_LEFT',0,4,true,'cpTOP_LEFT')">SetOptions</button>
     <button onclick="doMap()">DoMap</button>
   </p>
   
@@ -71,58 +121,11 @@
  
   <div id="googleMap" style="width:100%;height:100%;"></div>
 
-  <script type="text/javascript">
-    function doMap() {
-	  if (mapOptions == null) { alert('nulllllll');
-        var mapOptions = {
-                          center:new google.maps.LatLng(42.49881979446825, 1.5236084423795448),
-                          zoom: 10
-                         };
-      }
-      map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
-      
-      mapAssignEvents();
-    }
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyBu-gNOocyb6U4vdESUrFSMdSoUv1rm2s0&region=ES&language=ca"></script>
 
-    $.fn.serializeObject = function() {
-      var o = {};
-      var a = this.serializeArray();
-      $.each(a, function() {
-        if (o[this.name]) {
-          if (!o[this.name].push) {
-            o[this.name] = [o[this.name]];
-          }
-          o[this.name].push(this.value || '');
-        } 
-        else {
-          o[this.name] = this.value || '';
-        }
-      }
-      );
-      return o;
-    };
-
-    function getFormToJson() {
-      var jsonStr = 
-              '{' + 
-              '"eventsMap":' + JSON.stringify($("#eventsMap").serializeObject()) + ',' +
-              '"llbResults":' + JSON.stringify($("#llbResults").serializeObject()) + 
-              '}';
-      console.log(jsonStr);
-          
-      if (jsonStr.length >= 1) {
-        window.chrome.webview.postMessage(jsonStr);
-      }
-      else {
-        window.chrome.webview.postMessage("");
-      }
-    }
-  </script>
 <!--
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=weekly&key=&region=ES&language=ca"></script>
---> 
-
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=API_VER&key=API_KEY&region=API_REGION&language=API_LAN"></script>
+--> 
 
   <form action="#" id="eventsMap" name="eventsMap">
     <input type="hidden" name="test" value="0"/>
