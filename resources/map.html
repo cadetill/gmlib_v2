@@ -73,11 +73,12 @@
 
   <script type="text/javascript">
     function doMap() {
-	  if (mapOptions == null)
+	  if (mapOptions == null) { alert('nulllllll');
         var mapOptions = {
-                      center:new google.maps.LatLng(42.49881979446825, 1.5236084423795448),
-                      zoom: 10
-                     };
+                          center:new google.maps.LatLng(42.49881979446825, 1.5236084423795448),
+                          zoom: 10
+                         };
+      }
       map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
       
       mapAssignEvents();

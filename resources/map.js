@@ -232,7 +232,7 @@ function setMapOptions(BackgroundColor,
                     strictBounds: RestrictionStrictBounds
                   }
   }
-  
+  alert('mapoptions');
   var mapOptions = {
                     backgroundColor: BackgroundColor,
                     center: new google.maps.LatLng(Lat, Lng, NoWrap),
