@@ -247,7 +247,7 @@ function setMapOptions(BackgroundColor,
                     isFractionalZoomEnabled: IsFractionalZoomEnabled,
                     keyboardShortcuts: KeyboardShortcuts,
                     //mapId: --> not coded 
-                    mapTypeControl: MapTypeControl,
+                    mapTypeControl: false,
                     mapTypeControlOptions: {
                                             mapTypeIds: MapTypeControlOptionsMapTypeIds,
                                             position: MapTypeControlOptionsPosition,
