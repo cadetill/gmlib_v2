@@ -527,12 +527,6 @@ begin
     if Result <> '' then Result := Result + Delimiter;
     Result := Result + TGMTransform.MapTypeIdToStr(mtTERRAIN);
   end;
-
-  if mtOSM in Values then
-  begin
-    if Result <> '' then Result := Result + Delimiter;
-    Result := Result + TGMTransform.MapTypeIdToStr(mtOSM);
-  end;
 end;
 
 class function TGMTransform.MapTypeIdToStr(Value: TGMMapTypeId): string;

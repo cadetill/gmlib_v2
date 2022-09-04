@@ -168,6 +168,8 @@ constructor TMainFrm.Create(AOwner: TComponent);
 begin
   inherited;
 
+  pcPages.ActivePage := tsGeneral;
+
   GetAPILang;
   GetAPIRegion;
   GetAPIVersion;

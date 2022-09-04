@@ -1367,7 +1367,7 @@ begin
   if Result <> '' then Result := Result + ',';
   Result := Result +
             Format(Str, [
-                         FLatLngBounds.ToStr,
+                         FLatLngBounds.ToUrlValue,
                          LowerCase(TGMTransform.GMBoolToStr(FStrictBounds, True)),
                          LowerCase(TGMTransform.GMBoolToStr(FEnabled, True))
                         ]);

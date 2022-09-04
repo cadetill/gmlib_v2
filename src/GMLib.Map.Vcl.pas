@@ -402,7 +402,7 @@ begin
 
   FTimer := TTimer.Create(Self);
   FTimer.Enabled := False;
-  FTimer.Interval := 200;
+  FTimer.Interval := IntervalEvents;
   FTimer.OnTimer := OnTimer;
 end;
 
@@ -449,7 +449,7 @@ begin
   Result := Result + Format(
                             StrParams,
                             [
-                             TGMTransform.TColorToStr(FMapOptions.BackgroundColor),
+                             QuotedStr(TGMTransform.TColorToStr(FMapOptions.BackgroundColor)),
                              FMapOptions.Center.PropToString,
                              LowerCase(TGMTransform.GMBoolToStr(FMapOptions.ClickableIcons, True)),
                              LowerCase(TGMTransform.GMBoolToStr(FMapOptions.DisableDoubleClickZoom, True)),
@@ -572,7 +572,7 @@ end;
 procedure TGMMapChrm.LoadEndEvent(Sender: TObject; const browser: ICefBrowser;
   const frame: ICefFrame; httpStatusCode: Integer);
 begin
-  if not FDocLoaded then
+  if not FDocLoaded and browser.HasDocument then
     DoOpenMap;
 
   FDocLoaded := True;
@@ -692,7 +692,7 @@ end;
 procedure TGMMapEdge.NavigationCompletedEvent(Sender: TCustomEdgeBrowser;
   IsSuccess: Boolean; WebErrorStatus: TOleEnum);
 begin
-  if not FDocLoaded then
+  if not FDocLoaded and (TEdgeBrowser(FBrowser).LocationURL <> '') then
     DoOpenMap;
 
   FDocLoaded := True;

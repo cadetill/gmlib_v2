@@ -11,7 +11,6 @@ object MainFrm: TMainFrm
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnCloseQuery = FormCloseQuery
-  PixelsPerInch = 96
   TextHeight = 15
   object CEFWindowParent1: TCEFWindowParent
     Left = 0
@@ -103,7 +102,7 @@ object MainFrm: TMainFrm
           MaxValue = 1000
           MinValue = 1
           TabOrder = 0
-          Value = 200
+          Value = 50
           OnChange = eIntervalEventsChange
         end
         object cbAPIVersion: TComboBox
@@ -221,11 +220,16 @@ object MainFrm: TMainFrm
   object GMMapChrm1: TGMMapChrm
     Browser = Chromium1
     MapOptions.BackgroundColor = clSilver
+    MapOptions.Center.Lat = 42.539899000000000000
+    MapOptions.Center.Lng = 1.578505000000000000
     MapOptions.ClickableIcons = True
     MapOptions.GestureHandling = ghAuto
     MapOptions.IsFractionalZoomEnabled = True
+    MapOptions.MapTypeControl = False
+    MapOptions.MapTypeControlOptions.MapTypeIds = []
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
+    MapOptions.Zoom = 10
     APILang = lSpanish
     APIRegion = rSpain
     OnActiveChange = GMMapChrm1ActiveChange

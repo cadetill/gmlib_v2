@@ -67,6 +67,8 @@ __Win64/
 Win32/
 Win64/
 bin/
+binChr/
+binEdge/
 lib/
 _old/
 
