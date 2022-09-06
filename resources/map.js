@@ -228,7 +228,6 @@ function setMapOptions(BackgroundColor,
                     strictBounds: RestrictionStrictBounds
                   }
   }
-  //if (MapTypeControl) {alert('si');} else {alert('no');}
   mapOptions = {
 //                    backgroundColor: BackgroundColor,
                     center: new google.maps.LatLng(Lat, Lng, NoWrap),
