@@ -228,7 +228,7 @@ function setMapOptions(BackgroundColor,
                     strictBounds: RestrictionStrictBounds
                   }
   }
-  if (MapTypeControl) {alert('si');} else {alert('no');}
+  //if (MapTypeControl) {alert('si');} else {alert('no');}
   mapOptions = {
 //                    backgroundColor: BackgroundColor,
                     center: new google.maps.LatLng(Lat, Lng, NoWrap),
@@ -239,21 +239,21 @@ function setMapOptions(BackgroundColor,
                     //draggable: --> deprecated, not coded
 //                    draggableCursor: DraggableCursor,
 //                    draggingCursor: DraggingCursor,
-//                    fullscreenControl: FullscreenControl,
-//                    fullscreenControlOptions: {
-//                                               position: FullscreenControlOptionsPosition
-//                                              },
+                    fullscreenControl: FullscreenControl,
+                    fullscreenControlOptions: {
+                                               position: FullscreenControlOptionsPosition
+                                              },
 //                    gestureHandling: GestureHandling,
 //                    heading: Heading,
 //                    isFractionalZoomEnabled: IsFractionalZoomEnabled,
 //                    keyboardShortcuts: KeyboardShortcuts,
                     //mapId: --> not coded 
                     mapTypeControl: MapTypeControl,
-//                    mapTypeControlOptions: {
-//                                            mapTypeIds: MapTypeControlOptionsMapTypeIds,
-//                                            position: MapTypeControlOptionsPosition,
-//                                            style: MapTypeControlOptionsStyle
-//                                           },
+                    mapTypeControlOptions: {
+                                            mapTypeIds: MapTypeControlOptionsMapTypeIds,
+                                            position: MapTypeControlOptionsPosition,
+                                            style: MapTypeControlOptionsStyle
+                                           },
 //                    mapTypeId: MapTypeId,
 //                    maxZoom: MaxZoom,
 //                    minZoom: MinZoom,
