@@ -119,8 +119,11 @@ object MainFrm: TMainFrm
   object GMMapEdge1: TGMMapEdge
     Browser = EdgeBrowser1
     MapOptions.ClickableIcons = True
+    MapOptions.FullScreenControl = False
     MapOptions.GestureHandling = ghAuto
     MapOptions.IsFractionalZoomEnabled = True
+    MapOptions.MapTypeControlOptions.Position = cpTOP_LEFT
+    MapOptions.MapTypeControlOptions.Style = mtcDROPDOWN_MENU
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
     APIRegion = rUnited_States

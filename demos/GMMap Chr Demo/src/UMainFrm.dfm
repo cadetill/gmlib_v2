@@ -11,6 +11,7 @@ object MainFrm: TMainFrm
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnCloseQuery = FormCloseQuery
+  PixelsPerInch = 96
   TextHeight = 15
   object CEFWindowParent1: TCEFWindowParent
     Left = 0
@@ -226,7 +227,7 @@ object MainFrm: TMainFrm
           Top = 168
           Width = 291
           Height = 199
-          ActivePage = tsFullScreenControl
+          ActivePage = tsRestriction
           Align = alBottom
           TabOrder = 4
           object tsFullScreenControl: TTabSheet
@@ -254,7 +255,7 @@ object MainFrm: TMainFrm
               Height = 22
               Style = csOwnerDrawFixed
               TabOrder = 1
-              OnChange = cbAPILangChange
+              OnChange = cbFSPositionChange
             end
           end
           object tsMapTypeControl: TTabSheet
@@ -288,7 +289,7 @@ object MainFrm: TMainFrm
               Height = 22
               Style = csOwnerDrawFixed
               TabOrder = 0
-              OnChange = cbAPILangChange
+              OnChange = cbMTPositionChange
             end
             object clbMTIds: TCheckListBox
               Left = 176
@@ -297,6 +298,7 @@ object MainFrm: TMainFrm
               Height = 65
               ItemHeight = 15
               TabOrder = 1
+              OnClickCheck = clbMTIdsClickCheck
             end
             object cbMapTypeControl: TCheckBox
               Left = 8
@@ -305,6 +307,7 @@ object MainFrm: TMainFrm
               Height = 17
               Caption = 'MapTypeControl'
               TabOrder = 2
+              OnClick = cbMapTypeControlClick
             end
             object cbMTStyle: TComboBox
               Left = 65
@@ -313,7 +316,7 @@ object MainFrm: TMainFrm
               Height = 22
               Style = csOwnerDrawFixed
               TabOrder = 3
-              OnChange = cbAPILangChange
+              OnChange = cbMTStyleChange
             end
           end
           object tsRestriction: TTabSheet
@@ -326,6 +329,7 @@ object MainFrm: TMainFrm
               Height = 17
               Caption = 'Enabled'
               TabOrder = 0
+              OnClick = cbREnabledClick
             end
             object cbRStrictBounds: TCheckBox
               Left = 123
@@ -334,6 +338,7 @@ object MainFrm: TMainFrm
               Height = 17
               Caption = 'StrictBounds'
               TabOrder = 1
+              OnClick = cbRStrictBoundsClick
             end
             object gbRNE: TGroupBox
               Left = 4
@@ -558,10 +563,10 @@ object MainFrm: TMainFrm
     MapOptions.Center.Lat = 42.539899000000000000
     MapOptions.Center.Lng = 1.578505000000000000
     MapOptions.ClickableIcons = True
+    MapOptions.FullScreenControl = False
     MapOptions.GestureHandling = ghAuto
     MapOptions.IsFractionalZoomEnabled = True
-    MapOptions.MapTypeControl = False
-    MapOptions.MapTypeControlOptions.MapTypeIds = [mtHYBRID, mtTERRAIN]
+    MapOptions.MapTypeControlOptions.MapTypeIds = [mtHYBRID, mtROADMAP, mtTERRAIN]
     MapOptions.MapTypeControlOptions.Style = mtcDROPDOWN_MENU
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False

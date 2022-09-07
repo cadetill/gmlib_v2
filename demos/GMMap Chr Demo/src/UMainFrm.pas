@@ -128,6 +128,13 @@ type
     procedure GMMapChrm1PrecisionChange(Sender: TObject);
     procedure eIntervalEventsChange(Sender: TObject);
     procedure cbFullScreenControlClick(Sender: TObject);
+    procedure cbFSPositionChange(Sender: TObject);
+    procedure cbMapTypeControlClick(Sender: TObject);
+    procedure cbMTPositionChange(Sender: TObject);
+    procedure cbMTStyleChange(Sender: TObject);
+    procedure clbMTIdsClickCheck(Sender: TObject);
+    procedure cbREnabledClick(Sender: TObject);
+    procedure cbRStrictBoundsClick(Sender: TObject);
   private
     procedure GetAPILang;
     procedure GetAPIRegion;
@@ -189,6 +196,11 @@ begin
   GMMapChrm1.APIVer := TGMTransform.StrToAPIVer(cbAPIVersion.Text);
 end;
 
+procedure TMainFrm.cbFSPositionChange(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.FullScreenControlOptions.Position := TGMTransform.StrToPosition(cbFSPosition.Text);
+end;
+
 procedure TMainFrm.cbFullScreenControlClick(Sender: TObject);
 begin
   GMMapChrm1.MapOptions.FullScreenControl := cbFullScreenControl.Checked;
@@ -197,6 +209,31 @@ end;
 procedure TMainFrm.cbLanguageChange(Sender: TObject);
 begin
   GMMapChrm1.Language := TGMTransform.StrToLang(cbLanguage.Text);
+end;
+
+procedure TMainFrm.cbMapTypeControlClick(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.MapTypeControl := cbMapTypeControl.Checked;
+end;
+
+procedure TMainFrm.cbMTPositionChange(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.MapTypeControlOptions.Position := TGMTransform.StrToPosition(cbMTPosition.Text);
+end;
+
+procedure TMainFrm.cbMTStyleChange(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.MapTypeControlOptions.Style := TGMTransform.StrToMapTypeControlStyle(cbMTStyle.Text);
+end;
+
+procedure TMainFrm.cbREnabledClick(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.Restriction.Enabled := cbREnabled.Checked;
+end;
+
+procedure TMainFrm.cbRStrictBoundsClick(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.Restriction.StrictBounds := cbRStrictBounds.Checked;
 end;
 
 procedure TMainFrm.Chromium1AfterCreated(Sender: TObject;
@@ -217,6 +254,18 @@ procedure TMainFrm.Chromium1Close(Sender: TObject; const browser: ICefBrowser;
 begin
   PostMessage(Handle, CEF_DESTROY, 0, 0);
   aAction := cbaDelay;
+end;
+
+procedure TMainFrm.clbMTIdsClickCheck(Sender: TObject);
+var
+  i: Integer;
+begin
+  GMMapChrm1.MapOptions.MapTypeControlOptions.MapTypeIds := [];
+  for i := 0 to clbMTIds.Count - 1 do
+  begin
+    if clbMTIds.Checked[i] then
+      GMMapChrm1.MapOptions.MapTypeControlOptions.MapTypeIds := GMMapChrm1.MapOptions.MapTypeControlOptions.MapTypeIds + [TGMTransform.StrToMapTypeId(clbMTIds.Items[i])];
+  end;
 end;
 
 constructor TMainFrm.Create(AOwner: TComponent);

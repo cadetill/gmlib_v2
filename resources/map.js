@@ -229,7 +229,7 @@ function setMapOptions(BackgroundColor,
                   }
   }
   mapOptions = {
-//                    backgroundColor: BackgroundColor,
+                    backgroundColor: BackgroundColor,
                     center: new google.maps.LatLng(Lat, Lng, NoWrap),
 //                    clickableIcons: ClickableIcons,
                     //controlSize: --> not coded
@@ -257,7 +257,7 @@ function setMapOptions(BackgroundColor,
 //                    maxZoom: MaxZoom,
 //                    minZoom: MinZoom,
 //                    noClear: NoClear,
-//                    restriction: Restriction,
+                    restriction: Restriction,
 //                    rotateControl: RotateControl,
 //                    rotateControlOptions: {
 //                                           position: RotateControlOptionsPosition
