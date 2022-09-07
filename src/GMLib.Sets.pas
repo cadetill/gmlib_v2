@@ -83,7 +83,7 @@ type
   TGMGestureHandling = (ghCooperative, ghGreedy, ghNone, ghAuto);
 
   // @include(..\Help\docs\GMLib.Sets.TGMMapTypeId.txt)
-  TGMMapTypeId = (mtHYBRID, mtROADMAP, mtSATELLITE, mtTERRAIN, mtOSM);
+  TGMMapTypeId = (mtHYBRID, mtROADMAP, mtSATELLITE, mtTERRAIN);
   // @include(..\Help\docs\GMLib.Sets.TGMMapTypeIds.txt)
   TGMMapTypeIds = set of TGMMapTypeId;
 

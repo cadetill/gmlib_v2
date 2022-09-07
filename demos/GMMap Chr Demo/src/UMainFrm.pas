@@ -9,7 +9,7 @@ uses
   Vcl.StdCtrls, Vcl.Samples.Spin, Vcl.ComCtrls,
 
   uCEFConstants, uCEFInterfaces, uCEFTypes,
-  GMLib.LatLngBounds, GMLib.LatLng, GMLib.Sets;
+  GMLib.LatLngBounds, GMLib.LatLng, GMLib.Sets, Vcl.CheckLst;
 
 type
   TMainFrm = class(TForm)
@@ -42,6 +42,52 @@ type
     eLat: TEdit;
     eLng: TEdit;
     lLng: TLabel;
+    cbClickableIcons: TCheckBox;
+    cbDisableDoubleClickZoom: TCheckBox;
+    pcObjects: TPageControl;
+    tsFullScreenControl: TTabSheet;
+    cbFullScreenControl: TCheckBox;
+    cbFSPosition: TComboBox;
+    lFSPosition: TLabel;
+    tsMapTypeControl: TTabSheet;
+    lMTPosition: TLabel;
+    cbMTPosition: TComboBox;
+    clbMTIds: TCheckListBox;
+    tsRestriction: TTabSheet;
+    cbREnabled: TCheckBox;
+    cbRStrictBounds: TCheckBox;
+    gbRNE: TGroupBox;
+    lRNELat: TLabel;
+    lRNELng: TLabel;
+    eRNELat: TEdit;
+    eRNELng: TEdit;
+    gbRSW: TGroupBox;
+    lRSWLat: TLabel;
+    lRSWLng: TLabel;
+    eRSWLat: TEdit;
+    eRSWLng: TEdit;
+    tsRotateControl: TTabSheet;
+    cbRotateControl: TCheckBox;
+    cbRotPosition: TComboBox;
+    lRotPosition: TLabel;
+    tsScaleControl: TTabSheet;
+    cbMapTypeControl: TCheckBox;
+    cbMTStyle: TComboBox;
+    lMTStyle: TLabel;
+    cbScaleControl: TCheckBox;
+    cbSStyle: TComboBox;
+    lSStyle: TLabel;
+    tsStreetViewControl: TTabSheet;
+    cbStreetViewControl: TCheckBox;
+    cbSVPosition: TComboBox;
+    lSVPosition: TLabel;
+    tsZoomControl: TTabSheet;
+    cbZoomControl: TCheckBox;
+    lZPosition: TLabel;
+    cbZPosition: TComboBox;
+    Edit1: TEdit;
+    Label2: TLabel;
+    lMTIds: TLabel;
     procedure Timer1Timer(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure Chromium1AfterCreated(Sender: TObject;
@@ -81,12 +127,16 @@ type
     procedure GMMapChrm1ZoomChanged(Sender: TObject; NewZoom: Integer);
     procedure GMMapChrm1PrecisionChange(Sender: TObject);
     procedure eIntervalEventsChange(Sender: TObject);
+    procedure cbFullScreenControlClick(Sender: TObject);
   private
     procedure GetAPILang;
     procedure GetAPIRegion;
     procedure GetAPIVersion;
     procedure GetLanguages;
     procedure SetPropToComponents;
+    procedure GetPosition(cb: TComboBox; Selected: string);
+    procedure GetMapTypeIds(clb: TCheckListBox);
+    procedure GetMapTypeStyle;
   protected
     // Variables to control when can we destroy the form safely
     FCanClose: Boolean;  // Set to True in TChromium.OnBeforeClose
@@ -139,6 +189,11 @@ begin
   GMMapChrm1.APIVer := TGMTransform.StrToAPIVer(cbAPIVersion.Text);
 end;
 
+procedure TMainFrm.cbFullScreenControlClick(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.FullScreenControl := cbFullScreenControl.Checked;
+end;
+
 procedure TMainFrm.cbLanguageChange(Sender: TObject);
 begin
   GMMapChrm1.Language := TGMTransform.StrToLang(cbLanguage.Text);
@@ -169,6 +224,7 @@ begin
   inherited;
 
   pcPages.ActivePage := tsGeneral;
+  pcObjects.ActivePage := tsFullScreenControl;
 
   GetAPILang;
   GetAPIRegion;
@@ -245,6 +301,40 @@ begin
   for Value := Low(TGMLang) to High(TGMLang) do
     cbLanguage.Items.Add( GetEnumName(TypeInfo(TGMLang), Ord(Value)) );
   cbLanguage.ItemIndex := cbLanguage.Items.IndexOf('lnEnglish');
+end;
+
+procedure TMainFrm.GetMapTypeIds(clb: TCheckListBox);
+var
+  Value: TGMMapTypeId;
+  Idx: Integer;
+begin
+  clb.Items.Clear;
+  for Value := Low(TGMMapTypeId) to High(TGMMapTypeId) do
+  begin
+    Idx := clb.Items.Add( TGMTransform.MapTypeIdToStr(Value) );
+    if Value in GMMapChrm1.MapOptions.MapTypeControlOptions.MapTypeIds then
+      clb.Checked[Idx] := True;
+  end;
+end;
+
+procedure TMainFrm.GetMapTypeStyle;
+var
+  Value: TGMMapTypeControlStyle;
+begin
+  cbMTStyle.Items.Clear;
+  for Value := Low(TGMMapTypeControlStyle) to High(TGMMapTypeControlStyle) do
+    cbMTStyle.Items.Add( TGMTransform.MapTypeControlStyleToStr(Value) );
+  cbMTStyle.ItemIndex := cbMTStyle.Items.IndexOf(TGMTransform.MapTypeControlStyleToStr( GMMapChrm1.MapOptions.MapTypeControlOptions.Style ));
+end;
+
+procedure TMainFrm.GetPosition(cb: TComboBox; Selected: string);
+var
+  Value: TGMControlPosition;
+begin
+  cb.Items.Clear;
+  for Value := Low(TGMControlPosition) to High(TGMControlPosition) do
+    cb.Items.Add( TGMTransform.PositionToStr(Value) );
+  cb.ItemIndex := cb.Items.IndexOf(Selected);
 end;
 
 procedure TMainFrm.GMMapChrm1ActiveChange(Sender: TObject);
@@ -346,6 +436,14 @@ begin
   cbBackgroundColor.Selected := GMMapChrm1.MapOptions.BackgroundColor;
   eLat.Text := GMMapChrm1.MapOptions.Center.LatToStr;
   eLng.Text := GMMapChrm1.MapOptions.Center.LngToStr;
+
+  cbFullScreenControl.Checked := GMMapChrm1.MapOptions.FullScreenControl;
+  GetPosition(cbFSPosition, TGMTransform.PositionToStr(GMMapChrm1.MapOptions.FullScreenControlOptions.Position));
+
+  cbMapTypeControl.Checked := GMMapChrm1.MapOptions.MapTypeControl;
+  GetPosition(cbMTPosition, TGMTransform.PositionToStr(GMMapChrm1.MapOptions.MapTypeControlOptions.Position));
+  GetMapTypeIds(clbMTIds);
+  GetMapTypeStyle;
 end;
 
 procedure TMainFrm.Timer1Timer(Sender: TObject);

@@ -108,7 +108,7 @@ type
     property APIUrl;
   published
     // @include(..\Help\docs\GMLib.Map.TGMMapTypeControlOptions.MapTypeIds.txt)
-    property MapTypeIds: TGMMapTypeIds read FMapTypeIds write SetMapTypeIds default [mtHYBRID, mtROADMAP, mtSATELLITE, mtTERRAIN, mtOSM];
+    property MapTypeIds: TGMMapTypeIds read FMapTypeIds write SetMapTypeIds default [mtHYBRID, mtROADMAP, mtSATELLITE, mtTERRAIN];
     // @include(..\Help\docs\GMLib.Map.TGMMapTypeControlOptions.Position.txt)
     property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_RIGHT;
     // @include(..\Help\docs\GMLib.Map.TGMMapTypeControlOptions.Style.txt)
@@ -1281,7 +1281,7 @@ begin
 
   FPosition := cpTOP_RIGHT;
   FStyle := mtcDEFAULT;
-  FMapTypeIds := [mtHYBRID, mtROADMAP, mtSATELLITE, mtTERRAIN, mtOSM];
+  FMapTypeIds := [mtHYBRID, mtROADMAP, mtSATELLITE, mtTERRAIN];
 end;
 
 function TGMMapTypeControlOptions.GetAPIUrl: string;

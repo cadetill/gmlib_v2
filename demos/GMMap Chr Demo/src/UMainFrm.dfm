@@ -205,6 +205,341 @@ object MainFrm: TMainFrm
             OnChange = eAPIKeyChange
           end
         end
+        object cbClickableIcons: TCheckBox
+          Left = 8
+          Top = 120
+          Width = 97
+          Height = 17
+          Caption = 'ClickableIcons'
+          TabOrder = 2
+        end
+        object cbDisableDoubleClickZoom: TCheckBox
+          Left = 120
+          Top = 120
+          Width = 168
+          Height = 17
+          Caption = 'DisableDoubleClickZoom'
+          TabOrder = 3
+        end
+        object pcObjects: TPageControl
+          Left = 0
+          Top = 168
+          Width = 291
+          Height = 199
+          ActivePage = tsFullScreenControl
+          Align = alBottom
+          TabOrder = 4
+          object tsFullScreenControl: TTabSheet
+            Caption = 'FullScreen'
+            object lFSPosition: TLabel
+              Left = 16
+              Top = 48
+              Width = 43
+              Height = 15
+              Caption = 'Position'
+            end
+            object cbFullScreenControl: TCheckBox
+              Left = 16
+              Top = 16
+              Width = 129
+              Height = 17
+              Caption = 'FullScreenControl'
+              TabOrder = 0
+              OnClick = cbFullScreenControlClick
+            end
+            object cbFSPosition: TComboBox
+              Left = 73
+              Top = 45
+              Width = 105
+              Height = 22
+              Style = csOwnerDrawFixed
+              TabOrder = 1
+              OnChange = cbAPILangChange
+            end
+          end
+          object tsMapTypeControl: TTabSheet
+            Caption = 'MapType'
+            ImageIndex = 1
+            object lMTPosition: TLabel
+              Left = 8
+              Top = 56
+              Width = 43
+              Height = 15
+              Caption = 'Position'
+            end
+            object lMTStyle: TLabel
+              Left = 8
+              Top = 84
+              Width = 25
+              Height = 15
+              Caption = 'Style'
+            end
+            object lMTIds: TLabel
+              Left = 176
+              Top = 24
+              Width = 15
+              Height = 15
+              Caption = 'Ids'
+            end
+            object cbMTPosition: TComboBox
+              Left = 65
+              Top = 53
+              Width = 105
+              Height = 22
+              Style = csOwnerDrawFixed
+              TabOrder = 0
+              OnChange = cbAPILangChange
+            end
+            object clbMTIds: TCheckListBox
+              Left = 176
+              Top = 40
+              Width = 104
+              Height = 65
+              ItemHeight = 15
+              TabOrder = 1
+            end
+            object cbMapTypeControl: TCheckBox
+              Left = 8
+              Top = 24
+              Width = 129
+              Height = 17
+              Caption = 'MapTypeControl'
+              TabOrder = 2
+            end
+            object cbMTStyle: TComboBox
+              Left = 65
+              Top = 81
+              Width = 105
+              Height = 22
+              Style = csOwnerDrawFixed
+              TabOrder = 3
+              OnChange = cbAPILangChange
+            end
+          end
+          object tsRestriction: TTabSheet
+            Caption = 'Restriction'
+            ImageIndex = 2
+            object cbREnabled: TCheckBox
+              Left = 20
+              Top = 16
+              Width = 97
+              Height = 17
+              Caption = 'Enabled'
+              TabOrder = 0
+            end
+            object cbRStrictBounds: TCheckBox
+              Left = 123
+              Top = 16
+              Width = 130
+              Height = 17
+              Caption = 'StrictBounds'
+              TabOrder = 1
+            end
+            object gbRNE: TGroupBox
+              Left = 4
+              Top = 37
+              Width = 275
+              Height = 64
+              Caption = 'NE'
+              TabOrder = 2
+              object lRNELat: TLabel
+                Left = 16
+                Top = 32
+                Width = 16
+                Height = 15
+                Caption = 'Lat'
+              end
+              object lRNELng: TLabel
+                Left = 146
+                Top = 32
+                Width = 20
+                Height = 15
+                Caption = 'Lng'
+              end
+              object eRNELat: TEdit
+                Left = 40
+                Top = 29
+                Width = 94
+                Height = 23
+                TabOrder = 0
+                OnChange = eAPIKeyChange
+              end
+              object eRNELng: TEdit
+                Left = 173
+                Top = 29
+                Width = 94
+                Height = 23
+                TabOrder = 1
+                OnChange = eAPIKeyChange
+              end
+            end
+            object gbRSW: TGroupBox
+              Left = 4
+              Top = 103
+              Width = 275
+              Height = 64
+              Caption = 'SW'
+              TabOrder = 3
+              object lRSWLat: TLabel
+                Left = 16
+                Top = 32
+                Width = 16
+                Height = 15
+                Caption = 'Lat'
+              end
+              object lRSWLng: TLabel
+                Left = 146
+                Top = 32
+                Width = 20
+                Height = 15
+                Caption = 'Lng'
+              end
+              object eRSWLat: TEdit
+                Left = 40
+                Top = 29
+                Width = 94
+                Height = 23
+                TabOrder = 0
+                OnChange = eAPIKeyChange
+              end
+              object eRSWLng: TEdit
+                Left = 173
+                Top = 29
+                Width = 94
+                Height = 23
+                TabOrder = 1
+                OnChange = eAPIKeyChange
+              end
+            end
+          end
+          object tsRotateControl: TTabSheet
+            Caption = 'Rotate'
+            ImageIndex = 3
+            object lRotPosition: TLabel
+              Left = 24
+              Top = 56
+              Width = 43
+              Height = 15
+              Caption = 'Position'
+            end
+            object cbRotateControl: TCheckBox
+              Left = 24
+              Top = 24
+              Width = 129
+              Height = 17
+              Caption = 'RotateControl'
+              TabOrder = 0
+            end
+            object cbRotPosition: TComboBox
+              Left = 81
+              Top = 53
+              Width = 105
+              Height = 22
+              Style = csOwnerDrawFixed
+              TabOrder = 1
+              OnChange = cbAPILangChange
+            end
+          end
+          object tsScaleControl: TTabSheet
+            Caption = 'Scale'
+            ImageIndex = 4
+            object lSStyle: TLabel
+              Left = 24
+              Top = 60
+              Width = 25
+              Height = 15
+              Caption = 'Style'
+            end
+            object cbScaleControl: TCheckBox
+              Left = 24
+              Top = 24
+              Width = 129
+              Height = 17
+              Caption = 'ScaleControl'
+              TabOrder = 0
+            end
+            object cbSStyle: TComboBox
+              Left = 81
+              Top = 57
+              Width = 105
+              Height = 22
+              Style = csOwnerDrawFixed
+              TabOrder = 1
+              OnChange = cbAPILangChange
+            end
+          end
+          object tsStreetViewControl: TTabSheet
+            Caption = 'StreetView'
+            ImageIndex = 5
+            object lSVPosition: TLabel
+              Left = 32
+              Top = 64
+              Width = 43
+              Height = 15
+              Caption = 'Position'
+            end
+            object cbStreetViewControl: TCheckBox
+              Left = 32
+              Top = 32
+              Width = 129
+              Height = 17
+              Caption = 'StreetViewControl'
+              TabOrder = 0
+            end
+            object cbSVPosition: TComboBox
+              Left = 89
+              Top = 61
+              Width = 105
+              Height = 22
+              Style = csOwnerDrawFixed
+              TabOrder = 1
+              OnChange = cbAPILangChange
+            end
+          end
+          object tsZoomControl: TTabSheet
+            Caption = 'Zoom'
+            ImageIndex = 6
+            object lZPosition: TLabel
+              Left = 32
+              Top = 96
+              Width = 43
+              Height = 15
+              Caption = 'Position'
+            end
+            object Label2: TLabel
+              Left = 32
+              Top = 24
+              Width = 32
+              Height = 15
+              Caption = 'Zoom'
+            end
+            object cbZoomControl: TCheckBox
+              Left = 32
+              Top = 64
+              Width = 129
+              Height = 17
+              Caption = 'ZoomControl'
+              TabOrder = 0
+            end
+            object cbZPosition: TComboBox
+              Left = 89
+              Top = 93
+              Width = 105
+              Height = 22
+              Style = csOwnerDrawFixed
+              TabOrder = 1
+              OnChange = cbAPILangChange
+            end
+            object Edit1: TEdit
+              Left = 75
+              Top = 21
+              Width = 94
+              Height = 23
+              TabOrder = 2
+              OnChange = eAPIKeyChange
+            end
+          end
+        end
       end
     end
   end
@@ -226,7 +561,8 @@ object MainFrm: TMainFrm
     MapOptions.GestureHandling = ghAuto
     MapOptions.IsFractionalZoomEnabled = True
     MapOptions.MapTypeControl = False
-    MapOptions.MapTypeControlOptions.MapTypeIds = []
+    MapOptions.MapTypeControlOptions.MapTypeIds = [mtHYBRID, mtTERRAIN]
+    MapOptions.MapTypeControlOptions.Style = mtcDROPDOWN_MENU
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
     MapOptions.Zoom = 10
