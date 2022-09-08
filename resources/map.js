@@ -231,10 +231,10 @@ function setMapOptions(BackgroundColor,
   mapOptions = {
                     backgroundColor: BackgroundColor,
                     center: new google.maps.LatLng(Lat, Lng, NoWrap),
-//                    clickableIcons: ClickableIcons,
+                    clickableIcons: ClickableIcons,
                     //controlSize: --> not coded
                     //disableDefaultUI: --> not coded
-//                    disableDoubleClickZoom: DisableDoubleClickZoom,
+                    disableDoubleClickZoom: DisableDoubleClickZoom,
                     //draggable: --> deprecated, not coded
 //                    draggableCursor: DraggableCursor,
 //                    draggingCursor: DraggingCursor,
