@@ -254,14 +254,14 @@ function setMapOptions(BackgroundColor,
                                             style: MapTypeControlOptionsStyle
                                            },
 //                    mapTypeId: MapTypeId,
-//                    maxZoom: MaxZoom,
-//                    minZoom: MinZoom,
+                    maxZoom: MaxZoom,
+                    minZoom: MinZoom,
 //                    noClear: NoClear,
                     restriction: Restriction,
-//                    rotateControl: RotateControl,
-//                    rotateControlOptions: {
-//                                           position: RotateControlOptionsPosition
-//                                          },
+                    rotateControl: RotateControl,
+                    rotateControlOptions: {
+                                           position: RotateControlOptionsPosition
+                                          },
 //                    scaleControl: ScaleControl,
 //                    scaleControlOptions: {
 //                                          style: ScaleControlOptionsStyle
@@ -274,11 +274,11 @@ function setMapOptions(BackgroundColor,
 //                                              },
                     //styles: --> to code
 //                    tilt: Tilt,
-                    zoom: Zoom
-//                    zoomControl: ZoomControl,
-//                    zoomControlOptions: {
-//                                         position: ZoomControlOptionsPosition
-//                                        }
+                    zoom: Zoom,
+                    zoomControl: ZoomControl,
+                    zoomControlOptions: {
+                                         position: ZoomControlOptionsPosition
+                                        }
                    };
   if (map != null)                   
     map.setOptions(mapOptions);  
