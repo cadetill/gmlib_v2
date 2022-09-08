@@ -11,7 +11,6 @@ object MainFrm: TMainFrm
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnCloseQuery = FormCloseQuery
-  PixelsPerInch = 96
   TextHeight = 15
   object CEFWindowParent1: TCEFWindowParent
     Left = 0
@@ -167,6 +166,7 @@ object MainFrm: TMainFrm
           Width = 105
           Height = 22
           TabOrder = 0
+          OnChange = cbBackgroundColorChange
         end
         object gbCenter: TGroupBox
           Left = 3
@@ -195,7 +195,7 @@ object MainFrm: TMainFrm
             Width = 94
             Height = 23
             TabOrder = 0
-            OnChange = eAPIKeyChange
+            OnChange = eLatChange
           end
           object eLng: TEdit
             Left = 176
@@ -203,7 +203,7 @@ object MainFrm: TMainFrm
             Width = 94
             Height = 23
             TabOrder = 1
-            OnChange = eAPIKeyChange
+            OnChange = eLngChange
           end
         end
         object cbClickableIcons: TCheckBox
@@ -213,6 +213,7 @@ object MainFrm: TMainFrm
           Height = 17
           Caption = 'ClickableIcons'
           TabOrder = 2
+          OnClick = cbClickableIconsClick
         end
         object cbDisableDoubleClickZoom: TCheckBox
           Left = 120
@@ -221,13 +222,14 @@ object MainFrm: TMainFrm
           Height = 17
           Caption = 'DisableDoubleClickZoom'
           TabOrder = 3
+          OnClick = cbDisableDoubleClickZoomClick
         end
         object pcObjects: TPageControl
           Left = 0
           Top = 168
           Width = 291
           Height = 199
-          ActivePage = tsRestriction
+          ActivePage = tsStreetViewControl
           Align = alBottom
           TabOrder = 4
           object tsFullScreenControl: TTabSheet
@@ -367,7 +369,7 @@ object MainFrm: TMainFrm
                 Width = 94
                 Height = 23
                 TabOrder = 0
-                OnChange = eAPIKeyChange
+                OnChange = eRNELatChange
               end
               object eRNELng: TEdit
                 Left = 173
@@ -375,7 +377,7 @@ object MainFrm: TMainFrm
                 Width = 94
                 Height = 23
                 TabOrder = 1
-                OnChange = eAPIKeyChange
+                OnChange = eRNELngChange
               end
             end
             object gbRSW: TGroupBox
@@ -405,7 +407,7 @@ object MainFrm: TMainFrm
                 Width = 94
                 Height = 23
                 TabOrder = 0
-                OnChange = eAPIKeyChange
+                OnChange = eRSWLatChange
               end
               object eRSWLng: TEdit
                 Left = 173
@@ -413,7 +415,7 @@ object MainFrm: TMainFrm
                 Width = 94
                 Height = 23
                 TabOrder = 1
-                OnChange = eAPIKeyChange
+                OnChange = eRSWLngChange
               end
             end
           end
@@ -434,6 +436,7 @@ object MainFrm: TMainFrm
               Height = 17
               Caption = 'RotateControl'
               TabOrder = 0
+              OnClick = cbRotateControlClick
             end
             object cbRotPosition: TComboBox
               Left = 81
@@ -442,7 +445,7 @@ object MainFrm: TMainFrm
               Height = 22
               Style = csOwnerDrawFixed
               TabOrder = 1
-              OnChange = cbAPILangChange
+              OnChange = cbRotPositionChange
             end
           end
           object tsScaleControl: TTabSheet
@@ -462,6 +465,7 @@ object MainFrm: TMainFrm
               Height = 17
               Caption = 'ScaleControl'
               TabOrder = 0
+              OnClick = cbScaleControlClick
             end
             object cbSStyle: TComboBox
               Left = 81
@@ -470,7 +474,7 @@ object MainFrm: TMainFrm
               Height = 22
               Style = csOwnerDrawFixed
               TabOrder = 1
-              OnChange = cbAPILangChange
+              OnChange = cbSStyleChange
             end
           end
           object tsStreetViewControl: TTabSheet
@@ -490,6 +494,7 @@ object MainFrm: TMainFrm
               Height = 17
               Caption = 'StreetViewControl'
               TabOrder = 0
+              OnClick = cbStreetViewControlClick
             end
             object cbSVPosition: TComboBox
               Left = 89
@@ -498,7 +503,7 @@ object MainFrm: TMainFrm
               Height = 22
               Style = csOwnerDrawFixed
               TabOrder = 1
-              OnChange = cbAPILangChange
+              OnChange = cbSVPositionChange
             end
           end
           object tsZoomControl: TTabSheet
@@ -506,42 +511,73 @@ object MainFrm: TMainFrm
             ImageIndex = 6
             object lZPosition: TLabel
               Left = 32
-              Top = 96
+              Top = 80
               Width = 43
               Height = 15
               Caption = 'Position'
             end
-            object Label2: TLabel
+            object lZoom: TLabel
               Left = 32
               Top = 24
               Width = 32
               Height = 15
               Caption = 'Zoom'
             end
+            object lMaxZoom: TLabel
+              Left = 8
+              Top = 136
+              Width = 55
+              Height = 15
+              Caption = 'MaxZoom'
+            end
+            object lMinZoom: TLabel
+              Left = 143
+              Top = 136
+              Width = 53
+              Height = 15
+              Caption = 'MinZoom'
+            end
             object cbZoomControl: TCheckBox
               Left = 32
-              Top = 64
+              Top = 56
               Width = 129
               Height = 17
               Caption = 'ZoomControl'
               TabOrder = 0
+              OnClick = cbZoomControlClick
             end
             object cbZPosition: TComboBox
               Left = 89
-              Top = 93
+              Top = 77
               Width = 105
               Height = 22
               Style = csOwnerDrawFixed
               TabOrder = 1
-              OnChange = cbAPILangChange
+              OnChange = cbZPositionChange
             end
-            object Edit1: TEdit
+            object eZoom: TEdit
               Left = 75
               Top = 21
               Width = 94
               Height = 23
               TabOrder = 2
-              OnChange = eAPIKeyChange
+              OnChange = eZoomChange
+            end
+            object eMaxZoom: TEdit
+              Left = 75
+              Top = 133
+              Width = 54
+              Height = 23
+              TabOrder = 3
+              OnChange = eMaxZoomChange
+            end
+            object eMinZoom: TEdit
+              Left = 210
+              Top = 133
+              Width = 55
+              Height = 23
+              TabOrder = 4
+              OnChange = eMinZoomChange
             end
           end
         end
@@ -559,7 +595,7 @@ object MainFrm: TMainFrm
   end
   object GMMapChrm1: TGMMapChrm
     Browser = Chromium1
-    MapOptions.BackgroundColor = clSilver
+    MapOptions.BackgroundColor = clLime
     MapOptions.Center.Lat = 42.539899000000000000
     MapOptions.Center.Lng = 1.578505000000000000
     MapOptions.ClickableIcons = True

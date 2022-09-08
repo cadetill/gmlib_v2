@@ -85,9 +85,13 @@ type
     cbZoomControl: TCheckBox;
     lZPosition: TLabel;
     cbZPosition: TComboBox;
-    Edit1: TEdit;
-    Label2: TLabel;
+    eZoom: TEdit;
+    lZoom: TLabel;
     lMTIds: TLabel;
+    eMaxZoom: TEdit;
+    lMaxZoom: TLabel;
+    eMinZoom: TEdit;
+    lMinZoom: TLabel;
     procedure Timer1Timer(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure Chromium1AfterCreated(Sender: TObject;
@@ -135,6 +139,26 @@ type
     procedure clbMTIdsClickCheck(Sender: TObject);
     procedure cbREnabledClick(Sender: TObject);
     procedure cbRStrictBoundsClick(Sender: TObject);
+    procedure eRNELatChange(Sender: TObject);
+    procedure eRNELngChange(Sender: TObject);
+    procedure eRSWLatChange(Sender: TObject);
+    procedure eRSWLngChange(Sender: TObject);
+    procedure cbClickableIconsClick(Sender: TObject);
+    procedure cbDisableDoubleClickZoomClick(Sender: TObject);
+    procedure cbBackgroundColorChange(Sender: TObject);
+    procedure eLatChange(Sender: TObject);
+    procedure eLngChange(Sender: TObject);
+    procedure cbRotateControlClick(Sender: TObject);
+    procedure cbRotPositionChange(Sender: TObject);
+    procedure cbZPositionChange(Sender: TObject);
+    procedure cbZoomControlClick(Sender: TObject);
+    procedure eZoomChange(Sender: TObject);
+    procedure eMaxZoomChange(Sender: TObject);
+    procedure eMinZoomChange(Sender: TObject);
+    procedure cbScaleControlClick(Sender: TObject);
+    procedure cbSStyleChange(Sender: TObject);
+    procedure cbStreetViewControlClick(Sender: TObject);
+    procedure cbSVPositionChange(Sender: TObject);
   private
     procedure GetAPILang;
     procedure GetAPIRegion;
@@ -144,6 +168,7 @@ type
     procedure GetPosition(cb: TComboBox; Selected: string);
     procedure GetMapTypeIds(clb: TCheckListBox);
     procedure GetMapTypeStyle;
+    procedure GetScaleStyle;
   protected
     // Variables to control when can we destroy the form safely
     FCanClose: Boolean;  // Set to True in TChromium.OnBeforeClose
@@ -196,6 +221,21 @@ begin
   GMMapChrm1.APIVer := TGMTransform.StrToAPIVer(cbAPIVersion.Text);
 end;
 
+procedure TMainFrm.cbBackgroundColorChange(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.BackgroundColor := cbBackgroundColor.Selected;
+end;
+
+procedure TMainFrm.cbClickableIconsClick(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.ClickableIcons := cbClickableIcons.Checked;
+end;
+
+procedure TMainFrm.cbDisableDoubleClickZoomClick(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.DisableDoubleClickZoom := cbDisableDoubleClickZoom.Checked;
+end;
+
 procedure TMainFrm.cbFSPositionChange(Sender: TObject);
 begin
   GMMapChrm1.MapOptions.FullScreenControlOptions.Position := TGMTransform.StrToPosition(cbFSPosition.Text);
@@ -231,9 +271,49 @@ begin
   GMMapChrm1.MapOptions.Restriction.Enabled := cbREnabled.Checked;
 end;
 
+procedure TMainFrm.cbRotateControlClick(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.RotateControl := cbRotateControl.Checked;
+end;
+
+procedure TMainFrm.cbRotPositionChange(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.RotateControlOptions.Position := TGMTransform.StrToPosition(cbRotPosition.Text);
+end;
+
 procedure TMainFrm.cbRStrictBoundsClick(Sender: TObject);
 begin
   GMMapChrm1.MapOptions.Restriction.StrictBounds := cbRStrictBounds.Checked;
+end;
+
+procedure TMainFrm.cbScaleControlClick(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.ScaleControl := cbScaleControl.Checked;
+end;
+
+procedure TMainFrm.cbSStyleChange(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.ScaleControlOptions.Style := TGMTransform.StrToScaleControlStyle(cbSStyle.Text);
+end;
+
+procedure TMainFrm.cbStreetViewControlClick(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.StreetViewControl := cbStreetViewControl.Checked;
+end;
+
+procedure TMainFrm.cbSVPositionChange(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.StreetViewControlOptions.Position := TGMTransform.StrToPosition(cbSVPosition.Text);
+end;
+
+procedure TMainFrm.cbZoomControlClick(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.ZoomControl := cbZoomControl.Checked;
+end;
+
+procedure TMainFrm.cbZPositionChange(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.ZoomControlOptions.Position := TGMTransform.StrToPosition(cbZPosition.Text);
 end;
 
 procedure TMainFrm.Chromium1AfterCreated(Sender: TObject;
@@ -296,6 +376,51 @@ end;
 procedure TMainFrm.eIntervalEventsChange(Sender: TObject);
 begin
   GMMapChrm1.IntervalEvents := eIntervalEvents.Value;
+end;
+
+procedure TMainFrm.eLatChange(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.Center.Lat := TGMTransform.GetStrToDouble(eLat.Text);
+end;
+
+procedure TMainFrm.eLngChange(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.Center.Lng := TGMTransform.GetStrToDouble(eLng.Text);
+end;
+
+procedure TMainFrm.eMaxZoomChange(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.MaxZoom := TGMTransform.GetStrToInteger(eMaxZoom.Text);
+end;
+
+procedure TMainFrm.eMinZoomChange(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.MinZoom := TGMTransform.GetStrToInteger(eMinZoom.Text);
+end;
+
+procedure TMainFrm.eRNELatChange(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.Restriction.LatLngBounds.NE.Lat := TGMTransform.GetStrToDouble(eRNELat.Text);
+end;
+
+procedure TMainFrm.eRNELngChange(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.Restriction.LatLngBounds.NE.Lng := TGMTransform.GetStrToDouble(eRNELng.Text);
+end;
+
+procedure TMainFrm.eRSWLatChange(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.Restriction.LatLngBounds.SW.Lat := TGMTransform.GetStrToDouble(eRSWLat.Text);
+end;
+
+procedure TMainFrm.eRSWLngChange(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.Restriction.LatLngBounds.SW.Lng := TGMTransform.GetStrToDouble(eRSWLng.Text);
+end;
+
+procedure TMainFrm.eZoomChange(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.Zoom := TGMTransform.GetStrToInteger(eZoom.Text);
 end;
 
 procedure TMainFrm.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -384,6 +509,16 @@ begin
   for Value := Low(TGMControlPosition) to High(TGMControlPosition) do
     cb.Items.Add( TGMTransform.PositionToStr(Value) );
   cb.ItemIndex := cb.Items.IndexOf(Selected);
+end;
+
+procedure TMainFrm.GetScaleStyle;
+var
+  Value: TGMScaleControlStyle;
+begin
+  cbSStyle.Items.Clear;
+  for Value := Low(TGMScaleControlStyle) to High(TGMScaleControlStyle) do
+    cbSStyle.Items.Add( TGMTransform.ScaleControlStyleToStr(Value) );
+  cbSStyle.ItemIndex := cbSStyle.Items.IndexOf(TGMTransform.ScaleControlStyleToStr( GMMapChrm1.MapOptions.ScaleControlOptions.Style ));
 end;
 
 procedure TMainFrm.GMMapChrm1ActiveChange(Sender: TObject);
@@ -485,6 +620,8 @@ begin
   cbBackgroundColor.Selected := GMMapChrm1.MapOptions.BackgroundColor;
   eLat.Text := GMMapChrm1.MapOptions.Center.LatToStr;
   eLng.Text := GMMapChrm1.MapOptions.Center.LngToStr;
+  cbClickableIcons.Checked := GMMapChrm1.MapOptions.ClickableIcons;
+  cbDisableDoubleClickZoom.Checked := GMMapChrm1.MapOptions.DisableDoubleClickZoom;
 
   cbFullScreenControl.Checked := GMMapChrm1.MapOptions.FullScreenControl;
   GetPosition(cbFSPosition, TGMTransform.PositionToStr(GMMapChrm1.MapOptions.FullScreenControlOptions.Position));
@@ -493,6 +630,28 @@ begin
   GetPosition(cbMTPosition, TGMTransform.PositionToStr(GMMapChrm1.MapOptions.MapTypeControlOptions.Position));
   GetMapTypeIds(clbMTIds);
   GetMapTypeStyle;
+
+  cbREnabled.Checked := GMMapChrm1.MapOptions.Restriction.Enabled;
+  cbRStrictBounds.Checked := GMMapChrm1.MapOptions.Restriction.StrictBounds;
+  eRNELat.Text := GMMapChrm1.MapOptions.Restriction.LatLngBounds.NE.LatToStr;
+  eRNELng.Text := GMMapChrm1.MapOptions.Restriction.LatLngBounds.NE.LngToStr;
+  eRSWLat.Text := GMMapChrm1.MapOptions.Restriction.LatLngBounds.SW.LatToStr;
+  eRSWLng.Text := GMMapChrm1.MapOptions.Restriction.LatLngBounds.SW.LngToStr;
+
+  cbRotateControl.Checked := GMMapChrm1.MapOptions.RotateControl;
+  GetPosition(cbRotPosition, TGMTransform.PositionToStr(GMMapChrm1.MapOptions.RotateControlOptions.Position));
+
+  cbZoomControl.Checked := GMMapChrm1.MapOptions.ZoomControl;
+  GetPosition(cbZPosition, TGMTransform.PositionToStr(GMMapChrm1.MapOptions.ZoomControlOptions.Position));
+  eZoom.Text := GMMapChrm1.MapOptions.Zoom.ToString;
+  eMaxZoom.Text := GMMapChrm1.MapOptions.MaxZoom.ToString;
+  eMinZoom.Text := GMMapChrm1.MapOptions.MinZoom.ToString;
+
+  cbScaleControl.Checked := GMMapChrm1.MapOptions.ScaleControl;
+  GetScaleStyle;
+
+  cbStreetViewControl.Checked := GMMapChrm1.MapOptions.StreetViewControl;
+  GetPosition(cbSVPosition, TGMTransform.PositionToStr(GMMapChrm1.MapOptions.StreetViewControlOptions.Position));
 end;
 
 procedure TMainFrm.Timer1Timer(Sender: TObject);
