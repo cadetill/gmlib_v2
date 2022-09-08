@@ -262,16 +262,16 @@ function setMapOptions(BackgroundColor,
                     rotateControlOptions: {
                                            position: RotateControlOptionsPosition
                                           },
-//                    scaleControl: ScaleControl,
-//                    scaleControlOptions: {
-//                                          style: ScaleControlOptionsStyle
-//                                         },
+                    scaleControl: ScaleControl,
+                    scaleControlOptions: {
+                                          style: ScaleControlOptionsStyle
+                                         },
                     //scrollwheel: --> not recommended, use gestureHandling instead
                     //streetView:  --> to code
-//                    streetViewControl: StreetViewControl,
-//                    streetViewControlOptions: {
-//                                               position: StreetViewControlOptionsPosition
-//                                              },
+                    streetViewControl: StreetViewControl,
+                    streetViewControlOptions: {
+                                               position: StreetViewControlOptionsPosition
+                                              },
                     //styles: --> to code
 //                    tilt: Tilt,
                     zoom: Zoom,
