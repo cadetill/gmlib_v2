@@ -242,10 +242,10 @@ function setMapOptions(BackgroundColor,
                     fullscreenControlOptions: {
                                                position: FullscreenControlOptionsPosition
                                               },
-//                    gestureHandling: GestureHandling,
+                    gestureHandling: GestureHandling,
 //                    heading: Heading,
-//                    isFractionalZoomEnabled: IsFractionalZoomEnabled,
-//                    keyboardShortcuts: KeyboardShortcuts,
+                    isFractionalZoomEnabled: IsFractionalZoomEnabled,
+                    keyboardShortcuts: KeyboardShortcuts,
                     //mapId: --> not coded 
                     mapTypeControl: MapTypeControl,
                     mapTypeControlOptions: {
@@ -253,10 +253,10 @@ function setMapOptions(BackgroundColor,
                                             position: MapTypeControlOptionsPosition,
                                             style: MapTypeControlOptionsStyle
                                            },
-//                    mapTypeId: MapTypeId,
+                    mapTypeId: MapTypeId,
                     maxZoom: MaxZoom,
                     minZoom: MinZoom,
-//                    noClear: NoClear,
+                    noClear: NoClear,
                     restriction: Restriction,
                     rotateControl: RotateControl,
                     rotateControlOptions: {
