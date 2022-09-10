@@ -242,7 +242,7 @@ function setMapOptions(BackgroundColor,
                     fullscreenControlOptions: {
                                                position: FullscreenControlOptionsPosition
                                               },
-                    gestureHandling: GestureHandling,
+//                    gestureHandling: GestureHandling,
 //                    heading: Heading,
                     isFractionalZoomEnabled: IsFractionalZoomEnabled,
                     keyboardShortcuts: KeyboardShortcuts,
