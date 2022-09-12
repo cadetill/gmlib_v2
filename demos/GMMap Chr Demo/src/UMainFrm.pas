@@ -92,6 +92,11 @@ type
     lMaxZoom: TLabel;
     eMinZoom: TEdit;
     lMinZoom: TLabel;
+    cbNoClear: TCheckBox;
+    cbMapTypeId: TComboBox;
+    lMapTypeId: TLabel;
+    cbKeyboardShortcuts: TCheckBox;
+    cbIsFractionalZoomEnabled: TCheckBox;
     procedure Timer1Timer(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure Chromium1AfterCreated(Sender: TObject;
@@ -159,6 +164,10 @@ type
     procedure cbSStyleChange(Sender: TObject);
     procedure cbStreetViewControlClick(Sender: TObject);
     procedure cbSVPositionChange(Sender: TObject);
+    procedure cbNoClearClick(Sender: TObject);
+    procedure cbMapTypeIdChange(Sender: TObject);
+    procedure cbKeyboardShortcutsClick(Sender: TObject);
+    procedure cbIsFractionalZoomEnabledClick(Sender: TObject);
   private
     procedure GetAPILang;
     procedure GetAPIRegion;
@@ -166,7 +175,7 @@ type
     procedure GetLanguages;
     procedure SetPropToComponents;
     procedure GetPosition(cb: TComboBox; Selected: string);
-    procedure GetMapTypeIds(clb: TCheckListBox);
+    procedure GetMapTypeIds(clb: TCheckListBox; cb: TComboBox);
     procedure GetMapTypeStyle;
     procedure GetScaleStyle;
   protected
@@ -246,6 +255,16 @@ begin
   GMMapChrm1.MapOptions.FullScreenControl := cbFullScreenControl.Checked;
 end;
 
+procedure TMainFrm.cbIsFractionalZoomEnabledClick(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.IsFractionalZoomEnabled := cbIsFractionalZoomEnabled.Checked;
+end;
+
+procedure TMainFrm.cbKeyboardShortcutsClick(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.KeyboardShortcuts := cbKeyboardShortcuts.Checked;
+end;
+
 procedure TMainFrm.cbLanguageChange(Sender: TObject);
 begin
   GMMapChrm1.Language := TGMTransform.StrToLang(cbLanguage.Text);
@@ -256,6 +275,11 @@ begin
   GMMapChrm1.MapOptions.MapTypeControl := cbMapTypeControl.Checked;
 end;
 
+procedure TMainFrm.cbMapTypeIdChange(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.MapTypeId := TGMTransform.StrToMapTypeId(cbMapTypeId.Text);
+end;
+
 procedure TMainFrm.cbMTPositionChange(Sender: TObject);
 begin
   GMMapChrm1.MapOptions.MapTypeControlOptions.Position := TGMTransform.StrToPosition(cbMTPosition.Text);
@@ -264,6 +288,11 @@ end;
 procedure TMainFrm.cbMTStyleChange(Sender: TObject);
 begin
   GMMapChrm1.MapOptions.MapTypeControlOptions.Style := TGMTransform.StrToMapTypeControlStyle(cbMTStyle.Text);
+end;
+
+procedure TMainFrm.cbNoClearClick(Sender: TObject);
+begin
+  GMMapChrm1.MapOptions.NoClear := cbNoClear.Checked;
 end;
 
 procedure TMainFrm.cbREnabledClick(Sender: TObject);
@@ -477,18 +506,21 @@ begin
   cbLanguage.ItemIndex := cbLanguage.Items.IndexOf('lnEnglish');
 end;
 
-procedure TMainFrm.GetMapTypeIds(clb: TCheckListBox);
+procedure TMainFrm.GetMapTypeIds(clb: TCheckListBox; cb: TComboBox);
 var
   Value: TGMMapTypeId;
   Idx: Integer;
 begin
   clb.Items.Clear;
+  cb.Items.Clear;
   for Value := Low(TGMMapTypeId) to High(TGMMapTypeId) do
   begin
     Idx := clb.Items.Add( TGMTransform.MapTypeIdToStr(Value) );
+    cb.Items.Add( GetEnumName(TypeInfo(TGMMapTypeId), Ord(Value)) );
     if Value in GMMapChrm1.MapOptions.MapTypeControlOptions.MapTypeIds then
       clb.Checked[Idx] := True;
   end;
+  cb.ItemIndex := cb.Items.IndexOf(TGMTransform.MapTypeIdToStr( GMMapChrm1.MapOptions.MapTypeId ));
 end;
 
 procedure TMainFrm.GetMapTypeStyle;
@@ -622,13 +654,16 @@ begin
   eLng.Text := GMMapChrm1.MapOptions.Center.LngToStr;
   cbClickableIcons.Checked := GMMapChrm1.MapOptions.ClickableIcons;
   cbDisableDoubleClickZoom.Checked := GMMapChrm1.MapOptions.DisableDoubleClickZoom;
+  cbNoClear.Checked := GMMapChrm1.MapOptions.NoClear;
+  cbKeyboardShortcuts.Checked := GMMapChrm1.MapOptions.KeyboardShortcuts;
+  cbIsFractionalZoomEnabled.Checked := GMMapChrm1.MapOptions.IsFractionalZoomEnabled;
 
   cbFullScreenControl.Checked := GMMapChrm1.MapOptions.FullScreenControl;
   GetPosition(cbFSPosition, TGMTransform.PositionToStr(GMMapChrm1.MapOptions.FullScreenControlOptions.Position));
 
   cbMapTypeControl.Checked := GMMapChrm1.MapOptions.MapTypeControl;
   GetPosition(cbMTPosition, TGMTransform.PositionToStr(GMMapChrm1.MapOptions.MapTypeControlOptions.Position));
-  GetMapTypeIds(clbMTIds);
+  GetMapTypeIds(clbMTIds, cbMapTypeId);
   GetMapTypeStyle;
 
   cbREnabled.Checked := GMMapChrm1.MapOptions.Restriction.Enabled;
@@ -641,17 +676,17 @@ begin
   cbRotateControl.Checked := GMMapChrm1.MapOptions.RotateControl;
   GetPosition(cbRotPosition, TGMTransform.PositionToStr(GMMapChrm1.MapOptions.RotateControlOptions.Position));
 
-  cbZoomControl.Checked := GMMapChrm1.MapOptions.ZoomControl;
-  GetPosition(cbZPosition, TGMTransform.PositionToStr(GMMapChrm1.MapOptions.ZoomControlOptions.Position));
-  eZoom.Text := GMMapChrm1.MapOptions.Zoom.ToString;
-  eMaxZoom.Text := GMMapChrm1.MapOptions.MaxZoom.ToString;
-  eMinZoom.Text := GMMapChrm1.MapOptions.MinZoom.ToString;
-
   cbScaleControl.Checked := GMMapChrm1.MapOptions.ScaleControl;
   GetScaleStyle;
 
   cbStreetViewControl.Checked := GMMapChrm1.MapOptions.StreetViewControl;
   GetPosition(cbSVPosition, TGMTransform.PositionToStr(GMMapChrm1.MapOptions.StreetViewControlOptions.Position));
+
+  cbZoomControl.Checked := GMMapChrm1.MapOptions.ZoomControl;
+  GetPosition(cbZPosition, TGMTransform.PositionToStr(GMMapChrm1.MapOptions.ZoomControlOptions.Position));
+  eZoom.Text := GMMapChrm1.MapOptions.Zoom.ToString;
+  eMaxZoom.Text := GMMapChrm1.MapOptions.MaxZoom.ToString;
+  eMinZoom.Text := GMMapChrm1.MapOptions.MinZoom.ToString;
 end;
 
 procedure TMainFrm.Timer1Timer(Sender: TObject);
