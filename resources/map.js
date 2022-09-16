@@ -211,8 +211,9 @@ function setMapOptions(BackgroundColor,
   GestureHandling = StrToGestureHandling(GestureHandling); 
   MapTypeControlOptionsMapTypeIds = MapTypeControlOptionsMapTypeIds.split(";"); 
   for (i = 0; i < MapTypeControlOptionsMapTypeIds.length; i++) { 
-    MapTypeControlOptionsMapTypeIds[i] = StrToMapTypeId(MapTypeControlOptionsMapTypeIds[i])
+    MapTypeControlOptionsMapTypeIds[i] = StrToMapTypeId(MapTypeControlOptionsMapTypeIds[i]);
   };
+  MapTypeId = StrToMapTypeId(MapTypeId);
   MapTypeControlOptionsPosition = StrToPosition(MapTypeControlOptionsPosition); 
   MapTypeControlOptionsStyle = StrToMapTypeControlStyle(MapTypeControlOptionsStyle);
   RotateControlOptionsPosition = StrToPosition(RotateControlOptionsPosition); 
@@ -236,14 +237,14 @@ function setMapOptions(BackgroundColor,
                     //disableDefaultUI: --> not coded
                     disableDoubleClickZoom: DisableDoubleClickZoom,
                     //draggable: --> deprecated, not coded
-//                    draggableCursor: DraggableCursor,
-//                    draggingCursor: DraggingCursor,
+                    draggableCursor: DraggableCursor,
+                    draggingCursor: DraggingCursor,
                     fullscreenControl: FullscreenControl,
                     fullscreenControlOptions: {
                                                position: FullscreenControlOptionsPosition
                                               },
-//                    gestureHandling: GestureHandling,
-//                    heading: Heading,
+                    gestureHandling: GestureHandling,
+                    heading: Heading,
                     isFractionalZoomEnabled: IsFractionalZoomEnabled,
                     keyboardShortcuts: KeyboardShortcuts,
                     //mapId: --> not coded 
@@ -273,7 +274,7 @@ function setMapOptions(BackgroundColor,
                                                position: StreetViewControlOptionsPosition
                                               },
                     //styles: --> to code
-//                    tilt: Tilt,
+                    tilt: Tilt,
                     zoom: Zoom,
                     zoomControl: ZoomControl,
                     zoomControlOptions: {
