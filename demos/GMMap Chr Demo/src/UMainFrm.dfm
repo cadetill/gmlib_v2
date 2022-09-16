@@ -11,6 +11,7 @@ object MainFrm: TMainFrm
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnCloseQuery = FormCloseQuery
+  PixelsPerInch = 96
   TextHeight = 15
   object CEFWindowParent1: TCEFWindowParent
     Left = 0
@@ -20,7 +21,6 @@ object MainFrm: TMainFrm
     Align = alClient
     TabStop = True
     TabOrder = 0
-    ExplicitHeight = 464
   end
   object Panel2: TPanel
     Left = 708
@@ -30,7 +30,6 @@ object MainFrm: TMainFrm
     Align = alRight
     Caption = ' '
     TabOrder = 1
-    ExplicitHeight = 464
     object cbActive: TCheckBox
       AlignWithMargins = True
       Left = 16
@@ -52,7 +51,6 @@ object MainFrm: TMainFrm
       ActivePage = tsMapOptions
       Align = alClient
       TabOrder = 1
-      ExplicitHeight = 397
       object tsGeneral: TTabSheet
         Caption = 'General'
         object lIntervalEvents: TLabel
@@ -235,7 +233,6 @@ object MainFrm: TMainFrm
           ActivePage = tsMapTypeControl
           Align = alBottom
           TabOrder = 4
-          ExplicitTop = 168
           object tsFullScreenControl: TTabSheet
             Caption = 'FullScreen'
             object lFSPosition: TLabel
@@ -639,7 +636,6 @@ object MainFrm: TMainFrm
     Align = alBottom
     ScrollBars = ssVertical
     TabOrder = 2
-    ExplicitTop = 464
   end
   object GMMapChrm1: TGMMapChrm
     Browser = Chromium1

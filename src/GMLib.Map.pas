@@ -791,9 +791,17 @@ const
   Str1 = '%s';
   Str2 = '%s,%s';
 *)
+var
+  Params: string;
 begin
   if not FActive then Exit;
   if csDesigning in ComponentState then Exit;
+
+  if FIsUpdating then
+    Exit;
+
+  Params := PropToString;
+  ExecuteJavaScript('setMapOptions', Params);
 
 (*
   if (Prop is TGMCustomMapOptions) and SameText(PropName, 'Zoom') then

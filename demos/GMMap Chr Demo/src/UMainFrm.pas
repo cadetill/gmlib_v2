@@ -568,6 +568,15 @@ procedure TMainFrm.GMMapChrm1CenterChanged(Sender: TObject; LatLng: TGMLatLng;
   X, Y: Double);
 begin
   mEvents.Lines.Add('OnCenterChanged event fired: ' + LatLng.ToStr);
+
+  eLat.OnChange := nil;
+  eLng.OnChange := nil;
+
+  eLat.Text := LatLng.LatToStr;
+  eLng.Text := LatLng.LngToStr;
+
+  eLat.OnChange := eLatChange;
+  eLng.OnChange := eLngChange;
 end;
 
 procedure TMainFrm.GMMapChrm1Click(Sender: TObject; LatLng: TGMLatLng; X,
@@ -640,6 +649,8 @@ end;
 procedure TMainFrm.GMMapChrm1PropertyChanges(Owner: TObject; PropName: string);
 begin
   mEvents.Lines.Add('OnPropertyChanges event fired: ' + PropName);
+  if SameText(PropName, 'MapTypeId') then
+    GetMapTypeIds(clbMTIds, cbMapTypeId);
 end;
 
 procedure TMainFrm.GMMapChrm1ZoomChanged(Sender: TObject; NewZoom: Integer);

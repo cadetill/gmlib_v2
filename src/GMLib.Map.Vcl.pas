@@ -358,13 +358,15 @@ end;
 function TGMMapOptions.PropToString: string;
 const
   Str = '%s';
+var
+  TmpStr: string;
 begin
-  Result := inherited PropToString;
-  if Result <> '' then Result := Result + ',';
-  Result := Result +
-            Format(Str, [
+  TmpStr := inherited PropToString;
+
+  Result := Format(Str, [
                          QuotedStr(TGMTransform.TColorToStr(FBackgroundColor))
                         ]);
+  Result := Result + ',' + TmpStr;
 end;
 
 procedure TGMMapOptions.SetBackgroundColor(const Value: TColor);
@@ -439,47 +441,14 @@ end;
 
 function TGMMap.PropToString: string;
 const
-  StrParams = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
+  StrParams = '%s';
 begin
   Result := inherited;
 
   if Result <> '' then
     Result := Result + ',';
 
-  Result := Result + Format(
-                            StrParams,
-                            [
-                             QuotedStr(TGMTransform.TColorToStr(FMapOptions.BackgroundColor)),
-                             FMapOptions.Center.PropToString,
-                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.ClickableIcons, True)),
-                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.DisableDoubleClickZoom, True)),
-                             QuotedStr(FMapOptions.DraggableCursor),
-                             QuotedStr(FMapOptions.DraggingCursor),
-                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.FullScreenControl, True)),
-                             FMapOptions.FullScreenControlOptions.PropToString,
-                             QuotedStr(TGMTransform.GestureHandlingToStr(FMapOptions.GestureHandling)),
-                             IntToStr(FMapOptions.Heading),
-                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.IsFractionalZoomEnabled, True)),
-                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.KeyboardShortcuts, True)),
-                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.MapTypeControl, True)),
-                             FMapOptions.MapTypeControlOptions.PropToString,
-                             QuotedStr(TGMTransform.MapTypeIdToStr(FMapOptions.MapTypeId)),
-                             IntToStr(FMapOptions.MaxZoom),
-                             IntToStr(FMapOptions.MinZoom),
-                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.NoClear, True)),
-                             FMapOptions.Restriction.PropToString,
-                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.RotateControl, True)),
-                             FMapOptions.RotateControlOptions.PropToString,
-                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.ScaleControl, True)),
-                             FMapOptions.ScaleControlOptions.PropToString,
-                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.StreetViewControl, True)),
-                             FMapOptions.StreetViewControlOptions.PropToString,
-                             IntToStr(FMapOptions.Tilt),
-                             IntToStr(FMapOptions.Zoom),
-                             LowerCase(TGMTransform.GMBoolToStr(FMapOptions.ZoomControl, True)),
-                             FMapOptions.ZoomControlOptions.PropToString
-                            ]
-                           );
+  Result := Result + Format(StrParams, [MapOptions.PropToString]);
 end;
 
 procedure TGMMap.SetEnableTimer(State: Boolean);
