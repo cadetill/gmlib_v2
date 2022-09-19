@@ -241,6 +241,9 @@ type
 
     // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
     function PropToString: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
+    property APIUrl;
   published
     // @include(..\Help\docs\GMLib.Map.TGMZoomControlOptions.Position.txt)
     property Position: TGMControlPosition read FPosition write SetPosition default cpTOP_LEFT;
@@ -374,6 +377,36 @@ type
 
     // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
     property APIUrl;
+  end;
+
+  // @include(..\Help\docs\GMLib.Map.TGMTrafficLayer.txt)
+  TGMTrafficLayer = class(TGMPersistentStr)
+  private
+    FTrafficLayerOptions: TGMTrafficLayerOptions;
+    FShow: Boolean;
+    procedure SetShow(const Value: Boolean);
+  protected
+    // @exclude
+    function GetAPIUrl: string; override;
+  public
+    // @include(..\Help\docs\GMLib.Map.TGMTrafficLayer.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
+    // @include(..\Help\docs\GMLib.Map.TGMTrafficLayer.Destroy.txt)
+    destructor Destroy; override;
+
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
+    property APIUrl;
+  published
+    // @include(..\Help\docs\GMLib.Map.TGMTrafficLayer.Show.txt)
+    property Show: Boolean read FShow write SetShow;
+    // @include(..\Help\docs\GMLib.Map.TGMTrafficLayer.AutoRefresh.txt)
+    property TrafficLayerOptions: TGMTrafficLayerOptions read FTrafficLayerOptions write FTrafficLayerOptions;
   end;
 
   // @include(..\Help\docs\GMLib.Map.TGMCustomMap.txt)
@@ -1563,6 +1596,44 @@ begin
 
   FPosition := Value;
   ControlChanges('Position');
+end;
+
+{ TGMTrafficLayer }
+
+procedure TGMTrafficLayer.Assign(Source: TPersistent);
+begin
+  inherited;
+
+end;
+
+constructor TGMTrafficLayer.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+end;
+
+destructor TGMTrafficLayer.Destroy;
+begin
+
+  inherited;
+end;
+
+function TGMTrafficLayer.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/map#TrafficLayer';
+end;
+
+function TGMTrafficLayer.PropToString: string;
+begin
+
+end;
+
+procedure TGMTrafficLayer.SetShow(const Value: Boolean);
+begin
+  if FShow = Value then Exit;
+
+  FShow := Value;
+  ControlChanges('Show');
 end;
 
 end.
