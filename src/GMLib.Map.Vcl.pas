@@ -199,6 +199,9 @@ type
     // @include(..\Help\docs\GMLib.Classes.TGMComponent.AboutGMLib.txt)
     property AboutGMLib;
 
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.TrafficLayer.txt)
+    property TrafficLayer;
+
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnActiveChange.txt)
     property OnActiveChange;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnIntervalEventsChange.txt)
@@ -285,6 +288,9 @@ type
     property Language;
     // @include(..\Help\docs\GMLib.Classes.TGMComponent.AboutGMLib.txt)
     property AboutGMLib;
+
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.TrafficLayer.txt)
+    property TrafficLayer;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnActiveChange.txt)
     property OnActiveChange;

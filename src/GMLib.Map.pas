@@ -379,6 +379,31 @@ type
     property APIUrl;
   end;
 
+  // @include(..\Help\docs\GMLib.Map.TGMTrafficLayerOptions.txt)
+  TGMTrafficLayerOptions = class(TGMPersistentStr)
+  private
+    FAutoRefresh: Boolean;
+    procedure SetAutoRefresh(const Value: Boolean);
+  protected
+    // @exclude
+    function GetAPIUrl: string; override;
+  public
+    // @include(..\Help\docs\GMLib.Map.TGMTrafficLayerOptions.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
+    property APIUrl;
+  published
+    // @include(..\Help\docs\GMLib.Map.TGMTrafficLayerOptions.AutoRefresh.txt)
+    property AutoRefresh: Boolean read FAutoRefresh write SetAutoRefresh;
+  end;
+
   // @include(..\Help\docs\GMLib.Map.TGMTrafficLayer.txt)
   TGMTrafficLayer = class(TGMPersistentStr)
   private
@@ -437,6 +462,7 @@ type
     FOnMapTypeIdChanged: TGMMapTypeIdChangedEvent;
     FOnZoomChanged: TGMZoomChangedEvent;
     FAfterPageLoaded: TGMAfterPageLoaded;
+    FTrafficLayer: TGMTrafficLayer;
     procedure SetActive(const Value: Boolean);
     procedure SetAPILang(const Value: TGMAPILang);
     procedure SetAPIKey(const Value: string);
@@ -501,6 +527,9 @@ type
     property APIRegion: TGMAPIRegion read FAPIRegion write SetAPIRegion default rUndefined;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.IntervalEvents.txt)
     property IntervalEvents: Integer read FIntervalEvents write SetIntervalEvents default 50;
+
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.TrafficLayer.txt)
+    property TrafficLayer: TGMTrafficLayer read FTrafficLayer write FTrafficLayer;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnActiveChange.txt)
     property OnActiveChange: TNotifyEvent read FOnActiveChange write FOnActiveChange;
@@ -595,6 +624,7 @@ begin
   FIntervalEvents := 50;
   FPrecision := 6;
   FBrowser := nil;
+  FTrafficLayer := TGMTrafficLayer.Create(Self);
 
   FIsUpdating := False;
   FDocLoaded := False;
@@ -603,6 +633,9 @@ end;
 destructor TGMCustomMap.Destroy;
 begin
   SetActive(False);
+
+  if Assigned(FTrafficLayer) then
+    FTrafficLayer.Free;
 
   inherited;
 end;
@@ -1604,16 +1637,25 @@ procedure TGMTrafficLayer.Assign(Source: TPersistent);
 begin
   inherited;
 
+  if Source is TGMTrafficLayer then
+  begin
+    Show := TGMTrafficLayer(Source).Show;
+    TrafficLayerOptions.Assign(TGMTrafficLayer(Source).TrafficLayerOptions);
+  end;
 end;
 
 constructor TGMTrafficLayer.Create(AOwner: TPersistent);
 begin
   inherited;
 
+  FShow := False;
+  FTrafficLayerOptions := TGMTrafficLayerOptions.Create(Self);
 end;
 
 destructor TGMTrafficLayer.Destroy;
 begin
+  if Assigned(FTrafficLayerOptions) then
+    FTrafficLayerOptions.Free;
 
   inherited;
 end;
@@ -1624,8 +1666,13 @@ begin
 end;
 
 function TGMTrafficLayer.PropToString: string;
+const
+  Str = '%s,%s';
 begin
-
+  Result := Format(Str, [
+                         LowerCase(TGMTransform.GMBoolToStr(FShow)),
+                         FTrafficLayerOptions.PropToString
+                        ]);
 end;
 
 procedure TGMTrafficLayer.SetShow(const Value: Boolean);
@@ -1634,6 +1681,47 @@ begin
 
   FShow := Value;
   ControlChanges('Show');
+end;
+
+{ TGMTrafficLayerOptions }
+
+procedure TGMTrafficLayerOptions.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMTrafficLayerOptions then
+  begin
+    AutoRefresh := TGMTrafficLayerOptions(Source).AutoRefresh;
+  end;
+end;
+
+constructor TGMTrafficLayerOptions.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FAutoRefresh := False;
+end;
+
+function TGMTrafficLayerOptions.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/map#TrafficLayerOptions';
+end;
+
+function TGMTrafficLayerOptions.PropToString: string;
+const
+  Str = '%s';
+begin
+  Result := Format(Str, [
+                         LowerCase(TGMTransform.GMBoolToStr(FAutoRefresh))
+                        ]);
+end;
+
+procedure TGMTrafficLayerOptions.SetAutoRefresh(const Value: Boolean);
+begin
+  if FAutoRefresh = Value then Exit;
+
+  FAutoRefresh := Value;
+  ControlChanges('AutoRefresh');
 end;
 
 end.
