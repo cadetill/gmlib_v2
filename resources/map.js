@@ -205,7 +205,9 @@ function setMapOptions(BackgroundColor,
                        Tilt,
                        Zoom,
                        ZoomControl,
-                       ZoomControlOptionsPosition        // --> zoomControlOptions
+                       ZoomControlOptionsPosition,       // --> zoomControlOptions
+                       TrafficShow,                      // --> trafficLayer
+                       TrafficAutoRefresh                // --> trafficLayer
                        ) {
   FullscreenControlOptionsPosition = StrToPosition(FullscreenControlOptionsPosition); 
   GestureHandling = StrToGestureHandling(GestureHandling); 
@@ -283,6 +285,22 @@ function setMapOptions(BackgroundColor,
                    };
   if (map != null)                   
     map.setOptions(mapOptions);  
+  
+  ShowTraffic(TrafficShow, TrafficAutoRefresh);
+}
+
+/* **********************************
+  this function update the traffic layer.
+********************************** */
+function ShowTraffic(TrafficShow, TrafficAutoRefresh) {
+  opts = {
+          autoRefresh: TrafficAutoRefresh
+         };
+         
+  trafficLayer = new google.maps.TrafficLayer(opts);
+  
+  if (TrafficShow) trafficLayer.setMap(map);
+  else trafficLayer.setMap(null);
 }
 
 /* **********************************

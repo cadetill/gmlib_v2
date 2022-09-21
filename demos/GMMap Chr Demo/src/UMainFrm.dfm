@@ -11,7 +11,6 @@ object MainFrm: TMainFrm
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnCloseQuery = FormCloseQuery
-  PixelsPerInch = 96
   TextHeight = 15
   object CEFWindowParent1: TCEFWindowParent
     Left = 0
@@ -653,6 +652,8 @@ object MainFrm: TMainFrm
     MapOptions.Zoom = 10
     APILang = lSpanish
     APIRegion = rSpain
+    TrafficLayer.Show = False
+    TrafficLayer.TrafficLayerOptions.AutoRefresh = False
     OnActiveChange = GMMapChrm1ActiveChange
     OnIntervalEventsChange = GMMapChrm1IntervalEventsChange
     OnPrecisionChange = GMMapChrm1PrecisionChange

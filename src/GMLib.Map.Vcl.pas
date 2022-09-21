@@ -447,14 +447,17 @@ end;
 
 function TGMMap.PropToString: string;
 const
-  StrParams = '%s';
+  StrParams = '%s,%s';
 begin
   Result := inherited;
 
   if Result <> '' then
     Result := Result + ',';
 
-  Result := Result + Format(StrParams, [MapOptions.PropToString]);
+  Result := Result + Format(StrParams, [
+                                        MapOptions.PropToString,
+                                        TrafficLayer.PropToString
+                                       ]);
 end;
 
 procedure TGMMap.SetEnableTimer(State: Boolean);
