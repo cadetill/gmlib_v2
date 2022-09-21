@@ -1699,7 +1699,7 @@ constructor TGMTrafficLayerOptions.Create(AOwner: TPersistent);
 begin
   inherited;
 
-  FAutoRefresh := False;
+  FAutoRefresh := True;
 end;
 
 function TGMTrafficLayerOptions.GetAPIUrl: string;

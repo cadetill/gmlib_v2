@@ -1,0 +1,5 @@
+@abstract(Class for @code(google.maps.TrafficLayerOptions) object from Google Maps API.)
+
+TrafficLayerOptions object used to define the properties that can be set on a TrafficLayer.
+
+More information at @url(https://developers.google.com/maps/documentation/javascript/reference/map#TrafficLayerOptions google.maps.TrafficLayerOptions interface)
