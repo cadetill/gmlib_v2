@@ -57,16 +57,36 @@ Base class for <code>google.maps.Map</code> class.</p>
 <td class="itemcode"><code>destructor <strong><a href="GMLib.Map.Vcl.TGMMap.html#Destroy">Destroy</a></strong>; override;</code></td>
 </tr>
 <tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <strong><a href="GMLib.Map.Vcl.TGMMap.html#GetJsonFromHTMLForms">GetJsonFromHTMLForms</a></strong>: string; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <strong><a href="GMLib.Map.Vcl.TGMMap.html#PropToString">PropToString</a></strong>: string; override;</code></td>
+</tr>
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLib.Map.Vcl.TGMMap.html#Assign">Assign</a></strong>(Source: TPersistent); override;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.Vcl.TGMMap.html#SetEnableTimer">SetEnableTimer</a></strong>(State: Boolean); override;</code></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.Vcl.TGMMap.html#SetCenterProperty">SetCenterProperty</a></strong>(LatLng: <a href="GMLib.LatLng.TGMLatLng.html">TGMLatLng</a>); override;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.Vcl.TGMMap.html#SetEnableTimer">SetEnableTimer</a></strong>(State: Boolean); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLib.Map.Vcl.TGMMap.html#SetIntervalTimer">SetIntervalTimer</a></strong>(Interval: Integer); override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.Vcl.TGMMap.html#SetMapTypeIdProperty">SetMapTypeIdProperty</a></strong>(MapTypeId: <a href="GMLib.Sets.html#TGMMapTypeId">TGMMapTypeId</a>); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.Vcl.TGMMap.html#SetZoomProperty">SetZoomProperty</a></strong>(Zoom: Integer); override;</code></td>
 </tr>
 </table>
 <span id="PasDoc-Properties"></span><h3 class="summary">Properties</h3>
@@ -113,6 +133,34 @@ Destructor class.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="GetJsonFromHTMLForms"></span><code>function <strong>GetJsonFromHTMLForms</strong>: string; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Reads all fields of all HTML forms and returns a Json with their values.</p>
+<p>
+
+
+<p> </p>
+<h6 class="description_section">Returns</h6>
+<p class="return">Json with the info.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="PropToString"></span><code>function <strong>PropToString</strong>: string; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Converts all class properties values to a string separated by comma used to send values to a JavaScript function.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return">string with all properties.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><span id="Assign"></span><code>procedure <strong>Assign</strong>(Source: TPersistent); override;</code></td>
 </tr>
@@ -130,6 +178,20 @@ Call <code>Assign</code> to copy the properties or other attributes form an obje
 <dt>Source</dt>
 <dd>Object to copy the content.</dd>
 </dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="SetCenterProperty"></span><code>procedure <strong>SetCenterProperty</strong>(LatLng: <a href="GMLib.LatLng.TGMLatLng.html">TGMLatLng</a>); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Assigns the new map center value readed from HTML map code.</p>
+<p>
+
+
+<p>@params LatLng The new <a class="normal" href="GMLib.LatLng.TGMLatLng.html">TGMLatLng</a></p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -172,6 +234,34 @@ Set the interval of Timer that control de map events.</p>
 <dt>Interval</dt>
 <dd>Interval in miliseconds</dd>
 </dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="SetMapTypeIdProperty"></span><code>procedure <strong>SetMapTypeIdProperty</strong>(MapTypeId: <a href="GMLib.Sets.html#TGMMapTypeId">TGMMapTypeId</a>); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Assigns the new MapTypeId value readed from HTML map code.</p>
+<p>
+
+
+<p>@params MapTypeId The new <a class="normal" href="GMLib.Sets.html#TGMMapTypeId">TGMMapTypeId</a></p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="SetZoomProperty"></span><code>procedure <strong>SetZoomProperty</strong>(Zoom: Integer); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Assigns the new Zoom value readed from HTML map code.</p>
+<p>
+
+
+<p>@params Zoom The new zoom</p>
 </td></tr>
 </table>
 <h3 class="detail">Properties</h3>

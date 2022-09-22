@@ -29,7 +29,7 @@
 <a href="GMLib.Classes.html">GMLib.Classes</a></p>
 <h2 class="declaration">Declaration</h2>
 <p class="declaration">
-<code>type TGMComponent = class(TComponent, <a class="normal" href="GMLib.Classes.IGMAPIUrl.html">IGMAPIUrl</a>)</code></p>
+<code>type TGMComponent = class(TComponent, <a class="normal" href="GMLib.Classes.IGMAPIUrl.html">IGMAPIUrl</a>, <a class="normal" href="GMLib.Classes.IGMToStr.html">IGMToStr</a>)</code></p>
 <h2 class="description">Description</h2>
 <p>
 Base class for all classes that inherit from <code>TComponent</code> into GMLib.</p>
@@ -49,6 +49,10 @@ Base class for all classes that inherit from <code>TComponent</code> into GMLib.
 <td class="itemcode"><code>constructor <strong><a href="GMLib.Classes.TGMComponent.html#Create">Create</a></strong>(AOwner: TComponent); override;</code></td>
 </tr>
 <tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <strong><a href="GMLib.Classes.TGMComponent.html#PropToString">PropToString</a></strong>: string; virtual;</code></td>
+</tr>
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLib.Classes.TGMComponent.html#Assign">Assign</a></strong>(Source: TPersistent); override;</code></td>
 </tr>
@@ -88,6 +92,19 @@ Class constructor.</p>
 <dd>Component owner.</dd>
 </dl>
 </td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="PropToString"></span><code>function <strong>PropToString</strong>: string; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Converts all class properties values to a string separated by comma used to send values to a JavaScript function.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return">string with all properties.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">

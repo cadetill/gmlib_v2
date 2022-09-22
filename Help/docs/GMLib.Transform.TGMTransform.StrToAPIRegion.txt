@@ -1,0 +1,5 @@
+@abstract(Returns the @link(TGMAPIRegion) represented by the string Value.)
+
+@param Value string to convert to @link(TGMAPIRegion).
+
+@return @link(TGMAPIRegion) that represents the string.

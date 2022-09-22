@@ -1,0 +1,2 @@
+@abstract(@link(TGMTrafficLayerOptions) object used to define the properties that can be set on a TrafficLayer.)
+

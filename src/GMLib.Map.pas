@@ -430,7 +430,7 @@ type
   published
     // @include(..\Help\docs\GMLib.Map.TGMTrafficLayer.Show.txt)
     property Show: Boolean read FShow write SetShow;
-    // @include(..\Help\docs\GMLib.Map.TGMTrafficLayer.AutoRefresh.txt)
+    // @include(..\Help\docs\GMLib.Map.TGMTrafficLayer.TrafficLayerOptions.txt)
     property TrafficLayerOptions: TGMTrafficLayerOptions read FTrafficLayerOptions write FTrafficLayerOptions;
   end;
 
@@ -528,7 +528,7 @@ type
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.IntervalEvents.txt)
     property IntervalEvents: Integer read FIntervalEvents write SetIntervalEvents default 50;
 
-    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.TrafficLayer.txt)
+    // @include(..\Help\docs\GMLib.Map.TGMTrafficLayer.txt)
     property TrafficLayer: TGMTrafficLayer read FTrafficLayer write FTrafficLayer;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnActiveChange.txt)

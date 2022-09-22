@@ -15,6 +15,8 @@ DiGraph Classes {
   "IGMToStr" [href="GMLib.Classes.IGMToStr.html"]
   "TGMObject" -> "TInterfacedObject"
   "TGMObject" [href="GMLib.Classes.TGMObject.html"]
+  "THTMLForms" -> "TJsonDTO"
+  "THTMLForms" [href="GMLib.HTMLForms.THTMLForms.html"]
   "Exception" -> "TObject"
   "EGMException" -> "Exception"
   "EGMException" [href="GMLib.Exceptions.EGMException.html"]
@@ -40,6 +42,10 @@ DiGraph Classes {
   "EGMUnassignedObject" [href="GMLib.Exceptions.EGMUnassignedObject.html"]
   "EGMWithoutOwner" -> "EGMException"
   "EGMWithoutOwner" [href="GMLib.Exceptions.EGMWithoutOwner.html"]
+  "TEventsMap" -> "TObject"
+  "TEventsMap" [href="GMLib.HTMLForms.TEventsMap.html"]
+  "TLlbResults" -> "TObject"
+  "TLlbResults" [href="GMLib.HTMLForms.TLlbResults.html"]
   "TPersistent" -> "TObject"
   "TCollection" -> "TPersistent"
   "TGMInterfacedCollection" -> "TCollection"
@@ -85,6 +91,10 @@ DiGraph Classes {
   "TGMScaleControlOptions" [href="GMLib.Map.TGMScaleControlOptions.html"]
   "TGMStreetViewControlOptions" -> "TGMPersistentStr"
   "TGMStreetViewControlOptions" [href="GMLib.Map.TGMStreetViewControlOptions.html"]
+  "TGMTrafficLayer" -> "TGMPersistentStr"
+  "TGMTrafficLayer" [href="GMLib.Map.TGMTrafficLayer.html"]
+  "TGMTrafficLayerOptions" -> "TGMPersistentStr"
+  "TGMTrafficLayerOptions" [href="GMLib.Map.TGMTrafficLayerOptions.html"]
   "TGMZoomControlOptions" -> "TGMPersistentStr"
   "TGMZoomControlOptions" [href="GMLib.Map.TGMZoomControlOptions.html"]
 }

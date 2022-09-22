@@ -208,7 +208,7 @@ type
     property OnIntervalEventsChange;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnPrecisionChange.txt)
     property OnPrecisionChange;
-    // @include(..\Help\docs\GMLib.Events.TGMPropertyChanges.txt)
+    // @include(..\Help\docs\GMLib.Events.TGMPropertyChangesEvent.txt)
     property OnPropertyChanges;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnBoundsChanged.txt)
     property OnBoundsChanged;
@@ -298,7 +298,7 @@ type
     property OnIntervalEventsChange;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnPrecisionChange.txt)
     property OnPrecisionChange;
-    // @include(..\Help\docs\GMLib.Events.TGMPropertyChanges.txt)
+    // @include(..\Help\docs\GMLib.Events.TGMPropertyChangesEvent.txt)
     property OnPropertyChanges;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnBoundsChanged.txt)
     property OnBoundsChanged;

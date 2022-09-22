@@ -1,0 +1,5 @@
+@abstract(Returns the @link(TGMAPIVer) represented by the string Value.)
+
+@param Value string to convert to @link(TGMAPIVer).
+
+@return @link(TGMAPIVer) that represents the string.

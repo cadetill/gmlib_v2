@@ -1,0 +1,5 @@
+@abstract(Returns the @link(TGMLang) represented by the string Value.)
+
+@param Value string to convert to @link(TGMLang).
+
+@return @link(TGMLang) that represents the string.

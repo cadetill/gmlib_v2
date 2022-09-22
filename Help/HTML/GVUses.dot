@@ -6,6 +6,7 @@ DiGraph Uses {
   "GMLib.Constants" [href="GMLib.Constants.html"]
   "GMLib.Events" -> "GMLib.LatLngBounds"
   "GMLib.Events" -> "GMLib.LatLng"
+  "GMLib.Events" -> "GMLib.Sets"
   "GMLib.Events" [href="GMLib.Events.html"]
   "GMLib.Exceptions" -> "SysUtils"
   "GMLib.Exceptions" -> "GMLib.Sets"
@@ -13,6 +14,11 @@ DiGraph Uses {
   "GMLib.Functions" [href="GMLib.Functions.html"]
   "GMLib.Functions.Vcl" -> "GMLib.Functions"
   "GMLib.Functions.Vcl" [href="GMLib.Functions.Vcl.html"]
+  "GMLib.HTMLForms" -> "System.Generics.Collections"
+  "GMLib.HTMLForms" -> "REST.Json.Types"
+  "GMLib.HTMLForms" -> "Pkg.Json.DTO"
+  "GMLib.HTMLForms" -> "GMLib.Classes"
+  "GMLib.HTMLForms" [href="GMLib.HTMLForms.html"]
   "GMLib.LatLng" -> "Classes"
   "GMLib.LatLng" -> "GMLib.Sets"
   "GMLib.LatLng" -> "GMLib.Classes"
@@ -21,6 +27,7 @@ DiGraph Uses {
   "GMLib.LatLngBounds" -> "GMLib.Classes"
   "GMLib.LatLngBounds" -> "GMLib.Sets"
   "GMLib.LatLngBounds" -> "GMLib.LatLng"
+  "GMLib.LatLngBounds" -> "GMLib.HTMLForms"
   "GMLib.LatLngBounds" [href="GMLib.LatLngBounds.html"]
   "GMLib.Map" -> "Classes"
   "GMLib.Map" -> "GMLib.Classes"
@@ -28,6 +35,7 @@ DiGraph Uses {
   "GMLib.Map" -> "GMLib.LatLng"
   "GMLib.Map" -> "GMLib.LatLngBounds"
   "GMLib.Map" -> "GMLib.Events"
+  "GMLib.Map" -> "GMLib.HTMLForms"
   "GMLib.Map" [href="GMLib.Map.html"]
   "GMLib.Map.Vcl" -> "Graphics"
   "GMLib.Map.Vcl" -> "Classes"
@@ -37,8 +45,11 @@ DiGraph Uses {
   "GMLib.Map.Vcl" -> "uCEFInterfaces"
   "GMLib.Map.Vcl" -> "uCEFTypes"
   "GMLib.Map.Vcl" -> "Vcl.Edge"
+  "GMLib.Map.Vcl" -> "Vcl.OleCtrls"
   "GMLib.Map.Vcl" -> "Winapi.WebView2"
   "GMLib.Map.Vcl" -> "GMLib.Map"
+  "GMLib.Map.Vcl" -> "GMLib.LatLng"
+  "GMLib.Map.Vcl" -> "GMLib.Sets"
   "GMLib.Map.Vcl" [href="GMLib.Map.Vcl.html"]
   "GMLib.Register.Vcl" [href="GMLib.Register.Vcl.html"]
   "GMLib.Sets" [href="GMLib.Sets.html"]

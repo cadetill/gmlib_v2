@@ -1,0 +1,3 @@
+@abstract(Properties for @code(eventsMap) HTML form.)
+
+This HTML form contains all fields related by @link(TGMMap).

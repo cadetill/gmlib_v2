@@ -32,24 +32,33 @@ Events definition for GMLib.</p>
 
 <p>The GMLib.Events unit provides access to all events fired for GMLib components.</p>
 <span id="PasDoc-Uses"></span><h2 class="uses">Uses</h2>
-<ul class="useslist"><li><a href="GMLib.LatLngBounds.html">GMLib.LatLngBounds</a></li><li><a href="GMLib.LatLng.html">GMLib.LatLng</a></li></ul><h2 class="overview">Overview</h2>
+<ul class="useslist"><li><a href="GMLib.LatLngBounds.html">GMLib.LatLngBounds</a></li><li><a href="GMLib.LatLng.html">GMLib.LatLng</a></li><li><a href="GMLib.Sets.html">GMLib.Sets</a></li></ul><h2 class="overview">Overview</h2>
 <span id="PasDoc-Types"></span><h3 class="summary">Types</h3>
 <table class="summary wide_list">
 <tr class="list">
-<td class="itemcode"><code><strong><a href="GMLib.Events.html#TGMPropertyChanges">TGMPropertyChanges</a></strong> = procedure(Owner: TObject; PropName: string) of object;</code></td>
+<td class="itemcode"><code><strong><a href="GMLib.Events.html#TGMPropertyChangesEvent">TGMPropertyChangesEvent</a></strong> = procedure(Owner: TObject; PropName: string) of object;</code></td>
 </tr>
 <tr class="list2">
-<td class="itemcode"><code><strong><a href="GMLib.Events.html#TGMBoundsChanged">TGMBoundsChanged</a></strong> = procedure(Sender: TObject; NewBounds: <a href="GMLib.LatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a>) of object;</code></td>
+<td class="itemcode"><code><strong><a href="GMLib.Events.html#TGMBoundsChangedEvent">TGMBoundsChangedEvent</a></strong> = procedure(Sender: TObject; NewBounds: <a href="GMLib.LatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a>) of object;</code></td>
 </tr>
 <tr class="list">
 <td class="itemcode"><code><strong><a href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a></strong> = procedure(Sender: TObject; LatLng: <a href="GMLib.LatLng.TGMLatLng.html">TGMLatLng</a>; X, Y: Double) of object;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><strong><a href="GMLib.Events.html#TGMMapTypeIdChangedEvent">TGMMapTypeIdChangedEvent</a></strong> = procedure(Sender: TObject; NewMapTypeId: <a href="GMLib.Sets.html#TGMMapTypeId">TGMMapTypeId</a>) of object;</code></td>
+</tr>
+<tr class="list">
+<td class="itemcode"><code><strong><a href="GMLib.Events.html#TGMZoomChangedEvent">TGMZoomChangedEvent</a></strong> = procedure(Sender: TObject; NewZoom: Integer) of object;</code></td>
+</tr>
+<tr class="list2">
+<td class="itemcode"><code><strong><a href="GMLib.Events.html#TGMAfterPageLoaded">TGMAfterPageLoaded</a></strong> = procedure(Sender: TObject; First: Boolean) of object;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
 <h3 class="detail">Types</h3>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><span id="TGMPropertyChanges"></span><code><strong>TGMPropertyChanges</strong> = procedure(Owner: TObject; PropName: string) of object;</code></td>
+<td class="itemcode"><span id="TGMPropertyChangesEvent"></span><code><strong>TGMPropertyChangesEvent</strong> = procedure(Owner: TObject; PropName: string) of object;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -69,7 +78,7 @@ Event fired when a property from and object changes.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
-<td class="itemcode"><span id="TGMBoundsChanged"></span><code><strong>TGMBoundsChanged</strong> = procedure(Sender: TObject; NewBounds: <a href="GMLib.LatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a>) of object;</code></td>
+<td class="itemcode"><span id="TGMBoundsChangedEvent"></span><code><strong>TGMBoundsChangedEvent</strong> = procedure(Sender: TObject; NewBounds: <a href="GMLib.LatLngBounds.TGMLatLngBounds.html">TGMLatLngBounds</a>) of object;</code></td>
 </tr>
 <tr><td colspan="1">
 <p>
@@ -93,7 +102,7 @@ OnBoundsChanged event is fired when the bounds of map changed.</p>
 </tr>
 <tr><td colspan="1">
 <p>
-TLatLngEvent is used for events that return a lat/lng formatted in LatLng and a X and Y.</p>
+TGMLatLngEvent is used for events that return a lat/lng formatted in LatLng and a X and Y.</p>
 <p>
 
 
@@ -108,6 +117,64 @@ TLatLngEvent is used for events that return a lat/lng formatted in LatLng and a 
 <dd>X Coordinate.</dd>
 <dt>Y</dt>
 <dd>Y Coordinate.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMMapTypeIdChangedEvent"></span><code><strong>TGMMapTypeIdChangedEvent</strong> = procedure(Sender: TObject; NewMapTypeId: <a href="GMLib.Sets.html#TGMMapTypeId">TGMMapTypeId</a>) of object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+This event is fired when the mapTypeId property changes.</p>
+<p>
+
+
+<p>  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Sender</dt>
+<dd>Owner object.</dd>
+<dt>NewMapTypeId</dt>
+<dd>The new <a class="normal" href="GMLib.Sets.html#TGMMapTypeId">TGMMapTypeId</a>.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMZoomChangedEvent"></span><code><strong>TGMZoomChangedEvent</strong> = procedure(Sender: TObject; NewZoom: Integer) of object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+This event is fired when the map zoom property changes.</p>
+<p>
+
+
+<p>  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Sender</dt>
+<dd>Owner object.</dd>
+<dt>NewZoom</dt>
+<dd>The new zoom.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="itemcode"><span id="TGMAfterPageLoaded"></span><code><strong>TGMAfterPageLoaded</strong> = procedure(Sender: TObject; First: Boolean) of object;</code></td>
+</tr>
+<tr><td colspan="1">
+<p>
+AfterPageLoaded event is fired when the base HTML code es loaded (<code>First</code> param is <code>True</code>) or map is loaded (<code>First</code> param is <code>False</code>).
+
+<p>  </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Sender</dt>
+<dd>Owner object.</dd>
+<dt>First</dt>
+<dd>True when HTML code loaded. False when Google Maps map loaded.</dd>
 </dl>
 </td></tr>
 </table>

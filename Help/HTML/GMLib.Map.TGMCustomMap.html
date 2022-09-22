@@ -59,16 +59,24 @@ Base class for <code>google.maps.Map</code> class.</p>
 <td class="itemcode"><code>constructor <strong><a href="GMLib.Map.TGMCustomMap.html#Create">Create</a></strong>(AOwner: TComponent); override;</code></td>
 </tr>
 <tr class="list2">
-<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>function <strong><a href="GMLib.Map.TGMCustomMap.html#GetHTMLCode">GetHTMLCode</a></strong>: string;</code></td>
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>destructor <strong><a href="GMLib.Map.TGMCustomMap.html#Destroy">Destroy</a></strong>; override;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>function <strong><a href="GMLib.Map.TGMCustomMap.html#GetValueFromHTML">GetValueFromHTML</a></strong>(FieldNameId: string): string; virtual; abstract;</code></td>
+<td class="itemcode"><code>function <strong><a href="GMLib.Map.TGMCustomMap.html#GetHTMLCode">GetHTMLCode</a></strong>: string;</code></td>
 </tr>
 <tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>function <strong><a href="GMLib.Map.TGMCustomMap.html#GetJsonFromHTMLForms">GetJsonFromHTMLForms</a></strong>: string; virtual; abstract;</code></td>
+</tr>
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#Assign">Assign</a></strong>(Source: TPersistent); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#DoOpenMap">DoOpenMap</a></strong>; virtual;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
@@ -92,11 +100,23 @@ Base class for <code>google.maps.Map</code> class.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#SetEnableTimer">SetEnableTimer</a></strong>(State: Boolean); virtual; abstract;</code></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#SetCenterProperty">SetCenterProperty</a></strong>(LatLng: <a href="GMLib.LatLng.TGMLatLng.html">TGMLatLng</a>); virtual; abstract;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#SetEnableTimer">SetEnableTimer</a></strong>(State: Boolean); virtual; abstract;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#SetIntervalTimer">SetIntervalTimer</a></strong>(Interval: Integer); virtual; abstract;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#SetMapTypeIdProperty">SetMapTypeIdProperty</a></strong>(MapTypeId: <a href="GMLib.Sets.html#TGMMapTypeId">TGMMapTypeId</a>); virtual; abstract;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMCustomMap.html#SetZoomProperty">SetZoomProperty</a></strong>(Zoom: Integer); virtual; abstract;</code></td>
 </tr>
 </table>
 <span id="PasDoc-Properties"></span><h3 class="summary">Properties</h3>
@@ -107,51 +127,103 @@ Base class for <code>google.maps.Map</code> class.</p>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#APIKey">APIKey</a></strong>: string read FAPIKey write SetAPIKey;</code></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#AfterPageLoaded">AfterPageLoaded</a></strong>: <a href="GMLib.Events.html#TGMAfterPageLoaded">TGMAfterPageLoaded</a> read FAfterPageLoaded write FAfterPageLoaded;</code></td>
 </tr>
 <tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#APIKey">APIKey</a></strong>: string read FAPIKey write SetAPIKey;</code></td>
+</tr>
+<tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#APILang">APILang</a></strong>: <a href="GMLib.Sets.html#TGMAPILang">TGMAPILang</a> read FAPILang write SetAPILang default <a href="GMLib.Sets.html#lEnglish">lEnglish</a>;</code></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#APIRegion">APIRegion</a></strong>: <a href="GMLib.Sets.html#TGMAPIRegion">TGMAPIRegion</a> read FAPIRegion write SetAPIRegion default <a href="GMLib.Sets.html#rUndefined">rUndefined</a>;</code></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#APIVer">APIVer</a></strong>: <a href="GMLib.Sets.html#TGMAPIVer">TGMAPIVer</a> read FAPIVer write SetAPIVer default <a href="GMLib.Sets.html#avWeekly">avWeekly</a>;</code></td>
 </tr>
-<tr class="list2">
-<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#IntervalEvents">IntervalEvents</a></strong>: Integer read FIntervalEvents write SetIntervalEvents default 200;</code></td>
-</tr>
 <tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#IntervalEvents">IntervalEvents</a></strong>: Integer read FIntervalEvents write SetIntervalEvents default 50;</code></td>
+</tr>
+<tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnActiveChange">OnActiveChange</a></strong>: TNotifyEvent read FOnActiveChange write FOnActiveChange;</code></td>
 </tr>
-<tr class="list2">
-<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnBoundsChanged">OnBoundsChanged</a></strong>: <a href="GMLib.Events.html#TGMBoundsChanged">TGMBoundsChanged</a> read FOnBoundsChanged write FOnBoundsChanged;</code></td>
-</tr>
 <tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnBoundsChanged">OnBoundsChanged</a></strong>: <a href="GMLib.Events.html#TGMBoundsChangedEvent">TGMBoundsChangedEvent</a> read FOnBoundsChanged write FOnBoundsChanged;</code></td>
+</tr>
+<tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnCenterChanged">OnCenterChanged</a></strong>: <a href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> read FOnCenterChanged write FOnCenterChanged;</code></td>
 </tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnClick">OnClick</a></strong>: <a href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> read FOnClick write FOnClick;</code></td>
+</tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnIntervalEventsChange">OnIntervalEventsChange</a></strong>: TNotifyEvent read FOnIntervalEventsChange write FOnIntervalEventsChange;</code></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnContextmenu">OnContextmenu</a></strong>: <a href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> read FOnContextmenu write FOnContextmenu;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnPrecisionChange">OnPrecisionChange</a></strong>: TNotifyEvent read FOnPrecisionChange write FOnPrecisionChange;</code></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnDblClick">OnDblClick</a></strong>: <a href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> read FOnDblClick write FOnDblClick;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnPropertyChanges">OnPropertyChanges</a></strong>: <a href="GMLib.Events.html#TGMPropertyChanges">TGMPropertyChanges</a> read FOnPropertyChanges write FOnPropertyChanges;</code></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnDrag">OnDrag</a></strong>: TNotifyEvent read FOnDrag write FOnDrag;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnDragEnd">OnDragEnd</a></strong>: TNotifyEvent read FOnDragEnd write FOnDragEnd;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnDragStart">OnDragStart</a></strong>: TNotifyEvent read FOnDragStart write FOnDragStart;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnIntervalEventsChange">OnIntervalEventsChange</a></strong>: TNotifyEvent read FOnIntervalEventsChange write FOnIntervalEventsChange;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnMapTypeIdChanged">OnMapTypeIdChanged</a></strong>: <a href="GMLib.Events.html#TGMMapTypeIdChangedEvent">TGMMapTypeIdChangedEvent</a> read FOnMapTypeIdChanged write FOnMapTypeIdChanged;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnMouseMove">OnMouseMove</a></strong>: <a href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> read FOnMouseMove write FOnMouseMove;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnMouseOut">OnMouseOut</a></strong>: <a href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> read FOnMouseOut write FOnMouseOut;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnMouseOver">OnMouseOver</a></strong>: <a href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> read FOnMouseOver write FOnMouseOver;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnPrecisionChange">OnPrecisionChange</a></strong>: TNotifyEvent read FOnPrecisionChange write FOnPrecisionChange;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnPropertyChanges">OnPropertyChanges</a></strong>: <a href="GMLib.Events.html#TGMPropertyChangesEvent">TGMPropertyChangesEvent</a> read FOnPropertyChanges write FOnPropertyChanges;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#OnZoomChanged">OnZoomChanged</a></strong>: <a href="GMLib.Events.html#TGMZoomChangedEvent">TGMZoomChangedEvent</a> read FOnZoomChanged write FOnZoomChanged;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#Precision">Precision</a></strong>: Integer read FPrecision write SetPrecision default 0;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMCustomMap.html#TrafficLayer">TrafficLayer</a></strong>: <a href="GMLib.Map.TGMTrafficLayer.html">TGMTrafficLayer</a> read FTrafficLayer write FTrafficLayer;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -192,6 +264,18 @@ Class constructor.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="Destroy"></span><code>destructor <strong>Destroy</strong>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Destructor class.</p>
+<p>
+ </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><span id="GetHTMLCode"></span><code>function <strong>GetHTMLCode</strong>: string;</code></td>
 </tr>
@@ -219,23 +303,17 @@ Returns the HTML code of <em>map.html</em> on <em>gmmapres.res</em>.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><span id="GetValueFromHTML"></span><code>function <strong>GetValueFromHTML</strong>(FieldNameId: string): string; virtual; abstract;</code></td>
+<td class="itemcode"><span id="GetJsonFromHTMLForms"></span><code>function <strong>GetJsonFromHTMLForms</strong>: string; virtual; abstract;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Gets the <code>FieldName</code> value from <code>FormName</code> form of the HTML code.</p>
+Reads all fields of all HTML forms and returns a Json with their values.</p>
 <p>
 
 
-<p>  </p>
-<h6 class="description_section">Parameters</h6>
-<dl class="parameters">
-<dt>FormName</dt>
-<dd>Name of the form where to look for the field.</dd>
-<dt>FieldName</dt>
-<dd>Name of the field from which to return the value.</dd>
-</dl>
-</td></tr>
+<p> </p>
+<h6 class="description_section">Returns</h6>
+<p class="return">Json with the info.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
@@ -256,6 +334,18 @@ Call <code>Assign</code> to copy the properties or other attributes form an obje
 <dt>Source</dt>
 <dd>Object to copy the content.</dd>
 </dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="DoOpenMap"></span><code>procedure <strong>DoOpenMap</strong>; virtual;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Executes the necessary scripts to display the map in the browser.</p>
+<p>
+ </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -362,6 +452,20 @@ Method to call into the owner object when changes a property into the current ob
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="SetCenterProperty"></span><code>procedure <strong>SetCenterProperty</strong>(LatLng: <a href="GMLib.LatLng.TGMLatLng.html">TGMLatLng</a>); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Assigns the new map center value readed from HTML map code.</p>
+<p>
+
+
+<p>@params LatLng The new <a class="normal" href="GMLib.LatLng.TGMLatLng.html">TGMLatLng</a></p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><span id="SetEnableTimer"></span><code>procedure <strong>SetEnableTimer</strong>(State: Boolean); virtual; abstract;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -401,6 +505,34 @@ Set the interval of Timer that control de map events.</p>
 </dl>
 </td></tr>
 </table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="SetMapTypeIdProperty"></span><code>procedure <strong>SetMapTypeIdProperty</strong>(MapTypeId: <a href="GMLib.Sets.html#TGMMapTypeId">TGMMapTypeId</a>); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Assigns the new MapTypeId value readed from HTML map code.</p>
+<p>
+
+
+<p>@params MapTypeId The new <a class="normal" href="GMLib.Sets.html#TGMMapTypeId">TGMMapTypeId</a></p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="SetZoomProperty"></span><code>procedure <strong>SetZoomProperty</strong>(Zoom: Integer); virtual; abstract;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Assigns the new Zoom value readed from HTML map code.</p>
+<p>
+
+
+<p>@params Zoom The new zoom</p>
+</td></tr>
+</table>
 <h3 class="detail">Properties</h3>
 <table class="detail wide_list">
 <tr class="list">
@@ -410,6 +542,22 @@ Set the interval of Timer that control de map events.</p>
 <tr><td colspan="2">
 <p>
 Activate or deactivate access to the map. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="AfterPageLoaded"></span><code>property <strong>AfterPageLoaded</strong>: <a href="GMLib.Events.html#TGMAfterPageLoaded">TGMAfterPageLoaded</a> read FAfterPageLoaded write FAfterPageLoaded;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+AfterPageLoaded event is fired when page is loaded.</p>
+<p>
+
+
+<p>If param <code>First</code> is <code>True</code>, the base HTML code es loaded. When <code>False</code> the map is loaded.
+
+<p>See <a class="normal" href="GMLib.Events.html#TGMAfterPageLoaded">TGMAfterPageLoaded</a> for more info. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -516,7 +664,7 @@ Version of the Google Maps API to use.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><span id="IntervalEvents"></span><code>property <strong>IntervalEvents</strong>: Integer read FIntervalEvents write SetIntervalEvents default 200;</code></td>
+<td class="itemcode"><span id="IntervalEvents"></span><code>property <strong>IntervalEvents</strong>: Integer read FIntervalEvents write SetIntervalEvents default 50;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -536,22 +684,15 @@ OnActiveChange event is fired when Active property value changes. </p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><span id="OnBoundsChanged"></span><code>property <strong>OnBoundsChanged</strong>: <a href="GMLib.Events.html#TGMBoundsChanged">TGMBoundsChanged</a> read FOnBoundsChanged write FOnBoundsChanged;</code></td>
+<td class="itemcode"><span id="OnBoundsChanged"></span><code>property <strong>OnBoundsChanged</strong>: <a href="GMLib.Events.html#TGMBoundsChangedEvent">TGMBoundsChangedEvent</a> read FOnBoundsChanged write FOnBoundsChanged;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-OnBoundsChanged event is fired when the bounds of map changed.</p>
+This event is fired when the viewport bounds have changed.</p>
 <p>
 
 
-<p> </p>
-<h6 class="description_section">Parameters</h6>
-<dl class="parameters">
-<dt>Sender</dt>
-<dd>Owner object.</dd>
-<dt>NewBounds</dt>
-<dd>New map bounds.</dd>
-</dl>
+<p>See <a class="normal" href="GMLib.Events.html#TGMBoundsChangedEvent">TGMBoundsChangedEvent</a> for more info.</p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -561,22 +702,93 @@ OnBoundsChanged event is fired when the bounds of map changed.</p>
 </tr>
 <tr><td colspan="2">
 <p>
-TLatLngEvent is used for events that return a lat/lng formatted in LatLng and a X and Y.</p>
+This event is fired when the map center property changes.</p>
 <p>
 
 
-<p>    </p>
-<h6 class="description_section">Parameters</h6>
-<dl class="parameters">
-<dt>Sender</dt>
-<dd>Owner object.</dd>
-<dt>LatLng</dt>
-<dd>Lat/lng coordinates.</dd>
-<dt>X</dt>
-<dd>X Coordinate.</dd>
-<dt>Y</dt>
-<dd>Y Coordinate.</dd>
-</dl>
+<p>This event changes the <code>Center</code> property.
+
+<p>See <a class="normal" href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> for more info.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="OnClick"></span><code>property <strong>OnClick</strong>: <a href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> read FOnClick write FOnClick;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+This event is fired when the user clicks on the map.</p>
+<p>
+
+
+<p>See <a class="normal" href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> for more info.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="OnContextmenu"></span><code>property <strong>OnContextmenu</strong>: <a href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> read FOnContextmenu write FOnContextmenu;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+This event is fired when the DOM contextmenu event is fired on the map container or when the user rightclicks on the map.</p>
+<p>
+
+
+<p>See <a class="normal" href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> for more info.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="OnDblClick"></span><code>property <strong>OnDblClick</strong>: <a href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> read FOnDblClick write FOnDblClick;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+This event is fired when the user double-clicks on the map.</p>
+<p>
+
+
+<p>Note that the click event will also fire, right before this one.
+
+<p>See <a class="normal" href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> for more info.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="OnDrag"></span><code>property <strong>OnDrag</strong>: TNotifyEvent read FOnDrag write FOnDrag;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+This event is repeatedly fired while the user drags the map.</p>
+<p>
+ </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="OnDragEnd"></span><code>property <strong>OnDragEnd</strong>: TNotifyEvent read FOnDragEnd write FOnDragEnd;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+This event is fired when the user stops dragging the map.</p>
+<p>
+ </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="OnDragStart"></span><code>property <strong>OnDragStart</strong>: TNotifyEvent read FOnDragStart write FOnDragStart;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+This event is fired when the user starts dragging the map.</p>
+<p>
+ </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -592,6 +804,62 @@ OnIntervalEventsChange event is fired when IntervalEvents property value changes
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="OnMapTypeIdChanged"></span><code>property <strong>OnMapTypeIdChanged</strong>: <a href="GMLib.Events.html#TGMMapTypeIdChangedEvent">TGMMapTypeIdChangedEvent</a> read FOnMapTypeIdChanged write FOnMapTypeIdChanged;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+This event is fired whenever the user's mouse moves over the map container.</p>
+<p>
+
+
+<p>See <a class="normal" href="GMLib.Events.html#TGMMapTypeIdChangedEvent">TGMMapTypeIdChangedEvent</a> for more info.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="OnMouseMove"></span><code>property <strong>OnMouseMove</strong>: <a href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> read FOnMouseMove write FOnMouseMove;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+This event is fired whenever the user's mouse moves over the map container.</p>
+<p>
+
+
+<p>See <a class="normal" href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> for more info.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="OnMouseOut"></span><code>property <strong>OnMouseOut</strong>: <a href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> read FOnMouseOut write FOnMouseOut;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+This event is fired when the user's mouse exits the map container.</p>
+<p>
+
+
+<p>See <a class="normal" href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> for more info.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="OnMouseOver"></span><code>property <strong>OnMouseOver</strong>: <a href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> read FOnMouseOver write FOnMouseOver;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+This event is fired when the user's mouse enters the map container.</p>
+<p>
+
+
+<p>See <a class="normal" href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a> for more info.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
 <td class="itemcode"><span id="OnPrecisionChange"></span><code>property <strong>OnPrecisionChange</strong>: TNotifyEvent read FOnPrecisionChange write FOnPrecisionChange;</code></td>
 </tr>
 <tr><td colspan="2">
@@ -602,7 +870,7 @@ OnPrecisionChange event is fired when Precision property value changes.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
-<td class="itemcode"><span id="OnPropertyChanges"></span><code>property <strong>OnPropertyChanges</strong>: <a href="GMLib.Events.html#TGMPropertyChanges">TGMPropertyChanges</a> read FOnPropertyChanges write FOnPropertyChanges;</code></td>
+<td class="itemcode"><span id="OnPropertyChanges"></span><code>property <strong>OnPropertyChanges</strong>: <a href="GMLib.Events.html#TGMPropertyChangesEvent">TGMPropertyChangesEvent</a> read FOnPropertyChanges write FOnPropertyChanges;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
@@ -622,6 +890,20 @@ Event fired when a property from and object changes.</p>
 </table>
 <table class="detail wide_list">
 <tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="OnZoomChanged"></span><code>property <strong>OnZoomChanged</strong>: <a href="GMLib.Events.html#TGMZoomChangedEvent">TGMZoomChangedEvent</a> read FOnZoomChanged write FOnZoomChanged;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+This event is fired when the map zoom property changes.</p>
+<p>
+
+
+<p>See <a class="normal" href="GMLib.Events.html#TGMZoomChangedEvent">TGMZoomChangedEvent</a> for more info.</p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
 <td class="itemcode"><span id="Precision"></span><code>property <strong>Precision</strong>: Integer read FPrecision write SetPrecision default 0;</code></td>
 </tr>
@@ -632,6 +914,20 @@ Precision for lat and lng values.</p>
 
 
 <p>Possibles values:<br> 0 =&gt; Max precision<br> 1..17 =&gt; Decimal precision </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="protected.gif" alt="Protected" title="Protected"></a></td>
+<td class="itemcode"><span id="TrafficLayer"></span><code>property <strong>TrafficLayer</strong>: <a href="GMLib.Map.TGMTrafficLayer.html">TGMTrafficLayer</a> read FTrafficLayer write FTrafficLayer;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Class for <code>google.maps.TrafficLayer</code> class.</p>
+<p>
+
+
+<p>More information at <a href="https://developers.google.com/maps/documentation/javascript/reference/map#TrafficLayer">google.maps.TrafficLayer class</a></p>
 </td></tr>
 </table>
 <hr><span class="appinfo"><em>Generated by <a href="https://github.com/pasdoc/pasdoc/wiki">PasDoc 0.15.0</a>. </em>

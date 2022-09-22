@@ -47,7 +47,7 @@ Interface that defines the method to call to execute a JavaScript function.</p>
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <strong><a href="GMLib.Classes.IGMExecJS.html#GetValueFromHTML">GetValueFromHTML</a></strong>(FieldNameId: string): string;</code></td>
+<td class="itemcode"><code>function <strong><a href="GMLib.Classes.IGMExecJS.html#GetJsonFromHTMLForms">GetJsonFromHTMLForms</a></strong>: string;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
@@ -59,23 +59,17 @@ Interface that defines the method to call to execute a JavaScript function.</p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><span id="GetValueFromHTML"></span><code>function <strong>GetValueFromHTML</strong>(FieldNameId: string): string;</code></td>
+<td class="itemcode"><span id="GetJsonFromHTMLForms"></span><code>function <strong>GetJsonFromHTMLForms</strong>: string;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Gets the <code>FieldName</code> value from <code>FormName</code> form of the HTML code.</p>
+Reads all fields of all HTML forms and returns a Json with their values.</p>
 <p>
 
 
-<p>  </p>
-<h6 class="description_section">Parameters</h6>
-<dl class="parameters">
-<dt>FormName</dt>
-<dd>Name of the form where to look for the field.</dd>
-<dt>FieldName</dt>
-<dd>Name of the field from which to return the value.</dd>
-</dl>
-</td></tr>
+<p> </p>
+<h6 class="description_section">Returns</h6>
+<p class="return">Json with the info.</p></td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">

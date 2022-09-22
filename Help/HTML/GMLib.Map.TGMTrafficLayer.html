@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Google Maps Library: GMLib.Map: Class TGMMapTypeControlOptions</title>
+<title>Google Maps Library: GMLib.Map: Class TGMTrafficLayer</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="PasDoc 0.15.0">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -21,7 +21,7 @@
 </tr>
 </table>
 <hr noshade="" size="1">
-<span id="TGMMapTypeControlOptions"></span><h1 class="cio">Class TGMMapTypeControlOptions</h1>
+<span id="TGMTrafficLayer"></span><h1 class="cio">Class TGMTrafficLayer</h1>
 <div class="sections">
 <div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></div><div class="one_section">Fields</div><div class="one_section"><a class="section" href="#PasDoc-Methods">Methods</a></div><div class="one_section"><a class="section" href="#PasDoc-Properties">Properties</a></div></div>
 <span id="PasDoc-Description"></span><h2 class="unit">Unit</h2>
@@ -29,14 +29,14 @@
 <a href="GMLib.Map.html">GMLib.Map</a></p>
 <h2 class="declaration">Declaration</h2>
 <p class="declaration">
-<code>type TGMMapTypeControlOptions = class(<a class="normal" href="GMLib.Classes.TGMPersistentStr.html">TGMPersistentStr</a>)</code></p>
+<code>type TGMTrafficLayer = class(<a class="normal" href="GMLib.Classes.TGMPersistentStr.html">TGMPersistentStr</a>)</code></p>
 <h2 class="description">Description</h2>
 <p>
-<code>google.maps.MapTypeControlOptions</code> object from Google Maps API.</p>
+Class for <code>google.maps.TrafficLayer</code> class.</p>
 <p>
 
 
-<p>Options for the rendering of the map type control.<br><br> More information at <a href="https://developers.google.com/maps/documentation/javascript/reference/control#MapTypeControlOptions">google.maps.MapTypeControlOptions interface</a>. </p>
+<p>More information at <a href="https://developers.google.com/maps/documentation/javascript/reference/map#TrafficLayer">google.maps.TrafficLayer class</a></p>
 <span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
 <ul class="hierarchy"><li class="ancestor">TObject</li>
 <li class="ancestor">TPersistent</li>
@@ -44,39 +44,39 @@
 <li class="ancestor"><a class="normal" href="GMLib.Classes.TGMInterfacedOwnedPersistent.html">TGMInterfacedOwnedPersistent</a></li>
 <li class="ancestor"><a class="normal" href="GMLib.Classes.TGMPersistent.html">TGMPersistent</a></li>
 <li class="ancestor"><a class="normal" href="GMLib.Classes.TGMPersistentStr.html">TGMPersistentStr</a></li>
-<li class="thisitem">TGMMapTypeControlOptions</li></ul><h2 class="overview">Overview</h2>
+<li class="thisitem">TGMTrafficLayer</li></ul><h2 class="overview">Overview</h2>
 <span id="PasDoc-Methods"></span><h3 class="summary">Methods</h3>
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>constructor <strong><a href="GMLib.Map.TGMMapTypeControlOptions.html#Create">Create</a></strong>(AOwner: TPersistent); override;</code></td>
+<td class="itemcode"><code>constructor <strong><a href="GMLib.Map.TGMTrafficLayer.html#Create">Create</a></strong>(AOwner: TPersistent); override;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>function <strong><a href="GMLib.Map.TGMMapTypeControlOptions.html#PropToString">PropToString</a></strong>: string; override;</code></td>
+<td class="itemcode"><code>destructor <strong><a href="GMLib.Map.TGMTrafficLayer.html#Destroy">Destroy</a></strong>; override;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMMapTypeControlOptions.html#Assign">Assign</a></strong>(Source: TPersistent); override;</code></td>
+<td class="itemcode"><code>function <strong><a href="GMLib.Map.TGMTrafficLayer.html#PropToString">PropToString</a></strong>: string; override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.Map.TGMTrafficLayer.html#Assign">Assign</a></strong>(Source: TPersistent); override;</code></td>
 </tr>
 </table>
 <span id="PasDoc-Properties"></span><h3 class="summary">Properties</h3>
 <table class="summary wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMMapTypeControlOptions.html#APIUrl">APIUrl</a></strong>;</code></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMTrafficLayer.html#APIUrl">APIUrl</a></strong>;</code></td>
 </tr>
 <tr class="list2">
 <td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMMapTypeControlOptions.html#MapTypeIds">MapTypeIds</a></strong>: <a href="GMLib.Sets.html#TGMMapTypeIds">TGMMapTypeIds</a> read FMapTypeIds write SetMapTypeIds default [<a href="GMLib.Sets.html#mtHYBRID">mtHYBRID</a>, <a href="GMLib.Sets.html#mtROADMAP">mtROADMAP</a>, <a href="GMLib.Sets.html#mtSATELLITE">mtSATELLITE</a>, <a href="GMLib.Sets.html#mtTERRAIN">mtTERRAIN</a>];</code></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMTrafficLayer.html#Show">Show</a></strong>: Boolean read FShow write SetShow;</code></td>
 </tr>
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMMapTypeControlOptions.html#Position">Position</a></strong>: <a href="GMLib.Sets.html#TGMControlPosition">TGMControlPosition</a> read FPosition write SetPosition default <a href="GMLib.Sets.html#cpTOP_RIGHT">cpTOP_RIGHT</a>;</code></td>
-</tr>
-<tr class="list2">
-<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMMapTypeControlOptions.html#Style">Style</a></strong>: <a href="GMLib.Sets.html#TGMMapTypeControlStyle">TGMMapTypeControlStyle</a> read FStyle write SetStyle default <a href="GMLib.Sets.html#mtcDEFAULT">mtcDEFAULT</a>;</code></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Map.TGMTrafficLayer.html#TrafficLayerOptions">TrafficLayerOptions</a></strong>: <a href="GMLib.Map.TGMTrafficLayerOptions.html">TGMTrafficLayerOptions</a> read FTrafficLayerOptions write FTrafficLayerOptions;</code></td>
 </tr>
 </table>
 <h2 class="description">Description</h2>
@@ -98,6 +98,18 @@ Class constructor.</p>
 <dt>AOwner</dt>
 <dd>Owner of the object.</dd>
 </dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="Destroy"></span><code>destructor <strong>Destroy</strong>; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Destructor class.</p>
+<p>
+ </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
@@ -148,39 +160,29 @@ URL to Google Maps API page. </p>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><span id="MapTypeIds"></span><code>property <strong>MapTypeIds</strong>: <a href="GMLib.Sets.html#TGMMapTypeIds">TGMMapTypeIds</a> read FMapTypeIds write SetMapTypeIds default [<a href="GMLib.Sets.html#mtHYBRID">mtHYBRID</a>, <a href="GMLib.Sets.html#mtROADMAP">mtROADMAP</a>, <a href="GMLib.Sets.html#mtSATELLITE">mtSATELLITE</a>, <a href="GMLib.Sets.html#mtTERRAIN">mtTERRAIN</a>];</code></td>
+<td class="itemcode"><span id="Show"></span><code>property <strong>Show</strong>: Boolean read FShow write SetShow;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-IDs of map types to show in the control. </p>
+Show or hide the layer.</p>
+<p>
+
+
+<p>If set to <code>true</code>, shown the layer, else hidden it. </p>
 </td></tr>
 </table>
 <table class="detail wide_list">
 <tr class="list">
 <td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><span id="Position"></span><code>property <strong>Position</strong>: <a href="GMLib.Sets.html#TGMControlPosition">TGMControlPosition</a> read FPosition write SetPosition default <a href="GMLib.Sets.html#cpTOP_RIGHT">cpTOP_RIGHT</a>;</code></td>
+<td class="itemcode"><span id="TrafficLayerOptions"></span><code>property <strong>TrafficLayerOptions</strong>: <a href="GMLib.Map.TGMTrafficLayerOptions.html">TGMTrafficLayerOptions</a> read FTrafficLayerOptions write FTrafficLayerOptions;</code></td>
 </tr>
 <tr><td colspan="2">
 <p>
-Position id.</p>
+<a class="normal" href="GMLib.Map.TGMTrafficLayerOptions.html">TGMTrafficLayerOptions</a> object used to define the properties that can be set on a TrafficLayer.</p>
 <p>
 
 
-<p>Used to specify the position of the control on the map. </p>
-</td></tr>
-</table>
-<table class="detail wide_list">
-<tr class="list">
-<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
-<td class="itemcode"><span id="Style"></span><code>property <strong>Style</strong>: <a href="GMLib.Sets.html#TGMMapTypeControlStyle">TGMMapTypeControlStyle</a> read FStyle write SetStyle default <a href="GMLib.Sets.html#mtcDEFAULT">mtcDEFAULT</a>;</code></td>
-</tr>
-<tr><td colspan="2">
-<p>
-Style id.</p>
-<p>
-
-
-<p>Used to select what style of map type control to display. </p>
+<p></p>
 </td></tr>
 </table>
 <hr><span class="appinfo"><em>Generated by <a href="https://github.com/pasdoc/pasdoc/wiki">PasDoc 0.15.0</a>. </em>

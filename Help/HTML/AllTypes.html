@@ -29,56 +29,68 @@
 <th class="itemdesc">Description</th>
 </tr>
 <tr class="list">
+<td class="itemname"><a class="bold" href="GMLib.Events.html#TGMAfterPageLoaded">TGMAfterPageLoaded</a></td>
+<td class="itemunit"><a class="bold" href="GMLib.Events.html">GMLib.Events</a></td>
+<td class="itemdesc"><p>AfterPageLoaded event is fired when the base HTML code es loaded (<code>First</code> param is <code>True</code>) or map is loaded (<code>First</code> param is <code>False</code>).
+
+<p>  </p></td>
+</tr>
+<tr class="list2">
 <td class="itemname"><a class="bold" href="GMLib.Sets.html#TGMAPILang">TGMAPILang</a></td>
 <td class="itemunit"><a class="bold" href="GMLib.Sets.html">GMLib.Sets</a></td>
 <td class="itemdesc"><p>By default the API will attempt to load the most appropriate language based on the users location or browser settings.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="GMLib.Sets.html#TGMAPIRegion">TGMAPIRegion</a></td>
 <td class="itemunit"><a class="bold" href="GMLib.Sets.html">GMLib.Sets</a></td>
 <td class="itemdesc"><p>When you load the Maps JavaScript API from maps.googleapis.com it applies a default bias for application behavior towards the United States.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="GMLib.Sets.html#TGMAPIVer">TGMAPIVer</a></td>
 <td class="itemunit"><a class="bold" href="GMLib.Sets.html">GMLib.Sets</a></td>
 <td class="itemdesc"><p>Version of the Google Maps API to use
 
 <p>For more info see <a href="https://developers.google.com/maps/documentation/javascript/versions">Versioning</a> on Google Maps</p></td>
 </tr>
-<tr class="list2">
-<td class="itemname"><a class="bold" href="GMLib.Events.html#TGMBoundsChanged">TGMBoundsChanged</a></td>
+<tr class="list">
+<td class="itemname"><a class="bold" href="GMLib.Events.html#TGMBoundsChangedEvent">TGMBoundsChangedEvent</a></td>
 <td class="itemunit"><a class="bold" href="GMLib.Events.html">GMLib.Events</a></td>
 <td class="itemdesc"><p>OnBoundsChanged event is fired when the bounds of map changed.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="GMLib.Sets.html#TGMControlPosition">TGMControlPosition</a></td>
 <td class="itemunit"><a class="bold" href="GMLib.Sets.html">GMLib.Sets</a></td>
 <td class="itemdesc"><p>Identifiers used to specify the placement of controls on the map.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="GMLib.Sets.html#TGMGestureHandling">TGMGestureHandling</a></td>
 <td class="itemunit"><a class="bold" href="GMLib.Sets.html">GMLib.Sets</a></td>
 <td class="itemdesc"><p>This setting controls how the API handles gestures on the map.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="GMLib.Sets.html#TGMLang">TGMLang</a></td>
 <td class="itemunit"><a class="bold" href="GMLib.Sets.html">GMLib.Sets</a></td>
 <td class="itemdesc"><p>CEF4DELPHI installed delphi 6 delphi 7 delphi 2005 delphi 2006 delphi 2007 delphi 2009 delphi 2010 XE XE2 XE3 XE4 XE5 XE6 XE7 XE8 Seattle 10 Berlin 10.1 Tokyo 10.2 Rio 10.3 Sydney 10.4 Alexandria 11.0/11.1 Language in which messages are displayed of the exceptions raised by GMLib. </p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="GMLib.Events.html#TGMLatLngEvent">TGMLatLngEvent</a></td>
 <td class="itemunit"><a class="bold" href="GMLib.Events.html">GMLib.Events</a></td>
-<td class="itemdesc"><p>TLatLngEvent is used for events that return a lat/lng formatted in LatLng and a X and Y.</p></td>
+<td class="itemdesc"><p>TGMLatLngEvent is used for events that return a lat/lng formatted in LatLng and a X and Y.</p></td>
 </tr>
-<tr class="list">
+<tr class="list2">
 <td class="itemname"><a class="bold" href="GMLib.Sets.html#TGMMapTypeControlStyle">TGMMapTypeControlStyle</a></td>
 <td class="itemunit"><a class="bold" href="GMLib.Sets.html">GMLib.Sets</a></td>
 <td class="itemdesc"><p>Identifiers for common MapTypeControlStyle.</p></td>
 </tr>
-<tr class="list2">
+<tr class="list">
 <td class="itemname"><a class="bold" href="GMLib.Sets.html#TGMMapTypeId">TGMMapTypeId</a></td>
 <td class="itemunit"><a class="bold" href="GMLib.Sets.html">GMLib.Sets</a></td>
 <td class="itemdesc"><p>Identifiers for common MapTypes.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMLib.Events.html#TGMMapTypeIdChangedEvent">TGMMapTypeIdChangedEvent</a></td>
+<td class="itemunit"><a class="bold" href="GMLib.Events.html">GMLib.Events</a></td>
+<td class="itemdesc"><p>This event is fired when the mapTypeId property changes.</p></td>
 </tr>
 <tr class="list">
 <td class="itemname"><a class="bold" href="GMLib.Sets.html#TGMMapTypeIds">TGMMapTypeIds</a></td>
@@ -86,7 +98,7 @@
 <td class="itemdesc"><p>Set of <a class="normal" href="GMLib.Sets.html#TGMMapTypeId">TGMMapTypeId</a>.</p></td>
 </tr>
 <tr class="list2">
-<td class="itemname"><a class="bold" href="GMLib.Events.html#TGMPropertyChanges">TGMPropertyChanges</a></td>
+<td class="itemname"><a class="bold" href="GMLib.Events.html#TGMPropertyChangesEvent">TGMPropertyChangesEvent</a></td>
 <td class="itemunit"><a class="bold" href="GMLib.Events.html">GMLib.Events</a></td>
 <td class="itemdesc"><p>Event fired when a property from and object changes.</p></td>
 </tr>
@@ -94,6 +106,11 @@
 <td class="itemname"><a class="bold" href="GMLib.Sets.html#TGMScaleControlStyle">TGMScaleControlStyle</a></td>
 <td class="itemunit"><a class="bold" href="GMLib.Sets.html">GMLib.Sets</a></td>
 <td class="itemdesc"><p>Identifiers for scale control ids.</p></td>
+</tr>
+<tr class="list2">
+<td class="itemname"><a class="bold" href="GMLib.Events.html#TGMZoomChangedEvent">TGMZoomChangedEvent</a></td>
+<td class="itemunit"><a class="bold" href="GMLib.Events.html">GMLib.Events</a></td>
+<td class="itemdesc"><p>This event is fired when the map zoom property changes.</p></td>
 </tr>
 </table>
 <hr><span class="appinfo"><em>Generated by <a href="https://github.com/pasdoc/pasdoc/wiki">PasDoc 0.15.0</a>. </em>
