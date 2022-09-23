@@ -1,0 +1,3 @@
+@abstract(Initialize all HTML forms fields.)
+
+@param Intf Interface that defines the method to call to execute a JavaScript function.

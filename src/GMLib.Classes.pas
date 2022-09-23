@@ -310,7 +310,7 @@ var
   Intf: IGMControlChanges;
 begin
   if (FOwner <> nil) and Supports(FOwner, IGMControlChanges, Intf) then
-    Intf.PropertyChanged(Self, PropName)
+    Intf.PropertyChanged(Self, Self.ClassName + '_' + PropName)
   else
     if Assigned(FOnChange) then FOnChange(Self);
 end;

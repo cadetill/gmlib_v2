@@ -852,34 +852,19 @@ begin
 end;
 
 procedure TGMCustomMap.PropertyChanged(Prop: TPersistent; PropName: string);
-(*
-const
-  Str1 = '%s';
-  Str2 = '%s,%s';
-*)
 var
   Params: string;
 begin
-  if not FActive then Exit;
   if csDesigning in ComponentState then Exit;
 
-  if FIsUpdating then
-    Exit;
+  if not FActive then Exit;
+  if FIsUpdating then Exit;
 
-  Params := PropToString;
-  ExecuteJavaScript('setMapOptions', Params);
-
-(*
-  if (Prop is TGMCustomMapOptions) and SameText(PropName, 'Zoom') then
-    ExecuteJavaScript('MapChangeProperty', Format(Str2, [
-                                                         QuotedStr(PropName),
-                                                         IntToStr(TGMCustomMapOptions(Prop).Zoom)
-                                                        ]));
-  if (Prop is TGMLatLng) then
-    ExecuteJavaScript('MapChangeCenter', Format(Str1, [
-                                                       TGMLatLng(Prop).PropToString
-                                                      ]));
-*)
+  if Pos('TGMMapOptions_', PropName) > 0 then
+  begin
+    Params := PropToString;
+    ExecuteJavaScript('setMapOptions', Params);
+  end;
 
   if Assigned(FOnPropertyChanges) then FOnPropertyChanges(Prop, PropName);
 end;
@@ -1085,9 +1070,9 @@ begin
   if (GetOwner <> nil) and Supports(GetOwner, IGMControlChanges, Intf) then
   begin
     if Assigned(Prop) then
-      Intf.PropertyChanged(Prop, PropName)
+      Intf.PropertyChanged(Prop, Self.ClassName + '_' + PropName)
     else
-      Intf.PropertyChanged(Self, PropName);
+      Intf.PropertyChanged(Self, Self.ClassName + '_' + PropName);
   end
   else
     if Assigned(OnChange) then OnChange(Self);
@@ -1670,7 +1655,7 @@ const
   Str = '%s,%s';
 begin
   Result := Format(Str, [
-                         LowerCase(TGMTransform.GMBoolToStr(FShow)),
+                         LowerCase(TGMTransform.GMBoolToStr(FShow, True)),
                          FTrafficLayerOptions.PropToString
                         ]);
 end;
@@ -1712,7 +1697,7 @@ const
   Str = '%s';
 begin
   Result := Format(Str, [
-                         LowerCase(TGMTransform.GMBoolToStr(FAutoRefresh))
+                         LowerCase(TGMTransform.GMBoolToStr(FAutoRefresh, True))
                         ]);
 end;
 

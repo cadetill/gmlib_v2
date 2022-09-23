@@ -11,6 +11,7 @@ object MainFrm: TMainFrm
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnCloseQuery = FormCloseQuery
+  PixelsPerInch = 96
   TextHeight = 15
   object CEFWindowParent1: TCEFWindowParent
     Left = 0
@@ -229,7 +230,7 @@ object MainFrm: TMainFrm
           Top = 195
           Width = 291
           Height = 199
-          ActivePage = tsMapTypeControl
+          ActivePage = tsLayers
           Align = alBottom
           TabOrder = 4
           object tsFullScreenControl: TTabSheet
@@ -596,6 +597,19 @@ object MainFrm: TMainFrm
               OnChange = eMinZoomChange
             end
           end
+          object tsLayers: TTabSheet
+            Caption = 'Layers'
+            ImageIndex = 7
+            object cbTrafficLayerShow: TCheckBox
+              Left = 16
+              Top = 16
+              Width = 129
+              Height = 17
+              Caption = 'Show TrafficLayer'
+              TabOrder = 0
+              OnClick = cbTrafficLayerShowClick
+            end
+          end
         end
         object cbNoClear: TCheckBox
           Left = 8
@@ -652,8 +666,8 @@ object MainFrm: TMainFrm
     MapOptions.Zoom = 10
     APILang = lSpanish
     APIRegion = rSpain
-    TrafficLayer.Show = False
-    TrafficLayer.TrafficLayerOptions.AutoRefresh = False
+    TrafficLayer.Show = True
+    TrafficLayer.TrafficLayerOptions.AutoRefresh = True
     OnActiveChange = GMMapChrm1ActiveChange
     OnIntervalEventsChange = GMMapChrm1IntervalEventsChange
     OnPrecisionChange = GMMapChrm1PrecisionChange

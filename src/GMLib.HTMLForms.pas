@@ -102,11 +102,14 @@ type
     FEventsMap: TEventsMap;
     FLlbResults: TLlbResults;
   public
+    // @include(..\Help\docs\GMLib.HTMLForms.THTMLForms.Create.txt)
     constructor Create; override;
+    // @include(..\Help\docs\GMLib.HTMLForms.THTMLForms.Destroy.txt)
     destructor Destroy; override;
 
     // @include(..\Help\docs\GMLib.HTMLForms.THTMLForms.GetData.txt)
     class function GetData(Intf: IGMExecJS): THTMLForms;
+    // @include(..\Help\docs\GMLib.HTMLForms.THTMLForms.IniData.txt)
     class procedure IniData(Intf: IGMExecJS);
 
     // @include(..\Help\docs\GMLib.HTMLForms.TEventsMap.txt)

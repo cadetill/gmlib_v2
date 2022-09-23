@@ -97,6 +97,8 @@ type
     lMapTypeId: TLabel;
     cbKeyboardShortcuts: TCheckBox;
     cbIsFractionalZoomEnabled: TCheckBox;
+    tsLayers: TTabSheet;
+    cbTrafficLayerShow: TCheckBox;
     procedure Timer1Timer(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure Chromium1AfterCreated(Sender: TObject;
@@ -168,6 +170,7 @@ type
     procedure cbMapTypeIdChange(Sender: TObject);
     procedure cbKeyboardShortcutsClick(Sender: TObject);
     procedure cbIsFractionalZoomEnabledClick(Sender: TObject);
+    procedure cbTrafficLayerShowClick(Sender: TObject);
   private
     procedure GetAPILang;
     procedure GetAPIRegion;
@@ -333,6 +336,11 @@ end;
 procedure TMainFrm.cbSVPositionChange(Sender: TObject);
 begin
   GMMapChrm1.MapOptions.StreetViewControlOptions.Position := TGMTransform.StrToPosition(cbSVPosition.Text);
+end;
+
+procedure TMainFrm.cbTrafficLayerShowClick(Sender: TObject);
+begin
+  GMMapChrm1.TrafficLayer.Show := cbTrafficLayerShow.Checked;
 end;
 
 procedure TMainFrm.cbZoomControlClick(Sender: TObject);
@@ -649,7 +657,7 @@ end;
 procedure TMainFrm.GMMapChrm1PropertyChanges(Owner: TObject; PropName: string);
 begin
   mEvents.Lines.Add('OnPropertyChanges event fired: ' + PropName);
-  if SameText(PropName, 'MapTypeId') then
+  if Pos('maptypeid', LowerCase(PropName)) > 0 then
     GetMapTypeIds(clbMTIds, cbMapTypeId);
 end;
 
@@ -698,6 +706,8 @@ begin
   eZoom.Text := GMMapChrm1.MapOptions.Zoom.ToString;
   eMaxZoom.Text := GMMapChrm1.MapOptions.MaxZoom.ToString;
   eMinZoom.Text := GMMapChrm1.MapOptions.MinZoom.ToString;
+
+  cbTrafficLayerShow.Checked := GMMapChrm1.TrafficLayer.Show;
 end;
 
 procedure TMainFrm.Timer1Timer(Sender: TObject);
