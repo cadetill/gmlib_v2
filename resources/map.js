@@ -221,6 +221,7 @@ function setMapOptions(BackgroundColor,
   RotateControlOptionsPosition = StrToPosition(RotateControlOptionsPosition); 
   ScaleControlOptionsStyle = StrToScaleControlStyle(ScaleControlOptionsStyle);
   ZoomControlOptionsPosition = StrToPosition(ZoomControlOptionsPosition); 
+  StreetViewControlOptionsPosition = StrToPosition(StreetViewControlOptionsPosition); 
   Restriction = null;
   if (RestrictionEnabled) {
     Restriction = {
