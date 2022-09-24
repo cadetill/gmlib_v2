@@ -284,10 +284,10 @@ function setMapOptions(BackgroundColor,
                                          position: ZoomControlOptionsPosition
                                         }
                    };
-  if (map != null)                   
+  if (map != null) {                  
     map.setOptions(mapOptions);  
-  
-  ShowTraffic(TrafficShow, TrafficAutoRefresh);
+    ShowTraffic(TrafficShow, TrafficAutoRefresh);
+  }
 }
 
 /* **********************************
