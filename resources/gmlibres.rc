@@ -1,6 +1,6 @@
 // Fichero .RC con los recursos
-TGMMapChrm         	BITMAP  "tgmmap.bmp"
-TGMMapEdge         	BITMAP  "tgmmap.bmp"
+TGMMapChrm         	BITMAP  "tgmmapchrm.bmp"
+TGMMapEdge         	BITMAP  "tgmmapedge.bmp"
 //TGMMapChr       	BITMAP  "GMMapChr.bmp"
 //TGMMarker       	BITMAP  "GMMarker.bmp"
 //TGMInfoWindow   	BITMAP  "GMInfoWindow.bmp"
