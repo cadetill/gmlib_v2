@@ -298,7 +298,10 @@ function ShowTraffic(TrafficShow, TrafficAutoRefresh) {
           autoRefresh: TrafficAutoRefresh
          };
          
-  trafficLayer = new google.maps.TrafficLayer(opts);
+  if (trafficLayer == null)                   
+    trafficLayer = new google.maps.TrafficLayer(opts);
+  else 
+    trafficLayer.setOptions(opts);
   
   if (TrafficShow) trafficLayer.setMap(map);
   else trafficLayer.setMap(null);
