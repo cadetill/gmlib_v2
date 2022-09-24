@@ -207,7 +207,9 @@ function setMapOptions(BackgroundColor,
                        ZoomControl,
                        ZoomControlOptionsPosition,       // --> zoomControlOptions
                        TrafficShow,                      // --> trafficLayer
-                       TrafficAutoRefresh                // --> trafficLayer
+                       TrafficAutoRefresh,               // --> trafficLayer
+                       TransitShow,                      // --> transitLayer
+                       BicyclingShow                     // --> bicyclingLayer
                        ) {
   FullscreenControlOptionsPosition = StrToPosition(FullscreenControlOptionsPosition); 
   GestureHandling = StrToGestureHandling(GestureHandling); 
@@ -286,15 +288,16 @@ function setMapOptions(BackgroundColor,
                    };
   if (map != null) {                  
     map.setOptions(mapOptions);  
-    ShowTraffic(TrafficShow, TrafficAutoRefresh);
+    ShowLayers(TrafficShow, TrafficAutoRefresh, TransitShow, BicyclingShow);
   }
 }
 
 /* **********************************
-  this function update the traffic layer.
+  this function update layers.
 ********************************** */
-function ShowTraffic(TrafficShow, TrafficAutoRefresh) {
-  opts = {
+function ShowLayers(TrafficShow, TrafficAutoRefresh, TransitShow, BicyclingShow) {
+  // traffic layer
+  var opts = {
           autoRefresh: TrafficAutoRefresh
          };
          
@@ -305,6 +308,20 @@ function ShowTraffic(TrafficShow, TrafficAutoRefresh) {
   
   if (TrafficShow) trafficLayer.setMap(map);
   else trafficLayer.setMap(null);
+
+  // transit layer 
+  if (transitLayer == null)                   
+    transitLayer = new google.maps.TransitLayer();
+  
+  if (TransitShow) transitLayer.setMap(map);
+  else transitLayer.setMap(null);
+
+  // bicycling layer 
+  if (bicyclingLayer == null)                   
+    bicyclingLayer = new google.maps.BicyclingLayer();
+  
+  if (BicyclingShow) bicyclingLayer.setMap(map);
+  else bicyclingLayer.setMap(null);
 }
 
 /* **********************************
