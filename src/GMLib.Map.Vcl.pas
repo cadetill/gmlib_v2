@@ -201,6 +201,10 @@ type
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.TrafficLayer.txt)
     property TrafficLayer;
+    // @include(..\Help\docs\GMLib.Map.TGMTransitLayer.txt)
+    property TransitLayer;
+    // @include(..\Help\docs\GMLib.Map.TGMByciclingLayer.txt)
+    property ByciclingLayer;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnActiveChange.txt)
     property OnActiveChange;
@@ -291,6 +295,10 @@ type
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.TrafficLayer.txt)
     property TrafficLayer;
+    // @include(..\Help\docs\GMLib.Map.TGMTransitLayer.txt)
+    property TransitLayer;
+    // @include(..\Help\docs\GMLib.Map.TGMByciclingLayer.txt)
+    property ByciclingLayer;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnActiveChange.txt)
     property OnActiveChange;

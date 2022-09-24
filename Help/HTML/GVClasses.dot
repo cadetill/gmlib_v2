@@ -71,6 +71,8 @@ DiGraph Classes {
   "TGMPersistent" [href="GMLib.Classes.TGMPersistent.html"]
   "TGMPersistentStr" -> "TGMPersistent"
   "TGMPersistentStr" [href="GMLib.Classes.TGMPersistentStr.html"]
+  "TGMByciclingLayer" -> "TGMPersistentStr"
+  "TGMByciclingLayer" [href="GMLib.Map.TGMByciclingLayer.html"]
   "TGMCustomMapOptions" -> "TGMPersistentStr"
   "TGMCustomMapOptions" [href="GMLib.Map.TGMCustomMapOptions.html"]
   "TGMMapOptions" -> "TGMCustomMapOptions"
@@ -95,6 +97,8 @@ DiGraph Classes {
   "TGMTrafficLayer" [href="GMLib.Map.TGMTrafficLayer.html"]
   "TGMTrafficLayerOptions" -> "TGMPersistentStr"
   "TGMTrafficLayerOptions" [href="GMLib.Map.TGMTrafficLayerOptions.html"]
+  "TGMTransitLayer" -> "TGMPersistentStr"
+  "TGMTransitLayer" [href="GMLib.Map.TGMTransitLayer.html"]
   "TGMZoomControlOptions" -> "TGMPersistentStr"
   "TGMZoomControlOptions" [href="GMLib.Map.TGMZoomControlOptions.html"]
 }

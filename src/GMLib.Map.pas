@@ -434,6 +434,56 @@ type
     property TrafficLayerOptions: TGMTrafficLayerOptions read FTrafficLayerOptions write FTrafficLayerOptions;
   end;
 
+  // @include(..\Help\docs\GMLib.Map.TGMTransitLayer.txt)
+  TGMTransitLayer = class(TGMPersistentStr)
+  private
+    FShow: Boolean;
+    procedure SetShow(const Value: Boolean);
+  protected
+    // @exclude
+    function GetAPIUrl: string; override;
+  public
+    // @include(..\Help\docs\GMLib.Map.TGMTransitLayer.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
+    property APIUrl;
+  published
+    // @include(..\Help\docs\GMLib.Map.TGMTransitLayer.Show.txt)
+    property Show: Boolean read FShow write SetShow;
+  end;
+
+  // @include(..\Help\docs\GMLib.Map.TGMByciclingLayer.txt)
+  TGMByciclingLayer = class(TGMPersistentStr)
+  private
+    FShow: Boolean;
+    procedure SetShow(const Value: Boolean);
+  protected
+    // @exclude
+    function GetAPIUrl: string; override;
+  public
+    // @include(..\Help\docs\GMLib.Map.TGMByciclingLayer.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
+    property APIUrl;
+  published
+    // @include(..\Help\docs\GMLib.Map.TGMByciclingLayer.Show.txt)
+    property Show: Boolean read FShow write SetShow;
+  end;
+
   // @include(..\Help\docs\GMLib.Map.TGMCustomMap.txt)
   TGMCustomMap = class(TGMComponent, IGMExecJS, IGMControlChanges)
   private
@@ -463,6 +513,8 @@ type
     FOnZoomChanged: TGMZoomChangedEvent;
     FAfterPageLoaded: TGMAfterPageLoaded;
     FTrafficLayer: TGMTrafficLayer;
+    FTransitLayer: TGMTransitLayer;
+    FByciclingLayer: TGMByciclingLayer;
     procedure SetActive(const Value: Boolean);
     procedure SetAPILang(const Value: TGMAPILang);
     procedure SetAPIKey(const Value: string);
@@ -530,6 +582,10 @@ type
 
     // @include(..\Help\docs\GMLib.Map.TGMTrafficLayer.txt)
     property TrafficLayer: TGMTrafficLayer read FTrafficLayer write FTrafficLayer;
+    // @include(..\Help\docs\GMLib.Map.TGMTransitLayer.txt)
+    property TransitLayer: TGMTransitLayer read FTransitLayer write FTransitLayer;
+    // @include(..\Help\docs\GMLib.Map.TGMByciclingLayer.txt)
+    property ByciclingLayer: TGMByciclingLayer read FByciclingLayer write FByciclingLayer;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnActiveChange.txt)
     property OnActiveChange: TNotifyEvent read FOnActiveChange write FOnActiveChange;
@@ -625,6 +681,8 @@ begin
   FPrecision := 6;
   FBrowser := nil;
   FTrafficLayer := TGMTrafficLayer.Create(Self);
+  FTransitLayer := TGMTransitLayer.Create(Self);
+  FByciclingLayer := TGMByciclingLayer.Create(Self);
 
   FIsUpdating := False;
   FDocLoaded := False;
@@ -636,6 +694,10 @@ begin
 
   if Assigned(FTrafficLayer) then
     FTrafficLayer.Free;
+  if Assigned(FTransitLayer) then
+    FTransitLayer.Free;
+  if Assigned(FByciclingLayer) then
+    FByciclingLayer.Free;
 
   inherited;
 end;
@@ -647,6 +709,10 @@ begin
   Params := PropToString;
   ExecuteJavaScript('setMapOptions', Params);
   ExecuteJavaScript('doMap', '');
+  Params := FTrafficLayer.PropToString + ',' +
+            FTransitLayer.PropToString + ',' +
+            FByciclingLayer.PropToString;
+  ExecuteJavaScript('ShowLayers', Params);
 end;
 
 function TGMCustomMap.GetAPIUrl: string;
@@ -864,6 +930,17 @@ begin
   begin
     Params := PropToString;
     ExecuteJavaScript('setMapOptions', Params);
+  end;
+
+  if (Pos('TGMTrafficLayer_', PropName) > 0) or
+     (Pos('TGMTransitLayer_', PropName) > 0) or
+     (Pos('TGMByciclingLayer_', PropName) > 0)
+  then
+  begin
+    Params := FTrafficLayer.PropToString + ',' +
+              FTransitLayer.PropToString + ',' +
+              FByciclingLayer.PropToString;
+    ExecuteJavaScript('ShowLayers', Params);
   end;
 
   if Assigned(FOnPropertyChanges) then FOnPropertyChanges(Prop, PropName);
@@ -1707,6 +1784,88 @@ begin
 
   FAutoRefresh := Value;
   ControlChanges('AutoRefresh');
+end;
+
+{ TGMTransitLayer }
+
+procedure TGMTransitLayer.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMTransitLayer then
+  begin
+    Show := TGMTransitLayer(Source).Show;
+  end;
+end;
+
+constructor TGMTransitLayer.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FShow := False;
+end;
+
+function TGMTransitLayer.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/map#TransitLayer';
+end;
+
+function TGMTransitLayer.PropToString: string;
+const
+  Str = '%s';
+begin
+  Result := Format(Str, [
+                         LowerCase(TGMTransform.GMBoolToStr(FShow, True))
+                        ]);
+end;
+
+procedure TGMTransitLayer.SetShow(const Value: Boolean);
+begin
+  if FShow = Value then Exit;
+
+  FShow := Value;
+  ControlChanges('Show');
+end;
+
+{ TGMByciclingLayer }
+
+procedure TGMByciclingLayer.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMByciclingLayer then
+  begin
+    Show := TGMByciclingLayer(Source).Show;
+  end;
+end;
+
+constructor TGMByciclingLayer.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FShow := False;
+end;
+
+function TGMByciclingLayer.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/map#BicyclingLayer';
+end;
+
+function TGMByciclingLayer.PropToString: string;
+const
+  Str = '%s';
+begin
+  Result := Format(Str, [
+                         LowerCase(TGMTransform.GMBoolToStr(FShow, True))
+                        ]);
+end;
+
+procedure TGMByciclingLayer.SetShow(const Value: Boolean);
+begin
+  if FShow = Value then Exit;
+
+  FShow := Value;
+  ControlChanges('Show');
 end;
 
 end.

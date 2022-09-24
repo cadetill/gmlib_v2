@@ -16,7 +16,6 @@ type
     GMMapChrm1: TGMMapChrm;
     CEFWindowParent1: TCEFWindowParent;
     Chromium1: TChromium;
-    Timer1: TTimer;
     Panel2: TPanel;
     cbActive: TCheckBox;
     pcPages: TPageControl;
@@ -99,6 +98,9 @@ type
     cbIsFractionalZoomEnabled: TCheckBox;
     tsLayers: TTabSheet;
     cbTrafficLayerShow: TCheckBox;
+    Timer1: TTimer;
+    cbTransitLayerShow: TCheckBox;
+    cbByciclingLayerShow: TCheckBox;
     procedure Timer1Timer(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure Chromium1AfterCreated(Sender: TObject;
@@ -171,6 +173,8 @@ type
     procedure cbKeyboardShortcutsClick(Sender: TObject);
     procedure cbIsFractionalZoomEnabledClick(Sender: TObject);
     procedure cbTrafficLayerShowClick(Sender: TObject);
+    procedure cbTransitLayerShowClick(Sender: TObject);
+    procedure cbByciclingLayerShowClick(Sender: TObject);
   private
     procedure GetAPILang;
     procedure GetAPIRegion;
@@ -236,6 +240,11 @@ end;
 procedure TMainFrm.cbBackgroundColorChange(Sender: TObject);
 begin
   GMMapChrm1.MapOptions.BackgroundColor := cbBackgroundColor.Selected;
+end;
+
+procedure TMainFrm.cbByciclingLayerShowClick(Sender: TObject);
+begin
+  GMMapChrm1.ByciclingLayer.Show := cbByciclingLayerShow.Checked;
 end;
 
 procedure TMainFrm.cbClickableIconsClick(Sender: TObject);
@@ -341,6 +350,11 @@ end;
 procedure TMainFrm.cbTrafficLayerShowClick(Sender: TObject);
 begin
   GMMapChrm1.TrafficLayer.Show := cbTrafficLayerShow.Checked;
+end;
+
+procedure TMainFrm.cbTransitLayerShowClick(Sender: TObject);
+begin
+  GMMapChrm1.TransitLayer.Show := cbTransitLayerShow.Checked;
 end;
 
 procedure TMainFrm.cbZoomControlClick(Sender: TObject);

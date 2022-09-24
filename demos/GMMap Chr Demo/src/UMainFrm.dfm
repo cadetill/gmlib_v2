@@ -11,7 +11,6 @@ object MainFrm: TMainFrm
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnCloseQuery = FormCloseQuery
-  PixelsPerInch = 96
   TextHeight = 15
   object CEFWindowParent1: TCEFWindowParent
     Left = 0
@@ -609,6 +608,24 @@ object MainFrm: TMainFrm
               TabOrder = 0
               OnClick = cbTrafficLayerShowClick
             end
+            object cbTransitLayerShow: TCheckBox
+              Left = 16
+              Top = 57
+              Width = 129
+              Height = 17
+              Caption = 'Show TransitLayer'
+              TabOrder = 1
+              OnClick = cbTransitLayerShowClick
+            end
+            object cbByciclingLayerShow: TCheckBox
+              Left = 16
+              Top = 112
+              Width = 129
+              Height = 17
+              Caption = 'Show ByciclingLayer'
+              TabOrder = 2
+              OnClick = cbByciclingLayerShowClick
+            end
           end
         end
         object cbNoClear: TCheckBox
@@ -659,7 +676,6 @@ object MainFrm: TMainFrm
     MapOptions.FullScreenControl = False
     MapOptions.GestureHandling = ghAuto
     MapOptions.IsFractionalZoomEnabled = True
-    MapOptions.MapTypeControlOptions.MapTypeIds = [mtHYBRID, mtROADMAP, mtTERRAIN]
     MapOptions.MapTypeControlOptions.Style = mtcDROPDOWN_MENU
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
@@ -668,6 +684,8 @@ object MainFrm: TMainFrm
     APIRegion = rSpain
     TrafficLayer.Show = True
     TrafficLayer.TrafficLayerOptions.AutoRefresh = True
+    TransitLayer.Show = False
+    ByciclingLayer.Show = False
     OnActiveChange = GMMapChrm1ActiveChange
     OnIntervalEventsChange = GMMapChrm1IntervalEventsChange
     OnPrecisionChange = GMMapChrm1PrecisionChange
@@ -685,21 +703,21 @@ object MainFrm: TMainFrm
     OnDragStart = GMMapChrm1DragStart
     OnMapTypeIdChanged = GMMapChrm1MapTypeIdChanged
     OnZoomChanged = GMMapChrm1ZoomChanged
-    Left = 304
-    Top = 224
+    Left = 127
+    Top = 22
   end
   object Chromium1: TChromium
     OnAfterCreated = Chromium1AfterCreated
     OnBeforeClose = Chromium1BeforeClose
     OnClose = Chromium1Close
-    Left = 50
-    Top = 302
+    Left = 43
+    Top = 88
   end
   object Timer1: TTimer
     Enabled = False
     Interval = 300
     OnTimer = Timer1Timer
-    Left = 49
-    Top = 225
+    Left = 32
+    Top = 16
   end
 end
