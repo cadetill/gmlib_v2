@@ -44,6 +44,7 @@ contains
   GMLib.Functions in '..\src\GMLib.Functions.pas',
   GMLib.Events in '..\src\GMLib.Events.pas',
   GMLib.HTMLForms in '..\src\GMLib.HTMLForms.pas',
-  Pkg.Json.DTO in '..\src\Pkg.Json.DTO.pas';
+  Pkg.Json.DTO in '..\src\Pkg.Json.DTO.pas',
+  GMLib.Layers in '..\src\GMLib.Layers.pas';
 
 end.
