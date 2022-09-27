@@ -29,6 +29,9 @@ DiGraph Uses {
   "GMLib.LatLngBounds" -> "GMLib.LatLng"
   "GMLib.LatLngBounds" -> "GMLib.HTMLForms"
   "GMLib.LatLngBounds" [href="GMLib.LatLngBounds.html"]
+  "GMLib.Layers" -> "Classes"
+  "GMLib.Layers" -> "GMLib.Classes"
+  "GMLib.Layers" [href="GMLib.Layers.html"]
   "GMLib.Map" -> "Classes"
   "GMLib.Map" -> "GMLib.Classes"
   "GMLib.Map" -> "GMLib.Sets"
@@ -36,6 +39,7 @@ DiGraph Uses {
   "GMLib.Map" -> "GMLib.LatLngBounds"
   "GMLib.Map" -> "GMLib.Events"
   "GMLib.Map" -> "GMLib.HTMLForms"
+  "GMLib.Map" -> "GMLib.Layers"
   "GMLib.Map" [href="GMLib.Map.html"]
   "GMLib.Map.Vcl" -> "Graphics"
   "GMLib.Map.Vcl" -> "Classes"

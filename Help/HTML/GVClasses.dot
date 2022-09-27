@@ -72,7 +72,7 @@ DiGraph Classes {
   "TGMPersistentStr" -> "TGMPersistent"
   "TGMPersistentStr" [href="GMLib.Classes.TGMPersistentStr.html"]
   "TGMByciclingLayer" -> "TGMPersistentStr"
-  "TGMByciclingLayer" [href="GMLib.Map.TGMByciclingLayer.html"]
+  "TGMByciclingLayer" [href="GMLib.Layers.TGMByciclingLayer.html"]
   "TGMCustomMapOptions" -> "TGMPersistentStr"
   "TGMCustomMapOptions" [href="GMLib.Map.TGMCustomMapOptions.html"]
   "TGMMapOptions" -> "TGMCustomMapOptions"
@@ -94,11 +94,11 @@ DiGraph Classes {
   "TGMStreetViewControlOptions" -> "TGMPersistentStr"
   "TGMStreetViewControlOptions" [href="GMLib.Map.TGMStreetViewControlOptions.html"]
   "TGMTrafficLayer" -> "TGMPersistentStr"
-  "TGMTrafficLayer" [href="GMLib.Map.TGMTrafficLayer.html"]
+  "TGMTrafficLayer" [href="GMLib.Layers.TGMTrafficLayer.html"]
   "TGMTrafficLayerOptions" -> "TGMPersistentStr"
-  "TGMTrafficLayerOptions" [href="GMLib.Map.TGMTrafficLayerOptions.html"]
+  "TGMTrafficLayerOptions" [href="GMLib.Layers.TGMTrafficLayerOptions.html"]
   "TGMTransitLayer" -> "TGMPersistentStr"
-  "TGMTransitLayer" [href="GMLib.Map.TGMTransitLayer.html"]
+  "TGMTransitLayer" [href="GMLib.Layers.TGMTransitLayer.html"]
   "TGMZoomControlOptions" -> "TGMPersistentStr"
   "TGMZoomControlOptions" [href="GMLib.Map.TGMZoomControlOptions.html"]
 }

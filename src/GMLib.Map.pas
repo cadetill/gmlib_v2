@@ -379,56 +379,6 @@ type
     property APIUrl;
   end;
 
-  // @include(..\Help\docs\GMLib.Map.TGMTransitLayer.txt)
-  TGMTransitLayer = class(TGMPersistentStr)
-  private
-    FShow: Boolean;
-    procedure SetShow(const Value: Boolean);
-  protected
-    // @exclude
-    function GetAPIUrl: string; override;
-  public
-    // @include(..\Help\docs\GMLib.Map.TGMTransitLayer.Create.txt)
-    constructor Create(AOwner: TPersistent); override;
-
-    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
-    procedure Assign(Source: TPersistent); override;
-
-    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
-    function PropToString: string; override;
-
-    // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
-    property APIUrl;
-  published
-    // @include(..\Help\docs\GMLib.Map.TGMTransitLayer.Show.txt)
-    property Show: Boolean read FShow write SetShow;
-  end;
-
-  // @include(..\Help\docs\GMLib.Map.TGMByciclingLayer.txt)
-  TGMByciclingLayer = class(TGMPersistentStr)
-  private
-    FShow: Boolean;
-    procedure SetShow(const Value: Boolean);
-  protected
-    // @exclude
-    function GetAPIUrl: string; override;
-  public
-    // @include(..\Help\docs\GMLib.Map.TGMByciclingLayer.Create.txt)
-    constructor Create(AOwner: TPersistent); override;
-
-    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
-    procedure Assign(Source: TPersistent); override;
-
-    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
-    function PropToString: string; override;
-
-    // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
-    property APIUrl;
-  published
-    // @include(..\Help\docs\GMLib.Map.TGMByciclingLayer.Show.txt)
-    property Show: Boolean read FShow write SetShow;
-  end;
-
   // @include(..\Help\docs\GMLib.Map.TGMCustomMap.txt)
   TGMCustomMap = class(TGMComponent, IGMExecJS, IGMControlChanges)
   private
@@ -525,11 +475,11 @@ type
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.IntervalEvents.txt)
     property IntervalEvents: Integer read FIntervalEvents write SetIntervalEvents default 50;
 
-    // @include(..\Help\docs\GMLib.Map.TGMTrafficLayer.txt)
+    // @include(..\Help\docs\GMLib.Layers.TGMTrafficLayer.txt)
     property TrafficLayer: TGMTrafficLayer read FTrafficLayer write FTrafficLayer;
-    // @include(..\Help\docs\GMLib.Map.TGMTransitLayer.txt)
+    // @include(..\Help\docs\GMLib.Layers.TGMTransitLayer.txt)
     property TransitLayer: TGMTransitLayer read FTransitLayer write FTransitLayer;
-    // @include(..\Help\docs\GMLib.Map.TGMByciclingLayer.txt)
+    // @include(..\Help\docs\GMLib.Layers.TGMByciclingLayer.txt)
     property ByciclingLayer: TGMByciclingLayer read FByciclingLayer write FByciclingLayer;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnActiveChange.txt)
@@ -1636,88 +1586,6 @@ begin
 
   FPosition := Value;
   ControlChanges('Position');
-end;
-
-{ TGMTransitLayer }
-
-procedure TGMTransitLayer.Assign(Source: TPersistent);
-begin
-  inherited;
-
-  if Source is TGMTransitLayer then
-  begin
-    Show := TGMTransitLayer(Source).Show;
-  end;
-end;
-
-constructor TGMTransitLayer.Create(AOwner: TPersistent);
-begin
-  inherited;
-
-  FShow := False;
-end;
-
-function TGMTransitLayer.GetAPIUrl: string;
-begin
-  Result := 'https://developers.google.com/maps/documentation/javascript/reference/map#TransitLayer';
-end;
-
-function TGMTransitLayer.PropToString: string;
-const
-  Str = '%s';
-begin
-  Result := Format(Str, [
-                         LowerCase(TGMTransform.GMBoolToStr(FShow, True))
-                        ]);
-end;
-
-procedure TGMTransitLayer.SetShow(const Value: Boolean);
-begin
-  if FShow = Value then Exit;
-
-  FShow := Value;
-  ControlChanges('Show');
-end;
-
-{ TGMByciclingLayer }
-
-procedure TGMByciclingLayer.Assign(Source: TPersistent);
-begin
-  inherited;
-
-  if Source is TGMByciclingLayer then
-  begin
-    Show := TGMByciclingLayer(Source).Show;
-  end;
-end;
-
-constructor TGMByciclingLayer.Create(AOwner: TPersistent);
-begin
-  inherited;
-
-  FShow := False;
-end;
-
-function TGMByciclingLayer.GetAPIUrl: string;
-begin
-  Result := 'https://developers.google.com/maps/documentation/javascript/reference/map#BicyclingLayer';
-end;
-
-function TGMByciclingLayer.PropToString: string;
-const
-  Str = '%s';
-begin
-  Result := Format(Str, [
-                         LowerCase(TGMTransform.GMBoolToStr(FShow, True))
-                        ]);
-end;
-
-procedure TGMByciclingLayer.SetShow(const Value: Boolean);
-begin
-  if FShow = Value then Exit;
-
-  FShow := Value;
-  ControlChanges('Show');
 end;
 
 end.

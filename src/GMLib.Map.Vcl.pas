@@ -199,11 +199,11 @@ type
     // @include(..\Help\docs\GMLib.Classes.TGMComponent.AboutGMLib.txt)
     property AboutGMLib;
 
-    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.TrafficLayer.txt)
+    // @include(..\Help\docs\GMLib.Layers.TGMCustomMap.TrafficLayer.txt)
     property TrafficLayer;
-    // @include(..\Help\docs\GMLib.Map.TGMTransitLayer.txt)
+    // @include(..\Help\docs\GMLib.Layers.TGMTransitLayer.txt)
     property TransitLayer;
-    // @include(..\Help\docs\GMLib.Map.TGMByciclingLayer.txt)
+    // @include(..\Help\docs\GMLib.Layers.TGMByciclingLayer.txt)
     property ByciclingLayer;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnActiveChange.txt)
@@ -293,11 +293,11 @@ type
     // @include(..\Help\docs\GMLib.Classes.TGMComponent.AboutGMLib.txt)
     property AboutGMLib;
 
-    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.TrafficLayer.txt)
+    // @include(..\Help\docs\GMLib.Layers.TGMCustomMap.TrafficLayer.txt)
     property TrafficLayer;
-    // @include(..\Help\docs\GMLib.Map.TGMTransitLayer.txt)
+    // @include(..\Help\docs\GMLib.Layers.TGMTransitLayer.txt)
     property TransitLayer;
-    // @include(..\Help\docs\GMLib.Map.TGMByciclingLayer.txt)
+    // @include(..\Help\docs\GMLib.Layers.TGMByciclingLayer.txt)
     property ByciclingLayer;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnActiveChange.txt)
