@@ -205,11 +205,7 @@ function setMapOptions(BackgroundColor,
                        Tilt,
                        Zoom,
                        ZoomControl,
-                       ZoomControlOptionsPosition,       // --> zoomControlOptions
-                       TrafficShow,                      // --> trafficLayer
-                       TrafficAutoRefresh,               // --> trafficLayer
-                       TransitShow,                      // --> transitLayer
-                       BicyclingShow                     // --> bicyclingLayer
+                       ZoomControlOptionsPosition        // --> zoomControlOptions
                        ) {
   FullscreenControlOptionsPosition = StrToPosition(FullscreenControlOptionsPosition); 
   GestureHandling = StrToGestureHandling(GestureHandling); 
@@ -288,23 +284,32 @@ function setMapOptions(BackgroundColor,
                    };
   if (map != null) {                  
     map.setOptions(mapOptions);  
-    ShowLayers(TrafficShow, TrafficAutoRefresh, TransitShow, BicyclingShow);
   }
 }
 
 /* **********************************
   this function update layers.
 ********************************** */
-function ShowLayers(TrafficShow, TrafficAutoRefresh, TransitShow, BicyclingShow) {
+function ShowLayers(TrafficShow,                // --> trafficLayer
+                    TrafficAutoRefresh,         // --> trafficLayer
+                    TransitShow,                // --> transitLayer
+                    BicyclingShow,              // --> bicyclingLayer
+                    KmlShow,                    // --> KmlLayer
+                    KmlClickable,               // --> KmlLayer
+                    KmlPreserveViewport,        // --> KmlLayer
+                    KmlScreenOverlays,          // --> KmlLayer
+                    KmlSuppressInfoWindows,     // --> KmlLayer
+                    KmlUrl                      // --> KmlLayer
+                   ) {
   // traffic layer
-  var opts = {
-          autoRefresh: TrafficAutoRefresh
-         };
+  var trafficOpts = {
+                     autoRefresh: TrafficAutoRefresh
+                    };
          
   if (trafficLayer == null)                   
-    trafficLayer = new google.maps.TrafficLayer(opts);
+    trafficLayer = new google.maps.TrafficLayer(trafficOpts);
   else 
-    trafficLayer.setOptions(opts);
+    trafficLayer.setOptions(trafficOpts);
   
   if (TrafficShow) trafficLayer.setMap(map);
   else trafficLayer.setMap(null);
@@ -322,6 +327,25 @@ function ShowLayers(TrafficShow, TrafficAutoRefresh, TransitShow, BicyclingShow)
   
   if (BicyclingShow) bicyclingLayer.setMap(map);
   else bicyclingLayer.setMap(null);
+  
+  // kml layer
+  var kmlOpts = {
+                 clickable: KmlClickable,
+                 clickable: KmlClickable,
+                 clickable: KmlClickable,
+                 clickable: KmlClickable,
+                 clickable: KmlClickable,
+                 clickable: KmlClickable,
+                 clickable: KmlClickable,
+                }
+
+  if (kmlLayer == null)                   
+    kmlLayer = new google.maps.KmlLayer(kmlOpts);
+  else 
+    kmlLayer.setOptions(kmlOpts);
+  
+  if (TrafficShow) kmlLayer.setMap(map);
+  else kmlLayer.setMap(null);
 }
 
 /* **********************************
