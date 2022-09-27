@@ -8,7 +8,7 @@ For more information about CEF4Delphi see [this link](https://github.com/salvado
 
 Help file generated with [PasDoc](https://github.com/pasdoc/pasdoc/) by Michalis Kamburelis
 
-## Implemented
+## What part of the Google Maps API is implemented?
 
 The following Google Maps API classes are currently implemented
 
