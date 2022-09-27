@@ -8,6 +8,10 @@ For more information about CEF4Delphi see [this link](https://github.com/salvado
 
 Help file generated with [PasDoc](https://github.com/pasdoc/pasdoc/) by Michalis Kamburelis
 
+GMLib was developed and tested on Delphi 11.1 but (theoretically) you can compile it in previous versions that include generics and the new Json units.
+
+GMLib demos have been tested in Windows 10 and Windows 11.
+
 ## What part of the Google Maps API is implemented?
 
 The following Google Maps API classes are currently implemented
