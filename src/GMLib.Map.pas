@@ -410,6 +410,7 @@ type
     FTrafficLayer: TGMTrafficLayer;
     FTransitLayer: TGMTransitLayer;
     FByciclingLayer: TGMByciclingLayer;
+    FKmlLayer: TGMKmlLayer;
     procedure SetActive(const Value: Boolean);
     procedure SetAPILang(const Value: TGMAPILang);
     procedure SetAPIKey(const Value: string);
@@ -481,6 +482,8 @@ type
     property TransitLayer: TGMTransitLayer read FTransitLayer write FTransitLayer;
     // @include(..\Help\docs\GMLib.Layers.TGMByciclingLayer.txt)
     property ByciclingLayer: TGMByciclingLayer read FByciclingLayer write FByciclingLayer;
+    // @include(..\Help\docs\GMLib.Layers.TGMKmlLayer.txt)
+    property KmlLayer: TGMKmlLayer read FKmlLayer write FKmlLayer;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnActiveChange.txt)
     property OnActiveChange: TNotifyEvent read FOnActiveChange write FOnActiveChange;
@@ -560,6 +563,10 @@ begin
     APIRegion := TGMCustomMap(Source).APIRegion;
     IntervalEvents := TGMCustomMap(Source).IntervalEvents;
     Precision := TGMCustomMap(Source).Precision;
+    TrafficLayer.Assign(TGMCustomMap(Source).TrafficLayer);
+    TransitLayer.Assign(TGMCustomMap(Source).TransitLayer);
+    ByciclingLayer.Assign(TGMCustomMap(Source).ByciclingLayer);
+    KmlLayer.Assign(TGMCustomMap(Source).KmlLayer);
   end;
 end;
 
@@ -578,6 +585,7 @@ begin
   FTrafficLayer := TGMTrafficLayer.Create(Self);
   FTransitLayer := TGMTransitLayer.Create(Self);
   FByciclingLayer := TGMByciclingLayer.Create(Self);
+  FKmlLayer := TGMKmlLayer.Create(Self);
 
   FIsUpdating := False;
   FDocLoaded := False;
@@ -593,6 +601,8 @@ begin
     FTransitLayer.Free;
   if Assigned(FByciclingLayer) then
     FByciclingLayer.Free;
+  if Assigned(FKmlLayer) then
+    FKmlLayer.Free;
 
   inherited;
 end;
@@ -606,7 +616,8 @@ begin
   ExecuteJavaScript('doMap', '');
   Params := FTrafficLayer.PropToString + ',' +
             FTransitLayer.PropToString + ',' +
-            FByciclingLayer.PropToString;
+            FByciclingLayer.PropToString + ',' +
+            FKmlLayer.PropToString;
   ExecuteJavaScript('ShowLayers', Params);
 end;
 

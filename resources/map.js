@@ -331,13 +331,13 @@ function ShowLayers(TrafficShow,                // --> trafficLayer
   // kml layer
   var kmlOpts = {
                  clickable: KmlClickable,
-                 clickable: KmlClickable,
-                 clickable: KmlClickable,
-                 clickable: KmlClickable,
-                 clickable: KmlClickable,
-                 clickable: KmlClickable,
-                 clickable: KmlClickable,
+                 preserveViewport: KmlPreserveViewport,
+                 screenOverlays: KmlScreenOverlays,
+                 suppressInfoWindows: KmlSuppressInfoWindows,
+                 url: KmlUrl
                 }
+  if (KmlUrl == '') 
+    KmlShow = false;
 
   if (kmlLayer == null)                   
     kmlLayer = new google.maps.KmlLayer(kmlOpts);
