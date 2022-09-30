@@ -634,6 +634,55 @@ begin
 end;
 
 function TGMCustomMap.GetHTMLCode: string;
+  function GetResource(Resource: string;  const Keys, Values: array of string): string;
+  var
+    i: Integer;
+    List: TStringList;
+    Stream: TResourceStream;
+  begin
+    Stream := nil;
+    List := nil;
+    try
+      List := TStringList.Create;
+      try
+        Stream := TResourceStream.Create(HInstance, ct_RES_MAPA_CODE, RT_RCDATA);
+      except
+        raise EGMCanLoadResource.Create(Language);                              // Can't load map resource.
+      end;
+
+      List.LoadFromStream(Stream);
+
+      for i := 0 to High(Keys) do
+      begin
+        List.Text := StringReplace(List.Text, Keys[i], Values[i], []);
+      end;
+
+      // replaces API_KEY variable
+      List.Text := StringReplace(List.Text, ct_API_KEY, FAPIKey, []);
+
+      // replaces API_VER variable
+      Result := TGMTransform.APIVerToStr(FAPIVer);
+      List.Text := StringReplace(List.Text, ct_API_VER, Result, []);
+
+      // replaces API_REGION variable
+      Result := LowerCase(TGMTransform.APIRegionToStr(FAPIRegion));
+      List.Text := StringReplace(List.Text, ct_API_REGION, Result, []);
+
+      // replaces API_LAN variable
+      Result := LowerCase(TGMTransform.APILangToStr(FAPILang));
+      List.Text := StringReplace(List.Text, ct_API_LAN, Result, []);
+
+      {$IFDEF DELPHI2010}
+      Result := TPath.GetTempPath + TPath.DirectorySeparatorChar + ct_FILE_NAME;
+      {$ELSE}
+      Result := IncludeTrailingPathDelimiter(GetTempPath) + ct_FILE_NAME;
+      {$ENDIF}
+      List.SaveToFile(Result);
+    finally
+      if Assigned(Stream) then Stream.Free;
+      if Assigned(List) then List.Free;
+    end;
+  end;
 var
   List: TStringList;
   Stream: TResourceStream;
