@@ -339,12 +339,12 @@ function ShowLayers(TrafficShow,                // --> trafficLayer
   if (KmlUrl == '') 
     KmlShow = false;
 
-  if (kmlLayer == null)                   
+  if (kmlLayer == null) 
     kmlLayer = new google.maps.KmlLayer(kmlOpts);
   else 
     kmlLayer.setOptions(kmlOpts);
   
-  if (TrafficShow) kmlLayer.setMap(map);
+  if (KmlShow) kmlLayer.setMap(map);
   else kmlLayer.setMap(null);
 }
 

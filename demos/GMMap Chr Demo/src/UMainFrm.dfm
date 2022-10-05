@@ -683,7 +683,7 @@ object MainFrm: TMainFrm
     MapOptions.Zoom = 10
     APILang = lSpanish
     APIRegion = rSpain
-    TrafficLayer.Show = True
+    TrafficLayer.Show = False
     TrafficLayer.TrafficLayerOptions.AutoRefresh = True
     TransitLayer.Show = False
     ByciclingLayer.Show = False
