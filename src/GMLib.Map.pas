@@ -410,6 +410,7 @@ type
     FTrafficLayer: TGMTrafficLayer;
     FTransitLayer: TGMTransitLayer;
     FByciclingLayer: TGMByciclingLayer;
+    FKmlLayer: TGMKmlLayer;
     procedure SetActive(const Value: Boolean);
     procedure SetAPILang(const Value: TGMAPILang);
     procedure SetAPIKey(const Value: string);
@@ -481,6 +482,8 @@ type
     property TransitLayer: TGMTransitLayer read FTransitLayer write FTransitLayer;
     // @include(..\Help\docs\GMLib.Layers.TGMByciclingLayer.txt)
     property ByciclingLayer: TGMByciclingLayer read FByciclingLayer write FByciclingLayer;
+    // @include(..\Help\docs\GMLib.Layers.TGMKmlLayer.txt)
+    property KmlLayer: TGMKmlLayer read FKmlLayer write FKmlLayer;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnActiveChange.txt)
     property OnActiveChange: TNotifyEvent read FOnActiveChange write FOnActiveChange;
@@ -560,6 +563,10 @@ begin
     APIRegion := TGMCustomMap(Source).APIRegion;
     IntervalEvents := TGMCustomMap(Source).IntervalEvents;
     Precision := TGMCustomMap(Source).Precision;
+    TrafficLayer.Assign(TGMCustomMap(Source).TrafficLayer);
+    TransitLayer.Assign(TGMCustomMap(Source).TransitLayer);
+    ByciclingLayer.Assign(TGMCustomMap(Source).ByciclingLayer);
+    KmlLayer.Assign(TGMCustomMap(Source).KmlLayer);
   end;
 end;
 
@@ -578,6 +585,7 @@ begin
   FTrafficLayer := TGMTrafficLayer.Create(Self);
   FTransitLayer := TGMTransitLayer.Create(Self);
   FByciclingLayer := TGMByciclingLayer.Create(Self);
+  FKmlLayer := TGMKmlLayer.Create(Self);
 
   FIsUpdating := False;
   FDocLoaded := False;
@@ -593,6 +601,8 @@ begin
     FTransitLayer.Free;
   if Assigned(FByciclingLayer) then
     FByciclingLayer.Free;
+  if Assigned(FKmlLayer) then
+    FKmlLayer.Free;
 
   inherited;
 end;
@@ -606,7 +616,8 @@ begin
   ExecuteJavaScript('doMap', '');
   Params := FTrafficLayer.PropToString + ',' +
             FTransitLayer.PropToString + ',' +
-            FByciclingLayer.PropToString;
+            FByciclingLayer.PropToString + ',' +
+            FKmlLayer.PropToString;
   ExecuteJavaScript('ShowLayers', Params);
 end;
 
@@ -623,6 +634,55 @@ begin
 end;
 
 function TGMCustomMap.GetHTMLCode: string;
+  function GetResource(Resource: string;  const Keys, Values: array of string): string;
+  var
+    i: Integer;
+    List: TStringList;
+    Stream: TResourceStream;
+  begin
+    Stream := nil;
+    List := nil;
+    try
+      List := TStringList.Create;
+      try
+        Stream := TResourceStream.Create(HInstance, ct_RES_MAPA_CODE, RT_RCDATA);
+      except
+        raise EGMCanLoadResource.Create(Language);                              // Can't load map resource.
+      end;
+
+      List.LoadFromStream(Stream);
+
+      for i := 0 to High(Keys) do
+      begin
+        List.Text := StringReplace(List.Text, Keys[i], Values[i], []);
+      end;
+
+      // replaces API_KEY variable
+      List.Text := StringReplace(List.Text, ct_API_KEY, FAPIKey, []);
+
+      // replaces API_VER variable
+      Result := TGMTransform.APIVerToStr(FAPIVer);
+      List.Text := StringReplace(List.Text, ct_API_VER, Result, []);
+
+      // replaces API_REGION variable
+      Result := LowerCase(TGMTransform.APIRegionToStr(FAPIRegion));
+      List.Text := StringReplace(List.Text, ct_API_REGION, Result, []);
+
+      // replaces API_LAN variable
+      Result := LowerCase(TGMTransform.APILangToStr(FAPILang));
+      List.Text := StringReplace(List.Text, ct_API_LAN, Result, []);
+
+      {$IFDEF DELPHI2010}
+      Result := TPath.GetTempPath + TPath.DirectorySeparatorChar + ct_FILE_NAME;
+      {$ELSE}
+      Result := IncludeTrailingPathDelimiter(GetTempPath) + ct_FILE_NAME;
+      {$ENDIF}
+      List.SaveToFile(Result);
+    finally
+      if Assigned(Stream) then Stream.Free;
+      if Assigned(List) then List.Free;
+    end;
+  end;
 var
   List: TStringList;
   Stream: TResourceStream;

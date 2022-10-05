@@ -205,6 +205,8 @@ type
     property TransitLayer;
     // @include(..\Help\docs\GMLib.Layers.TGMByciclingLayer.txt)
     property ByciclingLayer;
+    // @include(..\Help\docs\GMLib.Layers.TGMKmlLayer.txt)
+    property KmlLayer;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnActiveChange.txt)
     property OnActiveChange;
@@ -299,6 +301,8 @@ type
     property TransitLayer;
     // @include(..\Help\docs\GMLib.Layers.TGMByciclingLayer.txt)
     property ByciclingLayer;
+    // @include(..\Help\docs\GMLib.Layers.TGMKmlLayer.txt)
+    property KmlLayer;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.OnActiveChange.txt)
     property OnActiveChange;
@@ -455,7 +459,7 @@ end;
 
 function TGMMap.PropToString: string;
 const
-  StrParams = '%s,%s';
+  StrParams = '%s';
 begin
   Result := inherited;
 
@@ -463,8 +467,7 @@ begin
     Result := Result + ',';
 
   Result := Result + Format(StrParams, [
-                                        MapOptions.PropToString,
-                                        TrafficLayer.PropToString
+                                        MapOptions.PropToString
                                        ]);
 end;
 

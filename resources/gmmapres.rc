@@ -1,2 +1,5 @@
 // Fichero .RC con los recursos
-RES_MAPCODE	RCDATA		"map.html"
+RES_MAPCODE	            RCDATA		"map.html"
+RES_LATLNGBOUNDSCODE	RCDATA		"latlngbounds.js"
+RES_MAPJSCODE           RCDATA		"map.js"
+RES_TRANSFORMCODE	    RCDATA		"transform.js"

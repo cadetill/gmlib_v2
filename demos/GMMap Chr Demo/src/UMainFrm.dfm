@@ -11,6 +11,7 @@ object MainFrm: TMainFrm
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnCloseQuery = FormCloseQuery
+  PixelsPerInch = 96
   TextHeight = 15
   object CEFWindowParent1: TCEFWindowParent
     Left = 0
@@ -686,6 +687,8 @@ object MainFrm: TMainFrm
     TrafficLayer.TrafficLayerOptions.AutoRefresh = True
     TransitLayer.Show = False
     ByciclingLayer.Show = False
+    KmlLayer.Show = True
+    KmlLayer.KmlLayerOptions.Url = 'https://googlearchive.github.io/js-v2-samples/ggeoxml/cta.kml'
     OnActiveChange = GMMapChrm1ActiveChange
     OnIntervalEventsChange = GMMapChrm1IntervalEventsChange
     OnPrecisionChange = GMMapChrm1PrecisionChange
