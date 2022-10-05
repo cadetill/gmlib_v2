@@ -634,7 +634,7 @@ begin
 end;
 
 function TGMCustomMap.GetHTMLCode: string;
-  function GetResource(Resource: string;  const Keys, Values: array of string): string;
+  function GetResource(Resource, FileName: string;  const Keys, Values: array of string): string;
   var
     i: Integer;
     List: TStringList;
@@ -645,7 +645,7 @@ function TGMCustomMap.GetHTMLCode: string;
     try
       List := TStringList.Create;
       try
-        Stream := TResourceStream.Create(HInstance, ct_RES_MAPA_CODE, RT_RCDATA);
+        Stream := TResourceStream.Create(HInstance, Resource, RT_RCDATA);
       except
         raise EGMCanLoadResource.Create(Language);                              // Can't load map resource.
       end;
@@ -653,29 +653,12 @@ function TGMCustomMap.GetHTMLCode: string;
       List.LoadFromStream(Stream);
 
       for i := 0 to High(Keys) do
-      begin
         List.Text := StringReplace(List.Text, Keys[i], Values[i], []);
-      end;
-
-      // replaces API_KEY variable
-      List.Text := StringReplace(List.Text, ct_API_KEY, FAPIKey, []);
-
-      // replaces API_VER variable
-      Result := TGMTransform.APIVerToStr(FAPIVer);
-      List.Text := StringReplace(List.Text, ct_API_VER, Result, []);
-
-      // replaces API_REGION variable
-      Result := LowerCase(TGMTransform.APIRegionToStr(FAPIRegion));
-      List.Text := StringReplace(List.Text, ct_API_REGION, Result, []);
-
-      // replaces API_LAN variable
-      Result := LowerCase(TGMTransform.APILangToStr(FAPILang));
-      List.Text := StringReplace(List.Text, ct_API_LAN, Result, []);
 
       {$IFDEF DELPHI2010}
-      Result := TPath.GetTempPath + TPath.DirectorySeparatorChar + ct_FILE_NAME;
+      Result := TPath.GetTempPath + FileName;
       {$ELSE}
-      Result := IncludeTrailingPathDelimiter(GetTempPath) + ct_FILE_NAME;
+      Result := IncludeTrailingPathDelimiter(GetTempPath) + FileName;
       {$ENDIF}
       List.SaveToFile(Result);
     finally
@@ -683,55 +666,28 @@ function TGMCustomMap.GetHTMLCode: string;
       if Assigned(List) then List.Free;
     end;
   end;
-var
-  List: TStringList;
-  Stream: TResourceStream;
-  StrTmp: string;
 begin
   if not Assigned(FBrowser) then
     raise EGMUnassignedObject.Create(['Browser'], Language);                    // Object %s unassigned.
 
-  Result := '';
-
-  Stream := nil;
-  List := nil;
-  try
-    List := TStringList.Create;
-    try
-      Stream := TResourceStream.Create(HInstance, ct_RES_MAPA_CODE, RT_RCDATA);
-    except
-      raise EGMCanLoadResource.Create(Language);                                // Can't load map resource.
-    end;
-
-    List.LoadFromStream(Stream);
-
-    // replaces API_KEY variable
-    List.Text := StringReplace(List.Text, ct_API_KEY, FAPIKey, []);
-
-    // replaces API_VER variable
-    StrTmp := TGMTransform.APIVerToStr(FAPIVer);
-    List.Text := StringReplace(List.Text, ct_API_VER, StrTmp, []);
-
-    // replaces API_REGION variable
-    StrTmp := LowerCase(TGMTransform.APIRegionToStr(FAPIRegion));
-    List.Text := StringReplace(List.Text, ct_API_REGION, StrTmp, []);
-
-    // replaces API_LAN variable
-    StrTmp := LowerCase(TGMTransform.APILangToStr(FAPILang));
-    List.Text := StringReplace(List.Text, ct_API_LAN, StrTmp, []);
-
-    {$IFDEF DELPHI2010}
-    StrTmp := TPath.GetTempPath + TPath.DirectorySeparatorChar + ct_FILE_NAME;
-    {$ELSE}
-    StrTmp := IncludeTrailingPathDelimiter(GetTempPath) + ct_FILE_NAME;
-    {$ENDIF}
-    List.SaveToFile(StrTmp);
-
-    Result := StrTmp;
-  finally
-    if Assigned(Stream) then Stream.Free;
-    if Assigned(List) then List.Free;
-  end;
+  GetResource(ct_RES_MAPAJS_CODE, ct_FILE_MAPJS_NAME, [], []);
+  GetResource(ct_RES_LLB_CODE, ct_FILE_LLB_NAME, [], []);
+  GetResource(ct_RES_TRANSF_CODE, ct_FILE_TRANSF_NAME, [], []);
+  Result := GetResource(ct_RES_MAPA_CODE,
+                        ct_FILE_MAP_NAME,
+                        [
+                         ct_API_KEY,
+                         ct_API_VER,
+                         ct_API_REGION,
+                         ct_API_LAN
+                        ],
+                        [
+                         FAPIKey,
+                         TGMTransform.APIVerToStr(FAPIVer),
+                         LowerCase(TGMTransform.APIRegionToStr(FAPIRegion)),
+                         LowerCase(TGMTransform.APILangToStr(FAPILang))
+                        ]
+                       );
 end;
 
 procedure TGMCustomMap.GetMapEvent(Val: THTMLForms);
