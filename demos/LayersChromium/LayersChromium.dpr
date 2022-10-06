@@ -1,10 +1,10 @@
-program GMMapChrDemo;
+program LayersChromium;
 
 uses
   Vcl.Forms,
   uCEFApplication,
   UMainFrm in 'src\UMainFrm.pas' {MainFrm},
-  UMapFrame in '..\Common Frames\UMapFrame.pas' {MapFrame: TFrame};
+  ULayersFrame in '..\Common Frames\ULayersFrame.pas' {LayersFrame: TFrame};
 
 {$R *.res}
 
