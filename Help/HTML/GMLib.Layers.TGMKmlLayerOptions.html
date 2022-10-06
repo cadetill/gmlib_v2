@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Google Maps Library: GMLib.Layers: Class TGMKmlLayerOptions</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="PasDoc 0.15.0">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="tipuesearch/tipuesearch.css">
+
+<link rel="StyleSheet" type="text/css" href="pasdoc.css">
+</head>
+<body>
+<div class="container"><div class="navigation">
+<h2><a href="index.html">Google Maps Library</a></h2><ul><li><a href="AllUnits.html">Units</a></li><li><a href="ClassHierarchy.html">Class Hierarchy</a></li><li><a href="AllClasses.html">Classes, Interfaces, Objects and Records</a></li><li><a href="AllTypes.html">Types</a></li><li><a href="AllVariables.html">Variables</a></li><li><a href="AllConstants.html">Constants</a></li><li><a href="AllFunctions.html">Functions and Procedures</a></li><li><a href="AllIdentifiers.html">Identifiers</a></li><li><a href="GVUses.png">Unit dependency graph</a></li><li><a href="GVClasses.png">Classes hierarchy graph</a></li><li><form class="search-form" action="_tipue_results.html"><div class="search-input"><input type="text" name="q" id="tipue_search_input" pattern=".{3,}" title="At least 3 characters" required><div class="search-button"><input type="button" id="tipue_search_button" onclick="this.form.submit();"></div></div></form>
+<div style="clear: both"></div>
+</li></ul></div><div class="content">
+<table class="container">
+<tr>
+<td><i><a href="http://www.cadetill.com" target="_blank">cadetill's blog</a></i></td>
+<td align ="right"><i>Copyright &copy; Xavier Mart&iacute;nez (cadetill)</i></td>
+</tr>
+</table>
+<hr noshade="" size="1">
+<span id="TGMKmlLayerOptions"></span><h1 class="cio">Class TGMKmlLayerOptions</h1>
+<div class="sections">
+<div class="one_section"><a class="section" href="#PasDoc-Description">Description</a></div><div class="one_section"><a class="section" href="#PasDoc-Hierarchy">Hierarchy</a></div><div class="one_section">Fields</div><div class="one_section"><a class="section" href="#PasDoc-Methods">Methods</a></div><div class="one_section"><a class="section" href="#PasDoc-Properties">Properties</a></div></div>
+<span id="PasDoc-Description"></span><h2 class="unit">Unit</h2>
+<p class="unitlink">
+<a href="GMLib.Layers.html">GMLib.Layers</a></p>
+<h2 class="declaration">Declaration</h2>
+<p class="declaration">
+<code>type TGMKmlLayerOptions = class(<a class="normal" href="GMLib.Classes.TGMPersistentStr.html">TGMPersistentStr</a>)</code></p>
+<h2 class="description">Description</h2>
+<p>
+Class for <code>google.maps.KmlLayerOptions</code> object from Google Maps API.</p>
+<p>
+
+
+<p>This class is used to define the properties that can be set on a KmlLayer.
+
+<p>More information at <a href="https://developers.google.com/maps/documentation/javascript/reference/kml#KmlLayerOptions">google.maps.KmlLayerOptions interface</a> </p>
+<span id="PasDoc-Hierarchy"></span><h2 class="hierarchy">Hierarchy</h2>
+<ul class="hierarchy"><li class="ancestor">TObject</li>
+<li class="ancestor">TPersistent</li>
+<li class="ancestor">TInterfacedPersistent</li>
+<li class="ancestor"><a class="normal" href="GMLib.Classes.TGMInterfacedOwnedPersistent.html">TGMInterfacedOwnedPersistent</a></li>
+<li class="ancestor"><a class="normal" href="GMLib.Classes.TGMPersistent.html">TGMPersistent</a></li>
+<li class="ancestor"><a class="normal" href="GMLib.Classes.TGMPersistentStr.html">TGMPersistentStr</a></li>
+<li class="thisitem">TGMKmlLayerOptions</li></ul><h2 class="overview">Overview</h2>
+<span id="PasDoc-Methods"></span><h3 class="summary">Methods</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>constructor <strong><a href="GMLib.Layers.TGMKmlLayerOptions.html#Create">Create</a></strong>(AOwner: TPersistent); override;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>function <strong><a href="GMLib.Layers.TGMKmlLayerOptions.html#PropToString">PropToString</a></strong>: string; override;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>procedure <strong><a href="GMLib.Layers.TGMKmlLayerOptions.html#Assign">Assign</a></strong>(Source: TPersistent); override;</code></td>
+</tr>
+</table>
+<span id="PasDoc-Properties"></span><h3 class="summary">Properties</h3>
+<table class="summary wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Layers.TGMKmlLayerOptions.html#APIUrl">APIUrl</a></strong>;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Layers.TGMKmlLayerOptions.html#Clickable">Clickable</a></strong>: Boolean read FClickable write SetClickable default True;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Layers.TGMKmlLayerOptions.html#PreserveViewport">PreserveViewport</a></strong>: Boolean read FPreserveViewport write SetPreserveViewport default False;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Layers.TGMKmlLayerOptions.html#ScreenOverlays">ScreenOverlays</a></strong>: Boolean read FScreenOverlays write SetScreenOverlays default True;</code></td>
+</tr>
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Layers.TGMKmlLayerOptions.html#SuppressInfoWindows">SuppressInfoWindows</a></strong>: Boolean read FSuppressInfoWindows write SetSuppressInfoWindows default False;</code></td>
+</tr>
+<tr class="list2">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><code>property <strong><a href="GMLib.Layers.TGMKmlLayerOptions.html#Url">Url</a></strong>: string read FUrl write SetUrl;</code></td>
+</tr>
+</table>
+<h2 class="description">Description</h2>
+<h3 class="detail">Methods</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="Create"></span><code>constructor <strong>Create</strong>(AOwner: TPersistent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Class constructor.</p>
+<p>
+
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>AOwner</dt>
+<dd>Owner of the object.</dd>
+</dl>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="PropToString"></span><code>function <strong>PropToString</strong>: string; override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Converts all class properties values to a string separated by comma used to send values to a JavaScript function.
+
+<p></p>
+<h6 class="description_section">Returns</h6>
+<p class="return">string with all properties.</p></td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="Assign"></span><code>procedure <strong>Assign</strong>(Source: TPersistent); override;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Call <code>Assign</code> to copy the properties or other attributes form an object to another.</p>
+<p>
+
+
+<p>The standard form of a call to <code>Assign</code> method is <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Destination.Assign(Source);</code> <br> which tells the <code>Destination</code> object to copy the contents of the <code>Source</code> object to itself.
+
+<p> </p>
+<h6 class="description_section">Parameters</h6>
+<dl class="parameters">
+<dt>Source</dt>
+<dd>Object to copy the content.</dd>
+</dl>
+</td></tr>
+</table>
+<h3 class="detail">Properties</h3>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="public.gif" alt="Public" title="Public"></a></td>
+<td class="itemcode"><span id="APIUrl"></span><code>property <strong>APIUrl</strong>;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+URL to Google Maps API page. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="Clickable"></span><code>property <strong>Clickable</strong>: Boolean read FClickable write SetClickable default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+If <code>True</code>, the layer receives mouse events.</p>
+<p>
+
+
+<p>Default <code>True</code>. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="PreserveViewport"></span><code>property <strong>PreserveViewport</strong>: Boolean read FPreserveViewport write SetPreserveViewport default False;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+If this option is set to code(True) or if the map's center and zoom were never set, the input map is centered and zoomed to the bounding box of the contents of the layer.</p>
+<p>
+
+
+<p>Default <code>False</code>. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="ScreenOverlays"></span><code>property <strong>ScreenOverlays</strong>: Boolean read FScreenOverlays write SetScreenOverlays default True;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Whether to render the screen overlays.</p>
+<p>
+
+
+<p>Default <code>True</code>. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="SuppressInfoWindows"></span><code>property <strong>SuppressInfoWindows</strong>: Boolean read FSuppressInfoWindows write SetSuppressInfoWindows default False;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+Suppress the rendering of info windows when layer features are clicked.</p>
+<p>
+
+
+<p>Default <code>False</code>. </p>
+</td></tr>
+</table>
+<table class="detail wide_list">
+<tr class="list">
+<td class="visibility"><a href="legend.html"><img  src="published.gif" alt="Published" title="Published"></a></td>
+<td class="itemcode"><span id="Url"></span><code>property <strong>Url</strong>: string read FUrl write SetUrl;</code></td>
+</tr>
+<tr><td colspan="2">
+<p>
+The URL of the KML document to display.</p>
+<p>
+
+
+<p></p>
+</td></tr>
+</table>
+<hr><span class="appinfo"><em>Generated by <a href="https://github.com/pasdoc/pasdoc/wiki">PasDoc 0.15.0</a>. </em>
+</span>
+</div></div></body></html>

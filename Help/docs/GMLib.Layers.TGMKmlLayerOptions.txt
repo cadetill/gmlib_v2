@@ -1,0 +1,5 @@
+@abstract(Class for @code(google.maps.KmlLayerOptions) object from Google Maps API.)
+
+This class is used to define the properties that can be set on a KmlLayer.
+
+More information at @url(https://developers.google.com/maps/documentation/javascript/reference/kml#KmlLayerOptions google.maps.KmlLayerOptions interface)

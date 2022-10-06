@@ -1,1 +1,1 @@
-Name of HTML map resource.
+Resurce name for map.html file.

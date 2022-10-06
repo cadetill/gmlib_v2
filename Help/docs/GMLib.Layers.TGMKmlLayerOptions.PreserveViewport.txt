@@ -1,0 +1,3 @@
+@abstract(If this option is set to code(True) or if the map's center and zoom were never set, the input map is centered and zoomed to the bounding box of the contents of the layer.)
+
+Default @code(False).
