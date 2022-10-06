@@ -21,6 +21,7 @@ The following Google Maps API classes are currently implemented
     - [google.maps.TrafficLayer](https://developers.google.com/maps/documentation/javascript/reference/map#TrafficLayer)
     - [google.maps.TransitLayer](https://developers.google.com/maps/documentation/javascript/reference/map#TransitLayer)
     - [google.maps.BicyclingLayer](https://developers.google.com/maps/documentation/javascript/reference/map#BicyclingLayer)
+    - [google.maps.KmlLayer](https://developers.google.com/maps/documentation/javascript/reference/kml)
 
 ## Do you find a bug?
 
