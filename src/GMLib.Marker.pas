@@ -14,14 +14,37 @@ interface
 
 uses
   {$IFDEF DELPHIXE2}
-  System.Types,
+  System.Types, System.Classes,
   {$ELSE}
-  Types,
+  Types, Classes,
   {$ENDIF}
 
-  GMLib.Classes, GMLib.LatLng;
+  GMLib.Classes, GMLib.LatLng, GMLib.Sets;
 
 type
+  TGMCustomSymbolOptions = class(TGMPersistentStr)
+  protected
+    property Path: TGMSymbolPath;
+    property Anchor: TPoint;
+    property FillOpacity: Double;
+    property LabelOrigin: TPoint;
+    property Rotation: Integer;
+    property Scale: Integer;
+    property StrokeOpacity: Double;
+    property StrokeWeight: Integer;
+    //property FillColor: TColor;
+    //property StrokeColor: TColor;
+  end;
+
+  TGMCustomIconOptions = class(TGMPersistentStr, IGMControlChanges)
+  protected
+    // @include(..\Help\docs\GMLib.Classes.IGMControlChanges.PropertyChanged.txt)
+    procedure PropertyChanged(Prop: TPersistent; PropName: string);
+
+    property Url: string;
+    //property Symbol: TGMSymbolOptions;
+  end;
+
   TGMCustomMarker = class(TGMInterfacedCollectionItem)
   private
   protected
@@ -32,7 +55,7 @@ type
     property CrossOnDrag: Boolean;
     property Cursor: string;
     property Draggable: Boolean;
-    property Icon: TGMIconOptions;
+    //property Icon: TGMIconOptions;
     property Label: TGMLabelOptions;
     property Opacity: Double;
     property Optimized: Boolean;

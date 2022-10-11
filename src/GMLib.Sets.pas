@@ -93,6 +93,15 @@ type
   // @include(..\Help\docs\GMLib.Sets.TGMScaleControlStyle.txt)
   TGMScaleControlStyle = (scsDEFAULT);
 
+  // @include(..\Help\docs\GMLib.Sets.TGMAnimation.txt)
+  TGMAnimation = (aniBOUNCE, aniDROP, aniNONE);
+
+  // @include(..\Help\docs\GMLib.Sets.TGMCollisionBehavior.txt)
+  TGMCollisionBehavior = (cbNONE, cbOPTIONAL_AND_HIDES_LOWER_PRIORITY, cbREQUIRED, cbREQUIRED_AND_HIDES_OPTIONAL);
+
+  // @include(..\Help\docs\GMLib.Sets.TGMSymbolPath.txt)
+  TGMSymbolPath = (spBACKWARD_CLOSED_ARROW, spBACKWARD_OPEN_ARROW, spCIRCLE, spFORWARD_CLOSED_ARROW, spFORWARD_OPEN_ARROW);
+
 implementation
 
 end.
