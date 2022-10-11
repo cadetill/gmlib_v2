@@ -79,6 +79,10 @@ DiGraph Classes {
   "TGMMapOptions" [href="GMLib.Map.Vcl.TGMMapOptions.html"]
   "TGMFullScreenControlOptions" -> "TGMPersistentStr"
   "TGMFullScreenControlOptions" [href="GMLib.Map.TGMFullScreenControlOptions.html"]
+  "TGMKmlLayer" -> "TGMPersistentStr"
+  "TGMKmlLayer" [href="GMLib.Layers.TGMKmlLayer.html"]
+  "TGMKmlLayerOptions" -> "TGMPersistentStr"
+  "TGMKmlLayerOptions" [href="GMLib.Layers.TGMKmlLayerOptions.html"]
   "TGMLatLng" -> "TGMPersistentStr"
   "TGMLatLng" [href="GMLib.LatLng.TGMLatLng.html"]
   "TGMLatLngBounds" -> "TGMPersistentStr"

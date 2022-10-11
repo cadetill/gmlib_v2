@@ -2,7 +2,8 @@ program GMMapDemo;
 
 uses
   Vcl.Forms,
-  UMainFrm in 'src\UMainFrm.pas' {MainFrm};
+  UMainFrm in 'src\UMainFrm.pas' {MainFrm},
+  UMapFrame in '..\Common Frames\UMapFrame.pas' {MapFrame: TFrame};
 
 {$R *.res}
 

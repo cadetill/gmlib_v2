@@ -224,15 +224,17 @@ type
     // @include(..\Help\docs\GMLib.Classes.IGMControlChanges.PropertyChanged.txt)
     procedure PropertyChanged(Prop: TPersistent; PropName: string);
 
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; virtual;
+
+    function Add: TGMInterfacedCollectionItem;
+    function Insert(Index: Integer): TGMInterfacedCollectionItem;
     // @include(..\Help\docs\GMLib.Classes.TGMInterfacedCollection.Delete.txt)
     procedure Delete(Index: Integer);
     // @include(..\Help\docs\GMLib.Classes.TGMInterfacedCollection.Move.txt)
     procedure Move(CurIndex, NewIndex: Integer);
     // @include(..\Help\docs\GMLib.Classes.TGMInterfacedCollection.Clear.txt)
     procedure Clear;
-
-    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
-    function PropToString: string; virtual;
 
     // @include(..\Help\docs\GMLib.Classes.TGMInterfacedCollection.OnChange.txt)
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
@@ -432,6 +434,13 @@ end;
 
 { TGMInterfacedCollection }
 
+function TGMInterfacedCollection.Add: TGMInterfacedCollectionItem;
+begin
+  Result := TGMInterfacedCollectionItem(inherited Add);
+
+  ControlChanges('Items');
+end;
+
 procedure TGMInterfacedCollection.Assign(Source: TPersistent);
 begin
   inherited;
@@ -444,7 +453,7 @@ procedure TGMInterfacedCollection.Clear;
 begin
   inherited Clear;
 
-  ControlChanges('');
+  ControlChanges('Items');
 end;
 
 procedure TGMInterfacedCollection.ControlChanges(PropName: string);
@@ -469,7 +478,7 @@ procedure TGMInterfacedCollection.Delete(Index: Integer);
 begin
   inherited Delete(Index);
 
-  ControlChanges('');
+  ControlChanges('Items');
 end;
 
 function TGMInterfacedCollection.GetItems(
@@ -495,11 +504,18 @@ begin
   Result := Intf.GetOwnerLang;
 end;
 
+function TGMInterfacedCollection.Insert(Index: Integer): TGMInterfacedCollectionItem;
+begin
+  Result := TGMInterfacedCollectionItem(inherited Insert(Index));
+
+  ControlChanges('Items');
+end;
+
 procedure TGMInterfacedCollection.Move(CurIndex, NewIndex: Integer);
 begin
   Items[CurIndex].Index := NewIndex;
 
-  ControlChanges('');
+  ControlChanges('Items');
 end;
 
 procedure TGMInterfacedCollection.PropertyChanged(Prop: TPersistent;

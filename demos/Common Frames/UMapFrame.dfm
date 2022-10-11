@@ -1,4 +1,4 @@
-object Frame1: TFrame1
+object MapFrame: TMapFrame
   Left = 0
   Top = 0
   Width = 376
@@ -17,9 +17,6 @@ object Frame1: TFrame1
     Caption = 'Active'
     TabOrder = 0
     OnClick = cbActiveClick
-    ExplicitLeft = 16
-    ExplicitTop = 21
-    ExplicitWidth = 281
   end
   object pcPages: TPageControl
     Left = 0
@@ -29,10 +26,6 @@ object Frame1: TFrame1
     ActivePage = tsMapOptions
     Align = alClient
     TabOrder = 1
-    ExplicitLeft = 1
-    ExplicitTop = 66
-    ExplicitWidth = 299
-    ExplicitHeight = 424
     object tsGeneral: TTabSheet
       Caption = 'General'
       object lIntervalEvents: TLabel
@@ -77,6 +70,19 @@ object Frame1: TFrame1
         Height = 15
         Caption = 'Language'
       end
+      object Label1: TLabel
+        Left = 64
+        Top = 24
+        Width = 278
+        Height = 15
+        Caption = '(you need to put an API Key to use some features)'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clRed
+        Font.Height = -12
+        Font.Name = 'Segoe UI'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
       object eIntervalEvents: TSpinEdit
         Left = 16
         Top = 194
@@ -86,6 +92,7 @@ object Frame1: TFrame1
         MinValue = 1
         TabOrder = 0
         Value = 50
+        OnChange = eIntervalEventsChange
       end
       object cbAPIVersion: TComboBox
         Left = 16
@@ -94,6 +101,7 @@ object Frame1: TFrame1
         Height = 22
         Style = csOwnerDrawFixed
         TabOrder = 1
+        OnChange = cbAPIVersionChange
       end
       object cbAPILang: TComboBox
         Left = 16
@@ -102,6 +110,7 @@ object Frame1: TFrame1
         Height = 22
         Style = csOwnerDrawFixed
         TabOrder = 2
+        OnChange = cbAPILangChange
       end
       object eAPIKey: TEdit
         Left = 16
@@ -109,6 +118,7 @@ object Frame1: TFrame1
         Width = 273
         Height = 23
         TabOrder = 3
+        OnChange = eAPIKeyChange
       end
       object cbAPIRegion: TComboBox
         Left = 127
@@ -117,6 +127,7 @@ object Frame1: TFrame1
         Height = 22
         Style = csOwnerDrawFixed
         TabOrder = 4
+        OnChange = cbAPIRegionChange
       end
       object cbLanguage: TComboBox
         Left = 16
@@ -125,6 +136,7 @@ object Frame1: TFrame1
         Height = 22
         Style = csOwnerDrawFixed
         TabOrder = 5
+        OnChange = cbLanguageChange
       end
     end
     object tsMapOptions: TTabSheet
@@ -143,6 +155,7 @@ object Frame1: TFrame1
         Width = 105
         Height = 22
         TabOrder = 0
+        OnChange = cbBackgroundColorChange
       end
       object gbCenter: TGroupBox
         Left = 3
@@ -171,6 +184,7 @@ object Frame1: TFrame1
           Width = 94
           Height = 23
           TabOrder = 0
+          OnChange = eLatChange
         end
         object eLng: TEdit
           Left = 176
@@ -178,6 +192,7 @@ object Frame1: TFrame1
           Width = 94
           Height = 23
           TabOrder = 1
+          OnChange = eLngChange
         end
       end
       object cbClickableIcons: TCheckBox
@@ -187,6 +202,7 @@ object Frame1: TFrame1
         Height = 17
         Caption = 'ClickableIcons'
         TabOrder = 2
+        OnClick = cbClickableIconsClick
       end
       object cbDisableDoubleClickZoom: TCheckBox
         Left = 120
@@ -195,17 +211,16 @@ object Frame1: TFrame1
         Height = 17
         Caption = 'DisableDoubleClickZoom'
         TabOrder = 3
+        OnClick = cbDisableDoubleClickZoomClick
       end
       object pcObjects: TPageControl
         Left = 0
         Top = 314
         Width = 368
         Height = 199
-        ActivePage = tsLayers
+        ActivePage = tsRotateControl
         Align = alBottom
         TabOrder = 4
-        ExplicitTop = 195
-        ExplicitWidth = 291
         object tsFullScreenControl: TTabSheet
           Caption = 'FullScreen'
           object lFSPosition: TLabel
@@ -222,6 +237,7 @@ object Frame1: TFrame1
             Height = 17
             Caption = 'FullScreenControl'
             TabOrder = 0
+            OnClick = cbFullScreenControlClick
           end
           object cbFSPosition: TComboBox
             Left = 73
@@ -230,6 +246,7 @@ object Frame1: TFrame1
             Height = 22
             Style = csOwnerDrawFixed
             TabOrder = 1
+            OnChange = cbFSPositionChange
           end
         end
         object tsMapTypeControl: TTabSheet
@@ -270,6 +287,7 @@ object Frame1: TFrame1
             Height = 22
             Style = csOwnerDrawFixed
             TabOrder = 0
+            OnChange = cbMTPositionChange
           end
           object clbMTIds: TCheckListBox
             Left = 176
@@ -278,6 +296,7 @@ object Frame1: TFrame1
             Height = 65
             ItemHeight = 15
             TabOrder = 1
+            OnClickCheck = clbMTIdsClickCheck
           end
           object cbMapTypeControl: TCheckBox
             Left = 8
@@ -286,6 +305,7 @@ object Frame1: TFrame1
             Height = 17
             Caption = 'MapTypeControl'
             TabOrder = 2
+            OnClick = cbMapTypeControlClick
           end
           object cbMTStyle: TComboBox
             Left = 65
@@ -294,6 +314,7 @@ object Frame1: TFrame1
             Height = 22
             Style = csOwnerDrawFixed
             TabOrder = 3
+            OnChange = cbMTStyleChange
           end
           object cbMapTypeId: TComboBox
             Left = 81
@@ -302,6 +323,7 @@ object Frame1: TFrame1
             Height = 22
             Style = csOwnerDrawFixed
             TabOrder = 4
+            OnChange = cbMapTypeIdChange
           end
         end
         object tsRestriction: TTabSheet
@@ -314,6 +336,7 @@ object Frame1: TFrame1
             Height = 17
             Caption = 'Enabled'
             TabOrder = 0
+            OnClick = cbREnabledClick
           end
           object cbRStrictBounds: TCheckBox
             Left = 123
@@ -322,6 +345,7 @@ object Frame1: TFrame1
             Height = 17
             Caption = 'StrictBounds'
             TabOrder = 1
+            OnClick = cbRStrictBoundsClick
           end
           object gbRNE: TGroupBox
             Left = 4
@@ -350,6 +374,7 @@ object Frame1: TFrame1
               Width = 94
               Height = 23
               TabOrder = 0
+              OnChange = eRNELatChange
             end
             object eRNELng: TEdit
               Left = 173
@@ -357,6 +382,7 @@ object Frame1: TFrame1
               Width = 94
               Height = 23
               TabOrder = 1
+              OnChange = eRNELngChange
             end
           end
           object gbRSW: TGroupBox
@@ -386,6 +412,7 @@ object Frame1: TFrame1
               Width = 94
               Height = 23
               TabOrder = 0
+              OnChange = eRSWLatChange
             end
             object eRSWLng: TEdit
               Left = 173
@@ -393,6 +420,7 @@ object Frame1: TFrame1
               Width = 94
               Height = 23
               TabOrder = 1
+              OnChange = eRSWLngChange
             end
           end
         end
@@ -413,6 +441,7 @@ object Frame1: TFrame1
             Height = 17
             Caption = 'RotateControl'
             TabOrder = 0
+            OnClick = cbRotateControlClick
           end
           object cbRotPosition: TComboBox
             Left = 81
@@ -421,6 +450,7 @@ object Frame1: TFrame1
             Height = 22
             Style = csOwnerDrawFixed
             TabOrder = 1
+            OnChange = cbRotPositionChange
           end
         end
         object tsScaleControl: TTabSheet
@@ -440,6 +470,7 @@ object Frame1: TFrame1
             Height = 17
             Caption = 'ScaleControl'
             TabOrder = 0
+            OnClick = cbScaleControlClick
           end
           object cbSStyle: TComboBox
             Left = 81
@@ -448,6 +479,7 @@ object Frame1: TFrame1
             Height = 22
             Style = csOwnerDrawFixed
             TabOrder = 1
+            OnChange = cbSStyleChange
           end
         end
         object tsStreetViewControl: TTabSheet
@@ -467,6 +499,7 @@ object Frame1: TFrame1
             Height = 17
             Caption = 'StreetViewControl'
             TabOrder = 0
+            OnClick = cbStreetViewControlClick
           end
           object cbSVPosition: TComboBox
             Left = 89
@@ -475,6 +508,7 @@ object Frame1: TFrame1
             Height = 22
             Style = csOwnerDrawFixed
             TabOrder = 1
+            OnChange = cbSVPositionChange
           end
         end
         object tsZoomControl: TTabSheet
@@ -515,6 +549,7 @@ object Frame1: TFrame1
             Height = 17
             Caption = 'ZoomControl'
             TabOrder = 0
+            OnClick = cbZoomControlClick
           end
           object cbZPosition: TComboBox
             Left = 89
@@ -523,6 +558,7 @@ object Frame1: TFrame1
             Height = 22
             Style = csOwnerDrawFixed
             TabOrder = 1
+            OnChange = cbZPositionChange
           end
           object eZoom: TEdit
             Left = 75
@@ -530,6 +566,7 @@ object Frame1: TFrame1
             Width = 94
             Height = 23
             TabOrder = 2
+            OnChange = eZoomChange
           end
           object eMaxZoom: TEdit
             Left = 75
@@ -537,6 +574,7 @@ object Frame1: TFrame1
             Width = 54
             Height = 23
             TabOrder = 3
+            OnChange = eMaxZoomChange
           end
           object eMinZoom: TEdit
             Left = 210
@@ -544,34 +582,7 @@ object Frame1: TFrame1
             Width = 55
             Height = 23
             TabOrder = 4
-          end
-        end
-        object tsLayers: TTabSheet
-          Caption = 'Layers'
-          ImageIndex = 7
-          object cbTrafficLayerShow: TCheckBox
-            Left = 16
-            Top = 16
-            Width = 129
-            Height = 17
-            Caption = 'Show TrafficLayer'
-            TabOrder = 0
-          end
-          object cbTransitLayerShow: TCheckBox
-            Left = 16
-            Top = 57
-            Width = 129
-            Height = 17
-            Caption = 'Show TransitLayer'
-            TabOrder = 1
-          end
-          object cbByciclingLayerShow: TCheckBox
-            Left = 16
-            Top = 112
-            Width = 129
-            Height = 17
-            Caption = 'Show ByciclingLayer'
-            TabOrder = 2
+            OnChange = eMinZoomChange
           end
         end
       end
@@ -582,6 +593,7 @@ object Frame1: TFrame1
         Height = 17
         Caption = 'NoClear'
         TabOrder = 5
+        OnClick = cbNoClearClick
       end
       object cbKeyboardShortcuts: TCheckBox
         Left = 120
@@ -590,6 +602,7 @@ object Frame1: TFrame1
         Height = 17
         Caption = 'KeyboardShortcuts'
         TabOrder = 6
+        OnClick = cbKeyboardShortcutsClick
       end
       object cbIsFractionalZoomEnabled: TCheckBox
         Left = 8
@@ -598,6 +611,7 @@ object Frame1: TFrame1
         Height = 17
         Caption = 'IsFractionalZoomEnabled'
         TabOrder = 7
+        OnClick = cbIsFractionalZoomEnabledClick
       end
     end
   end

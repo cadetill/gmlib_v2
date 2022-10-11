@@ -845,12 +845,14 @@ begin
 
   if (Pos('TGMTrafficLayer_', PropName) > 0) or
      (Pos('TGMTransitLayer_', PropName) > 0) or
-     (Pos('TGMByciclingLayer_', PropName) > 0)
+     (Pos('TGMByciclingLayer_', PropName) > 0) or
+     (Pos('TGMKmlLayer', PropName) > 0)
   then
   begin
     Params := FTrafficLayer.PropToString + ',' +
               FTransitLayer.PropToString + ',' +
-              FByciclingLayer.PropToString;
+              FByciclingLayer.PropToString + ',' +
+              FKmlLayer.PropToString;
     ExecuteJavaScript('ShowLayers', Params);
   end;
 

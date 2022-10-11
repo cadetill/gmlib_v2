@@ -14,7 +14,7 @@ interface
 
 const
   // @include(..\Help\docs\GMLib.Constants.ctGMLib_Version.txt)
-  ctGMLib_Version = '[2.0.0.0]';
+  ctGMLib_Version = '[2.0.0.3]';
 
   // @include(..\Help\docs\GMLib.Constants.ct_RES_MAPAJS_CODE.txt)
   ct_RES_MAPAJS_CODE = 'RES_MAPJSCODE';
