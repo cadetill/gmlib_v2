@@ -301,6 +301,9 @@ type
     procedure SetZoom(const Value: Integer);
     procedure SetZoomControl(const Value: Boolean);
   protected
+    // @exclude
+    function GetAPIUrl: string; override;
+
     // @include(..\Help\docs\GMLib.Classes.IGMControlChanges.PropertyChanged.txt)
     procedure PropertyChanged(Prop: TPersistent; PropName: string);
 
@@ -369,9 +372,6 @@ type
     // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.Destroy.txt)
     destructor Destroy; override;
 
-    // @exclude
-    function GetAPIUrl: string; override;
-
     // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
 
@@ -430,6 +430,9 @@ type
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.FBrowser.txt)
     FBrowser: TComponent;
 
+    // @exclude
+    function GetAPIUrl: string; override;
+
     // @include(..\Help\docs\GMLib.Classes.IGMControlChanges.PropertyChanged.txt)
     procedure PropertyChanged(Prop: TPersistent; PropName: string);
 
@@ -446,9 +449,6 @@ type
     procedure SetZoomProperty(Zoom: Integer); virtual; abstract;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.DoOpenMap.txt)
     procedure DoOpenMap; virtual;
-
-    // @exclude
-    function GetAPIUrl: string; override;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.LoadMap.txt)
     procedure LoadMap; virtual; abstract;

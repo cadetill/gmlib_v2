@@ -23,6 +23,8 @@ type
     class function GMBoolToStr(Value: Boolean; UseBoolStrs: Boolean = False): string;
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.GetStrToDouble.txt)
     class function GetStrToDouble(Value: string): Double;
+    // @include(..\Help\docs\GMLib.Transform.TGMTransform.GetDoubleToStr.txt)
+    class function GetDoubleToStr(Value: Double): string;
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.GetStrToInteger.txt)
     class function GetStrToInteger(Value: string; Default: Integer = 0): Integer;
 
@@ -460,6 +462,13 @@ end;
 class function TGMTransform.GestureHandlingToStr(Value: TGMGestureHandling): string;
 begin
   Result := GetEnumName(TypeInfo(TGMGestureHandling), Ord(Value));
+end;
+
+class function TGMTransform.GetDoubleToStr(Value: Double): string;
+begin
+  Result := FloatToStr(Value);
+
+  Result := StringReplace(Result, ',', '.', [rfReplaceAll]);
 end;
 
 class function TGMTransform.GetStrToDouble(Value: string): Double;
