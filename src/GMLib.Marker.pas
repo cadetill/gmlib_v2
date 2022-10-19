@@ -51,6 +51,10 @@ type
     property Y: Double read FY write SetY;
   end;
 
+  TGMIconOptions = class(TGMPersistentStr, IGMControlChanges)
+
+  end;
+
   // @include(..\Help\docs\GMLib.Marker.TGMCustomSymbolOptions.txt)
   TGMCustomSymbolOptions = class(TGMPersistentStr, IGMControlChanges)
   private
@@ -96,7 +100,9 @@ type
     property StrokeWeight: Integer read FStrokeWeight write SetStrokeWeight;
 
 
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomSymbolOptions.FillColor.txt)
     //property FillColor: TColor;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomSymbolOptions.StrokeColor.txt)
     //property StrokeColor: TColor;
   public
     // @include(..\Help\docs\GMLib.Marker.TGMCustomSymbolOptions.Create.txt)
@@ -111,7 +117,12 @@ type
     // @include(..\Help\docs\GMLib.Classes.IGMControlChanges.PropertyChanged.txt)
     procedure PropertyChanged(Prop: TPersistent; PropName: string);
 
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomIconOptions.Url.txt)
     property Url: string read FUrl write SetUrl;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomIconOptions.Icon.txt)
+    property Icon: TGMIconOptions read FIcon write FIcon;
+
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomIconOptions.Symbol.txt)
     //property Symbol: TGMSymbolOptions;
   end;
 
@@ -146,14 +157,21 @@ type
     procedure SetTitle(const Value: string);
     procedure SetVisible(const Value: Boolean);
   protected
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.AnchorPoint.txt)
     property AnchorPoint: TPoint read FAnchorPoint write SetAnchorPoint;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Animation.txt)
     property Animation: TGMAnimation read FAnimation write SetAnimation;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Clickable.txt)
     property Clickable: Boolean read FClickable write SetClickable;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.CollisionBehavior.txt)
     property CollisionBehavior: TGMCollisionBehavior read FCollisionBehavior write SetCollisionBehavior;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.CrossOnDrag.txt)
     property CrossOnDrag: Boolean read FCrossOnDrag write SetCrossOnDrag;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Cursor.txt)
     property Cursor: string read FCursor write SetCursor;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Draggable.txt)
     property Draggable: Boolean read FDraggable write SetDraggable;
-    //property Icon: TGMIconOptions;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.LabelText.txt)
     property LabelText: TGMLabelOptions read FLabelText write SetLabelText;
     property Opacity: Double read FOpacity write SetOpacity;
     property Optimized: Boolean read FOptimized write SetOptimized;
@@ -161,6 +179,9 @@ type
     property Shape: TGMMarkerShape read FShape write SetShape;
     property Title: string read FTitle write SetTitle;
     property Visible: Boolean read FVisible write SetVisible;
+
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Icon.txt)
+    //property Icon: TGMIconOptions;
   public
   end;
 
@@ -222,40 +243,20 @@ end;
 
 function TGMCustomSymbolOptions.PropToString: string;
 const
-  Str = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
+  Str = '%s,%s,%s,%s,%s,%s,%s,%s';
 begin
   Result := inherited PropToString;
   if Result <> '' then Result := Result + ',';
   Result := Result +
             Format(Str, [
-                         FCenter.PropToString,
-                         LowerCase(TGMTransform.GMBoolToStr(FClickableIcons, True)),
-                         LowerCase(TGMTransform.GMBoolToStr(FDisableDoubleClickZoom, True)),
-                         QuotedStr(FDraggableCursor),
-                         QuotedStr(FDraggingCursor),
-                         LowerCase(TGMTransform.GMBoolToStr(FFullScreenControl, True)),
-                         FFullScreenControlOptions.PropToString,
-                         QuotedStr(TGMTransform.GestureHandlingToStr(FGestureHandling)),
-                         IntToStr(FHeading),
-                         LowerCase(TGMTransform.GMBoolToStr(FIsFractionalZoomEnabled, True)),
-                         LowerCase(TGMTransform.GMBoolToStr(FKeyboardShortcuts, True)),
-                         LowerCase(TGMTransform.GMBoolToStr(FMapTypeControl, True)),
-                         FMapTypeControlOptions.PropToString,
-                         QuotedStr(TGMTransform.MapTypeIdToStr(FMapTypeId)),
-                         IntToStr(FMaxZoom),
-                         IntToStr(FMinZoom),
-                         LowerCase(TGMTransform.GMBoolToStr(FNoClear, True)),
-                         FRestriction.PropToString,
-                         LowerCase(TGMTransform.GMBoolToStr(FRotateControl, True)),
-                         FRotateControlOptions.PropToString,
-                         LowerCase(TGMTransform.GMBoolToStr(FScaleControl, True)),
-                         FScaleControlOptions.PropToString,
-                         LowerCase(TGMTransform.GMBoolToStr(FStreetViewControl, True)),
-                         FStreetViewControlOptions.PropToString,
-                         IntToStr(FTilt),
-                         IntToStr(FZoom),
-                         LowerCase(TGMTransform.GMBoolToStr(FZoomControl, True)),
-                         FZoomControlOptions.PropToString
+                         QuotedStr(TGMTransform.SymbolPathToStr(FPath)),
+                         FAnchor.PropToString,
+                         TGMTransform.GetDoubleToStr(FFillOpacity),
+                         FLabelOrigin.PropToString,
+                         IntToStr(FRotation),
+                         IntToStr(FScale),
+                         TGMTransform.GetDoubleToStr(FStrokeOpacity),
+                         IntToStr(FStrokeWeight)
                          ]);
 end;
 

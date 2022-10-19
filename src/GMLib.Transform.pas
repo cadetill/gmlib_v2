@@ -56,6 +56,12 @@ type
     class function MapTypeControlStyleToStr(Value: TGMMapTypeControlStyle): string;
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.ScaleControlStyleToStr.txt)
     class function ScaleControlStyleToStr(Value: TGMScaleControlStyle): string;
+    // @include(..\Help\docs\GMLib.Transform.TGMTransform.SymbolPathToStr.txt)
+    class function SymbolPathToStr(Value: TGMSymbolPath): string;
+    // @include(..\Help\docs\GMLib.Transform.TGMTransform.AnimationToStr.txt)
+    class function AnimationToStr(Value: TGMAnimation): string;
+    // @include(..\Help\docs\GMLib.Transform.TGMTransform.CollisionBehaviorToStr.txt)
+    class function CollisionBehaviorToStr(Value: TGMCollisionBehavior): string;
 
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.StrToPosition.txt)
     class function StrToPosition(Value: string): TGMControlPosition;
@@ -67,6 +73,12 @@ type
     class function StrToMapTypeControlStyle(Value: string): TGMMapTypeControlStyle;
     // @include(..\Help\docs\GMLib.Transform.TGMTransform.StrToScaleControlStyle.txt)
     class function StrToScaleControlStyle(Value: string): TGMScaleControlStyle;
+    // @include(..\Help\docs\GMLib.Transform.TGMTransform.StrToSymbolPath.txt)
+    class function StrToSymbolPath(Value: string): TGMSymbolPath;
+    // @include(..\Help\docs\GMLib.Transform.TGMTransform.StrToAnimation.txt)
+    class function StrToAnimation(Value: string): TGMAnimation;
+    // @include(..\Help\docs\GMLib.Transform.TGMTransform.StrToCollisionBehavior.txt)
+    class function StrToCollisionBehavior(Value: string): TGMCollisionBehavior;
 
 (*
 
@@ -95,6 +107,11 @@ uses
 
 
 { TGMTransform }
+
+class function TGMTransform.AnimationToStr(Value: TGMAnimation): string;
+begin
+  Result := GetEnumName(TypeInfo(TGMAnimation), Ord(Value));
+end;
 
 class function TGMTransform.APILangToStr(Value: TGMAPILang): string;
 begin
@@ -459,6 +476,12 @@ begin
   end;
 end;
 
+class function TGMTransform.CollisionBehaviorToStr(
+  Value: TGMCollisionBehavior): string;
+begin
+  Result := GetEnumName(TypeInfo(TGMCollisionBehavior), Ord(Value));
+end;
+
 class function TGMTransform.GestureHandlingToStr(Value: TGMGestureHandling): string;
 begin
   Result := GetEnumName(TypeInfo(TGMGestureHandling), Ord(Value));
@@ -553,6 +576,11 @@ begin
   Result := GetEnumName(TypeInfo(TGMScaleControlStyle), Ord(Value));
 end;
 
+class function TGMTransform.StrToAnimation(Value: string): TGMAnimation;
+begin
+  Result := TGMAnimation(GetEnumValue(TypeInfo(TGMAnimation), Value));
+end;
+
 class function TGMTransform.StrToAPILang(Value: string): TGMAPILang;
 begin
   Result := TGMAPILang(GetEnumValue(TypeInfo(TGMAPILang), Value));
@@ -566,6 +594,12 @@ end;
 class function TGMTransform.StrToAPIVer(Value: string): TGMAPIVer;
 begin
   Result := TGMAPIVer(GetEnumValue(TypeInfo(TGMAPIVer), Value));
+end;
+
+class function TGMTransform.StrToCollisionBehavior(
+  Value: string): TGMCollisionBehavior;
+begin
+  Result := TGMCollisionBehavior(GetEnumValue(TypeInfo(TGMCollisionBehavior), Value));
 end;
 
 class function TGMTransform.StrToGestureHandling(Value: string): TGMGestureHandling;
@@ -596,6 +630,16 @@ end;
 class function TGMTransform.StrToScaleControlStyle(Value: string): TGMScaleControlStyle;
 begin
   Result := TGMScaleControlStyle(GetEnumValue(TypeInfo(TGMScaleControlStyle), Value));
+end;
+
+class function TGMTransform.StrToSymbolPath(Value: string): TGMSymbolPath;
+begin
+  Result := TGMSymbolPath(GetEnumValue(TypeInfo(TGMSymbolPath), Value));
+end;
+
+class function TGMTransform.SymbolPathToStr(Value: TGMSymbolPath): string;
+begin
+  Result := GetEnumName(TypeInfo(TGMSymbolPath), Ord(Value));
 end;
 
 end.
