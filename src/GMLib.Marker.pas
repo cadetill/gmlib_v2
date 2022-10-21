@@ -51,8 +51,79 @@ type
     property Y: Double read FY write SetY;
   end;
 
-  TGMIconOptions = class(TGMPersistentStr, IGMControlChanges)
+  // @include(..\Help\docs\GMLib.Marker.TGMSize.txt)
+  TGMSize = class(TGMPersistentStr)
+  private
+    FHeight: Double;
+    FWidth: Double;
+    procedure SetHeight(const Value: Double);
+    procedure SetWidth(const Value: Double);
+  protected
+    // @exclude
+    function GetAPIUrl: string; override;
+  public
+    // @include(..\Help\docs\GMLib.Marker.TGMSize.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
 
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
+    property APIUrl;
+  published
+    // @include(..\Help\docs\GMLib.Marker.TGMSize.Height.txt)
+    property Height: Double read FHeight write SetHeight;
+    // @include(..\Help\docs\GMLib.Marker.TGMSize.Width.txt)
+    property Width: Double read FWidth write SetWidth;
+  end;
+
+  // @include(..\Help\docs\GMLib.Marker.TGMIconOptions.txt)
+  TGMIconOptions = class(TGMPersistentStr, IGMControlChanges)
+  private
+    FScaledSize: Integer;
+    FOrigin: TGMPoint;
+    FAnchor: TGMPoint;
+    FSize: TGMSize;
+    FLabelOrigin: TGMPoint;
+    FUrl: string;
+    procedure SetScaledSize(const Value: Integer);
+    procedure SetUrl(const Value: string);
+  protected
+    // @exclude
+    function GetAPIUrl: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMControlChanges.PropertyChanged.txt)
+    procedure PropertyChanged(Prop: TPersistent; PropName: string);
+  public
+    // @include(..\Help\docs\GMLib.Marker.TGMSize.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
+    // @include(..\Help\docs\GMLib.Marker.TGMSize.Destroy.txt)
+    destructor Destroy; override;
+
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
+    property APIUrl;
+  published
+    // @include(..\Help\docs\GMLib.Marker.TGMIconOptions.Url.txt)
+    property Url: string read FUrl write SetUrl;
+    // @include(..\Help\docs\GMLib.Marker.TGMIconOptions.Anchor.txt)
+    property Anchor: TGMPoint read FAnchor write FAnchor;
+    // @include(..\Help\docs\GMLib.Marker.TGMIconOptions.LabelOrigin.txt)
+    property LabelOrigin: TGMPoint read FLabelOrigin write FLabelOrigin;
+    // @include(..\Help\docs\GMLib.Marker.TGMIconOptions.Origin.txt)
+    property Origin: TGMPoint read FOrigin write FOrigin;
+    // @include(..\Help\docs\GMLib.Marker.TGMIconOptions.ScaledSize.txt)
+    property ScaledSize: Integer read FScaledSize write SetScaledSize;
+    // @include(..\Help\docs\GMLib.Marker.TGMIconOptions.Size.txt)
+    property Size: TGMSize read FSize write FSize;
   end;
 
   // @include(..\Help\docs\GMLib.Marker.TGMCustomSymbolOptions.txt)
@@ -112,6 +183,7 @@ type
   TGMCustomIconOptions = class(TGMPersistentStr, IGMControlChanges)
   private
     FUrl: string;
+    FIcon: TGMIconOptions;
     procedure SetUrl(const Value: string);
   protected
     // @include(..\Help\docs\GMLib.Classes.IGMControlChanges.PropertyChanged.txt)
@@ -171,6 +243,10 @@ type
     property Cursor: string read FCursor write SetCursor;
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Draggable.txt)
     property Draggable: Boolean read FDraggable write SetDraggable;
+
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Icon.txt)
+    //property Icon: TGMIconOptions;
+
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.LabelText.txt)
     property LabelText: TGMLabelOptions read FLabelText write SetLabelText;
     property Opacity: Double read FOpacity write SetOpacity;
@@ -180,8 +256,6 @@ type
     property Title: string read FTitle write SetTitle;
     property Visible: Boolean read FVisible write SetVisible;
 
-    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Icon.txt)
-    //property Icon: TGMIconOptions;
   public
   end;
 
@@ -440,12 +514,159 @@ end;
 
 procedure TGMPoint.SetX(const Value: Double);
 begin
+  if FX = Value then Exit;
+
   FX := Value;
+  ControlChanges('X');
 end;
 
 procedure TGMPoint.SetY(const Value: Double);
 begin
+  if FY = Value then Exit;
+
   FY := Value;
+  ControlChanges('Y');
+end;
+
+{ TGMSize }
+
+procedure TGMSize.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMSize then
+  begin
+    Height := TGMSize(Source).Height;
+    Width := TGMSize(Source).Width;
+  end;
+end;
+
+constructor TGMSize.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FHeight := 0;
+  FWidth := 0;
+end;
+
+function TGMSize.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/coordinates#Size';
+end;
+
+function TGMSize.PropToString: string;
+const
+  Str = '%s,%s';
+begin
+  Result := Format(Str, [
+                         TGMTransform.GetDoubleToStr(FHeight),
+                         TGMTransform.GetDoubleToStr(FWidth)
+                        ]);
+end;
+
+procedure TGMSize.SetHeight(const Value: Double);
+begin
+  if FHeight = Value then Exit;
+
+  FHeight := Value;
+  ControlChanges('Height');
+end;
+
+procedure TGMSize.SetWidth(const Value: Double);
+begin
+  if FWidth = Value then Exit;
+
+  FWidth := Value;
+  ControlChanges('Width');
+end;
+
+{ TGMIconOptions }
+
+procedure TGMIconOptions.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMIconOptions then
+  begin
+    Url := TGMIconOptions(Source).Url;
+    ScaledSize := TGMIconOptions(Source).ScaledSize;
+    Anchor.Assign(TGMIconOptions(Source).Anchor);
+    LabelOrigin.Assign(TGMIconOptions(Source).LabelOrigin);
+    Origin.Assign(TGMIconOptions(Source).Origin);
+    Size.Assign(TGMIconOptions(Source).Size);
+  end;
+end;
+
+constructor TGMIconOptions.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FUrl := '';
+  FAnchor := TGMPoint.Create(Self);
+  FLabelOrigin := TGMPoint.Create(Self);
+  FOrigin := TGMPoint.Create(Self);
+  FScaledSize := 0;
+  FSize := TGMSize.Create(Self);
+end;
+
+destructor TGMIconOptions.Destroy;
+begin
+  if Assigned(FAnchor) then FAnchor.Free;
+  if Assigned(FLabelOrigin) then FLabelOrigin.Free;
+  if Assigned(FOrigin) then FOrigin.Free;
+  if Assigned(FSize) then FSize.Free;
+
+  inherited;
+end;
+
+function TGMIconOptions.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/marker#Icon';
+end;
+
+procedure TGMIconOptions.PropertyChanged(Prop: TPersistent; PropName: string);
+var
+  Intf: IGMControlChanges;
+begin
+  if (GetOwner <> nil) and Supports(GetOwner, IGMControlChanges, Intf) then
+  begin
+    if Assigned(Prop) then
+      Intf.PropertyChanged(Prop, Self.ClassName + '_' + PropName)
+    else
+      Intf.PropertyChanged(Self, Self.ClassName + '_' + PropName);
+  end
+  else
+    if Assigned(OnChange) then OnChange(Self);
+end;
+
+function TGMIconOptions.PropToString: string;
+const
+  Str = '%s,%s,%s,%s,%s,%s';
+begin
+  Result := Format(Str, [
+                         QuotedStr(FUrl),
+                         FAnchor.PropToString,
+                         FLabelOrigin.PropToString,
+                         FOrigin.PropToString,
+                         TGMTransform.GetDoubleToStr(FScaledSize),
+                         FSize.PropToString
+                        ]);
+end;
+
+procedure TGMIconOptions.SetScaledSize(const Value: Integer);
+begin
+  if FScaledSize = Value then Exit;
+
+  FScaledSize := Value;
+  ControlChanges('ScaledSize');
+end;
+
+procedure TGMIconOptions.SetUrl(const Value: string);
+begin
+  if FUrl = Value then Exit;
+
+  FUrl := Value;
+  ControlChanges('Url');
 end;
 
 end.
