@@ -180,6 +180,7 @@ type
     constructor Create(AOwner: TPersistent); override;
   end;
 
+  // @include(..\Help\docs\GMLib.Marker.TGMCustomIconOptions.txt)
   TGMCustomIconOptions = class(TGMPersistentStr, IGMControlChanges)
   private
     FUrl: string;
@@ -198,39 +199,87 @@ type
     //property Symbol: TGMSymbolOptions;
   end;
 
-  TGMCustomMarker = class(TGMInterfacedCollectionItem)
+  // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.txt)
+  TGMCustomLabelOptions = class(TGMPersistentStr)
+  private
+    FFontFamily: string;
+    FFontWeight: Integer;
+    FFontSize: Integer;
+    FClassName: string;
+    FText: string;
+    procedure SetClassName(const Value: string);
+    procedure SetFontFamily(const Value: string);
+    procedure SetFontSize(const Value: Integer);
+    procedure SetFontWeight(const Value: Integer);
+    procedure SetText(const Value: string);
+  protected
+    // @exclude
+    function GetAPIUrl: string; override;
+
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.Text.txt)
+    property Text: string read FText write SetText;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.ClassName.txt)
+    property ClassName: string read FClassName write SetClassName;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.Color.txt)
+    //property Color: TColor;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.FontFamily.txt)
+    property FontFamily: string read FFontFamily write SetFontFamily;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.FontSize.txt)
+    property FontSize: Integer read FFontSize write SetFontSize;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.FontWeight.txt)
+    property FontWeight: Integer read FFontWeight write SetFontWeight;
+  public
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
+    property APIUrl;
+  end;
+
+  // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.txt)
+  TGMCustomMarker = class(TGMInterfacedCollectionItem, IGMControlChanges)
   private
     FOpacity: Double;
-    FLabelText: TGMLabelOptions;
     FAnimation: TGMAnimation;
-    FShape: TGMMarkerShape;
     FDraggable: Boolean;
     FOptimized: Boolean;
     FTitle: string;
     FCursor: string;
-    FAnchorPoint: TPoint;
+    FAnchorPoint: TGMPoint;
     FVisible: Boolean;
     FCollisionBehavior: TGMCollisionBehavior;
     FCrossOnDrag: Boolean;
     FClickable: Boolean;
     FPosition: TGMLatLng;
-    procedure SetAnchorPoint(const Value: TPoint);
     procedure SetAnimation(const Value: TGMAnimation);
     procedure SetClickable(const Value: Boolean);
     procedure SetCollisionBehavior(const Value: TGMCollisionBehavior);
     procedure SetCrossOnDrag(const Value: Boolean);
     procedure SetCursor(const Value: string);
     procedure SetDraggable(const Value: Boolean);
-    procedure SetLabelText(const Value: TGMLabelOptions);
     procedure SetOpacity(const Value: Double);
     procedure SetOptimized(const Value: Boolean);
     procedure SetPosition(const Value: TGMLatLng);
-    procedure SetShape(const Value: TGMMarkerShape);
     procedure SetTitle(const Value: string);
     procedure SetVisible(const Value: Boolean);
   protected
+    // @exclude
+    function GetAPIUrl: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMControlChanges.PropertyChanged.txt)
+    procedure PropertyChanged(Prop: TPersistent; PropName: string);
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.AnchorPoint.txt)
-    property AnchorPoint: TPoint read FAnchorPoint write SetAnchorPoint;
+    property AnchorPoint: TGMPoint read FAnchorPoint write FAnchorPoint;
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Animation.txt)
     property Animation: TGMAnimation read FAnimation write SetAnimation;
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Clickable.txt)
@@ -246,17 +295,30 @@ type
 
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Icon.txt)
     //property Icon: TGMIconOptions;
-
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.LabelText.txt)
-    property LabelText: TGMLabelOptions read FLabelText write SetLabelText;
-    property Opacity: Double read FOpacity write SetOpacity;
-    property Optimized: Boolean read FOptimized write SetOptimized;
-    property Position: TGMLatLng read FPosition write SetPosition;
-    property Shape: TGMMarkerShape read FShape write SetShape;
-    property Title: string read FTitle write SetTitle;
-    property Visible: Boolean read FVisible write SetVisible;
+    //property LabelText: TGMLabelOptions read FLabelText write FLabelText;
 
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Opacity.txt)
+    property Opacity: Double read FOpacity write SetOpacity;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Optimized.txt)
+    property Optimized: Boolean read FOptimized write SetOptimized;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Position.txt)
+    property Position: TGMLatLng read FPosition write SetPosition;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Title.txt)
+    property Title: string read FTitle write SetTitle;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Visible.txt)
+    property Visible: Boolean read FVisible write SetVisible;
   public
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Create.txt)
+    constructor Create(Collection: TCollection); override;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Destroy.txt)
+    destructor Destroy; override;
+
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
+    property APIUrl;
   end;
 
   TGMCustomMarkerList = class(TGMInterfacedCollection)
@@ -405,75 +467,173 @@ end;
 
 { TGMCustomMarker }
 
-procedure TGMCustomMarker.SetAnchorPoint(const Value: TPoint);
+procedure TGMCustomMarker.Assign(Source: TPersistent);
 begin
-  FAnchorPoint := Value;
+  inherited;
+
+  if Assigned(FAnchorPoint) then FAnchorPoint.Free;
+  if Assigned(FPosition) then FPosition.Free;
+end;
+
+constructor TGMCustomMarker.Create(Collection: TCollection);
+begin
+  inherited;
+
+  FAnchorPoint := TGMPoint.Create(Self);
+  FAnimation := aniNONE;
+  FClickable := True;
+  FCollisionBehavior := cbNONE;
+  FCrossOnDrag := True;
+  FCursor := '';
+  FDraggable := False;
+  FOpacity := 1;
+  FOptimized := True;
+  FPosition := TGMLatLng.Create(Self, 0, 0, False);
+  FTitle := '';
+  FVisible := True;
+end;
+
+destructor TGMCustomMarker.Destroy;
+begin
+
+  inherited;
+end;
+
+function TGMCustomMarker.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/marker';
+end;
+
+procedure TGMCustomMarker.PropertyChanged(Prop: TPersistent; PropName: string);
+var
+  Intf: IGMControlChanges;
+begin
+  if (GetOwner <> nil) and Supports(GetOwner, IGMControlChanges, Intf) then
+  begin
+    if Assigned(Prop) then
+      Intf.PropertyChanged(Prop, Self.ClassName + '_' + PropName)
+    else
+      Intf.PropertyChanged(Self, Self.ClassName + '_' + PropName);
+  end
+  else
+    if Assigned(OnChange) then OnChange(Self);
+end;
+
+function TGMCustomMarker.PropToString: string;
+const
+  Str = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
+begin
+  Result := inherited PropToString;
+  if Result <> '' then Result := Result + ',';
+  Result := Result +
+            Format(Str, [
+                         FAnchorPoint.PropToString,
+                         QuotedStr(TGMTransform.AnimationToStr(FAnimation)),
+                         LowerCase(TGMTransform.GMBoolToStr(FClickable, True)),
+                         QuotedStr(TGMTransform.CollisionBehaviorToStr(FCollisionBehavior)),
+                         LowerCase(TGMTransform.GMBoolToStr(FCrossOnDrag, True)),
+                         QuotedStr(FCursor),
+                         LowerCase(TGMTransform.GMBoolToStr(FDraggable, True)),
+                         TGMTransform.GetDoubleToStr(FOpacity),
+                         LowerCase(TGMTransform.GMBoolToStr(FOptimized, True)),
+                         Position.PropToString,
+                         QuotedStr(FTitle),
+                         LowerCase(TGMTransform.GMBoolToStr(FVisible, True))
+                        ]);
 end;
 
 procedure TGMCustomMarker.SetAnimation(const Value: TGMAnimation);
 begin
+  if FAnimation = Value then Exit;
+
   FAnimation := Value;
+  ControlChanges('Animation');
 end;
 
 procedure TGMCustomMarker.SetClickable(const Value: Boolean);
 begin
+  if FClickable = Value then Exit;
+
   FClickable := Value;
+  ControlChanges('Clickable');
 end;
 
 procedure TGMCustomMarker.SetCollisionBehavior(
   const Value: TGMCollisionBehavior);
 begin
+  if FCollisionBehavior = Value then Exit;
+
   FCollisionBehavior := Value;
+  ControlChanges('CollisionBehavior');
 end;
 
 procedure TGMCustomMarker.SetCrossOnDrag(const Value: Boolean);
 begin
+  if FCrossOnDrag = Value then Exit;
+
   FCrossOnDrag := Value;
+  ControlChanges('CrossOnDrag');
 end;
 
 procedure TGMCustomMarker.SetCursor(const Value: string);
 begin
+  if FCursor = Value then Exit;
+
   FCursor := Value;
+  ControlChanges('Cursor');
 end;
 
 procedure TGMCustomMarker.SetDraggable(const Value: Boolean);
 begin
-  FDraggable := Value;
-end;
+  if FDraggable = Value then Exit;
 
-procedure TGMCustomMarker.SetLabelText(const Value: TGMLabelOptions);
-begin
-  FLabelText := Value;
+  FDraggable := Value;
+  ControlChanges('Draggable');
 end;
 
 procedure TGMCustomMarker.SetOpacity(const Value: Double);
 begin
+  if FOpacity = Value then Exit;
+
   FOpacity := Value;
+
+  if FOpacity < 0 then FOpacity := 0;
+  if FOpacity > 1 then FOpacity := 1;
+  FOpacity := Trunc(FOpacity * 100) / 100;
+
+  ControlChanges('Opacity');
 end;
 
 procedure TGMCustomMarker.SetOptimized(const Value: Boolean);
 begin
+  if FOptimized = Value then Exit;
+
   FOptimized := Value;
+  ControlChanges('Optimized');
 end;
 
 procedure TGMCustomMarker.SetPosition(const Value: TGMLatLng);
 begin
-  FPosition := Value;
-end;
+  if FPosition = Value then Exit;
 
-procedure TGMCustomMarker.SetShape(const Value: TGMMarkerShape);
-begin
-  FShape := Value;
+  FPosition := Value;
+  ControlChanges('Position');
 end;
 
 procedure TGMCustomMarker.SetTitle(const Value: string);
 begin
+  if FTitle = Value then Exit;
+
   FTitle := Value;
+  ControlChanges('Title');
 end;
 
 procedure TGMCustomMarker.SetVisible(const Value: Boolean);
 begin
+  if FVisible = Value then Exit;
+
   FVisible := Value;
+  ControlChanges('Visible');
 end;
 
 { TGMPoint }
@@ -667,6 +827,91 @@ begin
 
   FUrl := Value;
   ControlChanges('Url');
+end;
+
+{ TGMCustomLabelOptions }
+
+procedure TGMCustomLabelOptions.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMCustomLabelOptions then
+  begin
+    ClassName := TGMCustomLabelOptions(Source).ClassName;
+    FontFamily := TGMCustomLabelOptions(Source).FontFamily;
+    FontSize := TGMCustomLabelOptions(Source).FontSize;
+    FFontWeight := TGMCustomLabelOptions(Source).FFontWeight;
+    Text := TGMCustomLabelOptions(Source).Text;
+  end;
+end;
+
+constructor TGMCustomLabelOptions.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FClassName := '';
+  FFontFamily := 'Arial';
+  FFontSize := 14;
+  FFontWeight := 0;
+  FText := '';
+end;
+
+function TGMCustomLabelOptions.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/marker#MarkerLabel';
+end;
+
+function TGMCustomLabelOptions.PropToString: string;
+const
+  Str = '%s,%s';
+begin
+  Result := Format(Str, [
+                         QuotedStr(FClassName),
+                         QuotedStr(FFontFamily),
+                         QuotedStr(IntToStr(FFontSize) + 'px'),
+                         QuotedStr(IntToStr(FFontWeight) + 'px'),
+                         QuotedStr(FText)
+                        ]);
+end;
+
+procedure TGMCustomLabelOptions.SetClassName(const Value: string);
+begin
+  if FClassName = Value then Exit;
+
+  FClassName := Value;
+  ControlChanges('ClassName');
+end;
+
+procedure TGMCustomLabelOptions.SetFontFamily(const Value: string);
+begin
+  if FFontFamily = Value then Exit;
+
+  FFontFamily := Value;
+  ControlChanges('FontFamily');
+end;
+
+procedure TGMCustomLabelOptions.SetFontSize(const Value: Integer);
+begin
+  if FFontSize = Value then Exit;
+
+  FFontSize := Value;
+  ControlChanges('FontSize');
+end;
+
+procedure TGMCustomLabelOptions.SetFontWeight(const Value: Integer);
+begin
+  if FFontWeight = Value then Exit;
+
+  FFontWeight := Value;
+  ControlChanges('FontWeight');
+end;
+
+procedure TGMCustomLabelOptions.SetText(const Value: string);
+begin
+  if FText = Value then Exit;
+
+  FText := Value;
+  ControlChanges('Text');
 end;
 
 end.

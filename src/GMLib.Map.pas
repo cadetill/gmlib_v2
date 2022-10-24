@@ -1104,7 +1104,7 @@ begin
                          IntToStr(FZoom),
                          LowerCase(TGMTransform.GMBoolToStr(FZoomControl, True)),
                          FZoomControlOptions.PropToString
-                         ]);
+                        ]);
 end;
 
 procedure TGMCustomMapOptions.SetClickableIcons(const Value: Boolean);
