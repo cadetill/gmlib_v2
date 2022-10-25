@@ -169,12 +169,6 @@ type
     property StrokeOpacity: Double read FStrokeOpacity write SetStrokeOpacity;
     // @include(..\Help\docs\GMLib.Marker.TGMCustomSymbolOptions.StrokeWeight.txt)
     property StrokeWeight: Integer read FStrokeWeight write SetStrokeWeight;
-
-
-    // @include(..\Help\docs\GMLib.Marker.TGMCustomSymbolOptions.FillColor.txt)
-    //property FillColor: TColor;
-    // @include(..\Help\docs\GMLib.Marker.TGMCustomSymbolOptions.StrokeColor.txt)
-    //property StrokeColor: TColor;
   public
     // @include(..\Help\docs\GMLib.Marker.TGMCustomSymbolOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
@@ -194,9 +188,11 @@ type
     property Url: string read FUrl write SetUrl;
     // @include(..\Help\docs\GMLib.Marker.TGMCustomIconOptions.Icon.txt)
     property Icon: TGMIconOptions read FIcon write FIcon;
-
-    // @include(..\Help\docs\GMLib.Marker.TGMCustomIconOptions.Symbol.txt)
-    //property Symbol: TGMSymbolOptions;
+  public
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomIconOptions.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomIconOptions.Destroy.txt)
+    destructor Destroy; override;
   end;
 
   // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.txt)
@@ -205,9 +201,9 @@ type
     FFontFamily: string;
     FFontWeight: Integer;
     FFontSize: Integer;
-    FClassName: string;
+    FLabelClassName: string;
     FText: string;
-    procedure SetClassName(const Value: string);
+    procedure SetLabelClassName(const Value: string);
     procedure SetFontFamily(const Value: string);
     procedure SetFontSize(const Value: Integer);
     procedure SetFontWeight(const Value: Integer);
@@ -219,7 +215,7 @@ type
     // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.Text.txt)
     property Text: string read FText write SetText;
     // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.ClassName.txt)
-    property ClassName: string read FClassName write SetClassName;
+    property LabelClassName: string read FLabelClassName write SetLabelClassName;
     // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.Color.txt)
     //property Color: TColor;
     // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.FontFamily.txt)
@@ -268,7 +264,11 @@ type
     procedure SetPosition(const Value: TGMLatLng);
     procedure SetTitle(const Value: string);
     procedure SetVisible(const Value: Boolean);
+    function GetZIndex: Integer;
   protected
+    // @exclude
+    function GetDisplayName: string; override;
+
     // @exclude
     function GetAPIUrl: string; override;
 
@@ -308,6 +308,8 @@ type
     property Title: string read FTitle write SetTitle;
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Visible.txt)
     property Visible: Boolean read FVisible write SetVisible;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.ZIndex.txt)
+    property ZIndex: Integer read GetZIndex;
   public
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Create.txt)
     constructor Create(Collection: TCollection); override;
@@ -321,11 +323,13 @@ type
     property APIUrl;
   end;
 
+(*
   TGMCustomMarkerList = class(TGMInterfacedCollection)
   private
   protected
   public
   end;
+*)
 
 implementation
 
@@ -451,6 +455,21 @@ end;
 
 { TGMCustomIconOptions }
 
+constructor TGMCustomIconOptions.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FUrl := '';
+  FIcon := TGMIconOptions.Create(Self);
+end;
+
+destructor TGMCustomIconOptions.Destroy;
+begin
+  if Assigned(FIcon) then FIcon.Free;
+
+  inherited;
+end;
+
 procedure TGMCustomIconOptions.PropertyChanged(Prop: TPersistent;
   PropName: string);
 begin
@@ -502,6 +521,27 @@ end;
 function TGMCustomMarker.GetAPIUrl: string;
 begin
   Result := 'https://developers.google.com/maps/documentation/javascript/reference/marker';
+end;
+
+function TGMCustomMarker.GetDisplayName: string;
+begin
+  if Length(FTitle) > 0 then
+  begin
+    if Length(FTitle) > 15 then
+      Result := Copy(FTitle, 0, 12) + '...'
+    else
+      Result := FTitle;
+  end
+  else
+  begin
+    Result := inherited GetDisplayName;
+    FTitle := Result;
+  end;
+end;
+
+function TGMCustomMarker.GetZIndex: Integer;
+begin
+  Result := Index;
 end;
 
 procedure TGMCustomMarker.PropertyChanged(Prop: TPersistent; PropName: string);
@@ -837,7 +877,7 @@ begin
 
   if Source is TGMCustomLabelOptions then
   begin
-    ClassName := TGMCustomLabelOptions(Source).ClassName;
+    LabelClassName := TGMCustomLabelOptions(Source).LabelClassName;
     FontFamily := TGMCustomLabelOptions(Source).FontFamily;
     FontSize := TGMCustomLabelOptions(Source).FontSize;
     FFontWeight := TGMCustomLabelOptions(Source).FFontWeight;
@@ -849,7 +889,7 @@ constructor TGMCustomLabelOptions.Create(AOwner: TPersistent);
 begin
   inherited;
 
-  FClassName := '';
+  FLabelClassName := '';
   FFontFamily := 'Arial';
   FFontSize := 14;
   FFontWeight := 0;
@@ -866,7 +906,7 @@ const
   Str = '%s,%s';
 begin
   Result := Format(Str, [
-                         QuotedStr(FClassName),
+                         QuotedStr(FLabelClassName),
                          QuotedStr(FFontFamily),
                          QuotedStr(IntToStr(FFontSize) + 'px'),
                          QuotedStr(IntToStr(FFontWeight) + 'px'),
@@ -874,12 +914,12 @@ begin
                         ]);
 end;
 
-procedure TGMCustomLabelOptions.SetClassName(const Value: string);
+procedure TGMCustomLabelOptions.SetLabelClassName(const Value: string);
 begin
-  if FClassName = Value then Exit;
+  if FLabelClassName = Value then Exit;
 
-  FClassName := Value;
-  ControlChanges('ClassName');
+  FLabelClassName := Value;
+  ControlChanges('LabelClassName');
 end;
 
 procedure TGMCustomLabelOptions.SetFontFamily(const Value: string);

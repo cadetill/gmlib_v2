@@ -38,6 +38,7 @@ contains
   GMLib.Map.Vcl in '..\src\GMLib.Map.Vcl.pas',
   GMLib.Transform.Vcl in '..\src\GMLib.Transform.Vcl.pas',
   GMLib.Functions.Vcl in '..\src\GMLib.Functions.Vcl.pas',
-  GMLib.Register.Vcl in '..\src\GMLib.Register.Vcl.pas';
+  GMLib.Register.Vcl in '..\src\GMLib.Register.Vcl.pas',
+  GMLib.Marker.Vcl in '..\src\GMLib.Marker.Vcl.pas';
 
 end.
