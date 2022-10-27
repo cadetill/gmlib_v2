@@ -66,6 +66,9 @@ type
   TGMIconOptions = class(TGMCustomIconOptions)
   private
     FSymbol: TGMSymbolOptions;
+  protected
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
   public
     // @include(..\Help\docs\GMLib.Marker.TGMCustomIconOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
@@ -86,7 +89,74 @@ type
 
   // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.txt)
   TGMLabelOptions = class(TGMCustomLabelOptions)
+  private
+    FColor: TColor;
+    procedure SetColor(const Value: TColor);
+  protected
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+  public
+    // @include(..\Help\docs\GMLib.Marker.Vcl.TGMLabelOptions.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
 
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+  published
+    // @include(..\Help\docs\GMLib.Marker.Vcl.TGMLabelOptions.Color.txt)
+    property Color: TColor read FColor write SetColor;
+
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.Text.txt)
+    property Text;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.ClassName.txt)
+    property LabelClassName;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.FontFamily.txt)
+    property FontFamily;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.FontSize.txt)
+    property FontSize;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.FontWeight.txt)
+    property FontWeight;
+  end;
+
+  // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.txt)
+  TGMMarker = class(TGMCustomMarker)
+  private
+    FLabelText: TGMLabelOptions;
+    FIcon: TGMIconOptions;
+  protected
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+  published
+    // @include(..\Help\docs\GMLib.Marker.Vcl.TGMMarker.Icon.txt)
+    property Icon: TGMIconOptions read FIcon write FIcon;
+    // @include(..\Help\docs\GMLib.Marker.Vcl.TGMMarker.LabelText.txt)
+    property LabelText: TGMLabelOptions read FLabelText write FLabelText;
+
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.AnchorPoint.txt)
+    property AnchorPoint;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Animation.txt)
+    property Animation;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Clickable.txt)
+    property Clickable;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.CollisionBehavior.txt)
+    property CollisionBehavior;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.CrossOnDrag.txt)
+    property CrossOnDrag;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Cursor.txt)
+    property Cursor;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Draggable.txt)
+    property Draggable;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Opacity.txt)
+    property Opacity;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Optimized.txt)
+    property Optimized;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Position.txt)
+    property Position;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Title.txt)
+    property Title;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Visible.txt)
+    property Visible;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.ZIndex.txt)
+    property ZIndex;
   end;
 
 implementation
@@ -126,11 +196,12 @@ const
   Str = '%s,%s';
 begin
   Result := inherited PropToString;
-
-  Result := Result + Format(Str, [
-                                  QuotedStr(TGMTransform.TColorToStr(FFillColor)),
-                                  QuotedStr(TGMTransform.TColorToStr(FStrokeColor))
-                                 ]);
+  if Result <> '' then Result := Result + ',';
+  Result := Result +
+            Format(Str, [
+                         QuotedStr(TGMTransform.TColorToStr(FFillColor)),
+                         QuotedStr(TGMTransform.TColorToStr(FStrokeColor))
+                        ]);
 end;
 
 procedure TGMSymbolOptions.SetFillColor(const Value: TColor);
@@ -173,6 +244,72 @@ begin
   if Assigned(FSymbol) then FSymbol.Free;
 
   inherited;
+end;
+
+function TGMIconOptions.PropToString: string;
+const
+  Str = '%s';
+begin
+  Result := inherited PropToString;
+  if Result <> '' then Result := Result + ',';
+  Result := Result +
+            Format(Str, [
+                         FSymbol.PropToString
+                        ]);
+end;
+
+{ TGMLabelOptions }
+
+procedure TGMLabelOptions.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMLabelOptions then
+  begin
+    Color := TGMLabelOptions(Source).Color;
+  end;
+end;
+
+constructor TGMLabelOptions.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FColor := clBlack;
+end;
+
+function TGMLabelOptions.PropToString: string;
+const
+  Str = '%s';
+begin
+  Result := inherited PropToString;
+  if Result <> '' then Result := Result + ',';
+  Result := Result +
+            Format(Str, [
+                         QuotedStr(TGMTransform.TColorToStr(FColor))
+                        ]);
+end;
+
+procedure TGMLabelOptions.SetColor(const Value: TColor);
+begin
+  if FColor = Value then Exit;
+
+  FColor := Value;
+  ControlChanges('Color');
+end;
+
+{ TGMMarker }
+
+function TGMMarker.PropToString: string;
+const
+  Str = '%s,%s';
+begin
+  Result := inherited PropToString;
+  if Result <> '' then Result := Result + ',';
+  Result := Result +
+            Format(Str, [
+                         FIcon.PropToString,
+                         FLabelText.PropToString
+                        ]);
 end;
 
 end.

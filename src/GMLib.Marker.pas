@@ -32,15 +32,15 @@ type
   protected
     // @exclude
     function GetAPIUrl: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
   public
     // @include(..\Help\docs\GMLib.Marker.TGMPoint.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
     // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
-
-    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
-    function PropToString: string; override;
 
     // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
     property APIUrl;
@@ -61,15 +61,15 @@ type
   protected
     // @exclude
     function GetAPIUrl: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
   public
     // @include(..\Help\docs\GMLib.Marker.TGMSize.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
     // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
-
-    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
-    function PropToString: string; override;
 
     // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
     property APIUrl;
@@ -97,6 +97,9 @@ type
 
     // @include(..\Help\docs\GMLib.Classes.IGMControlChanges.PropertyChanged.txt)
     procedure PropertyChanged(Prop: TPersistent; PropName: string);
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
   public
     // @include(..\Help\docs\GMLib.Marker.TGMSize.Create.txt)
     constructor Create(AOwner: TPersistent); override;
@@ -105,9 +108,6 @@ type
 
     // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
-
-    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
-    function PropToString: string; override;
 
     // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
     property APIUrl;
@@ -181,8 +181,14 @@ type
     FIcon: TGMIconOptions;
     procedure SetUrl(const Value: string);
   protected
+    // @exclude
+    function GetAPIUrl: string; override;
+
     // @include(..\Help\docs\GMLib.Classes.IGMControlChanges.PropertyChanged.txt)
     procedure PropertyChanged(Prop: TPersistent; PropName: string);
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
 
     // @include(..\Help\docs\GMLib.Marker.TGMCustomIconOptions.Url.txt)
     property Url: string read FUrl write SetUrl;
@@ -212,12 +218,13 @@ type
     // @exclude
     function GetAPIUrl: string; override;
 
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
     // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.Text.txt)
     property Text: string read FText write SetText;
     // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.ClassName.txt)
     property LabelClassName: string read FLabelClassName write SetLabelClassName;
-    // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.Color.txt)
-    //property Color: TColor;
     // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.FontFamily.txt)
     property FontFamily: string read FFontFamily write SetFontFamily;
     // @include(..\Help\docs\GMLib.Marker.TGMCustomLabelOptions.FontSize.txt)
@@ -230,9 +237,6 @@ type
 
     // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
-
-    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
-    function PropToString: string; override;
 
     // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
     property APIUrl;
@@ -292,12 +296,6 @@ type
     property Cursor: string read FCursor write SetCursor;
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Draggable.txt)
     property Draggable: Boolean read FDraggable write SetDraggable;
-
-    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Icon.txt)
-    //property Icon: TGMIconOptions;
-    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.LabelText.txt)
-    //property LabelText: TGMLabelOptions read FLabelText write FLabelText;
-
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Opacity.txt)
     property Opacity: Double read FOpacity write SetOpacity;
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Optimized.txt)
@@ -397,7 +395,7 @@ begin
                          IntToStr(FScale),
                          TGMTransform.GetDoubleToStr(FStrokeOpacity),
                          IntToStr(FStrokeWeight)
-                         ]);
+                        ]);
 end;
 
 procedure TGMCustomSymbolOptions.SetFillOpacity(const Value: Double);
@@ -470,10 +468,28 @@ begin
   inherited;
 end;
 
+function TGMCustomIconOptions.GetAPIUrl: string;
+begin
+  Result := 'https://developers.google.com/maps/documentation/javascript/reference/marker#MarkerOptions.icon';
+end;
+
 procedure TGMCustomIconOptions.PropertyChanged(Prop: TPersistent;
   PropName: string);
 begin
 
+end;
+
+function TGMCustomIconOptions.PropToString: string;
+const
+  Str = '%s,%s';
+begin
+  Result := inherited PropToString;
+  if Result <> '' then Result := Result + ',';
+  Result := Result +
+            Format(Str, [
+                         QuotedStr(FUrl),
+                         FIcon.PropToString
+                        ]);
 end;
 
 procedure TGMCustomIconOptions.SetUrl(const Value: string);
@@ -561,7 +577,7 @@ end;
 
 function TGMCustomMarker.PropToString: string;
 const
-  Str = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
+  Str = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
 begin
   Result := inherited PropToString;
   if Result <> '' then Result := Result + ',';
@@ -706,7 +722,10 @@ function TGMPoint.PropToString: string;
 const
   Str = '%s,%s';
 begin
-  Result := Format(Str, [
+  Result := inherited PropToString;
+  if Result <> '' then Result := Result + ',';
+  Result := Result +
+            Format(Str, [
                          TGMTransform.GetDoubleToStr(FX),
                          TGMTransform.GetDoubleToStr(FY)
                         ]);
@@ -758,7 +777,10 @@ function TGMSize.PropToString: string;
 const
   Str = '%s,%s';
 begin
-  Result := Format(Str, [
+  Result := inherited PropToString;
+  if Result <> '' then Result := Result + ',';
+  Result := Result +
+            Format(Str, [
                          TGMTransform.GetDoubleToStr(FHeight),
                          TGMTransform.GetDoubleToStr(FWidth)
                         ]);
@@ -843,7 +865,10 @@ function TGMIconOptions.PropToString: string;
 const
   Str = '%s,%s,%s,%s,%s,%s';
 begin
-  Result := Format(Str, [
+  Result := inherited PropToString;
+  if Result <> '' then Result := Result + ',';
+  Result := Result +
+            Format(Str, [
                          QuotedStr(FUrl),
                          FAnchor.PropToString,
                          FLabelOrigin.PropToString,
@@ -905,7 +930,10 @@ function TGMCustomLabelOptions.PropToString: string;
 const
   Str = '%s,%s';
 begin
-  Result := Format(Str, [
+  Result := inherited PropToString;
+  if Result <> '' then Result := Result + ',';
+  Result := Result +
+            Format(Str, [
                          QuotedStr(FLabelClassName),
                          QuotedStr(FFontFamily),
                          QuotedStr(IntToStr(FFontSize) + 'px'),

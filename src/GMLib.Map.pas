@@ -65,15 +65,15 @@ type
   protected
     // @exclude
     function GetAPIUrl: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
   public
     // @include(..\Help\docs\GMLib.Classes.TGMInterfacedOwnedPersistent.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
     // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
-
-    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
-    function PropToString: string; override;
 
     // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
     property APIUrl;
@@ -94,15 +94,15 @@ type
   protected
     // @exclude
     function GetAPIUrl: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
   public
     // @include(..\Help\docs\GMLib.Map.TGMMapTypeControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
     // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
-
-    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
-    function PropToString: string; override;
 
     // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
     property APIUrl;
@@ -126,6 +126,9 @@ type
   protected
     // @exclude
     function GetAPIUrl: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
   public
     // @include(..\Help\docs\GMLib.Map.TGMRestriction.Create.txt)
     constructor Create(AOwner: TPersistent); override;
@@ -134,9 +137,6 @@ type
 
     // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
-
-    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
-    function PropToString: string; override;
 
     // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
     property APIUrl;
@@ -157,15 +157,15 @@ type
   protected
     // @exclude
     function GetAPIUrl: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
   public
     // @include(..\Help\docs\GMLib.Map.TGMRotateControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
     // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
-
-    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
-    function PropToString: string; override;
 
     // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
     property APIUrl;
@@ -182,15 +182,15 @@ type
   protected
     // @exclude
     function GetAPIUrl: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
   public
     // @include(..\Help\docs\GMLib.Map.TGMScaleControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
     // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
-
-    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
-    function PropToString: string; override;
 
     // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
     property APIUrl;
@@ -207,15 +207,15 @@ type
   protected
     // @exclude
     function GetAPIUrl: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
   public
     // @include(..\Help\docs\GMLib.Map.TGMStreetViewControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
     // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
-
-    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
-    function PropToString: string; override;
 
     // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
     property APIUrl;
@@ -232,15 +232,15 @@ type
   protected
     // @exclude
     function GetAPIUrl: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
   public
     // @include(..\Help\docs\GMLib.Map.TGMZoomControlOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
 
     // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
-
-    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
-    function PropToString: string; override;
 
     // @include(..\Help\docs\GMLib.Classes.IGMAPIUrl.APIUrl.txt)
     property APIUrl;
