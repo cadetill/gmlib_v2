@@ -199,12 +199,10 @@ type
   private
     FOnChange: TNotifyEvent;
     FOwner: TPersistent;
-  protected
-    // @exclude
-    function GetItems(I: Integer): TGMInterfacedCollectionItem;
-    // @exclude
-    procedure SetItems(I: Integer; const Value: TGMInterfacedCollectionItem);
 
+    function GetItems(I: Integer): TGMInterfacedCollectionItem;
+    procedure SetItems(I: Integer; const Value: TGMInterfacedCollectionItem);
+  protected
     // @exclude
     function QueryInterface(const IID: TGUID; out Obj): HResult; virtual; stdcall;
     // @exclude
@@ -227,7 +225,9 @@ type
     // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
     function PropToString: string; virtual;
 
+    // @include(..\Help\docs\GMLib.Classes.TGMInterfacedCollection.Add.txt)
     function Add: TGMInterfacedCollectionItem;
+    // @include(..\Help\docs\GMLib.Classes.TGMInterfacedCollection.Insert.txt)
     function Insert(Index: Integer): TGMInterfacedCollectionItem;
     // @include(..\Help\docs\GMLib.Classes.TGMInterfacedCollection.Delete.txt)
     procedure Delete(Index: Integer);

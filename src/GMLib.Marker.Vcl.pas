@@ -19,7 +19,7 @@ uses
   Graphics, Classes,
   {$ENDIF}
 
-  GMLib.Marker;
+  GMLib.Marker, GMLib.Classes;
 
 type
   // @include(..\Help\docs\GMLib.Marker.TGMCustomSymbolOptions.txt)
@@ -125,6 +125,14 @@ type
   protected
     // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
     function PropToString: string; override;
+  public
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Create.txt)
+    constructor Create(Collection: TCollection); override;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Destroy.txt)
+    destructor Destroy; override;
+
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
   published
     // @include(..\Help\docs\GMLib.Marker.Vcl.TGMMarker.Icon.txt)
     property Icon: TGMIconOptions read FIcon write FIcon;
@@ -157,6 +165,44 @@ type
     property Visible;
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.ZIndex.txt)
     property ZIndex;
+  end;
+
+  // @include(..\Help\docs\GMLib.Marker.Vcl.TGMMarkerList.txt)
+  TGMMarkerList = class(TGMInterfacedCollection)
+  private
+    function GetItems(I: Integer): TGMMarker;
+    procedure SetItems(I: Integer; const Value: TGMMarker);
+  public
+    // @include(..\Help\docs\GMLib.Marker.Vcl.TGMMarkerList.Add.txt)
+    function Add: TGMMarker;
+    // @include(..\Help\docs\GMLib.Marker.Vcl.TGMMarkerList.Insert.txt)
+    function Insert(Index: Integer): TGMMarker;
+
+    // @include(..\Help\docs\GMLib.Marker.Vcl.TGMMarkerList.Items.txt)
+    property Items[I: Integer]: TGMMarker read GetItems write SetItems; default;
+  end;
+
+  // @include(..\Help\docs\GMLib.Marker.TGMCustomMarkers.txt)
+  TGMMarkers = class(TGMCustomMarkers)
+  private
+    FMarkers: TGMMarkerList;
+  protected
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+  public
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarkers.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
+    // @include(..\Help\docs\GMLib.Marker.Vcl.TGMMarkers.TGMMarkers.txt)
+    destructor Destroy; override;
+
+    // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
+    procedure Assign(Source: TPersistent); override;
+  published
+    // @include(..\Help\docs\GMLib.Marker.TGMMarkers.Vcl.Markers.txt)
+    property Markers: TGMMarkerList read FMarkers write FMarkers;
+
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarkers.AutoUpdate.txt)
+    property AutoUpdate;
   end;
 
 implementation
@@ -299,6 +345,33 @@ end;
 
 { TGMMarker }
 
+procedure TGMMarker.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMMarker then
+  begin
+    Icon.Assign(TGMMarker(Source).Icon);
+    LabelText.Assign(TGMMarker(Source).LabelText);
+  end;
+end;
+
+constructor TGMMarker.Create(Collection: TCollection);
+begin
+  inherited;
+
+  FIcon := TGMIconOptions.Create(Self);
+  FLabelText := TGMLabelOptions.Create(Self);
+end;
+
+destructor TGMMarker.Destroy;
+begin
+  if Assigned(FIcon) then FIcon.Free;
+  if Assigned(FLabelText) then FLabelText.Free;
+
+  inherited;
+end;
+
 function TGMMarker.PropToString: string;
 const
   Str = '%s,%s';
@@ -309,6 +382,66 @@ begin
             Format(Str, [
                          FIcon.PropToString,
                          FLabelText.PropToString
+                        ]);
+end;
+
+{ TGMMarkerList }
+
+function TGMMarkerList.Add: TGMMarker;
+begin
+  Result := TGMMarker(inherited Add);
+end;
+
+function TGMMarkerList.GetItems(I: Integer): TGMMarker;
+begin
+  Result := TGMMarker(inherited Items[I]);
+end;
+
+function TGMMarkerList.Insert(Index: Integer): TGMMarker;
+begin
+  Result := TGMMarker(inherited Insert(Index));
+end;
+
+procedure TGMMarkerList.SetItems(I: Integer; const Value: TGMMarker);
+begin
+  inherited SetItem(I, Value);
+end;
+
+{ TGMMarkers }
+
+procedure TGMMarkers.Assign(Source: TPersistent);
+begin
+  inherited;
+
+  if Source is TGMMarkers then
+  begin
+    Markers.Assign(TGMMarkers(Source).Markers);
+  end;
+end;
+
+constructor TGMMarkers.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FMarkers := TGMMarkerList.Create(Self, TGMMarker);
+end;
+
+destructor TGMMarkers.Destroy;
+begin
+  if Assigned(FMarkers) then FMarkers.Free;
+
+  inherited;
+end;
+
+function TGMMarkers.PropToString: string;
+const
+  Str = '%s';
+begin
+  Result := inherited PropToString;
+  if Result <> '' then Result := Result + ',';
+  Result := Result +
+            Format(Str, [
+                         FMarkers.PropToString
                         ]);
 end;
 

@@ -172,6 +172,8 @@ type
   public
     // @include(..\Help\docs\GMLib.Marker.TGMCustomSymbolOptions.Create.txt)
     constructor Create(AOwner: TPersistent); override;
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomSymbolOptions.Destroy.txt)
+    destructor Destroy; override;
   end;
 
   // @include(..\Help\docs\GMLib.Marker.TGMCustomIconOptions.txt)
@@ -321,13 +323,27 @@ type
     property APIUrl;
   end;
 
-(*
-  TGMCustomMarkerList = class(TGMInterfacedCollection)
+  // @include(..\Help\docs\GMLib.Marker.TGMCustomMarkers.txt)
+  TGMCustomMarkers = class(TGMPersistentStr, IGMControlChanges)
   private
+    FAutoUpdate: Boolean;
+    procedure SetAutoUpdate(const Value: Boolean);
   protected
+    // @exclude
+    function GetAPIUrl: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMControlChanges.PropertyChanged.txt)
+    procedure PropertyChanged(Prop: TPersistent; PropName: string);
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomMarkers.AutoUpdate.txt)
+    property AutoUpdate: Boolean read FAutoUpdate write SetAutoUpdate;
   public
+    // @include(..\Help\docs\GMLib.Marker.TGMCustomIconOptions.Create.txt)
+    constructor Create(AOwner: TPersistent); override;
   end;
-*)
 
 implementation
 
@@ -347,15 +363,21 @@ begin
   inherited;
 
   FPath := spFORWARD_OPEN_ARROW;
-  FAnchor.X := 0;
-  FAnchor.Y := 0;
+  FAnchor := TGMPoint.Create(Self);
   FFillOpacity := 0;
-  FLabelOrigin.X := 0;
-  FLabelOrigin.Y := 0;
+  FLabelOrigin := TGMPoint.Create(Self);
   FRotation := 0;
   FScale := 1;
   FStrokeOpacity := 1;
   FStrokeWeight := FScale;
+end;
+
+destructor TGMCustomSymbolOptions.Destroy;
+begin
+  if Assigned(FAnchor) then FAnchor.Free;
+  if Assigned(FLabelOrigin) then FLabelOrigin.Free;
+
+  inherited;
 end;
 
 function TGMCustomSymbolOptions.GetAPIUrl: string;
@@ -475,8 +497,18 @@ end;
 
 procedure TGMCustomIconOptions.PropertyChanged(Prop: TPersistent;
   PropName: string);
+var
+  Intf: IGMControlChanges;
 begin
-
+  if (GetOwner <> nil) and Supports(GetOwner, IGMControlChanges, Intf) then
+  begin
+    if Assigned(Prop) then
+      Intf.PropertyChanged(Prop, Self.ClassName + '_' + PropName)
+    else
+      Intf.PropertyChanged(Self, Self.ClassName + '_' + PropName);
+  end
+  else
+    if Assigned(OnChange) then OnChange(Self);
 end;
 
 function TGMCustomIconOptions.PropToString: string;
@@ -506,8 +538,21 @@ procedure TGMCustomMarker.Assign(Source: TPersistent);
 begin
   inherited;
 
-  if Assigned(FAnchorPoint) then FAnchorPoint.Free;
-  if Assigned(FPosition) then FPosition.Free;
+  if Source is TGMCustomMarker then
+  begin
+    AnchorPoint := TGMCustomMarker(Source).AnchorPoint;
+    Animation := TGMCustomMarker(Source).Animation;
+    Clickable := TGMCustomMarker(Source).Clickable;
+    CollisionBehavior := TGMCustomMarker(Source).CollisionBehavior;
+    CrossOnDrag := TGMCustomMarker(Source).CrossOnDrag;
+    Cursor := TGMCustomMarker(Source).Cursor;
+    Draggable := TGMCustomMarker(Source).Draggable;
+    Opacity := TGMCustomMarker(Source).Opacity;
+    Optimized := TGMCustomMarker(Source).Optimized;
+    Position.Assign(TGMCustomMarker(Source).Position);
+    Title := TGMCustomMarker(Source).Title;
+    Visible := TGMCustomMarker(Source).Visible;
+  end;
 end;
 
 constructor TGMCustomMarker.Create(Collection: TCollection);
@@ -530,6 +575,8 @@ end;
 
 destructor TGMCustomMarker.Destroy;
 begin
+  if Assigned(FAnchorPoint) then FAnchorPoint.Free;
+  if Assigned(FPosition) then FPosition.Free;
 
   inherited;
 end;
@@ -979,6 +1026,55 @@ begin
   if FText = Value then Exit;
 
   FText := Value;
+  ControlChanges('Text');
+end;
+
+{ TGMCustomMarkers }
+
+constructor TGMCustomMarkers.Create(AOwner: TPersistent);
+begin
+  inherited;
+
+  FAutoUpdate := False;
+end;
+
+function TGMCustomMarkers.GetAPIUrl: string;
+begin
+  Result := inherited;
+end;
+
+procedure TGMCustomMarkers.PropertyChanged(Prop: TPersistent; PropName: string);
+var
+  Intf: IGMControlChanges;
+begin
+  if (GetOwner <> nil) and Supports(GetOwner, IGMControlChanges, Intf) then
+  begin
+    if Assigned(Prop) then
+      Intf.PropertyChanged(Prop, Self.ClassName + '_' + PropName)
+    else
+      Intf.PropertyChanged(Self, Self.ClassName + '_' + PropName);
+  end
+  else
+    if Assigned(OnChange) then OnChange(Self);
+end;
+
+function TGMCustomMarkers.PropToString: string;
+const
+  Str = '%s,%s';
+begin
+  Result := inherited PropToString;
+  if Result <> '' then Result := Result + ',';
+  Result := Result +
+            Format(Str, [
+                         LowerCase(TGMTransform.GMBoolToStr(FAutoUpdate, True))
+                        ]);
+end;
+
+procedure TGMCustomMarkers.SetAutoUpdate(const Value: Boolean);
+begin
+  if FAutoUpdate = Value then Exit;
+
+  FAutoUpdate := Value;
   ControlChanges('Text');
 end;
 

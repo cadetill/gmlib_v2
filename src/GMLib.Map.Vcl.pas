@@ -27,7 +27,7 @@ uses
   Vcl.Edge, Vcl.OleCtrls, Winapi.WebView2,
 //  {$ENDIF}
 
-  GMLib.Map, GMLib.LatLng, GMLib.Sets;
+  GMLib.Map, GMLib.LatLng, GMLib.Sets, GMLib.Marker.Vcl;
 
 type
   // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.txt)
@@ -111,6 +111,7 @@ type
   private
     FTimer: TTimer;  // TTimer for map events control
     FMapOptions: TGMMapOptions;
+    FMarkers: TGMMarkers;
   protected
     // @exclude
     FFieldValue: string;
@@ -138,6 +139,8 @@ type
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.txt)
     property MapOptions: TGMMapOptions read FMapOptions write FMapOptions;
+    // @include(..\Help\docs\GMLib.Map.Markers.txt)
+    property Markers: TGMMarkers read FMarkers write FMarkers;
   public
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.Create.txt)
     constructor Create(AOwner: TComponent); override;
@@ -181,6 +184,8 @@ type
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.txt)
     property MapOptions;
+    // @include(..\Help\docs\GMLib.Map.Markers.txt)
+    property Markers;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.Active.txt)
     property Active;
@@ -277,6 +282,8 @@ type
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.txt)
     property MapOptions;
+    // @include(..\Help\docs\GMLib.Map.Markers.txt)
+    property Markers;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.Active.txt)
     property Active;
@@ -419,6 +426,7 @@ begin
   inherited;
 
   FMapOptions := TGMMapOptions.Create(Self);
+  FMarkers := TGMMarkers.Create(Self);
 
   FTimer := TTimer.Create(Self);
   FTimer.Enabled := False;
@@ -429,6 +437,8 @@ end;
 destructor TGMMap.Destroy;
 begin
   if Assigned(FMapOptions) then FMapOptions.Free;
+  if Assigned(FMarkers) then FMarkers.Free;
+
   if Assigned(FTimer) then FTimer.Free;
 
   inherited;
