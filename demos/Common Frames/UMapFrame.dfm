@@ -23,7 +23,7 @@ object MapFrame: TMapFrame
     Top = 65
     Width = 376
     Height = 543
-    ActivePage = tsMapOptions
+    ActivePage = tsGeneral
     Align = alClient
     TabOrder = 1
     object tsGeneral: TTabSheet

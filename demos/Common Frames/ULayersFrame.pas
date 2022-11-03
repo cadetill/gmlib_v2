@@ -4,35 +4,34 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
-  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.CheckLst,
+  Vcl.ComCtrls,
 
-  GMLib.Map.Vcl, Vcl.CheckLst, Vcl.ComCtrls;
+  GMLib.Map.Vcl, Vcl.ExtCtrls;
 
 type
   TLayersFrame = class(TFrame)
     cbActive: TCheckBox;
-    pcPages: TPageControl;
-    tsGeneral: TTabSheet;
+    pAPIKey: TPanel;
+    lNeedAPI: TLabel;
     lAPIKey: TLabel;
-    Label1: TLabel;
     eAPIKey: TEdit;
-    tsMapOptions: TTabSheet;
     pcObjects: TPageControl;
     tsTrafficLayer: TTabSheet;
-    tsTransitLayer: TTabSheet;
-    tsByciclingLayer: TTabSheet;
-    tsKmlLayer: TTabSheet;
     cbTrafficAutoRefresh: TCheckBox;
+    cbTrafficShow: TCheckBox;
+    tsTransitLayer: TTabSheet;
     cbTransitShow: TCheckBox;
+    tsByciclingLayer: TTabSheet;
     cbByciclingShow: TCheckBox;
+    tsKmlLayer: TTabSheet;
+    lKmlUrl: TLabel;
     cbKmlShow: TCheckBox;
     cbKmlClickable: TCheckBox;
     cbKmlPreserveViewport: TCheckBox;
     cbKmlScreenOverlays: TCheckBox;
     cbKmlSuppressInfoWindows: TCheckBox;
-    lKmlUrl: TLabel;
     eKmlUrl: TEdit;
-    cbTrafficShow: TCheckBox;
     procedure cbActiveClick(Sender: TObject);
     procedure eAPIKeyChange(Sender: TObject);
     procedure cbTrafficAutoRefreshClick(Sender: TObject);
