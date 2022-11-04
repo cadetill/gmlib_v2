@@ -27,7 +27,6 @@ object LayersFrame: TLayersFrame
     BevelOuter = bvNone
     Caption = ' '
     TabOrder = 1
-    ExplicitTop = 73
     object lNeedAPI: TLabel
       Left = 63
       Top = 8
@@ -65,9 +64,6 @@ object LayersFrame: TLayersFrame
     ActivePage = tsTrafficLayer
     Align = alClient
     TabOrder = 2
-    ExplicitTop = 0
-    ExplicitWidth = 363
-    ExplicitHeight = 424
     object tsTrafficLayer: TTabSheet
       Caption = 'TrafficLayer'
       object cbTrafficAutoRefresh: TCheckBox

@@ -119,7 +119,6 @@ constructor TLayersFrame.Create(AOwner: TComponent);
 begin
   inherited;
 
-  pcPages.ActivePage := tsGeneral;
   pcObjects.ActivePage := tsTrafficLayer;
 end;
 
