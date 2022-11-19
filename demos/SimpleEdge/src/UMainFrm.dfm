@@ -10,7 +10,6 @@ object MainFrm: TMainFrm
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  PixelsPerInch = 96
   TextHeight = 15
   object Panel1: TPanel
     Left = 0
@@ -60,7 +59,14 @@ object MainFrm: TMainFrm
     MapOptions.IsFractionalZoomEnabled = True
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
+    Markers.Markers = <>
+    Markers.AutoUpdate = False
     APIRegion = rUnited_States
+    TrafficLayer.Show = False
+    TrafficLayer.TrafficLayerOptions.AutoRefresh = True
+    TransitLayer.Show = False
+    ByciclingLayer.Show = False
+    KmlLayer.Show = False
     Left = 184
     Top = 216
   end

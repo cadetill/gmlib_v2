@@ -39,12 +39,12 @@ begin
 //    {$ENDIF}
   {$ENDIF}
 
-//    {$IFDEF CEF4Delphi}
+  {$IFDEF CEF4Delphi}
   RegisterComponents('GoogleMaps', [TGMMapChrm]);
-//    {$ENDIF}
-//    {$IFDEF DELPHIALEXANDRIA}
+  {$ENDIF}
+  {$IFDEF DELPHIALEXANDRIA}
   RegisterComponents('GoogleMaps', [TGMMapEdge]);
-//    {$ENDIF}
+  {$ENDIF}
 end;
 
 end.

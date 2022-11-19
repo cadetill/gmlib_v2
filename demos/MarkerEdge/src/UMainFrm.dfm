@@ -14,33 +14,29 @@ object MainFrm: TMainFrm
   object EdgeBrowser1: TEdgeBrowser
     Left = 0
     Top = 0
-    Width = 696
+    Width = 626
     Height = 505
     Align = alClient
     TabOrder = 0
   end
-  inline MapFrame1: TMapFrame
-    Left = 696
+  inline MakerFrame1: TMakerFrame
+    Left = 626
     Top = 0
-    Width = 301
+    Width = 371
     Height = 505
     Align = alRight
     TabOrder = 1
-    ExplicitLeft = 696
-    ExplicitWidth = 301
+    ExplicitLeft = 626
     ExplicitHeight = 505
-    inherited cbActive: TCheckBox
-      Width = 283
-      ExplicitWidth = 283
-    end
     inherited pcPages: TPageControl
-      Width = 301
-      Height = 440
-      ExplicitWidth = 301
-      ExplicitHeight = 440
-      inherited tsGeneral: TTabSheet
-        ExplicitWidth = 293
-        ExplicitHeight = 410
+      Height = 384
+      ExplicitHeight = 384
+      inherited tsMakers: TTabSheet
+        ExplicitHeight = 354
+        inherited lbMarkers: TListBox
+          Height = 298
+          ExplicitHeight = 298
+        end
       end
     end
   end
@@ -49,11 +45,8 @@ object MainFrm: TMainFrm
     MapOptions.Center.Lat = 42.539899000000000000
     MapOptions.Center.Lng = 1.578505000000000000
     MapOptions.ClickableIcons = True
-    MapOptions.FullScreenControl = False
     MapOptions.GestureHandling = ghAuto
     MapOptions.IsFractionalZoomEnabled = True
-    MapOptions.MapTypeControlOptions.Position = cpTOP_LEFT
-    MapOptions.MapTypeControlOptions.Style = mtcDROPDOWN_MENU
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
     Markers.Markers = <>
@@ -64,6 +57,7 @@ object MainFrm: TMainFrm
     TransitLayer.Show = False
     ByciclingLayer.Show = False
     KmlLayer.Show = False
+    KmlLayer.KmlLayerOptions.Url = 'https://googlearchive.github.io/js-v2-samples/ggeoxml/cta.kml'
     Left = 184
     Top = 216
   end

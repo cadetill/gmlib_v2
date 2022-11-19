@@ -18,9 +18,7 @@ type
     procedure eAPIKeyChange(Sender: TObject);
     procedure cbActivateClick(Sender: TObject);
   private
-    { Private declarations }
   public
-    { Public declarations }
   end;
 
 var

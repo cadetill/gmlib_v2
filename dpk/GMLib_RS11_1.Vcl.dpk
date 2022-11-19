@@ -1,5 +1,7 @@
 package GMLib_RS11_1.Vcl;
 
+{$I ..\gmlib.inc}
+
 {$R *.res}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
@@ -31,7 +33,9 @@ requires
   rtl,
   vcl,
   vcledge,
+  {$IFDEF CEF4Delphi}
   CEF4DelphiVCLRTL,
+  {$ENDIF}
   GMLib_RS11_1;
 
 contains

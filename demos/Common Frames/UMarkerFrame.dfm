@@ -1,20 +1,17 @@
-object Frame1: TFrame1
+object MakerFrame: TMakerFrame
   Left = 0
   Top = 0
   Width = 371
   Height = 480
   TabOrder = 0
-  PixelsPerInch = 96
   object pcPages: TPageControl
     Left = 0
     Top = 121
     Width = 371
     Height = 359
-    ActivePage = tsGeneral
+    ActivePage = tsMakers
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 65
-    ExplicitHeight = 415
     object tsGeneral: TTabSheet
       Caption = 'General'
       object cbAutoUpdate: TCheckBox
@@ -23,6 +20,29 @@ object Frame1: TFrame1
         Width = 129
         Height = 17
         Caption = 'AutoUpdate'
+        TabOrder = 0
+      end
+    end
+    object tsMakers: TTabSheet
+      Caption = 'Makers'
+      ImageIndex = 1
+      DesignSize = (
+        363
+        329)
+      object lList: TLabel
+        Left = 11
+        Top = 16
+        Width = 18
+        Height = 15
+        Caption = 'List'
+      end
+      object lbMarkers: TListBox
+        Left = 8
+        Top = 40
+        Width = 97
+        Height = 273
+        Anchors = [akLeft, akTop, akBottom]
+        ItemHeight = 15
         TabOrder = 0
       end
     end
@@ -38,6 +58,7 @@ object Frame1: TFrame1
     Align = alTop
     Caption = 'Active'
     TabOrder = 1
+    OnClick = cbActiveClick
   end
   object pAPIKey: TPanel
     Left = 0

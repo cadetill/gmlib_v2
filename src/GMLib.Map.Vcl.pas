@@ -19,13 +19,13 @@ uses
   Graphics, Classes, ExtCtrls,
   {$ENDIF}
 
-//  {$IFDEF CEF4Delphi}
+  {$IFDEF CEF4Delphi}
   uCEFChromium, uCEFChromiumEvents, uCEFInterfaces, uCEFTypes,
-//  {$ENDIF}
+  {$ENDIF}
 
-//  {$IFDEF DELPHIALEXANDRIA}
+  {$IFDEF DELPHIALEXANDRIA}
   Vcl.Edge, Vcl.OleCtrls, Winapi.WebView2,
-//  {$ENDIF}
+  {$ENDIF}
 
   GMLib.Map, GMLib.LatLng, GMLib.Sets, GMLib.Marker.Vcl;
 
@@ -151,7 +151,7 @@ type
     procedure Assign(Source: TPersistent); override;
   end;
 
-//  {$IFDEF CEF4Delphi}
+  {$IFDEF CEF4Delphi}
   // @include(..\Help\docs\GMLib.Map.TGMCustomMap.txt)
   TGMMapChrm = class(TGMMap)
   private
@@ -250,9 +250,9 @@ type
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.AfterPageLoaded.txt)
     property AfterPageLoaded;
   end;
-//  {$ENDIF}
+  {$ENDIF}
 
-//  {$IFDEF DELPHIALEXANDRIA}
+  {$IFDEF DELPHIALEXANDRIA}
   // @include(..\Help\docs\GMLib.Map.TGMCustomMap.txt)
   TGMMapEdge = class(TGMMap)
   private
@@ -348,7 +348,7 @@ type
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.AfterPageLoaded.txt)
     property AfterPageLoaded;
   end;
-//  {$ENDIF}
+  {$ENDIF}
 
 implementation
 
@@ -509,7 +509,7 @@ begin
   FMapOptions.Zoom := Zoom;
 end;
 
-//{$IFDEF CEF4Delphi}
+{$IFDEF CEF4Delphi}
 { TGMMapChrm }
 
 procedure TGMMapChrm.ConsoleMessageEvent(Sender: TObject;
@@ -633,9 +633,9 @@ begin
       LoadBlankPage;
   end;
 end;
-//{$ENDIF}
+{$ENDIF}
 
-//{$IFDEF DELPHIALEXANDRIA}
+{$IFDEF DELPHIALEXANDRIA}
 { TGMMapEdge }
 
 constructor TGMMapEdge.Create(AOwner: TComponent);
@@ -762,6 +762,6 @@ begin
     FOldWebMessageReceivedEvent(Sender, Args);
 end;
 
-//{$ENDIF}
+{$ENDIF}
 
 end.

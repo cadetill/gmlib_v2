@@ -11,7 +11,6 @@ object MainFrm: TMainFrm
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnCloseQuery = FormCloseQuery
-  PixelsPerInch = 96
   TextHeight = 15
   object CEFWindowParent1: TCEFWindowParent
     Left = 0
@@ -36,30 +35,21 @@ object MainFrm: TMainFrm
       Width = 335
       ExplicitWidth = 335
     end
-    inherited pcPages: TPageControl
+    inherited pAPIKey: TPanel
       Width = 353
-      Height = 522
-      ExplicitWidth = 353
-      ExplicitHeight = 522
-      inherited tsMapOptions: TTabSheet
+    end
+    inherited pcObjects: TPageControl
+      Width = 353
+      Height = 466
+      inherited tsTrafficLayer: TTabSheet
         ExplicitWidth = 345
-        ExplicitHeight = 492
-        inherited pcObjects: TPageControl
-          Width = 345
-          Height = 492
-          ExplicitWidth = 345
-          ExplicitHeight = 492
-          inherited tsTrafficLayer: TTabSheet
-            ExplicitWidth = 337
-            ExplicitHeight = 462
-          end
-        end
+        ExplicitHeight = 436
       end
     end
   end
   object GMMapChrm1: TGMMapChrm
     Browser = Chromium1
-    MapOptions.Center.Lat = 41.865838000000000000
+    MapOptions.Center.Lat = 42.539899000000000000
     MapOptions.Center.Lng = -87.645589000000000000
     MapOptions.ClickableIcons = True
     MapOptions.GestureHandling = ghAuto
@@ -67,6 +57,8 @@ object MainFrm: TMainFrm
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
     MapOptions.Zoom = 12
+    Markers.Markers = <>
+    Markers.AutoUpdate = False
     APILang = lSpanish
     APIRegion = rSpain
     TrafficLayer.Show = False

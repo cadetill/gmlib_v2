@@ -4,7 +4,7 @@ uses
   Vcl.Forms,
   uCEFApplication,
   UMainFrm in 'src\UMainFrm.pas' {MainFrm},
-  UMarkerFrame in '..\Common Frames\UMarkerFrame.pas' {Frame1: TFrame};
+  UMarkerFrame in '..\Common Frames\UMarkerFrame.pas' {MakerFrame: TFrame};
 
 {$R *.res}
 

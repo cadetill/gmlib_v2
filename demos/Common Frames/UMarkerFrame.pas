@@ -10,7 +10,7 @@ uses
   GMLib.Map.Vcl;
 
 type
-  TFrame1 = class(TFrame)
+  TMakerFrame = class(TFrame)
     pcPages: TPageControl;
     tsGeneral: TTabSheet;
     cbActive: TCheckBox;
@@ -19,7 +19,11 @@ type
     lAPIKey: TLabel;
     eAPIKey: TEdit;
     cbAutoUpdate: TCheckBox;
+    tsMakers: TTabSheet;
+    lList: TLabel;
+    lbMarkers: TListBox;
     procedure eAPIKeyChange(Sender: TObject);
+    procedure cbActiveClick(Sender: TObject);
   private
     FGMMap: TGMMap;
     procedure SetGMMap(const Value: TGMMap);
@@ -41,18 +45,24 @@ implementation
 
 { TFrame1 }
 
-constructor TFrame1.Create(AOwner: TComponent);
+procedure TMakerFrame.cbActiveClick(Sender: TObject);
+begin
+  TGMPublic(GMMap).Active := cbActive.Checked;
+end;
+
+constructor TMakerFrame.Create(AOwner: TComponent);
 begin
   inherited;
 
+  pcPages.ActivePage := tsGeneral;
 end;
 
-procedure TFrame1.eAPIKeyChange(Sender: TObject);
+procedure TMakerFrame.eAPIKeyChange(Sender: TObject);
 begin
   TGMPublic(GMMap).APIKey := eAPIKey.Text;
 end;
 
-procedure TFrame1.SetGMMap(const Value: TGMMap);
+procedure TMakerFrame.SetGMMap(const Value: TGMMap);
 begin
   if FGMMap = Value then
     Exit;
@@ -62,12 +72,18 @@ begin
   SetPropToComponents;
 end;
 
-procedure TFrame1.SetPropToComponents;
+procedure TMakerFrame.SetPropToComponents;
+var
+  i: Integer;
 begin
   eAPIKey.Text := TGMPublic(GMMap).APIKey;
   cbActive.Checked := TGMPublic(GMMap).Active;
 
   cbAutoUpdate.Checked := TGMPublic(GMMap).Markers.AutoUpdate;
+
+  lbMarkers.Clear;
+  for i := 0 to TGMPublic(GMMap).Markers.Markers.Count - 1 do
+    lbMarkers.Items.AddObject(TGMPublic(GMMap).Markers.Markers[i].ZIndex.ToString + '-' + TGMPublic(GMMap).Markers.Markers[i].Name, TGMPublic(GMMap).Markers.Markers[i]);
 end;
 
 end.
