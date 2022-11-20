@@ -7,18 +7,15 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, GMLib.Classes, GMLib.Map, GMLib.Map.Vcl,
   Vcl.ExtCtrls, uCEFChromiumCore, uCEFChromium, uCEFWinControl, uCEFWindowParent,
 
-  uCEFConstants, uCEFInterfaces, uCEFTypes, Vcl.StdCtrls;
+  uCEFConstants, uCEFInterfaces, uCEFTypes, Vcl.StdCtrls, UMarkerFrame;
 
 type
   TMainFrm = class(TForm)
     GMMapChrm1: TGMMapChrm;
     CEFWindowParent1: TCEFWindowParent;
     Chromium1: TChromium;
-    Panel1: TPanel;
     Timer1: TTimer;
-    cbActivate: TCheckBox;
-    eAPIKey: TEdit;
-    lAPIKey: TLabel;
+    MarkerFrame1: TMarkerFrame;
     procedure Timer1Timer(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure Chromium1AfterCreated(Sender: TObject;
@@ -26,10 +23,6 @@ type
     procedure Chromium1Close(Sender: TObject; const browser: ICefBrowser;
       var aAction: TCefCloseBrowserAction);
     procedure Chromium1BeforeClose(Sender: TObject; const browser: ICefBrowser);
-    procedure cbActivateClick(Sender: TObject);
-    procedure eAPIKeyChange(Sender: TObject);
-    procedure Chromium1LoadEnd(Sender: TObject; const browser: ICefBrowser;
-      const frame: ICefFrame; httpStatusCode: Integer);
   private
   protected
     // Variables to control when can we destroy the form safely
@@ -59,11 +52,6 @@ begin
   CEFWindowParent1.Free;
 end;
 
-procedure TMainFrm.cbActivateClick(Sender: TObject);
-begin
-  GMMapChrm1.Active := cbActivate.Checked;
-end;
-
 procedure TMainFrm.Chromium1AfterCreated(Sender: TObject;
   const browser: ICefBrowser);
 begin
@@ -84,12 +72,6 @@ begin
   aAction := cbaDelay;
 end;
 
-procedure TMainFrm.Chromium1LoadEnd(Sender: TObject; const browser: ICefBrowser;
-  const frame: ICefFrame; httpStatusCode: Integer);
-begin
-beep
-end;
-
 constructor TMainFrm.Create(AOwner: TComponent);
 begin
   inherited;
@@ -98,11 +80,8 @@ begin
   FClosing  := False;
   if not( Chromium1.CreateBrowser( CEFWindowParent1 ) ) then
     Timer1.Enabled := True;
-end;
 
-procedure TMainFrm.eAPIKeyChange(Sender: TObject);
-begin
-  GMMapChrm1.APIKey := eAPIKey.Text;
+  MarkerFrame1.GMMap := GMMapChrm1;
 end;
 
 procedure TMainFrm.FormCloseQuery(Sender: TObject; var CanClose: Boolean);

@@ -571,6 +571,7 @@ begin
   FPosition := TGMLatLng.Create(Self, 0, 0, False);
   FTitle := '';
   FVisible := True;
+  Name := GetDisplayName;
 end;
 
 destructor TGMCustomMarker.Destroy;

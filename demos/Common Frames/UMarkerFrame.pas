@@ -10,7 +10,7 @@ uses
   GMLib.Map.Vcl;
 
 type
-  TFrame1 = class(TFrame)
+  TMarkerFrame = class(TFrame)
     pcPages: TPageControl;
     tsGeneral: TTabSheet;
     cbActive: TCheckBox;
@@ -19,12 +19,20 @@ type
     lAPIKey: TLabel;
     eAPIKey: TEdit;
     cbAutoUpdate: TCheckBox;
+    tsMarkers: TTabSheet;
+    lMarkersList: TLabel;
+    lbMarkersList: TListBox;
+    bAdd: TButton;
+    bDel: TButton;
     procedure eAPIKeyChange(Sender: TObject);
+    procedure cbActiveClick(Sender: TObject);
+    procedure bAddClick(Sender: TObject);
   private
     FGMMap: TGMMap;
     procedure SetGMMap(const Value: TGMMap);
   protected
     procedure SetPropToComponents;
+    procedure LoadMarkers;
   public
     constructor Create(AOwner: TComponent); override;
 
@@ -37,22 +45,50 @@ type
 
 implementation
 
+uses
+  GMLib.Marker.Vcl;
+
 {$R *.dfm}
 
 { TFrame1 }
 
-constructor TFrame1.Create(AOwner: TComponent);
+procedure TMarkerFrame.bAddClick(Sender: TObject);
+var
+  Marker: TGMMarker;
+begin
+  Marker := TGMPublic(GMMap).Markers.Markers.Add;
+  Marker.Title := 'New';
+  Marker.Name := Marker.GetNamePath;
+  LoadMarkers;
+end;
+
+procedure TMarkerFrame.cbActiveClick(Sender: TObject);
+begin
+  TGMPublic(GMMap).Active := cbActive.Checked;
+end;
+
+constructor TMarkerFrame.Create(AOwner: TComponent);
 begin
   inherited;
 
+  pcPages.ActivePage := tsGeneral;
 end;
 
-procedure TFrame1.eAPIKeyChange(Sender: TObject);
+procedure TMarkerFrame.eAPIKeyChange(Sender: TObject);
 begin
   TGMPublic(GMMap).APIKey := eAPIKey.Text;
 end;
 
-procedure TFrame1.SetGMMap(const Value: TGMMap);
+procedure TMarkerFrame.LoadMarkers;
+var
+  i: Integer;
+begin
+  lbMarkersList.Clear;
+  for i := 0 to TGMPublic(GMMap).Markers.Markers.Count - 1 do
+    lbMarkersList.AddItem(TGMPublic(GMMap).Markers.Markers[i].Name, TGMPublic(GMMap).Markers.Markers[i]);
+end;
+
+procedure TMarkerFrame.SetGMMap(const Value: TGMMap);
 begin
   if FGMMap = Value then
     Exit;
@@ -62,12 +98,14 @@ begin
   SetPropToComponents;
 end;
 
-procedure TFrame1.SetPropToComponents;
+procedure TMarkerFrame.SetPropToComponents;
 begin
   eAPIKey.Text := TGMPublic(GMMap).APIKey;
   cbActive.Checked := TGMPublic(GMMap).Active;
 
   cbAutoUpdate.Checked := TGMPublic(GMMap).Markers.AutoUpdate;
+
+  LoadMarkers;
 end;
 
 end.

@@ -10,7 +10,6 @@ object MainFrm: TMainFrm
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
-  PixelsPerInch = 96
   TextHeight = 15
   object EdgeBrowser1: TEdgeBrowser
     Left = 0
@@ -19,9 +18,6 @@ object MainFrm: TMainFrm
     Height = 505
     Align = alClient
     TabOrder = 0
-    ExplicitTop = 81
-    ExplicitWidth = 997
-    ExplicitHeight = 424
   end
   inline LayersFrame1: TLayersFrame
     Left = 640
@@ -35,22 +31,44 @@ object MainFrm: TMainFrm
     ExplicitHeight = 505
     inherited cbActive: TCheckBox
       Width = 339
+      ExplicitWidth = 339
     end
-    inherited pcPages: TPageControl
+    inherited pAPIKey: TPanel
       Width = 357
-      Height = 440
-      ActivePage = LayersFrame1.tsGeneral
-      inherited tsGeneral: TTabSheet
-        ExplicitWidth = 349
-        ExplicitHeight = 410
+      ExplicitWidth = 357
+      inherited lAPIKey: TLabel
+        Width = 37
+        Height = 15
+        ExplicitWidth = 37
+        ExplicitHeight = 15
       end
-      inherited tsMapOptions: TTabSheet
-        ExplicitHeight = 410
-        inherited pcObjects: TPageControl
-          Height = 410
-          inherited tsTrafficLayer: TTabSheet
-            ExplicitHeight = 380
-          end
+    end
+    inherited pcObjects: TPageControl
+      Width = 357
+      Height = 384
+      ExplicitWidth = 357
+      ExplicitHeight = 384
+      inherited tsTrafficLayer: TTabSheet
+        ExplicitTop = 26
+        ExplicitWidth = 349
+        ExplicitHeight = 354
+      end
+      inherited tsTransitLayer: TTabSheet
+        ExplicitTop = 26
+        ExplicitHeight = 368
+      end
+      inherited tsByciclingLayer: TTabSheet
+        ExplicitTop = 26
+        ExplicitHeight = 368
+      end
+      inherited tsKmlLayer: TTabSheet
+        ExplicitTop = 26
+        ExplicitHeight = 368
+        inherited lKmlUrl: TLabel
+          Width = 15
+          Height = 15
+          ExplicitWidth = 15
+          ExplicitHeight = 15
         end
       end
     end
@@ -64,6 +82,8 @@ object MainFrm: TMainFrm
     MapOptions.IsFractionalZoomEnabled = True
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
+    Markers.Markers = <>
+    Markers.AutoUpdate = False
     APIRegion = rUnited_States
     TrafficLayer.Show = False
     TrafficLayer.TrafficLayerOptions.AutoRefresh = True
