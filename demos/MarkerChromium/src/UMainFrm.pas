@@ -15,7 +15,7 @@ type
     CEFWindowParent1: TCEFWindowParent;
     Chromium1: TChromium;
     Timer1: TTimer;
-    MakerFrame1: TMakerFrame;
+    MarkerFrame1: TMarkerFrame;
     procedure Timer1Timer(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure Chromium1AfterCreated(Sender: TObject;
@@ -81,7 +81,7 @@ begin
   if not( Chromium1.CreateBrowser( CEFWindowParent1 ) ) then
     Timer1.Enabled := True;
 
-  MakerFrame1.GMMap := GMMapChrm1;
+  MarkerFrame1.GMMap := GMMapChrm1;
 end;
 
 procedure TMainFrm.FormCloseQuery(Sender: TObject; var CanClose: Boolean);

@@ -36,6 +36,12 @@ object MainFrm: TMainFrm
     inherited pAPIKey: TPanel
       Width = 357
       ExplicitWidth = 357
+      inherited lAPIKey: TLabel
+        Width = 37
+        Height = 15
+        ExplicitWidth = 37
+        ExplicitHeight = 15
+      end
     end
     inherited pcObjects: TPageControl
       Width = 357
@@ -43,8 +49,27 @@ object MainFrm: TMainFrm
       ExplicitWidth = 357
       ExplicitHeight = 384
       inherited tsTrafficLayer: TTabSheet
+        ExplicitTop = 26
         ExplicitWidth = 349
         ExplicitHeight = 354
+      end
+      inherited tsTransitLayer: TTabSheet
+        ExplicitTop = 26
+        ExplicitHeight = 368
+      end
+      inherited tsByciclingLayer: TTabSheet
+        ExplicitTop = 26
+        ExplicitHeight = 368
+      end
+      inherited tsKmlLayer: TTabSheet
+        ExplicitTop = 26
+        ExplicitHeight = 368
+        inherited lKmlUrl: TLabel
+          Width = 15
+          Height = 15
+          ExplicitWidth = 15
+          ExplicitHeight = 15
+        end
       end
     end
   end

@@ -10,7 +10,7 @@ uses
   GMLib.Map.Vcl;
 
 type
-  TMakerFrame = class(TFrame)
+  TMarkerFrame = class(TFrame)
     pcPages: TPageControl;
     tsGeneral: TTabSheet;
     cbActive: TCheckBox;
@@ -19,16 +19,20 @@ type
     lAPIKey: TLabel;
     eAPIKey: TEdit;
     cbAutoUpdate: TCheckBox;
-    tsMakers: TTabSheet;
-    lList: TLabel;
-    lbMarkers: TListBox;
+    tsMarkers: TTabSheet;
+    lMarkersList: TLabel;
+    lbMarkersList: TListBox;
+    bAdd: TButton;
+    bDel: TButton;
     procedure eAPIKeyChange(Sender: TObject);
     procedure cbActiveClick(Sender: TObject);
+    procedure bAddClick(Sender: TObject);
   private
     FGMMap: TGMMap;
     procedure SetGMMap(const Value: TGMMap);
   protected
     procedure SetPropToComponents;
+    procedure LoadMarkers;
   public
     constructor Create(AOwner: TComponent); override;
 
@@ -41,28 +45,50 @@ type
 
 implementation
 
+uses
+  GMLib.Marker.Vcl;
+
 {$R *.dfm}
 
 { TFrame1 }
 
-procedure TMakerFrame.cbActiveClick(Sender: TObject);
+procedure TMarkerFrame.bAddClick(Sender: TObject);
+var
+  Marker: TGMMarker;
+begin
+  Marker := TGMPublic(GMMap).Markers.Markers.Add;
+  Marker.Title := 'New';
+  Marker.Name := Marker.GetNamePath;
+  LoadMarkers;
+end;
+
+procedure TMarkerFrame.cbActiveClick(Sender: TObject);
 begin
   TGMPublic(GMMap).Active := cbActive.Checked;
 end;
 
-constructor TMakerFrame.Create(AOwner: TComponent);
+constructor TMarkerFrame.Create(AOwner: TComponent);
 begin
   inherited;
 
   pcPages.ActivePage := tsGeneral;
 end;
 
-procedure TMakerFrame.eAPIKeyChange(Sender: TObject);
+procedure TMarkerFrame.eAPIKeyChange(Sender: TObject);
 begin
   TGMPublic(GMMap).APIKey := eAPIKey.Text;
 end;
 
-procedure TMakerFrame.SetGMMap(const Value: TGMMap);
+procedure TMarkerFrame.LoadMarkers;
+var
+  i: Integer;
+begin
+  lbMarkersList.Clear;
+  for i := 0 to TGMPublic(GMMap).Markers.Markers.Count - 1 do
+    lbMarkersList.AddItem(TGMPublic(GMMap).Markers.Markers[i].Name, TGMPublic(GMMap).Markers.Markers[i]);
+end;
+
+procedure TMarkerFrame.SetGMMap(const Value: TGMMap);
 begin
   if FGMMap = Value then
     Exit;
@@ -72,18 +98,14 @@ begin
   SetPropToComponents;
 end;
 
-procedure TMakerFrame.SetPropToComponents;
-var
-  i: Integer;
+procedure TMarkerFrame.SetPropToComponents;
 begin
   eAPIKey.Text := TGMPublic(GMMap).APIKey;
   cbActive.Checked := TGMPublic(GMMap).Active;
 
   cbAutoUpdate.Checked := TGMPublic(GMMap).Markers.AutoUpdate;
 
-  lbMarkers.Clear;
-  for i := 0 to TGMPublic(GMMap).Markers.Markers.Count - 1 do
-    lbMarkers.Items.AddObject(TGMPublic(GMMap).Markers.Markers[i].ZIndex.ToString + '-' + TGMPublic(GMMap).Markers.Markers[i].Name, TGMPublic(GMMap).Markers.Markers[i]);
+  LoadMarkers;
 end;
 
 end.

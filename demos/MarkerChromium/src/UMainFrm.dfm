@@ -20,10 +20,8 @@ object MainFrm: TMainFrm
     Align = alClient
     TabStop = True
     TabOrder = 0
-    ExplicitLeft = -208
-    ExplicitTop = 65
   end
-  inline MakerFrame1: TMakerFrame
+  inline MarkerFrame1: TMarkerFrame
     Left = 638
     Top = 0
     Width = 371
@@ -35,12 +33,36 @@ object MainFrm: TMainFrm
     inherited pcPages: TPageControl
       Height = 466
       ExplicitHeight = 466
-      inherited tsMakers: TTabSheet
+      inherited tsGeneral: TTabSheet
+        ExplicitTop = 26
+        ExplicitHeight = 329
+      end
+      inherited tsMarkers: TTabSheet
+        ExplicitTop = 26
         ExplicitHeight = 436
-        inherited lbMarkers: TListBox
-          Height = 380
-          ExplicitHeight = 380
+        inherited lMarkersList: TLabel
+          Width = 63
+          Height = 15
+          ExplicitWidth = 63
+          ExplicitHeight = 15
         end
+        inherited lbMarkersList: TListBox
+          Height = 388
+          ItemHeight = 15
+          ExplicitHeight = 388
+        end
+      end
+    end
+    inherited pAPIKey: TPanel
+      inherited lAPIKey: TLabel
+        Width = 37
+        Height = 15
+        ExplicitWidth = 37
+        ExplicitHeight = 15
+      end
+      inherited eAPIKey: TEdit
+        Height = 23
+        ExplicitHeight = 23
       end
     end
   end
@@ -77,6 +99,30 @@ object MainFrm: TMainFrm
         Optimized = True
         Title = 'TGMMarker'
         Visible = True
+      end
+      item
+        Name = 'TGMMarker'
+        Icon.Symbol.FillColor = clBlack
+        Icon.Symbol.StrokeColor = clBlack
+        Icon.Symbol.Path = spFORWARD_OPEN_ARROW
+        Icon.Symbol.Rotation = 0
+        Icon.Symbol.Scale = 1
+        Icon.Symbol.StrokeOpacity = 1.000000000000000000
+        Icon.Symbol.StrokeWeight = 1
+        Icon.Icon.ScaledSize = 0
+        LabelText.Color = clBlack
+        LabelText.FontFamily = 'Arial'
+        LabelText.FontSize = 14
+        LabelText.FontWeight = 0
+        Animation = aniNONE
+        Clickable = True
+        CollisionBehavior = cbNONE
+        CrossOnDrag = True
+        Draggable = False
+        Opacity = 1.000000000000000000
+        Optimized = True
+        Title = 'TGMMarker'
+        Visible = True
       end>
     Markers.AutoUpdate = False
     APILang = lSpanish
@@ -86,8 +132,8 @@ object MainFrm: TMainFrm
     TransitLayer.Show = False
     ByciclingLayer.Show = False
     KmlLayer.Show = False
-    Left = 136
-    Top = 304
+    Left = 172
+    Top = 376
   end
   object Chromium1: TChromium
     OnAfterCreated = Chromium1AfterCreated

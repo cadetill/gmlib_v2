@@ -12,6 +12,8 @@ GMLib was developed and tested on Delphi 11.1 but (theoretically) you can compil
 
 GMLib demos have been tested in Windows 10 and Windows 11.
 
+Don't use master branch, it's the developpement branch and perhaps there are errors. Use instead [released packages](https://github.com/cadetill/gmlib_v2/releases)
+
 ## What part of the Google Maps API is implemented?
 
 The following Google Maps API classes are currently implemented
@@ -22,6 +24,15 @@ The following Google Maps API classes are currently implemented
     - [google.maps.TransitLayer](https://developers.google.com/maps/documentation/javascript/reference/map#TransitLayer)
     - [google.maps.BicyclingLayer](https://developers.google.com/maps/documentation/javascript/reference/map#BicyclingLayer)
     - [google.maps.KmlLayer](https://developers.google.com/maps/documentation/javascript/reference/kml)
+
+## TODO list or road map
+
+- Markers (in progress)
+- Polygons
+- Geocoder
+- Directions
+- Elevation
+- Heatmaps
 
 ## Do you find a bug?
 
