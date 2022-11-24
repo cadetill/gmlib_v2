@@ -12,7 +12,7 @@ type
   TMainFrm = class(TForm)
     GMMapEdge1: TGMMapEdge;
     EdgeBrowser1: TEdgeBrowser;
-    MakerFrame1: TMakerFrame;
+    MarkerFrame1: TMarkerFrame;
   private
   public
     constructor Create(AOwner: TComponent); override;
@@ -31,7 +31,7 @@ constructor TMainFrm.Create(AOwner: TComponent);
 begin
   inherited;
 
-  MakerFrame1.GMMap := GMMapEdge1;
+  MarkerFrame1.GMMap := GMMapEdge1;
 end;
 
 end.

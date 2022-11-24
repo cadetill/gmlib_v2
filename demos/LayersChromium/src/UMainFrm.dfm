@@ -7,15 +7,24 @@ object MainFrm: TMainFrm
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -12
+  Font.Height = -13
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnCloseQuery = FormCloseQuery
-  TextHeight = 15
+  TextHeight = 17
+  object Splitter1: TSplitter
+    Left = 653
+    Top = 0
+    Height = 587
+    Align = alRight
+    ExplicitLeft = 512
+    ExplicitTop = 264
+    ExplicitHeight = 100
+  end
   object CEFWindowParent1: TCEFWindowParent
     Left = 0
     Top = 0
-    Width = 656
+    Width = 653
     Height = 587
     Align = alClient
     TabStop = True
@@ -27,6 +36,12 @@ object MainFrm: TMainFrm
     Width = 353
     Height = 587
     Align = alRight
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
     TabOrder = 1
     ExplicitLeft = 656
     ExplicitWidth = 353
@@ -38,40 +53,24 @@ object MainFrm: TMainFrm
     inherited pAPIKey: TPanel
       Width = 353
       ExplicitWidth = 353
-      inherited lAPIKey: TLabel
-        Width = 37
-        Height = 15
-        ExplicitWidth = 37
-        ExplicitHeight = 15
-      end
     end
     inherited pcObjects: TPageControl
       Width = 353
-      Height = 466
+      Height = 450
       ExplicitWidth = 353
       ExplicitHeight = 466
       inherited tsTrafficLayer: TTabSheet
-        ExplicitTop = 26
         ExplicitWidth = 345
-        ExplicitHeight = 436
+        ExplicitHeight = 418
       end
       inherited tsTransitLayer: TTabSheet
-        ExplicitTop = 26
-        ExplicitHeight = 368
+        ExplicitHeight = 366
       end
       inherited tsByciclingLayer: TTabSheet
-        ExplicitTop = 26
-        ExplicitHeight = 368
+        ExplicitHeight = 366
       end
       inherited tsKmlLayer: TTabSheet
-        ExplicitTop = 26
-        ExplicitHeight = 368
-        inherited lKmlUrl: TLabel
-          Width = 15
-          Height = 15
-          ExplicitWidth = 15
-          ExplicitHeight = 15
-        end
+        ExplicitHeight = 366
       end
     end
   end

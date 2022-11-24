@@ -7,20 +7,29 @@ object MainFrm: TMainFrm
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -12
+  Font.Height = -13
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnCloseQuery = FormCloseQuery
-  PixelsPerInch = 96
-  TextHeight = 15
+  TextHeight = 17
+  object Splitter1: TSplitter
+    Left = 637
+    Top = 0
+    Height = 518
+    Align = alRight
+    ExplicitLeft = 512
+    ExplicitTop = 296
+    ExplicitHeight = 100
+  end
   object CEFWindowParent1: TCEFWindowParent
     Left = 0
     Top = 0
-    Width = 656
+    Width = 637
     Height = 518
     Align = alClient
     TabStop = True
     TabOrder = 0
+    ExplicitWidth = 653
   end
   object mEvents: TMemo
     Left = 0
@@ -32,49 +41,42 @@ object MainFrm: TMainFrm
     TabOrder = 1
   end
   inline MapFrame1: TMapFrame
-    Left = 656
+    Left = 640
     Top = 0
-    Width = 353
+    Width = 369
     Height = 518
     Align = alRight
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
     TabOrder = 2
-    ExplicitLeft = 656
-    ExplicitWidth = 353
+    ExplicitLeft = 640
+    ExplicitWidth = 369
     ExplicitHeight = 518
     inherited cbActive: TCheckBox
-      Width = 335
+      Width = 351
       ExplicitWidth = 335
     end
     inherited pcPages: TPageControl
-      Width = 353
+      Width = 369
       Height = 453
-      ActivePage = MapFrame1.tsGeneral
       ExplicitWidth = 353
       ExplicitHeight = 453
       inherited tsGeneral: TTabSheet
-        ExplicitWidth = 345
-        ExplicitHeight = 423
+        ExplicitWidth = 361
+        ExplicitHeight = 421
       end
       inherited tsMapOptions: TTabSheet
-        ExplicitWidth = 345
-        ExplicitHeight = 423
         inherited pcObjects: TPageControl
-          Top = 224
-          Width = 345
-          ActivePage = MapFrame1.tsFullScreenControl
-          ExplicitTop = 224
-          ExplicitWidth = 345
-          inherited tsFullScreenControl: TTabSheet
-            ExplicitWidth = 337
-          end
+          ExplicitHeight = 310
           inherited tsMapTypeControl: TTabSheet
             inherited clbMTIds: TCheckListBox
               Width = 137
               ExplicitWidth = 137
             end
-          end
-          inherited tsRotateControl: TTabSheet
-            ExplicitWidth = 337
           end
         end
       end
@@ -93,6 +95,8 @@ object MainFrm: TMainFrm
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
     MapOptions.Zoom = 10
+    Markers.Markers = <>
+    Markers.AutoUpdate = False
     APILang = lSpanish
     APIRegion = rSpain
     TrafficLayer.Show = False

@@ -74,7 +74,6 @@ object MainFrm: TMainFrm
     Top = 224
   end
   object Chromium1: TChromium
-    OnLoadEnd = Chromium1LoadEnd
     OnAfterCreated = Chromium1AfterCreated
     OnBeforeClose = Chromium1BeforeClose
     OnClose = Chromium1Close

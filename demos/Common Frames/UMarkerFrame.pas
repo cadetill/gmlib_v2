@@ -24,15 +24,30 @@ type
     lbMarkersList: TListBox;
     bAdd: TButton;
     bDel: TButton;
+    tsMarker: TTabSheet;
+    lAnimation: TLabel;
+    cbAnimation: TComboBox;
+    cbClickable: TCheckBox;
+    cbCollisionBehavior: TComboBox;
+    lCollisionBehavior: TLabel;
     procedure eAPIKeyChange(Sender: TObject);
     procedure cbActiveClick(Sender: TObject);
     procedure bAddClick(Sender: TObject);
+    procedure bDelClick(Sender: TObject);
+    procedure lbMarkersListClick(Sender: TObject);
+    procedure cbAnimationChange(Sender: TObject);
+    procedure cbClickableClick(Sender: TObject);
+    procedure cbCollisionBehaviorChange(Sender: TObject);
   private
     FGMMap: TGMMap;
     procedure SetGMMap(const Value: TGMMap);
   protected
     procedure SetPropToComponents;
     procedure LoadMarkers;
+
+    procedure GetInfoMarker;
+    procedure GetAnimation;
+    procedure GetCollisionBehavior;
   public
     constructor Create(AOwner: TComponent); override;
 
@@ -46,7 +61,7 @@ type
 implementation
 
 uses
-  GMLib.Marker.Vcl;
+  GMLib.Marker.Vcl, GMLib.Sets, GMLib.Transform.Vcl;
 
 {$R *.dfm}
 
@@ -58,13 +73,38 @@ var
 begin
   Marker := TGMPublic(GMMap).Markers.Markers.Add;
   Marker.Title := 'New';
-  Marker.Name := Marker.GetNamePath;
   LoadMarkers;
+  GetInfoMarker;
+end;
+
+procedure TMarkerFrame.bDelClick(Sender: TObject);
+begin
+  if lbMarkersList.ItemIndex = -1 then
+    Exit;
+
+  lbMarkersList.Items.Objects[lbMarkersList.ItemIndex].Free;
+  lbMarkersList.Items.Delete(lbMarkersList.ItemIndex);
+  GetInfoMarker;
 end;
 
 procedure TMarkerFrame.cbActiveClick(Sender: TObject);
 begin
   TGMPublic(GMMap).Active := cbActive.Checked;
+end;
+
+procedure TMarkerFrame.cbAnimationChange(Sender: TObject);
+begin
+  TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].Animation := TGMTransform.StrToAnimation(cbAnimation.Text);
+end;
+
+procedure TMarkerFrame.cbClickableClick(Sender: TObject);
+begin
+  TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].Clickable := cbClickable.Checked;
+end;
+
+procedure TMarkerFrame.cbCollisionBehaviorChange(Sender: TObject);
+begin
+  TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].CollisionBehavior := TGMTransform.StrToCollisionBehavior(cbCollisionBehavior.Text);
 end;
 
 constructor TMarkerFrame.Create(AOwner: TComponent);
@@ -79,13 +119,55 @@ begin
   TGMPublic(GMMap).APIKey := eAPIKey.Text;
 end;
 
+procedure TMarkerFrame.GetAnimation;
+var
+  Value: TGMAnimation;
+begin
+  cbAnimation.Items.Clear;
+  for Value := Low(TGMAnimation) to High(TGMAnimation) do
+    cbAnimation.Items.Add( TGMTransform.AnimationToStr(Value) );
+  cbAnimation.ItemIndex := cbAnimation.Items.IndexOf(TGMTransform.AnimationToStr( TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].Animation ));
+end;
+
+procedure TMarkerFrame.GetCollisionBehavior;
+var
+  Value: TGMCollisionBehavior;
+begin
+  cbCollisionBehavior.Items.Clear;
+  for Value := Low(TGMCollisionBehavior) to High(TGMCollisionBehavior) do
+    cbCollisionBehavior.Items.Add( TGMTransform.CollisionBehaviorToStr(Value) );
+  cbCollisionBehavior.ItemIndex := cbCollisionBehavior.Items.IndexOf(TGMTransform.CollisionBehaviorToStr( TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].CollisionBehavior ));
+end;
+
+procedure TMarkerFrame.GetInfoMarker;
+begin
+  tsMarker.Caption := 'Marker';
+  cbAnimation.Items.Clear;
+
+  if lbMarkersList.ItemIndex = -1 then
+    Exit;
+
+  tsMarker.Caption := lbMarkersList.Items[lbMarkersList.ItemIndex];
+
+  GetAnimation;
+  GetCollisionBehavior;
+
+  cbClickable.Checked := TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].Clickable;
+end;
+
+procedure TMarkerFrame.lbMarkersListClick(Sender: TObject);
+begin
+  GetInfoMarker;
+  pcPages.ActivePage := tsMarker;
+end;
+
 procedure TMarkerFrame.LoadMarkers;
 var
   i: Integer;
 begin
   lbMarkersList.Clear;
   for i := 0 to TGMPublic(GMMap).Markers.Markers.Count - 1 do
-    lbMarkersList.AddItem(TGMPublic(GMMap).Markers.Markers[i].Name, TGMPublic(GMMap).Markers.Markers[i]);
+    lbMarkersList.AddItem(TGMPublic(GMMap).Markers.Markers[i].ZIndex.ToString + '-' + TGMPublic(GMMap).Markers.Markers[i].Name, TGMPublic(GMMap).Markers.Markers[i]);
 end;
 
 procedure TMarkerFrame.SetGMMap(const Value: TGMMap);

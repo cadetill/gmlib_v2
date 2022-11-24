@@ -16,6 +16,7 @@ type
     Chromium1: TChromium;
     Timer1: TTimer;
     LayersFrame1: TLayersFrame;
+    Splitter1: TSplitter;
     procedure Timer1Timer(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure Chromium1AfterCreated(Sender: TObject;

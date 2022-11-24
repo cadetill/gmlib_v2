@@ -7,11 +7,11 @@ object MainFrm: TMainFrm
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -12
+  Font.Height = -13
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnCloseQuery = FormCloseQuery
-  TextHeight = 15
+  TextHeight = 17
   object CEFWindowParent1: TCEFWindowParent
     Left = 0
     Top = 0
@@ -31,38 +31,51 @@ object MainFrm: TMainFrm
     ExplicitLeft = 638
     ExplicitHeight = 587
     inherited pcPages: TPageControl
-      Height = 466
+      Height = 450
       ExplicitHeight = 466
       inherited tsGeneral: TTabSheet
-        ExplicitTop = 26
-        ExplicitHeight = 329
+        ExplicitTop = 28
+        ExplicitHeight = 418
       end
       inherited tsMarkers: TTabSheet
-        ExplicitTop = 26
-        ExplicitHeight = 436
+        ExplicitTop = 28
+        ExplicitHeight = 418
+        DesignSize = (
+          363
+          418)
         inherited lMarkersList: TLabel
-          Width = 63
-          Height = 15
-          ExplicitWidth = 63
-          ExplicitHeight = 15
+          Width = 71
+          Height = 17
+          ExplicitWidth = 71
+          ExplicitHeight = 17
         end
         inherited lbMarkersList: TListBox
-          Height = 388
-          ItemHeight = 15
+          Height = 477
+          ItemHeight = 17
           ExplicitHeight = 388
+        end
+      end
+      inherited tsMarker: TTabSheet
+        ExplicitTop = 28
+        ExplicitHeight = 418
+        inherited lAnimation: TLabel
+          Width = 58
+          Height = 17
+          ExplicitWidth = 58
+          ExplicitHeight = 17
         end
       end
     end
     inherited pAPIKey: TPanel
       inherited lAPIKey: TLabel
-        Width = 37
-        Height = 15
-        ExplicitWidth = 37
-        ExplicitHeight = 15
+        Width = 39
+        Height = 17
+        ExplicitWidth = 39
+        ExplicitHeight = 17
       end
       inherited eAPIKey: TEdit
-        Height = 23
-        ExplicitHeight = 23
+        Height = 25
+        ExplicitHeight = 25
       end
     end
   end
@@ -90,7 +103,7 @@ object MainFrm: TMainFrm
         LabelText.FontFamily = 'Arial'
         LabelText.FontSize = 14
         LabelText.FontWeight = 0
-        Animation = aniNONE
+        Animation = aniBOUNCE
         Clickable = True
         CollisionBehavior = cbNONE
         CrossOnDrag = True
@@ -114,7 +127,7 @@ object MainFrm: TMainFrm
         LabelText.FontFamily = 'Arial'
         LabelText.FontSize = 14
         LabelText.FontWeight = 0
-        Animation = aniNONE
+        Animation = aniDROP
         Clickable = True
         CollisionBehavior = cbNONE
         CrossOnDrag = True

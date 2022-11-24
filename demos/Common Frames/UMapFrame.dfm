@@ -3,8 +3,13 @@ object MapFrame: TMapFrame
   Top = 0
   Width = 376
   Height = 608
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -13
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  ParentFont = False
   TabOrder = 0
-  PixelsPerInch = 96
   object cbActive: TCheckBox
     AlignWithMargins = True
     Left = 15
@@ -23,56 +28,56 @@ object MapFrame: TMapFrame
     Top = 65
     Width = 376
     Height = 543
-    ActivePage = tsGeneral
+    ActivePage = tsMapOptions
     Align = alClient
     TabOrder = 1
     object tsGeneral: TTabSheet
       Caption = 'General'
       object lIntervalEvents: TLabel
         Left = 16
-        Top = 178
-        Width = 76
-        Height = 15
+        Top = 194
+        Width = 83
+        Height = 17
         Caption = 'Interval Events'
       end
       object lAPIVersion: TLabel
         Left = 16
-        Top = 120
-        Width = 56
-        Height = 15
+        Top = 136
+        Width = 61
+        Height = 17
         Caption = 'APIVersion'
       end
       object lAPILang: TLabel
         Left = 16
-        Top = 72
-        Width = 44
-        Height = 15
+        Top = 88
+        Width = 46
+        Height = 17
         Caption = 'APILang'
       end
       object lAPIKey: TLabel
         Left = 16
         Top = 24
-        Width = 37
-        Height = 15
+        Width = 39
+        Height = 17
         Caption = 'APIKey'
       end
       object lAPIRegion: TLabel
         Left = 127
-        Top = 72
-        Width = 55
-        Height = 15
+        Top = 88
+        Width = 59
+        Height = 17
         Caption = 'APIRegion'
       end
       object lLanguage: TLabel
         Left = 16
         Top = 280
-        Width = 52
-        Height = 15
+        Width = 57
+        Height = 17
         Caption = 'Language'
       end
       object Label1: TLabel
         Left = 64
-        Top = 24
+        Top = 28
         Width = 278
         Height = 15
         Caption = '(you need to put an API Key to use some features)'
@@ -85,9 +90,9 @@ object MapFrame: TMapFrame
       end
       object eIntervalEvents: TSpinEdit
         Left = 16
-        Top = 194
+        Top = 218
         Width = 81
-        Height = 24
+        Height = 27
         MaxValue = 1000
         MinValue = 1
         TabOrder = 0
@@ -96,7 +101,7 @@ object MapFrame: TMapFrame
       end
       object cbAPIVersion: TComboBox
         Left = 16
-        Top = 136
+        Top = 160
         Width = 105
         Height = 22
         Style = csOwnerDrawFixed
@@ -105,7 +110,7 @@ object MapFrame: TMapFrame
       end
       object cbAPILang: TComboBox
         Left = 16
-        Top = 88
+        Top = 112
         Width = 105
         Height = 22
         Style = csOwnerDrawFixed
@@ -114,15 +119,15 @@ object MapFrame: TMapFrame
       end
       object eAPIKey: TEdit
         Left = 16
-        Top = 40
+        Top = 48
         Width = 273
-        Height = 23
+        Height = 25
         TabOrder = 3
         OnChange = eAPIKeyChange
       end
       object cbAPIRegion: TComboBox
         Left = 127
-        Top = 88
+        Top = 112
         Width = 162
         Height = 22
         Style = csOwnerDrawFixed
@@ -131,7 +136,7 @@ object MapFrame: TMapFrame
       end
       object cbLanguage: TComboBox
         Left = 16
-        Top = 296
+        Top = 304
         Width = 105
         Height = 22
         Style = csOwnerDrawFixed
@@ -142,98 +147,27 @@ object MapFrame: TMapFrame
     object tsMapOptions: TTabSheet
       Caption = 'MapOptions'
       ImageIndex = 1
-      object lBackgroundColor: TLabel
-        Left = 16
-        Top = 16
-        Width = 93
-        Height = 15
-        Caption = 'BackgroundColor'
-      end
-      object cbBackgroundColor: TColorBox
-        Left = 115
-        Top = 13
-        Width = 105
-        Height = 22
-        TabOrder = 0
-        OnChange = cbBackgroundColorChange
-      end
-      object gbCenter: TGroupBox
-        Left = 3
-        Top = 41
-        Width = 285
-        Height = 64
-        Caption = 'Center'
-        TabOrder = 1
-        object lLat: TLabel
-          Left = 16
-          Top = 32
-          Width = 16
-          Height = 15
-          Caption = 'Lat'
-        end
-        object lLng: TLabel
-          Left = 149
-          Top = 32
-          Width = 20
-          Height = 15
-          Caption = 'Lng'
-        end
-        object eLat: TEdit
-          Left = 43
-          Top = 29
-          Width = 94
-          Height = 23
-          TabOrder = 0
-          OnChange = eLatChange
-        end
-        object eLng: TEdit
-          Left = 176
-          Top = 29
-          Width = 94
-          Height = 23
-          TabOrder = 1
-          OnChange = eLngChange
-        end
-      end
-      object cbClickableIcons: TCheckBox
-        Left = 8
-        Top = 120
-        Width = 97
-        Height = 17
-        Caption = 'ClickableIcons'
-        TabOrder = 2
-        OnClick = cbClickableIconsClick
-      end
-      object cbDisableDoubleClickZoom: TCheckBox
-        Left = 120
-        Top = 120
-        Width = 168
-        Height = 17
-        Caption = 'DisableDoubleClickZoom'
-        TabOrder = 3
-        OnClick = cbDisableDoubleClickZoomClick
-      end
       object pcObjects: TPageControl
         Left = 0
-        Top = 314
+        Top = 201
         Width = 368
-        Height = 199
-        ActivePage = tsRotateControl
-        Align = alBottom
-        TabOrder = 4
+        Height = 310
+        ActivePage = tsFullScreenControl
+        Align = alClient
+        TabOrder = 0
         object tsFullScreenControl: TTabSheet
           Caption = 'FullScreen'
           object lFSPosition: TLabel
             Left = 16
             Top = 48
-            Width = 43
-            Height = 15
+            Width = 46
+            Height = 17
             Caption = 'Position'
           end
           object cbFullScreenControl: TCheckBox
             Left = 16
             Top = 16
-            Width = 129
+            Width = 162
             Height = 17
             Caption = 'FullScreenControl'
             TabOrder = 0
@@ -254,35 +188,35 @@ object MapFrame: TMapFrame
           ImageIndex = 1
           object lMTPosition: TLabel
             Left = 8
-            Top = 104
-            Width = 43
-            Height = 15
+            Top = 120
+            Width = 46
+            Height = 17
             Caption = 'Position'
           end
           object lMTStyle: TLabel
             Left = 8
-            Top = 132
-            Width = 25
-            Height = 15
+            Top = 148
+            Width = 27
+            Height = 17
             Caption = 'Style'
           end
           object lMTIds: TLabel
             Left = 176
-            Top = 72
-            Width = 15
-            Height = 15
+            Top = 70
+            Width = 17
+            Height = 17
             Caption = 'Ids'
           end
           object lMapTypeId: TLabel
             Left = 8
             Top = 24
-            Width = 58
-            Height = 15
+            Width = 65
+            Height = 17
             Caption = 'MapTypeId'
           end
           object cbMTPosition: TComboBox
             Left = 65
-            Top = 101
+            Top = 117
             Width = 105
             Height = 22
             Style = csOwnerDrawFixed
@@ -293,8 +227,8 @@ object MapFrame: TMapFrame
             Left = 176
             Top = 88
             Width = 104
-            Height = 65
-            ItemHeight = 15
+            Height = 137
+            ItemHeight = 17
             TabOrder = 1
             OnClickCheck = clbMTIdsClickCheck
           end
@@ -309,7 +243,7 @@ object MapFrame: TMapFrame
           end
           object cbMTStyle: TComboBox
             Left = 65
-            Top = 129
+            Top = 145
             Width = 105
             Height = 22
             Style = csOwnerDrawFixed
@@ -349,7 +283,7 @@ object MapFrame: TMapFrame
           end
           object gbRNE: TGroupBox
             Left = 4
-            Top = 37
+            Top = 53
             Width = 275
             Height = 64
             Caption = 'NE'
@@ -357,22 +291,22 @@ object MapFrame: TMapFrame
             object lRNELat: TLabel
               Left = 16
               Top = 32
-              Width = 16
-              Height = 15
+              Width = 17
+              Height = 17
               Caption = 'Lat'
             end
             object lRNELng: TLabel
               Left = 146
               Top = 32
-              Width = 20
-              Height = 15
+              Width = 21
+              Height = 17
               Caption = 'Lng'
             end
             object eRNELat: TEdit
               Left = 40
               Top = 29
               Width = 94
-              Height = 23
+              Height = 25
               TabOrder = 0
               OnChange = eRNELatChange
             end
@@ -380,14 +314,14 @@ object MapFrame: TMapFrame
               Left = 173
               Top = 29
               Width = 94
-              Height = 23
+              Height = 25
               TabOrder = 1
               OnChange = eRNELngChange
             end
           end
           object gbRSW: TGroupBox
             Left = 4
-            Top = 103
+            Top = 119
             Width = 275
             Height = 64
             Caption = 'SW'
@@ -395,22 +329,22 @@ object MapFrame: TMapFrame
             object lRSWLat: TLabel
               Left = 16
               Top = 32
-              Width = 16
-              Height = 15
+              Width = 17
+              Height = 17
               Caption = 'Lat'
             end
             object lRSWLng: TLabel
               Left = 146
               Top = 32
-              Width = 20
-              Height = 15
+              Width = 21
+              Height = 17
               Caption = 'Lng'
             end
             object eRSWLat: TEdit
               Left = 40
               Top = 29
               Width = 94
-              Height = 23
+              Height = 25
               TabOrder = 0
               OnChange = eRSWLatChange
             end
@@ -418,7 +352,7 @@ object MapFrame: TMapFrame
               Left = 173
               Top = 29
               Width = 94
-              Height = 23
+              Height = 25
               TabOrder = 1
               OnChange = eRSWLngChange
             end
@@ -430,8 +364,8 @@ object MapFrame: TMapFrame
           object lRotPosition: TLabel
             Left = 24
             Top = 56
-            Width = 43
-            Height = 15
+            Width = 46
+            Height = 17
             Caption = 'Position'
           end
           object cbRotateControl: TCheckBox
@@ -459,8 +393,8 @@ object MapFrame: TMapFrame
           object lSStyle: TLabel
             Left = 24
             Top = 60
-            Width = 25
-            Height = 15
+            Width = 27
+            Height = 17
             Caption = 'Style'
           end
           object cbScaleControl: TCheckBox
@@ -488,14 +422,14 @@ object MapFrame: TMapFrame
           object lSVPosition: TLabel
             Left = 32
             Top = 64
-            Width = 43
-            Height = 15
+            Width = 46
+            Height = 17
             Caption = 'Position'
           end
           object cbStreetViewControl: TCheckBox
             Left = 32
             Top = 32
-            Width = 129
+            Width = 162
             Height = 17
             Caption = 'StreetViewControl'
             TabOrder = 0
@@ -517,29 +451,29 @@ object MapFrame: TMapFrame
           object lZPosition: TLabel
             Left = 32
             Top = 80
-            Width = 43
-            Height = 15
+            Width = 46
+            Height = 17
             Caption = 'Position'
           end
           object lZoom: TLabel
             Left = 32
             Top = 24
-            Width = 32
-            Height = 15
+            Width = 34
+            Height = 17
             Caption = 'Zoom'
           end
           object lMaxZoom: TLabel
             Left = 8
             Top = 136
-            Width = 55
-            Height = 15
+            Width = 59
+            Height = 17
             Caption = 'MaxZoom'
           end
           object lMinZoom: TLabel
-            Left = 143
+            Left = 151
             Top = 136
-            Width = 53
-            Height = 15
+            Width = 56
+            Height = 17
             Caption = 'MinZoom'
           end
           object cbZoomControl: TCheckBox
@@ -564,54 +498,134 @@ object MapFrame: TMapFrame
             Left = 75
             Top = 21
             Width = 94
-            Height = 23
+            Height = 25
             TabOrder = 2
             OnChange = eZoomChange
           end
           object eMaxZoom: TEdit
-            Left = 75
+            Left = 83
             Top = 133
             Width = 54
-            Height = 23
+            Height = 25
             TabOrder = 3
             OnChange = eMaxZoomChange
           end
           object eMinZoom: TEdit
-            Left = 210
+            Left = 226
             Top = 133
             Width = 55
-            Height = 23
+            Height = 25
             TabOrder = 4
             OnChange = eMinZoomChange
           end
         end
       end
-      object cbNoClear: TCheckBox
-        Left = 8
-        Top = 143
-        Width = 97
-        Height = 17
-        Caption = 'NoClear'
-        TabOrder = 5
-        OnClick = cbNoClearClick
-      end
-      object cbKeyboardShortcuts: TCheckBox
-        Left = 120
-        Top = 143
-        Width = 137
-        Height = 17
-        Caption = 'KeyboardShortcuts'
-        TabOrder = 6
-        OnClick = cbKeyboardShortcutsClick
-      end
-      object cbIsFractionalZoomEnabled: TCheckBox
-        Left = 8
-        Top = 166
-        Width = 161
-        Height = 17
-        Caption = 'IsFractionalZoomEnabled'
-        TabOrder = 7
-        OnClick = cbIsFractionalZoomEnabledClick
+      object pMapOptions: TPanel
+        Left = 0
+        Top = 0
+        Width = 368
+        Height = 201
+        Align = alTop
+        BevelOuter = bvNone
+        TabOrder = 1
+        object lBackgroundColor: TLabel
+          Left = 8
+          Top = 15
+          Width = 101
+          Height = 17
+          Caption = 'BackgroundColor'
+        end
+        object cbIsFractionalZoomEnabled: TCheckBox
+          Left = 8
+          Top = 166
+          Width = 209
+          Height = 17
+          Caption = 'IsFractionalZoomEnabled'
+          TabOrder = 0
+          OnClick = cbIsFractionalZoomEnabledClick
+        end
+        object cbNoClear: TCheckBox
+          Left = 8
+          Top = 143
+          Width = 125
+          Height = 17
+          Caption = 'NoClear'
+          TabOrder = 1
+          OnClick = cbNoClearClick
+        end
+        object cbKeyboardShortcuts: TCheckBox
+          Left = 152
+          Top = 143
+          Width = 193
+          Height = 17
+          Caption = 'KeyboardShortcuts'
+          TabOrder = 2
+          OnClick = cbKeyboardShortcutsClick
+        end
+        object cbDisableDoubleClickZoom: TCheckBox
+          Left = 152
+          Top = 120
+          Width = 193
+          Height = 17
+          Caption = 'DisableDoubleClickZoom'
+          TabOrder = 3
+          OnClick = cbDisableDoubleClickZoomClick
+        end
+        object cbClickableIcons: TCheckBox
+          Left = 8
+          Top = 120
+          Width = 125
+          Height = 17
+          Caption = 'ClickableIcons'
+          TabOrder = 4
+          OnClick = cbClickableIconsClick
+        end
+        object gbCenter: TGroupBox
+          Left = 8
+          Top = 41
+          Width = 285
+          Height = 64
+          Caption = 'Center'
+          TabOrder = 5
+          object lLat: TLabel
+            Left = 16
+            Top = 32
+            Width = 17
+            Height = 17
+            Caption = 'Lat'
+          end
+          object lLng: TLabel
+            Left = 149
+            Top = 32
+            Width = 21
+            Height = 17
+            Caption = 'Lng'
+          end
+          object eLat: TEdit
+            Left = 43
+            Top = 29
+            Width = 94
+            Height = 25
+            TabOrder = 0
+            OnChange = eLatChange
+          end
+          object eLng: TEdit
+            Left = 176
+            Top = 29
+            Width = 94
+            Height = 25
+            TabOrder = 1
+            OnChange = eLngChange
+          end
+        end
+        object cbBackgroundColor: TColorBox
+          Left = 131
+          Top = 13
+          Width = 105
+          Height = 22
+          TabOrder = 6
+          OnChange = cbBackgroundColorChange
+        end
       end
     end
   end

@@ -3,7 +3,7 @@ program MarkerEdge;
 uses
   Vcl.Forms,
   UMainFrm in 'src\UMainFrm.pas' {MainFrm},
-  UMarkerFrame in '..\Common Frames\UMarkerFrame.pas' {MakerFrame: TFrame};
+  UMarkerFrame in '..\Common Frames\UMarkerFrame.pas' {MarkerFrame: TFrame};
 
 {$R *.res}
 

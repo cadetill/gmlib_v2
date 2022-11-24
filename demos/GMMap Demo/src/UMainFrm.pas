@@ -13,6 +13,7 @@ type
     GMMapEdge1: TGMMapEdge;
     EdgeBrowser1: TEdgeBrowser;
     MapFrame1: TMapFrame;
+    Splitter1: TSplitter;
   private
   public
     constructor Create(AOwner: TComponent); override;

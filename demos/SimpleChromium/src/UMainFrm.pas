@@ -28,8 +28,6 @@ type
     procedure Chromium1BeforeClose(Sender: TObject; const browser: ICefBrowser);
     procedure cbActivateClick(Sender: TObject);
     procedure eAPIKeyChange(Sender: TObject);
-    procedure Chromium1LoadEnd(Sender: TObject; const browser: ICefBrowser;
-      const frame: ICefFrame; httpStatusCode: Integer);
   private
   protected
     // Variables to control when can we destroy the form safely
@@ -82,12 +80,6 @@ procedure TMainFrm.Chromium1Close(Sender: TObject; const browser: ICefBrowser;
 begin
   PostMessage(Handle, CEF_DESTROY, 0, 0);
   aAction := cbaDelay;
-end;
-
-procedure TMainFrm.Chromium1LoadEnd(Sender: TObject; const browser: ICefBrowser;
-  const frame: ICefFrame; httpStatusCode: Integer);
-begin
-beep
 end;
 
 constructor TMainFrm.Create(AOwner: TComponent);

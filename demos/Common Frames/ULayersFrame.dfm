@@ -4,7 +4,6 @@ object LayersFrame: TLayersFrame
   Width = 371
   Height = 519
   TabOrder = 0
-  PixelsPerInch = 96
   object cbActive: TCheckBox
     AlignWithMargins = True
     Left = 15
@@ -22,14 +21,14 @@ object LayersFrame: TLayersFrame
     Left = 0
     Top = 65
     Width = 371
-    Height = 56
+    Height = 72
     Align = alTop
     BevelOuter = bvNone
     Caption = ' '
     TabOrder = 1
     object lNeedAPI: TLabel
       Left = 63
-      Top = 8
+      Top = 12
       Width = 278
       Height = 15
       Caption = '(you need to put an API Key to use some features)'
@@ -43,24 +42,24 @@ object LayersFrame: TLayersFrame
     object lAPIKey: TLabel
       Left = 15
       Top = 8
-      Width = 37
-      Height = 15
+      Width = 46
+      Height = 20
       Caption = 'APIKey'
     end
     object eAPIKey: TEdit
       Left = 15
-      Top = 24
+      Top = 32
       Width = 273
-      Height = 23
+      Height = 28
       TabOrder = 0
       OnChange = eAPIKeyChange
     end
   end
   object pcObjects: TPageControl
     Left = 0
-    Top = 121
+    Top = 137
     Width = 371
-    Height = 398
+    Height = 382
     ActivePage = tsTrafficLayer
     Align = alClient
     TabOrder = 2
@@ -117,8 +116,8 @@ object LayersFrame: TLayersFrame
       object lKmlUrl: TLabel
         Left = 32
         Top = 184
-        Width = 15
-        Height = 15
+        Width = 19
+        Height = 20
         Caption = 'Url'
       end
       object cbKmlShow: TCheckBox
@@ -170,7 +169,7 @@ object LayersFrame: TLayersFrame
         Left = 32
         Top = 200
         Width = 289
-        Height = 23
+        Height = 28
         TabOrder = 5
         OnChange = eKmlUrlChange
       end

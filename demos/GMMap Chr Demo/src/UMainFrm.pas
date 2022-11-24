@@ -20,6 +20,7 @@ type
     mEvents: TMemo;
     Timer1: TTimer;
     MapFrame1: TMapFrame;
+    Splitter1: TSplitter;
     procedure Timer1Timer(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure Chromium1AfterCreated(Sender: TObject;

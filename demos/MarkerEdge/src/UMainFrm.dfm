@@ -18,25 +18,59 @@ object MainFrm: TMainFrm
     Height = 505
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 997
   end
-  inline MakerFrame1: TMakerFrame
+  inline MarkerFrame1: TMarkerFrame
     Left = 626
     Top = 0
     Width = 371
     Height = 505
     Align = alRight
     TabOrder = 1
-    ExplicitLeft = 626
-    ExplicitHeight = 505
+    ExplicitLeft = 8
+    ExplicitTop = 8
     inherited pcPages: TPageControl
-      Height = 384
-      ExplicitHeight = 384
-      inherited tsMakers: TTabSheet
-        ExplicitHeight = 354
-        inherited lbMarkers: TListBox
-          Height = 298
-          ExplicitHeight = 298
+      Height = 368
+      ActivePage = MarkerFrame1.tsGeneral
+      inherited tsGeneral: TTabSheet
+        ExplicitTop = 26
+        ExplicitHeight = 338
+      end
+      inherited tsMarkers: TTabSheet
+        ExplicitTop = 26
+        ExplicitHeight = 313
+        inherited lMarkersList: TLabel
+          Width = 63
+          Height = 15
+          ExplicitWidth = 63
+          ExplicitHeight = 15
         end
+        inherited lbMarkersList: TListBox
+          ItemHeight = 15
+          ExplicitHeight = 241
+        end
+      end
+      inherited tsMarker: TTabSheet
+        ExplicitTop = 26
+        ExplicitHeight = 313
+        inherited lAnimation: TLabel
+          Width = 56
+          Height = 15
+          ExplicitWidth = 56
+          ExplicitHeight = 15
+        end
+      end
+    end
+    inherited pAPIKey: TPanel
+      inherited lAPIKey: TLabel
+        Width = 37
+        Height = 15
+        ExplicitWidth = 37
+        ExplicitHeight = 15
+      end
+      inherited eAPIKey: TEdit
+        Height = 23
+        ExplicitHeight = 23
       end
     end
   end
