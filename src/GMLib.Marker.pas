@@ -1061,7 +1061,7 @@ end;
 
 function TGMCustomMarkers.PropToString: string;
 const
-  Str = '%s,%s';
+  Str = '%s';
 begin
   Result := inherited PropToString;
   if Result <> '' then Result := Result + ',';

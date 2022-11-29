@@ -187,13 +187,14 @@ type
   private
     FMarkers: TGMMarkerList;
   protected
-    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
-    function PropToString: string; override;
   public
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarkers.Create.txt)
     constructor Create(AOwner: TPersistent); override;
     // @include(..\Help\docs\GMLib.Marker.Vcl.TGMMarkers.TGMMarkers.txt)
     destructor Destroy; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
 
     // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;

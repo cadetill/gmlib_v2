@@ -136,6 +136,8 @@ type
     procedure SetMapTypeIdProperty(MapTypeId: TGMMapTypeId); override;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.SetZoomProperty.txt)
     procedure SetZoomProperty(Zoom: Integer); override;
+    // @include(..\Help\docs\GMLib.Map.TGMCustomMap.DoOpenMap.txt)
+    procedure DoOpenMap; override;
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.txt)
     property MapOptions: TGMMapOptions read FMapOptions write FMapOptions;
@@ -442,6 +444,16 @@ begin
   if Assigned(FTimer) then FTimer.Free;
 
   inherited;
+end;
+
+procedure TGMMap.DoOpenMap;
+var
+  Params: string;
+begin
+  inherited;
+
+  Params := FMarkers.PropToString;
+  ExecuteJavaScript('ShowMarkers', Params);
 end;
 
 function TGMMap.GetJsonFromHTMLForms: string;

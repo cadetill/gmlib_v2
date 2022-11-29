@@ -30,6 +30,18 @@ type
     cbClickable: TCheckBox;
     cbCollisionBehavior: TComboBox;
     lCollisionBehavior: TLabel;
+    cbCrossOnDrag: TCheckBox;
+    cbDraggable: TCheckBox;
+    lIconUrl: TLabel;
+    eIconUrl: TEdit;
+    eLabelText: TEdit;
+    lLabelText: TLabel;
+    gbPosition: TGroupBox;
+    lRNELat: TLabel;
+    lRNELng: TLabel;
+    eLat: TEdit;
+    eLng: TEdit;
+    cbVisible: TCheckBox;
     procedure eAPIKeyChange(Sender: TObject);
     procedure cbActiveClick(Sender: TObject);
     procedure bAddClick(Sender: TObject);
@@ -38,6 +50,13 @@ type
     procedure cbAnimationChange(Sender: TObject);
     procedure cbClickableClick(Sender: TObject);
     procedure cbCollisionBehaviorChange(Sender: TObject);
+    procedure cbCrossOnDragClick(Sender: TObject);
+    procedure cbDraggableClick(Sender: TObject);
+    procedure eIconUrlChange(Sender: TObject);
+    procedure eLabelTextChange(Sender: TObject);
+    procedure eLatChange(Sender: TObject);
+    procedure eLngChange(Sender: TObject);
+    procedure cbVisibleClick(Sender: TObject);
   private
     FGMMap: TGMMap;
     procedure SetGMMap(const Value: TGMMap);
@@ -107,6 +126,21 @@ begin
   TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].CollisionBehavior := TGMTransform.StrToCollisionBehavior(cbCollisionBehavior.Text);
 end;
 
+procedure TMarkerFrame.cbCrossOnDragClick(Sender: TObject);
+begin
+  TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].CrossOnDrag := cbCrossOnDrag.Checked;
+end;
+
+procedure TMarkerFrame.cbDraggableClick(Sender: TObject);
+begin
+  TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].Draggable := cbDraggable.Checked;
+end;
+
+procedure TMarkerFrame.cbVisibleClick(Sender: TObject);
+begin
+  TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].Visible := cbVisible.Checked;
+end;
+
 constructor TMarkerFrame.Create(AOwner: TComponent);
 begin
   inherited;
@@ -117,6 +151,26 @@ end;
 procedure TMarkerFrame.eAPIKeyChange(Sender: TObject);
 begin
   TGMPublic(GMMap).APIKey := eAPIKey.Text;
+end;
+
+procedure TMarkerFrame.eIconUrlChange(Sender: TObject);
+begin
+  TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].Icon.Url := eIconUrl.Text;
+end;
+
+procedure TMarkerFrame.eLabelTextChange(Sender: TObject);
+begin
+  TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].LabelText.Text := eLabelText.Text;
+end;
+
+procedure TMarkerFrame.eLatChange(Sender: TObject);
+begin
+  TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].Position.Lat := TGMTransform.GetStrToDouble(eLat.Text);
+end;
+
+procedure TMarkerFrame.eLngChange(Sender: TObject);
+begin
+  TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].Position.Lng := TGMTransform.GetStrToDouble(eLng.Text);
 end;
 
 procedure TMarkerFrame.GetAnimation;
@@ -153,6 +207,13 @@ begin
   GetCollisionBehavior;
 
   cbClickable.Checked := TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].Clickable;
+  cbCrossOnDrag.Checked := TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].CrossOnDrag;
+  cbDraggable.Checked := TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].Draggable;
+  eIconUrl.Text := TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].Icon.Url;
+  eLabelText.Text := TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].LabelText.Text;
+  eLat.Text := TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].Position.LatToStr;
+  eLng.Text := TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].Position.LngToStr;
+  cbVisible.Checked := TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].Visible;
 end;
 
 procedure TMarkerFrame.lbMarkersListClick(Sender: TObject);
