@@ -614,6 +614,7 @@ begin
   Params := PropToString;
   ExecuteJavaScript('setMapOptions', Params);
   ExecuteJavaScript('doMap', '');
+
   Params := FTrafficLayer.PropToString + ',' +
             FTransitLayer.PropToString + ',' +
             FByciclingLayer.PropToString + ',' +

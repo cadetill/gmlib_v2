@@ -525,8 +525,15 @@ begin
 end;
 
 function TGMInterfacedCollection.PropToString: string;
+var
+  i: Integer;
 begin
   Result := '';
+  for i := 0 to Count - 1 do
+  begin
+    if Result <> '' then Result := Result + ',';
+    Result := Result + Items[i].PropToString;
+  end;
 end;
 
 function TGMInterfacedCollection.QueryInterface(const IID: TGUID;
