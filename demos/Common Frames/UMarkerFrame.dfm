@@ -28,12 +28,12 @@ object MarkerFrame: TMarkerFrame
       ImageIndex = 1
       DesignSize = (
         363
-        308)
+        313)
       object lMarkersList: TLabel
         Left = 16
         Top = 16
-        Width = 78
-        Height = 20
+        Width = 63
+        Height = 15
         Caption = 'Markers List'
       end
       object lbMarkersList: TListBox
@@ -42,7 +42,7 @@ object MarkerFrame: TMarkerFrame
         Width = 121
         Height = 241
         Anchors = [akLeft, akTop, akBottom]
-        ItemHeight = 20
+        ItemHeight = 15
         TabOrder = 0
         OnClick = lbMarkersListClick
       end
@@ -71,16 +71,30 @@ object MarkerFrame: TMarkerFrame
       object lAnimation: TLabel
         Left = 11
         Top = 16
-        Width = 69
-        Height = 20
+        Width = 56
+        Height = 15
         Caption = 'Animation'
       end
       object lCollisionBehavior: TLabel
         Left = 11
         Top = 74
-        Width = 115
-        Height = 20
+        Width = 92
+        Height = 15
         Caption = 'CollisionBehavior'
+      end
+      object lIconUrl: TLabel
+        Left = 11
+        Top = 154
+        Width = 41
+        Height = 15
+        Caption = 'Icon Url'
+      end
+      object lLabelText: TLabel
+        Left = 11
+        Top = 183
+        Width = 52
+        Height = 15
+        Caption = 'Label Text'
       end
       object cbAnimation: TComboBox
         Left = 96
@@ -108,6 +122,89 @@ object MarkerFrame: TMarkerFrame
         Style = csOwnerDrawFixed
         TabOrder = 2
         OnChange = cbCollisionBehaviorChange
+      end
+      object cbCrossOnDrag: TCheckBox
+        Left = 11
+        Top = 99
+        Width = 142
+        Height = 17
+        Caption = 'CrossOnDrag'
+        TabOrder = 3
+        OnClick = cbCrossOnDragClick
+      end
+      object cbDraggable: TCheckBox
+        Left = 11
+        Top = 123
+        Width = 142
+        Height = 17
+        Caption = 'Draggable'
+        TabOrder = 4
+        OnClick = cbDraggableClick
+      end
+      object eIconUrl: TEdit
+        Left = 88
+        Top = 151
+        Width = 121
+        Height = 23
+        AutoSize = False
+        TabOrder = 5
+        OnChange = eIconUrlChange
+      end
+      object eLabelText: TEdit
+        Left = 88
+        Top = 180
+        Width = 121
+        Height = 23
+        AutoSize = False
+        TabOrder = 6
+        OnChange = eLabelTextChange
+      end
+      object gbPosition: TGroupBox
+        Left = 11
+        Top = 209
+        Width = 286
+        Height = 64
+        Caption = 'Position'
+        TabOrder = 7
+        object lRNELat: TLabel
+          Left = 16
+          Top = 32
+          Width = 16
+          Height = 15
+          Caption = 'Lat'
+        end
+        object lRNELng: TLabel
+          Left = 146
+          Top = 32
+          Width = 20
+          Height = 15
+          Caption = 'Lng'
+        end
+        object eLat: TEdit
+          Left = 40
+          Top = 29
+          Width = 94
+          Height = 23
+          TabOrder = 0
+          OnChange = eLatChange
+        end
+        object eLng: TEdit
+          Left = 173
+          Top = 29
+          Width = 94
+          Height = 23
+          TabOrder = 1
+          OnChange = eLngChange
+        end
+      end
+      object cbVisible: TCheckBox
+        Left = 11
+        Top = 287
+        Width = 142
+        Height = 17
+        Caption = 'Visible'
+        TabOrder = 8
+        OnClick = cbVisibleClick
       end
     end
   end
@@ -149,15 +246,15 @@ object MarkerFrame: TMarkerFrame
     object lAPIKey: TLabel
       Left = 15
       Top = 8
-      Width = 46
-      Height = 20
+      Width = 37
+      Height = 15
       Caption = 'APIKey'
     end
     object eAPIKey: TEdit
       Left = 15
       Top = 32
       Width = 273
-      Height = 28
+      Height = 23
       TabOrder = 0
       OnChange = eAPIKeyChange
     end
