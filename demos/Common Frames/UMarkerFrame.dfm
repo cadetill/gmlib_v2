@@ -28,12 +28,12 @@ object MarkerFrame: TMarkerFrame
       ImageIndex = 1
       DesignSize = (
         363
-        313)
+        308)
       object lMarkersList: TLabel
         Left = 16
         Top = 16
-        Width = 63
-        Height = 15
+        Width = 78
+        Height = 20
         Caption = 'Markers List'
       end
       object lbMarkersList: TListBox
@@ -42,7 +42,7 @@ object MarkerFrame: TMarkerFrame
         Width = 121
         Height = 241
         Anchors = [akLeft, akTop, akBottom]
-        ItemHeight = 15
+        ItemHeight = 20
         TabOrder = 0
         OnClick = lbMarkersListClick
       end
@@ -71,29 +71,29 @@ object MarkerFrame: TMarkerFrame
       object lAnimation: TLabel
         Left = 11
         Top = 16
-        Width = 56
-        Height = 15
+        Width = 69
+        Height = 20
         Caption = 'Animation'
       end
       object lCollisionBehavior: TLabel
         Left = 11
         Top = 74
-        Width = 92
-        Height = 15
+        Width = 115
+        Height = 20
         Caption = 'CollisionBehavior'
       end
       object lIconUrl: TLabel
         Left = 11
         Top = 154
-        Width = 41
-        Height = 15
+        Width = 51
+        Height = 20
         Caption = 'Icon Url'
       end
       object lLabelText: TLabel
         Left = 11
         Top = 183
-        Width = 52
-        Height = 15
+        Width = 67
+        Height = 20
         Caption = 'Label Text'
       end
       object cbAnimation: TComboBox
@@ -169,22 +169,22 @@ object MarkerFrame: TMarkerFrame
         object lRNELat: TLabel
           Left = 16
           Top = 32
-          Width = 16
-          Height = 15
+          Width = 20
+          Height = 20
           Caption = 'Lat'
         end
         object lRNELng: TLabel
           Left = 146
           Top = 32
-          Width = 20
-          Height = 15
+          Width = 24
+          Height = 20
           Caption = 'Lng'
         end
         object eLat: TEdit
           Left = 40
           Top = 29
           Width = 94
-          Height = 23
+          Height = 28
           TabOrder = 0
           OnChange = eLatChange
         end
@@ -192,7 +192,7 @@ object MarkerFrame: TMarkerFrame
           Left = 173
           Top = 29
           Width = 94
-          Height = 23
+          Height = 28
           TabOrder = 1
           OnChange = eLngChange
         end
@@ -246,15 +246,15 @@ object MarkerFrame: TMarkerFrame
     object lAPIKey: TLabel
       Left = 15
       Top = 8
-      Width = 37
-      Height = 15
+      Width = 46
+      Height = 20
       Caption = 'APIKey'
     end
     object eAPIKey: TEdit
       Left = 15
       Top = 32
       Width = 273
-      Height = 23
+      Height = 28
       TabOrder = 0
       OnChange = eAPIKeyChange
     end

@@ -32,17 +32,17 @@ object MainFrm: TMainFrm
     ExplicitHeight = 587
     inherited pcPages: TPageControl
       Height = 450
-      ExplicitHeight = 466
+      ExplicitHeight = 450
       inherited tsGeneral: TTabSheet
         ExplicitTop = 28
-        ExplicitHeight = 418
+        ExplicitHeight = 311
       end
       inherited tsMarkers: TTabSheet
         ExplicitTop = 28
-        ExplicitHeight = 418
+        ExplicitHeight = 311
         DesignSize = (
           363
-          418)
+          311)
         inherited lMarkersList: TLabel
           Width = 71
           Height = 17
@@ -52,7 +52,7 @@ object MainFrm: TMainFrm
         inherited lbMarkersList: TListBox
           Height = 477
           ItemHeight = 17
-          ExplicitHeight = 388
+          ExplicitHeight = 477
         end
       end
       inherited tsMarker: TTabSheet
@@ -63,6 +63,46 @@ object MainFrm: TMainFrm
           Height = 17
           ExplicitWidth = 58
           ExplicitHeight = 17
+        end
+        inherited lCollisionBehavior: TLabel
+          Width = 99
+          Height = 17
+          ExplicitWidth = 99
+          ExplicitHeight = 17
+        end
+        inherited lIconUrl: TLabel
+          Width = 45
+          Height = 17
+          ExplicitWidth = 45
+          ExplicitHeight = 17
+        end
+        inherited lLabelText: TLabel
+          Width = 58
+          Height = 17
+          ExplicitWidth = 58
+          ExplicitHeight = 17
+        end
+        inherited gbPosition: TGroupBox
+          inherited lRNELat: TLabel
+            Width = 17
+            Height = 17
+            ExplicitWidth = 17
+            ExplicitHeight = 17
+          end
+          inherited lRNELng: TLabel
+            Width = 21
+            Height = 17
+            ExplicitWidth = 21
+            ExplicitHeight = 17
+          end
+          inherited eLat: TEdit
+            Height = 25
+            ExplicitHeight = 25
+          end
+          inherited eLng: TEdit
+            Height = 25
+            ExplicitHeight = 25
+          end
         end
       end
     end
