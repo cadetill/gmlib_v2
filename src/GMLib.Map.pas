@@ -434,7 +434,7 @@ type
     function GetAPIUrl: string; override;
 
     // @include(..\Help\docs\GMLib.Classes.IGMControlChanges.PropertyChanged.txt)
-    procedure PropertyChanged(Prop: TPersistent; PropName: string);
+    procedure PropertyChanged(Prop: TPersistent; PropName: string); virtual;
 
     // @include(..\Help\docs\GMLib.Classes.IGMExecJS.ExecuteJavaScript.txt)
     procedure ExecuteJavaScript(FunctName, Params: string); virtual; abstract;

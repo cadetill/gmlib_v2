@@ -9,7 +9,7 @@ object MarkerFrame: TMarkerFrame
     Top = 137
     Width = 371
     Height = 343
-    ActivePage = tsMarker
+    ActivePage = tsGeneral
     Align = alClient
     TabOrder = 0
     object tsGeneral: TTabSheet
@@ -21,6 +21,7 @@ object MarkerFrame: TMarkerFrame
         Height = 17
         Caption = 'AutoUpdate'
         TabOrder = 0
+        OnClick = cbAutoUpdateClick
       end
     end
     object tsMarkers: TTabSheet

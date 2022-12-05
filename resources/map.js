@@ -378,3 +378,16 @@ function iniEventsMapForm() {
   document.getElementById('eventsMapZoom').value = "0"; 
   document.getElementById('eventsMapZoomChanged').value = "0"; 
 }
+
+/* **********************************
+  search an item (marker, polyline,....) into the itemsArr array
+********************************** */
+function indexOf(ItemType, ZIndex) { 
+  if (map != null) { 
+    for (i = 0; i < itemsArr[ItemType].length; i++) {
+      if (itemsArr[ItemType][i].GMLibZIndex == ZIndex)
+        return i; // found => exit 
+    }
+  }
+  return -1;
+}

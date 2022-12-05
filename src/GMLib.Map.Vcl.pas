@@ -130,6 +130,12 @@ type
     // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
     function PropToString: string; override;
 
+    // @include(..\Help\docs\GMLib.Classes.IGMControlChanges.PropertyChanged.txt)
+    procedure PropertyChanged(Prop: TPersistent; PropName: string); override;
+
+    // @include(..\Help\docs\GMLib.Map.Vcl.TGMMap.ShowMarkers.txt)
+    procedure ShowMarkers;
+
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.SetCenterProperty.txt)
     procedure SetCenterProperty(LatLng: TGMLatLng); override;
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.SetMapTypeIdProperty.txt)
@@ -141,7 +147,7 @@ type
 
     // @include(..\Help\docs\GMLib.Map.TGMCustomMapOptions.txt)
     property MapOptions: TGMMapOptions read FMapOptions write FMapOptions;
-    // @include(..\Help\docs\GMLib.Map.Markers.txt)
+    // @include(..\Help\docs\GMLib.Map.Vcl.TGMMap.Markers.txt)
     property Markers: TGMMarkers read FMarkers write FMarkers;
   public
     // @include(..\Help\docs\GMLib.Map.TGMCustomMap.Create.txt)
@@ -447,13 +453,13 @@ begin
 end;
 
 procedure TGMMap.DoOpenMap;
-var
-  Params: string;
 begin
   inherited;
 
-  Params := FMarkers.PropToString;
-  ExecuteJavaScript('ShowMarkers', Params);
+  if FMarkers.AutoUpdate then
+  begin
+    ShowMarkers;
+  end;
 end;
 
 function TGMMap.GetJsonFromHTMLForms: string;
@@ -477,6 +483,16 @@ begin
     raise EGMTimeOut.Create(Language);                                          // A timeout occurred.
 
   Result := FFieldValue;
+end;
+
+procedure TGMMap.PropertyChanged(Prop: TPersistent; PropName: string);
+begin
+  inherited;
+
+  if (Pos('TGMMarkers_', PropName) > 0) then
+  begin
+    ShowMarkers;
+  end;
 end;
 
 function TGMMap.PropToString: string;
@@ -519,6 +535,20 @@ begin
   inherited;
 
   FMapOptions.Zoom := Zoom;
+end;
+
+procedure TGMMap.ShowMarkers;
+var
+  i: Integer;
+  Params: string;
+begin
+  if not Active then Exit;
+  
+  for i := 0 to FMarkers.Markers.Count do
+  begin
+    Params := FMarkers.Markers[i].PropToString;
+    ExecuteJavaScript('ShowMarker', Params);
+  end;
 end;
 
 {$IFDEF CEF4Delphi}

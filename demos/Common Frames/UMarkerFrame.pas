@@ -57,6 +57,7 @@ type
     procedure eLatChange(Sender: TObject);
     procedure eLngChange(Sender: TObject);
     procedure cbVisibleClick(Sender: TObject);
+    procedure cbAutoUpdateClick(Sender: TObject);
   private
     FGMMap: TGMMap;
     procedure SetGMMap(const Value: TGMMap);
@@ -114,6 +115,11 @@ end;
 procedure TMarkerFrame.cbAnimationChange(Sender: TObject);
 begin
   TGMPublic(GMMap).Markers.Markers[lbMarkersList.ItemIndex].Animation := TGMTransform.StrToAnimation(cbAnimation.Text);
+end;
+
+procedure TMarkerFrame.cbAutoUpdateClick(Sender: TObject);
+begin
+  TGMPublic(GMMap).Markers.AutoUpdate := cbAutoUpdate.Checked;
 end;
 
 procedure TMarkerFrame.cbClickableClick(Sender: TObject);
