@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 unit UMarkerFrame;
 
 interface

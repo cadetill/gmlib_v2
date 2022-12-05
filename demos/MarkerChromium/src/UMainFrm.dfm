@@ -95,8 +95,6 @@ object MainFrm: TMainFrm
             ExplicitWidth = 21
             ExplicitHeight = 17
           end
-<<<<<<< HEAD
-=======
           inherited eLat: TEdit
             Height = 25
             ExplicitHeight = 25
@@ -105,7 +103,6 @@ object MainFrm: TMainFrm
             Height = 25
             ExplicitHeight = 25
           end
->>>>>>> 4ff5ed08469cb554d6748be80eb9e9c51988814b
         end
       end
     end
