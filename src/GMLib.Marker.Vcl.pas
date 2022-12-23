@@ -377,7 +377,12 @@ end;
 function TGMMarker.PropToString: string;
 const
   Str = '%s,%s';
+var
+  Json: IGMJson;
 begin
+  Json := TGMJson.Create;
+  Result := Json.Serialize(Self);
+
   Result := inherited PropToString;
   if Result <> '' then Result := Result + ',';
   Result := Result +

@@ -1,7 +1,27 @@
 /* **********************************
   Shows or hides a marker on the map
 ********************************** */
-function ShowMarker() {
+function ShowMarker(AnchorX,           // --> anchorPoint
+                    AnchorY,           // --> anchorPoint
+					Animation,
+					Clickable,
+					CollisionBehavior,
+					CrossOnDrag,
+					Cursor,
+					Draggable,
+					//Icon,
+					//Label,
+					Opacity,
+					Optimized,
+					PositionLat,       // --> position
+					PositionLng,       // --> position
+					//Shape,
+					Title,
+					Visible,
+					ZIndex,
+					IconIconUrl,
+					
+                   ) {
   if (map == null) exit; //throw new Error('map is null');
   
   var aMarker = null;

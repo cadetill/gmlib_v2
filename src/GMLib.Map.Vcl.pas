@@ -544,7 +544,7 @@ var
 begin
   if not Active then Exit;
   
-  for i := 0 to FMarkers.Markers.Count do
+  for i := 0 to FMarkers.Markers.Count - 1 do
   begin
     Params := FMarkers.Markers[i].PropToString;
     ExecuteJavaScript('ShowMarker', Params);
@@ -787,23 +787,26 @@ end;
 procedure TGMMapEdge.WebMessageReceivedEvent(Sender: TCustomEdgeBrowser;
   Args: TWebMessageReceivedEventArgs);
 var
-  TmpStr : PWideChar;
+  TmpStr: PWideChar;
   Msg: ICoreWebView2WebMessageReceivedEventArgs;
 begin
   Msg := Args as ICoreWebView2WebMessageReceivedEventArgs;
   Msg.TryGetWebMessageAsString(TmpStr);
 
-  if (Length(TmpStr) = 0) or (Pos('{', TmpStr) = 0) then
-    Exit;
+  try
+    if (Length(TmpStr) = 0) or (Pos('{', TmpStr) = 0) then
+      Exit;
 
-  //FFieldName := Copy(TmpStr, 1, Pos('|', TmpStr));
-  FFieldValue := TmpStr; // Copy(TmpStr, Pos('|', TmpStr) + 1, Length(TmpStr));
-  FReadedElem := True;
+    FFieldValue := WideCharToString(TmpStr);
+    FReadedElem := True;
+  finally
+    FreeMem(TmpStr);
+  end;
 
   if Assigned(FOldWebMessageReceivedEvent) then
     FOldWebMessageReceivedEvent(Sender, Args);
 end;
-
 {$ENDIF}
+
 end.
 

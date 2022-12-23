@@ -8,6 +8,10 @@ uses
 {$R *.res}
 
 begin
+{$ifdef DEBUG}
+  ReportMemoryLeaksOnShutdown := True;
+{$endif}
+
   GlobalCEFApp := TCefApplication.Create;
 
   if GlobalCEFApp.StartMainProcess then

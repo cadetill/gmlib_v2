@@ -642,7 +642,8 @@ begin
                          LowerCase(TGMTransform.GMBoolToStr(FOptimized, True)),
                          Position.PropToString,
                          QuotedStr(FTitle),
-                         LowerCase(TGMTransform.GMBoolToStr(FVisible, True))
+                         LowerCase(TGMTransform.GMBoolToStr(FVisible, True)),
+                         IntToStr(ZIndex)
                         ]);
 end;
 

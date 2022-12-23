@@ -815,16 +815,19 @@ var
   Val: THTMLForms;
 begin
   SetEnableTimer(False);
+  if csDesigning in ComponentState then Exit;
+  if not Assigned(FBrowser) or not FDocLoaded then Exit;
+
+  Val := THTMLForms.GetData(Self);    // read HTML forms
+  if not Assigned(Val) then Exit;
   try
-    if csDesigning in ComponentState then Exit;
-    if not Assigned(FBrowser) or not FDocLoaded then Exit;
-    Val := THTMLForms.GetData(Self);    // read HTML forms
     THTMLForms.IniData(Self);           // initialize HTML forms (after read)
     if not GetEventsFired(Val, EventFired) then Exit;
 
     if EventFired.Map then
       GetMapEvent(Val);
   finally
+    Val.Free;
     SetEnableTimer(True);
   end;
 end;

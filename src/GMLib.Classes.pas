@@ -14,7 +14,7 @@ interface
 
 uses
   {$IFDEF DELPHIXE2}
-  System.SysUtils, System.Classes,
+  System.SysUtils, System.Classes, REST.Json.Types,
   {$ELSE}
   SysUtils, Classes,
   {$ENDIF}
@@ -65,6 +65,15 @@ type
     function GetJsonFromHTMLForms: string;
   end;
 
+  // @include(..\Help\docs\GMLib.Classes.IGMJson.txt)
+  IGMJson = interface
+    ['{EA6737C1-4C53-44D5-BC98-5C13A590E084}']
+    // @include(..\Help\docs\GMLib.Classes.IGMJson.Serialize.txt)
+    function Serialize(aObject: TObject): string;
+    // @include(..\Help\docs\GMLib.Classes.IGMJson.Deserialize.txt)
+    function Deserialize(aClass: TClass; Json: string): TObject;
+  end;
+
   { ************************************************************************** }
   { *************************  classes definition  *************************** }
   { ************************************************************************** }
@@ -82,10 +91,21 @@ type
     procedure Assign(Source: TObject); virtual;
   end;
 
+  // @include(..\Help\docs\GMLib.Classes.TGMJson.txt)
+  TGMJson = class(TGMObject, IGMJson)
+  public
+    // @include(..\Help\docs\GMLib.Classes.IGMJson.Serialize.txt)
+    function Serialize(aObject: TObject): string;
+    // @include(..\Help\docs\GMLib.Classes.IGMJson.Deserialize.txt)
+    function Deserialize(aClass: TClass; Json: string): TObject;
+  end;
+
   // @include(..\Help\docs\GMLib.Classes.TGMInterfacedOwnedPersistent.txt)
   TGMInterfacedOwnedPersistent = class(TInterfacedPersistent)
   private
+    [JSONMarshalled(False)]
     FOwner: TPersistent;
+    [JSONMarshalled(False)]
     FOnChange: TNotifyEvent;
   protected
     // @include(..\Help\docs\GMLib.Classes.TGMInterfacedOwnedPersistent.GetOwner.txt)
@@ -150,8 +170,11 @@ type
   // @include(..\Help\docs\GMLib.Classes.TGMInterfacedCollectionItem.txt)
   TGMInterfacedCollectionItem = class(TCollectionItem, IGMToStr, IGMOwnerLang, IGMAPIUrl)
   private
+    [JSONMarshalled(False)]
     FOnChange: TNotifyEvent;
+    [JSONMarshalled(False)]
     FFObject: TObject;
+    [JSONMarshalled(False)]
     FTag: Integer;
     FName: string;
   protected
@@ -197,7 +220,9 @@ type
   // @include(..\Help\docs\GMLib.Classes.TGMInterfacedCollection.txt)
   TGMInterfacedCollection = class(TCollection, IGMControlChanges, IGMOwnerLang, IGMToStr)
   private
+    [JSONMarshalled(False)]
     FOnChange: TNotifyEvent;
+    [JSONMarshalled(False)]
     FOwner: TPersistent;
 
     function GetItems(I: Integer): TGMInterfacedCollectionItem;
@@ -252,7 +277,7 @@ implementation
 
 uses
   {$IFDEF DELPHIXE2}
-  System.TypInfo,
+  System.TypInfo, Rest.Json, System.JSON, System.JSONConsts, REST.JsonReflect,
   {$ELSE}
   TypInfo,
   {$ENDIF}
@@ -557,6 +582,54 @@ end;
 function TGMInterfacedCollection._Release: Integer;
 begin
   Result := -1;
+end;
+
+{ TGMJson }
+
+function TGMJson.Deserialize(aClass: TClass; Json: string): TObject;
+var
+  JSONValue: TJsonValue;
+  JSONObject: TJSONObject;
+begin
+  Result := aClass.Create;
+
+  JSONValue := TJSONObject.ParseJSONValue(Json);
+  try
+    if not Assigned(JSONValue) then
+      Exit;
+
+    if (JSONValue is TJSONArray) then
+    begin
+      with TJSONUnMarshal.Create do
+        try
+          SetFieldArray(Result, 'Items', (JSONValue as TJSONArray));
+        finally
+          Free;
+        end;
+
+      Exit;
+    end;
+
+    if (JSONValue is TJSONObject) then
+      JSONObject := JSONValue as TJSONObject
+    else
+    begin
+      Json := Json.Trim;
+      if (Json = '') and not Assigned(JSONValue) or (Json <> '') and Assigned(JSONValue) and JSONValue.Null then
+        Exit
+      else
+        raise EConversionError.Create(SCannotCreateObject);
+    end;
+
+    TJson.JsonToObject(Result, JSONObject, []);
+  finally
+    JSONValue.Free;
+  end;
+end;
+
+function TGMJson.Serialize(aObject: TObject): string;
+begin
+  Result := TJson.ObjectToJsonString(aObject, []);
 end;
 
 end.

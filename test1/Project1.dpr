@@ -1,9 +1,11 @@
-program LayersEdge;
+program Project1;
 
 uses
   Vcl.Forms,
-  UMainFrm in 'src\UMainFrm.pas' {MainFrm},
-  ULayersFrame in '..\Common Frames\ULayersFrame.pas' {LayersFrame: TFrame};
+  Unit1 in 'Unit1.pas' {Form1},
+  Father in 'Father.pas',
+  Child in 'Child.pas',
+  GMJson in 'GMJson.pas';
 
 {$R *.res}
 
@@ -14,6 +16,6 @@ begin
 
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TMainFrm, MainFrm);
+  Application.CreateForm(TForm1, Form1);
   Application.Run;
 end.

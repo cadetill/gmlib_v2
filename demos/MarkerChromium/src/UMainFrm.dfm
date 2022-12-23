@@ -35,14 +35,14 @@ object MainFrm: TMainFrm
       ExplicitHeight = 450
       inherited tsGeneral: TTabSheet
         ExplicitTop = 28
-        ExplicitHeight = 311
+        ExplicitHeight = 323
       end
       inherited tsMarkers: TTabSheet
         ExplicitTop = 28
-        ExplicitHeight = 311
+        ExplicitHeight = 323
         DesignSize = (
           363
-          311)
+          323)
         inherited lMarkersList: TLabel
           Width = 71
           Height = 17
