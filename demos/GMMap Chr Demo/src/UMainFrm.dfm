@@ -29,7 +29,6 @@ object MainFrm: TMainFrm
     Align = alClient
     TabStop = True
     TabOrder = 0
-    ExplicitWidth = 653
   end
   object mEvents: TMemo
     Left = 0
@@ -58,26 +57,35 @@ object MainFrm: TMainFrm
     ExplicitHeight = 518
     inherited cbActive: TCheckBox
       Width = 351
-      ExplicitWidth = 335
+      ExplicitWidth = 351
     end
     inherited pcPages: TPageControl
       Width = 369
       Height = 453
-      ExplicitWidth = 353
+      ExplicitWidth = 369
       ExplicitHeight = 453
-      inherited tsGeneral: TTabSheet
+      inherited tsMapOptions: TTabSheet
         ExplicitWidth = 361
         ExplicitHeight = 421
-      end
-      inherited tsMapOptions: TTabSheet
         inherited pcObjects: TPageControl
-          ExplicitHeight = 310
+          Width = 361
+          Height = 220
+          ExplicitWidth = 361
+          ExplicitHeight = 220
+          inherited tsFullScreenControl: TTabSheet
+            ExplicitWidth = 353
+            ExplicitHeight = 188
+          end
           inherited tsMapTypeControl: TTabSheet
             inherited clbMTIds: TCheckListBox
               Width = 137
               ExplicitWidth = 137
             end
           end
+        end
+        inherited pMapOptions: TPanel
+          Width = 361
+          ExplicitWidth = 361
         end
       end
     end
@@ -95,7 +103,7 @@ object MainFrm: TMainFrm
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
     MapOptions.Zoom = 10
-    Markers.Markers = <>
+    Markers.MarkersList = <>
     Markers.AutoUpdate = False
     APILang = lSpanish
     APIRegion = rSpain

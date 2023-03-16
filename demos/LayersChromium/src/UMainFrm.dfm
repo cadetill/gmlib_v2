@@ -53,24 +53,44 @@ object MainFrm: TMainFrm
     inherited pAPIKey: TPanel
       Width = 353
       ExplicitWidth = 353
+      inherited lAPIKey: TLabel
+        Width = 39
+        Height = 17
+        ExplicitWidth = 39
+        ExplicitHeight = 17
+      end
+      inherited eAPIKey: TEdit
+        Height = 25
+        ExplicitHeight = 25
+      end
     end
     inherited pcObjects: TPageControl
       Width = 353
       Height = 450
       ExplicitWidth = 353
-      ExplicitHeight = 466
+      ExplicitHeight = 450
       inherited tsTrafficLayer: TTabSheet
+        ExplicitTop = 28
         ExplicitWidth = 345
         ExplicitHeight = 418
       end
       inherited tsTransitLayer: TTabSheet
-        ExplicitHeight = 366
+        ExplicitTop = 28
+        ExplicitHeight = 350
       end
       inherited tsByciclingLayer: TTabSheet
-        ExplicitHeight = 366
+        ExplicitTop = 28
+        ExplicitHeight = 350
       end
       inherited tsKmlLayer: TTabSheet
-        ExplicitHeight = 366
+        ExplicitTop = 28
+        ExplicitHeight = 350
+        inherited lKmlUrl: TLabel
+          Width = 17
+          Height = 17
+          ExplicitWidth = 17
+          ExplicitHeight = 17
+        end
       end
     end
   end
@@ -84,7 +104,7 @@ object MainFrm: TMainFrm
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
     MapOptions.Zoom = 12
-    Markers.Markers = <>
+    Markers.MarkersList = <>
     Markers.AutoUpdate = False
     APILang = lSpanish
     APIRegion = rSpain

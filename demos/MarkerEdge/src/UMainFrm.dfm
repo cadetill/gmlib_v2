@@ -19,8 +19,6 @@ object MainFrm: TMainFrm
     Align = alClient
     TabOrder = 0
     UserDataFolder = '%LOCALAPPDATA%\bds.exe.WebView2'
-    ExplicitWidth = 622
-    ExplicitHeight = 504
   end
   inline MarkerFrame1: TMarkerFrame
     Left = 626
@@ -29,12 +27,12 @@ object MainFrm: TMainFrm
     Height = 505
     Align = alRight
     TabOrder = 1
-    ExplicitLeft = 622
-    ExplicitHeight = 504
+    ExplicitLeft = 626
+    ExplicitHeight = 505
     inherited pcPages: TPageControl
       Height = 368
       ActivePage = MarkerFrame1.tsGeneral
-      ExplicitHeight = 367
+      ExplicitHeight = 368
       inherited tsGeneral: TTabSheet
         ExplicitHeight = 338
       end
@@ -52,7 +50,7 @@ object MainFrm: TMainFrm
     MapOptions.IsFractionalZoomEnabled = True
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
-    Markers.Markers = <>
+    Markers.MarkersList = <>
     Markers.AutoUpdate = False
     APIRegion = rUnited_States
     TrafficLayer.Show = False

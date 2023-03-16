@@ -27,7 +27,6 @@ object MainFrm: TMainFrm
     Height = 505
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 693
   end
   inline MapFrame1: TMapFrame
     Left = 640
@@ -47,20 +46,29 @@ object MainFrm: TMainFrm
     ExplicitHeight = 505
     inherited cbActive: TCheckBox
       Width = 339
-      ExplicitWidth = 283
+      ExplicitWidth = 339
     end
     inherited pcPages: TPageControl
       Width = 357
       Height = 440
-      ExplicitWidth = 301
+      ExplicitWidth = 357
       ExplicitHeight = 440
-      inherited tsGeneral: TTabSheet
+      inherited tsMapOptions: TTabSheet
         ExplicitWidth = 349
         ExplicitHeight = 408
-      end
-      inherited tsMapOptions: TTabSheet
         inherited pcObjects: TPageControl
-          ExplicitHeight = 310
+          Width = 349
+          Height = 207
+          ExplicitWidth = 349
+          ExplicitHeight = 207
+          inherited tsFullScreenControl: TTabSheet
+            ExplicitWidth = 341
+            ExplicitHeight = 175
+          end
+        end
+        inherited pMapOptions: TPanel
+          Width = 349
+          ExplicitWidth = 349
         end
       end
     end
@@ -77,7 +85,7 @@ object MainFrm: TMainFrm
     MapOptions.MapTypeControlOptions.Style = mtcDROPDOWN_MENU
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
-    Markers.Markers = <>
+    Markers.MarkersList = <>
     Markers.AutoUpdate = False
     APIRegion = rUnited_States
     TrafficLayer.Show = False

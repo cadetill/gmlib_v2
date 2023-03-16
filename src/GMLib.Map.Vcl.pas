@@ -543,10 +543,10 @@ var
   Params: string;
 begin
   if not Active then Exit;
-  
-  for i := 0 to FMarkers.Markers.Count - 1 do
+
+  for i := 0 to FMarkers.MarkersList.Count - 1 do
   begin
-    Params := FMarkers.Markers[i].PropToString;
+    Params := FMarkers.MarkersList[i].Marker.PropToString;
     ExecuteJavaScript('ShowMarker', Params);
   end;
 end;

@@ -42,6 +42,10 @@ object MainFrm: TMainFrm
         ExplicitWidth = 39
         ExplicitHeight = 17
       end
+      inherited eAPIKey: TEdit
+        Height = 25
+        ExplicitHeight = 25
+      end
     end
     inherited pcObjects: TPageControl
       Width = 357
@@ -82,7 +86,7 @@ object MainFrm: TMainFrm
     MapOptions.IsFractionalZoomEnabled = True
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
-    Markers.Markers = <>
+    Markers.MarkersList = <>
     Markers.AutoUpdate = False
     APIRegion = rUnited_States
     TrafficLayer.Show = False

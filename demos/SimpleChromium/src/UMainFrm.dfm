@@ -20,7 +20,6 @@ object MainFrm: TMainFrm
     Align = alClient
     TabStop = True
     TabOrder = 0
-    ExplicitTop = 87
   end
   object Panel1: TPanel
     Left = 0
@@ -30,7 +29,6 @@ object MainFrm: TMainFrm
     Align = alTop
     Caption = ' '
     TabOrder = 1
-    ExplicitWidth = 1005
     object lAPIKey: TLabel
       Left = 144
       Top = 8
@@ -63,7 +61,7 @@ object MainFrm: TMainFrm
     MapOptions.IsFractionalZoomEnabled = True
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
-    Markers.Markers = <>
+    Markers.MarkersList = <>
     Markers.AutoUpdate = False
     APILang = lSpanish
     APIRegion = rSpain

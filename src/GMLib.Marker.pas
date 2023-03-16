@@ -245,7 +245,7 @@ type
   end;
 
   // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.txt)
-  TGMCustomMarker = class(TGMInterfacedCollectionItem, IGMControlChanges)
+  TGMCustomMarker = class(TGMPersistentStr, IGMControlChanges)
   private
     FOpacity: Double;
     FAnimation: TGMAnimation;
@@ -270,19 +270,16 @@ type
     procedure SetPosition(const Value: TGMLatLng);
     procedure SetTitle(const Value: string);
     procedure SetVisible(const Value: Boolean);
-    function GetZIndex: Integer;
+    function GetZIndex: Integer; virtual;
   protected
-    // @exclude
-    function GetDisplayName: string; override;
-
     // @exclude
     function GetAPIUrl: string; override;
 
-    // @include(..\Help\docs\GMLib.Classes.IGMControlChanges.PropertyChanged.txt)
-    procedure PropertyChanged(Prop: TPersistent; PropName: string);
-
     // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
     function PropToString: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMControlChanges.PropertyChanged.txt)
+    procedure PropertyChanged(Prop: TPersistent; PropName: string);
 
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.AnchorPoint.txt)
     property AnchorPoint: TGMPoint read FAnchorPoint write FAnchorPoint;
@@ -312,7 +309,7 @@ type
     property ZIndex: Integer read GetZIndex;
   public
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Create.txt)
-    constructor Create(Collection: TCollection); override;
+    constructor Create(AOwner: TPersistent); override;
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Destroy.txt)
     destructor Destroy; override;
 
@@ -555,7 +552,7 @@ begin
   end;
 end;
 
-constructor TGMCustomMarker.Create(Collection: TCollection);
+constructor TGMCustomMarker.Create(AOwner: TPersistent);
 begin
   inherited;
 
@@ -571,7 +568,6 @@ begin
   FPosition := TGMLatLng.Create(Self, 0, 0, False);
   FTitle := '';
   FVisible := True;
-  Name := GetDisplayName;
 end;
 
 destructor TGMCustomMarker.Destroy;
@@ -587,25 +583,12 @@ begin
   Result := 'https://developers.google.com/maps/documentation/javascript/reference/marker';
 end;
 
-function TGMCustomMarker.GetDisplayName: string;
-begin
-  if Length(FTitle) > 0 then
-  begin
-    if Length(FTitle) > 15 then
-      Result := Copy(FTitle, 0, 12) + '...'
-    else
-      Result := FTitle;
-  end
-  else
-  begin
-    Result := inherited GetDisplayName;
-    FTitle := Result;
-  end;
-end;
-
 function TGMCustomMarker.GetZIndex: Integer;
 begin
-  Result := Index;
+  Result := 0;
+
+  if GetOwner is TCollectionItem then
+    Result := TCollectionItem(GetOwner).Index;
 end;
 
 procedure TGMCustomMarker.PropertyChanged(Prop: TPersistent; PropName: string);
@@ -624,27 +607,10 @@ begin
 end;
 
 function TGMCustomMarker.PropToString: string;
-const
-  Str = '%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s';
+var
+  Json: IGMJson;
 begin
-  Result := inherited PropToString;
-  if Result <> '' then Result := Result + ',';
-  Result := Result +
-            Format(Str, [
-                         FAnchorPoint.PropToString,
-                         QuotedStr(TGMTransform.AnimationToStr(FAnimation)),
-                         LowerCase(TGMTransform.GMBoolToStr(FClickable, True)),
-                         QuotedStr(TGMTransform.CollisionBehaviorToStr(FCollisionBehavior)),
-                         LowerCase(TGMTransform.GMBoolToStr(FCrossOnDrag, True)),
-                         QuotedStr(FCursor),
-                         LowerCase(TGMTransform.GMBoolToStr(FDraggable, True)),
-                         TGMTransform.GetDoubleToStr(FOpacity),
-                         LowerCase(TGMTransform.GMBoolToStr(FOptimized, True)),
-                         Position.PropToString,
-                         QuotedStr(FTitle),
-                         LowerCase(TGMTransform.GMBoolToStr(FVisible, True)),
-                         IntToStr(ZIndex)
-                        ]);
+  Result := Json.Serialize(Self);
 end;
 
 procedure TGMCustomMarker.SetAnimation(const Value: TGMAnimation);

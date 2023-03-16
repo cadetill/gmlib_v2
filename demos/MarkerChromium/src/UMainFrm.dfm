@@ -128,55 +128,7 @@ object MainFrm: TMainFrm
     MapOptions.IsFractionalZoomEnabled = True
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
-    Markers.Markers = <
-      item
-        Name = 'TGMMarker'
-        Icon.Symbol.FillColor = clBlack
-        Icon.Symbol.StrokeColor = clBlack
-        Icon.Symbol.Path = spFORWARD_OPEN_ARROW
-        Icon.Symbol.Rotation = 0
-        Icon.Symbol.Scale = 1
-        Icon.Symbol.StrokeOpacity = 1.000000000000000000
-        Icon.Symbol.StrokeWeight = 1
-        Icon.Icon.ScaledSize = 0
-        LabelText.Color = clBlack
-        LabelText.FontFamily = 'Arial'
-        LabelText.FontSize = 14
-        LabelText.FontWeight = 0
-        Animation = aniBOUNCE
-        Clickable = True
-        CollisionBehavior = cbNONE
-        CrossOnDrag = True
-        Draggable = False
-        Opacity = 1.000000000000000000
-        Optimized = True
-        Title = 'TGMMarker'
-        Visible = True
-      end
-      item
-        Name = 'TGMMarker'
-        Icon.Symbol.FillColor = clBlack
-        Icon.Symbol.StrokeColor = clBlack
-        Icon.Symbol.Path = spFORWARD_OPEN_ARROW
-        Icon.Symbol.Rotation = 0
-        Icon.Symbol.Scale = 1
-        Icon.Symbol.StrokeOpacity = 1.000000000000000000
-        Icon.Symbol.StrokeWeight = 1
-        Icon.Icon.ScaledSize = 0
-        LabelText.Color = clBlack
-        LabelText.FontFamily = 'Arial'
-        LabelText.FontSize = 14
-        LabelText.FontWeight = 0
-        Animation = aniDROP
-        Clickable = True
-        CollisionBehavior = cbNONE
-        CrossOnDrag = True
-        Draggable = False
-        Opacity = 1.000000000000000000
-        Optimized = True
-        Title = 'TGMMarker'
-        Visible = True
-      end>
+    Markers.MarkersList = <>
     Markers.AutoUpdate = False
     APILang = lSpanish
     APIRegion = rSpain

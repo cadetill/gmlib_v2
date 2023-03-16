@@ -125,15 +125,15 @@ type
   protected
   public
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Create.txt)
-    constructor Create(Collection: TCollection); override;
+    constructor Create(AOwner: TPersistent); override;
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarker.Destroy.txt)
     destructor Destroy; override;
 
-    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
-    function PropToString: string; override;
-
     // @include(..\Help\docs\GMLib.Classes.TGMObject.Assign.txt)
     procedure Assign(Source: TPersistent); override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
   published
     // @include(..\Help\docs\GMLib.Marker.Vcl.TGMMarker.Icon.txt)
     property Icon: TGMIconOptions read FIcon write FIcon;
@@ -168,25 +168,41 @@ type
     property ZIndex;
   end;
 
+  TGMMarkerItem = class(TGMInterfacedCollectionItem, IGMControlChanges)
+  private
+    FMarker: TGMMarker;
+  protected
+    // @exclude
+    function GetDisplayName: string; override;
+
+    // @include(..\Help\docs\GMLib.Classes.IGMControlChanges.PropertyChanged.txt)
+    procedure PropertyChanged(Prop: TPersistent; PropName: string);
+  public
+    constructor Create(Collection: TCollection); override;
+    destructor Destroy; override;
+  published
+    property Marker: TGMMarker read FMarker write FMarker;
+  end;
+
   // @include(..\Help\docs\GMLib.Marker.Vcl.TGMMarkerList.txt)
   TGMMarkerList = class(TGMInterfacedCollection)
   private
-    function GetItems(I: Integer): TGMMarker;
-    procedure SetItems(I: Integer; const Value: TGMMarker);
+    function GetItems(I: Integer): TGMMarkerItem;
+    procedure SetItems(I: Integer; const Value: TGMMarkerItem);
   public
     // @include(..\Help\docs\GMLib.Marker.Vcl.TGMMarkerList.Add.txt)
-    function Add: TGMMarker;
+    function Add: TGMMarkerItem;
     // @include(..\Help\docs\GMLib.Marker.Vcl.TGMMarkerList.Insert.txt)
-    function Insert(Index: Integer): TGMMarker;
+    function Insert(Index: Integer): TGMMarkerItem;
 
     // @include(..\Help\docs\GMLib.Marker.Vcl.TGMMarkerList.Items.txt)
-    property Items[I: Integer]: TGMMarker read GetItems write SetItems; default;
+    property Items[I: Integer]: TGMMarkerItem read GetItems write SetItems; default;
   end;
 
   // @include(..\Help\docs\GMLib.Marker.TGMCustomMarkers.txt)
   TGMMarkers = class(TGMCustomMarkers)
   private
-    FMarkers: TGMMarkerList;
+    FMarkersList: TGMMarkerList;
   protected
   public
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarkers.Create.txt)
@@ -201,7 +217,7 @@ type
     procedure Assign(Source: TPersistent); override;
   published
     // @include(..\Help\docs\GMLib.Marker.TGMMarkers.Vcl.Markers.txt)
-    property Markers: TGMMarkerList read FMarkers write FMarkers;
+    property MarkersList: TGMMarkerList read FMarkersList write FMarkersList;
 
     // @include(..\Help\docs\GMLib.Marker.TGMCustomMarkers.AutoUpdate.txt)
     property AutoUpdate;
@@ -358,7 +374,7 @@ begin
   end;
 end;
 
-constructor TGMMarker.Create(Collection: TCollection);
+constructor TGMMarker.Create(AOwner: TPersistent);
 begin
   inherited;
 
@@ -375,41 +391,28 @@ begin
 end;
 
 function TGMMarker.PropToString: string;
-const
-  Str = '%s,%s';
-var
-  Json: IGMJson;
 begin
-  Json := TGMJson.Create;
-  Result := Json.Serialize(Self);
-
-  Result := inherited PropToString;
-  if Result <> '' then Result := Result + ',';
-  Result := Result +
-            Format(Str, [
-                         FIcon.PropToString,
-                         FLabelText.PropToString
-                        ]);
+  Result := inherited;
 end;
 
 { TGMMarkerList }
 
-function TGMMarkerList.Add: TGMMarker;
+function TGMMarkerList.Add: TGMMarkerItem;
 begin
-  Result := TGMMarker(inherited Add);
+  Result := TGMMarkerItem(inherited Add);
 end;
 
-function TGMMarkerList.GetItems(I: Integer): TGMMarker;
+function TGMMarkerList.GetItems(I: Integer): TGMMarkerItem;
 begin
-  Result := TGMMarker(inherited Items[I]);
+  Result := TGMMarkerItem(inherited Items[I]);
 end;
 
-function TGMMarkerList.Insert(Index: Integer): TGMMarker;
+function TGMMarkerList.Insert(Index: Integer): TGMMarkerItem;
 begin
-  Result := TGMMarker(inherited Insert(Index));
+  Result := TGMMarkerItem(inherited Insert(Index));
 end;
 
-procedure TGMMarkerList.SetItems(I: Integer; const Value: TGMMarker);
+procedure TGMMarkerList.SetItems(I: Integer; const Value: TGMMarkerItem);
 begin
   inherited SetItem(I, Value);
 end;
@@ -422,7 +425,7 @@ begin
 
   if Source is TGMMarkers then
   begin
-    Markers.Assign(TGMMarkers(Source).Markers);
+    MarkersList.Assign(TGMMarkers(Source).MarkersList);
   end;
 end;
 
@@ -430,12 +433,12 @@ constructor TGMMarkers.Create(AOwner: TPersistent);
 begin
   inherited;
 
-  FMarkers := TGMMarkerList.Create(Self, TGMMarker);
+  FMarkersList := TGMMarkerList.Create(Self, TGMMarkerItem);
 end;
 
 destructor TGMMarkers.Destroy;
 begin
-  if Assigned(FMarkers) then FMarkers.Free;
+  if Assigned(FMarkersList) then FMarkersList.Free;
 
   inherited;
 end;
@@ -448,8 +451,57 @@ begin
   if Result <> '' then Result := Result + ',';
   Result := Result +
             Format(Str, [
-                         FMarkers.PropToString
+                         FMarkersList.PropToString
                         ]);
+end;
+
+{ TGMMarkerItem }
+
+constructor TGMMarkerItem.Create(Collection: TCollection);
+begin
+  inherited;
+
+  FMarker := TGMMarker.Create(Self);
+end;
+
+destructor TGMMarkerItem.Destroy;
+begin
+  if Assigned(FMarker) then
+    FMarker.Free;
+
+  inherited;
+end;
+
+function TGMMarkerItem.GetDisplayName: string;
+begin
+  if Length(Marker.Title) > 0 then
+  begin
+    if Length(Marker.Title) > 15 then
+      Result := Copy(Marker.Title, 0, 12) + '...'
+    else
+      Result := Marker.Title;
+  end
+  else
+  begin
+    Result := inherited GetDisplayName + Index.ToString;
+    Marker.Title := Result;
+    Name := Result;
+  end;
+end;
+
+procedure TGMMarkerItem.PropertyChanged(Prop: TPersistent; PropName: string);
+var
+  Intf: IGMControlChanges;
+begin
+  if (GetOwner <> nil) and Supports(GetOwner, IGMControlChanges, Intf) then
+  begin
+    if Assigned(Prop) then
+      Intf.PropertyChanged(Prop, Self.ClassName + '_' + PropName)
+    else
+      Intf.PropertyChanged(Self, Self.ClassName + '_' + PropName);
+  end
+  else
+    if Assigned(OnChange) then OnChange(Self);
 end;
 
 end.
