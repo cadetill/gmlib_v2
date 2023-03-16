@@ -138,14 +138,14 @@ uses
 
 procedure TForm1.Button1Click(Sender: TObject);
 var
-  Child: TGMCustomMarker;
+  Child: TGMMarkerList;
   FJson: IJson;
 begin
   FJson := TGMJson.Create;
 
-  Child := TGMCustomMarker.Create(nil);
+  Child := TGMMarkerList.Create(Self, TGMCustomMarker);
 
-  Memo1.Lines.Text := FJson.Serialize(Child);
+  Memo1.Lines.Text := FJson.Serialize(Child, []);
 
   Memo1.Lines.Add('');
   Memo1.Lines.Add('');
@@ -155,15 +155,15 @@ end;
 
 procedure TForm1.Button2Click(Sender: TObject);
 var
-  Child: TTest;
+  Child: TGMMarkerList;
   FJson: IJson;
 begin
   FJson := TGMJson.Create;
 
-  Child := FJson.Deserialize(TTest, Memo1.Lines.Text) as TTest;
+  Child := FJson.Deserialize(TGMMarkerList, Memo1.Lines.Text) as TGMMarkerList;
 
-  ShowMessage(Child.Porp1);
-  ShowMessage(Child.Child.Prop.ToString);
+  //ShowMessage(Child.Porp1);
+  //ShowMessage(Child.Child.Prop.ToString);
 
   Child.Free;
 end;

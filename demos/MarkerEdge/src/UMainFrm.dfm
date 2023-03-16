@@ -18,7 +18,9 @@ object MainFrm: TMainFrm
     Height = 505
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 997
+    UserDataFolder = '%LOCALAPPDATA%\bds.exe.WebView2'
+    ExplicitWidth = 622
+    ExplicitHeight = 504
   end
   inline MarkerFrame1: TMarkerFrame
     Left = 626
@@ -27,50 +29,17 @@ object MainFrm: TMainFrm
     Height = 505
     Align = alRight
     TabOrder = 1
-    ExplicitLeft = 8
-    ExplicitTop = 8
+    ExplicitLeft = 622
+    ExplicitHeight = 504
     inherited pcPages: TPageControl
       Height = 368
       ActivePage = MarkerFrame1.tsGeneral
+      ExplicitHeight = 367
       inherited tsGeneral: TTabSheet
-        ExplicitTop = 26
         ExplicitHeight = 338
       end
-      inherited tsMarkers: TTabSheet
-        ExplicitTop = 26
-        ExplicitHeight = 313
-        inherited lMarkersList: TLabel
-          Width = 63
-          Height = 15
-          ExplicitWidth = 63
-          ExplicitHeight = 15
-        end
-        inherited lbMarkersList: TListBox
-          ItemHeight = 15
-          ExplicitHeight = 241
-        end
-      end
       inherited tsMarker: TTabSheet
-        ExplicitTop = 26
-        ExplicitHeight = 313
-        inherited lAnimation: TLabel
-          Width = 56
-          Height = 15
-          ExplicitWidth = 56
-          ExplicitHeight = 15
-        end
-      end
-    end
-    inherited pAPIKey: TPanel
-      inherited lAPIKey: TLabel
-        Width = 37
-        Height = 15
-        ExplicitWidth = 37
-        ExplicitHeight = 15
-      end
-      inherited eAPIKey: TEdit
-        Height = 23
-        ExplicitHeight = 23
+        ExplicitHeight = 338
       end
     end
   end

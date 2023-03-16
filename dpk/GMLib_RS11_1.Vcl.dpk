@@ -1,7 +1,5 @@
 package GMLib_RS11_1.Vcl;
 
-{$I ..\gmlib.inc}
-
 {$R *.res}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
@@ -27,15 +25,14 @@ package GMLib_RS11_1.Vcl;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
+{$DESIGNONLY}
 {$IMPLICITBUILD ON}
 
 requires
   rtl,
   vcl,
   vcledge,
-  {$IFDEF CEF4Delphi}
   CEF4DelphiVCLRTL,
-  {$ENDIF}
   GMLib_RS11_1;
 
 contains

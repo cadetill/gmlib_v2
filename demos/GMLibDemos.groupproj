@@ -1,0 +1,120 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{8B9406EE-0586-4B77-A43F-E399E67BE1C7}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="SimpleChromium\SimpleChromium.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="SimpleEdge\SimpleEdge.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="GMMap Chr Demo\GMMapChrDemo.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="GMMap Demo\GMMapDemo.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="LayersChromium\LayersChromium.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="LayersEdge\LayersEdge.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="MarkerChromium\MarkerChromium.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="MarkerEdge\MarkerEdge.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="SimpleChromium">
+        <MSBuild Projects="SimpleChromium\SimpleChromium.dproj"/>
+    </Target>
+    <Target Name="SimpleChromium:Clean">
+        <MSBuild Projects="SimpleChromium\SimpleChromium.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SimpleChromium:Make">
+        <MSBuild Projects="SimpleChromium\SimpleChromium.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="SimpleEdge">
+        <MSBuild Projects="SimpleEdge\SimpleEdge.dproj"/>
+    </Target>
+    <Target Name="SimpleEdge:Clean">
+        <MSBuild Projects="SimpleEdge\SimpleEdge.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SimpleEdge:Make">
+        <MSBuild Projects="SimpleEdge\SimpleEdge.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMMapChrDemo">
+        <MSBuild Projects="GMMap Chr Demo\GMMapChrDemo.dproj"/>
+    </Target>
+    <Target Name="GMMapChrDemo:Clean">
+        <MSBuild Projects="GMMap Chr Demo\GMMapChrDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMMapChrDemo:Make">
+        <MSBuild Projects="GMMap Chr Demo\GMMapChrDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMMapDemo">
+        <MSBuild Projects="GMMap Demo\GMMapDemo.dproj"/>
+    </Target>
+    <Target Name="GMMapDemo:Clean">
+        <MSBuild Projects="GMMap Demo\GMMapDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMMapDemo:Make">
+        <MSBuild Projects="GMMap Demo\GMMapDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="LayersChromium">
+        <MSBuild Projects="LayersChromium\LayersChromium.dproj"/>
+    </Target>
+    <Target Name="LayersChromium:Clean">
+        <MSBuild Projects="LayersChromium\LayersChromium.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="LayersChromium:Make">
+        <MSBuild Projects="LayersChromium\LayersChromium.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="LayersEdge">
+        <MSBuild Projects="LayersEdge\LayersEdge.dproj"/>
+    </Target>
+    <Target Name="LayersEdge:Clean">
+        <MSBuild Projects="LayersEdge\LayersEdge.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="LayersEdge:Make">
+        <MSBuild Projects="LayersEdge\LayersEdge.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="MarkerChromium">
+        <MSBuild Projects="MarkerChromium\MarkerChromium.dproj"/>
+    </Target>
+    <Target Name="MarkerChromium:Clean">
+        <MSBuild Projects="MarkerChromium\MarkerChromium.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MarkerChromium:Make">
+        <MSBuild Projects="MarkerChromium\MarkerChromium.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="MarkerEdge">
+        <MSBuild Projects="MarkerEdge\MarkerEdge.dproj"/>
+    </Target>
+    <Target Name="MarkerEdge:Clean">
+        <MSBuild Projects="MarkerEdge\MarkerEdge.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MarkerEdge:Make">
+        <MSBuild Projects="MarkerEdge\MarkerEdge.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="SimpleChromium;SimpleEdge;GMMapChrDemo;GMMapDemo;LayersChromium;LayersEdge;MarkerChromium;MarkerEdge"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="SimpleChromium:Clean;SimpleEdge:Clean;GMMapChrDemo:Clean;GMMapDemo:Clean;LayersChromium:Clean;LayersEdge:Clean;MarkerChromium:Clean;MarkerEdge:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="SimpleChromium:Make;SimpleEdge:Make;GMMapChrDemo:Make;GMMapDemo:Make;LayersChromium:Make;LayersEdge:Make;MarkerChromium:Make;MarkerEdge:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
