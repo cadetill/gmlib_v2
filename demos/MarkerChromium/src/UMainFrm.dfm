@@ -128,7 +128,7 @@ object MainFrm: TMainFrm
     MapOptions.IsFractionalZoomEnabled = True
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
-    Markers.MarkersList = <>
+    Markers.Markers = <>
     Markers.AutoUpdate = False
     APILang = lSpanish
     APIRegion = rSpain

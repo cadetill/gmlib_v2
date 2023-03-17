@@ -9,7 +9,7 @@ object MarkerFrame: TMarkerFrame
     Top = 137
     Width = 371
     Height = 355
-    ActivePage = tsMarker
+    ActivePage = tsMarkers
     Align = alClient
     TabOrder = 0
     object tsGeneral: TTabSheet
@@ -49,7 +49,7 @@ object MarkerFrame: TMarkerFrame
       end
       object bAdd: TButton
         Left = 160
-        Top = 40
+        Top = 41
         Width = 75
         Height = 25
         Caption = 'Add'
