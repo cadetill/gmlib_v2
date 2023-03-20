@@ -610,6 +610,7 @@ function TGMCustomMarker.PropToString: string;
 var
   Json: IGMJson;
 begin
+  Json := TGMJson.Create;
   Result := Json.Serialize(Self);
 end;
 
