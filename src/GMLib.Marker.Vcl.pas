@@ -168,6 +168,7 @@ type
     property ZIndex;
   end;
 
+  // @include(..\Help\docs\GMLib.Marker.TGMMarkerItem.txt)
   TGMMarkerItem = class(TGMInterfacedCollectionItem, IGMControlChanges)
   private
     FMarker: TGMMarker;

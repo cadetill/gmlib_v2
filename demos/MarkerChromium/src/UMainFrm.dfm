@@ -39,10 +39,10 @@ object MainFrm: TMainFrm
       end
       inherited tsMarkers: TTabSheet
         ExplicitTop = 28
-        ExplicitHeight = 323
+        ExplicitHeight = 418
         DesignSize = (
           363
-          323)
+          418)
         inherited lMarkersList: TLabel
           Width = 71
           Height = 17
@@ -57,7 +57,7 @@ object MainFrm: TMainFrm
       end
       inherited tsMarker: TTabSheet
         ExplicitTop = 28
-        ExplicitHeight = 418
+        ExplicitHeight = 323
         inherited lAnimation: TLabel
           Width = 58
           Height = 17
@@ -128,7 +128,7 @@ object MainFrm: TMainFrm
     MapOptions.IsFractionalZoomEnabled = True
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
-    Markers.Markers = <>
+    Markers.MarkersList = <>
     Markers.AutoUpdate = False
     APILang = lSpanish
     APIRegion = rSpain

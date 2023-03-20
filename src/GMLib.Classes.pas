@@ -131,7 +131,7 @@ type
   end;
 
   // @include(..\Help\docs\GMLib.Classes.TGMPersistentStr.txt)
-  TGMPersistentStr = class(TGMPersistent, IGMToStr, IGMOwnerLang)
+   TGMPersistentStr = class(TGMPersistent, IGMToStr, IGMOwnerLang)
   protected
     // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
     function PropToString: string; virtual;
