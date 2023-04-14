@@ -196,6 +196,9 @@ type
     // @include(..\Help\docs\GMLib.Marker.Vcl.TGMMarkerList.Insert.txt)
     function Insert(Index: Integer): TGMMarkerItem;
 
+    // @include(..\Help\docs\GMLib.Classes.IGMToStr.PropToString.txt)
+    function PropToString: string; override;
+
     // @include(..\Help\docs\GMLib.Marker.Vcl.TGMMarkerList.Items.txt)
     property Items[I: Integer]: TGMMarkerItem read GetItems write SetItems; default;
   end;
@@ -411,6 +414,11 @@ end;
 function TGMMarkerList.Insert(Index: Integer): TGMMarkerItem;
 begin
   Result := TGMMarkerItem(inherited Insert(Index));
+end;
+
+function TGMMarkerList.PropToString: string;
+begin
+  Result := inherited;
 end;
 
 procedure TGMMarkerList.SetItems(I: Integer; const Value: TGMMarkerItem);

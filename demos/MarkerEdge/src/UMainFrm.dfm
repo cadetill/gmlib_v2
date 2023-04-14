@@ -19,6 +19,8 @@ object MainFrm: TMainFrm
     Align = alClient
     TabOrder = 0
     UserDataFolder = '%LOCALAPPDATA%\bds.exe.WebView2'
+    ExplicitWidth = 622
+    ExplicitHeight = 504
   end
   inline MarkerFrame1: TMarkerFrame
     Left = 626
@@ -27,16 +29,15 @@ object MainFrm: TMainFrm
     Height = 505
     Align = alRight
     TabOrder = 1
-    ExplicitLeft = 626
-    ExplicitHeight = 505
+    ExplicitLeft = 622
+    ExplicitHeight = 504
     inherited pcPages: TPageControl
       Height = 368
-      ActivePage = MarkerFrame1.tsGeneral
-      ExplicitHeight = 368
+      ExplicitHeight = 367
       inherited tsGeneral: TTabSheet
         ExplicitHeight = 338
       end
-      inherited tsMarker: TTabSheet
+      inherited tsMarkers: TTabSheet
         ExplicitHeight = 338
       end
     end
@@ -50,8 +51,32 @@ object MainFrm: TMainFrm
     MapOptions.IsFractionalZoomEnabled = True
     MapOptions.Restriction.StrictBounds = False
     MapOptions.Restriction.Enabled = False
-    Markers.MarkersList = <>
-    Markers.AutoUpdate = False
+    Markers.MarkersList = <
+      item
+        Name = 'TGMMarkerItem0'
+        Marker.Icon.Symbol.FillColor = clBlack
+        Marker.Icon.Symbol.StrokeColor = clBlack
+        Marker.Icon.Symbol.Path = spFORWARD_OPEN_ARROW
+        Marker.Icon.Symbol.Rotation = 0
+        Marker.Icon.Symbol.Scale = 1
+        Marker.Icon.Symbol.StrokeOpacity = 1.000000000000000000
+        Marker.Icon.Symbol.StrokeWeight = 1
+        Marker.Icon.Icon.ScaledSize = 0
+        Marker.LabelText.Color = clBlack
+        Marker.LabelText.FontFamily = 'Arial'
+        Marker.LabelText.FontSize = 14
+        Marker.LabelText.FontWeight = 0
+        Marker.Animation = aniNONE
+        Marker.Clickable = True
+        Marker.CollisionBehavior = cbNONE
+        Marker.CrossOnDrag = True
+        Marker.Draggable = False
+        Marker.Opacity = 1.000000000000000000
+        Marker.Optimized = True
+        Marker.Title = 'TGMMarkerItem0'
+        Marker.Visible = True
+      end>
+    Markers.AutoUpdate = True
     APIRegion = rUnited_States
     TrafficLayer.Show = False
     TrafficLayer.TrafficLayerOptions.AutoRefresh = True

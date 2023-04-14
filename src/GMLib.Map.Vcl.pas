@@ -546,7 +546,7 @@ begin
 
   for i := 0 to FMarkers.MarkersList.Count - 1 do
   begin
-    Params := FMarkers.MarkersList[i].Marker.PropToString;
+    Params := FMarkers.MarkersList.PropToString; // FMarkers.MarkersList[i].Marker.PropToString;
     ExecuteJavaScript('ShowMarker', Params);
   end;
 end;

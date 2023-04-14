@@ -278,10 +278,11 @@ implementation
 uses
   {$IFDEF DELPHIXE2}
   System.TypInfo, Rest.Json, System.JSON, System.JSONConsts, REST.JsonReflect,
+
   {$ELSE}
   TypInfo,
   {$ENDIF}
-
+  System.Generics.Collections,
   GMLib.Constants;
 
 { TGMObject }
@@ -551,13 +552,21 @@ end;
 
 function TGMInterfacedCollection.PropToString: string;
 var
+  List: TObjectList<TGMInterfacedCollectionItem>;
   i: Integer;
+  Json: IGMJson;
 begin
   Result := '';
-  for i := 0 to Count - 1 do
-  begin
-    if Result <> '' then Result := Result + ',';
-    Result := Result + Items[i].PropToString;
+
+  List := TObjectList<TGMInterfacedCollectionItem>.Create;
+  try
+    for i := 0 to Count - 1 do
+      List.Add(Items[i]);
+
+    Json := TGMJson.Create;
+    Result := Json.Serialize(Items[0]);
+  finally
+    List.Free;
   end;
 end;
 
