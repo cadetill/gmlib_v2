@@ -539,16 +539,12 @@ end;
 
 procedure TGMMap.ShowMarkers;
 var
-  i: Integer;
   Params: string;
 begin
   if not Active then Exit;
 
-  for i := 0 to FMarkers.MarkersList.Count - 1 do
-  begin
-    Params := FMarkers.MarkersList.PropToString; // FMarkers.MarkersList[i].Marker.PropToString;
-    ExecuteJavaScript('ShowMarker', Params);
-  end;
+  Params := FMarkers.MarkersList.PropToString; // FMarkers.MarkersList[i].Marker.PropToString;
+  ExecuteJavaScript('ShowMarker', Params);
 end;
 
 {$IFDEF CEF4Delphi}

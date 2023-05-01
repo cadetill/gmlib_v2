@@ -9,6 +9,9 @@
         <Projects Include="..\dpk\GMLib_RS11_1.Vcl.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="..\demos\MarkerEdge\MarkerEdge.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -35,14 +38,23 @@
     <Target Name="GMLib_RS11_1_Vcl:Make">
         <MSBuild Projects="..\dpk\GMLib_RS11_1.Vcl.dproj" Targets="Make"/>
     </Target>
+    <Target Name="MarkerEdge">
+        <MSBuild Projects="..\demos\MarkerEdge\MarkerEdge.dproj"/>
+    </Target>
+    <Target Name="MarkerEdge:Clean">
+        <MSBuild Projects="..\demos\MarkerEdge\MarkerEdge.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MarkerEdge:Make">
+        <MSBuild Projects="..\demos\MarkerEdge\MarkerEdge.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="GMLib_RS11_1;GMLib_RS11_1_Vcl"/>
+        <CallTarget Targets="GMLib_RS11_1;GMLib_RS11_1_Vcl;MarkerEdge"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="GMLib_RS11_1:Clean;GMLib_RS11_1_Vcl:Clean"/>
+        <CallTarget Targets="GMLib_RS11_1:Clean;GMLib_RS11_1_Vcl:Clean;MarkerEdge:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="GMLib_RS11_1:Make;GMLib_RS11_1_Vcl:Make"/>
+        <CallTarget Targets="GMLib_RS11_1:Make;GMLib_RS11_1_Vcl:Make;MarkerEdge:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

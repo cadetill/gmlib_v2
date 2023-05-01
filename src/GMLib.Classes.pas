@@ -552,21 +552,13 @@ end;
 
 function TGMInterfacedCollection.PropToString: string;
 var
-  List: TObjectList<TGMInterfacedCollectionItem>;
   i: Integer;
-  Json: IGMJson;
 begin
   Result := '';
-
-  List := TObjectList<TGMInterfacedCollectionItem>.Create;
-  try
-    for i := 0 to Count - 1 do
-      List.Add(Items[i]);
-
-    Json := TGMJson.Create;
-    Result := Json.Serialize(Items[0]);
-  finally
-    List.Free;
+  for i := 0 to Count - 1 do
+  begin
+    if Result <> '' then Result := Result + ',';
+    Result := Result + Items[i].PropToString;
   end;
 end;
 

@@ -30,6 +30,7 @@ type
     Map: Boolean;
   end;
 
+  // @include(..\Help\docs\GMLib.Map.TGMEventsMapForm.txt)
   TGMEventsMapForm = record
     Lat: string;
     Lng: string;
