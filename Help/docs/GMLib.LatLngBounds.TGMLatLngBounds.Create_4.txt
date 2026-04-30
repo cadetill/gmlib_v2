@@ -1,5 +1,0 @@
-Constructor class.
-
-@param AOwner Object owner.
-@param SW South-west corner.
-@param NE North-east corner.

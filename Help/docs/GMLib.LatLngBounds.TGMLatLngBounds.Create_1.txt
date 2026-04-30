@@ -1,7 +1,0 @@
-Constructor class.
-
-@param SWLat South-west latitude. Default 0.
-@param SWLng South-west longitude. Default 0.
-@param NELat North-east latitude. Default 0.
-@param NELng North-east longitude. Default 0.
-@param Lang @link(TGMLang) to use in exceptions.

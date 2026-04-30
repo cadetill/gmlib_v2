@@ -1,5 +1,0 @@
-@abstract(Class constructor.)
-
-Creates a @link(TGMCustomMap) object.
-
-@param AOwner Owner of the object.

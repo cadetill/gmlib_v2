@@ -1,1 +1,0 @@
-@abstract(This event is fired when the user starts dragging the map.)

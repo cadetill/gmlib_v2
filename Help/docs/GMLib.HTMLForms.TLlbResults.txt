@@ -1,3 +1,0 @@
-@abstract(Properties for @code(llbResults) HTML form.)
-
-This HTML form contains all fields related by @link(TGMLatLngBounds).

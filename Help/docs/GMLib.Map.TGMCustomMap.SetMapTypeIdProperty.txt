@@ -1,3 +1,0 @@
-@abstract(Assigns the new MapTypeId value readed from HTML map code.)
-
-@params MapTypeId The new @link(TGMMapTypeId)

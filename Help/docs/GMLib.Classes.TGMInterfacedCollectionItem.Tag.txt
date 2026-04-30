@@ -1,1 +1,0 @@
-Tag property has no predefined meaning. It can store any additional integer value for the convenience of developers.

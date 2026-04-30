@@ -1,3 +1,0 @@
-@abstract(A TGMLatLngBounds instance represents a rectangle in geographical coordinates, including one that crosses the 180 degrees longitudinal meridian.)
-
-More information at @url(https://developers.google.com/maps/documentation/javascript/reference/coordinates#LatLngBounds google.maps.LatLngBounds class)

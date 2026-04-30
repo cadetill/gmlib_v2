@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectGroup FileVersion="2">
+    <Targets>
+      <Target FileName="GMLibRuntime.Lcl.lpk"/>
+      <Target FileName="GMLibDesign.Lcl.lpk"/>
+    </Targets>
+  </ProjectGroup>
+</CONFIG>

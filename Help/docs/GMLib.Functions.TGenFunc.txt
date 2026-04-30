@@ -1,1 +1,0 @@
-The TGenFunc class contains functions used by GMLib.

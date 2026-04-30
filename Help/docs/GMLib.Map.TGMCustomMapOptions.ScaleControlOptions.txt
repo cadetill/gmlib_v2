@@ -1,3 +1,0 @@
-@abstract(The initial display options for the Scale control.)
-
-More info at @url(https://developers.google.com/maps/documentation/javascript/reference/control#ScaleControlOptions ScaleControlOptions interface)

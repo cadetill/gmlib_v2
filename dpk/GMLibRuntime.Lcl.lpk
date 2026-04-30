@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="5">
+    <PathDelim Value="\"/>
+    <Name Value="GMLibRuntime.Lcl"/>
+    <Version Major="2"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <OtherUnitFiles Value="../src/Common;../src/Lcl"/>
+        <UnitOutputDirectory Value="../lib/Lcl"/>
+      </SearchPaths>
+    </CompilerOptions>
+    <Description Value="GMLib Runtime LCL Package"/>
+    <Files>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.Core.ApiObject.pas"/>
+        <UnitName Value="uGMLib.Core.ApiObject"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.Core.Component.pas"/>
+        <UnitName Value="uGMLib.Core.Component"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.Core.Messages.pas"/>
+        <UnitName Value="uGMLib.Core.Messages"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.Core.Types.pas"/>
+        <UnitName Value="uGMLib.Core.Types"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.CoordinatePoint.pas"/>
+        <UnitName Value="uGMLib.CoordinatePoint"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.Geometry.pas"/>
+        <UnitName Value="uGMLib.Geometry"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.Platform.Format.pas"/>
+        <UnitName Value="uGMLib.Platform.Format"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.MapOptions.pas"/>
+        <UnitName Value="uGMLib.MapOptions"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.GeoCode.pas"/>
+        <UnitName Value="uGMLib.GeoCode"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.Map.pas"/>
+        <UnitName Value="uGMLib.Map"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.Marker.pas"/>
+        <UnitName Value="uGMLib.Marker"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.InfoWindow.pas"/>
+        <UnitName Value="uGMLib.InfoWindow"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.GroundOverlay.pas"/>
+        <UnitName Value="uGMLib.GroundOverlay"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.Polygon.pas"/>
+        <UnitName Value="uGMLib.Polygon"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.Polyline.pas"/>
+        <UnitName Value="uGMLib.Polyline"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.Circle.pas"/>
+        <UnitName Value="uGMLib.Circle"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.Elevation.pas"/>
+        <UnitName Value="uGMLib.Elevation"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.Core.Bridge.pas"/>
+        <UnitName Value="uGMLib.Core.Bridge"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.Rectangle.pas"/>
+        <UnitName Value="uGMLib.Rectangle"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\uGMLib.Routes.pas"/>
+        <UnitName Value="uGMLib.Routes"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Lcl\uGMLib.Lcl.Circle.pas"/>
+        <UnitName Value="uGMLib.Lcl.Circle"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Lcl\uGMLib.Lcl.Polygon.pas"/>
+        <UnitName Value="uGMLib.Lcl.Polygon"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Lcl\uGMLib.Lcl.Rectangle.pas"/>
+        <UnitName Value="uGMLib.Lcl.Rectangle"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Lcl\uGMLib.Lcl.MapBootstrap.pas"/>
+        <UnitName Value="uGMLib.Lcl.MapBootstrap"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Lcl\uGMLib.Lcl.MapOptions.pas"/>
+        <UnitName Value="uGMLib.Lcl.MapOptions"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Lcl\uGMLib.Lcl.Bridge.Cef.pas"/>
+        <UnitName Value="uGMLib.Lcl.Bridge.Cef"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Lcl\uGMLib.Lcl.Map.pas"/>
+        <UnitName Value="uGMLib.Lcl.Map"/>
+      </Item>
+    </Files>
+    <RequiredPkgs>
+      <Item>
+        <PackageName Value="LCL"/>
+      </Item>
+      <Item>
+        <PackageName Value="CEF4Delphi_Lazarus"/>
+      </Item>
+    </RequiredPkgs>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

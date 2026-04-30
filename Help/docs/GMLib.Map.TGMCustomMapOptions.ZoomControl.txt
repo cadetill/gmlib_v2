@@ -1,1 +1,0 @@
-The initial Map zoom level.

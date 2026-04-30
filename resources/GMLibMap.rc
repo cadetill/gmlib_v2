@@ -1,0 +1,3 @@
+TGMLibVclMap BITMAP "GMMap.bmp"
+TGMLibFmxMap BITMAP "GMMap.bmp"
+TGMLibLclMap BITMAP "GMMap.bmp"

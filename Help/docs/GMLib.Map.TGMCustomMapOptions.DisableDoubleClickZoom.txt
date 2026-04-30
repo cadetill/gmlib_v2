@@ -1,3 +1,0 @@
-@Abstract(Enables/disables zoom and center on double click.)
-
-In order to take effect the change of this property, you must to restart the map.

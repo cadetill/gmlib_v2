@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="5">
+    <Name Value="GMLibDesignLcl"/>
+    <Type Value="DesignTime"/>
+    <AddToProjectUsesSection Value="True"/>
+    <Author Value="Xavier Martinez (cadetill)"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <Path Value="D:\cadetill\Documents\GitHub\gmlib_v2\src\Lcl"/>
+        <Path Value="D:\cadetill\Documents\GitHub\gmlib_v2\src\Common"/>
+        <UnitOutputDirectory Value="..\..\..\build\lazarus\lcl\design\units\$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Parsing>
+        <SyntaxOptions>
+          <AllowLabel Value="False"/>
+          <UseAnsiStrings Value="False"/>
+        </SyntaxOptions>
+      </Parsing>
+      <Other>
+        <CustomOptions Value="$(IDEBuildOptions)"/>
+      </Other>
+    </CompilerOptions>
+    <Description Value="GMLib design-time package for Lazarus LCL"/>
+    <Version Major="1"/>
+    <Files Count="1">
+      <Item1>
+        <Filename Value="uGMLib.Lcl.Register.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="uGMLib.Lcl.Register"/>
+      </Item1>
+    </Files>
+    <RequiredPkgs Count="1">
+      <Item1>
+        <PackageName Value="IDEIntf"/>
+      </Item1>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <CompatibilityMode Value="True"/>
+  </Package>
+</CONFIG>

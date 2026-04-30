@@ -1,3 +1,0 @@
-@abstract(Show or hide the layer.)
-
-If set to @code(true), shown the layer, else hidden it.

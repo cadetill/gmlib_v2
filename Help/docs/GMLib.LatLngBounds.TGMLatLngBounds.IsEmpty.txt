@@ -1,3 +1,0 @@
-Returns @code(True) if the bounds is empty.
-
-@return @code(True) if empty, otherwise @code(False).

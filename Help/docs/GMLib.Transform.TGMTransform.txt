@@ -1,1 +1,0 @@
-@abstract(Contains methods of transformations.)

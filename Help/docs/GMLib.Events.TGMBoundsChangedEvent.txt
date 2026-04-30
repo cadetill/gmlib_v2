@@ -1,4 +1,0 @@
-@abstract(OnBoundsChanged event is fired when the bounds of map changed.)
-
-@param Sender Owner object.
-@param NewBounds New map bounds.

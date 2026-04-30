@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="5">
+    <Name Value="GMLibDesign.Lcl"/>
+    <Type Value="RunAndDesignTime"/>
+    <Version Major="2"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <OtherUnitFiles Value="../src/Lcl/Design"/>
+        <UnitOutputDirectory Value="../lib/Lcl"/>
+      </SearchPaths>
+      <Other>
+        <CustomOptions Value="$(IDEBuildOptions)"/>
+      </Other>
+    </CompilerOptions>
+    <Description Value="GMLib Design-Time LCL Package"/>
+    <Files Count="1">
+      <Item1>
+        <Filename Value="../src/Lcl/Design/uGMLib.Lcl.Register.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="uGMLib.Lcl.Register"/>
+      </Item1>
+    </Files>
+    <CompatibilityMode Value="True"/>
+    <RequiredPkgs Count="4">
+      <Item1>
+        <PackageName Value="IDEIntf"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="GMLibRuntime.Lcl"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="CEF4Delphi_Lazarus"/>
+      </Item4>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

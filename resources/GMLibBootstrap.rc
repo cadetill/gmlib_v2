@@ -1,0 +1,2 @@
+GMLIB_MAP_HTML RCDATA "js\common\gmlib.map.html"
+GMLIB_MAP_JS   RCDATA "js\common\gmlib.map.js"

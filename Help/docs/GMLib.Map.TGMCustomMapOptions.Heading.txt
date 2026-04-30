@@ -1,5 +1,0 @@
-@abstract(The heading for aerial imagery in degrees measured clockwise from cardinal direction North.)
-
-Headings are snapped to the nearest available angle for which imagery is available. @br@br
-
-In order to take effect the change of this property, you must to restart the map.

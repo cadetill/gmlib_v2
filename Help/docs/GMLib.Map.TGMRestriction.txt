@@ -1,4 +1,0 @@
-@abstract(@code(google.maps.MapRestriction) inteface from Google Maps API.)
-
-A restriction that can be applied to the Map. The map's viewport will not exceed these restrictions.@br@br
-More information at @url(https://developers.google.com/maps/documentation/javascript/reference/map#MapRestriction google.maps.MapRestriction interface)

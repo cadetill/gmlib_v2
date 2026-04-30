@@ -1,1 +1,0 @@
-Event triggered when a property changes.

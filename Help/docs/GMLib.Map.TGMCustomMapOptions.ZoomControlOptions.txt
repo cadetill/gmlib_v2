@@ -1,3 +1,0 @@
-@abstract(The display options for the Zoom control.)
-
-More info at @url(https://developers.google.com/maps/documentation/javascript/reference/control#ZoomControlOptions ZoomControlOptions interface)

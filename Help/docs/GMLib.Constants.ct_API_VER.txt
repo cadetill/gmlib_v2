@@ -1,1 +1,0 @@
-API version value into HTML map

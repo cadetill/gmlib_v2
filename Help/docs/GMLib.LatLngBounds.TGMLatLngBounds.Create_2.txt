@@ -1,5 +1,0 @@
-Constructor class.
-
-@param SW South-west corner.
-@param NE North-east corner.
-@param Lang @link(TGMLang) to use in exceptions.

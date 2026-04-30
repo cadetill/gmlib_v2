@@ -1,1 +1,0 @@
-@abstract(Class to manage all forms from HTML forms.)

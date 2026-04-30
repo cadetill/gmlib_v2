@@ -1,1 +1,0 @@
-Precision value to show Lat and Lng. Default 6.

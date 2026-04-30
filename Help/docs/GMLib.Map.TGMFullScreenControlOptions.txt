@@ -1,4 +1,0 @@
-@abstract(@code(google.maps.FullscreenControlOptions) object from Google Maps API.)
-
-Options for the rendering of the fullscreen control.@br@br
-More information at @url(https://developers.google.com/maps/documentation/javascript/reference/control#FullscreenControlOptions google.maps.FullscreenControlOptions interface)

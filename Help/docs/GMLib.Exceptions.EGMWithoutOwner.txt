@@ -1,3 +1,0 @@
-@abstract(Exception raised when an GMLib object needs an Owner to do something.)
-
-Displayed message: @italic(Owner not assigned.)

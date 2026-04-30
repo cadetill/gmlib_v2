@@ -1,1 +1,0 @@
-Browser where display the Google Maps map.

@@ -1,3 +1,0 @@
-@abstract(Exception raised when the class of assigned @link(TGMMap.WebBrowser) property isn't correct.)
-
-Displayed message: @italic(The browser is not of the correct class.)

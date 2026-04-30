@@ -1,2 +1,0 @@
-@abstract(@link(TGMKmlLayerOptions) object used to define the properties that can be set on a KmlLayer.)
-

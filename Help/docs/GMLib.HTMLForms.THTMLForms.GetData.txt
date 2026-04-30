@@ -1,3 +1,0 @@
-@abstract(Gets Json from HTML code and fill all objects.)
-
-@param Intf Interface that defines the method to call to execute a JavaScript function.

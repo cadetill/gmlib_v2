@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GMLib Map</title>
+  <style>
+    html, body, #gmlib-map {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="gmlib-map"></div>
+  <script>{{GMLIB_MAP_SCRIPT}}</script>
+  <script>
+    window.gmlibInitMap = function () {
+      window.gmlib.bootstrapMapId = {{MAP_ID}};
+      window.gmlib.map.initialize({
+        mapId: {{MAP_ID}},
+        options: {{MAP_OPTIONS}}
+      });
+    };
+  </script>
+  <script async src="{{MAPS_API_SCRIPT_URL}}" onerror="window.gmlib && window.gmlib.reportBootstrapError && window.gmlib.reportBootstrapError('Failed to load Google Maps script')"></script>
+</body>
+</html>

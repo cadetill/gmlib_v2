@@ -1,3 +1,0 @@
-@abstract(Whether the traffic layer refreshes with updated information automatically.)
-
-Default @code(true).

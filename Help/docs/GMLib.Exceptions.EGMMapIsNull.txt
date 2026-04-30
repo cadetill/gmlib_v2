@@ -1,3 +1,0 @@
-@abstract(Exception raised when Map variable from JavaScript code is null.)
-
-Displayed message: @italic(The Map object in JavaScript is null.)

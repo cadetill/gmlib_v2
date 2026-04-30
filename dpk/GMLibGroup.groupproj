@@ -1,0 +1,348 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{42BEBCF0-99FF-4F97-B973-E516DD98E360}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="GMLibRuntime.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="GMLibRuntime.Vcl.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="GMLibRuntime.Fmx.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="GMLibDesign.Vcl.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="GMLibDesign.Fmx.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Vcl\MapMinimal\GMLibMapVclDemo.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Fmx\MapMinimal\GMLibMapFmxDemo.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Vcl\MapOptionsLab\GMLibMapOptionsLab.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Fmx\MapOptionsLab\GMLibMapOptionsLabFmx.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Vcl\MarkerLab\GMLibMarkerLab.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Fmx\MarkerLab\GMLibMarkerLabFmx.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Vcl\PolylineLab\GMLibPolylineLab.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Fmx\PolylineLab\GMLibPolylineLabFmx.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Vcl\PolygonLab\GMLibPolygonLab.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Fmx\PolygonLab\GMLibPolygonLabFmx.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Vcl\RectangleLab\GMLibRectangleLab.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Fmx\RectangleLab\GMLibRectangleLabFmx.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Vcl\CircleLab\GMLibCircleLab.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Fmx\CircleLab\GMLibCircleLabFmx.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Vcl\GeoCodeLab\GMLibGeoCodeLab.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Fmx\GeoCodeLab\GMLibGeoCodeLabFmx.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Vcl\ElevationLab\GMLibElevationLab.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Fmx\ElevationLab\GMLibElevationLabFmx.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Vcl\RoutesLab\GMLibRoutesLab.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Fmx\RoutesLab\GMLibRoutesLabFmx.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Vcl\MegaDemo\MegaDemo.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\tests\GMLibTests.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="GMLibRuntime">
+        <MSBuild Projects="GMLibRuntime.dproj"/>
+    </Target>
+    <Target Name="GMLibRuntime:Clean">
+        <MSBuild Projects="GMLibRuntime.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibRuntime:Make">
+        <MSBuild Projects="GMLibRuntime.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibRuntime_Vcl">
+        <MSBuild Projects="GMLibRuntime.Vcl.dproj"/>
+    </Target>
+    <Target Name="GMLibRuntime_Vcl:Clean">
+        <MSBuild Projects="GMLibRuntime.Vcl.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibRuntime_Vcl:Make">
+        <MSBuild Projects="GMLibRuntime.Vcl.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibRuntime_Fmx">
+        <MSBuild Projects="GMLibRuntime.Fmx.dproj"/>
+    </Target>
+    <Target Name="GMLibRuntime_Fmx:Clean">
+        <MSBuild Projects="GMLibRuntime.Fmx.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibRuntime_Fmx:Make">
+        <MSBuild Projects="GMLibRuntime.Fmx.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibDesign_Vcl">
+        <MSBuild Projects="GMLibDesign.Vcl.dproj"/>
+    </Target>
+    <Target Name="GMLibDesign_Vcl:Clean">
+        <MSBuild Projects="GMLibDesign.Vcl.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibDesign_Vcl:Make">
+        <MSBuild Projects="GMLibDesign.Vcl.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibDesign_Fmx">
+        <MSBuild Projects="GMLibDesign.Fmx.dproj"/>
+    </Target>
+    <Target Name="GMLibDesign_Fmx:Clean">
+        <MSBuild Projects="GMLibDesign.Fmx.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibDesign_Fmx:Make">
+        <MSBuild Projects="GMLibDesign.Fmx.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibMapVclDemo">
+        <MSBuild Projects="..\demos\Vcl\MapMinimal\GMLibMapVclDemo.dproj"/>
+    </Target>
+    <Target Name="GMLibMapVclDemo:Clean">
+        <MSBuild Projects="..\demos\Vcl\MapMinimal\GMLibMapVclDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibMapVclDemo:Make">
+        <MSBuild Projects="..\demos\Vcl\MapMinimal\GMLibMapVclDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibMapFmxDemo">
+        <MSBuild Projects="..\demos\Fmx\MapMinimal\GMLibMapFmxDemo.dproj"/>
+    </Target>
+    <Target Name="GMLibMapFmxDemo:Clean">
+        <MSBuild Projects="..\demos\Fmx\MapMinimal\GMLibMapFmxDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibMapFmxDemo:Make">
+        <MSBuild Projects="..\demos\Fmx\MapMinimal\GMLibMapFmxDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibMapOptionsLab">
+        <MSBuild Projects="..\demos\Vcl\MapOptionsLab\GMLibMapOptionsLab.dproj"/>
+    </Target>
+    <Target Name="GMLibMapOptionsLab:Clean">
+        <MSBuild Projects="..\demos\Vcl\MapOptionsLab\GMLibMapOptionsLab.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibMapOptionsLab:Make">
+        <MSBuild Projects="..\demos\Vcl\MapOptionsLab\GMLibMapOptionsLab.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibMapOptionsLabFmx">
+        <MSBuild Projects="..\demos\Fmx\MapOptionsLab\GMLibMapOptionsLabFmx.dproj"/>
+    </Target>
+    <Target Name="GMLibMapOptionsLabFmx:Clean">
+        <MSBuild Projects="..\demos\Fmx\MapOptionsLab\GMLibMapOptionsLabFmx.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibMapOptionsLabFmx:Make">
+        <MSBuild Projects="..\demos\Fmx\MapOptionsLab\GMLibMapOptionsLabFmx.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibMarkerLab">
+        <MSBuild Projects="..\demos\Vcl\MarkerLab\GMLibMarkerLab.dproj"/>
+    </Target>
+    <Target Name="GMLibMarkerLab:Clean">
+        <MSBuild Projects="..\demos\Vcl\MarkerLab\GMLibMarkerLab.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibMarkerLab:Make">
+        <MSBuild Projects="..\demos\Vcl\MarkerLab\GMLibMarkerLab.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibMarkerLabFmx">
+        <MSBuild Projects="..\demos\Fmx\MarkerLab\GMLibMarkerLabFmx.dproj"/>
+    </Target>
+    <Target Name="GMLibMarkerLabFmx:Clean">
+        <MSBuild Projects="..\demos\Fmx\MarkerLab\GMLibMarkerLabFmx.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibMarkerLabFmx:Make">
+        <MSBuild Projects="..\demos\Fmx\MarkerLab\GMLibMarkerLabFmx.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibPolylineLab">
+        <MSBuild Projects="..\demos\Vcl\PolylineLab\GMLibPolylineLab.dproj"/>
+    </Target>
+    <Target Name="GMLibPolylineLab:Clean">
+        <MSBuild Projects="..\demos\Vcl\PolylineLab\GMLibPolylineLab.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibPolylineLab:Make">
+        <MSBuild Projects="..\demos\Vcl\PolylineLab\GMLibPolylineLab.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibPolylineLabFmx">
+        <MSBuild Projects="..\demos\Fmx\PolylineLab\GMLibPolylineLabFmx.dproj"/>
+    </Target>
+    <Target Name="GMLibPolylineLabFmx:Clean">
+        <MSBuild Projects="..\demos\Fmx\PolylineLab\GMLibPolylineLabFmx.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibPolylineLabFmx:Make">
+        <MSBuild Projects="..\demos\Fmx\PolylineLab\GMLibPolylineLabFmx.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibPolygonLab">
+        <MSBuild Projects="..\demos\Vcl\PolygonLab\GMLibPolygonLab.dproj"/>
+    </Target>
+    <Target Name="GMLibPolygonLab:Clean">
+        <MSBuild Projects="..\demos\Vcl\PolygonLab\GMLibPolygonLab.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibPolygonLab:Make">
+        <MSBuild Projects="..\demos\Vcl\PolygonLab\GMLibPolygonLab.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibPolygonLabFmx">
+        <MSBuild Projects="..\demos\Fmx\PolygonLab\GMLibPolygonLabFmx.dproj"/>
+    </Target>
+    <Target Name="GMLibPolygonLabFmx:Clean">
+        <MSBuild Projects="..\demos\Fmx\PolygonLab\GMLibPolygonLabFmx.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibPolygonLabFmx:Make">
+        <MSBuild Projects="..\demos\Fmx\PolygonLab\GMLibPolygonLabFmx.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibRectangleLab">
+        <MSBuild Projects="..\demos\Vcl\RectangleLab\GMLibRectangleLab.dproj"/>
+    </Target>
+    <Target Name="GMLibRectangleLab:Clean">
+        <MSBuild Projects="..\demos\Vcl\RectangleLab\GMLibRectangleLab.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibRectangleLab:Make">
+        <MSBuild Projects="..\demos\Vcl\RectangleLab\GMLibRectangleLab.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibRectangleLabFmx">
+        <MSBuild Projects="..\demos\Fmx\RectangleLab\GMLibRectangleLabFmx.dproj"/>
+    </Target>
+    <Target Name="GMLibRectangleLabFmx:Clean">
+        <MSBuild Projects="..\demos\Fmx\RectangleLab\GMLibRectangleLabFmx.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibRectangleLabFmx:Make">
+        <MSBuild Projects="..\demos\Fmx\RectangleLab\GMLibRectangleLabFmx.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibCircleLab">
+        <MSBuild Projects="..\demos\Vcl\CircleLab\GMLibCircleLab.dproj"/>
+    </Target>
+    <Target Name="GMLibCircleLab:Clean">
+        <MSBuild Projects="..\demos\Vcl\CircleLab\GMLibCircleLab.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibCircleLab:Make">
+        <MSBuild Projects="..\demos\Vcl\CircleLab\GMLibCircleLab.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibCircleLabFmx">
+        <MSBuild Projects="..\demos\Fmx\CircleLab\GMLibCircleLabFmx.dproj"/>
+    </Target>
+    <Target Name="GMLibCircleLabFmx:Clean">
+        <MSBuild Projects="..\demos\Fmx\CircleLab\GMLibCircleLabFmx.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibCircleLabFmx:Make">
+        <MSBuild Projects="..\demos\Fmx\CircleLab\GMLibCircleLabFmx.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibGeoCodeLab">
+        <MSBuild Projects="..\demos\Vcl\GeoCodeLab\GMLibGeoCodeLab.dproj"/>
+    </Target>
+    <Target Name="GMLibGeoCodeLab:Clean">
+        <MSBuild Projects="..\demos\Vcl\GeoCodeLab\GMLibGeoCodeLab.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibGeoCodeLab:Make">
+        <MSBuild Projects="..\demos\Vcl\GeoCodeLab\GMLibGeoCodeLab.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibGeoCodeLabFmx">
+        <MSBuild Projects="..\demos\Fmx\GeoCodeLab\GMLibGeoCodeLabFmx.dproj"/>
+    </Target>
+    <Target Name="GMLibGeoCodeLabFmx:Clean">
+        <MSBuild Projects="..\demos\Fmx\GeoCodeLab\GMLibGeoCodeLabFmx.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibGeoCodeLabFmx:Make">
+        <MSBuild Projects="..\demos\Fmx\GeoCodeLab\GMLibGeoCodeLabFmx.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibElevationLab">
+        <MSBuild Projects="..\demos\Vcl\ElevationLab\GMLibElevationLab.dproj"/>
+    </Target>
+    <Target Name="GMLibElevationLab:Clean">
+        <MSBuild Projects="..\demos\Vcl\ElevationLab\GMLibElevationLab.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibElevationLab:Make">
+        <MSBuild Projects="..\demos\Vcl\ElevationLab\GMLibElevationLab.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibElevationLabFmx">
+        <MSBuild Projects="..\demos\Fmx\ElevationLab\GMLibElevationLabFmx.dproj"/>
+    </Target>
+    <Target Name="GMLibElevationLabFmx:Clean">
+        <MSBuild Projects="..\demos\Fmx\ElevationLab\GMLibElevationLabFmx.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibElevationLabFmx:Make">
+        <MSBuild Projects="..\demos\Fmx\ElevationLab\GMLibElevationLabFmx.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibRoutesLab">
+        <MSBuild Projects="..\demos\Vcl\RoutesLab\GMLibRoutesLab.dproj"/>
+    </Target>
+    <Target Name="GMLibRoutesLab:Clean">
+        <MSBuild Projects="..\demos\Vcl\RoutesLab\GMLibRoutesLab.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibRoutesLab:Make">
+        <MSBuild Projects="..\demos\Vcl\RoutesLab\GMLibRoutesLab.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibRoutesLabFmx">
+        <MSBuild Projects="..\demos\Fmx\RoutesLab\GMLibRoutesLabFmx.dproj"/>
+    </Target>
+    <Target Name="GMLibRoutesLabFmx:Clean">
+        <MSBuild Projects="..\demos\Fmx\RoutesLab\GMLibRoutesLabFmx.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibRoutesLabFmx:Make">
+        <MSBuild Projects="..\demos\Fmx\RoutesLab\GMLibRoutesLabFmx.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="MegaDemo">
+        <MSBuild Projects="..\demos\Vcl\MegaDemo\MegaDemo.dproj"/>
+    </Target>
+    <Target Name="MegaDemo:Clean">
+        <MSBuild Projects="..\demos\Vcl\MegaDemo\MegaDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MegaDemo:Make">
+        <MSBuild Projects="..\demos\Vcl\MegaDemo\MegaDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GMLibTests">
+        <MSBuild Projects="..\tests\GMLibTests.dproj"/>
+    </Target>
+    <Target Name="GMLibTests:Clean">
+        <MSBuild Projects="..\tests\GMLibTests.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibTests:Make">
+        <MSBuild Projects="..\tests\GMLibTests.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="GMLibRuntime;GMLibRuntime_Vcl;GMLibRuntime_Fmx;GMLibDesign_Vcl;GMLibDesign_Fmx;GMLibMapVclDemo;GMLibMapFmxDemo;GMLibMapOptionsLab;GMLibMapOptionsLabFmx;GMLibMarkerLab;GMLibMarkerLabFmx;GMLibPolylineLab;GMLibPolylineLabFmx;GMLibPolygonLab;GMLibPolygonLabFmx;GMLibRectangleLab;GMLibRectangleLabFmx;GMLibCircleLab;GMLibCircleLabFmx;GMLibGeoCodeLab;GMLibGeoCodeLabFmx;GMLibElevationLab;GMLibElevationLabFmx;GMLibRoutesLab;GMLibRoutesLabFmx;MegaDemo;GMLibTests"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="GMLibRuntime:Clean;GMLibRuntime_Vcl:Clean;GMLibRuntime_Fmx:Clean;GMLibDesign_Vcl:Clean;GMLibDesign_Fmx:Clean;GMLibMapVclDemo:Clean;GMLibMapFmxDemo:Clean;GMLibMapOptionsLab:Clean;GMLibMapOptionsLabFmx:Clean;GMLibMarkerLab:Clean;GMLibMarkerLabFmx:Clean;GMLibPolylineLab:Clean;GMLibPolylineLabFmx:Clean;GMLibPolygonLab:Clean;GMLibPolygonLabFmx:Clean;GMLibRectangleLab:Clean;GMLibRectangleLabFmx:Clean;GMLibCircleLab:Clean;GMLibCircleLabFmx:Clean;GMLibGeoCodeLab:Clean;GMLibGeoCodeLabFmx:Clean;GMLibElevationLab:Clean;GMLibElevationLabFmx:Clean;GMLibRoutesLab:Clean;GMLibRoutesLabFmx:Clean;MegaDemo:Clean;GMLibTests:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="GMLibRuntime:Make;GMLibRuntime_Vcl:Make;GMLibRuntime_Fmx:Make;GMLibDesign_Vcl:Make;GMLibDesign_Fmx:Make;GMLibMapVclDemo:Make;GMLibMapFmxDemo:Make;GMLibMapOptionsLab:Make;GMLibMapOptionsLabFmx:Make;GMLibMarkerLab:Make;GMLibMarkerLabFmx:Make;GMLibPolylineLab:Make;GMLibPolylineLabFmx:Make;GMLibPolygonLab:Make;GMLibPolygonLabFmx:Make;GMLibRectangleLab:Make;GMLibRectangleLabFmx:Make;GMLibCircleLab:Make;GMLibCircleLabFmx:Make;GMLibGeoCodeLab:Make;GMLibGeoCodeLabFmx:Make;GMLibElevationLab:Make;GMLibElevationLabFmx:Make;GMLibRoutesLab:Make;GMLibRoutesLabFmx:Make;MegaDemo:Make;GMLibTests:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

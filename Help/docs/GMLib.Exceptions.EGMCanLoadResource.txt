@@ -1,3 +1,0 @@
-@abstract(Exception raised when the resource of the map can't be load.)
-
-Displayed message: @italic(Can't load map resource.)

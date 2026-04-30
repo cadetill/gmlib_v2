@@ -1,3 +1,0 @@
-@abstract(If @code(True), the layer receives mouse events.)
-
-Default @code(True).

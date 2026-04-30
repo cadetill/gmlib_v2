@@ -1,3 +1,0 @@
-@abstract(Reads all fields of all HTML forms and returns a Json with their values.)
-
-@return Json with the info.

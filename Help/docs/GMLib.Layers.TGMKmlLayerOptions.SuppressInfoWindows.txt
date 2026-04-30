@@ -1,3 +1,0 @@
-@abstract(Suppress the rendering of info windows when layer features are clicked.)
-
-Default @code(False).

@@ -1,3 +1,0 @@
-@abstract(Assigns the new Zoom value readed from HTML map code.)
-
-@params Zoom The new zoom

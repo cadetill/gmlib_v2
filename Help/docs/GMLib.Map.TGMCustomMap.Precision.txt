@@ -1,5 +1,0 @@
-@abstract(Precision for lat and lng values.)
-
-Possibles values:@br
-0 => Max precision@br
-1..17 => Decimal precision

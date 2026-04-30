@@ -1,2 +1,0 @@
-@abstract(The URL of the KML document to display.)
-

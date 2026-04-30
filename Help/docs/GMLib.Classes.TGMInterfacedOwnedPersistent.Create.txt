@@ -1,3 +1,0 @@
-@abstract(Class constructor.)
-
-@param AOwner Owner of object
