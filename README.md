@@ -19,6 +19,8 @@ Google Maps imposes several requirements for normal map usage:
 
 For more information and to create your `API Key` and `Map ID`, visit the [Google Cloud Console](https://console.cloud.google.com/).
 
+You can put these credentials directly into the component or into environment variables called GOOGLE_MAPS_API_KEY and GOOGLE_MAPS_MAP_ID respectively.
+
 *This is a Google Maps platform restriction, not a GMLib one.*
 
 ## Current Status
