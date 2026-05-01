@@ -50,7 +50,7 @@ There are demos for practically everything in VCL and FMX.
 
 There is also a full-library demo, MegaDemo, in VCL.
 
-# How to install
+## How to install
 
 In Delphi:
 - Open `GMLibGroup`.
