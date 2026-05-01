@@ -172,6 +172,7 @@
         <DCCReference Include="src\uTest.MapOptions.Serialization.pas"/>
         <DCCReference Include="src\uTest.Marker.Model.pas"/>
         <DCCReference Include="src\uTest.Geometry.Model.pas"/>
+        <DCCReference Include="src\uTest.GroundOverlay.Model.pas"/>
         <DCCReference Include="src\uTest.Rectangle.Model.pas"/>
         <DCCReference Include="src\uTest.Polygon.Model.pas"/>
         <DCCReference Include="src\uTest.Polyline.Model.pas"/>
