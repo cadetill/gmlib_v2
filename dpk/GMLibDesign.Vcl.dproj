@@ -206,7 +206,7 @@
         <DCCReference Include="rtl.dcp"/>
         <DCCReference Include="designide.dcp"/>
         <DCCReference Include="GMLibRuntime.Vcl.dcp"/>
-        <DCCReference Include="..\src\Vcl\uGMLib.Vcl.Register.pas"/>
+        <DCCReference Include="..\src\Vcl\GM\uGMLib.Vcl.Register.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -252,3 +252,4 @@
     <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
     <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
 </Project>
+

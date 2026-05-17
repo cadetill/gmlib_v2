@@ -1,0 +1,49 @@
+﻿package MapLibCore;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS ON}
+{$RANGECHECKS ON}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'MapLib shared core package'}
+{$LIBSUFFIX AUTO}
+{$RUNONLY}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl;
+
+contains
+  uMapLib.Core.ApiObject in '..\src\Common\uMapLib.Core.ApiObject.pas',
+  uMapLib.Core.Bridge in '..\src\Common\uMapLib.Core.Bridge.pas',
+  uMapLib.Core.BridgeRegistry in '..\src\Common\uMapLib.Core.BridgeRegistry.pas',
+  uMapLib.Core.Component in '..\src\Common\uMapLib.Core.Component.pas',
+  uMapLib.Core.Messages in '..\src\Common\uMapLib.Core.Messages.pas',
+  uMapLib.Core.Types in '..\src\Common\uMapLib.Core.Types.pas',
+  uMapLib.Core.LatLng in '..\src\Common\uMapLib.Core.LatLng.pas',
+  uGMLib.BootstrapAssets in '..\src\Common\GM\uGMLib.BootstrapAssets.pas',
+  uGMLib.Platform.Format in '..\src\Common\GM\uGMLib.Platform.Format.pas';
+
+end.
+
+

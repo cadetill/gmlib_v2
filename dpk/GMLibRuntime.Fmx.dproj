@@ -157,16 +157,17 @@
         <DCCReference Include="rtl.dcp"/>
         <DCCReference Include="fmx.dcp"/>
         <DCCReference Include="GMLibRuntime.dcp"/>
-        <DCCReference Include="..\src\Fmx\uGMLib.Fmx.Bridge.WebBrowser.pas"/>
-        <DCCReference Include="..\src\Fmx\uGMLib.Fmx.InfoWindow.pas"/>
-        <DCCReference Include="..\src\Fmx\uGMLib.Fmx.Marker.pas"/>
-        <DCCReference Include="..\src\Fmx\uGMLib.Fmx.MapBootstrap.pas"/>
-        <DCCReference Include="..\src\Fmx\uGMLib.Fmx.Map.pas"/>
-        <DCCReference Include="..\src\Fmx\uGMLib.Fmx.MapOptions.pas"/>
-        <DCCReference Include="..\src\Fmx\uGMLib.Fmx.Polygon.pas"/>
-        <DCCReference Include="..\src\Fmx\uGMLib.Fmx.Polyline.pas"/>
-        <DCCReference Include="..\src\Fmx\uGMLib.Fmx.Rectangle.pas"/>
-        <DCCReference Include="..\src\Fmx\uGMLib.Fmx.Circle.pas"/>
+        <DCCReference Include="MapLibCore.dcp"/>
+        <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.Bridge.WebBrowser.pas"/>
+        <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.InfoWindow.pas"/>
+        <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.Marker.pas"/>
+        <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.MapBootstrap.pas"/>
+        <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.Map.pas"/>
+        <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.MapOptions.pas"/>
+        <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.Polygon.pas"/>
+        <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.Polyline.pas"/>
+        <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.Rectangle.pas"/>
+        <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.Circle.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -222,7 +223,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="C:\Users\Public\Documents\Embarcadero\Studio\37.0\Bpl\GMLibRuntime.Fmx.bpl" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="C:\Users\Public\Documents\Embarcadero\Studio\37.0\Bpl\GMLibRuntime.Fmx370.bpl" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>GMLibRuntime.Fmx.bpl</RemoteName>
                         <Overwrite>true</Overwrite>
@@ -818,6 +819,9 @@
                     <Platform Name="Win64x">
                         <Operation>1</Operation>
                     </Platform>
+                    <Platform Name="WinARM64EC">
+                        <Operation>1</Operation>
+                    </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectiOSDeviceDebug">
                     <Platform Name="iOSDevice32">
@@ -856,6 +860,10 @@
                         <RemoteDir>Assets</RemoteDir>
                         <Operation>1</Operation>
                     </Platform>
+                    <Platform Name="WinARM64EC">
+                        <RemoteDir>Assets</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
                 </DeployClass>
                 <DeployClass Name="UWP_DelphiLogo44">
                     <Platform Name="Win32">
@@ -863,6 +871,10 @@
                         <Operation>1</Operation>
                     </Platform>
                     <Platform Name="Win64">
+                        <RemoteDir>Assets</RemoteDir>
+                        <Operation>1</Operation>
+                    </Platform>
+                    <Platform Name="WinARM64EC">
                         <RemoteDir>Assets</RemoteDir>
                         <Operation>1</Operation>
                     </Platform>
@@ -1088,3 +1100,4 @@
     <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
     <Import Project="$(MSBuildProjectName).deployproj" Condition="Exists('$(MSBuildProjectName).deployproj')"/>
 </Project>
+

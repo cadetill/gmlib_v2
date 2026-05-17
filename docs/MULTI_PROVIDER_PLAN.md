@@ -1,4 +1,4 @@
-# Multi-provider plan
+﻿# Multi-provider plan
 
 This document describes a practical path to start a second map-provider backend on top of the current GMLib codebase.
 
@@ -11,19 +11,50 @@ Start with **one pilot provider** and validate the architecture before attemptin
 
 Recommended pilot order:
 
-1. `Mapbox`
-2. `HERE`
-3. `OpenStreetMap stack` (`Leaflet` / `MapLibre` + `Nominatim` + `OSRM` or equivalent)
+1. `OSMLib` on top of `MapLibre + OSM`
+2. `Mapbox`
+3. `HERE`
 4. `TomTom`
 5. `ArcGIS`
 
-For this plan, the pilot provider is **Mapbox** because it gives a coherent modern stack and a clear separation between:
+For this plan, the pilot provider is **OSMLib** built on top of **MapLibre + OSM** because it validates the hardest and most valuable architectural difference early:
 
-- base map rendering
-- markers and overlays
-- styling
-- geocoding
-- routing
+- provider separation from Google-specific APIs
+- open data instead of Google-managed content
+- offline-capable map rendering
+- style / tile / source control
+- future routing and geocoding composition without forcing Google semantics
+
+## Progress status (current repo)
+
+Completed foundation work:
+
+- shared package boundary added: `MapLibCore`
+- `GMLibRuntime` now depends on `MapLibCore`
+- first neutral type split implemented (`uMapLib.Core.Types`, `uMapLib.Core.LatLng`)
+- neutral base object/component split implemented (`uMapLib.Core.ApiObject`, `uMapLib.Core.Component`)
+- first Google-specific type split implemented (`uGMLib.Google.Types`)
+- `MapLibCore` cleaned to avoid direct `Common/GM` unit references
+- `OSMLibRuntime` package skeleton created with initial `TOSMMap` placeholder
+- `OSMLib` VCL runtime/design-time package skeleton created
+- first MapLibre bootstrap HTML/JS placeholders added for the VCL path
+- single public VCL design-time aggregator introduced: `MapLibDesign.Vcl`
+- `GMLibGroup.groupproj` already includes the current `OSMLib` package projects
+- provider folder normalization started:
+  - `src/Common/GM`, `src/Common/OSM`
+  - `src/Vcl/GM`, `src/Vcl/OSM`
+  - `src/Fmx/GM`, `src/Fmx/OSM`
+  - `src/Lcl/GM`, `src/Lcl/OSM`
+- core namespace cleanup completed:
+  - internal references migrated to `uMapLib.Core.*`
+  - legacy `uGMLib.Core.*` wrappers removed
+  - temporary legacy aliases removed from `uMapLib.Core.*`
+
+Still pending before real MapLibre work:
+
+- browser bridge implementation for `OSMLib`
+- first end-to-end `MapReady` flow
+- embedding/bootstrap asset pipeline for the new provider
 
 ## Guiding principles
 
@@ -69,19 +100,30 @@ Introduce a second root component, separate from `TGMMap`.
 
 Example naming:
 
-- `TMBMap`
-- `TMBMapOptions`
-- `TMBMarkers`
-- `TMBRoutes`
-
-or, if the provider is not yet fixed in naming:
-
-- `TMapboxMap`
-- `TMapboxMapOptions`
-- `TMapboxMarkers`
-- `TMapboxRoutes`
+- `TOSMMap`
+- `TOSMMapOptions`
+- `TOSMMarkers`
+- `TOSMRoutes`
 
 The important point is that the new backend must be **explicitly separate** from the Google backend.
+
+## First extraction target
+
+The first technical move should be to define a **small neutral core**, not to start with routing or offline packages.
+
+Good candidates from the current repo are:
+
+- `uGMLib.Core.Types`
+- `uGMLib.Platform.Format`
+- `uGMLib.Core.Messages`
+- `uGMLib.Core.Bridge`
+- `uGMLib.Core.BridgeRegistry`
+- `uGMLib.BootstrapAssets`
+- selected base abstractions from `uGMLib.Core.ApiObject` and `uGMLib.Core.Component`
+
+These units are not guaranteed to move 1:1 as they are, but they are the first review set because they are the closest thing to a provider-neutral foundation already present in `GMLib`.
+
+`uGMLib.Geometry` is a good example of why this needs validation by compilation, not only by reading: it looks neutral at first glance, but today still depends on `uGMLib.Polyline` and `uGMLib.Polygon`, so it should stay with the Google runtime until a neutral path abstraction exists.
 
 ## Phases
 
@@ -98,27 +140,53 @@ Deliverables:
   - the same browser bridge infrastructure
   - a new bootstrap HTML file
   - a shared JS helper layer
+- define the initial neutral-core inventory taken from the current `src/Common`
 
 Exit criteria:
 
 - no code yet, only a signed-off plan
 
+### Phase 0.5: extraction inventory
+
+Deliverables:
+
+- classify current common units into:
+  - neutral core candidates
+  - Google-specific units
+  - undecided units that need reshaping
+- define the first package boundary for the neutral core
+- define naming:
+  - shared family name
+  - Google provider name
+  - OSM provider name
+
+Exit criteria:
+
+- the first move is obvious and low-risk
+- no provider-specific code is moved into the core by accident
+
 ### Phase 1: backend skeleton
 
 Deliverables:
 
-- new common-facing component class
-- new provider-specific runtime package
-- new provider-specific design-time package
-- new bootstrap HTML/JS pair
+- neutral core package skeleton
+- new `OSMLib` runtime package
+- new `OSMLib` design-time package
+- new bootstrap HTML/JS pair for MapLibre
 - minimal "map ready" flow
 - minimal `Activate` / `Deactivate` flow
-- minimal options serialization
+- minimal style / source bootstrap
 
 Exit criteria:
 
 - a blank map can be created and shown
 - the component can initialize and tear down cleanly
+- `GMLib` still compiles after the first extraction
+
+Current status:
+
+- `Phase 1` is started but not complete
+- package skeleton exists, runtime behavior does not yet
 
 ### Phase 2: map core
 
@@ -214,13 +282,27 @@ Exit criteria:
 Recommended order for the pilot:
 
 1. freeze architecture
-2. create the skeleton package structure
-3. implement map activation and basic rendering
-4. implement markers and overlays
-5. implement routes and geocoding
-6. add provider-specific extras
-7. add demos
-8. write docs and tests
+2. classify existing common units
+3. create the neutral core package skeleton
+4. keep `GMLib` compiling on top of that skeleton
+5. create `OSMLib` runtime and design-time packages
+6. implement map activation and basic rendering
+7. implement markers and overlays
+8. implement routes and geocoding
+9. add provider-specific extras
+10. add demos
+11. write docs and tests
+
+## Immediate next step in this repo
+
+The first concrete step for this codebase should be:
+
+1. create a small shared-core namespace/package boundary without changing public `GMLib` behavior
+2. move or wrap only the clearly neutral units listed above
+3. keep all map, layer, route, geocode and provider-facing classes in `GMLib`
+4. once `GMLib` still builds, create the empty `OSMLib` skeleton
+
+This keeps risk low and forces the shared core to stay honest.
 
 ## Risks
 
@@ -242,3 +324,4 @@ The pilot backend is good enough when:
 - its docs explain what works and what does not
 
 If that is achieved, the second provider can be added using the same pattern with far less risk.
+

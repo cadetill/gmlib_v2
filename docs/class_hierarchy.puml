@@ -1,0 +1,465 @@
+@startuml
+skinparam ClassBorderColor #000000
+skinparam ClassArrowColor #000000
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 12
+
+title GMLib v2 Class Hierarchy
+
+package "Common" {
+
+    package "MapLib Core" {
+        class TMapLibApiObject
+        class TMapLibComponent
+        interface IMapBridgeTransport
+        class TMapLibLatLng
+        class TMapLibMessageEnvelope
+        class TGMLibBootstrapAssets
+        class TMapBridgeFactory
+        class TGMLibApiObject
+        class TGMLibComponent
+        interface IGMMapViewportHost
+        enum TGMObjectId
+        enum TGMBridgeBackend
+        enum TGMChangeOrigin
+
+        TComponent <|-- TMapLibComponent
+        TMapLibApiObject <|-- TGMLibApiObject
+        TMapLibComponent <|-- TGMLibComponent
+        TMapLibApiObject <|-- TMapLibLatLng
+        IGMMapViewportHost <|.. TGMCustomMap
+
+        TGMLibApiObject <|-- TGMLibBootstrapAssets
+
+        TMapBridgeFactory -[hidden]-> IMapBridgeTransport
+    }
+
+    package "Google Maps (GM)" {
+
+        package "Core" {
+            class TGMCustomMapLinkedComponent
+            class TGMCustomMap
+
+            TGMLibComponent <|-- TGMCustomMapLinkedComponent
+            TGMLibComponent <|-- TGMCustomMap
+            IGMMapViewportHost <|.. TGMCustomMap
+
+            class TGMLibLatLngAlias << (A,lightgrey) TMapLibLatLng >>
+            TMapLibLatLng <|-- TGMLibLatLngAlias : (Alias)
+
+            class TGMObjectIdAlias << (A,lightgrey) TGMObjectId >>
+            TGMObjectId <|-- TGMObjectIdAlias : (Alias)
+
+            class TGMBridgeBackendAlias << (A,lightgrey) TGMBridgeBackend >>
+            TGMBridgeBackend <|-- TGMBridgeBackendAlias : (Alias)
+
+            class TGMMapId << (A,lightgrey) string >>
+
+            enum TGMMapTypeId
+            class TGMMapTypeIds << (A,lightgrey) set of TGMMapTypeId >>
+
+            enum TGMControlPosition
+            enum TGMMapTypeControlStyle
+            enum TGMGestureHandling
+            enum TGMScaleControlStyle
+            enum TGMColorScheme
+            enum TGMRenderingType
+            enum TGMCollisionBehavior
+            enum TGMMarkerContentMode
+        }
+
+        package "Options" {
+            class TGMCustomPositionControlOptions
+            class TGMMapTypeControlOptions
+            class TGMFullscreenControlOptions
+            class TGMCameraControlOptions
+            class TGMRotateControlOptions
+            class TGMStreetViewControlOptions
+            class TGMZoomControlOptions
+            class TGMScaleControlOptions
+            class TGMLatLngBounds
+            class TGMMapRestriction
+            class TGMMapOptions
+
+            TGMLibApiObject <|-- TGMCustomPositionControlOptions
+            TGMLibApiObject <|-- TGMMapTypeControlOptions
+            TGMCustomPositionControlOptions <|-- TGMFullscreenControlOptions
+            TGMCustomPositionControlOptions <|-- TGMCameraControlOptions
+            TGMCustomPositionControlOptions <|-- TGMRotateControlOptions
+            TGMCustomPositionControlOptions <|-- TGMStreetViewControlOptions
+            TGMCustomPositionControlOptions <|-- TGMZoomControlOptions
+            TGMLibApiObject <|-- TGMScaleControlOptions
+            TGMLibApiObject <|-- TGMLatLngBounds
+            TGMLibApiObject <|-- TGMMapRestriction
+            TGMLibApiObject <|-- TGMMapOptions
+
+            TGMMapOptions --> TGMCustomPositionControlOptions
+            TGMMapOptions --> TGMMapTypeControlOptions
+            TGMMapOptions --> TGMFullscreenControlOptions
+            TGMMapOptions --> TGMCameraControlOptions
+            TGMMapOptions --> TGMRotateControlOptions
+            TGMMapOptions --> TGMStreetViewControlOptions
+            TGMMapOptions --> TGMZoomControlOptions
+            TGMMapOptions --> TGMScaleControlOptions
+            TGMMapOptions --> TGMLatLngBounds
+            TGMMapOptions --> TGMMapRestriction
+            TGMLatLngBounds --> TGMLibLatLngAlias
+            TGMMapRestriction --> TGMLatLngBounds
+        }
+
+        package "Layers" {
+            class TGMTrafficLayer
+            class TGMTransitLayer
+            class TGMBicyclingLayer
+            class TGMKmlLayer
+            class TGMLayers
+
+            TGMLibApiObject <|-- TGMTrafficLayer
+            TGMLibApiObject <|-- TGMTransitLayer
+            TGMLibApiObject <|-- TGMBicyclingLayer
+            TGMLibApiObject <|-- TGMKmlLayer
+            TGMLibApiObject <|-- TGMLayers
+
+            TGMLayers --> TGMTrafficLayer
+            TGMLayers --> TGMTransitLayer
+            TGMLayers --> TGMBicyclingLayer
+            TGMLayers --> TGMKmlLayer
+        }
+
+        package "Marker" {
+            class TGMPinOptions
+            class TGMHtmlMarkerOptions
+            class TGMLabelMarkerOptions
+            class TGMMarkerOptions
+            class TGMMarkerItem
+            class TGMMarkers
+            class TGMMarkerSeed
+
+            TGMLibApiObject <|-- TGMPinOptions
+            TGMLibApiObject <|-- TGMHtmlMarkerOptions
+            TGMLibApiObject <|-- TGMLabelMarkerOptions
+            TGMLibApiObject <|-- TGMMarkerOptions
+            TCollectionItem <|-- TGMMarkerItem
+            TOwnedCollection <|-- TGMMarkers
+            TGMMarkerOptions <|-- TGMMarkerItem
+
+            TGMMarkerOptions --> TGMPinOptions
+            TGMMarkerOptions --> TGMHtmlMarkerOptions
+            TGMMarkerOptions --> TGMLabelMarkerOptions
+            TGMMarkerOptions --> TGMLibLatLngAlias
+            TGMMarkers --> TGMMarkerItem
+        }
+
+        package "InfoWindow" {
+            class TGMInfoWindowPixelOffset
+            class TGMInfoWindowOpenOptions
+            class TGMInfoWindowOptions
+            class TGMInfoWindowItem
+            class TGMInfoWindows
+
+            TGMLibApiObject <|-- TGMInfoWindowPixelOffset
+            TGMLibApiObject <|-- TGMInfoWindowOpenOptions
+            TGMLibApiObject <|-- TGMInfoWindowOptions
+            TCollectionItem <|-- TGMInfoWindowItem
+            TOwnedCollection <|-- TGMInfoWindows
+            TGMInfoWindowOptions <|-- TGMInfoWindowItem
+            TGMInfoWindowOpenOptions <|-- TGMInfoWindowItem
+
+            TGMInfoWindowOptions --> TGMInfoWindowPixelOffset
+            TGMInfoWindowOptions --> TGMLibLatLngAlias
+            TGMInfoWindows --> TGMInfoWindowItem
+        }
+
+        package "Polyline" {
+            class TGMCoordinatePoint
+            class TGMPolylinePoint
+            class TGMPolylinePath
+            class TGMPolylineOptions
+            class TGMPolylineItem
+            class TGMPolylines
+
+            TGMCoordinatePoint <|-- TGMPolylinePoint
+            TOwnedCollection <|-- TGMPolylinePath
+            TGMLibApiObject <|-- TGMPolylineOptions
+            TCollectionItem <|-- TGMPolylineItem
+            TOwnedCollection <|-- TGMPolylines
+            TGMPolylineOptions <|-- TGMPolylineItem
+            TGMPolylinePath <|-- TGMPolylineOptions
+
+            TGMPolylineOptions --> TGMPolylinePath
+            TGMPolylinePath --> TGMPolylinePoint
+            TGMPolylines --> TGMPolylineItem
+        }
+
+        package "Polygon" {
+            class TGMPolygonPoint
+            class TGMPolygonPath
+            class TGMPolygonOptions
+            class TGMPolygonItem
+            class TGMPolygons
+
+            TGMCoordinatePoint <|-- TGMPolygonPoint
+            TOwnedCollection <|-- TGMPolygonPath
+            TGMLibApiObject <|-- TGMPolygonOptions
+            TCollectionItem <|-- TGMPolygonItem
+            TOwnedCollection <|-- TGMPolygons
+            TGMPolygonOptions <|-- TGMPolygonItem
+            TGMPolygonPath <|-- TGMPolygonOptions
+
+            TGMPolygonOptions --> TGMPolygonPath
+            TGMPolygonPath --> TGMPolygonPoint
+            TGMPolygons --> TGMPolygonItem
+        }
+
+        package "Rectangle" {
+            class TGMRectangleOptions
+            class TGMRectangleItem
+            class TGMRectangles
+
+            TGMLibApiObject <|-- TGMRectangleOptions
+            TCollectionItem <|-- TGMRectangleItem
+            TOwnedCollection <|-- TGMRectangles
+            TGMRectangleOptions <|-- TGMRectangleItem
+
+            TGMRectangleOptions --> TGMLatLngBounds
+            TGMRectangles --> TGMRectangleItem
+        }
+
+        package "Circle" {
+            class TGMCircleOptions
+            class TGMCircleItem
+            class TGMCircles
+
+            TGMLibApiObject <|-- TGMCircleOptions
+            TCollectionItem <|-- TGMCircleItem
+            TOwnedCollection <|-- TGMCircles
+            TGMCircleOptions <|-- TGMCircleItem
+
+            TGMCircleOptions --> TGMLibLatLngAlias
+            TGMCircles --> TGMCircleItem
+        }
+
+        package "GroundOverlay" {
+            class TGMGroundOverlayOptions
+            class TGMGroundOverlayItem
+            class TGMGroundOverlays
+
+            TGMLibApiObject <|-- TGMGroundOverlayOptions
+            TCollectionItem <|-- TGMGroundOverlayItem
+            TOwnedCollection <|-- TGMGroundOverlays
+            TGMGroundOverlayOptions <|-- TGMGroundOverlayItem
+
+            TGMGroundOverlayOptions --> TGMLatLngBounds
+            TGMGroundOverlays --> TGMGroundOverlayItem
+        }
+
+        package "GeoCode" {
+            class TGMGeocodePendingRequest
+            class TGMGeoCode
+
+            TMapLibComponent <|-- TGMGeoCode
+            TGMGeoCode --> TGMGeocodePendingRequest
+            TGMGeoCode --> TGMLatLngBounds
+            TGMGeoCode --> TGMLibLatLngAlias
+        }
+
+        package "Elevation" {
+            class TGMElevationPendingRequest
+            class TGMElevations
+
+            TMapLibComponent <|-- TGMElevations
+            TGMElevations --> TGMElevationPendingRequest
+            TGMElevations --> TGMPolylinePath
+            TGMElevations --> TGMLibLatLngAlias
+        }
+
+        package "Routes" {
+            class TGMRouteWaypoint
+            class TGMRouteWaypoints
+            class TGMRouteQueryResult
+            class TGMRouteQuery
+            class TGMRoutePendingRequest
+            class TGMRoutes
+
+            TCollectionItem <|-- TGMRouteWaypoint
+            TOwnedCollection <|-- TGMRouteWaypoints
+            TMapLibComponent <|-- TGMRoutes
+
+            TGMRouteWaypoint --> TGMLibLatLngAlias
+            TGMRouteWaypoints --> TGMRouteWaypoint
+            TGMRouteQueryResult --> TGMPolylineOptions
+            TGMRouteQuery --> TGMRouteQueryResult
+            TGMRoutes --> TGMRouteQuery
+            TGMRoutes --> TGMRouteWaypoints
+            TGMRoutes --> TGMPolylinePath
+            TGMRoutes --> TGMLibLatLngAlias
+        }
+    }
+
+    package "OSM (OpenStreetMap)" {
+        class TOSMMap
+        TMapLibComponent <|-- TOSMMap
+    }
+}
+
+package "VCL" {
+    package "VCL Google Maps (GM)" {
+        class TGMLibVclMap
+        class TGMVclRectangleOptions
+        class TGMVclRectangleItem
+        class TGMVclRectangles
+        class TGMVclPolylineOptions
+        class TGMVclPolylineItem
+        class TGMVclPolylines
+        class TGMVclPolygonOptions
+        class TGMVclPolygonItem
+        class TGMVclPolygons
+        class TGMVclPinOptions
+        class TGMVclLabelMarkerOptions
+        class TGMVclMarkerOptions
+        class TGMVclMarkerItem
+        class TGMVclMarkers
+        class TGMVclMapOptions
+        class TGMLibWebView2Bridge
+        class TGMLibCefBridge
+        class TGMVclInfoWindowOptions
+        class TGMVclInfoWindowItem
+        class TGMVclInfoWindows
+        class TGMVclCircleOptions
+        class TGMVclCircleItem
+        class TGMVclCircles
+        class TGMLibMapBootstrap
+
+        TGMCustomMap <|-- TGMLibVclMap
+        TGMRectangleOptions <|-- TGMVclRectangleOptions
+        TGMRectangleItem <|-- TGMVclRectangleItem
+        TGMRectangles <|-- TGMVclRectangles
+        TGMPolylineOptions <|-- TGMVclPolylineOptions
+        TGMPolylineItem <|-- TGMVclPolylineItem
+        TGMPolylines <|-- TGMVclPolylines
+        TGMPolygonOptions <|-- TGMVclPolygonOptions
+        TGMPolygonItem <|-- TGMVclPolygonItem
+        TGMPolygons <|-- TGMVclPolygons
+        TGMPinOptions <|-- TGMVclPinOptions
+        TGMLabelMarkerOptions <|-- TGMVclLabelMarkerOptions
+        TGMMarkerOptions <|-- TGMVclMarkerOptions
+        TGMMarkerItem <|-- TGMVclMarkerItem
+        TGMMarkers <|-- TGMVclMarkers
+        TGMMapOptions <|-- TGMVclMapOptions
+        TInterfacedObject <|-- TGMLibWebView2Bridge
+        TInterfacedObject <|-- TGMLibCefBridge
+        TGMInfoWindowOptions <|-- TGMVclInfoWindowOptions
+        TGMInfoWindowItem <|-- TGMVclInfoWindowItem
+        TGMInfoWindows <|-- TGMVclInfoWindows
+        TGMCircleOptions <|-- TGMVclCircleOptions
+        TGMCircleItem <|-- TGMVclCircleItem
+        TGMCircles <|-- TGMVclCircles
+
+        TGMLibVclMap --> TGMLibMapBootstrap
+        TGMLibVclMap --> TGMLibWebView2Bridge
+        TGMLibVclMap --> TGMLibCefBridge
+    }
+
+    package "VCL OSM" {
+        class TOSMLibVclMap
+        class TOSMLibMapBootstrap
+
+        TOSMMap <|-- TOSMLibVclMap
+
+        TOSMLibVclMap --> TOSMLibMapBootstrap
+    }
+}
+
+package "FMX" {
+    package "FMX Google Maps (GM)" {
+        class TGMLibFmxMap
+        class TGMFmxRectangleOptions
+        class TGMFmxRectangleItem
+        class TGMFmxRectangles
+        class TGMFmxPolylineOptions
+        class TGMFmxPolylineItem
+        class TGMFmxPolylines
+        class TGMFmxPolygonOptions
+        class TGMFmxPolygonItem
+        class TGMFmxPolygons
+        class TGMFmxPinOptions
+        class TGMFmxLabelMarkerOptions
+        class TGMFmxMarkerOptions
+        class TGMFmxMarkerItem
+        class TGMFmxMarkers
+        class TGMFmxInfoWindowOptions
+        class TGMFmxInfoWindowItem
+        class TGMFmxInfoWindows
+        class TGMFmxCircleOptions
+        class TGMFmxCircleItem
+        class TGMFmxCircles
+        class TGMFmxMapOptions
+        class TGMLibFmxMapBootstrap
+        class TGMLibFmxWebBrowserBridge
+        class TGMLibFmxCefBridge
+
+        TGMCustomMap <|-- TGMLibFmxMap
+        TGMRectangleOptions <|-- TGMFmxRectangleOptions
+        TGMRectangleItem <|-- TGMFmxRectangleItem
+        TGMRectangles <|-- TGMFmxRectangles
+        TGMPolylineOptions <|-- TGMFmxPolylineOptions
+        TGMPolylineItem <|-- TGMFmxPolylineItem
+        TGMPolylines <|-- TGMFmxPolylines
+        TGMPolygonOptions <|-- TGMFmxPolygonOptions
+        TGMPolygonItem <|-- TGMFmxPolygonItem
+        TGMPolygons <|-- TGMFmxPolygons
+        TGMPinOptions <|-- TGMFmxPinOptions
+        TGMLabelMarkerOptions <|-- TGMFmxLabelMarkerOptions
+        TGMMarkerOptions <|-- TGMFmxMarkerOptions
+        TGMMarkerItem <|-- TGMFmxMarkerItem
+        TGMMarkers <|-- TGMFmxMarkers
+        TGMInfoWindowOptions <|-- TGMFmxInfoWindowOptions
+        TGMInfoWindowItem <|-- TGMFmxInfoWindowItem
+        TGMInfoWindows <|-- TGMFmxInfoWindows
+        TGMCircleOptions <|-- TGMFmxCircleOptions
+        TGMCircleItem <|-- TGMFmxCircleItem
+        TGMCircles <|-- TGMFmxCircles
+        TGMMapOptions <|-- TGMFmxMapOptions
+        TInterfacedObject <|-- TGMLibFmxWebBrowserBridge
+        TInterfacedObject <|-- TGMLibFmxCefBridge
+
+        TGMLibFmxMap --> TGMLibFmxMapBootstrap
+        TGMLibFmxMap --> TGMLibFmxWebBrowserBridge
+        TGMLibFmxMap --> TGMLibFmxCefBridge
+    }
+}
+
+package "LCL" {
+    package "LCL Google Maps (GM)" {
+        class TGMLibLclMap
+        class TGMLclRectangleOptions
+        class TGMLclRectangleItem
+        class TGMLclRectangles
+        class TGMLclPolygonOptions
+        class TGMLclPolygonItem
+        class TGMLclPolygons
+        class TGMLclCircleOptions
+        class TGMLclCircleItem
+        class TGMLclCircles
+        class TGMLclMapOptions
+        class TGMLibLclMapBootstrap
+        class TGMLibLclCefBridge
+
+        TGMCustomMap <|-- TGMLibLclMap
+        TGMRectangleOptions <|-- TGMLclRectangleOptions
+        TGMRectangleItem <|-- TGMLclRectangleItem
+        TGMRectangles <|-- TGMLclRectangles
+        TGMPolygonOptions <|-- TGMLclPolygonOptions
+        TGMPolygonItem <|-- TGMLclPolygonItem
+        TGMPolygons <|-- TGMLclPolygons
+        TGMCircleOptions <|-- TGMLclCircleOptions
+        TGMCircleItem <|-- TGMLclCircleItem
+        TGMCircles <|-- TGMLclCircles
+        TGMMapOptions <|-- TGMLclMapOptions
+        TInterfacedObject <|-- TGMLibLclCefBridge
+
+        TGMLibLclMap --> TGMLibLclMapBootstrap
+        TGMLibLclMap --> TGMLibLclCefBridge
+    }
+}
+@enduml

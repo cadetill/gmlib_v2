@@ -1,4 +1,4 @@
-package GMLibDesign.Fmx;
+﻿package GMLibDesign.Fmx;
 
 {$R *.res}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
@@ -36,6 +36,7 @@ requires
   GMLibRuntime.Fmx;
 
 contains
-  uGMLib.Fmx.Register in '..\src\Fmx\uGMLib.Fmx.Register.pas';
+  uGMLib.Fmx.Register in '..\src\Fmx\GM\uGMLib.Fmx.Register.pas';
 
 end.
+

@@ -2,7 +2,12 @@
 
 Adaptadores e implementación específica de `VCL`.
 
-Contenido actual:
+Estructura actual:
+
+- `src/Vcl/GM`: backend Google Maps para VCL
+- `src/Vcl/OSM`: backend OSM/MapLibre para VCL
+
+Contenido actual (backend GM):
 
 - `uGMLib.Vcl.Map`
 - bridge WebView2 en `uGMLib.Vcl.Bridge.WebView2`
@@ -17,3 +22,4 @@ Nota de diseño:
 - la clase real registrada en el IDE es `TGMLibVclMap`
 - dentro de la unit sigue existiendo el alias `TGMLibMap = TGMLibVclMap`
 - esta separación evita colisiones de registro con el componente FMX
+

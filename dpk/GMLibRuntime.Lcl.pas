@@ -8,14 +8,14 @@ unit GMLibRuntime.Lcl;
 interface
 
 uses
-  uGMLib.Core.ApiObject, uGMLib.Core.Component, uGMLib.Core.Messages, 
-  uGMLib.Core.Types, uGMLib.CoordinatePoint, uGMLib.Platform.Format, 
-  uGMLib.MapOptions, uGMLib.GeoCode, uGMLib.Map, uGMLib.Marker, uGMLib.Layers, 
-  uGMLib.InfoWindow, uGMLib.GroundOverlay, uGMLib.Polygon, uGMLib.Polyline, 
-  uGMLib.Circle, uGMLib.Elevation, uGMLib.Geometry, uGMLib.BootstrapAssets, uGMLib.Core.Bridge, uGMLib.Rectangle, 
-  uGMLib.Routes, uGMLib.Lcl.Circle, uGMLib.Lcl.Polygon, uGMLib.Lcl.Rectangle, 
-  uGMLib.Lcl.MapBootstrap, uGMLib.Lcl.MapOptions, uGMLib.Lcl.Bridge.Cef, 
-  uGMLib.Lcl.Map;
+  uMapLib.Core.ApiObject, uMapLib.Core.Component, uMapLib.Core.Messages, 
+  uGMLib.Core.Types, uGMLib.CoordinatePoint, uGMLib.Geometry, 
+  uGMLib.Platform.Format, uGMLib.MapOptions, uGMLib.GeoCode, uGMLib.Map, 
+  uGMLib.Marker, uGMLib.InfoWindow, uGMLib.GroundOverlay, uGMLib.Polygon, 
+  uGMLib.Polyline, uGMLib.Circle, uGMLib.Elevation, uMapLib.Core.Bridge, 
+  uGMLib.Rectangle, uGMLib.Routes, uGMLib.Lcl.Circle, uGMLib.Lcl.Polygon, 
+  uGMLib.Lcl.Rectangle, uGMLib.Lcl.MapBootstrap, uGMLib.Lcl.MapOptions, 
+  uGMLib.Lcl.Bridge.Cef, uGMLib.Lcl.Map;
 
 implementation
 

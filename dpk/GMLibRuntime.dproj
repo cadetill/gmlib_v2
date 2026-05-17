@@ -191,29 +191,24 @@
         </DelphiCompile>
         <DCCReference Include="rtl.dcp"/>
         <DCCReference Include="dbrtl.dcp"/>
-        <DCCReference Include="..\src\Common\uGMLib.Core.ApiObject.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.Core.Bridge.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.Core.BridgeRegistry.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.Core.Component.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.Core.Messages.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.Core.Types.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.BootstrapAssets.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.CoordinatePoint.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.Geometry.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.Circle.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.Elevation.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.GeoCode.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.InfoWindow.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.GroundOverlay.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.Marker.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.Layers.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.MapOptions.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.Polygon.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.Polyline.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.Map.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.Rectangle.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.Routes.pas"/>
-        <DCCReference Include="..\src\Common\uGMLib.Platform.Format.pas"/>
+        <DCCReference Include="MapLibCore.dcp"/>
+        <DCCReference Include="..\src\Common\GM\uGMLib.Google.Types.pas"/>
+        <DCCReference Include="..\src\Common\GM\uGMLib.Core.Types.pas"/>
+        <DCCReference Include="..\src\Common\GM\uGMLib.CoordinatePoint.pas"/>
+        <DCCReference Include="..\src\Common\GM\uGMLib.Circle.pas"/>
+        <DCCReference Include="..\src\Common\GM\uGMLib.Elevation.pas"/>
+        <DCCReference Include="..\src\Common\GM\uGMLib.GeoCode.pas"/>
+        <DCCReference Include="..\src\Common\GM\uGMLib.InfoWindow.pas"/>
+        <DCCReference Include="..\src\Common\GM\uGMLib.GroundOverlay.pas"/>
+        <DCCReference Include="..\src\Common\GM\uGMLib.Geometry.pas"/>
+        <DCCReference Include="..\src\Common\GM\uGMLib.Marker.pas"/>
+        <DCCReference Include="..\src\Common\GM\uGMLib.Layers.pas"/>
+        <DCCReference Include="..\src\Common\GM\uGMLib.MapOptions.pas"/>
+        <DCCReference Include="..\src\Common\GM\uGMLib.Polygon.pas"/>
+        <DCCReference Include="..\src\Common\GM\uGMLib.Polyline.pas"/>
+        <DCCReference Include="..\src\Common\GM\uGMLib.Map.pas"/>
+        <DCCReference Include="..\src\Common\GM\uGMLib.Rectangle.pas"/>
+        <DCCReference Include="..\src\Common\GM\uGMLib.Routes.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

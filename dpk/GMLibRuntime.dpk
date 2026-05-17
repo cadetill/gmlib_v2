@@ -1,4 +1,4 @@
-package GMLibRuntime;
+﻿package GMLibRuntime;
 
 {$R *.res}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
@@ -31,31 +31,30 @@ package GMLibRuntime;
 
 requires
   rtl,
-  dbrtl;
+  dbrtl,
+  MapLibCore;
 
 contains
-  uGMLib.Core.ApiObject in '..\src\Common\uGMLib.Core.ApiObject.pas',
-  uGMLib.Core.Bridge in '..\src\Common\uGMLib.Core.Bridge.pas',
-  uGMLib.Core.BridgeRegistry in '..\src\Common\uGMLib.Core.BridgeRegistry.pas',
-  uGMLib.Core.Component in '..\src\Common\uGMLib.Core.Component.pas',
-  uGMLib.Core.Messages in '..\src\Common\uGMLib.Core.Messages.pas',
-  uGMLib.Core.Types in '..\src\Common\uGMLib.Core.Types.pas',
-  uGMLib.BootstrapAssets in '..\src\Common\uGMLib.BootstrapAssets.pas',
-  uGMLib.CoordinatePoint in '..\src\Common\uGMLib.CoordinatePoint.pas',
-  uGMLib.Geometry in '..\src\Common\uGMLib.Geometry.pas',
-  uGMLib.Circle in '..\src\Common\uGMLib.Circle.pas',
-  uGMLib.Elevation in '..\src\Common\uGMLib.Elevation.pas',
-  uGMLib.GeoCode in '..\src\Common\uGMLib.GeoCode.pas',
-  uGMLib.InfoWindow in '..\src\Common\uGMLib.InfoWindow.pas',
-  uGMLib.GroundOverlay in '..\src\Common\uGMLib.GroundOverlay.pas',
-  uGMLib.Marker in '..\src\Common\uGMLib.Marker.pas',
-  uGMLib.Layers in '..\src\Common\uGMLib.Layers.pas',
-  uGMLib.MapOptions in '..\src\Common\uGMLib.MapOptions.pas',
-  uGMLib.Polygon in '..\src\Common\uGMLib.Polygon.pas',
-  uGMLib.Polyline in '..\src\Common\uGMLib.Polyline.pas',
-  uGMLib.Map in '..\src\Common\uGMLib.Map.pas',
-  uGMLib.Rectangle in '..\src\Common\uGMLib.Rectangle.pas',
-  uGMLib.Routes in '..\src\Common\uGMLib.Routes.pas',
-  uGMLib.Platform.Format in '..\src\Common\uGMLib.Platform.Format.pas';
+  uGMLib.Google.Types in '..\src\Common\GM\uGMLib.Google.Types.pas',
+  uGMLib.Core.Types in '..\src\Common\GM\uGMLib.Core.Types.pas',
+  uGMLib.CoordinatePoint in '..\src\Common\GM\uGMLib.CoordinatePoint.pas',
+  uGMLib.Circle in '..\src\Common\GM\uGMLib.Circle.pas',
+  uGMLib.Elevation in '..\src\Common\GM\uGMLib.Elevation.pas',
+  uGMLib.GeoCode in '..\src\Common\GM\uGMLib.GeoCode.pas',
+  uGMLib.InfoWindow in '..\src\Common\GM\uGMLib.InfoWindow.pas',
+  uGMLib.GroundOverlay in '..\src\Common\GM\uGMLib.GroundOverlay.pas',
+  uGMLib.Geometry in '..\src\Common\GM\uGMLib.Geometry.pas',
+  uGMLib.Marker in '..\src\Common\GM\uGMLib.Marker.pas',
+  uGMLib.Layers in '..\src\Common\GM\uGMLib.Layers.pas',
+  uGMLib.MapOptions in '..\src\Common\GM\uGMLib.MapOptions.pas',
+  uGMLib.Polygon in '..\src\Common\GM\uGMLib.Polygon.pas',
+  uGMLib.Polyline in '..\src\Common\GM\uGMLib.Polyline.pas',
+  uGMLib.Map in '..\src\Common\GM\uGMLib.Map.pas',
+  uGMLib.Rectangle in '..\src\Common\GM\uGMLib.Rectangle.pas',
+  uGMLib.Routes in '..\src\Common\GM\uGMLib.Routes.pas';
 
 end.
+
+
+
+

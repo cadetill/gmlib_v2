@@ -1,4 +1,4 @@
-package GMLibRuntime.Vcl;
+﻿package GMLibRuntime.Vcl;
 
 {$R *.res}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
@@ -34,18 +34,20 @@ requires
   rtl,
   vcl,
   GMLibRuntime,
-  vcledge;
+  vcledge,
+  MapLibCore;
 
 contains
-  uGMLib.Vcl.Bridge.WebView2 in '..\src\Vcl\uGMLib.Vcl.Bridge.WebView2.pas',
-  uGMLib.Vcl.InfoWindow in '..\src\Vcl\uGMLib.Vcl.InfoWindow.pas',
-  uGMLib.Vcl.Marker in '..\src\Vcl\uGMLib.Vcl.Marker.pas',
-  uGMLib.Vcl.MapBootstrap in '..\src\Vcl\uGMLib.Vcl.MapBootstrap.pas',
-  uGMLib.Vcl.Map in '..\src\Vcl\uGMLib.Vcl.Map.pas',
-  uGMLib.Vcl.MapOptions in '..\src\Vcl\uGMLib.Vcl.MapOptions.pas',
-  uGMLib.Vcl.Polygon in '..\src\Vcl\uGMLib.Vcl.Polygon.pas',
-  uGMLib.Vcl.Polyline in '..\src\Vcl\uGMLib.Vcl.Polyline.pas',
-  uGMLib.Vcl.Rectangle in '..\src\Vcl\uGMLib.Vcl.Rectangle.pas',
-  uGMLib.Vcl.Circle in '..\src\Vcl\uGMLib.Vcl.Circle.pas';
+  uGMLib.Vcl.Bridge.WebView2 in '..\src\Vcl\GM\uGMLib.Vcl.Bridge.WebView2.pas',
+  uGMLib.Vcl.InfoWindow in '..\src\Vcl\GM\uGMLib.Vcl.InfoWindow.pas',
+  uGMLib.Vcl.Marker in '..\src\Vcl\GM\uGMLib.Vcl.Marker.pas',
+  uGMLib.Vcl.MapBootstrap in '..\src\Vcl\GM\uGMLib.Vcl.MapBootstrap.pas',
+  uGMLib.Vcl.Map in '..\src\Vcl\GM\uGMLib.Vcl.Map.pas',
+  uGMLib.Vcl.MapOptions in '..\src\Vcl\GM\uGMLib.Vcl.MapOptions.pas',
+  uGMLib.Vcl.Polygon in '..\src\Vcl\GM\uGMLib.Vcl.Polygon.pas',
+  uGMLib.Vcl.Polyline in '..\src\Vcl\GM\uGMLib.Vcl.Polyline.pas',
+  uGMLib.Vcl.Rectangle in '..\src\Vcl\GM\uGMLib.Vcl.Rectangle.pas',
+  uGMLib.Vcl.Circle in '..\src\Vcl\GM\uGMLib.Vcl.Circle.pas';
 
 end.
+

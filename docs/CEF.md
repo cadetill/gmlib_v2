@@ -1,10 +1,10 @@
-# CEF Integration
+﻿# CEF Integration
 
 CEF support in GMLib is optional.
 
 It is not part of the base `GMLibRuntime.Vcl` or `GMLibRuntime.Fmx` packages because not every user has CEF4Delphi installed. The CEF bridges live as opt-in source units:
 
-- `src/Vcl/uGMLib.Vcl.Bridge.Cef.pas`
+- `src/Vcl/GM/uGMLib.Vcl.Bridge.Cef.pas`
 - `src/Fmx/uGMLib.Fmx.Bridge.Cef.pas`
 
 The base VCL package keeps the native WebView2 bridge only and the base FMX package keeps the native `TWebBrowser` bridge only. If you want CEF, you add the corresponding CEF bridge unit to your own project, together with the CEF4Delphi runtime packages.
@@ -68,3 +68,4 @@ end;
 - It is not included in the standard runtime package build.
 - If you do not use `uGMLib.Vcl.Bridge.Cef.pas` or `uGMLib.Fmx.Bridge.Cef.pas`, nothing in the base VCL/FMX packages depends on CEF.
 - The same registry-based approach is intended for future backend variants.
+

@@ -158,16 +158,17 @@
         <DCCReference Include="vcl.dcp"/>
         <DCCReference Include="GMLibRuntime.dcp"/>
         <DCCReference Include="vcledge.dcp"/>
-        <DCCReference Include="..\src\Vcl\uGMLib.Vcl.Bridge.WebView2.pas"/>
-        <DCCReference Include="..\src\Vcl\uGMLib.Vcl.InfoWindow.pas"/>
-        <DCCReference Include="..\src\Vcl\uGMLib.Vcl.Marker.pas"/>
-        <DCCReference Include="..\src\Vcl\uGMLib.Vcl.MapBootstrap.pas"/>
-        <DCCReference Include="..\src\Vcl\uGMLib.Vcl.Map.pas"/>
-        <DCCReference Include="..\src\Vcl\uGMLib.Vcl.MapOptions.pas"/>
-        <DCCReference Include="..\src\Vcl\uGMLib.Vcl.Polygon.pas"/>
-        <DCCReference Include="..\src\Vcl\uGMLib.Vcl.Polyline.pas"/>
-        <DCCReference Include="..\src\Vcl\uGMLib.Vcl.Rectangle.pas"/>
-        <DCCReference Include="..\src\Vcl\uGMLib.Vcl.Circle.pas"/>
+        <DCCReference Include="MapLibCore.dcp"/>
+        <DCCReference Include="..\src\Vcl\GM\uGMLib.Vcl.Bridge.WebView2.pas"/>
+        <DCCReference Include="..\src\Vcl\GM\uGMLib.Vcl.InfoWindow.pas"/>
+        <DCCReference Include="..\src\Vcl\GM\uGMLib.Vcl.Marker.pas"/>
+        <DCCReference Include="..\src\Vcl\GM\uGMLib.Vcl.MapBootstrap.pas"/>
+        <DCCReference Include="..\src\Vcl\GM\uGMLib.Vcl.Map.pas"/>
+        <DCCReference Include="..\src\Vcl\GM\uGMLib.Vcl.MapOptions.pas"/>
+        <DCCReference Include="..\src\Vcl\GM\uGMLib.Vcl.Polygon.pas"/>
+        <DCCReference Include="..\src\Vcl\GM\uGMLib.Vcl.Polyline.pas"/>
+        <DCCReference Include="..\src\Vcl\GM\uGMLib.Vcl.Rectangle.pas"/>
+        <DCCReference Include="..\src\Vcl\GM\uGMLib.Vcl.Circle.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

@@ -1,4 +1,4 @@
-package GMLibRuntime.Fmx;
+﻿package GMLibRuntime.Fmx;
 
 {$R *.res}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
@@ -33,18 +33,20 @@ package GMLibRuntime.Fmx;
 requires
   rtl,
   fmx,
-  GMLibRuntime;
+  GMLibRuntime,
+  MapLibCore;
 
 contains
-  uGMLib.Fmx.Bridge.WebBrowser in '..\src\Fmx\uGMLib.Fmx.Bridge.WebBrowser.pas',
-  uGMLib.Fmx.InfoWindow in '..\src\Fmx\uGMLib.Fmx.InfoWindow.pas',
-  uGMLib.Fmx.Marker in '..\src\Fmx\uGMLib.Fmx.Marker.pas',
-  uGMLib.Fmx.MapBootstrap in '..\src\Fmx\uGMLib.Fmx.MapBootstrap.pas',
-  uGMLib.Fmx.Map in '..\src\Fmx\uGMLib.Fmx.Map.pas',
-  uGMLib.Fmx.MapOptions in '..\src\Fmx\uGMLib.Fmx.MapOptions.pas',
-  uGMLib.Fmx.Polygon in '..\src\Fmx\uGMLib.Fmx.Polygon.pas',
-  uGMLib.Fmx.Polyline in '..\src\Fmx\uGMLib.Fmx.Polyline.pas',
-  uGMLib.Fmx.Rectangle in '..\src\Fmx\uGMLib.Fmx.Rectangle.pas',
-  uGMLib.Fmx.Circle in '..\src\Fmx\uGMLib.Fmx.Circle.pas';
+  uGMLib.Fmx.Bridge.WebBrowser in '..\src\Fmx\GM\uGMLib.Fmx.Bridge.WebBrowser.pas',
+  uGMLib.Fmx.InfoWindow in '..\src\Fmx\GM\uGMLib.Fmx.InfoWindow.pas',
+  uGMLib.Fmx.Marker in '..\src\Fmx\GM\uGMLib.Fmx.Marker.pas',
+  uGMLib.Fmx.MapBootstrap in '..\src\Fmx\GM\uGMLib.Fmx.MapBootstrap.pas',
+  uGMLib.Fmx.Map in '..\src\Fmx\GM\uGMLib.Fmx.Map.pas',
+  uGMLib.Fmx.MapOptions in '..\src\Fmx\GM\uGMLib.Fmx.MapOptions.pas',
+  uGMLib.Fmx.Polygon in '..\src\Fmx\GM\uGMLib.Fmx.Polygon.pas',
+  uGMLib.Fmx.Polyline in '..\src\Fmx\GM\uGMLib.Fmx.Polyline.pas',
+  uGMLib.Fmx.Rectangle in '..\src\Fmx\GM\uGMLib.Fmx.Rectangle.pas',
+  uGMLib.Fmx.Circle in '..\src\Fmx\GM\uGMLib.Fmx.Circle.pas';
 
 end.
+

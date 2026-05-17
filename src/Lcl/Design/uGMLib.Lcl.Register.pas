@@ -19,7 +19,7 @@ uses
 
 procedure Register;
 begin
-  RegisterComponents('GMLib', [TGMLibLclMap]);
+  RegisterComponents('MapLib', [TGMLibLclMap]);
 end;
 
 end.

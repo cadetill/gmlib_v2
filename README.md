@@ -1,8 +1,14 @@
-# Google Maps Library (GMLib) v2
+# Google Maps Library (GMLib) v3
 
 Google Maps Library is an open source (MPL-2.0 license) cross-platform Delphi/Lazarus wrapper for the Google Maps JavaScript API.
 
-The current codebase includes a working `TGMMap` foundation, `VCL` (TEdgeBrowser/CEF4Delphi), `FMX` (TWebBrowser/CEF4Delphi), and `LCL` (CEF4Delphi) platform adapters, a shared JavaScript bootstrap, design-time packages, demos, and several implemented slices.
+The current codebase includes:
+
+- a working Google backend (`TGMMap`) for `VCL`, `FMX`, and `LCL`
+- a provider-neutral core (`uMapLib.Core.*`)
+- provider-separated source layout (`Common/Vcl/Fmx/Lcl` split into `GM` and `OSM`)
+- design-time packages and demos
+- an initial `OSMLib` skeleton (MapLibre + OSM pilot), still in early stage
 
 GMLib was developed and tested on Delphi 11, 12 and 13, and Lazarus 4.6.
 
@@ -44,32 +50,45 @@ The following Google Maps API classes are currently implemented:
 - [google.maps.ElevationService](https://developers.google.com/maps/documentation/javascript/reference/elevation) and associated classes for requesting elevation data.
 - [google.maps.routes.Route](https://developers.google.com/maps/documentation/javascript/reference/route) and associated classes for route requests.
 
+### Multi-provider status
+
+- `MapLibCore` is already extracted and used by runtime packages.
+- `GMLib` (Google provider) is functional and organized under provider folders.
+- `OSMLib` package skeleton exists (pilot provider), but full runtime behavior is still pending.
+
 ## Demos
 
-There are demos for practically everything in VCL and FMX.
-
-There is also a full-library demo, MegaDemo, in VCL.
+- VCL includes broad feature demos and the full-library `MegaDemo`.
+- FMX includes runtime demos for the implemented Google slices.
+- LCL support is available for Google runtime with CEF4Delphi bridge path.
 
 ## How to install
 
 In Delphi:
 - Open `GMLibGroup`.
-- Compile `GMLibRuntime`, `GMLibRuntime.Vcl` and `GMLibRuntime.FMx`.
-- Compile and install `GMLibDesign.Vcl` and `GMLibDesign.FMx`.
+- Compile `MapLibCore`, `GMLibRuntime`, `GMLibRuntime.Vcl` and `GMLibRuntime.FMX`.
+- Compile and install `MapLibDesign.Vcl` (and FMX design package if used in your setup).
 - Put the corresponding path for each platform in the library path:
   `...\lib\$(ProductVersion)\$(Platform)\Delphi`
 - Put the corresponding source paths in the library path.
 
 In Lazarus:
-- Open `GMLibRuntimeGroup`.
-- Compile `GMLibRuntime`.
-- Install `GMLibDesign`.
+- Use the package files under `dpk/` as the canonical ones:
+  - `dpk/GMLibRuntime.Lcl.lpk`
+  - `dpk/GMLibDesign.Lcl.lpk`
+- Compile/install in this order:
+  1. Open and compile `GMLibRuntime.Lcl.lpk`
+  2. Open and install `GMLibDesign.Lcl.lpk`
+- If Lazarus generates `.lpk` files under `src/`, treat them as local/temporary artifacts (do not version them).
+- If package links get out of sync, ensure Lazarus points to `dpk/*.lpk` (not `src/**` copies).
 
 ## Docs
 
 - Architecture: [`docs/ARCHITECTURE.md`](/D:/cadetill/Documents/GitHub/gmlib_v2/docs/ARCHITECTURE.md)
 - CEF integration: [`docs/CEF.md`](/D:/cadetill/Documents/GitHub/gmlib_v2/docs/CEF.md)
 - Roadmap: [`docs/ROADMAP.md`](/D:/cadetill/Documents/GitHub/gmlib_v2/docs/ROADMAP.md)
+- Multi-provider plan: [`docs/MULTI_PROVIDER_PLAN.md`](/D:/cadetill/Documents/GitHub/gmlib_v2/docs/MULTI_PROVIDER_PLAN.md)
+- Shared core start: [`docs/MAPLIB_CORE_START.md`](/D:/cadetill/Documents/GitHub/gmlib_v2/docs/MAPLIB_CORE_START.md)
 
 ## Links
 

@@ -86,7 +86,11 @@ packagefiles.xml
 
 # Repository-local working notes and contributor-only guidance
 SESSION_NOTES.md
-delphi-coding-guide.md
+AGENTS.md
+
+# Lazarus package files are kept canonical under dpk/.
+# Ignore auto-generated duplicates under src/.
+src/**/*.lpk
 
 # Legacy and archival material not intended for the public component package
 Help/
