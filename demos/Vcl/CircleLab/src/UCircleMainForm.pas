@@ -1,4 +1,4 @@
-unit UCircleMainForm;
+﻿unit UCircleMainForm;
 
 interface
 
@@ -52,17 +52,17 @@ type
     procedure FitCircleToView(const ACircle: TGMVclCircleItem);
     function GetOrCreatePrimaryCircle: TGMVclCircleItem;
     procedure HandleCircleCenterChanged(Sender: TObject);
-    procedure HandleCircleClick(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleCircleContextMenu(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleCircleDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure HandleCircleClick(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleCircleContextMenu(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleCircleDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure HandleCircleDrag(Sender: TObject);
     procedure HandleCircleDragEnd(Sender: TObject);
     procedure HandleCircleDragStart(Sender: TObject);
-    procedure HandleCircleMouseDown(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleCircleMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleCircleMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleCircleMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleCircleMouseUp(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure HandleCircleMouseDown(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleCircleMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleCircleMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleCircleMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleCircleMouseUp(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure HandleCircleRadiusChanged(Sender: TObject);
     procedure HandleCirclesChanged(Sender: TObject);
     procedure HandleMapReady(Sender: TObject);
@@ -122,7 +122,7 @@ end;
 procedure TMainForm.ApplyButtonClick(Sender: TObject);
 var
   Circle: TGMVclCircleItem;
-  Center: TGMLibLatLng;
+  Center: TMapLibLatLng;
   CenterLat: Double;
   CenterLng: Double;
   Radius: Double;
@@ -174,7 +174,7 @@ begin
     Circle.Options.Visible := FVisibleCheck.Checked;
     Circle.Options.FillColor := clRed;
     Circle.Options.StrokeColor := clBlack;
-    Center := TGMLibLatLng.Create(CenterLat, CenterLng);
+    Center := TMapLibLatLng.Create(CenterLat, CenterLng);
     try
       Circle.Options.Center := Center;
     finally
@@ -296,7 +296,7 @@ procedure TMainForm.CenterMapButtonClick(Sender: TObject);
 var
   CenterLat: Double;
   CenterLng: Double;
-  Center: TGMLibLatLng;
+  Center: TMapLibLatLng;
 begin
   if not TryReadFloat(FCenterLatEdit, CenterLat) then
   begin
@@ -310,7 +310,7 @@ begin
     Exit;
   end;
 
-  Center := TGMLibLatLng.Create(CenterLat, CenterLng);
+  Center := TMapLibLatLng.Create(CenterLat, CenterLng);
   try
     FMap.CenterMapTo(Center);
   finally
@@ -377,21 +377,21 @@ begin
      FloatToStr(Circle.Options.Center.Lng, TFormatSettings.Invariant)]));
 end;
 
-procedure TMainForm.HandleCircleClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleCircleClick(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle click at %s, %s',
     [FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
      FloatToStr(ALatLng.Lng, TFormatSettings.Invariant)]));
 end;
 
-procedure TMainForm.HandleCircleContextMenu(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleCircleContextMenu(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle context menu at %s, %s',
     [FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
      FloatToStr(ALatLng.Lng, TFormatSettings.Invariant)]));
 end;
 
-procedure TMainForm.HandleCircleDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleCircleDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle double click at %s, %s',
     [FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
@@ -413,35 +413,35 @@ begin
   Log('Circle drag start.');
 end;
 
-procedure TMainForm.HandleCircleMouseDown(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleCircleMouseDown(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle mouse down at %s, %s',
     [FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
      FloatToStr(ALatLng.Lng, TFormatSettings.Invariant)]));
 end;
 
-procedure TMainForm.HandleCircleMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleCircleMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle mouse move at %s, %s',
     [FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
      FloatToStr(ALatLng.Lng, TFormatSettings.Invariant)]));
 end;
 
-procedure TMainForm.HandleCircleMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleCircleMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle mouse out at %s, %s',
     [FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
      FloatToStr(ALatLng.Lng, TFormatSettings.Invariant)]));
 end;
 
-procedure TMainForm.HandleCircleMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleCircleMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle mouse over at %s, %s',
     [FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
      FloatToStr(ALatLng.Lng, TFormatSettings.Invariant)]));
 end;
 
-procedure TMainForm.HandleCircleMouseUp(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleCircleMouseUp(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle mouse up at %s, %s',
     [FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
@@ -476,7 +476,7 @@ end;
 
 procedure TMainForm.InitializeDefaults;
 var
-  Center: TGMLibLatLng;
+  Center: TMapLibLatLng;
 begin
   FMap.APIKey := GetEnvironmentVariable('GOOGLE_MAPS_API_KEY');
   FMap.Options.MapId := TGMMapId(GetEnvironmentVariable('GOOGLE_MAPS_MAP_ID'));
@@ -484,7 +484,7 @@ begin
     FMap.Options.MapId := 'DEMO_MAP_ID';
 
   PopulateSampleInputs;
-  Center := TGMLibLatLng.Create(33.678, -116.2425);
+  Center := TMapLibLatLng.Create(33.678, -116.2425);
   try
     FMap.Options.Center := Center;
   finally
@@ -559,3 +559,4 @@ begin
 end;
 
 end.
+

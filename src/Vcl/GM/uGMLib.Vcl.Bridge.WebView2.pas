@@ -1,4 +1,4 @@
-﻿{**
+{**
   @abstract(Esqueleto inicial del bridge WebView2 para VCL.)
   @author(Xavier Martinez (cadetill) <cadetill@gmail.com>)
 

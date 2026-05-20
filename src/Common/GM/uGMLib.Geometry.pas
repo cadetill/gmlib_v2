@@ -26,18 +26,18 @@ type
   {** @abstract(Helpers geodesicos independientes del runtime JS.) }
   TGMGeometry = class
   public
-    class function ComputeDistanceBetween(const AFrom, ATo: TGMLibLatLng;
+    class function ComputeDistanceBetween(const AFrom, ATo: TMapLibLatLng;
       ARadiusMeters: Double = 6378137): Double;
-    class function ComputeHeading(const AFrom, ATo: TGMLibLatLng): Double;
-    class function ComputeOffset(const AFrom: TGMLibLatLng; ADistanceMeters,
-      AHeadingDegrees: Double; ARadiusMeters: Double = 6378137): TGMLibLatLng;
-    class function Interpolate(const AFrom, ATo: TGMLibLatLng;
-      AFraction: Double): TGMLibLatLng;
-    class function ContainsLocation(const APoint: TGMLibLatLng;
+    class function ComputeHeading(const AFrom, ATo: TMapLibLatLng): Double;
+    class function ComputeOffset(const AFrom: TMapLibLatLng; ADistanceMeters,
+      AHeadingDegrees: Double; ARadiusMeters: Double = 6378137): TMapLibLatLng;
+    class function Interpolate(const AFrom, ATo: TMapLibLatLng;
+      AFraction: Double): TMapLibLatLng;
+    class function ContainsLocation(const APoint: TMapLibLatLng;
       APolygon: TGMPolygonPath): Boolean;
-    class function IsLocationOnEdge(const APoint: TGMLibLatLng;
+    class function IsLocationOnEdge(const APoint: TMapLibLatLng;
       APolyline: TGMPolylinePath; AToleranceMeters: Double = 1.0): Boolean; overload;
-    class function IsLocationOnEdge(const APoint: TGMLibLatLng;
+    class function IsLocationOnEdge(const APoint: TMapLibLatLng;
       APolygon: TGMPolygonPath; AToleranceMeters: Double = 1.0): Boolean; overload;
   end;
 
@@ -94,7 +94,7 @@ begin
   ALng := Point.Lng;
 end;
 
-function CrossTrackDistanceMeters(const APoint, AStart, AEnd: TGMLibLatLng): Double;
+function CrossTrackDistanceMeters(const APoint, AStart, AEnd: TMapLibLatLng): Double;
 var
   Dist13: Double;
   Heading13: Double;
@@ -111,7 +111,7 @@ begin
   Result := Abs(CrossTrackRadians) * EARTH_RADIUS_METERS;
 end;
 
-function DistancePointToSegmentMeters(const APoint, AStart, AEnd: TGMLibLatLng): Double;
+function DistancePointToSegmentMeters(const APoint, AStart, AEnd: TMapLibLatLng): Double;
 var
   DistAB: Double;
   DistAP: Double;
@@ -146,7 +146,7 @@ end;
 
 { TGMGeometry }
 
-class function TGMGeometry.ComputeDistanceBetween(const AFrom, ATo: TGMLibLatLng;
+class function TGMGeometry.ComputeDistanceBetween(const AFrom, ATo: TMapLibLatLng;
   ARadiusMeters: Double): Double;
 var
   Lat1: Double;
@@ -167,7 +167,7 @@ begin
   Result := 2 * ARadiusMeters * ArcTan2(Sqrt(Clamp(A, 0, 1)), Sqrt(Clamp(1 - A, 0, 1)));
 end;
 
-class function TGMGeometry.ComputeHeading(const AFrom, ATo: TGMLibLatLng): Double;
+class function TGMGeometry.ComputeHeading(const AFrom, ATo: TMapLibLatLng): Double;
 var
   Lat1: Double;
   Lat2: Double;
@@ -187,8 +187,8 @@ begin
   Result := RadToDegValue(ArcTan2(Y, X));
 end;
 
-class function TGMGeometry.ComputeOffset(const AFrom: TGMLibLatLng; ADistanceMeters,
-  AHeadingDegrees: Double; ARadiusMeters: Double): TGMLibLatLng;
+class function TGMGeometry.ComputeOffset(const AFrom: TMapLibLatLng; ADistanceMeters,
+  AHeadingDegrees: Double; ARadiusMeters: Double): TMapLibLatLng;
 var
   Lat1: Double;
   Lng1: Double;
@@ -219,11 +219,11 @@ begin
   );
   Lng2 := ArcTan2(Sin(Lng2), Cos(Lng2));
 
-  Result := TGMLibLatLng.Create(RadToDegValue(Lat2), RadToDegValue(Lng2));
+  Result := TMapLibLatLng.Create(RadToDegValue(Lat2), RadToDegValue(Lng2));
 end;
 
-class function TGMGeometry.Interpolate(const AFrom, ATo: TGMLibLatLng;
-  AFraction: Double): TGMLibLatLng;
+class function TGMGeometry.Interpolate(const AFrom, ATo: TMapLibLatLng;
+  AFraction: Double): TMapLibLatLng;
 var
   Lat1: Double;
   Lng1: Double;
@@ -244,10 +244,10 @@ begin
     Exit(nil);
 
   if AFraction <= 0 then
-    Exit(TGMLibLatLng.Create(AFrom.Lat, AFrom.Lng));
+    Exit(TMapLibLatLng.Create(AFrom.Lat, AFrom.Lng));
 
   if AFraction >= 1 then
-    Exit(TGMLibLatLng.Create(ATo.Lat, ATo.Lng));
+    Exit(TMapLibLatLng.Create(ATo.Lat, ATo.Lng));
 
   Lat1 := DegToRadValue(AFrom.Lat);
   Lng1 := DegToRadValue(AFrom.Lng);
@@ -267,7 +267,7 @@ begin
   );
 
   if SameValue(Delta, 0) then
-    Exit(TGMLibLatLng.Create(AFrom.Lat, AFrom.Lng));
+    Exit(TMapLibLatLng.Create(AFrom.Lat, AFrom.Lng));
 
   A := Sin((1 - AFraction) * Delta) / Sin(Delta);
   B := Sin(AFraction * Delta) / Sin(Delta);
@@ -276,13 +276,13 @@ begin
   Y := A * CosLat1 * Sin(Lng1) + B * CosLat2 * Sin(Lng2);
   Z := A * SinLat1 + B * SinLat2;
 
-  Result := TGMLibLatLng.Create(
+  Result := TMapLibLatLng.Create(
     RadToDegValue(ArcTan2(Z, Sqrt(Sqr(X) + Sqr(Y)))),
     RadToDegValue(ArcTan2(Y, X))
   );
 end;
 
-class function TGMGeometry.ContainsLocation(const APoint: TGMLibLatLng;
+class function TGMGeometry.ContainsLocation(const APoint: TMapLibLatLng;
   APolygon: TGMPolygonPath): Boolean;
 var
   I: Integer;
@@ -327,7 +327,7 @@ begin
   end;
 end;
 
-class function TGMGeometry.IsLocationOnEdge(const APoint: TGMLibLatLng;
+class function TGMGeometry.IsLocationOnEdge(const APoint: TMapLibLatLng;
   APolyline: TGMPolylinePath; AToleranceMeters: Double): Boolean;
 var
   I: Integer;
@@ -335,8 +335,8 @@ var
   StartLng: Double;
   EndLat: Double;
   EndLng: Double;
-  StartPoint: TGMLibLatLng;
-  EndPoint: TGMLibLatLng;
+  StartPoint: TMapLibLatLng;
+  EndPoint: TMapLibLatLng;
 begin
   Result := False;
   if not Assigned(APoint) or not Assigned(APolyline) or (APolyline.Count < 2) then
@@ -354,8 +354,8 @@ begin
       if not TryGetPathPoint(APolyline, I + 1, EndLat, EndLng) then
         Continue;
 
-      StartPoint := TGMLibLatLng.Create(StartLat, StartLng);
-      EndPoint := TGMLibLatLng.Create(EndLat, EndLng);
+      StartPoint := TMapLibLatLng.Create(StartLat, StartLng);
+      EndPoint := TMapLibLatLng.Create(EndLat, EndLng);
       if DistancePointToSegmentMeters(APoint, StartPoint, EndPoint) <= AToleranceMeters then
         Exit(True);
 
@@ -368,7 +368,7 @@ begin
   end;
 end;
 
-class function TGMGeometry.IsLocationOnEdge(const APoint: TGMLibLatLng;
+class function TGMGeometry.IsLocationOnEdge(const APoint: TMapLibLatLng;
   APolygon: TGMPolygonPath; AToleranceMeters: Double): Boolean;
 var
   I: Integer;
@@ -376,8 +376,8 @@ var
   StartLng: Double;
   EndLat: Double;
   EndLng: Double;
-  StartPoint: TGMLibLatLng;
-  EndPoint: TGMLibLatLng;
+  StartPoint: TMapLibLatLng;
+  EndPoint: TMapLibLatLng;
 begin
   Result := False;
   if not Assigned(APoint) or not Assigned(APolygon) or (APolygon.Count < 2) then
@@ -393,8 +393,8 @@ begin
       if not TryGetPathPoint(APolygon, I + 1, EndLat, EndLng) then
         Continue;
 
-      StartPoint := TGMLibLatLng.Create(StartLat, StartLng);
-      EndPoint := TGMLibLatLng.Create(EndLat, EndLng);
+      StartPoint := TMapLibLatLng.Create(StartLat, StartLng);
+      EndPoint := TMapLibLatLng.Create(EndLat, EndLng);
       if DistancePointToSegmentMeters(APoint, StartPoint, EndPoint) <= AToleranceMeters then
         Exit(True);
       FreeAndNil(StartPoint);
@@ -406,8 +406,8 @@ begin
       if TryGetPathPoint(APolygon, APolygon.Count - 1, StartLat, StartLng) and
          TryGetPathPoint(APolygon, 0, EndLat, EndLng) then
       begin
-        StartPoint := TGMLibLatLng.Create(StartLat, StartLng);
-        EndPoint := TGMLibLatLng.Create(EndLat, EndLng);
+        StartPoint := TMapLibLatLng.Create(StartLat, StartLng);
+        EndPoint := TMapLibLatLng.Create(EndLat, EndLng);
         if DistancePointToSegmentMeters(APoint, StartPoint, EndPoint) <= AToleranceMeters then
           Exit(True);
       end;
@@ -419,4 +419,7 @@ begin
 end;
 
 end.
+
+
+
 

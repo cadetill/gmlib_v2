@@ -1,5 +1,5 @@
 {**
-  @abstract(Soporte de composiciÃ³n del bootstrap VCL para OSMLib/MapLibre.)
+  @abstract(Soporte de composición del bootstrap VCL para OSMLib/MapLibre.)
 }
 unit uOSMLib.Vcl.MapBootstrap;
 
@@ -49,7 +49,9 @@ begin
 
   Result := htmlTemplate;
   Result := StringReplace(Result, '{{OSMLIB_MAP_SCRIPT}}', mapScript, [rfReplaceAll]);
-  Result := StringReplace(Result, '{{MAPLIBRE_STYLE_URL}}', GetOSMMapStyleUrl(AMap), [rfReplaceAll]);
+  Result := StringReplace(Result, '{{OSMLIB_BOOTSTRAP_CONFIG}}', AMap.BuildJsBootstrapConfig, [rfReplaceAll]);
+  Result := StringReplace(Result, '{{MAPLIBRE_CSS_URL}}', GetOSMMapLibreCssUrl(AMap), [rfReplaceAll]);
+  Result := StringReplace(Result, '{{MAPLIBRE_JS_URL}}', GetOSMMapLibreJsUrl(AMap), [rfReplaceAll]);
 end;
 
 class function TOSMLibMapBootstrap.BuildTemplateFallback: string;
@@ -61,23 +63,18 @@ begin
     '  <meta charset="utf-8">' +
     '  <meta name="viewport" content="width=device-width, initial-scale=1.0">' +
     '  <title>OSMLib Map</title>' +
-    '  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.css">' +
+    '  <link rel="stylesheet" href="{{MAPLIBRE_CSS_URL}}">' +
     '  <style>html, body, #osmlib-map { width: 100%; height: 100%; margin: 0; padding: 0; }</style>' +
     '</head>' +
     '<body>' +
     '  <div id="osmlib-map"></div>' +
-    '  <script src="https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.js"></script>' +
     '  <script>{{OSMLIB_MAP_SCRIPT}}</script>' +
     '  <script>' +
     '    window.osmlibBootstrap = function () {' +
-    '      window.osmlib.bootstrap({' +
-    '        styleUrl: "{{MAPLIBRE_STYLE_URL}}"' +
-    '      });' +
+    '      window.osmlib.bootstrap({{OSMLIB_BOOTSTRAP_CONFIG}});' +
     '    };' +
-    '    if (window.maplibregl) {' +
-    '      window.osmlibBootstrap();' +
-    '    }' +
     '  </script>' +
+    '  <script src="{{MAPLIBRE_JS_URL}}" onload="window.osmlibBootstrap()"></script>' +
     '</body>' +
     '</html>';
 end;

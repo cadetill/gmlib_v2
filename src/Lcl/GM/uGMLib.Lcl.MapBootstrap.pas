@@ -1,4 +1,4 @@
-﻿{**
+{**
   @abstract(Soporte de carga y composiciÃ³n del bootstrap LCL del mapa.)
   @author(Xavier Martinez (cadetill) <cadetill@gmail.com>)
 
@@ -42,6 +42,19 @@ var
   mapScriptPath: string;
   mapScript: string;
 begin
+{$IFDEF MAP_BOOTSTRAP_FROM_FILES}
+  htmlTemplatePath := TGMLibBootstrapAssets.ResolveResourceFile('resources\js\common\gmlib.map.html');
+  if FileExists(htmlTemplatePath) then
+    htmlTemplate := TGMLibBootstrapAssets.LoadTextFile(htmlTemplatePath)
+  else
+    htmlTemplate := BuildTemplateFallback;
+
+  mapScriptPath := TGMLibBootstrapAssets.ResolveResourceFile('resources\js\common\gmlib.map.js');
+  if FileExists(mapScriptPath) then
+    mapScript := TGMLibBootstrapAssets.LoadTextFile(mapScriptPath)
+  else
+    mapScript := '';
+{$ELSE}
   htmlTemplatePath := TGMLibBootstrapAssets.EnsureAssetFile('gmlib.map.html',
     'GMLIB_MAP_HTML', 'resources\js\common\gmlib.map.html');
   if htmlTemplatePath <> '' then
@@ -55,6 +68,7 @@ begin
     mapScript := TGMLibBootstrapAssets.LoadTextFile(mapScriptPath)
   else
     mapScript := '';
+{$ENDIF}
   if mapScript = '' then
     raise Exception.Create('Map JavaScript resource "resources\js\common\gmlib.map.js" was not found.');
 
@@ -130,4 +144,3 @@ begin
 end;
 
 end.
-

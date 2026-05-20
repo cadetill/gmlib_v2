@@ -1,0 +1,212 @@
+{
+  "version": 8,
+  "name": "OSMLib Offline Spain (Detailed, No Glyphs)",
+  "glyphs": "http://127.0.0.1:8090/fonts/{fontstack}/{range}.pbf",
+  "sources": {
+    "spain": {
+      "type": "vector",
+      "url": "http://127.0.0.1:8080/spain.json"
+    }
+  },
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#eef2f6"
+      }
+    },
+    {
+      "id": "earth",
+      "type": "fill",
+      "source": "spain",
+      "source-layer": "earth",
+      "paint": {
+        "fill-color": "#eef2e8"
+      }
+    },
+    {
+      "id": "landcover",
+      "type": "fill",
+      "source": "spain",
+      "source-layer": "landcover",
+      "paint": {
+        "fill-color": "#dce9d1",
+        "fill-opacity": 0.7
+      }
+    },
+    {
+      "id": "landuse",
+      "type": "fill",
+      "source": "spain",
+      "source-layer": "landuse",
+      "paint": {
+        "fill-color": "#e8eddc",
+        "fill-opacity": 0.45
+      }
+    },
+    {
+      "id": "water",
+      "type": "fill",
+      "source": "spain",
+      "source-layer": "water",
+      "paint": {
+        "fill-color": "#9ec9ff",
+        "fill-opacity": 0.95
+      }
+    },
+    {
+      "id": "boundaries",
+      "type": "line",
+      "source": "spain",
+      "source-layer": "boundaries",
+      "paint": {
+        "line-color": "#8f98a6",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          3, 0.3,
+          8, 0.8,
+          14, 1.4
+        ],
+        "line-dasharray": [2, 2]
+      }
+    },
+    {
+      "id": "roads-casing",
+      "type": "line",
+      "source": "spain",
+      "source-layer": "roads",
+      "paint": {
+        "line-color": "#c8c2b8",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          3, 0.4,
+          8, 1.6,
+          12, 3.8,
+          15, 8.5
+        ],
+        "line-opacity": 0.85
+      }
+    },
+    {
+      "id": "roads-fill",
+      "type": "line",
+      "source": "spain",
+      "source-layer": "roads",
+      "paint": {
+        "line-color": "#ffffff",
+        "line-width": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          3, 0.2,
+          8, 1.0,
+          12, 2.6,
+          15, 6.2
+        ],
+        "line-opacity": 0.95
+      }
+    },
+    {
+      "id": "buildings",
+      "type": "fill",
+      "source": "spain",
+      "source-layer": "buildings",
+      "minzoom": 11,
+      "paint": {
+        "fill-color": "#d7d0c4",
+        "fill-outline-color": "#c1b9ad",
+        "fill-opacity": 0.85
+      }
+    },
+    {
+      "id": "places-dots",
+      "type": "circle",
+      "source": "spain",
+      "source-layer": "places",
+      "paint": {
+        "circle-color": "#3f4d63",
+        "circle-radius": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          3, 1.2,
+          8, 2.4,
+          12, 3.4
+        ],
+        "circle-opacity": 0.8
+      }
+    },
+    {
+      "id": "pois-dots",
+      "type": "circle",
+      "source": "spain",
+      "source-layer": "pois",
+      "minzoom": 10,
+      "paint": {
+        "circle-color": "#8b5a2b",
+        "circle-radius": 1.8,
+        "circle-opacity": 0.65
+      }
+    },
+    {
+      "id": "places-labels",
+      "type": "symbol",
+      "source": "spain",
+      "source-layer": "places",
+      "layout": {
+        "text-field": [
+          "coalesce",
+          ["get", "name:es"],
+          ["get", "name"],
+          ["get", "name_en"]
+        ],
+        "text-font": ["Noto Sans Regular"],
+        "text-size": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          4, 10,
+          8, 12,
+          12, 14
+        ],
+        "text-variable-anchor": ["center", "top", "bottom", "left", "right"],
+        "text-radial-offset": 0.5,
+        "text-justify": "auto"
+      },
+      "paint": {
+        "text-color": "#263248",
+        "text-halo-color": "#f6f8fb",
+        "text-halo-width": 1.2
+      }
+    },
+    {
+      "id": "roads-labels",
+      "type": "symbol",
+      "source": "spain",
+      "source-layer": "roads",
+      "minzoom": 10,
+      "layout": {
+        "symbol-placement": "line",
+        "text-field": [
+          "coalesce",
+          ["get", "name:es"],
+          ["get", "name"],
+          ["get", "name_en"]
+        ],
+        "text-font": ["Noto Sans Regular"],
+        "text-size": 10,
+        "text-letter-spacing": 0.02
+      },
+      "paint": {
+        "text-color": "#51607a",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 1
+      }
+    }
+  ]
+}

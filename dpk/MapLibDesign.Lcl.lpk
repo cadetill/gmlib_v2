@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="5">
-    <Name Value="GMLibDesign.Lcl"/>
+    <Name Value="MapLibDesign.Lcl"/>
     <Type Value="RunAndDesignTime"/>
     <Version Major="2"/>
     <CompilerOptions>
@@ -14,7 +14,7 @@
         <CustomOptions Value="$(IDEBuildOptions)"/>
       </Other>
     </CompilerOptions>
-    <Description Value="GMLib Design-Time LCL Package"/>
+    <Description Value="MapLib Design-Time LCL Package"/>
     <Files Count="1">
       <Item1>
         <Filename Value="../src/Lcl/Design/uGMLib.Lcl.Register.pas"/>

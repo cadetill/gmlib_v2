@@ -38,3 +38,14 @@ Las demos que usan marcadores leen además `GOOGLE_MAPS_MAP_ID` si existe.
 Las opciones `ColorScheme`, `ControlSize`, `MapId` y `RenderingType` son de inicialización y no deben cambiarse después de activar el mapa.
 
 Las demos VCL con `TEdgeBrowser` incluyen ya varios ajustes de compatibilidad para `Delphi 11` evitando acceso directo a propiedades no presentes en versiones antiguas del componente.
+
+## OSM offline (MegaDemo)
+
+La pestaña OSM de `Vcl/MegaDemo` intenta arrancar en modo offline si encuentra
+estos ficheros locales:
+
+- `resources/js/osm/vendor/maplibre-gl.css`
+- `resources/js/osm/vendor/maplibre-gl.js`
+- `resources/js/osm/offline/style.json`
+
+Si falta alguno, queda registrado en el log de la demo.

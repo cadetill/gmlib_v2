@@ -1,4 +1,4 @@
-﻿{**
+{**
   @abstract(Transporte FMX mínimo basado en @code(TWebBrowser).)
   @author(Xavier Martinez (cadetill) <cadetill@gmail.com>)
 
@@ -27,7 +27,7 @@ uses
 
 type
   {** @abstract(Implementación inicial del transporte FMX con @code(TWebBrowser).) }
-  TGMLibFmxWebBrowserBridge = class(TInterfacedObject, IMapBridgeTransport)
+  TGMLibFmxWebBrowserBridge = class(TInterfacedObject, IMapBridgeTransport, IMapBridgeJavaScriptNamespace)
   private const
     cMessagePrefix = 'https://gmlib.local/__gmlib_message__?';
   private
@@ -43,6 +43,7 @@ type
     FPollTimer: TTimer;
     FCommandQueue: TList<string>;
     FFlushInProgress: Boolean;
+    FJavaScriptNamespace: string;
     function GetPollInterval: Integer;
     procedure SetPollInterval(const Value: Integer);
     procedure DoDidFinishLoad(ASender: TObject);
@@ -55,6 +56,8 @@ type
     procedure PollMessageQueue;
     procedure FlushPendingJavaScripts;
     function TryExtractMessageJson(const AUrl: string; out AJson: string): Boolean;
+    procedure SetJavaScriptNamespace(const ANamespace: string);
+    function GetJavaScriptNamespace: string;
   protected
     function GetBackend: TGMBridgeBackend;
     function GetIsReady: Boolean;
@@ -118,6 +121,7 @@ end;
 constructor TGMLibFmxWebBrowserBridge.Create(ABrowser: TWebBrowser);
 begin
   inherited Create;
+  FJavaScriptNamespace := 'gmlib';
   FPollTimer := TTimer.Create(nil);
   FPollTimer.Enabled := False;
   FPollTimer.Interval := 100;
@@ -259,7 +263,7 @@ end;
 procedure TGMLibFmxWebBrowserBridge.PostCommand(const AEnvelope: TMapLibMessageEnvelope);
 begin
   ExecuteJavaScript(
-    Format('window.gmlib.receiveCommand(%s);', [AEnvelope.ToJson])
+    Format('window.%s.receiveCommand(%s);', [FJavaScriptNamespace, AEnvelope.ToJson])
   );
 end;
 
@@ -304,9 +308,9 @@ begin
   FPollInFlight := True;
   FBrowser.EvaluateJavaScript(
     '(function(){' +
-    '  if (!window.gmlib || !window.gmlib.__messageQueue) { return JSON.stringify([]); }' +
-    '  var items = window.gmlib.__messageQueue.slice();' +
-    '  window.gmlib.__messageQueue = [];' +
+    Format('  if (!window.%0:s || !window.%0:s.__messageQueue) { return JSON.stringify([]); }', [FJavaScriptNamespace]) +
+    Format('  var items = window.%0:s.__messageQueue.slice();', [FJavaScriptNamespace]) +
+    Format('  window.%0:s.__messageQueue = [];', [FJavaScriptNamespace]) +
     '  return JSON.stringify(items);' +
     '})()',
     procedure(const AResult: string)
@@ -338,6 +342,19 @@ begin
     end
   );
 {$IFEND}
+end;
+
+function TGMLibFmxWebBrowserBridge.GetJavaScriptNamespace: string;
+begin
+  Result := FJavaScriptNamespace;
+end;
+
+procedure TGMLibFmxWebBrowserBridge.SetJavaScriptNamespace(const ANamespace: string);
+begin
+  if Trim(ANamespace) = '' then
+    FJavaScriptNamespace := 'gmlib'
+  else
+    FJavaScriptNamespace := Trim(ANamespace);
 end;
 
 procedure TGMLibFmxWebBrowserBridge.SetOnMessageReceived(

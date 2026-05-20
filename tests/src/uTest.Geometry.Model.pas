@@ -1,4 +1,4 @@
-{**
+﻿{**
   @abstract(Pruebas automaticas de los helpers geometricos de GMLib.)
 }
 unit uTest.Geometry.Model;
@@ -42,12 +42,12 @@ uses
 
 procedure TTestGeometryModel.ComputeDistanceBetween_ReturnsExpectedDistanceForOneDegreeAtEquator;
 var
-  FromPoint: TGMLibLatLng;
-  ToPoint: TGMLibLatLng;
+  FromPoint: TMapLibLatLng;
+  ToPoint: TMapLibLatLng;
   Distance: Double;
 begin
-  FromPoint := TGMLibLatLng.Create(0, 0);
-  ToPoint := TGMLibLatLng.Create(0, 1);
+  FromPoint := TMapLibLatLng.Create(0, 0);
+  ToPoint := TMapLibLatLng.Create(0, 1);
   try
     Distance := TGMGeometry.ComputeDistanceBetween(FromPoint, ToPoint);
 
@@ -60,13 +60,13 @@ end;
 
 procedure TTestGeometryModel.ComputeHeading_ReturnsExpectedCardinalHeadings;
 var
-  FromPoint: TGMLibLatLng;
-  EastPoint: TGMLibLatLng;
-  NorthPoint: TGMLibLatLng;
+  FromPoint: TMapLibLatLng;
+  EastPoint: TMapLibLatLng;
+  NorthPoint: TMapLibLatLng;
 begin
-  FromPoint := TGMLibLatLng.Create(0, 0);
-  EastPoint := TGMLibLatLng.Create(0, 1);
-  NorthPoint := TGMLibLatLng.Create(1, 0);
+  FromPoint := TMapLibLatLng.Create(0, 0);
+  EastPoint := TMapLibLatLng.Create(0, 1);
+  NorthPoint := TMapLibLatLng.Create(1, 0);
   try
     Assert.AreEqual(90.0, TGMGeometry.ComputeHeading(FromPoint, EastPoint), 0.01);
     Assert.AreEqual(0.0, TGMGeometry.ComputeHeading(FromPoint, NorthPoint), 0.01);
@@ -79,10 +79,10 @@ end;
 
 procedure TTestGeometryModel.ComputeOffset_ShiftsPointAlongBearing;
 var
-  FromPoint: TGMLibLatLng;
-  OffsetPoint: TGMLibLatLng;
+  FromPoint: TMapLibLatLng;
+  OffsetPoint: TMapLibLatLng;
 begin
-  FromPoint := TGMLibLatLng.Create(0, 0);
+  FromPoint := TMapLibLatLng.Create(0, 0);
   try
     OffsetPoint := TGMGeometry.ComputeOffset(FromPoint, 111319.4908, 90.0);
     try
@@ -98,12 +98,12 @@ end;
 
 procedure TTestGeometryModel.Interpolate_ReturnsMidpointForHalfFraction;
 var
-  FromPoint: TGMLibLatLng;
-  ToPoint: TGMLibLatLng;
-  MidPoint: TGMLibLatLng;
+  FromPoint: TMapLibLatLng;
+  ToPoint: TMapLibLatLng;
+  MidPoint: TMapLibLatLng;
 begin
-  FromPoint := TGMLibLatLng.Create(0, 0);
-  ToPoint := TGMLibLatLng.Create(0, 2);
+  FromPoint := TMapLibLatLng.Create(0, 0);
+  ToPoint := TMapLibLatLng.Create(0, 2);
   try
     MidPoint := TGMGeometry.Interpolate(FromPoint, ToPoint, 0.5);
     try
@@ -121,12 +121,12 @@ end;
 procedure TTestGeometryModel.ContainsLocation_ReturnsTrueInsideSimplePolygon;
 var
   Polygon: TGMPolygonPath;
-  InsidePoint: TGMLibLatLng;
-  OutsidePoint: TGMLibLatLng;
+  InsidePoint: TMapLibLatLng;
+  OutsidePoint: TMapLibLatLng;
 begin
   Polygon := TGMPolygonPath.Create(nil);
-  InsidePoint := TGMLibLatLng.Create(1, 1);
-  OutsidePoint := TGMLibLatLng.Create(3, 3);
+  InsidePoint := TMapLibLatLng.Create(1, 1);
+  OutsidePoint := TMapLibLatLng.Create(3, 3);
   try
     Polygon.Add(0, 0);
     Polygon.Add(0, 2);
@@ -145,12 +145,12 @@ end;
 procedure TTestGeometryModel.IsLocationOnEdge_ReturnsTrueForPointOnPolyline;
 var
   Polyline: TGMPolylinePath;
-  OnEdgePoint: TGMLibLatLng;
-  OffEdgePoint: TGMLibLatLng;
+  OnEdgePoint: TMapLibLatLng;
+  OffEdgePoint: TMapLibLatLng;
 begin
   Polyline := TGMPolylinePath.Create(nil);
-  OnEdgePoint := TGMLibLatLng.Create(0, 1);
-  OffEdgePoint := TGMLibLatLng.Create(1, 1);
+  OnEdgePoint := TMapLibLatLng.Create(0, 1);
+  OffEdgePoint := TMapLibLatLng.Create(1, 1);
   try
     Polyline.Add(0, 0);
     Polyline.Add(0, 2);
@@ -165,3 +165,4 @@ begin
 end;
 
 end.
+

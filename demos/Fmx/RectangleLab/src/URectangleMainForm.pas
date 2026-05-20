@@ -1,4 +1,4 @@
-unit URectangleMainForm;
+﻿unit URectangleMainForm;
 
 interface
 
@@ -197,14 +197,14 @@ end;
 
 procedure TMainForm.InitializeDefaults;
 var
-  Center: TGMLibLatLng;
+  Center: TMapLibLatLng;
 begin
   FMap.APIKey := GetEnvironmentVariable('GOOGLE_MAPS_API_KEY');
   FMap.Options.MapId := TGMMapId(GetEnvironmentVariable('GOOGLE_MAPS_MAP_ID'));
   if FMap.Options.MapId = '' then
     FMap.Options.MapId := 'DEMO_MAP_ID';
 
-  Center := TGMLibLatLng.Create(33.678, -116.2425);
+  Center := TMapLibLatLng.Create(33.678, -116.2425);
   try
     FMap.Options.Center := Center;
   finally
@@ -238,3 +238,4 @@ begin
 end;
 
 end.
+

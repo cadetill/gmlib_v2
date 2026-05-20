@@ -1,4 +1,4 @@
-unit UCircleMainForm;
+﻿unit UCircleMainForm;
 
 interface
 
@@ -57,17 +57,17 @@ type
     procedure ConfigureBrowser;
     function GetOrCreatePrimaryCircle: TGMFmxCircleItem;
     procedure HandleCircleCenterChanged(Sender: TObject);
-    procedure HandleCircleClick(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleCircleContextMenu(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleCircleDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure HandleCircleClick(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleCircleContextMenu(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleCircleDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure HandleCircleDrag(Sender: TObject);
     procedure HandleCircleDragEnd(Sender: TObject);
     procedure HandleCircleDragStart(Sender: TObject);
-    procedure HandleCircleMouseDown(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleCircleMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleCircleMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleCircleMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleCircleMouseUp(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure HandleCircleMouseDown(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleCircleMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleCircleMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleCircleMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleCircleMouseUp(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure HandleCircleRadiusChanged(Sender: TObject);
     procedure HandleCirclesChanged(Sender: TObject);
     procedure HandleMapReady(Sender: TObject);
@@ -108,7 +108,7 @@ end;
 
 procedure TMainForm.ApplyCircleButtonClick(Sender: TObject);
 var
-  Center: TGMLibLatLng;
+  Center: TMapLibLatLng;
   Circle: TGMFmxCircleItem;
   CenterLat: Double;
   CenterLng: Double;
@@ -161,7 +161,7 @@ begin
     Circle.Options.Visible := FVisibleCheck.IsChecked;
     Circle.Options.FillColor := $FF0000FF;
     Circle.Options.StrokeColor := $FF0F172A;
-    Center := TGMLibLatLng.Create(CenterLat, CenterLng);
+    Center := TMapLibLatLng.Create(CenterLat, CenterLng);
     try
       Circle.Options.Center := Center;
     finally
@@ -410,17 +410,17 @@ begin
     [Circle.Options.Center.Lat, Circle.Options.Center.Lng]));
 end;
 
-procedure TMainForm.HandleCircleClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleCircleClick(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle click at %.3f, %.3f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainForm.HandleCircleContextMenu(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleCircleContextMenu(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle context menu at %.3f, %.3f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainForm.HandleCircleDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleCircleDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle double click at %.3f, %.3f', [ALatLng.Lat, ALatLng.Lng]));
 end;
@@ -440,27 +440,27 @@ begin
   Log('Circle drag start.');
 end;
 
-procedure TMainForm.HandleCircleMouseDown(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleCircleMouseDown(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle mouse down at %.3f, %.3f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainForm.HandleCircleMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleCircleMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle mouse move at %.3f, %.3f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainForm.HandleCircleMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleCircleMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle mouse out at %.3f, %.3f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainForm.HandleCircleMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleCircleMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle mouse over at %.3f, %.3f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainForm.HandleCircleMouseUp(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleCircleMouseUp(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle mouse up at %.3f, %.3f', [ALatLng.Lat, ALatLng.Lng]));
 end;
@@ -495,7 +495,7 @@ procedure TMainForm.CenterMapButtonClick(Sender: TObject);
 var
   CenterLat: Double;
   CenterLng: Double;
-  Center: TGMLibLatLng;
+  Center: TMapLibLatLng;
 begin
   if not FMapReady then
   begin
@@ -515,7 +515,7 @@ begin
     Exit;
   end;
 
-  Center := TGMLibLatLng.Create(CenterLat, CenterLng);
+  Center := TMapLibLatLng.Create(CenterLat, CenterLng);
   try
     FMap.CenterMapTo(Center);
   finally
@@ -527,7 +527,7 @@ end;
 
 procedure TMainForm.InitializeDefaults;
 var
-  Center: TGMLibLatLng;
+  Center: TMapLibLatLng;
 begin
   FMap.APIKey := GetEnvironmentVariable('GOOGLE_MAPS_API_KEY');
   FMap.Options.MapId := TGMMapId(GetEnvironmentVariable('GOOGLE_MAPS_MAP_ID'));
@@ -535,7 +535,7 @@ begin
     FMap.Options.MapId := 'DEMO_MAP_ID';
 
   PopulateSampleInputs;
-  Center := TGMLibLatLng.Create(33.678, -116.2425);
+  Center := TMapLibLatLng.Create(33.678, -116.2425);
   try
     FMap.Options.Center := Center;
   finally
@@ -615,3 +615,4 @@ begin
 end;
 
 end.
+

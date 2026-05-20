@@ -7,7 +7,7 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <OtherUnitFiles Value="../src/Common;../src/Common/GM;../src/Lcl;../src/Lcl/GM"/>
+        <OtherUnitFiles Value="../src/Common;../src/Common/GM;../src/Common/OSM;../src/Lcl;../src/Lcl/GM;../src/Lcl/OSM"/>
         <UnitOutputDirectory Value="../lib/Lcl"/>
       </SearchPaths>
     </CompilerOptions>
@@ -120,6 +120,18 @@
       <Item>
         <Filename Value="..\src\Lcl\GM\uGMLib.Lcl.Map.pas"/>
         <UnitName Value="uGMLib.Lcl.Map"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Common\OSM\uOSMLib.Map.pas"/>
+        <UnitName Value="uOSMLib.Map"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Lcl\OSM\uOSMLib.Lcl.MapBootstrap.pas"/>
+        <UnitName Value="uOSMLib.Lcl.MapBootstrap"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Lcl\OSM\uOSMLib.Lcl.Map.pas"/>
+        <UnitName Value="uOSMLib.Lcl.Map"/>
       </Item>
     </Files>
     <RequiredPkgs>

@@ -1,4 +1,4 @@
-{**
+﻿{**
   @abstract(Pruebas automaticas del modelo de `TGMMap.Rectangles`.)
 }
 unit uTest.Rectangle.Model;
@@ -23,7 +23,7 @@ type
     FBoundsChangedCount: Integer;
     FClickCount: Integer;
     procedure HandleRectangleBoundsChanged(Sender: TObject);
-    procedure HandleRectangleClick(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure HandleRectangleClick(Sender: TObject; ALatLng: TMapLibLatLng);
   public
     [Test]
     procedure RectangleOptions_ToJavaScriptLiteral_EmitsBounds;
@@ -42,7 +42,7 @@ begin
   Inc(FBoundsChangedCount);
 end;
 
-procedure TTestRectangleModel.HandleRectangleClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TTestRectangleModel.HandleRectangleClick(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Inc(FClickCount);
 end;
@@ -130,3 +130,4 @@ initialization
   TDUnitX.RegisterTestFixture(TTestRectangleModel);
 
 end.
+

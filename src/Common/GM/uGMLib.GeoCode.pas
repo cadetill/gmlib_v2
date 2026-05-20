@@ -16,15 +16,11 @@ uses
   Classes,
   fpjson,
   jsonparser,
-  Math,
   SysUtils,
-  Generics.Collections,
 {$ELSE}
   System.Classes,
   System.JSON,
-  System.Math,
   System.SysUtils,
-  System.Generics.Collections,
 {$ENDIF}
   uMapLib.Core.Component,
   uGMLib.Core.Types,
@@ -61,7 +57,7 @@ type
 
     class function FromJson(const AJson: string): TGMGeocodeResponse; static;
     function HasResults: Boolean;
-    function TryGetFirstLocation(out ALatLng: TGMLibLatLng): Boolean;
+    function TryGetFirstLocation(out ALatLng: TMapLibLatLng): Boolean;
     function TryGetFirstResult(out AResult: TGMGeocodeResult): Boolean;
   end;
 {$ENDIF}
@@ -70,7 +66,7 @@ type
 function GMLibGeocodeResponseFromJson(const AJson: string): TGMGeocodeResponse;
 function GMLibGeocodeResponseHasResults(const AResponse: TGMGeocodeResponse): Boolean;
 function GMLibGeocodeResponseTryGetFirstLocation(const AResponse: TGMGeocodeResponse;
-  out ALatLng: TGMLibLatLng): Boolean;
+  out ALatLng: TMapLibLatLng): Boolean;
 function GMLibGeocodeResponseTryGetFirstResult(const AResponse: TGMGeocodeResponse;
   out AResult: TGMGeocodeResult): Boolean;
 {$ENDIF}
@@ -95,7 +91,7 @@ type
     FLastErrorMessage: string;
     FLastResponse: TGMGeocodeResponse;
     FLastStatus: string;
-    FLocation: TGMLibLatLng;
+    FLocation: TMapLibLatLng;
     FMap: TComponent;
     FOnCompleted: TGMGeocodeCompletedEvent;
     FOnChange: TNotifyEvent;
@@ -105,7 +101,7 @@ type
     procedure SetAddress(const Value: string);
     procedure SetBounds(const Value: TGMLatLngBounds);
     procedure SetLanguage(const Value: string);
-    procedure SetLocation(const Value: TGMLibLatLng);
+    procedure SetLocation(const Value: TMapLibLatLng);
     procedure SetMap(const Value: TComponent);
     procedure SetPlaceId(const Value: string);
     procedure SetRegion(const Value: string);
@@ -122,12 +118,12 @@ type
     procedure Assign(Source: TPersistent); override;
     procedure Clear;
     procedure Geocode(const AAddress: string); overload;
-    procedure Geocode(const ALatLng: TGMLibLatLng); overload;
+    procedure Geocode(const ALatLng: TMapLibLatLng); overload;
     procedure Geocode(const ALat: Double; const ALng: Double); overload;
     procedure GeocodePlaceId(const APlaceId: string);
-    procedure ReverseGeocode(const ALatLng: TGMLibLatLng);
+    procedure ReverseGeocode(const ALatLng: TMapLibLatLng);
     function GetResult(Index: Integer): TGMGeocodeResult;
-    function TryGetFirstLocation(out ALatLng: TGMLibLatLng): Boolean;
+    function TryGetFirstLocation(out ALatLng: TMapLibLatLng): Boolean;
 
     property Count: Integer read GetCount;
     property LastErrorMessage: string read FLastErrorMessage;
@@ -139,7 +135,7 @@ type
     property Address: string read FAddress write SetAddress;
     property Bounds: TGMLatLngBounds read FBounds write SetBounds;
     property Language: string read FLanguage write SetLanguage;
-    property Location: TGMLibLatLng read FLocation write SetLocation;
+    property Location: TMapLibLatLng read FLocation write SetLocation;
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
     property OnCompleted: TGMGeocodeCompletedEvent read FOnCompleted write FOnCompleted;
     property PlaceId: string read FPlaceId write SetPlaceId;
@@ -272,7 +268,7 @@ begin
   inherited;
 
   FBounds := TGMLatLngBounds.Create;
-  FLocation := TGMLibLatLng.Create(0, 0);
+  FLocation := TMapLibLatLng.Create(0, 0);
   FLanguage := '';
   FRegion := '';
 end;
@@ -297,7 +293,7 @@ begin
 {$ENDIF}
 end;
 
-procedure TGMGeoCode.Geocode(const ALatLng: TGMLibLatLng);
+procedure TGMGeoCode.Geocode(const ALatLng: TMapLibLatLng);
 begin
   if not Assigned(ALatLng) then
     Exit;
@@ -373,7 +369,7 @@ begin
     FOnChange(Self);
 end;
 
-procedure TGMGeoCode.ReverseGeocode(const ALatLng: TGMLibLatLng);
+procedure TGMGeoCode.ReverseGeocode(const ALatLng: TMapLibLatLng);
 begin
   if not Assigned(ALatLng) then
     Exit;
@@ -404,7 +400,7 @@ begin
   NotifyChanged;
 end;
 
-procedure TGMGeoCode.SetLocation(const Value: TGMLibLatLng);
+procedure TGMGeoCode.SetLocation(const Value: TMapLibLatLng);
 begin
   if Assigned(Value) then
     FLocation.Assign(Value);
@@ -448,7 +444,7 @@ begin
   FLastErrorMessage := AResponse.ErrorMessage;
 end;
 
-function TGMGeoCode.TryGetFirstLocation(out ALatLng: TGMLibLatLng): Boolean;
+function TGMGeoCode.TryGetFirstLocation(out ALatLng: TMapLibLatLng): Boolean;
 begin
 {$IFDEF FPC}
   Result := GMLibGeocodeResponseTryGetFirstLocation(FLastResponse, ALatLng);
@@ -505,7 +501,7 @@ begin
   Result := Length(Results) > 0;
 end;
 
-function TGMGeocodeResponse.TryGetFirstLocation(out ALatLng: TGMLibLatLng): Boolean;
+function TGMGeocodeResponse.TryGetFirstLocation(out ALatLng: TMapLibLatLng): Boolean;
 var
   FirstResult: TGMGeocodeResult;
 begin
@@ -514,7 +510,7 @@ begin
   if not Result then
     Exit;
 
-  ALatLng := TGMLibLatLng.Create(FirstResult.Latitude, FirstResult.Longitude);
+  ALatLng := TMapLibLatLng.Create(FirstResult.Latitude, FirstResult.Longitude);
 end;
 
 function TGMGeocodeResponse.TryGetFirstResult(out AResult: TGMGeocodeResult): Boolean;
@@ -588,7 +584,7 @@ begin
 end;
 
 function GMLibGeocodeResponseTryGetFirstLocation(const AResponse: TGMGeocodeResponse;
-  out ALatLng: TGMLibLatLng): Boolean;
+  out ALatLng: TMapLibLatLng): Boolean;
 var
   FirstResult: TGMGeocodeResult;
 begin
@@ -597,11 +593,14 @@ begin
   if not Result then
     Exit;
 
-  ALatLng := TGMLibLatLng.Create(FirstResult.Latitude, FirstResult.Longitude);
+  ALatLng := TMapLibLatLng.Create(FirstResult.Latitude, FirstResult.Longitude);
 end;
 {$ENDIF}
 
 end.
+
+
+
 
 
 

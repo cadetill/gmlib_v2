@@ -1,4 +1,4 @@
-{**
+﻿{**
   @abstract(Pruebas automaticas del modelo de `TGMGeoCode`.)
 }
 unit uTest.GeoCode.Model;
@@ -51,7 +51,7 @@ end;
 
 procedure TTestGeoCodeModel.GeoCodeResponse_TryGetFirstLocation_ReturnsLatLng;
 var
-  LatLng: TGMLibLatLng;
+  LatLng: TMapLibLatLng;
   Response: TGMGeocodeResponse;
 begin
   Response := TGMGeocodeResponse.FromJson(
@@ -76,3 +76,4 @@ initialization
   TDUnitX.RegisterTestFixture(TTestGeoCodeModel);
 
 end.
+

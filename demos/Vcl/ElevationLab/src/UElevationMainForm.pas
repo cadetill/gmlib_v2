@@ -1,4 +1,4 @@
-unit UElevationMainForm;
+﻿unit UElevationMainForm;
 
 interface
 
@@ -288,9 +288,9 @@ end;
 
 procedure TMainForm.SetMapCenter(const ALatitude, ALongitude: Double);
 var
-  Center: TGMLibLatLng;
+  Center: TMapLibLatLng;
 begin
-  Center := TGMLibLatLng.Create(ALatitude, ALongitude);
+  Center := TMapLibLatLng.Create(ALatitude, ALongitude);
   try
     FMap.Options.Center := Center;
   finally
@@ -551,3 +551,4 @@ begin
 end;
 
 end.
+

@@ -1,4 +1,4 @@
-unit UMainForm;
+﻿unit UMainForm;
 
 interface
 
@@ -75,9 +75,9 @@ type
     function ParsePathMemo(out ACoordinates: TArray<TPolylineCoordinate>): Boolean;
     procedure PopulateSamplePath;
     procedure RebindPrimaryPolyline;
-    procedure HandleMapClick(Sender: TObject; ALatLng: TGMLibLatLng; const APlaceId: string);
+    procedure HandleMapClick(Sender: TObject; ALatLng: TMapLibLatLng; const APlaceId: string);
     procedure HandleMapReady(Sender: TObject);
-    procedure HandlePolylineClick(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure HandlePolylineClick(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure HandlePolylineDrag(Sender: TObject);
     procedure HandlePolylineDragEnd(Sender: TObject);
     procedure HandlePolylineDragStart(Sender: TObject);
@@ -183,7 +183,7 @@ end;
 
 procedure TMainForm.ApplyViewButtonClick(Sender: TObject);
 var
-  Center: TGMLibLatLng;
+  Center: TMapLibLatLng;
   Latitude: Double;
   Longitude: Double;
   ZoomLevel: Integer;
@@ -206,7 +206,7 @@ begin
     Exit;
   end;
 
-  Center := TGMLibLatLng.Create(Latitude, Longitude);
+  Center := TMapLibLatLng.Create(Latitude, Longitude);
   try
     FMap.Options.Center := Center;
   finally
@@ -477,7 +477,7 @@ begin
   Log('Sample path loaded into the editor.');
 end;
 
-procedure TMainForm.HandleMapClick(Sender: TObject; ALatLng: TGMLibLatLng; const APlaceId: string);
+procedure TMainForm.HandleMapClick(Sender: TObject; ALatLng: TMapLibLatLng; const APlaceId: string);
 begin
   Log(Format('Map click at %s, %s', [
     FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
@@ -491,7 +491,7 @@ begin
   Log('Map ready event received.');
 end;
 
-procedure TMainForm.HandlePolylineClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandlePolylineClick(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polyline click at %s, %s', [
     FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
@@ -693,3 +693,4 @@ begin
 end;
 
 end.
+

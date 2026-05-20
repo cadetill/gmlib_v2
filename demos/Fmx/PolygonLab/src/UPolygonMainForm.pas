@@ -1,4 +1,4 @@
-unit UPolygonMainForm;
+﻿unit UPolygonMainForm;
 
 interface
 
@@ -71,19 +71,19 @@ type
     procedure ClearPolygonButtonClick(Sender: TObject);
     procedure ConfigureBrowser;
     procedure EnsurePrimaryPolygon;
-    procedure HandleMapClick(Sender: TObject; ALatLng: TGMLibLatLng; const APlaceId: string);
+    procedure HandleMapClick(Sender: TObject; ALatLng: TMapLibLatLng; const APlaceId: string);
     procedure HandleMapReady(Sender: TObject);
-    procedure HandlePolygonClick(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandlePolygonContextMenu(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandlePolygonDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure HandlePolygonClick(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandlePolygonContextMenu(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandlePolygonDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure HandlePolygonDrag(Sender: TObject);
     procedure HandlePolygonDragEnd(Sender: TObject);
     procedure HandlePolygonDragStart(Sender: TObject);
-    procedure HandlePolygonMouseDown(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandlePolygonMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandlePolygonMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandlePolygonMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandlePolygonMouseUp(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure HandlePolygonMouseDown(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandlePolygonMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandlePolygonMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandlePolygonMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandlePolygonMouseUp(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure HandlePolygonPathChanged(Sender: TObject);
     procedure InitializeDefaults;
     procedure InitializeMap;
@@ -218,7 +218,7 @@ end;
 
 procedure TMainForm.ApplyViewButtonClick(Sender: TObject);
 var
-  Center: TGMLibLatLng;
+  Center: TMapLibLatLng;
   Latitude: Double;
   Longitude: Double;
   ZoomLevel: Integer;
@@ -241,7 +241,7 @@ begin
     Exit;
   end;
 
-  Center := TGMLibLatLng.Create(Latitude, Longitude);
+  Center := TMapLibLatLng.Create(Latitude, Longitude);
   try
     FMap.Options.Center := Center;
   finally
@@ -555,7 +555,7 @@ begin
   end;
 end;
 
-procedure TMainForm.HandleMapClick(Sender: TObject; ALatLng: TGMLibLatLng; const APlaceId: string);
+procedure TMainForm.HandleMapClick(Sender: TObject; ALatLng: TMapLibLatLng; const APlaceId: string);
 begin
   Log(Format('Map click at %s, %s', [
     FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
@@ -570,7 +570,7 @@ begin
   Log('Map ready event received.');
 end;
 
-procedure TMainForm.HandlePolygonClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandlePolygonClick(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polygon click at %s, %s', [
     FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
@@ -578,7 +578,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandlePolygonContextMenu(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandlePolygonContextMenu(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polygon context menu at %s, %s', [
     FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
@@ -586,7 +586,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandlePolygonDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandlePolygonDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polygon double click at %s, %s', [
     FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
@@ -609,7 +609,7 @@ begin
   Log('Polygon drag start.');
 end;
 
-procedure TMainForm.HandlePolygonMouseDown(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandlePolygonMouseDown(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polygon mouse down at %s, %s', [
     FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
@@ -617,7 +617,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandlePolygonMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandlePolygonMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polygon mouse move at %s, %s', [
     FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
@@ -625,7 +625,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandlePolygonMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandlePolygonMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polygon mouse out at %s, %s', [
     FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
@@ -633,7 +633,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandlePolygonMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandlePolygonMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polygon mouse over at %s, %s', [
     FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
@@ -641,7 +641,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandlePolygonMouseUp(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandlePolygonMouseUp(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polygon mouse up at %s, %s', [
     FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
@@ -827,3 +827,4 @@ begin
 end;
 
 end.
+

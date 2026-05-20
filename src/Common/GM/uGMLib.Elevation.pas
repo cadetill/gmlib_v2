@@ -14,13 +14,11 @@ uses
   jsonparser,
   Math,
   SysUtils,
-  Generics.Collections,
 {$ELSE}
   System.Classes,
   System.JSON,
   System.Math,
   System.SysUtils,
-  System.Generics.Collections,
 {$ENDIF}
   uMapLib.Core.Component,
   uGMLib.Core.Types,
@@ -58,7 +56,7 @@ type
 
     class function FromJson(const AJson: string): TGMElevationResponse; static;
     function HasResults: Boolean;
-    function TryGetFirstLocation(out ALatLng: TGMLibLatLng): Boolean;
+    function TryGetFirstLocation(out ALatLng: TMapLibLatLng): Boolean;
     function TryGetFirstResult(out AResult: TGMElevationResult): Boolean;
   end;
 {$ENDIF}
@@ -67,7 +65,7 @@ type
 function GMLibElevationResponseFromJson(const AJson: string): TGMElevationResponse;
 function GMLibElevationResponseHasResults(const AResponse: TGMElevationResponse): Boolean;
 function GMLibElevationResponseTryGetFirstLocation(const AResponse: TGMElevationResponse;
-  out ALatLng: TGMLibLatLng): Boolean;
+  out ALatLng: TMapLibLatLng): Boolean;
 function GMLibElevationResponseTryGetFirstResult(const AResponse: TGMElevationResponse;
   out AResult: TGMElevationResult): Boolean;
 {$ENDIF}
@@ -113,14 +111,14 @@ type
 
     procedure Assign(Source: TPersistent); override;
     procedure Clear;
-    procedure AddLatLng(const ALatLng: TGMLibLatLng); overload;
+    procedure AddLatLng(const ALatLng: TMapLibLatLng); overload;
     procedure AddLatLng(const ALat, ALng: Double); overload;
     procedure AddLatLngFromPath(const APath: TGMPolylinePath; DeleteBeforeLoad: Boolean = True);
     procedure AddLatLngFromPolyline(const APolyline: TGMPolylineItem; DeleteBeforeLoad: Boolean = True);
     procedure Execute;
     procedure FlushPendingExecute;
     function GetResult(Index: Integer): TGMElevationResult;
-    function TryGetFirstLocation(out ALatLng: TGMLibLatLng): Boolean;
+    function TryGetFirstLocation(out ALatLng: TMapLibLatLng): Boolean;
 
     property Count: Integer read GetCount;
     property LastErrorMessage: string read FLastErrorMessage;
@@ -205,6 +203,7 @@ var
   ResultsArray: TJSONArray;
   i: Integer;
 begin
+  Result := Default(TGMElevationResults);
   SetLength(Result, 0);
   if not Assigned(AJsonObject) then
     Exit;
@@ -262,7 +261,7 @@ begin
 end;
 
 function GMLibElevationResponseTryGetFirstLocation(const AResponse: TGMElevationResponse;
-  out ALatLng: TGMLibLatLng): Boolean;
+  out ALatLng: TMapLibLatLng): Boolean;
 var
   FirstResult: TGMElevationResult;
 begin
@@ -271,7 +270,7 @@ begin
   if not Result then
     Exit;
 
-  ALatLng := TGMLibLatLng.Create(FirstResult.Latitude, FirstResult.Longitude);
+  ALatLng := TMapLibLatLng.Create(FirstResult.Latitude, FirstResult.Longitude);
 end;
 
 function GMLibElevationResponseTryGetFirstResult(const AResponse: TGMElevationResponse;
@@ -320,7 +319,7 @@ begin
   Result := Length(Results) > 0;
 end;
 
-function TGMElevationResponse.TryGetFirstLocation(out ALatLng: TGMLibLatLng): Boolean;
+function TGMElevationResponse.TryGetFirstLocation(out ALatLng: TMapLibLatLng): Boolean;
 var
   FirstResult: TGMElevationResult;
 begin
@@ -329,7 +328,7 @@ begin
   if not Result then
     Exit;
 
-  ALatLng := TGMLibLatLng.Create(FirstResult.Latitude, FirstResult.Longitude);
+  ALatLng := TMapLibLatLng.Create(FirstResult.Latitude, FirstResult.Longitude);
 end;
 
 function TGMElevationResponse.TryGetFirstResult(out AResult: TGMElevationResult): Boolean;
@@ -347,7 +346,7 @@ end;
 
 { TGMElevations }
 
-procedure TGMElevations.AddLatLng(const ALatLng: TGMLibLatLng);
+procedure TGMElevations.AddLatLng(const ALatLng: TMapLibLatLng);
 begin
   if not Assigned(ALatLng) then
     Exit;
@@ -587,7 +586,7 @@ begin
   FLastErrorMessage := AResponse.ErrorMessage;
 end;
 
-function TGMElevations.TryGetFirstLocation(out ALatLng: TGMLibLatLng): Boolean;
+function TGMElevations.TryGetFirstLocation(out ALatLng: TMapLibLatLng): Boolean;
 begin
 {$IFDEF FPC}
   Result := GMLibElevationResponseTryGetFirstLocation(FLastResponse, ALatLng);
@@ -597,6 +596,9 @@ begin
 end;
 
 end.
+
+
+
 
 
 

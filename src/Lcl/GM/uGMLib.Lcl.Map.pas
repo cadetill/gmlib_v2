@@ -15,7 +15,6 @@ uses
   uGMLib.Circle,
   uMapLib.Core.Bridge,
   uMapLib.Core.BridgeRegistry,
-  uGMLib.GeoCode,
   uGMLib.InfoWindow,
   uGMLib.Map,
   uGMLib.MapOptions,

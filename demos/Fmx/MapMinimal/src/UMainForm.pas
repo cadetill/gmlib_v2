@@ -1,4 +1,4 @@
-unit UMainForm;
+﻿unit UMainForm;
 
 interface
 
@@ -49,8 +49,8 @@ type
     procedure ApplyViewButtonClick(Sender: TObject);
     procedure BuildUi;
     procedure ConfigureBrowser;
-    procedure HandleCenterChanged(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleMapClick(Sender: TObject; ALatLng: TGMLibLatLng; const APlaceId: string);
+    procedure HandleCenterChanged(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleMapClick(Sender: TObject; ALatLng: TMapLibLatLng; const APlaceId: string);
     procedure HandleMapTypeIdChanged(Sender: TObject; AMapTypeId: TGMMapTypeId);
     procedure HandleMapReady(Sender: TObject);
     procedure HandleZoomChanged(Sender: TObject; AZoom: Integer);
@@ -90,7 +90,7 @@ end;
 
 procedure TMainForm.ApplyViewButtonClick(Sender: TObject);
 var
-  coordinate: TGMLibLatLng;
+  coordinate: TMapLibLatLng;
   latitude: Double;
   longitude: Double;
   zoomLevel: Integer;
@@ -113,7 +113,7 @@ begin
     Exit;
   end;
 
-  coordinate := TGMLibLatLng.Create(latitude, longitude);
+  coordinate := TMapLibLatLng.Create(latitude, longitude);
   try
     FMap.Options.Center := coordinate;
   finally
@@ -265,7 +265,7 @@ begin
   inherited;
 end;
 
-procedure TMainForm.HandleCenterChanged(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleCenterChanged(Sender: TObject; ALatLng: TMapLibLatLng);
 var
   centerSignature: string;
 begin
@@ -285,7 +285,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandleMapClick(Sender: TObject; ALatLng: TGMLibLatLng;
+procedure TMainForm.HandleMapClick(Sender: TObject; ALatLng: TMapLibLatLng;
   const APlaceId: string);
 begin
   Log(Format('Map click at %s, %s (placeId=%s)', [
@@ -370,3 +370,4 @@ begin
 end;
 
 end.
+

@@ -15,14 +15,15 @@ procedure Register;
 
 implementation
 
-{$R ..\..\resources\GMLibMap.res}
+{$R ..\..\..\resources\GMLibMap.res}
 
 uses
   System.Classes,
   Winapi.Windows,
   DesignIntf,
   ToolsAPI,
-  uGMLib.Fmx.Map;
+  uGMLib.Fmx.Map,
+  uOSMLib.Fmx.Map;
 
 procedure AddBitmapToSplashScreen;
 var
@@ -40,7 +41,7 @@ begin
 
   try
     SplashScreenServices.AddPluginBitmap(
-      'GMLib VCL ' + TempVersion,
+      'GMLib FMX ' + TempVersion,
       SplashBitmap,
       False,
       'Google Maps JavaScript API wrapper'
@@ -52,7 +53,7 @@ end;
 
 procedure Register;
 begin
-  RegisterComponents('MapLib', [TGMLibFmxMap]);
+  RegisterComponents('MapLib', [TGMLibFmxMap, TOSMLibFmxMap]);
   AddBitmapToSplashScreen;
 end;
 

@@ -1,4 +1,4 @@
-﻿{**
+{**
   @abstract(Modelo de círculos del mapa.)
  }
 unit uGMLib.Circle;
@@ -15,7 +15,7 @@ uses
   System.SysUtils,
 {$ENDIF}
   uMapLib.Core.ApiObject, uMapLib.Core.Messages,
-  uGMLib.Core.Types, uGMLib.MapOptions, uGMLib.Platform.Format;
+  uGMLib.Core.Types, uGMLib.Platform.Format;
 
 type
   TGMCircleOptions = class;
@@ -28,7 +28,7 @@ type
 
   TGMCircleCenterChangedEvent = procedure(Sender: TObject) of object;
 
-  TGMCircleCoordinateEvent = procedure(Sender: TObject; ALatLng: TGMLibLatLng) of object;
+  TGMCircleCoordinateEvent = procedure(Sender: TObject; ALatLng: TMapLibLatLng) of object;
 
   TGMCircleRadiusChangedEvent = procedure(Sender: TObject) of object;
 
@@ -36,7 +36,7 @@ type
 
   TGMCircleOptions = class(TMapLibApiObject)
   private
-    FCenter: TGMLibLatLng;
+    FCenter: TMapLibLatLng;
     FRadius: Double;
     FClickable: Boolean;
     FDraggable: Boolean;
@@ -50,7 +50,7 @@ type
     FVisible: Boolean;
     FZIndex: Integer;
     procedure CenterChanged(Sender: TObject);
-    procedure SetCenter(const Value: TGMLibLatLng);
+    procedure SetCenter(const Value: TMapLibLatLng);
     procedure SetRadius(const Value: Double);
     procedure SetClickable(const Value: Boolean);
     procedure SetDraggable(const Value: Boolean);
@@ -72,7 +72,7 @@ type
     function ToJavaScriptLiteral: string;
   published
     property APIUrl;
-    property Center: TGMLibLatLng read FCenter write SetCenter;
+    property Center: TMapLibLatLng read FCenter write SetCenter;
     property Radius: Double read FRadius write SetRadius;
     property Clickable: Boolean read FClickable write SetClickable default True;
     property Draggable: Boolean read FDraggable write SetDraggable default False;
@@ -112,7 +112,7 @@ type
     procedure ApplyRadius(const ARadius: Double);
     procedure OptionsChanged(Sender: TObject);
     procedure SetOptions(const Value: TGMCircleOptions);
-    function TryGetCoordinateFromPayload(const APayload: string; out ALatLng: TGMLibLatLng): Boolean;
+    function TryGetCoordinateFromPayload(const APayload: string; out ALatLng: TMapLibLatLng): Boolean;
   protected
     function BuildObjectId: TGMObjectId; virtual;
     function CreateCircleOptions: TGMCircleOptions; virtual;
@@ -219,7 +219,7 @@ end;
 constructor TGMCircleOptions.Create;
 begin
   inherited;
-  FCenter := TGMLibLatLng.Create(0, 0);
+  FCenter := TMapLibLatLng.Create(0, 0);
 {$IFDEF FPC}
   FCenter.OnChange := @CenterChanged;
 {$ELSE}
@@ -250,7 +250,7 @@ begin
   Result := 'https://developers.google.com/maps/documentation/javascript/reference/polygon#CircleOptions';
 end;
 
-procedure TGMCircleOptions.SetCenter(const Value: TGMLibLatLng);
+procedure TGMCircleOptions.SetCenter(const Value: TMapLibLatLng);
 begin
   FCenter.Assign(Value);
 end;
@@ -501,7 +501,7 @@ end;
 
 procedure TGMCircleItem.ProcessMapMessage(const AEnvelope: TMapLibMessageEnvelope);
 var
-  LatLng: TGMLibLatLng;
+  LatLng: TMapLibLatLng;
 {$IFDEF FPC}
   JsonValue: TJSONData;
 {$ELSE}
@@ -689,7 +689,7 @@ begin
   FOptions.Assign(Value);
 end;
 
-function TGMCircleItem.TryGetCoordinateFromPayload(const APayload: string; out ALatLng: TGMLibLatLng): Boolean;
+function TGMCircleItem.TryGetCoordinateFromPayload(const APayload: string; out ALatLng: TMapLibLatLng): Boolean;
 var
   JsonObj: TJSONObject;
   LatVal, LngVal: Double;
@@ -712,13 +712,13 @@ begin
     begin
       LatVal := JsonObj.Find('lat').AsFloat;
       LngVal := JsonObj.Find('lng').AsFloat;
-      ALatLng := TGMLibLatLng.Create(LatVal, LngVal);
+      ALatLng := TMapLibLatLng.Create(LatVal, LngVal);
       Result := True;
     end;
 {$ELSE}
     if JsonObj.TryGetValue<double>('lat', LatVal) and JsonObj.TryGetValue<double>('lng', LngVal) then
     begin
-      ALatLng := TGMLibLatLng.Create(LatVal, LngVal);
+      ALatLng := TMapLibLatLng.Create(LatVal, LngVal);
       Result := True;
     end;
 {$ENDIF}
@@ -819,7 +819,7 @@ const
   EarthRadiusMeters = 6378137.0;
 var
   Circle: TGMCircleItem;
-  Center: TGMLibLatLng;
+  Center: TMapLibLatLng;
   EastDelta: Double;
   i: Integer;
   LatDelta: Double;
@@ -905,7 +905,3 @@ begin
 end;
 
 end.
-
-
-
-

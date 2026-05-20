@@ -34,10 +34,12 @@ The repo already contains a first extraction pass:
 - initial VCL package skeleton started:
   - `dpk/OSMLibRuntime.Vcl.dpk`
   - `dpk/OSMLibRuntime.Vcl.dproj`
-  - `dpk/OSMLibDesign.Vcl.dpk`
-  - `dpk/OSMLibDesign.Vcl.dproj`
   - `src/Vcl/OSM/uOSMLib.Vcl.Map.pas`
   - `src/Vcl/OSM/uOSMLib.Vcl.Register.pas`
+- unified public design packages:
+  - `dpk/MapLibDesign.Vcl.dpk`
+  - `dpk/MapLibDesign.Fmx.dpk`
+  - `dpk/MapLibDesign.Lcl.lpk`
 - first MapLibre bootstrap placeholders added:
   - `src/Vcl/OSM/uOSMLib.Vcl.MapBootstrap.pas`
   - `resources/js/osm/osmlib.map.html`

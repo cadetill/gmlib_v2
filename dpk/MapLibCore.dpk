@@ -25,19 +25,26 @@
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$DESCRIPTION 'MapLib shared core package'}
 {$LIBSUFFIX AUTO}
 {$RUNONLY}
 {$IMPLICITBUILD ON}
 
 requires
-  rtl;
+  rtl,
+  IndySystem,
+  IndyProtocols,
+  IndyCore;
 
 contains
   uMapLib.Core.ApiObject in '..\src\Common\uMapLib.Core.ApiObject.pas',
   uMapLib.Core.Bridge in '..\src\Common\uMapLib.Core.Bridge.pas',
   uMapLib.Core.BridgeRegistry in '..\src\Common\uMapLib.Core.BridgeRegistry.pas',
   uMapLib.Core.Component in '..\src\Common\uMapLib.Core.Component.pas',
+  uMapLib.Core.Offline in '..\src\Common\uMapLib.Core.Offline.pas',
+  uMapLib.Offline.Types in '..\src\Common\uMapLib.Offline.Types.pas',
+  uMapLib.Offline.RegionCatalog in '..\src\Common\uMapLib.Offline.RegionCatalog.pas',
+  uMapLib.Offline.TileServer in '..\src\Common\uMapLib.Offline.TileServer.pas',
+  uMapLib.Offline.RegionManager in '..\src\Common\uMapLib.Offline.RegionManager.pas',
   uMapLib.Core.Messages in '..\src\Common\uMapLib.Core.Messages.pas',
   uMapLib.Core.Types in '..\src\Common\uMapLib.Core.Types.pas',
   uMapLib.Core.LatLng in '..\src\Common\uMapLib.Core.LatLng.pas',

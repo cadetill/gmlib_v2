@@ -1,4 +1,4 @@
-﻿{**
+{**
   @abstract(Modelo de colección de marcadores del mapa.)
   @author(Xavier Martinez (cadetill) <cadetill@gmail.com>)
 
@@ -53,7 +53,7 @@ type
 {$ENDIF}
   end;
 
-  TGMMarkerPositionEvent = procedure(Sender: TObject; ALatLng: TGMLibLatLng) of object;
+  TGMMarkerPositionEvent = procedure(Sender: TObject; ALatLng: TMapLibLatLng) of object;
   TGMMarkerItemClass = class of TGMMarkerItem;
 
   {** @abstract(Configuración común del contenido `PinElement` del marker.) }
@@ -157,7 +157,7 @@ type
     FHtmlOptions: TGMHtmlMarkerOptions;
     FLabelOptions: TGMLabelMarkerOptions;
     FPinOptions: TGMPinOptions;
-    FPosition: TGMLibLatLng;
+    FPosition: TMapLibLatLng;
     FTitle: string;
     FVisible: Boolean;
     FZIndex: Integer;
@@ -172,7 +172,7 @@ type
     procedure PinOptionsChanged(Sender: TObject);
     procedure SetPinOptions(const Value: TGMPinOptions);
     procedure PositionChanged(Sender: TObject);
-    procedure SetPosition(const Value: TGMLibLatLng);
+    procedure SetPosition(const Value: TMapLibLatLng);
     procedure SetTitle(const Value: string);
     procedure SetVisible(const Value: Boolean);
     procedure SetZIndex(const Value: Integer);
@@ -209,7 +209,7 @@ type
     {** @abstract(Configuración del contenido tipo pin del marker.) }
     property PinOptions: TGMPinOptions read FPinOptions write SetPinOptions;
     {** @abstract(Posicion actual del marcador.) }
-    property Position: TGMLibLatLng read FPosition write SetPosition;
+    property Position: TMapLibLatLng read FPosition write SetPosition;
     {** @abstract(Titulo accesible del marcador.) }
     property Title: string read FTitle write SetTitle;
     {** @abstract(Indica si el marcador debe mostrarse en el mapa.) }
@@ -235,7 +235,7 @@ type
     FOptions: TGMMarkerOptions;
     FUpdatingFromMapMessage: Boolean;
     FNeedsSync: Boolean;
-    function TryApplyPositionFromPayload(const APayload: string; out ALatLng: TGMLibLatLng): Boolean;
+    function TryApplyPositionFromPayload(const APayload: string; out ALatLng: TMapLibLatLng): Boolean;
     procedure OptionsChanged(Sender: TObject);
     procedure SetOptions(const Value: TGMMarkerOptions);
     function IsInitialized: Boolean;
@@ -747,7 +747,7 @@ begin
 {$ELSE}
   FPinOptions.OnChange := PinOptionsChanged;
 {$ENDIF}
-  FPosition := TGMLibLatLng.Create(0, 0);
+  FPosition := TMapLibLatLng.Create(0, 0);
 {$IFDEF FPC}
   FPosition.OnChange := @PositionChanged;
 {$ELSE}
@@ -912,7 +912,7 @@ begin
   Changed;
 end;
 
-procedure TGMMarkerOptions.SetPosition(const Value: TGMLibLatLng);
+procedure TGMMarkerOptions.SetPosition(const Value: TMapLibLatLng);
 begin
   if not Assigned(Value) then
     Exit;
@@ -1108,7 +1108,7 @@ end;
 
 procedure TGMMarkerItem.ProcessMapMessage(const AEnvelope: TMapLibMessageEnvelope);
 var
-  NewPosition: TGMLibLatLng;
+  NewPosition: TMapLibLatLng;
 begin
   if SameText(AEnvelope.MessageType, 'marker.click') and Assigned(FOnClick) then
   begin
@@ -1216,7 +1216,7 @@ begin
 end;
 
 function TGMMarkerItem.TryApplyPositionFromPayload(const APayload: string;
-  out ALatLng: TGMLibLatLng): Boolean;
+  out ALatLng: TMapLibLatLng): Boolean;
 var
   JsonObject: TJSONObject;
 {$IFNDEF FPC}
@@ -1242,7 +1242,7 @@ begin
     else
       Exit;
 
-    ALatLng := TGMLibLatLng.Create(LatValue, LngValue);
+    ALatLng := TMapLibLatLng.Create(LatValue, LngValue);
     Result := True;
   finally
     JsonObject.Free;
@@ -1259,7 +1259,7 @@ begin
     if not JsonObject.TryGetValue<Double>('lng', LngValue) then
       Exit;
 
-    ALatLng := TGMLibLatLng.Create(LatValue, LngValue);
+    ALatLng := TMapLibLatLng.Create(LatValue, LngValue);
     Result := True;
   finally
     JsonValue.Free;
@@ -1277,10 +1277,16 @@ end;
 function TGMMarkers.Add(ALatitude, ALongitude: Double;
   const ATitle: string): TGMMarkerItem;
 begin
+{$IFDEF FPC}
+  Result := nil;
+{$ENDIF}
   Result := Add;
-  Result.Options.Position.Lat := ALatitude;
-  Result.Options.Position.Lng := ALongitude;
-  Result.Options.Title := ATitle;
+  if Assigned(Result) then
+  begin
+    Result.Options.Position.Lat := ALatitude;
+    Result.Options.Position.Lng := ALongitude;
+    Result.Options.Title := ATitle;
+  end;
 end;
 
 procedure TGMMarkers.Assign(Source: TPersistent);
@@ -1630,7 +1636,3 @@ begin
 end;
 
 end.
-
-
-
-

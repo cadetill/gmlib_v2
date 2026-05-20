@@ -15,7 +15,8 @@ uses
   uGMLib.Polyline, uGMLib.Circle, uGMLib.Elevation, uMapLib.Core.Bridge, 
   uGMLib.Rectangle, uGMLib.Routes, uGMLib.Lcl.Circle, uGMLib.Lcl.Polygon, 
   uGMLib.Lcl.Rectangle, uGMLib.Lcl.MapBootstrap, uGMLib.Lcl.MapOptions, 
-  uGMLib.Lcl.Bridge.Cef, uGMLib.Lcl.Map;
+  uGMLib.Lcl.Bridge.Cef, uGMLib.Lcl.Map, uOSMLib.Map, uOSMLib.Lcl.MapBootstrap,
+  uOSMLib.Lcl.Map;
 
 implementation
 

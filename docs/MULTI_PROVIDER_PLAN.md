@@ -39,7 +39,14 @@ Completed foundation work:
 - `OSMLib` VCL runtime/design-time package skeleton created
 - first MapLibre bootstrap HTML/JS placeholders added for the VCL path
 - single public VCL design-time aggregator introduced: `MapLibDesign.Vcl`
+- single public FMX design-time aggregator introduced: `MapLibDesign.Fmx`
+- single public LCL design-time package introduced: `MapLibDesign.Lcl`
+- legacy design packages removed from active package flow:
+  - `GMLibDesign.Fmx`
+  - `GMLibDesign.Lcl`
+  - `OSMLibDesign.Vcl`
 - `GMLibGroup.groupproj` already includes the current `OSMLib` package projects
+- JS bridge namespace is unified to `window.maplib` for both providers
 - provider folder normalization started:
   - `src/Common/GM`, `src/Common/OSM`
   - `src/Vcl/GM`, `src/Vcl/OSM`
@@ -50,11 +57,15 @@ Completed foundation work:
   - legacy `uGMLib.Core.*` wrappers removed
   - temporary legacy aliases removed from `uMapLib.Core.*`
 
-Still pending before real MapLibre work:
+Current OSM status and next architectural shift:
 
-- browser bridge implementation for `OSMLib`
-- first end-to-end `MapReady` flow
-- embedding/bootstrap asset pipeline for the new provider
+- map/bootstrap/event baseline exists in `VCL/FMX/LCL`.
+- `MapMode` (`online/offline/hybrid`) and initial offline wiring exist.
+- current PMTiles external-process path is considered transitional.
+- next target is offline-native runtime for apps (especially `Android/iOS`):
+  - embedded `OfflineRegionManager`
+  - tiny loopback-only local HTTP serving for runtime assets
+  - no mandatory external executable dependency in final app runtime.
 
 ## Guiding principles
 
@@ -324,4 +335,5 @@ The pilot backend is good enough when:
 - its docs explain what works and what does not
 
 If that is achieved, the second provider can be added using the same pattern with far less risk.
+
 

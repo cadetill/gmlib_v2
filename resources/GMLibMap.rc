@@ -1,5 +1,8 @@
 TGMLibVclMap BITMAP "GMMap.bmp"
 TGMLibFmxMap BITMAP "GMMap.bmp"
 TGMLibLclMap BITMAP "GMMap.bmp"
+TOSMLibVclMap BITMAP "OSMMap.bmp"
+TOSMLibFmxMap BITMAP "OSMMap.bmp"
+TOSMLibLclMap BITMAP "OSMMap.bmp"
 GMLibSplashVcl BITMAP "GMLibSplashVcl.bmp"
 GMLibSplashFmx BITMAP "GMLibSplashFmx.bmp"

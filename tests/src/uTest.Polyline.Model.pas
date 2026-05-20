@@ -1,5 +1,5 @@
-{**
-  @abstract(Pruebas automáticas del modelo de `TGMMap.Polylines`.)
+﻿{**
+  @abstract(Pruebas automÃ¡ticas del modelo de `TGMMap.Polylines`.)
 }
 unit uTest.Polyline.Model;
 
@@ -21,7 +21,7 @@ type
     LastSouth: Double;
     LastEast: Double;
     LastWest: Double;
-    procedure CenterMapTo(const ALatLng: TGMLibLatLng);
+    procedure CenterMapTo(const ALatLng: TMapLibLatLng);
     procedure FitBounds(ANorth, ASouth, AEast, AWest: Double);
   end;
 
@@ -42,17 +42,17 @@ type
     FMouseOverCount: Integer;
     FMouseUpCount: Integer;
     FPathChangedCount: Integer;
-    procedure HandlePolylineClick(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandlePolylineContextMenu(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandlePolylineDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure HandlePolylineClick(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandlePolylineContextMenu(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandlePolylineDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure HandlePolylineDrag(Sender: TObject);
     procedure HandlePolylineDragEnd(Sender: TObject);
     procedure HandlePolylineDragStart(Sender: TObject);
-    procedure HandlePolylineMouseDown(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandlePolylineMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandlePolylineMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandlePolylineMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandlePolylineMouseUp(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure HandlePolylineMouseDown(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandlePolylineMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandlePolylineMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandlePolylineMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandlePolylineMouseUp(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure HandlePolylinePathChanged(Sender: TObject);
   public
     [Test]
@@ -91,7 +91,7 @@ type
 
 implementation
 
-procedure TPolylineViewportHostStub.CenterMapTo(const ALatLng: TGMLibLatLng);
+procedure TPolylineViewportHostStub.CenterMapTo(const ALatLng: TMapLibLatLng);
 begin
   Inc(CenterCallCount);
 end;
@@ -107,7 +107,7 @@ begin
 end;
 
 procedure TTestPolylineModel.HandlePolylineClick(Sender: TObject;
-  ALatLng: TGMLibLatLng);
+  ALatLng: TMapLibLatLng);
 begin
   Inc(FClickCount);
   if Assigned(ALatLng) then
@@ -118,7 +118,7 @@ begin
 end;
 
 procedure TTestPolylineModel.HandlePolylineContextMenu(Sender: TObject;
-  ALatLng: TGMLibLatLng);
+  ALatLng: TMapLibLatLng);
 begin
   Inc(FContextMenuCount);
   if Assigned(ALatLng) then
@@ -129,7 +129,7 @@ begin
 end;
 
 procedure TTestPolylineModel.HandlePolylineDblClick(Sender: TObject;
-  ALatLng: TGMLibLatLng);
+  ALatLng: TMapLibLatLng);
 begin
   Inc(FDblClickCount);
   if Assigned(ALatLng) then
@@ -155,31 +155,31 @@ begin
 end;
 
 procedure TTestPolylineModel.HandlePolylineMouseDown(Sender: TObject;
-  ALatLng: TGMLibLatLng);
+  ALatLng: TMapLibLatLng);
 begin
   Inc(FMouseDownCount);
 end;
 
 procedure TTestPolylineModel.HandlePolylineMouseMove(Sender: TObject;
-  ALatLng: TGMLibLatLng);
+  ALatLng: TMapLibLatLng);
 begin
   Inc(FMouseMoveCount);
 end;
 
 procedure TTestPolylineModel.HandlePolylineMouseOut(Sender: TObject;
-  ALatLng: TGMLibLatLng);
+  ALatLng: TMapLibLatLng);
 begin
   Inc(FMouseOutCount);
 end;
 
 procedure TTestPolylineModel.HandlePolylineMouseOver(Sender: TObject;
-  ALatLng: TGMLibLatLng);
+  ALatLng: TMapLibLatLng);
 begin
   Inc(FMouseOverCount);
 end;
 
 procedure TTestPolylineModel.HandlePolylineMouseUp(Sender: TObject;
-  ALatLng: TGMLibLatLng);
+  ALatLng: TMapLibLatLng);
 begin
   Inc(FMouseUpCount);
 end;
@@ -530,3 +530,4 @@ initialization
   TDUnitX.RegisterTestFixture(TTestPolylineModel);
 
 end.
+

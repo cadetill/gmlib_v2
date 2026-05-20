@@ -1,4 +1,4 @@
-# Roadmap
+﻿# Roadmap
 
 ## Done (v3 baseline)
 
@@ -23,30 +23,47 @@
   - `src/Fmx/{GM,OSM}`.
   - `src/Lcl/{GM,OSM}`.
 - Single public VCL design-time aggregator introduced: `MapLibDesign.Vcl`.
+- Single public FMX design-time aggregator introduced: `MapLibDesign.Fmx`.
+- Single public LCL design-time package introduced: `MapLibDesign.Lcl`.
+- Legacy design package naming removed from active flow:
+  - `GMLibDesign.Fmx`
+  - `GMLibDesign.Lcl`
+  - `OSMLibDesign.Vcl`
+- JavaScript bridge namespace unified to `window.maplib` for both providers
+  (`GMLib` and `OSMLib`).
 
 ## In progress
 
 - OSM pilot backend (`OSMLib`, based on `MapLibre + OSM`):
-  - package skeleton exists.
-  - initial map/bootstrap placeholders exist.
-  - full runtime behavior is still pending.
+  - map/bootstrap and map event flow are working in Delphi and Lazarus.
+  - JSON payload handling has first defensive parsing pass (non-breaking error
+    reporting via `OnError` on protocol exceptions).
+  - first overlay slice closed: `Markers` with per-item events
+    (`OnClick`, `OnDragStart`, `OnDrag`, `OnDragEnd`).
+  - helper methods added in marker collection (`Add`, `Clear`,
+    `DeleteByObjectId`, `ZoomToMarkers`).
+  - offline pilot available with `MapMode` and style/tile source wiring.
+
+- OSM offline native architecture (new focus):
+- OSM offline runtime unification (current step):`r`n  - `OfflineTileProvider` added (`Auto/EmbeddedTileJson/ExternalPmtiles/NativePmtiles`).`r`n  - runtime now separates tile server and offline assets server (localhost).`r`n  - bootstrap consumes runtime-resolved offline URLs (style/tilejson/glyphs).`r`n
+  - target runtime is embedded and mobile-ready (`Android/iOS`) with no external
+    executables as mandatory runtime dependencies.
+  - current external PMTiles process path is now considered transitional.
+  - next step is a native `OfflineRegionManager` with internal localhost server.
 
 ## Next milestones
 
 ### Milestone 1: finish OSM pilot map core
 
-- Implement OSM browser bridge integration per framework.
-- Complete first end-to-end `MapReady` flow.
-- Complete OSM bootstrap asset pipeline (embedded resources + extraction).
-- Add minimal map state flow:
-  - activate/deactivate
-  - center/zoom
-  - bounds sync
+- Validate and stabilize framework parity (`VCL`/`FMX`/`LCL`) for the current
+  map + marker baseline.
+- Keep OSM bootstrap asset pipeline aligned with the current
+  embedded/file-switch strategy.
 
 ### Milestone 2: first OSM functional slice
 
-- Implement first overlay set for OSM pilot (recommended: markers + popups).
-- Add at least one demo flow proving real usage in UI.
+- Extend marker options/events (draggable/visible/title/color and update path).
+- Add popup parity policy vs Google InfoWindow behavior where applicable.
 - Keep package boundaries stable (`MapLibCore` vs provider runtimes).
 
 ### Milestone 3: parity planning
@@ -62,3 +79,42 @@
 - Keep Delphi 11/12/13 and Lazarus compatibility validated during refactors.
 - Keep optional `CEF4Delphi` bridge outside default mandatory runtime dependencies.
 - `AirQualityMeterElement` remains future/experimental because Google documents it in `v=alpha`.
+
+## OSM Offline Native Milestones (new track)
+
+### Milestone A: offline API freeze
+
+- define `OfflineRegionManager` high-level contract:
+  - `DownloadRegion(...)`
+  - `DeleteRegion(...)`
+  - `ListRegions(...)`
+  - `GetStorageUsage(...)`
+- define hybrid policy enum:
+  - `PreferOffline`
+  - `PreferOnline`
+  - `OfflineOnly`
+- define first offline events/state surface (`OnOfflineError`, readiness/coverage).
+
+### Milestone B: embedded local serving
+
+- implement tiny embedded HTTP server (loopback only) to expose internal tile/style assets.
+- no external listener and no dependency on external runtime binaries.
+- secure-by-default flow for app-local use.
+
+### Milestone C: region catalog and storage
+
+- persistent region index (bbox, zoom range, size, version, checksum).
+- active-region selection and storage usage query.
+
+### Milestone D: download/update pipeline
+
+- background/restartable downloads.
+- integrity validation and transactional writes.
+- update and cleanup policies (manual + size-based pruning).
+
+### Milestone E: full hybrid behavior
+
+- deterministic offline/online fallback behavior per policy.
+- framework parity validation (`VCL/FMX/LCL/Android/iOS`).
+
+

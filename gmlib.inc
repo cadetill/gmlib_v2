@@ -3,6 +3,10 @@
 // CEF4DELPHI installed
 {$DEFINE CEF4Delphi}
 
+// During active development, load map bootstrap HTML/JS from repository files
+// instead of embedded resources. Disable this define for release packaging.
+{$DEFINE MAP_BOOTSTRAP_FROM_FILES}
+
 // delphi 6
 {$IFDEF VER140}
   {$DEFINE DELPHI6}

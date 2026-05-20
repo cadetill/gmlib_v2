@@ -1,4 +1,4 @@
-﻿{**
+{**
   @abstract(Modelo de capas auxiliares del mapa.)
 }
 unit uGMLib.Layers;
@@ -10,11 +10,9 @@ interface
 uses
 {$IFDEF FPC}
   Classes,
-  Math,
   SysUtils,
 {$ELSE}
   System.Classes,
-  System.Math,
   System.SysUtils,
 {$ENDIF}
   uGMLib.Core.Types,
@@ -83,7 +81,7 @@ type
     property Visible: Boolean read FVisible write SetVisible default False;
   end;
 
-  TGMKmlLayerClickEvent = procedure(Sender: TObject; ALatLng: TGMLibLatLng) of object;
+  TGMKmlLayerClickEvent = procedure(Sender: TObject; ALatLng: TMapLibLatLng) of object;
   TGMKmlLayerStatusEvent = procedure(Sender: TObject; const AStatus: string) of object;
 
   TGMKmlLayer = class(TMapLibApiObject)
@@ -655,6 +653,9 @@ begin
 end;
 
 end.
+
+
+
 
 
 

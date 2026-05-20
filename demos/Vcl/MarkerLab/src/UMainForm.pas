@@ -35,7 +35,7 @@ type
     FMapIdEdit: TEdit;
     FMapPanel: TPanel;
     FMapTypeStatusLabel: TLabel;
-    FPendingClickLatLng: TGMLibLatLng;
+    FPendingClickLatLng: TMapLibLatLng;
     FPendingClickTitle: string;
     FRootPanel: TPanel;
     FStatusLabel: TLabel;
@@ -49,12 +49,12 @@ type
     procedure ClearMarkersButtonClick(Sender: TObject);
     procedure CreateEdit(AParent: TWinControl; const ACaption, AValue: string;
       ALeft, ATop, AWidth: Integer; out AEdit: TEdit);
-    procedure HandleMapClick(Sender: TObject; ALatLng: TGMLibLatLng; const APlaceId: string);
+    procedure HandleMapClick(Sender: TObject; ALatLng: TMapLibLatLng; const APlaceId: string);
     procedure HandleMapReady(Sender: TObject);
     procedure HandleMarkerClick(Sender: TObject);
-    procedure HandleMarkerDrag(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleMarkerDragStart(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleMarkerDragEnd(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure HandleMarkerDrag(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleMarkerDragStart(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleMarkerDragEnd(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure InitializeDefaults;
     procedure InitializeMap;
     procedure Log(const AText: string);
@@ -62,7 +62,7 @@ type
     procedure PopulateDefaultMarkers;
     procedure SetInitialView;
     procedure UpdateStatus(const AText: string);
-    procedure AddMarker(const ALatLng: TGMLibLatLng; const ATitle: string;
+    procedure AddMarker(const ALatLng: TMapLibLatLng; const ATitle: string;
       AVariantIndex: Integer = -1);
     procedure WMAddClickMarker(var AMsg: TMessage); message WM_ADD_CLICK_MARKER;
   public
@@ -130,7 +130,7 @@ begin
     Log('Map is already active.');
 end;
 
-procedure TMainForm.AddMarker(const ALatLng: TGMLibLatLng; const ATitle: string;
+procedure TMainForm.AddMarker(const ALatLng: TMapLibLatLng; const ATitle: string;
   AVariantIndex: Integer);
 var
   MarkerItem: TGMMarkerItem;
@@ -218,7 +218,7 @@ end;
 
 procedure TMainForm.AddSampleButtonClick(Sender: TObject);
 var
-  Coordinate: TGMLibLatLng;
+  Coordinate: TMapLibLatLng;
   Latitude: Double;
   Longitude: Double;
   MarkerTitle: string;
@@ -237,7 +237,7 @@ begin
 
   Inc(FNextMarkerIndex);
   MarkerTitle := Format('Marker %d', [FNextMarkerIndex]);
-  Coordinate := TGMLibLatLng.Create(Latitude, Longitude);
+  Coordinate := TMapLibLatLng.Create(Latitude, Longitude);
   try
     AddMarker(Coordinate, MarkerTitle, FNextMarkerIndex);
   finally
@@ -391,7 +391,7 @@ begin
   inherited;
 end;
 
-procedure TMainForm.HandleMapClick(Sender: TObject; ALatLng: TGMLibLatLng;
+procedure TMainForm.HandleMapClick(Sender: TObject; ALatLng: TMapLibLatLng;
   const APlaceId: string);
 begin
   Log(Format('Map click at %s, %s (placeId=%s)', [
@@ -404,7 +404,7 @@ begin
   begin
     Inc(FNextMarkerIndex);
     FreeAndNil(FPendingClickLatLng);
-    FPendingClickLatLng := TGMLibLatLng.Create(ALatLng.Lat, ALatLng.Lng);
+    FPendingClickLatLng := TMapLibLatLng.Create(ALatLng.Lat, ALatLng.Lng);
     FPendingClickTitle := Format('Marker %d', [FNextMarkerIndex]);
     PostMessage(Handle, WM_ADD_CLICK_MARKER, 0, 0);
   end;
@@ -419,7 +419,7 @@ end;
 
 procedure TMainForm.WMAddClickMarker(var AMsg: TMessage);
 var
-  ClickLatLng: TGMLibLatLng;
+  ClickLatLng: TMapLibLatLng;
   ClickMarkerTitle: string;
 begin
   if not Assigned(FPendingClickLatLng) then
@@ -452,7 +452,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandleMarkerDrag(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleMarkerDrag(Sender: TObject; ALatLng: TMapLibLatLng);
 var
   MarkerItem: TGMMarkerItem;
 begin
@@ -467,7 +467,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandleMarkerDragStart(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleMarkerDragStart(Sender: TObject; ALatLng: TMapLibLatLng);
 var
   MarkerItem: TGMMarkerItem;
 begin
@@ -482,7 +482,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandleMarkerDragEnd(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleMarkerDragEnd(Sender: TObject; ALatLng: TMapLibLatLng);
 var
   MarkerItem: TGMMarkerItem;
 begin
@@ -527,36 +527,36 @@ end;
 
 procedure TMainForm.PopulateDefaultMarkers;
 var
-  DefaultMarkerPosition: TGMLibLatLng;
-  HtmlMarkerPosition: TGMLibLatLng;
-  LabelMarkerPosition: TGMLibLatLng;
-  PinMarkerPosition: TGMLibLatLng;
+  DefaultMarkerPosition: TMapLibLatLng;
+  HtmlMarkerPosition: TMapLibLatLng;
+  LabelMarkerPosition: TMapLibLatLng;
+  PinMarkerPosition: TMapLibLatLng;
 begin
   if FMap.Markers.Count > 0 then
     Exit;
 
-  DefaultMarkerPosition := TGMLibLatLng.Create(41.3874, 2.1686);
+  DefaultMarkerPosition := TMapLibLatLng.Create(41.3874, 2.1686);
   try
     AddMarker(DefaultMarkerPosition, 'mcmDefault', 1);
   finally
     DefaultMarkerPosition.Free;
   end;
 
-  HtmlMarkerPosition := TGMLibLatLng.Create(41.3892, 2.1701);
+  HtmlMarkerPosition := TMapLibLatLng.Create(41.3892, 2.1701);
   try
     AddMarker(HtmlMarkerPosition, 'mcmHtml', 2);
   finally
     HtmlMarkerPosition.Free;
   end;
 
-  LabelMarkerPosition := TGMLibLatLng.Create(41.3883, 2.1660);
+  LabelMarkerPosition := TMapLibLatLng.Create(41.3883, 2.1660);
   try
     AddMarker(LabelMarkerPosition, 'mcmLabel', 4);
   finally
     LabelMarkerPosition.Free;
   end;
 
-  PinMarkerPosition := TGMLibLatLng.Create(41.3857, 2.1669);
+  PinMarkerPosition := TMapLibLatLng.Create(41.3857, 2.1669);
   try
     AddMarker(PinMarkerPosition, 'mcmPin', 3);
   finally
@@ -569,7 +569,7 @@ end;
 
 procedure TMainForm.SetInitialView;
 var
-  Coordinate: TGMLibLatLng;
+  Coordinate: TMapLibLatLng;
   Latitude: Double;
   Longitude: Double;
   ZoomLevel: Integer;
@@ -592,7 +592,7 @@ begin
     Exit;
   end;
 
-  Coordinate := TGMLibLatLng.Create(Latitude, Longitude);
+  Coordinate := TMapLibLatLng.Create(Latitude, Longitude);
   try
     FMap.Options.Center := Coordinate;
   finally
@@ -614,3 +614,4 @@ begin
 end;
 
 end.
+

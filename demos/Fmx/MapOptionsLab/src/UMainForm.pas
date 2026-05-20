@@ -1,4 +1,4 @@
-unit UMainForm;
+﻿unit UMainForm;
 
 interface
 
@@ -89,20 +89,20 @@ type
     procedure CreateSectionLabel(AParent: TFmxObject; const ACaption: string;
       var ATop: Single);
     procedure HandleBoundsChanged(Sender: TObject; ABounds: TGMLatLngBounds);
-    procedure HandleCenterChanged(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleContextMenu(Sender: TObject; ALatLng: TGMLibLatLng; const APlaceId: string);
-    procedure HandleDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure HandleCenterChanged(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleContextMenu(Sender: TObject; ALatLng: TMapLibLatLng; const APlaceId: string);
+    procedure HandleDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure HandleDrag(Sender: TObject);
     procedure HandleDragEnd(Sender: TObject);
     procedure HandleDragStart(Sender: TObject);
     procedure HandleHeadingChanged(Sender: TObject; AHeading: Double);
     procedure HandleIdle(Sender: TObject);
-    procedure HandleMapClick(Sender: TObject; ALatLng: TGMLibLatLng; const APlaceId: string);
+    procedure HandleMapClick(Sender: TObject; ALatLng: TMapLibLatLng; const APlaceId: string);
     procedure HandleMapReady(Sender: TObject);
     procedure HandleMapTypeIdChanged(Sender: TObject; AMapTypeId: TGMMapTypeId);
-    procedure HandleMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure HandleMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure HandleProjectionChanged(Sender: TObject);
     procedure HandleRenderingTypeChanged(Sender: TObject; ARenderingType: TGMRenderingType);
     procedure HandleTilesLoaded(Sender: TObject);
@@ -177,7 +177,7 @@ end;
 
 procedure TMainForm.ApplyViewButtonClick(Sender: TObject);
 var
-  coordinate: TGMLibLatLng;
+  coordinate: TMapLibLatLng;
   latitude: Double;
   longitude: Double;
   zoomLevel: Integer;
@@ -200,7 +200,7 @@ begin
     Exit;
   end;
 
-  coordinate := TGMLibLatLng.Create(latitude, longitude);
+  coordinate := TMapLibLatLng.Create(latitude, longitude);
   try
     FMap.Options.Center := coordinate;
   finally
@@ -500,7 +500,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandleCenterChanged(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleCenterChanged(Sender: TObject; ALatLng: TMapLibLatLng);
 var
   centerSignature: string;
 begin
@@ -520,7 +520,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandleDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Map double click at %s, %s', [
     FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
@@ -528,7 +528,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandleContextMenu(Sender: TObject; ALatLng: TGMLibLatLng;
+procedure TMainForm.HandleContextMenu(Sender: TObject; ALatLng: TMapLibLatLng;
   const APlaceId: string);
 begin
   Log(Format('Map context menu at %s, %s (placeId=%s)', [
@@ -565,7 +565,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandleMapClick(Sender: TObject; ALatLng: TGMLibLatLng;
+procedure TMainForm.HandleMapClick(Sender: TObject; ALatLng: TMapLibLatLng;
   const APlaceId: string);
 begin
   Log(Format('Map click at %s, %s (placeId=%s)', [
@@ -596,7 +596,7 @@ begin
   Log(Format('MapTypeId changed from map: %s', [signature]));
 end;
 
-procedure TMainForm.HandleMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Map mouse out at %s, %s', [
     FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
@@ -604,7 +604,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandleMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Map mouse over at %s, %s', [
     FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
@@ -612,7 +612,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandleMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Map mouse move at %s, %s', [
     FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
@@ -802,3 +802,4 @@ begin
 end;
 
 end.
+

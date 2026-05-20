@@ -1,4 +1,4 @@
-﻿{**
+{**
   @abstract(Modelo de colecciÃƒÂ³n de polÃƒÂ­gonos del mapa.)
 }
 unit uGMLib.Polygon;
@@ -35,7 +35,7 @@ type
   TGMPolygonItem = class;
   TGMPolygons = class;
 
-  TGMPolygonCoordinateEvent = procedure(Sender: TObject; ALatLng: TGMLibLatLng) of object;
+  TGMPolygonCoordinateEvent = procedure(Sender: TObject; ALatLng: TMapLibLatLng) of object;
   TGMPolygonPathChangedEvent = procedure(Sender: TObject) of object;
   TGMPolygonItemClass = class of TGMPolygonItem;
 
@@ -134,7 +134,7 @@ type
     procedure OptionsChanged(Sender: TObject);
     procedure SetOptions(const Value: TGMPolygonOptions);
     function TryGetCoordinateFromPayload(const APayload: string;
-      out ALatLng: TGMLibLatLng): Boolean;
+      out ALatLng: TMapLibLatLng): Boolean;
   protected
     function BuildObjectId: TGMObjectId; virtual;
     function CreatePolygonOptions: TGMPolygonOptions; virtual;
@@ -245,9 +245,15 @@ end;
 
 function TGMPolygonPath.Add(ALatitude, ALongitude: Double): TGMPolygonPoint;
 begin
+{$IFDEF FPC}
+  Result := nil;
+{$ENDIF}
   Result := Add;
-  Result.Lat := ALatitude;
-  Result.Lng := ALongitude;
+  if Assigned(Result) then
+  begin
+    Result.Lat := ALatitude;
+    Result.Lng := ALongitude;
+  end;
 end;
 
 procedure TGMPolygonPath.Assign(Source: TPersistent);
@@ -655,7 +661,7 @@ var
 {$ELSE}
   JsonValue: TJSONValue;
 {$ENDIF}
-  LatLng: TGMLibLatLng;
+  LatLng: TMapLibLatLng;
 begin
   LatLng := nil;
 
@@ -853,7 +859,7 @@ begin
 end;
 
 function TGMPolygonItem.TryGetCoordinateFromPayload(const APayload: string;
-  out ALatLng: TGMLibLatLng): Boolean;
+  out ALatLng: TMapLibLatLng): Boolean;
 var
   JsonObject: TJSONObject;
 {$IFDEF FPC}
@@ -891,7 +897,7 @@ begin
       Exit;
 {$ENDIF}
 
-    ALatLng := TGMLibLatLng.Create(LatValue, LngValue);
+    ALatLng := TMapLibLatLng.Create(LatValue, LngValue);
     Result := True;
   finally
     JsonValue.Free;
@@ -1104,6 +1110,9 @@ begin
 end;
 
 end.
+
+
+
 
 
 

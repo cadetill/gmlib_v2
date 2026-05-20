@@ -1,4 +1,4 @@
-unit UMainFrm;
+﻿unit UMainFrm;
 
 interface
 
@@ -7,16 +7,17 @@ uses
   System.Classes, System.StrUtils, Vcl.Graphics, Vcl.Controls, Vcl.Forms,
   Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls, Winapi.WebView2, Winapi.ActiveX,
   Vcl.Edge, Vcl.ExtCtrls, Vcl.CheckLst, System.RegularExpressions,
-  uGMLib.Core.Component, uGMLib.Map, uGMLib.Vcl.Map, uGMLib.Vcl.Marker,
+  uMapLib.Core.Offline, uMapLib.Offline.Types,
+  uMapLib.Core.Component, uGMLib.Core.Types, uGMLib.Map, uGMLib.Vcl.Map, uGMLib.Vcl.Marker,
   uGMLib.Vcl.Polyline, uGMLib.Vcl.Polygon, uGMLib.Vcl.Rectangle,
-  uGMLib.Vcl.Circle, uGMLib.Vcl.InfoWindow, uGMLib.Core.Types, uGMLib.MapOptions,
+  uGMLib.Vcl.Circle, uGMLib.Vcl.InfoWindow, uGMLib.Google.Types, uGMLib.MapOptions,
   uGMLib.Polyline, uGMLib.Polygon, uGMLib.Rectangle, uGMLib.Circle,
   uGMLib.GroundOverlay, uGMLib.GeoCode, uGMLib.Elevation, uGMLib.Routes,
-  uGMLib.Geometry;
+  uGMLib.Geometry, uOSMLib.Vcl.Map, uOSMLib.Map;
 
 type
   TMainFrm = class(TForm)
-    pcOptions: TPageControl;
+    pcGMOptions: TPageControl;
     tsMap: TTabSheet;
     tsMarkers: TTabSheet;
     tsOverlays: TTabSheet;
@@ -25,19 +26,20 @@ type
     tsElevation: TTabSheet;
     tsRoutes: TTabSheet;
     tsGeometry: TTabSheet;
+    tsOSMGeneral: TTabSheet;
     mLog: TMemo;
-    Map: TGMLibVclMap;
+    GMMap: TGMLibVclMap;
+    OSMMap: TOSMLibVclMap;
     EdgeBrowser1: TEdgeBrowser;
     pMapTop: TPanel;
     lAPIKey: TLabel;
     MapIdLabel: TLabel;
-    lStatus: TLabel;
     eAPIKey: TEdit;
     eMapId: TEdit;
     bApplyOptions: TButton;
     bActivate: TButton;
     pcMapOptions: TPageControl;
-    tsMapGeneral: TTabSheet;
+    tsGMGeneral: TTabSheet;
     lMapTypeId: TLabel;
     cbMapTypeId: TComboBox;
     cbColorScheme: TComboBox;
@@ -307,6 +309,53 @@ type
     eGeomPointLng: TEdit;
     bComputeGeometry: TButton;
     mGeometryResults: TMemo;
+    lOSMCenterLat: TLabel;
+    lOSMCenterLng: TLabel;
+    lOSMZoom: TLabel;
+    lOSMNorth: TLabel;
+    lOSMSouth: TLabel;
+    lOSMEast: TLabel;
+    lOSMWest: TLabel;
+    eOSMCenterLat: TEdit;
+    eOSMCenterLng: TEdit;
+    eOSMZoom: TEdit;
+    eOSMNorth: TEdit;
+    eOSMSouth: TEdit;
+    eOSMEast: TEdit;
+    eOSMWest: TEdit;
+    bActivateOSM: TButton;
+    bApplyOSMView: TButton;
+    bFitOSMBounds: TButton;
+    lOSMStyleUrl: TLabel;
+    eOSMStyleUrl: TEdit;
+    bApplyOSMStyle: TButton;
+    cbOSMStyles: TComboBox;
+    cbOSMLogMove: TCheckBox;
+    cbOSMLogRender: TCheckBox;
+    cbOSMLogData: TCheckBox;
+    lOSMMapMode: TLabel;
+    cbOSMMapMode: TComboBox;
+    lOSMOfflineTileJsonUrl: TLabel;
+    eOSMOfflineTileJsonUrl: TEdit;
+    lOSMOfflineServerExecutable: TLabel;
+    eOSMOfflineServerExecutable: TEdit;
+    lOSMOfflineServerPort: TLabel;
+    eOSMOfflineServerPort: TEdit;
+    lOSMOfflineSourcePreset: TLabel;
+    cbOSMOfflineSourcePreset: TComboBox;
+    lbOSMMarkers: TListBox;
+    bOSMClearMarkers: TButton;
+    bOSMZoomToMarkers: TButton;
+    bApplyOSMEventFilter: TButton;
+    pcSupplier: TPageControl;
+    tsGM: TTabSheet;
+    tsOSM: TTabSheet;
+    pcOSMOptions: TPageControl;
+    tsOSMOffline: TTabSheet;
+    tsOSMMarkers: TTabSheet;
+    pRight: TPanel;
+    lStatus: TLabel;
+    Splitter1: TSplitter;
     procedure bActivateClick(Sender: TObject);
     procedure bAddMarkerClick(Sender: TObject);
     procedure bDeleteMarkerClick(Sender: TObject);
@@ -316,9 +365,9 @@ type
     procedure lbMarkersClick(Sender: TObject);
     procedure bUpdateClick(Sender: TObject);
     procedure MapMarkersClick(Sender: TObject);
-    procedure MapMarkersDrag(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapMarkersDragEnd(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapMarkersDragStart(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure MapMarkersDrag(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapMarkersDragEnd(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapMarkersDragStart(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure MapMarkersMouseDown(Sender: TObject);
     procedure MapMarkersMouseEnter(Sender: TObject);
     procedure MapMarkersMouseLeave(Sender: TObject);
@@ -331,20 +380,20 @@ type
     procedure bLoadGpxClick(Sender: TObject);
     procedure bApplyOptionsClick(Sender: TObject);
     procedure MapBoundsChanged(Sender: TObject; ABounds: TGMLatLngBounds);
-    procedure MapCenterChanged(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapContextMenu(Sender: TObject; ALatLng: TGMLibLatLng; const APlaceId: string);
-    procedure MapDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure MapCenterChanged(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapContextMenu(Sender: TObject; ALatLng: TMapLibLatLng; const APlaceId: string);
+    procedure MapDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure MapDrag(Sender: TObject);
     procedure MapDragEnd(Sender: TObject);
     procedure MapDragStart(Sender: TObject);
     procedure MapHeadingChanged(Sender: TObject; AHeading: Double);
     procedure MapIdle(Sender: TObject);
-    procedure MapMapClick(Sender: TObject; ALatLng: TGMLibLatLng; const APlaceId: string);
+    procedure MapMapClick(Sender: TObject; ALatLng: TMapLibLatLng; const APlaceId: string);
     procedure MapMapReady(Sender: TObject);
     procedure MapMapTypeIdChanged(Sender: TObject; AMapTypeId: TGMMapTypeId);
-    procedure MapMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure MapMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure MapProjectionChanged(Sender: TObject);
     procedure MapRenderingTypeChanged(Sender: TObject; ARenderingType: TGMRenderingType);
     procedure MapTilesLoaded(Sender: TObject);
@@ -354,29 +403,29 @@ type
     procedure bZoomToMarkerClick(Sender: TObject);
     procedure bZoomToPolylineClick(Sender: TObject);
     procedure bZoomToPolylinesClick(Sender: TObject);
-    procedure MapPolylineClick(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapPolylineContextMenu(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapPolylineDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure MapPolylineClick(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapPolylineContextMenu(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapPolylineDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure MapPolylineDrag(Sender: TObject);
     procedure MapPolylineDragEnd(Sender: TObject);
     procedure MapPolylineDragStart(Sender: TObject);
-    procedure MapPolylineMouseDown(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapPolylineMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapPolylineMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapPolylineMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapPolylineMouseUp(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure MapPolylineMouseDown(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapPolylineMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapPolylineMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapPolylineMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapPolylineMouseUp(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure MapPolylinePathChanged(Sender: TObject);
-    procedure MapPolygonClick(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapPolygonContextMenu(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapPolygonDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure MapPolygonClick(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapPolygonContextMenu(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapPolygonDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure MapPolygonDrag(Sender: TObject);
     procedure MapPolygonDragEnd(Sender: TObject);
     procedure MapPolygonDragStart(Sender: TObject);
-    procedure MapPolygonMouseDown(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapPolygonMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapPolygonMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapPolygonMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapPolygonMouseUp(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure MapPolygonMouseDown(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapPolygonMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapPolygonMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapPolygonMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapPolygonMouseUp(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure MapPolygonPathChanged(Sender: TObject);
     procedure bZoomToPolygonsClick(Sender: TObject);
     procedure lbPolygonsClick(Sender: TObject);
@@ -385,17 +434,17 @@ type
     procedure bClearPolygonsClick(Sender: TObject);
     procedure bUpdatePolygonClick(Sender: TObject);
     procedure bZoomToPolygonClick(Sender: TObject);
-    procedure MapRectangleClick(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapRectangleContextMenu(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapRectangleDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure MapRectangleClick(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapRectangleContextMenu(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapRectangleDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure MapRectangleDrag(Sender: TObject);
     procedure MapRectangleDragEnd(Sender: TObject);
     procedure MapRectangleDragStart(Sender: TObject);
-    procedure MapRectangleMouseDown(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapRectangleMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapRectangleMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapRectangleMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapRectangleMouseUp(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure MapRectangleMouseDown(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapRectangleMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapRectangleMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapRectangleMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapRectangleMouseUp(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure MapRectangleBoundsChanged(Sender: TObject);
     procedure bZoomToRectanglesClick(Sender: TObject);
     procedure lbRectanglesClick(Sender: TObject);
@@ -404,21 +453,21 @@ type
     procedure bClearRectanglesClick(Sender: TObject);
     procedure bUpdateRectangleClick(Sender: TObject);
     procedure bZoomToRectangleClick(Sender: TObject);
-    procedure MapCircleClick(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapCircleContextMenu(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapCircleDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure MapCircleClick(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapCircleContextMenu(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapCircleDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure MapCircleDrag(Sender: TObject);
     procedure MapCircleDragEnd(Sender: TObject);
     procedure MapCircleDragStart(Sender: TObject);
-    procedure MapCircleMouseDown(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapCircleMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapCircleMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapCircleMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapCircleMouseUp(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure MapCircleMouseDown(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapCircleMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapCircleMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapCircleMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapCircleMouseUp(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure MapCircleCenterChanged(Sender: TObject);
     procedure MapCircleRadiusChanged(Sender: TObject);
-    procedure MapGroundOverlayClick(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure MapGroundOverlayDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure MapGroundOverlayClick(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure MapGroundOverlayDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure bZoomToCirclesClick(Sender: TObject);
     procedure lbCirclesClick(Sender: TObject);
     procedure bAddCircleClick(Sender: TObject);
@@ -440,6 +489,23 @@ type
     procedure bComputeGeometryClick(Sender: TObject);
     procedure RouteCompleted(Sender: TObject; const AResponse: TGMRouteResponse);
     procedure RefreshRouteList;
+    procedure OSMMapReady(Sender: TObject);
+    procedure ActivateOSMClick(Sender: TObject);
+    procedure ApplyOSMViewClick(Sender: TObject);
+    procedure FitOSMBoundsClick(Sender: TObject);
+    procedure OSMMapCoordinateEvent(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure OSMMapClickEvent(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure OSMMarkerClickEvent(Sender: TObject; const AMarkerId: TGMObjectId; ALatLng: TMapLibLatLng);
+    procedure OSMMapViewChangedEvent(Sender: TObject; ACenter: TMapLibLatLng; AZoom, ABearing, APitch: Double);
+    procedure OSMMapBoundsChangedEvent(Sender: TObject; ANorth, ASouth, AEast, AWest: Double);
+    procedure OSMMapSimpleEvent(Sender: TObject);
+    procedure OSMMapErrorEvent(Sender: TObject; const AMessage: string);
+    procedure ApplyOSMStyleClick(Sender: TObject);
+    procedure ApplyOSMEventFilterClick(Sender: TObject);
+    procedure OSMStylePresetChange(Sender: TObject);
+    procedure OSMMarkerListClick(Sender: TObject);
+    procedure OSMClearMarkersClick(Sender: TObject);
+    procedure OSMZoomToMarkersClick(Sender: TObject);
   private
     FIsDraggingPolyline: Boolean;
     FIsDraggingPolygon: Boolean;
@@ -481,6 +547,13 @@ type
     procedure ShowMarkerInfoWindow(AMarker: TGMVclMarkerItem);
     procedure GeoCodeCompleted(Sender: TObject; const AResponse: TGMGeocodeResponse);
     procedure ElevationCompleted(Sender: TObject; const AResponse: TGMElevationResponse);
+    procedure RefreshOSMMarkerList;
+    procedure BindOSMMarkerEvents(AMarker: TOSMMarkerItem);
+    function ResolveRepoAssetPath(const ARelativePath: string): string;
+    // procedure ConfigureOSMOfflineDefaults;
+    // function HasOSMOfflineRuntimeAssets: Boolean;
+    // procedure OSMOfflineSourcePresetChange(Sender: TObject);
+    // procedure ApplyOSMOfflineSourcePreset;
   public
     constructor Create(AOwner: TComponent); override;
   end;
@@ -497,27 +570,36 @@ implementation
 
 procedure TMainFrm.bActivateClick(Sender: TObject);
 begin
-  Map.APIKey := Trim(eAPIKey.Text);
-  Map.Options.MapId := Trim(eMapId.Text);
+  GMMap.APIKey := Trim(eAPIKey.Text);
+  GMMap.Options.MapId := Trim(eMapId.Text);
   if not Checks then
     Exit;
 
   ApplyOptions;
 
-  if not Map.Active then
+  if not GMMap.Active then
   begin
-    Map.Active := True;
+    if OSMMap.Active then
+    begin
+      OSMMap.Active := False;
+      bActivateOSM.Caption := 'Activate';
+      Log('OSM map deactivated (Google map activation).');
+    end;
+
+    GMMap.Browser := EdgeBrowser1;
+    GMMap.Active := True;
     Log('Map activation requested.');
-    if Map.APIKey = '' then
+    if GMMap.APIKey = '' then
       Log('Loading Google Maps API without API key.')
     else
       Log('Loading Google Maps API with API key.');
     bActivate.Caption := 'Deactivate';
-    UpdateStatus('Loading map...');
+    UpdateStatus('Loading GMMap...');
   end
   else
   begin
-    Map.Active := False;
+    GMMap.Active := False;
+    GMMap.Browser := nil;
     EdgeBrowser1.Navigate('about:blank');
     bActivate.Caption := 'Activate';
     Log('Map is inactive.');
@@ -528,76 +610,76 @@ end;
 procedure TMainFrm.ApplyOptions;
 begin
   // General
-  Map.Options.BackgroundColor := cbBackGroundColor.Selected;
-  Map.Options.MapTypeId := TGMMapTypeId(cbMapTypeId.ItemIndex);
-  Map.Options.ColorScheme := TGMColorScheme(cbColorScheme.ItemIndex);
-  Map.Options.RenderingType := TGMRenderingType(cbRenderType.ItemIndex);
-  Map.Options.GestureHandling := TGMGestureHandling(cbGestureHandling.ItemIndex);
+  GMMap.Options.BackgroundColor := cbBackGroundColor.Selected;
+  GMMap.Options.MapTypeId := TGMMapTypeId(cbMapTypeId.ItemIndex);
+  GMMap.Options.ColorScheme := TGMColorScheme(cbColorScheme.ItemIndex);
+  GMMap.Options.RenderingType := TGMRenderingType(cbRenderType.ItemIndex);
+  GMMap.Options.GestureHandling := TGMGestureHandling(cbGestureHandling.ItemIndex);
 
   // Heading i Tilt
   if Trim(eHeading.Text) <> '' then
-    Map.Options.Heading := StrToFloatDef(eHeading.Text, 0);
+    GMMap.Options.Heading := StrToFloatDef(eHeading.Text, 0);
   if Trim(eTilt.Text) <> '' then
-    Map.Options.Tilt := StrToIntDef(eTilt.Text, 0);
+    GMMap.Options.Tilt := StrToIntDef(eTilt.Text, 0);
 
   // Min/Max Zoom
   if Trim(eMinZoom.Text) <> '' then
-    Map.Options.MinZoom := StrToIntDef(eMinZoom.Text, 0);
+    GMMap.Options.MinZoom := StrToIntDef(eMinZoom.Text, 0);
   if Trim(eMaxZoom.Text) <> '' then
-    Map.Options.MaxZoom := StrToIntDef(eMaxZoom.Text, 22);
+    GMMap.Options.MaxZoom := StrToIntDef(eMaxZoom.Text, 22);
 
   // Fractional Zoom
-  Map.Options.IsFractionalZoomEnabled := cbIsFractionalZoomEnabled.Checked;
+  GMMap.Options.IsFractionalZoomEnabled := cbIsFractionalZoomEnabled.Checked;
 
   // Control Size
   if Trim(eControlSize.Text) <> '' then
-    Map.Options.ControlSize := StrToIntDef(eControlSize.Text, 0);
+    GMMap.Options.ControlSize := StrToIntDef(eControlSize.Text, 0);
 
   // Map Type Ids
-  Map.Options.MapTypeControlOptions.MapTypeIds := [];
+  GMMap.Options.MapTypeControlOptions.MapTypeIds := [];
   if clbMapTypeIds.Checked[0] then
-    Map.Options.MapTypeControlOptions.MapTypeIds := Map.Options.MapTypeControlOptions.MapTypeIds + [mtRoadmap];
+    GMMap.Options.MapTypeControlOptions.MapTypeIds := GMMap.Options.MapTypeControlOptions.MapTypeIds + [mtRoadmap];
   if clbMapTypeIds.Checked[1] then
-    Map.Options.MapTypeControlOptions.MapTypeIds := Map.Options.MapTypeControlOptions.MapTypeIds + [mtSatellite];
+    GMMap.Options.MapTypeControlOptions.MapTypeIds := GMMap.Options.MapTypeControlOptions.MapTypeIds + [mtSatellite];
   if clbMapTypeIds.Checked[2] then
-    Map.Options.MapTypeControlOptions.MapTypeIds := Map.Options.MapTypeControlOptions.MapTypeIds + [mtHybrid];
+    GMMap.Options.MapTypeControlOptions.MapTypeIds := GMMap.Options.MapTypeControlOptions.MapTypeIds + [mtHybrid];
   if clbMapTypeIds.Checked[3] then
-    Map.Options.MapTypeControlOptions.MapTypeIds := Map.Options.MapTypeControlOptions.MapTypeIds + [mtTerrain];
+    GMMap.Options.MapTypeControlOptions.MapTypeIds := GMMap.Options.MapTypeControlOptions.MapTypeIds + [mtTerrain];
 
   // Controls
-  Map.Options.ZoomControl := cbZoomControl.Checked;
-  Map.Options.ZoomControlOptions.Position := TGMControlPosition(cbZoomPosition.ItemIndex);
+  GMMap.Options.ZoomControl := cbZoomControl.Checked;
+  GMMap.Options.ZoomControlOptions.Position := TGMControlPosition(cbZoomPosition.ItemIndex);
 
-  Map.Options.MapTypeControl := cbMapTypeControl.Checked;
-  Map.Options.MapTypeControlOptions.Position := TGMControlPosition(cbMapTypePosition.ItemIndex);
-  Map.Options.MapTypeControlOptions.Style := TGMMapTypeControlStyle(cbMapTypeStyle.ItemIndex);
+  GMMap.Options.MapTypeControl := cbMapTypeControl.Checked;
+  GMMap.Options.MapTypeControlOptions.Position := TGMControlPosition(cbMapTypePosition.ItemIndex);
+  GMMap.Options.MapTypeControlOptions.Style := TGMMapTypeControlStyle(cbMapTypeStyle.ItemIndex);
 
-  Map.Options.ScaleControl := cbScaleControl.Checked;
-  Map.Options.ScaleControlOptions.Style := TGMScaleControlStyle(cbScaleStyle.ItemIndex);
+  GMMap.Options.ScaleControl := cbScaleControl.Checked;
+  GMMap.Options.ScaleControlOptions.Style := TGMScaleControlStyle(cbScaleStyle.ItemIndex);
 
-  Map.Options.RotateControl := cbRotateControl.Checked;
-  Map.Options.RotateControlOptions.Position := TGMControlPosition(cbRotatePosition.ItemIndex);
+  GMMap.Options.RotateControl := cbRotateControl.Checked;
+  GMMap.Options.RotateControlOptions.Position := TGMControlPosition(cbRotatePosition.ItemIndex);
 
-  Map.Options.StreetViewControl := cbStreetViewControl.Checked;
-  Map.Options.StreetViewControlOptions.Position := TGMControlPosition(cbStreetViewPosition.ItemIndex);
+  GMMap.Options.StreetViewControl := cbStreetViewControl.Checked;
+  GMMap.Options.StreetViewControlOptions.Position := TGMControlPosition(cbStreetViewPosition.ItemIndex);
 
-  Map.Options.FullscreenControl := cbFullscreenControl.Checked;
-  Map.Options.FullscreenControlOptions.Position := TGMControlPosition(cbFullscreenPosition.ItemIndex);
+  GMMap.Options.FullscreenControl := cbFullscreenControl.Checked;
+  GMMap.Options.FullscreenControlOptions.Position := TGMControlPosition(cbFullscreenPosition.ItemIndex);
 
-  Map.Options.CameraControl := cbCameraControl.Checked;
-  Map.Options.CameraControlOptions.Position := TGMControlPosition(cbCameraPosition.ItemIndex);
+  GMMap.Options.CameraControl := cbCameraControl.Checked;
+  GMMap.Options.CameraControlOptions.Position := TGMControlPosition(cbCameraPosition.ItemIndex);
 
   // Interaction
-  Map.Options.DisableDoubleClickZoom := cbDisableDoubleClickZoom.Checked;
-  Map.Options.Scrollwheel := cbScrollwheel.Checked;
-  Map.Options.KeyboardShortcuts := cbKeyboardShortcuts.Checked;
-  Map.Options.TiltInteractionEnabled := cbTiltInteractionEnabled.Checked;
-  Map.Options.HeadingInteractionEnabled := cbHeadingInteractionEnabled.Checked;
+  GMMap.Options.DisableDoubleClickZoom := cbDisableDoubleClickZoom.Checked;
+  GMMap.Options.Scrollwheel := cbScrollwheel.Checked;
+  GMMap.Options.KeyboardShortcuts := cbKeyboardShortcuts.Checked;
+  GMMap.Options.TiltInteractionEnabled := cbTiltInteractionEnabled.Checked;
+  GMMap.Options.HeadingInteractionEnabled := cbHeadingInteractionEnabled.Checked;
 
   // Focus
-  Map.Options.ClickableIcons := cbClickableIcons.Checked;
-  Map.Options.DisableDefaultUI := cbDisableDefaultUI.Checked;
-  Map.Options.NoClear := cbNoClear.Checked;
+  GMMap.Options.ClickableIcons := cbClickableIcons.Checked;
+  GMMap.Options.DisableDefaultUI := cbDisableDefaultUI.Checked;
+  GMMap.Options.NoClear := cbNoClear.Checked;
 end;
 
 procedure TMainFrm.bApplyOptionsClick(Sender: TObject);
@@ -639,9 +721,9 @@ begin
     Exit;
   end;
 
-  Map.Options.Zoom := zoomLevel;
-  Map.Options.Center.Lat := latitude;
-  Map.Options.Center.Lng := longitude;
+  GMMap.Options.Zoom := zoomLevel;
+  GMMap.Options.Center.Lat := latitude;
+  GMMap.Options.Center.Lng := longitude;
 
   Result := True;
 end;
@@ -650,11 +732,488 @@ constructor TMainFrm.Create(AOwner: TComponent);
 begin
   inherited;
 
-  pcOptions.ActivePage := tsMap;
+  pcSupplier.ActivePageIndex := 0;
+  pcGMOptions.ActivePageIndex := 0;
+  pcMapOptions.ActivePageIndex := 0;
+  pcMakerContent.ActivePageIndex := 0;
+  pcOverlays.ActivePageIndex := 0;
+  pcOSMOptions.ActivePageIndex := 0;
+
   InitializeDefaults;
   RefreshMarkerList;
   RefreshPolylineList;
   RefreshGroundOverlayList;
+    OSMMap.OnMapReady := OSMMapReady;
+  OSMMap.OnClick := OSMMapClickEvent;
+  OSMMap.OnContextMenu := OSMMapCoordinateEvent;
+  OSMMap.OnDblClick := OSMMapCoordinateEvent;
+  OSMMap.OnMoveStart := OSMMapViewChangedEvent;
+  OSMMap.OnMoveEnd := OSMMapViewChangedEvent;
+  OSMMap.OnDragStart := OSMMapViewChangedEvent;
+  OSMMap.OnDrag := OSMMapViewChangedEvent;
+  OSMMap.OnDragEnd := OSMMapViewChangedEvent;
+  OSMMap.OnZoomStart := OSMMapViewChangedEvent;
+  OSMMap.OnZoomEnd := OSMMapViewChangedEvent;
+  OSMMap.OnRotateStart := OSMMapViewChangedEvent;
+  OSMMap.OnRotate := OSMMapViewChangedEvent;
+  OSMMap.OnRotateEnd := OSMMapViewChangedEvent;
+  OSMMap.OnPitchStart := OSMMapViewChangedEvent;
+  OSMMap.OnPitch := OSMMapViewChangedEvent;
+  OSMMap.OnPitchEnd := OSMMapViewChangedEvent;
+  OSMMap.OnBoundsChanged := OSMMapBoundsChangedEvent;
+  OSMMap.OnTouchCancel := OSMMapSimpleEvent;
+  OSMMap.OnTouchEnd := OSMMapSimpleEvent;
+  OSMMap.OnTouchMove := OSMMapSimpleEvent;
+  OSMMap.OnTouchStart := OSMMapSimpleEvent;
+  OSMMap.OnBoxZoomStart := OSMMapSimpleEvent;
+  OSMMap.OnBoxZoomEnd := OSMMapSimpleEvent;
+  OSMMap.OnBoxZoomCancel := OSMMapSimpleEvent;
+  OSMMap.OnResize := OSMMapSimpleEvent;
+  OSMMap.OnRender := OSMMapSimpleEvent;
+  OSMMap.OnIdle := OSMMapSimpleEvent;
+  OSMMap.OnLoad := OSMMapSimpleEvent;
+  OSMMap.OnData := OSMMapSimpleEvent;
+  OSMMap.OnDataLoading := OSMMapSimpleEvent;
+  OSMMap.OnDataAbort := OSMMapSimpleEvent;
+  OSMMap.OnSourceData := OSMMapSimpleEvent;
+  OSMMap.OnSourceDataLoading := OSMMapSimpleEvent;
+  OSMMap.OnSourceDataAbort := OSMMapSimpleEvent;
+  OSMMap.OnStyleData := OSMMapSimpleEvent;
+  OSMMap.OnStyleDataLoading := OSMMapSimpleEvent;
+  OSMMap.OnStyleImageMissing := OSMMapSimpleEvent;
+  OSMMap.OnTerrain := OSMMapSimpleEvent;
+  OSMMap.OnProjectionTransition := OSMMapSimpleEvent;
+  OSMMap.OnWebGLContextLost := OSMMapSimpleEvent;
+  OSMMap.OnWebGLContextRestored := OSMMapSimpleEvent;
+  OSMMap.OnWheel := OSMMapSimpleEvent;
+  OSMMap.OnError := OSMMapErrorEvent;
+  cbOSMStyles.Items.Clear;
+  cbOSMStyles.Items.Add('Custom URL');
+  cbOSMStyles.ItemIndex := 0;
+  cbOSMStyles.OnChange := OSMStylePresetChange;
+  cbOSMMapMode.Items.Clear;
+//  cbOSMMapMode.Items.Add('Online');
+  //cbOSMMapMode.Items.Add('Offline');
+  //cbOSMMapMode.Items.Add('Hybrid');
+  //cbOSMMapMode.ItemIndex := 1;
+  //cbOSMOfflineSourcePreset.Items.Clear;
+  //cbOSMOfflineSourcePreset.Items.Add('TileJSON local (embedded server)');
+  //cbOSMOfflineSourcePreset.Items.Add('PMTiles Spain (native pmtiles.js, no pmtiles.exe runtime)');
+  //cbOSMOfflineSourcePreset.ItemIndex := 1;
+  //cbOSMOfflineSourcePreset.OnChange := OSMOfflineSourcePresetChange;
+  bApplyOSMStyle.OnClick := ApplyOSMStyleClick;
+  bApplyOSMEventFilter.OnClick := ApplyOSMEventFilterClick;
+  ApplyOSMEventFilterClick(nil);
+  bActivateOSM.OnClick := ActivateOSMClick;
+  bApplyOSMView.OnClick := ApplyOSMViewClick;
+  bFitOSMBounds.OnClick := FitOSMBoundsClick;
+
+  lbOSMMarkers.OnClick := OSMMarkerListClick;
+  bOSMClearMarkers.OnClick := OSMClearMarkersClick;
+  bOSMZoomToMarkers.OnClick := OSMZoomToMarkersClick;
+
+  for var I := 0 to OSMMap.Markers.Count - 1 do
+    BindOSMMarkerEvents(OSMMap.Markers[I]);
+  RefreshOSMMarkerList;
+end;
+
+procedure TMainFrm.OSMMapReady(Sender: TObject);
+begin
+  Log('OSM map ready.');
+  UpdateStatus('OSM ready');
+end;
+
+procedure TMainFrm.OSMMapCoordinateEvent(Sender: TObject; ALatLng: TMapLibLatLng);
+begin
+  if not Assigned(ALatLng) then
+    Exit;
+  if Sender is TOSMMarkerItem then
+    Log(Format('OSM marker %s: %.6f,%.6f',
+      [string(TOSMMarkerItem(Sender).ObjectId), ALatLng.Lat, ALatLng.Lng]))
+  else
+    Log(Format('OSM coord: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
+end;
+
+procedure TMainFrm.OSMMapClickEvent(Sender: TObject; ALatLng: TMapLibLatLng);
+var
+  Marker: TOSMMarkerItem;
+begin
+  OSMMapCoordinateEvent(Sender, ALatLng);
+  if not Assigned(ALatLng) then
+    Exit;
+
+  Marker := OSMMap.Markers.Add;
+  Marker.Lat := ALatLng.Lat;
+  Marker.Lng := ALatLng.Lng;
+  Marker.Title := Format('OSM Marker %d', [OSMMap.Markers.Count]);
+  BindOSMMarkerEvents(Marker);
+  Log('OSM marker added: ' + string(Marker.ObjectId));
+  RefreshOSMMarkerList;
+end;
+
+procedure TMainFrm.OSMMarkerClickEvent(Sender: TObject; const AMarkerId: TGMObjectId;
+  ALatLng: TMapLibLatLng);
+begin
+  if Assigned(ALatLng) then
+    Log(Format('OSM marker click: %s @ %.6f,%.6f', [string(AMarkerId), ALatLng.Lat, ALatLng.Lng]))
+  else
+    Log('OSM marker click: ' + string(AMarkerId));
+
+  if Assigned(lbOSMMarkers) then
+    lbOSMMarkers.ItemIndex := lbOSMMarkers.Items.IndexOfObject(OSMMap.Markers.FindByObjectId(AMarkerId));
+end;
+
+procedure TMainFrm.RefreshOSMMarkerList;
+var
+  I: Integer;
+  Marker: TOSMMarkerItem;
+begin
+  if not Assigned(lbOSMMarkers) then
+    Exit;
+
+  lbOSMMarkers.Items.BeginUpdate;
+  try
+    lbOSMMarkers.Clear;
+    for I := 0 to OSMMap.Markers.Count - 1 do
+    begin
+      Marker := OSMMap.Markers[I];
+      lbOSMMarkers.Items.AddObject(
+        Format('%s (%.5f, %.5f)', [string(Marker.ObjectId), Marker.Lat, Marker.Lng]),
+        Marker
+      );
+    end;
+  finally
+    lbOSMMarkers.Items.EndUpdate;
+  end;
+end;
+
+procedure TMainFrm.OSMMarkerListClick(Sender: TObject);
+var
+  Marker: TOSMMarkerItem;
+begin
+  if not Assigned(lbOSMMarkers) or (lbOSMMarkers.ItemIndex < 0) then
+    Exit;
+  Marker := TOSMMarkerItem(lbOSMMarkers.Items.Objects[lbOSMMarkers.ItemIndex]);
+  if not Assigned(Marker) then
+    Exit;
+  Log(Format('OSM marker selected: %s @ %.6f, %.6f', [string(Marker.ObjectId), Marker.Lat, Marker.Lng]));
+end;
+
+procedure TMainFrm.OSMClearMarkersClick(Sender: TObject);
+begin
+  OSMMap.Markers.Clear;
+  RefreshOSMMarkerList;
+  Log('OSM markers cleared');
+end;
+
+procedure TMainFrm.OSMZoomToMarkersClick(Sender: TObject);
+begin
+  if OSMMap.Markers.ZoomToMarkers then
+    Log('OSM zoom to markers applied')
+  else
+    Log('No visible OSM markers to zoom');
+end;
+
+procedure TMainFrm.BindOSMMarkerEvents(AMarker: TOSMMarkerItem);
+begin
+  if not Assigned(AMarker) then
+    Exit;
+  AMarker.OnClick := OSMMapCoordinateEvent;
+  AMarker.OnDragStart := OSMMapCoordinateEvent;
+  AMarker.OnDrag := OSMMapCoordinateEvent;
+  AMarker.OnDragEnd := OSMMapCoordinateEvent;
+end;
+
+procedure TMainFrm.OSMMapViewChangedEvent(Sender: TObject; ACenter: TMapLibLatLng; AZoom, ABearing, APitch: Double);
+begin
+  if Assigned(ACenter) then
+  begin
+    eOSMCenterLat.Text := FloatToStr(ACenter.Lat, TFormatSettings.Invariant);
+    eOSMCenterLng.Text := FloatToStr(ACenter.Lng, TFormatSettings.Invariant);
+    Log(Format('OSM view: %.6f,%.6f z=%.2f b=%.2f p=%.2f', [ACenter.Lat, ACenter.Lng, AZoom, ABearing, APitch]));
+  end;
+  eOSMZoom.Text := FloatToStr(AZoom, TFormatSettings.Invariant);
+end;
+
+procedure TMainFrm.OSMMapBoundsChangedEvent(Sender: TObject; ANorth, ASouth, AEast, AWest: Double);
+begin
+  eOSMNorth.Text := FloatToStr(ANorth, TFormatSettings.Invariant);
+  eOSMSouth.Text := FloatToStr(ASouth, TFormatSettings.Invariant);
+  eOSMEast.Text := FloatToStr(AEast, TFormatSettings.Invariant);
+  eOSMWest.Text := FloatToStr(AWest, TFormatSettings.Invariant);
+  Log(Format('OSM bounds: N %.6f S %.6f E %.6f W %.6f', [ANorth, ASouth, AEast, AWest]));
+end;
+
+procedure TMainFrm.OSMMapSimpleEvent(Sender: TObject);
+begin
+  Log('OSM event: ' + TComponent(Sender).Name);
+end;
+
+procedure TMainFrm.OSMMapErrorEvent(Sender: TObject; const AMessage: string);
+begin
+  Log('OSM error: ' + AMessage);
+end;
+
+procedure TMainFrm.ApplyOSMStyleClick(Sender: TObject);
+begin
+  OSMMap.StyleUrl := Trim(eOSMStyleUrl.Text);
+  Log('OSM style applied.');
+end;
+
+procedure TMainFrm.OSMStylePresetChange(Sender: TObject);
+var
+  itemText: string;
+  sepPos: Integer;
+  styleUrl: string;
+begin
+  if cbOSMStyles.ItemIndex <= 0 then
+    Exit;
+
+  itemText := cbOSMStyles.Items[cbOSMStyles.ItemIndex];
+  sepPos := Pos('|', itemText);
+  if sepPos <= 0 then
+    Exit;
+
+  styleUrl := Copy(itemText, sepPos + 1, MaxInt);
+  eOSMStyleUrl.Text := styleUrl;
+  ApplyOSMStyleClick(nil);
+end;
+
+procedure TMainFrm.ApplyOSMEventFilterClick(Sender: TObject);
+begin
+  OSMMap.OnMove := nil;
+  OSMMap.OnZoom := nil;
+  OSMMap.OnRender := nil;
+  OSMMap.OnData := nil;
+  OSMMap.OnDataLoading := nil;
+  OSMMap.OnSourceData := nil;
+  OSMMap.OnSourceDataLoading := nil;
+  OSMMap.OnStyleData := nil;
+  OSMMap.OnStyleDataLoading := nil;
+
+  if cbOSMLogMove.Checked then
+  begin
+    OSMMap.OnMove := OSMMapViewChangedEvent;
+    OSMMap.OnZoom := OSMMapViewChangedEvent;
+  end;
+  if cbOSMLogRender.Checked then
+    OSMMap.OnRender := OSMMapSimpleEvent;
+  if cbOSMLogData.Checked then
+  begin
+    OSMMap.OnData := OSMMapSimpleEvent;
+    OSMMap.OnDataLoading := OSMMapSimpleEvent;
+    OSMMap.OnSourceData := OSMMapSimpleEvent;
+    OSMMap.OnSourceDataLoading := OSMMapSimpleEvent;
+    OSMMap.OnStyleData := OSMMapSimpleEvent;
+    OSMMap.OnStyleDataLoading := OSMMapSimpleEvent;
+  end;
+
+  Log('OSM event filter applied.');
+end;
+
+procedure TMainFrm.ActivateOSMClick(Sender: TObject);
+var
+  centerLat: Double;
+  centerLng: Double;
+  zoom: Double;
+  selectedMapMode: TMapLibMapMode;
+  offlineServerPort: Integer;
+  vendorDir: string;
+  configuredOfflineSource: string;
+  offlineServerExe: string;
+begin
+  if not TryStrToFloat(Trim(eOSMCenterLat.Text), centerLat, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM center latitude.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMCenterLng.Text), centerLng, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM center longitude.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMZoom.Text), zoom, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM zoom.');
+    Exit;
+  end;
+
+//  cbOSMOfflineSourcePreset.OnChange(cbOSMOfflineSourcePreset);
+
+  if OSMMap.Active then
+  begin
+    OSMMap.Active := False;
+    OSMMap.Browser := nil;
+    EdgeBrowser1.Navigate('about:blank');
+    bActivateOSM.Caption := 'Activate';
+    Log('Map is inactive.');
+    UpdateStatus('Map inactive...');
+    Exit;
+  end;
+
+  if GMMap.Active then
+  begin
+    GMMap.Active := False;
+    GMMap.Browser := nil;
+    bActivate.Caption := 'Activate';
+    Log('GM map deactivated (OSM map activation).');
+  end;
+
+  OSMMap.CenterLat := centerLat;
+  OSMMap.CenterLng := centerLng;
+  OSMMap.Zoom := zoom;
+//  case cbOSMMapMode.ItemIndex of
+//    1: selectedMapMode := omOffline;
+//    2: selectedMapMode := omHybrid;
+//  else
+//    selectedMapMode := omOnline;
+//  end;
+  // OSMMap.MapMode := selectedMapMode;
+  //OSMMap.OfflineTileJsonUrl := Trim(eOSMOfflineTileJsonUrl.Text);
+  //OSMMap.OfflineServerExecutable := Trim(eOSMOfflineServerExecutable.Text);
+  //configuredOfflineSource := Trim(OSMMap.OfflineTileJsonUrl);
+  //if SameText(ExtractFileExt(configuredOfflineSource), '.pmtiles') then
+  //  OSMMap.OfflineTileProvider := otpNativePmtiles
+  //else
+  //  OSMMap.OfflineTileProvider := otpEmbeddedTileJson;
+  //if OSMMap.OfflineTileProvider = otpExternalPmtiles then
+  //begin
+  //  offlineServerExe := Trim(OSMMap.OfflineServerExecutable);
+  //  if (offlineServerExe = '') or (not FileExists(offlineServerExe)) then
+  //  begin
+  //    Log('OSM offline blocked: PMTiles provider requires a valid pmtiles.exe path.');
+  //    Log('Configured OfflineServerExecutable=' + offlineServerExe);
+  //    Exit;
+  //  end;
+  //end;
+  //offlineServerPort := StrToIntDef(Trim(eOSMOfflineServerPort.Text), OSMMap.OfflineServerPort);
+  //if offlineServerPort > 0 then
+  //  OSMMap.OfflineServerPort := offlineServerPort;
+//  if (Trim(OSMMap.OfflineTileJsonUrl) <> '') and FileExists(OSMMap.OfflineTileJsonUrl) then
+//  begin
+//    vendorDir := ExtractFilePath(OSMMap.OfflineTileJsonUrl);
+//    if not FileExists(OSMMap.MapLibreCssUrl) then
+//      OSMMap.MapLibreCssUrl := IncludeTrailingPathDelimiter(vendorDir) + 'maplibre-gl.css';
+//    if not FileExists(OSMMap.MapLibreJsUrl) then
+//      OSMMap.MapLibreJsUrl := IncludeTrailingPathDelimiter(vendorDir) + 'maplibre-gl.js';
+//  end;
+
+  Log(Format('OSM assets css=%s js=%s cssExists=%s jsExists=%s',
+    [OSMMap.MapLibreCssUrl, OSMMap.MapLibreJsUrl,
+     BoolToStr(FileExists(OSMMap.MapLibreCssUrl), True),
+     BoolToStr(FileExists(OSMMap.MapLibreJsUrl), True)]));
+//  Log(Format('OSM activating mode=%s provider=%d style=%s tileJson=%s',
+//    [OSMMap.ResolveMapModeName, Ord(OSMMap.OfflineTileProvider), OSMMap.StyleUrl, OSMMap.OfflineTileJsonUrl]));
+//
+//  if OSMMap.MapMode <> omOnline then
+//  begin
+//    OSMMap.EnsureOfflineTileSourceReady;
+//    if (OSMMap.OfflineTileProvider = otpExternalPmtiles) and
+//      (Trim(GetOSMOfflineTileJsonUrl(OSMMap)) = '') then
+//    begin
+//      Log('OSM offline preflight failed.');
+//      Log('OSM offline preflight exe=' + OSMMap.OfflineServerExecutable);
+//      Log('OSM offline preflight port=' + IntToStr(OSMMap.OfflineServerPort));
+//      Log('OSM offline preflight error=' + OSMMap.LastOfflineSetupError);
+//      Exit;
+//    end;
+//  end;
+//
+//  if (OSMMap.MapMode = omOffline) and (not HasOSMOfflineRuntimeAssets) then
+//  begin
+//    Log('OSM offline blocked: missing local MapLibre CSS/JS assets.');
+//    Exit;
+//  end;
+
+  OSMMap.Browser := EdgeBrowser1;
+  OSMMap.Active := True;
+  bActivateOSM.Caption := 'Deactivate';
+
+//  Log('OSM runtime tileJson=' + GetOSMOfflineTileJsonUrl(OSMMap));
+//  if Pos('http://127.0.0.1:', LowerCase(GetOSMOfflineTileJsonUrl(OSMMap))) = 1 then
+//  begin
+//    if OSMMap.OfflineTileProvider = otpExternalPmtiles then
+//      Log('OSM offline is using external PMTiles localhost server.')
+//    else
+//      Log('OSM offline is using embedded localhost tile server.');
+//  end
+//  else
+//    Log('OSM offline is not using embedded localhost tile server for this configuration.');
+
+  Log('OSM map activation requested.');
+  UpdateStatus('Loading OSM...');
+end;
+
+procedure TMainFrm.ApplyOSMViewClick(Sender: TObject);
+var
+  centerLat: Double;
+  centerLng: Double;
+  zoom: Double;
+begin
+  if not OSMMap.Active then
+  begin
+    Log('OSM map is not active. Click Activate OSM first.');
+    Exit;
+  end;
+
+  if not TryStrToFloat(Trim(eOSMCenterLat.Text), centerLat, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM center latitude.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMCenterLng.Text), centerLng, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM center longitude.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMZoom.Text), zoom, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM zoom.');
+    Exit;
+  end;
+
+  OSMMap.CenterLat := centerLat;
+  OSMMap.CenterLng := centerLng;
+  OSMMap.Zoom := zoom;
+  Log('OSM view updated.');
+end;
+
+procedure TMainFrm.FitOSMBoundsClick(Sender: TObject);
+var
+  north: Double;
+  south: Double;
+  east: Double;
+  west: Double;
+begin
+  if not OSMMap.Active then
+  begin
+    Log('OSM map is not active. Click Activate OSM first.');
+    Exit;
+  end;
+
+  if not TryStrToFloat(Trim(eOSMNorth.Text), north, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM north value.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMSouth.Text), south, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM south value.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMEast.Text), east, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM east value.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMWest.Text), west, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM west value.');
+    Exit;
+  end;
+
+  OSMMap.FitBounds(north, south, east, west);
+  Log('OSM fit bounds applied.');
 end;
 
 procedure TMainFrm.InitializeDefaults;
@@ -745,24 +1304,138 @@ begin
   eKmlUrl.Text := '';
   eKmlZIndex.Text := '0';
 
+  // OSM
+  // ConfigureOSMOfflineDefaults;
+  // OSMMap.MapMode := omOffline;
+  // OSMMap.OfflinePolicy := opOfflineOnly;
+  eOSMStyleUrl.Text := OSMMap.StyleUrl;
+  // eOSMOfflineTileJsonUrl.Text := OSMMap.OfflineTileJsonUrl;
+  // eOSMOfflineServerExecutable.Text := OSMMap.OfflineServerExecutable;
+  // eOSMOfflineServerPort.Text := IntToStr(OSMMap.OfflineServerPort);
+  cbOSMOfflineSourcePreset.ItemIndex := 1;
+  // ApplyOSMOfflineSourcePreset;
+  cbOSMMapMode.ItemIndex := 1;
+  cbOSMLogMove.Checked := False;
+  cbOSMLogRender.Checked := False;
+  cbOSMLogData.Checked := False;
+
   UpdateStatus('Defaults loaded.');
 end;
+
+function TMainFrm.ResolveRepoAssetPath(const ARelativePath: string): string;
+var
+  baseDir: string;
+  I: Integer;
+  candidate: string;
+begin
+  Result := '';
+  baseDir := ExcludeTrailingPathDelimiter(ExtractFilePath(ParamStr(0)));
+  for I := 0 to 10 do
+  begin
+    candidate := ExpandFileName(IncludeTrailingPathDelimiter(baseDir) + ARelativePath);
+    if FileExists(candidate) then
+      Exit(candidate);
+    baseDir := ExcludeTrailingPathDelimiter(ExtractFileDir(baseDir));
+    if baseDir = '' then
+      Break;
+  end;
+end;
+
+//procedure TMainFrm.ConfigureOSMOfflineDefaults;
+//var
+//  cssPath: string;
+//  jsPath: string;
+//  stylePath: string;
+//  tileJsonPath: string;
+//begin
+//  cssPath := ResolveRepoAssetPath('resources\js\osm\vendor\maplibre-gl.css');
+//  jsPath := ResolveRepoAssetPath('resources\js\osm\vendor\maplibre-gl.js');
+//  stylePath := ResolveRepoAssetPath('resources\js\osm\offline\style.json');
+//  tileJsonPath := ResolveRepoAssetPath('resources\js\osm\offline\tilejson.json');
+//
+//  OSMMap.OfflineMode := True;
+//  OSMMap.MapMode := omOffline;
+//  OSMMap.OfflinePolicy := opOfflineOnly;
+//  OSMMap.MapLibreCssUrl := cssPath;
+//  OSMMap.MapLibreJsUrl := jsPath;
+//  OSMMap.OfflineStyleUrl := stylePath;
+//  OSMMap.OfflineRasterTilesUrlTemplate := '';
+//  OSMMap.OfflineServerExecutable := '';
+//  OSMMap.OfflineTileJsonUrl := tileJsonPath;
+//  OSMMap.OfflineTileProvider := otpEmbeddedTileJson;
+//
+//  { Demo default is strict offline to avoid remote dependencies in OSM tests. }
+//
+//  if cssPath = '' then
+//    Log('OSM offline: missing resources\js\osm\vendor\maplibre-gl.css');
+//  if jsPath = '' then
+//    Log('OSM offline: missing resources\js\osm\vendor\maplibre-gl.js');
+//  if stylePath = '' then
+//    Log('OSM offline: missing resources\js\osm\offline\style.json');
+//  if tileJsonPath = '' then
+//    Log('OSM offline: optional resources\js\osm\offline\tilejson.json not found.');
+//end;
+
+//function TMainFrm.HasOSMOfflineRuntimeAssets: Boolean;
+//begin
+//  Result := (Trim(OSMMap.MapLibreCssUrl) <> '') and FileExists(OSMMap.MapLibreCssUrl) and
+//            (Trim(OSMMap.MapLibreJsUrl) <> '') and FileExists(OSMMap.MapLibreJsUrl);
+//end;
+
+//procedure TMainFrm.ApplyOSMOfflineSourcePreset;
+//var
+//  tileJsonPath: string;
+//  pmtilesPath: string;
+//  pmtilesExePath: string;
+//  stylePath: string;
+//begin
+//  case cbOSMOfflineSourcePreset.ItemIndex of
+//    1:
+//      begin
+//        pmtilesPath := ResolveRepoAssetPath('resources\js\osm\vendor\spain.pmtiles');
+//        pmtilesExePath := ResolveRepoAssetPath('resources\tools\pmtiles.exe');
+//        if pmtilesExePath = '' then
+//          pmtilesExePath := ResolveRepoAssetPath('resources\js\osm\vendor\pmtiles.exe');
+//
+//        eOSMOfflineTileJsonUrl.Text := pmtilesPath;
+//        eOSMOfflineServerExecutable.Text := pmtilesExePath;
+//        { PMTiles preset uses runtime TileJSON + fallback style to avoid
+//          depending on hardcoded source URLs inside offline/style.json. }
+//        OSMMap.OfflineStyleUrl := '';
+//        OSMMap.OfflineTileProvider := otpNativePmtiles;
+//        Log('OSM offline preset applied: PMTiles Spain (native pmtiles.js, no pmtiles.exe runtime).');
+//      end;
+//  else
+//    tileJsonPath := ResolveRepoAssetPath('resources\js\osm\offline\tilejson.json');
+//    stylePath := ResolveRepoAssetPath('resources\js\osm\offline\style.json');
+//    eOSMOfflineTileJsonUrl.Text := tileJsonPath;
+//    eOSMOfflineServerExecutable.Text := '';
+//    OSMMap.OfflineStyleUrl := stylePath;
+//    OSMMap.OfflineTileProvider := otpEmbeddedTileJson;
+//    Log('OSM offline preset applied: TileJSON local (embedded server).');
+//  end;
+//end;
+
+//procedure TMainFrm.OSMOfflineSourcePresetChange(Sender: TObject);
+//begin
+//  ApplyOSMOfflineSourcePreset;
+//end;
 
 procedure TMainFrm.ApplyLayers;
 begin
   { The button applies the current UI snapshot in one go so the map does not
     receive half-edited layer state while the user is still typing. }
-  Map.Layers.Traffic.AutoRefresh := cbTrafficAutoRefresh.Checked;
-  Map.Layers.Traffic.Visible := cbTrafficVisible.Checked;
-  Map.Layers.Transit.Visible := cbTransitVisible.Checked;
-  Map.Layers.Bicycling.Visible := cbBicyclingVisible.Checked;
-  Map.Layers.Kml.Visible := cbKmlVisible.Checked;
-  Map.Layers.Kml.Clickable := cbKmlClickable.Checked;
-  Map.Layers.Kml.PreserveViewport := cbKmlPreserveViewport.Checked;
-  Map.Layers.Kml.ScreenOverlays := cbKmlScreenOverlays.Checked;
-  Map.Layers.Kml.SuppressInfoWindows := cbKmlSuppressInfoWindows.Checked;
-  Map.Layers.Kml.Url := Trim(eKmlUrl.Text);
-  Map.Layers.Kml.ZIndex := StrToIntDef(Trim(eKmlZIndex.Text), 0);
+  GMMap.Layers.Traffic.AutoRefresh := cbTrafficAutoRefresh.Checked;
+  GMMap.Layers.Traffic.Visible := cbTrafficVisible.Checked;
+  GMMap.Layers.Transit.Visible := cbTransitVisible.Checked;
+  GMMap.Layers.Bicycling.Visible := cbBicyclingVisible.Checked;
+  GMMap.Layers.Kml.Visible := cbKmlVisible.Checked;
+  GMMap.Layers.Kml.Clickable := cbKmlClickable.Checked;
+  GMMap.Layers.Kml.PreserveViewport := cbKmlPreserveViewport.Checked;
+  GMMap.Layers.Kml.ScreenOverlays := cbKmlScreenOverlays.Checked;
+  GMMap.Layers.Kml.SuppressInfoWindows := cbKmlSuppressInfoWindows.Checked;
+  GMMap.Layers.Kml.Url := Trim(eKmlUrl.Text);
+  GMMap.Layers.Kml.ZIndex := StrToIntDef(Trim(eKmlZIndex.Text), 0);
 end;
 
 procedure TMainFrm.Log(const AText: string);
@@ -778,19 +1451,19 @@ begin
   Log(Format('BoundsChanged: S(%.6f) N(%.6f) E(%.6f) W(%.6f)', [ABounds.South, ABounds.North, ABounds.East, ABounds.West]));
 end;
 
-procedure TMainFrm.MapCenterChanged(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapCenterChanged(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('CenterChanged: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
   eLat.Text := FloatToStr(ALatLng.Lat, TFormatSettings.Invariant);
   eLng.Text := FloatToStr(ALatLng.Lng, TFormatSettings.Invariant);
 end;
 
-procedure TMainFrm.MapContextMenu(Sender: TObject; ALatLng: TGMLibLatLng; const APlaceId: string);
+procedure TMainFrm.MapContextMenu(Sender: TObject; ALatLng: TMapLibLatLng; const APlaceId: string);
 begin
   Log(Format('ContextMenu: %.6f,%.6f PlaceId:%s', [ALatLng.Lat, ALatLng.Lng, APlaceId]));
 end;
 
-procedure TMainFrm.MapDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('DblClick: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
@@ -821,16 +1494,16 @@ begin
   Log('Idle');
 end;
 
-procedure TMainFrm.MapMapClick(Sender: TObject; ALatLng: TGMLibLatLng; const APlaceId: string);
+procedure TMainFrm.MapMapClick(Sender: TObject; ALatLng: TMapLibLatLng; const APlaceId: string);
 var
   Marker: TGMVclMarkerItem;
 begin
   Log(Format('MapClick: %.6f,%.6f PlaceId:%s', [ALatLng.Lat, ALatLng.Lng, APlaceId]));
 
-  Marker := Map.Markers.Add;
+  Marker := GMMap.Markers.Add;
   Marker.Options.Position.Lat := ALatLng.Lat;
   Marker.Options.Position.Lng := ALatLng.Lng;
-  Marker.Options.Title := 'Marker ' + IntToStr(Map.Markers.Count);
+  Marker.Options.Title := 'Marker ' + IntToStr(GMMap.Markers.Count);
   BindMarkerEvents(Marker);
   RefreshMarkerList;
   lbMarkers.ItemIndex := lbMarkers.Items.IndexOfObject(Marker);
@@ -850,51 +1523,51 @@ begin
   UpdateStatus('Map loaded.');
 
   Log('Assigning GeoCode.OnCompleted...');
-  Map.GeoCode.OnCompleted := GeoCodeCompleted;
+  GMMap.GeoCode.OnCompleted := GeoCodeCompleted;
 
   Log('Assigning Elevations.OnCompleted...');
-  Map.Elevations.OnCompleted := ElevationCompleted;
+  GMMap.Elevations.OnCompleted := ElevationCompleted;
 
   Log('Assigning Routes.OnCompleted...');
-  Map.Routes.OnCompleted := RouteCompleted;
-  Map.Routes.CloseOthersBeforeVisible := cbRouteCloseOthers.Checked;
-  cbRouteCloseOthers.Checked := Map.Routes.CloseOthersBeforeVisible;
+  GMMap.Routes.OnCompleted := RouteCompleted;
+  GMMap.Routes.CloseOthersBeforeVisible := cbRouteCloseOthers.Checked;
+  cbRouteCloseOthers.Checked := GMMap.Routes.CloseOthersBeforeVisible;
 
-  for I := 0 to Map.Markers.Count - 1 do
+  for I := 0 to GMMap.Markers.Count - 1 do
   begin
-    Marker := Map.Markers[I];
+    Marker := GMMap.Markers[I];
     BindMarkerEvents(Marker);
   end;
 
-  for I := 0 to Map.Polylines.Count - 1 do
+  for I := 0 to GMMap.Polylines.Count - 1 do
   begin
-    Polyline := Map.Polylines[I];
+    Polyline := GMMap.Polylines[I];
     BindPolylineEvents(Polyline);
   end;
 
-  for I := 0 to Map.Polygons.Count - 1 do
+  for I := 0 to GMMap.Polygons.Count - 1 do
   begin
-    Polygon := Map.Polygons[I];
+    Polygon := GMMap.Polygons[I];
     BindPolygonEvents(Polygon);
   end;
 
-  for I := 0 to Map.Rectangles.Count - 1 do
+  for I := 0 to GMMap.Rectangles.Count - 1 do
   begin
-    Rectangle := Map.Rectangles[I];
+    Rectangle := GMMap.Rectangles[I];
     BindRectangleEvents(Rectangle);
   end;
 
-  for I := 0 to Map.Circles.Count - 1 do
+  for I := 0 to GMMap.Circles.Count - 1 do
   begin
-    Circle := Map.Circles[I];
+    Circle := GMMap.Circles[I];
     BindCircleEvents(Circle);
   end;
 
-  for I := 0 to Map.GroundOverlays.Count - 1 do
-    BindGroundOverlayEvents(Map.GroundOverlays[I]);
+  for I := 0 to GMMap.GroundOverlays.Count - 1 do
+    BindGroundOverlayEvents(GMMap.GroundOverlays[I]);
 
-  Map.GeoCode.OnCompleted := GeoCodeCompleted;
-  Map.Elevations.OnCompleted := ElevationCompleted;
+  GMMap.GeoCode.OnCompleted := GeoCodeCompleted;
+  GMMap.Elevations.OnCompleted := ElevationCompleted;
 
   RefreshMarkerList;
   RefreshPolylineList;
@@ -924,17 +1597,17 @@ begin
   cbMapTypeId.ItemIndex := Ord(AMapTypeId);
 end;
 
-procedure TMainFrm.MapMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('MouseMove: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('MouseOut: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('MouseOver: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
@@ -1029,9 +1702,9 @@ begin
   lbMarkers.Items.BeginUpdate;
   try
     lbMarkers.Clear;
-    for I := 0 to Map.Markers.Count - 1 do
+    for I := 0 to GMMap.Markers.Count - 1 do
     begin
-      Marker := Map.Markers[I];
+      Marker := GMMap.Markers[I];
       lbMarkers.Items.AddObject(IfThen(Marker.Options.Title <> '', Marker.Options.Title, Format('Marker %d', [I])), Marker);
     end;
   finally
@@ -1096,7 +1769,7 @@ procedure TMainFrm.bAddMarkerClick(Sender: TObject);
 var
   Marker: TGMVclMarkerItem;
 begin
-  Marker := Map.Markers.Add;
+  Marker := GMMap.Markers.Add;
   try
     LoadUIToMarker(Marker);
     BindMarkerEvents(Marker);
@@ -1121,7 +1794,7 @@ begin
 
   Marker := TGMVclMarkerItem(lbMarkers.Items.Objects[Idx]);
   if Assigned(Marker) then
-    Map.Markers.Delete(Marker.Index);
+    GMMap.Markers.Delete(Marker.Index);
   RefreshMarkerList;
   Log('Marker deleted');
 end;
@@ -1150,7 +1823,7 @@ end;
 
 procedure TMainFrm.bClearMarkersClick(Sender: TObject);
 begin
-  Map.Markers.Clear;
+  GMMap.Markers.Clear;
   RefreshMarkerList;
   Log('All markers cleared');
 end;
@@ -1170,13 +1843,13 @@ begin
     CsvText := TStringList.Create;
     try
       CsvText.LoadFromFile(OpenDialog.FileName);
-      Map.Markers.LoadFromCSV(CsvText.Text, 'lat', 'lng', 'title', 'visible');
+      GMMap.Markers.LoadFromCSV(CsvText.Text, 'lat', 'lng', 'title', 'visible');
 
-      for var I := 0 to Map.Markers.Count - 1 do
-        BindMarkerEvents(Map.Markers[I]);
+      for var I := 0 to GMMap.Markers.Count - 1 do
+        BindMarkerEvents(GMMap.Markers[I]);
 
       RefreshMarkerList;
-      Log(Format('Markers loaded from CSV: %d', [Map.Markers.Count]));
+      Log(Format('Markers loaded from CSV: %d', [GMMap.Markers.Count]));
     finally
       CsvText.Free;
     end;
@@ -1193,13 +1866,13 @@ begin
   try
     CsvText.Text := 'lat,lng,title,visible' + sLineBreak + '41.3874,2.1686,Marker A,true' + sLineBreak + '41.3892,2.1701,Marker B,true' + sLineBreak + '41.3857,2.1669,Marker C,false';
 
-    Map.Markers.LoadFromCSV(CsvText.Text, 'lat', 'lng', 'title', 'visible');
+    GMMap.Markers.LoadFromCSV(CsvText.Text, 'lat', 'lng', 'title', 'visible');
 
-    for var I := 0 to Map.Markers.Count - 1 do
-      BindMarkerEvents(Map.Markers[I]);
+    for var I := 0 to GMMap.Markers.Count - 1 do
+      BindMarkerEvents(GMMap.Markers[I]);
 
     RefreshMarkerList;
-    Log(Format('Sample markers loaded: %d', [Map.Markers.Count]));
+    Log(Format('Sample markers loaded: %d', [GMMap.Markers.Count]));
   finally
     CsvText.Free;
   end;
@@ -1250,12 +1923,12 @@ begin
   ShowMarkerInfoWindow(Marker);
 end;
 
-procedure TMainFrm.MapMarkersDrag(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapMarkersDrag(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Marker Drag: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapMarkersDragEnd(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapMarkersDragEnd(Sender: TObject; ALatLng: TMapLibLatLng);
 var
   Marker: TGMVclMarkerItem;
   Idx: Integer;
@@ -1271,7 +1944,7 @@ begin
     lbMarkers.ItemIndex := Idx;
 end;
 
-procedure TMainFrm.MapMarkersDragStart(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapMarkersDragStart(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Marker DragStart: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
@@ -1335,9 +2008,9 @@ begin
   lbPolylines.Items.BeginUpdate;
   try
     lbPolylines.Clear;
-    for I := 0 to Map.Polylines.Count - 1 do
+    for I := 0 to GMMap.Polylines.Count - 1 do
     begin
-      Polyline := Map.Polylines[I];
+      Polyline := GMMap.Polylines[I];
       lbPolylines.Items.AddObject(Format('Polyline %d', [I]), Polyline);
     end;
   finally
@@ -1403,7 +2076,7 @@ procedure TMainFrm.bAddPolylineClick(Sender: TObject);
 var
   Polyline: TGMVclPolylineItem;
 begin
-  Polyline := Map.Polylines.Add;
+  Polyline := GMMap.Polylines.Add;
   LoadUIToPolyline(Polyline);
   BindPolylineEvents(Polyline);
 
@@ -1423,14 +2096,14 @@ begin
 
   Polyline := TGMVclPolylineItem(lbPolylines.Items.Objects[Idx]);
   if Assigned(Polyline) then
-    Map.Polylines.Delete(Polyline.Index);
+    GMMap.Polylines.Delete(Polyline.Index);
   RefreshPolylineList;
   Log('Polyline deleted');
 end;
 
 procedure TMainFrm.bClearPolylinesClick(Sender: TObject);
 begin
-  Map.Polylines.Clear;
+  GMMap.Polylines.Clear;
   RefreshPolylineList;
   Log('All polylines cleared');
 end;
@@ -1469,7 +2142,7 @@ begin
 
   Marker := TGMVclMarkerItem(lbMarkers.Items.Objects[lbMarkers.ItemIndex]);
   if Assigned(Marker) then
-    Map.Markers.ZoomToPoints(False, Marker.Index);
+    GMMap.Markers.ZoomToPoints(False, Marker.Index);
 end;
 
 procedure TMainFrm.bZoomToMarkersClick(Sender: TObject);
@@ -1480,7 +2153,7 @@ begin
     Exit;
   end;
 
-  Map.Markers.ZoomToPoints;
+  GMMap.Markers.ZoomToPoints;
 end;
 
 procedure TMainFrm.bZoomToPolylineClick(Sender: TObject);
@@ -1495,7 +2168,7 @@ begin
 
   Polyline := TGMVclPolylineItem(lbPolylines.Items.Objects[lbPolylines.ItemIndex]);
   if Assigned(Polyline) then
-    Map.Polylines.ZoomToPoints(False, Polyline.Index);
+    GMMap.Polylines.ZoomToPoints(False, Polyline.Index);
 end;
 
 procedure TMainFrm.bZoomToPolylinesClick(Sender: TObject);
@@ -1506,7 +2179,7 @@ begin
     Exit;
   end;
 
-  Map.Polylines.ZoomToPoints;
+  GMMap.Polylines.ZoomToPoints;
 end;
 
 procedure TMainFrm.bLoadGpxClick(Sender: TObject);
@@ -1526,7 +2199,7 @@ begin
     try
       GpxContent.LoadFromFile(OpenDialog.FileName);
 
-      Polyline := Map.Polylines.Add;
+      Polyline := GMMap.Polylines.Add;
       Polyline.Options.Path.Clear;
       Polyline.Options.Path.BeginUpdate;
       try
@@ -1545,7 +2218,7 @@ begin
       end
       else
       begin
-        Map.Polylines.Delete(Map.Polylines.Count - 1);
+        GMMap.Polylines.Delete(GMMap.Polylines.Count - 1);
         RefreshPolylineList;
         Log('No points found in GPX file');
       end;
@@ -1593,7 +2266,7 @@ begin
   APolyline.OnPathChanged := MapPolylinePathChanged;
 end;
 
-procedure TMainFrm.MapPolylineClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapPolylineClick(Sender: TObject; ALatLng: TMapLibLatLng);
 var
   Polyline: TGMVclPolylineItem;
   Idx: Integer;
@@ -1608,12 +2281,12 @@ begin
   end;
 end;
 
-procedure TMainFrm.MapPolylineContextMenu(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapPolylineContextMenu(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polyline ContextMenu: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapPolylineDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapPolylineDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polyline DblClick: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
@@ -1649,27 +2322,27 @@ begin
   FIsDraggingPolyline := True;
 end;
 
-procedure TMainFrm.MapPolylineMouseDown(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapPolylineMouseDown(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polyline MouseDown: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapPolylineMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapPolylineMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polyline MouseMove: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapPolylineMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapPolylineMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polyline MouseOut: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapPolylineMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapPolylineMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polyline MouseOver: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapPolylineMouseUp(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapPolylineMouseUp(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polyline MouseUp: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
@@ -1709,9 +2382,9 @@ begin
   lbPolygons.Items.BeginUpdate;
   try
     lbPolygons.Clear;
-    for I := 0 to Map.Polygons.Count - 1 do
+    for I := 0 to GMMap.Polygons.Count - 1 do
     begin
-      Polygon := Map.Polygons[I];
+      Polygon := GMMap.Polygons[I];
       lbPolygons.Items.AddObject(Format('Polygon %d', [I]), Polygon);
     end;
   finally
@@ -1826,7 +2499,7 @@ procedure TMainFrm.bAddPolygonClick(Sender: TObject);
 var
   Polygon: TGMVclPolygonItem;
 begin
-  Polygon := Map.Polygons.Add;
+  Polygon := GMMap.Polygons.Add;
   LoadUIToPolygon(Polygon);
   BindPolygonEvents(Polygon);
 
@@ -1843,14 +2516,14 @@ begin
   if Idx < 0 then
     Exit;
 
-  Map.Polygons.Delete(Idx);
+  GMMap.Polygons.Delete(Idx);
   RefreshPolygonList;
   Log('Polygon deleted');
 end;
 
 procedure TMainFrm.bClearPolygonsClick(Sender: TObject);
 begin
-  Map.Polygons.Clear;
+  GMMap.Polygons.Clear;
   RefreshPolygonList;
   Log('All polygons cleared');
 end;
@@ -1883,7 +2556,7 @@ begin
     Exit;
   end;
 
-  Map.Polygons.ZoomToPoints(False, lbPolygons.ItemIndex);
+  GMMap.Polygons.ZoomToPoints(False, lbPolygons.ItemIndex);
 end;
 
 procedure TMainFrm.bZoomToPolygonsClick(Sender: TObject);
@@ -1894,10 +2567,10 @@ begin
     Exit;
   end;
 
-  Map.Polygons.ZoomToPoints;
+  GMMap.Polygons.ZoomToPoints;
 end;
 
-procedure TMainFrm.MapPolygonClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapPolygonClick(Sender: TObject; ALatLng: TMapLibLatLng);
 var
   Polygon: TGMVclPolygonItem;
   Idx: Integer;
@@ -1912,12 +2585,12 @@ begin
   end;
 end;
 
-procedure TMainFrm.MapPolygonContextMenu(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapPolygonContextMenu(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polygon ContextMenu: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapPolygonDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapPolygonDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polygon DblClick: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
@@ -1953,27 +2626,27 @@ begin
   FIsDraggingPolygon := True;
 end;
 
-procedure TMainFrm.MapPolygonMouseDown(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapPolygonMouseDown(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polygon MouseDown: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapPolygonMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapPolygonMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polygon MouseMove: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapPolygonMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapPolygonMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polygon MouseOut: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapPolygonMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapPolygonMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polygon MouseOver: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapPolygonMouseUp(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapPolygonMouseUp(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Polygon MouseUp: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
@@ -2013,9 +2686,9 @@ begin
   lbRectangles.Items.BeginUpdate;
   try
     lbRectangles.Clear;
-    for I := 0 to Map.Rectangles.Count - 1 do
+    for I := 0 to GMMap.Rectangles.Count - 1 do
     begin
-      Rectangle := Map.Rectangles[I];
+      Rectangle := GMMap.Rectangles[I];
       lbRectangles.Items.AddObject(Format('Rectangle %d', [I]), Rectangle);
     end;
   finally
@@ -2115,7 +2788,7 @@ procedure TMainFrm.bAddRectangleClick(Sender: TObject);
 var
   Rectangle: TGMVclRectangleItem;
 begin
-  Rectangle := Map.Rectangles.Add;
+  Rectangle := GMMap.Rectangles.Add;
   LoadUIToRectangle(Rectangle);
   BindRectangleEvents(Rectangle);
 
@@ -2132,14 +2805,14 @@ begin
   if Idx < 0 then
     Exit;
 
-  Map.Rectangles.Delete(Idx);
+  GMMap.Rectangles.Delete(Idx);
   RefreshRectangleList;
   Log('Rectangle deleted');
 end;
 
 procedure TMainFrm.bClearRectanglesClick(Sender: TObject);
 begin
-  Map.Rectangles.Clear;
+  GMMap.Rectangles.Clear;
   RefreshRectangleList;
   Log('All rectangles cleared');
 end;
@@ -2172,7 +2845,7 @@ begin
     Exit;
   end;
 
-  Map.Rectangles.ZoomToPoints(False, lbRectangles.ItemIndex);
+  GMMap.Rectangles.ZoomToPoints(False, lbRectangles.ItemIndex);
 end;
 
 procedure TMainFrm.bZoomToRectanglesClick(Sender: TObject);
@@ -2183,10 +2856,10 @@ begin
     Exit;
   end;
 
-  Map.Rectangles.ZoomToPoints;
+  GMMap.Rectangles.ZoomToPoints;
 end;
 
-procedure TMainFrm.MapRectangleClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapRectangleClick(Sender: TObject; ALatLng: TMapLibLatLng);
 var
   Rectangle: TGMVclRectangleItem;
   Idx: Integer;
@@ -2201,12 +2874,12 @@ begin
   end;
 end;
 
-procedure TMainFrm.MapRectangleContextMenu(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapRectangleContextMenu(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Rectangle ContextMenu: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapRectangleDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapRectangleDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Rectangle DblClick: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
@@ -2233,27 +2906,27 @@ begin
   FIsDraggingRectangle := True;
 end;
 
-procedure TMainFrm.MapRectangleMouseDown(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapRectangleMouseDown(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Rectangle MouseDown: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapRectangleMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapRectangleMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Rectangle MouseMove: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapRectangleMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapRectangleMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Rectangle MouseOut: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapRectangleMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapRectangleMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Rectangle MouseOver: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapRectangleMouseUp(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapRectangleMouseUp(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Rectangle MouseUp: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
@@ -2284,9 +2957,9 @@ begin
   lbCircles.Items.BeginUpdate;
   try
     lbCircles.Clear;
-    for I := 0 to Map.Circles.Count - 1 do
+    for I := 0 to GMMap.Circles.Count - 1 do
     begin
-      Circle := Map.Circles[I];
+      Circle := GMMap.Circles[I];
       lbCircles.Items.AddObject(Format('Circle %d', [I]), Circle);
     end;
   finally
@@ -2384,7 +3057,7 @@ procedure TMainFrm.bAddCircleClick(Sender: TObject);
 var
   Circle: TGMVclCircleItem;
 begin
-  Circle := Map.Circles.Add;
+  Circle := GMMap.Circles.Add;
   LoadUIToCircle(Circle);
   BindCircleEvents(Circle);
 
@@ -2401,14 +3074,14 @@ begin
   if Idx < 0 then
     Exit;
 
-  Map.Circles.Delete(Idx);
+  GMMap.Circles.Delete(Idx);
   RefreshCircleList;
   Log('Circle deleted');
 end;
 
 procedure TMainFrm.bClearCirclesClick(Sender: TObject);
 begin
-  Map.Circles.Clear;
+  GMMap.Circles.Clear;
   RefreshCircleList;
   Log('All circles cleared');
 end;
@@ -2441,7 +3114,7 @@ begin
     Exit;
   end;
 
-  Map.Circles.ZoomToPoints(False, lbCircles.ItemIndex);
+  GMMap.Circles.ZoomToPoints(False, lbCircles.ItemIndex);
 end;
 
 procedure TMainFrm.bZoomToCirclesClick(Sender: TObject);
@@ -2452,10 +3125,10 @@ begin
     Exit;
   end;
 
-  Map.Circles.ZoomToPoints;
+  GMMap.Circles.ZoomToPoints;
 end;
 
-procedure TMainFrm.MapCircleClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapCircleClick(Sender: TObject; ALatLng: TMapLibLatLng);
 var
   Circle: TGMVclCircleItem;
   Idx: Integer;
@@ -2470,12 +3143,12 @@ begin
   end;
 end;
 
-procedure TMainFrm.MapCircleContextMenu(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapCircleContextMenu(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle ContextMenu: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapCircleDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapCircleDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle DblClick: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
@@ -2502,27 +3175,27 @@ begin
   FIsDraggingCircle := True;
 end;
 
-procedure TMainFrm.MapCircleMouseDown(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapCircleMouseDown(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle MouseDown: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapCircleMouseMove(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapCircleMouseMove(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle MouseMove: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapCircleMouseOut(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapCircleMouseOut(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle MouseOut: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapCircleMouseOver(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapCircleMouseOver(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle MouseOver: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
-procedure TMainFrm.MapCircleMouseUp(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapCircleMouseUp(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('Circle MouseUp: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
@@ -2566,9 +3239,9 @@ begin
   lbGroundOverlays.Items.BeginUpdate;
   try
     lbGroundOverlays.Clear;
-    for I := 0 to Map.GroundOverlays.Count - 1 do
+    for I := 0 to GMMap.GroundOverlays.Count - 1 do
     begin
-      GroundOverlay := Map.GroundOverlays[I];
+      GroundOverlay := GMMap.GroundOverlays[I];
       lbGroundOverlays.Items.AddObject(Format('GroundOverlay %d', [I]), GroundOverlay);
     end;
   finally
@@ -2652,7 +3325,7 @@ procedure TMainFrm.bAddGroundOverlayClick(Sender: TObject);
 var
   GroundOverlay: TGMGroundOverlayItem;
 begin
-  GroundOverlay := Map.GroundOverlays.Add;
+  GroundOverlay := GMMap.GroundOverlays.Add;
   try
     LoadUIToGroundOverlay(GroundOverlay);
     BindGroundOverlayEvents(GroundOverlay);
@@ -2677,7 +3350,7 @@ begin
 
   GroundOverlay := TGMGroundOverlayItem(lbGroundOverlays.Items.Objects[Idx]);
   if Assigned(GroundOverlay) then
-    Map.GroundOverlays.Delete(GroundOverlay.Index);
+    GMMap.GroundOverlays.Delete(GroundOverlay.Index);
 
   RefreshGroundOverlayList;
   Log('GroundOverlay deleted');
@@ -2685,7 +3358,7 @@ end;
 
 procedure TMainFrm.bClearGroundOverlaysClick(Sender: TObject);
 begin
-  Map.GroundOverlays.Clear;
+  GMMap.GroundOverlays.Clear;
   RefreshGroundOverlayList;
   Log('All ground overlays cleared');
 end;
@@ -2724,7 +3397,7 @@ begin
 
   GroundOverlay := TGMGroundOverlayItem(lbGroundOverlays.Items.Objects[lbGroundOverlays.ItemIndex]);
   if Assigned(GroundOverlay) then
-    Map.GroundOverlays.ZoomToPoints(False, GroundOverlay.Index);
+    GMMap.GroundOverlays.ZoomToPoints(False, GroundOverlay.Index);
 end;
 
 procedure TMainFrm.bZoomToGroundOverlaysClick(Sender: TObject);
@@ -2735,10 +3408,10 @@ begin
     Exit;
   end;
 
-  Map.GroundOverlays.ZoomToPoints;
+  GMMap.GroundOverlays.ZoomToPoints;
 end;
 
-procedure TMainFrm.MapGroundOverlayClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapGroundOverlayClick(Sender: TObject; ALatLng: TMapLibLatLng);
 var
   GroundOverlay: TGMGroundOverlayItem;
   Idx: Integer;
@@ -2753,7 +3426,7 @@ begin
   end;
 end;
 
-procedure TMainFrm.MapGroundOverlayDblClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainFrm.MapGroundOverlayDblClick(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Log(Format('GroundOverlay DblClick: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
@@ -2767,7 +3440,7 @@ begin
     against a brand new one each time. }
   FCurrentMarkerForInfoWindow := AMarker;
 
-  if not Map.IsReady then
+  if not GMMap.IsReady then
   begin
     Log('Map not ready yet');
     Exit;
@@ -2776,7 +3449,7 @@ begin
   if Assigned(FCurrentInfoWindowForMarker) then
     FCurrentInfoWindowForMarker.Free;
 
-  FCurrentInfoWindowForMarker := Map.InfoWindows.Add;
+  FCurrentInfoWindowForMarker := GMMap.InfoWindows.Add;
   HTML := '<div style="font-family:Arial,sans-serif;font-size:12px;">';
   HTML := HTML + '<strong>Loading...</strong>';
   HTML := HTML + '</div>';
@@ -2786,7 +3459,7 @@ begin
   FCurrentInfoWindowForMarker.OpenByObjectId(AMarker.ObjectId);
 
   Log('Requesting reverse geocode for marker: ' + Format('%.6f, %.6f', [AMarker.Options.Position.Lat, AMarker.Options.Position.Lng]));
-  Map.GeoCode.Geocode(AMarker.Options.Position);
+  GMMap.GeoCode.Geocode(AMarker.Options.Position);
 end;
 
 procedure TMainFrm.GeoCodeCompleted(Sender: TObject; const AResponse: TGMGeocodeResponse);
@@ -2829,9 +3502,9 @@ begin
   FCurrentInfoWindowForMarker.OpenByObjectId(FCurrentMarkerForInfoWindow.ObjectId);
 
   Log('Requesting elevation...');
-  Map.Elevations.Clear;
-  Map.Elevations.AddLatLng(FCurrentMarkerForInfoWindow.Options.Position);
-  Map.Elevations.Execute;
+  GMMap.Elevations.Clear;
+  GMMap.Elevations.AddLatLng(FCurrentMarkerForInfoWindow.Options.Position);
+  GMMap.Elevations.Execute;
 end;
 
 procedure TMainFrm.ElevationCompleted(Sender: TObject; const AResponse: TGMElevationResponse);
@@ -2860,9 +3533,9 @@ begin
   HTML := '<div style="font-family:Arial,sans-serif;font-size:12px;">';
   HTML := HTML + '<strong>Coords:</strong> ' + Format('%.6f, %.6f', [FCurrentMarkerForInfoWindow.Options.Position.Lat, FCurrentMarkerForInfoWindow.Options.Position.Lng]) + '<br/>';
 
-  if Map.GeoCode.LastResponse.HasResults then
+  if GMMap.GeoCode.LastResponse.HasResults then
   begin
-    GeocodeResult := Map.GeoCode.LastResponse.Results[0];
+    GeocodeResult := GMMap.GeoCode.LastResponse.Results[0];
     HTML := HTML + '<strong>Address:</strong><br/>' + GeocodeResult.FormattedAddress + '<br/>';
     HTML := HTML + '<strong>Place ID:</strong> ' + GeocodeResult.PlaceId + '<br/>';
     HTML := HTML + '<strong>Type:</strong> ' + GeocodeResult.LocationType + '<br/>';
@@ -2891,7 +3564,7 @@ procedure TMainFrm.bApplyRouteClick(Sender: TObject);
 var
   Query: TGMRouteQuery;
 begin
-  if not Map.IsReady then
+  if not GMMap.IsReady then
   begin
     Log('Map not ready');
     Exit;
@@ -2899,21 +3572,21 @@ begin
 
   Log('Route from: ' + eRouteFrom.Text + ' to: ' + eRouteTo.Text);
 
-  Map.Routes.OriginAddress := eRouteFrom.Text;
-  Map.Routes.OriginLocation.Lat := 0;
-  Map.Routes.OriginLocation.Lng := 0;
+  GMMap.Routes.OriginAddress := eRouteFrom.Text;
+  GMMap.Routes.OriginLocation.Lat := 0;
+  GMMap.Routes.OriginLocation.Lng := 0;
 
-  Map.Routes.DestinationAddress := eRouteTo.Text;
-  Map.Routes.DestinationLocation.Lat := 0;
-  Map.Routes.DestinationLocation.Lng := 0;
+  GMMap.Routes.DestinationAddress := eRouteTo.Text;
+  GMMap.Routes.DestinationLocation.Lat := 0;
+  GMMap.Routes.DestinationLocation.Lng := 0;
 
-  Map.Routes.TravelMode := rtmDrive;
-  Map.Routes.RequestFields := '';
-  Map.Routes.ComputeAlternativeRoutes := True;
+  GMMap.Routes.TravelMode := rtmDrive;
+  GMMap.Routes.RequestFields := '';
+  GMMap.Routes.ComputeAlternativeRoutes := True;
 
   UpdateStatus('Computing route...');
   Log('Computing route...');
-  Query := Map.Routes.ExecuteQuery;
+  Query := GMMap.Routes.ExecuteQuery;
   if Assigned(Query) then
     Log('Route query created: ' + Query.RequestId);
 end;
@@ -2932,12 +3605,12 @@ var
 begin
   lbRoutes.Clear;
 
-  if Map.Routes.QueryCount = 0 then
+  if GMMap.Routes.QueryCount = 0 then
     Exit;
 
   { The demo lists the latest query first because that is the route the user
     just asked for and the one they are most likely to inspect or hide. }
-  Query := Map.Routes.Queries[Map.Routes.QueryCount - 1];
+  Query := GMMap.Routes.Queries[GMMap.Routes.QueryCount - 1];
 
   for i := 0 to Query.Count - 1 do
   begin
@@ -2950,19 +3623,19 @@ end;
 
 procedure TMainFrm.cbRouteCloseOthersClick(Sender: TObject);
 begin
-  Map.Routes.CloseOthersBeforeVisible := cbRouteCloseOthers.Checked;
+  GMMap.Routes.CloseOthersBeforeVisible := cbRouteCloseOthers.Checked;
   Log(Format('Routes.CloseOthersBeforeVisible: %s', [BoolToStr(cbRouteCloseOthers.Checked, True)]));
 end;
 
 procedure TMainFrm.bComputeGeometryClick(Sender: TObject);
 var
-  FromPoint: TGMLibLatLng;
-  ToPoint: TGMLibLatLng;
-  ProbePoint: TGMLibLatLng;
+  FromPoint: TMapLibLatLng;
+  ToPoint: TMapLibLatLng;
+  ProbePoint: TMapLibLatLng;
   DistanceMeters: Double;
   HeadingDegrees: Double;
-  OffsetPoint: TGMLibLatLng;
-  MidPoint: TGMLibLatLng;
+  OffsetPoint: TMapLibLatLng;
+  MidPoint: TMapLibLatLng;
   Polyline: TGMPolylinePath;
   Polygon: TGMPolygonPath;
   InPolygon: Boolean;
@@ -2970,9 +3643,9 @@ var
   FS: TFormatSettings;
 begin
   FS := TFormatSettings.Invariant;
-  FromPoint := TGMLibLatLng.Create(StrToFloatDef(eGeomFromLat.Text, 0, FS), StrToFloatDef(eGeomFromLng.Text, 0, FS));
-  ToPoint := TGMLibLatLng.Create(StrToFloatDef(eGeomToLat.Text, 0, FS), StrToFloatDef(eGeomToLng.Text, 0, FS));
-  ProbePoint := TGMLibLatLng.Create(StrToFloatDef(eGeomPointLat.Text, 0, FS), StrToFloatDef(eGeomPointLng.Text, 0, FS));
+  FromPoint := TMapLibLatLng.Create(StrToFloatDef(eGeomFromLat.Text, 0, FS), StrToFloatDef(eGeomFromLng.Text, 0, FS));
+  ToPoint := TMapLibLatLng.Create(StrToFloatDef(eGeomToLat.Text, 0, FS), StrToFloatDef(eGeomToLng.Text, 0, FS));
+  ProbePoint := TMapLibLatLng.Create(StrToFloatDef(eGeomPointLat.Text, 0, FS), StrToFloatDef(eGeomPointLng.Text, 0, FS));
   Polyline := TGMPolylinePath.Create(nil);
   Polygon := TGMPolygonPath.Create(nil);
   try
@@ -3046,4 +3719,7 @@ begin
 end;
 
 end.
+
+
+
 

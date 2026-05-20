@@ -1,4 +1,4 @@
-unit UGeoCodeMainForm;
+﻿unit UGeoCodeMainForm;
 
 {$HINTS OFF}
 
@@ -61,7 +61,7 @@ type
     procedure ConfigureBrowser;
     procedure GeocodePlaceIdButtonClick(Sender: TObject);
     procedure HandleGeoCodeCompleted(Sender: TObject; const AResponse: TGMGeocodeResponse);
-    procedure HandleMapClick(Sender: TObject; ALatLng: TGMLibLatLng; const APlaceId: string);
+    procedure HandleMapClick(Sender: TObject; ALatLng: TMapLibLatLng; const APlaceId: string);
     procedure HandleMapReady(Sender: TObject);
     procedure InitializeDefaults;
     procedure InitializeMap;
@@ -299,7 +299,7 @@ procedure TMainForm.CenterMapButtonClick(Sender: TObject);
 var
   Latitude: Double;
   Longitude: Double;
-  Coordinate: TGMLibLatLng;
+  Coordinate: TMapLibLatLng;
 begin
   if not TryReadFloat(FLatEdit, Latitude) then
   begin
@@ -313,7 +313,7 @@ begin
     Exit;
   end;
 
-  Coordinate := TGMLibLatLng.Create(Latitude, Longitude);
+  Coordinate := TMapLibLatLng.Create(Latitude, Longitude);
   try
     FMap.GeoCode.Location.Assign(Coordinate);
     FMap.CenterMapTo(Coordinate);
@@ -371,7 +371,7 @@ end;
 
 procedure TMainForm.HandleGeoCodeCompleted(Sender: TObject; const AResponse: TGMGeocodeResponse);
 var
-  FirstLocation: TGMLibLatLng;
+  FirstLocation: TMapLibLatLng;
   i: Integer;
   ResultItem: TGMGeocodeResult;
 begin
@@ -412,7 +412,7 @@ begin
   end;
 end;
 
-procedure TMainForm.HandleMapClick(Sender: TObject; ALatLng: TGMLibLatLng;
+procedure TMainForm.HandleMapClick(Sender: TObject; ALatLng: TMapLibLatLng;
   const APlaceId: string);
 var
   PlaceIdText: string;
@@ -456,11 +456,11 @@ end;
 
 procedure TMainForm.InitializeMap;
 var
-  Center: TGMLibLatLng;
+  Center: TMapLibLatLng;
 begin
   FMap := TGMLibMap.Create(Self);
   FMap.Browser := FBrowser;
-  Center := TGMLibLatLng.Create(41.3874, 2.1686);
+  Center := TMapLibLatLng.Create(41.3874, 2.1686);
   try
     FMap.Options.Center.Assign(Center);
     FMap.GeoCode.Location.Assign(Center);
@@ -494,7 +494,7 @@ procedure TMainForm.ReverseGeocodeButtonClick(Sender: TObject);
 var
   Latitude: Double;
   Longitude: Double;
-  Coordinate: TGMLibLatLng;
+  Coordinate: TMapLibLatLng;
 begin
   SyncGeoCodeSettings;
   if not FMap.Active then
@@ -512,7 +512,7 @@ begin
     Exit;
   end;
 
-  Coordinate := TGMLibLatLng.Create(Latitude, Longitude);
+  Coordinate := TMapLibLatLng.Create(Latitude, Longitude);
   try
     FMap.GeoCode.Location.Assign(Coordinate);
     FMap.GeoCode.ReverseGeocode(Coordinate);
@@ -543,3 +543,4 @@ begin
 end;
 
 end.
+

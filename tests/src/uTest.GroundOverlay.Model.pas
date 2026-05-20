@@ -1,4 +1,4 @@
-{**
+﻿{**
   @abstract(Pruebas automaticas del modelo de `TGMMap.GroundOverlays`.)
 }
 unit uTest.GroundOverlay.Model;
@@ -20,7 +20,7 @@ type
   TTestGroundOverlayModel = class
   private
     FClickCount: Integer;
-    procedure HandleGroundOverlayClick(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure HandleGroundOverlayClick(Sender: TObject; ALatLng: TMapLibLatLng);
   public
     [Test]
     procedure GroundOverlayOptions_ToJavaScriptLiteral_EmitsUrlAndBounds;
@@ -31,7 +31,7 @@ type
 
 implementation
 
-procedure TTestGroundOverlayModel.HandleGroundOverlayClick(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TTestGroundOverlayModel.HandleGroundOverlayClick(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Inc(FClickCount);
 end;
@@ -94,3 +94,4 @@ initialization
   TDUnitX.RegisterTestFixture(TTestGroundOverlayModel);
 
 end.
+

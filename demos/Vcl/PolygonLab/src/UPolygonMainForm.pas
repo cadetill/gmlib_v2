@@ -1,4 +1,4 @@
-unit UPolygonMainForm;
+﻿unit UPolygonMainForm;
 
 interface
 
@@ -71,7 +71,7 @@ type
     procedure BuildUi;
     procedure ClearButtonClick(Sender: TObject);
     procedure ConfigureBrowser;
-    procedure HandleMapClick(Sender: TObject; ALatLng: TGMLibLatLng; const APlaceId: string);
+    procedure HandleMapClick(Sender: TObject; ALatLng: TMapLibLatLng; const APlaceId: string);
     procedure HandleMapReady(Sender: TObject);
     procedure InitializeDefaults;
     procedure InitializeMap;
@@ -214,7 +214,7 @@ end;
 
 procedure TMainForm.ApplyViewButtonClick(Sender: TObject);
 var
-  Center: TGMLibLatLng;
+  Center: TMapLibLatLng;
   Latitude: Double;
   Longitude: Double;
   ZoomLevel: Integer;
@@ -237,7 +237,7 @@ begin
     Exit;
   end;
 
-  Center := TGMLibLatLng.Create(Latitude, Longitude);
+  Center := TMapLibLatLng.Create(Latitude, Longitude);
   try
     FMap.Options.Center := Center;
   finally
@@ -537,7 +537,7 @@ begin
   inherited;
 end;
 
-procedure TMainForm.HandleMapClick(Sender: TObject; ALatLng: TGMLibLatLng; const APlaceId: string);
+procedure TMainForm.HandleMapClick(Sender: TObject; ALatLng: TMapLibLatLng; const APlaceId: string);
 begin
   Log(Format('Map click at %s, %s', [
     FloatToStr(ALatLng.Lat, TFormatSettings.Invariant),
@@ -675,3 +675,4 @@ begin
 end;
 
 end.
+

@@ -1,4 +1,4 @@
-{**
+﻿{**
   @abstract(Helpers de formato compartidos entre compiladores.)
 }
 unit uGMLib.Platform.Format;
@@ -30,3 +30,5 @@ begin
 end;
 
 end.
+
+

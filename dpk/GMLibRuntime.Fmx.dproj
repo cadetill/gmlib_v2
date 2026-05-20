@@ -158,6 +158,7 @@
         <DCCReference Include="fmx.dcp"/>
         <DCCReference Include="GMLibRuntime.dcp"/>
         <DCCReference Include="MapLibCore.dcp"/>
+        <DCCReference Include="OSMLibRuntime.dcp"/>
         <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.Bridge.WebBrowser.pas"/>
         <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.InfoWindow.pas"/>
         <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.Marker.pas"/>
@@ -168,6 +169,8 @@
         <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.Polyline.pas"/>
         <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.Rectangle.pas"/>
         <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.Circle.pas"/>
+        <DCCReference Include="..\src\Fmx\OSM\uOSMLib.Fmx.Map.pas"/>
+        <DCCReference Include="..\src\Fmx\OSM\uOSMLib.Fmx.MapBootstrap.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

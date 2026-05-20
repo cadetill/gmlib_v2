@@ -1,4 +1,4 @@
-﻿{**
+{**
   @abstract(Modelo de rectángulos del mapa.)
 }
 unit uGMLib.Rectangle;
@@ -33,7 +33,7 @@ type
   TGMRectangleItem = class;
   TGMRectangles = class;
 
-  TGMRectangleCoordinateEvent = procedure(Sender: TObject; ALatLng: TGMLibLatLng) of object;
+  TGMRectangleCoordinateEvent = procedure(Sender: TObject; ALatLng: TMapLibLatLng) of object;
   TGMRectangleBoundsChangedEvent = procedure(Sender: TObject) of object;
   TGMRectangleItemClass = class of TGMRectangleItem;
 
@@ -107,7 +107,7 @@ type
     procedure OptionsChanged(Sender: TObject);
     procedure SetOptions(const Value: TGMRectangleOptions);
     function TryGetCoordinateFromPayload(const APayload: string;
-      out ALatLng: TGMLibLatLng): Boolean;
+      out ALatLng: TMapLibLatLng): Boolean;
   protected
     function BuildObjectId: TGMObjectId; virtual;
     function CreateRectangleOptions: TGMRectangleOptions; virtual;
@@ -498,7 +498,7 @@ end;
 
 procedure TGMRectangleItem.ProcessMapMessage(const AEnvelope: TMapLibMessageEnvelope);
 var
-  LatLng: TGMLibLatLng;
+  LatLng: TMapLibLatLng;
 {$IFDEF FPC}
   JsonValue: TJSONData;
 {$ELSE}
@@ -570,7 +570,7 @@ begin
 end;
 
 function TGMRectangleItem.TryGetCoordinateFromPayload(const APayload: string;
-  out ALatLng: TGMLibLatLng): Boolean;
+  out ALatLng: TMapLibLatLng): Boolean;
 var
   JsonObj: TJSONObject;
   LatVal, LngVal: Double;
@@ -599,7 +599,7 @@ begin
     if JsonObj.TryGetValue<Double>('lat', LatVal) and JsonObj.TryGetValue<Double>('lng', LngVal) then
 {$ENDIF}
     begin
-      ALatLng := TGMLibLatLng.Create(LatVal, LngVal);
+      ALatLng := TMapLibLatLng.Create(LatVal, LngVal);
       Result := True;
     end;
   finally
@@ -767,6 +767,9 @@ begin
 end;
 
 end.
+
+
+
 
 
 

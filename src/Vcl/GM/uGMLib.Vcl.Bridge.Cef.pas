@@ -1,4 +1,4 @@
-﻿{**
+{**
   @abstract(Transporte VCL basado en CEF4Delphi.)
   @author(Xavier Martinez (cadetill) <cadetill@gmail.com>)
 
@@ -29,7 +29,7 @@ uses
 
 type
   {** @abstract(ImplementaciÃ³n del transporte CEF para VCL.) }
-  TGMLibCefBridge = class(TInterfacedObject, IMapBridgeTransport)
+  TGMLibCefBridge = class(TInterfacedObject, IMapBridgeTransport, IMapBridgeJavaScriptNamespace)
   private const
     cMessagePrefix = 'https://gmlib.local/__gmlib_message__?';
   private
@@ -41,6 +41,7 @@ type
     FOldLoadEnd: TOnLoadEnd;
     FPendingHtml: string;
     FPendingMessageJson: string;
+    FJavaScriptNamespace: string;
     procedure DoAfterCreated(Sender: TObject; const browser: ICefBrowser);
     procedure DoBeforeResourceLoad(Sender: TObject; const browser: ICefBrowser;
       const frame: ICefFrame; const request: ICefRequest; const callback: ICefCallback;
@@ -51,6 +52,8 @@ type
     procedure DeliverPendingMessage;
     procedure QueuePendingMessage;
     function TryExtractMessageJson(const AUrl: string; out AJson: string): Boolean;
+    procedure SetJavaScriptNamespace(const ANamespace: string);
+    function GetJavaScriptNamespace: string;
     procedure LoadPendingHtml;
     procedure NotifyMessageReceived(const AMessage: string);
   protected
@@ -132,6 +135,7 @@ begin
   inherited Create;
   FPendingHtml := '';
   FIsReady := False;
+  FJavaScriptNamespace := 'gmlib';
   AttachBrowser(ABrowser);
 end;
 
@@ -294,7 +298,20 @@ end;
 
 procedure TGMLibCefBridge.PostCommand(const AEnvelope: TMapLibMessageEnvelope);
 begin
-  ExecuteJavaScript(Format('window.gmlib.receiveCommand(%s);', [AEnvelope.ToJson]));
+  ExecuteJavaScript(Format('window.%s.receiveCommand(%s);', [FJavaScriptNamespace, AEnvelope.ToJson]));
+end;
+
+function TGMLibCefBridge.GetJavaScriptNamespace: string;
+begin
+  Result := FJavaScriptNamespace;
+end;
+
+procedure TGMLibCefBridge.SetJavaScriptNamespace(const ANamespace: string);
+begin
+  if Trim(ANamespace) = '' then
+    FJavaScriptNamespace := 'gmlib'
+  else
+    FJavaScriptNamespace := Trim(ANamespace);
 end;
 
 procedure TGMLibCefBridge.SetOnMessageReceived(const AHandler: TMapBridgeMessageReceivedEvent);
@@ -330,7 +347,3 @@ initialization
   RegisterBridgeFactory(CreateCefBridgeForBrowser);
 
 end.
-
-
-
-

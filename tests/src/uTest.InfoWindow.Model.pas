@@ -19,7 +19,7 @@ type
     CenterCallCount: Integer;
     LastLat: Double;
     LastLng: Double;
-    procedure CenterMapTo(const ALatLng: TGMLibLatLng);
+    procedure CenterMapTo(const ALatLng: TMapLibLatLng);
     procedure FitBounds(ANorth, ASouth, AEast, AWest: Double);
   end;
 
@@ -47,7 +47,7 @@ type
     procedure HandleDomReady(Sender: TObject);
     procedure HandleHeaderContentChanged(Sender: TObject; const AValue: string);
     procedure HandleHeaderDisabledChanged(Sender: TObject; AValue: Boolean);
-    procedure HandlePositionChanged(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure HandlePositionChanged(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure HandleVisible(Sender: TObject);
     procedure HandleZIndexChanged(Sender: TObject; AValue: Integer);
   public
@@ -129,7 +129,7 @@ implementation
 uses
   System.SysUtils;
 
-procedure TViewportHostStub.CenterMapTo(const ALatLng: TGMLibLatLng);
+procedure TViewportHostStub.CenterMapTo(const ALatLng: TMapLibLatLng);
 begin
   Inc(CenterCallCount);
   if Assigned(ALatLng) then
@@ -176,7 +176,7 @@ begin
   FLastHeaderDisabled := AValue;
 end;
 
-procedure TTestInfoWindowModel.HandlePositionChanged(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TTestInfoWindowModel.HandlePositionChanged(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Inc(FPositionChangedCount);
   FLastPositionLat := ALatLng.Lat;
@@ -363,10 +363,10 @@ begin
 
     Command := InfoWindow.BuildApplyCommand;
 
-    Assert.IsTrue(Command.Contains('gmlib.infoWindow.setOptions('));
+    Assert.IsTrue(Command.Contains('maplib.infoWindow.setOptions('));
     Assert.IsTrue(
       Command.Contains(
-        Format('gmlib.infoWindow.open(''%s'', { shouldFocus: true, anchorId: ''%s'' });', [
+        Format('maplib.infoWindow.open(''%s'', { shouldFocus: true, anchorId: ''%s'' });', [
           string(InfoWindow.ObjectId),
           string(Marker.ObjectId)
         ])
@@ -396,7 +396,7 @@ begin
 
     Assert.IsTrue(
       Command.Contains(
-        Format('gmlib.infoWindow.open(''%s'', { shouldFocus: true, anchorId: ''overlay_42'' });', [
+        Format('maplib.infoWindow.open(''%s'', { shouldFocus: true, anchorId: ''overlay_42'' });', [
           string(InfoWindow.ObjectId)
         ])
       )
@@ -484,7 +484,7 @@ begin
     Assert.IsTrue(Command.Contains('headerContent: ''Title'''));
     Assert.IsTrue(Command.Contains('headerDisabled: true'));
     Assert.IsTrue(
-      Command.Contains(Format('gmlib.infoWindow.close(''%s'');', [string(InfoWindow.ObjectId)]))
+      Command.Contains(Format('maplib.infoWindow.close(''%s'');', [string(InfoWindow.ObjectId)]))
     );
     Assert.IsFalse(Command.Contains('anchorId:'));
   finally
@@ -510,7 +510,7 @@ begin
 
     Assert.IsTrue(
       Command.Contains(
-        Format('gmlib.infoWindow.open(''%s'', { shouldFocus: false });', [
+        Format('maplib.infoWindow.open(''%s'', { shouldFocus: false });', [
           string(InfoWindow.ObjectId)
         ])
       )
@@ -540,7 +540,7 @@ begin
 
     Assert.IsTrue(
       Command.Contains(
-        Format('gmlib.infoWindow.focus(''%s'');', [string(InfoWindow.ObjectId)])
+        Format('maplib.infoWindow.focus(''%s'');', [string(InfoWindow.ObjectId)])
       )
     );
   finally
@@ -564,7 +564,7 @@ begin
 
     Command := InfoWindow.BuildApplyCommand;
 
-    Assert.IsFalse(Command.Contains('gmlib.infoWindow.focus('));
+    Assert.IsFalse(Command.Contains('maplib.infoWindow.focus('));
   finally
     InfoWindows.Free;
   end;
@@ -851,3 +851,5 @@ begin
 end;
 
 end.
+
+

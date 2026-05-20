@@ -15,6 +15,13 @@ uses
 type
   TMapBridgeMessageReceivedEvent = procedure(Sender: TObject; const AEnvelope: TMapLibMessageEnvelope) of object;
 
+  IMapBridgeJavaScriptNamespace = interface
+    ['{5C7C8E8D-2A52-4C3A-8F3E-9CC2A6A9435C}']
+    procedure SetJavaScriptNamespace(const ANamespace: string);
+    function GetJavaScriptNamespace: string;
+    property JavaScriptNamespace: string read GetJavaScriptNamespace write SetJavaScriptNamespace;
+  end;
+
   IMapBridgeTransport = interface
     ['{0D8A77BD-5A15-4310-A8EE-88C1307AE7A3}']
     function GetBackend: TGMBridgeBackend;

@@ -24,6 +24,12 @@
         <Projects Include="MapLibDesign.Vcl.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="MapLibDesign.Fmx.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\demos\Vcl\MegaDemo\MegaDemo.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -95,14 +101,32 @@
     <Target Name="MapLibDesign_Vcl:Make">
         <MSBuild Projects="MapLibDesign.Vcl.dproj" Targets="Make"/>
     </Target>
+    <Target Name="MapLibDesign_Fmx">
+        <MSBuild Projects="MapLibDesign.Fmx.dproj"/>
+    </Target>
+    <Target Name="MapLibDesign_Fmx:Clean">
+        <MSBuild Projects="MapLibDesign.Fmx.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MapLibDesign_Fmx:Make">
+        <MSBuild Projects="MapLibDesign.Fmx.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="MegaDemo">
+        <MSBuild Projects="..\demos\Vcl\MegaDemo\MegaDemo.dproj"/>
+    </Target>
+    <Target Name="MegaDemo:Clean">
+        <MSBuild Projects="..\demos\Vcl\MegaDemo\MegaDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MegaDemo:Make">
+        <MSBuild Projects="..\demos\Vcl\MegaDemo\MegaDemo.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="MapLibCore;GMLibRuntime;GMLibRuntime_Vcl;GMLibRuntime_Fmx;OSMLibRuntime;OSMLibRuntime_Vcl;MapLibDesign_Vcl"/>
+        <CallTarget Targets="MapLibCore;GMLibRuntime;GMLibRuntime_Vcl;GMLibRuntime_Fmx;OSMLibRuntime;OSMLibRuntime_Vcl;MapLibDesign_Vcl;MapLibDesign_Fmx;MegaDemo"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="MapLibCore:Clean;GMLibRuntime:Clean;GMLibRuntime_Vcl:Clean;GMLibRuntime_Fmx:Clean;OSMLibRuntime:Clean;OSMLibRuntime_Vcl:Clean;MapLibDesign_Vcl:Clean"/>
+        <CallTarget Targets="MapLibCore:Clean;GMLibRuntime:Clean;GMLibRuntime_Vcl:Clean;GMLibRuntime_Fmx:Clean;OSMLibRuntime:Clean;OSMLibRuntime_Vcl:Clean;MapLibDesign_Vcl:Clean;MapLibDesign_Fmx:Clean;MegaDemo:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="MapLibCore:Make;GMLibRuntime:Make;GMLibRuntime_Vcl:Make;GMLibRuntime_Fmx:Make;OSMLibRuntime:Make;OSMLibRuntime_Vcl:Make;MapLibDesign_Vcl:Make"/>
+        <CallTarget Targets="MapLibCore:Make;GMLibRuntime:Make;GMLibRuntime_Vcl:Make;GMLibRuntime_Fmx:Make;OSMLibRuntime:Make;OSMLibRuntime_Vcl:Make;MapLibDesign_Vcl:Make;MapLibDesign_Fmx:Make;MegaDemo:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

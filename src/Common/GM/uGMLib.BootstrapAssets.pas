@@ -40,6 +40,7 @@ type
       ARelativePath: string): string; static;
     class function LoadTextFile(const AFileName: string): string; static;
     class function PathToFileUrl(const AFileName: string): string; static;
+    class function ResolveResourceFile(const ARelativePath: string): string; static;
   end;
 
 implementation
@@ -92,8 +93,36 @@ class function TGMLibBootstrapAssets.FindResourceFile(
   const ARelativePath: string): string;
 var
   basePath: string;
-  candidatePath: string;
-  i: Integer;
+
+  function SearchFromBase(const ABasePath: string): string;
+  var
+    candidatePath: string;
+    searchBasePath: string;
+    i: Integer;
+  begin
+    Result := '';
+    searchBasePath := ExcludeTrailingPathDelimiter(ABasePath);
+
+    for i := 0 to 8 do
+    begin
+{$IFDEF FPC}
+      candidatePath := IncludeTrailingPathDelimiter(searchBasePath) + ARelativePath;
+{$ELSE}
+      candidatePath := TPath.Combine(searchBasePath, ARelativePath);
+{$ENDIF}
+      if FileExists(candidatePath) then
+        Exit(candidatePath);
+
+{$IFDEF FPC}
+      searchBasePath := ExtractFileDir(searchBasePath);
+{$ELSE}
+      searchBasePath := TPath.GetDirectoryName(searchBasePath);
+{$ENDIF}
+      if searchBasePath = '' then
+        Break;
+    end;
+  end;
+
 begin
   Result := '';
 {$IFDEF FPC}
@@ -102,24 +131,16 @@ begin
   basePath := ExcludeTrailingPathDelimiter(ExtractFileDir(ParamStr(0)));
 {$ENDIF}
 
-  for i := 0 to 6 do
+  if basePath <> '' then
   begin
-{$IFDEF FPC}
-    candidatePath := IncludeTrailingPathDelimiter(basePath) + ARelativePath;
-{$ELSE}
-    candidatePath := TPath.Combine(basePath, ARelativePath);
-{$ENDIF}
-    if FileExists(candidatePath) then
-      Exit(candidatePath);
-
-{$IFDEF FPC}
-    basePath := ExtractFileDir(basePath);
-{$ELSE}
-    basePath := TPath.GetDirectoryName(basePath);
-{$ENDIF}
-    if basePath = '' then
-      Break;
+    Result := SearchFromBase(basePath);
+    if Result <> '' then
+      Exit;
   end;
+
+  basePath := ExcludeTrailingPathDelimiter(GetCurrentDir);
+  if basePath <> '' then
+    Result := SearchFromBase(basePath);
 end;
 
 class function TGMLibBootstrapAssets.LoadEmbeddedText(
@@ -241,6 +262,12 @@ begin
   filePath := StringReplace(filePath, ' ', '%20', [rfReplaceAll]);
   filePath := StringReplace(filePath, '#', '%23', [rfReplaceAll]);
   Result := 'file:///' + filePath;
+end;
+
+class function TGMLibBootstrapAssets.ResolveResourceFile(
+  const ARelativePath: string): string;
+begin
+  Result := FindResourceFile(ARelativePath);
 end;
 
 class procedure TGMLibBootstrapAssets.SaveTextToFile(const AFileName,

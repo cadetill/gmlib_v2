@@ -1,5 +1,5 @@
-{**
-  @abstract(Pruebas automáticas del modelo de `TGMMap.Markers`.)
+﻿{**
+  @abstract(Pruebas automÃ¡ticas del modelo de `TGMMap.Markers`.)
 }
 unit uTest.Marker.Model;
 
@@ -21,7 +21,7 @@ type
     LastSouth: Double;
     LastEast: Double;
     LastWest: Double;
-    procedure CenterMapTo(const ALatLng: TGMLibLatLng);
+    procedure CenterMapTo(const ALatLng: TMapLibLatLng);
     procedure FitBounds(ANorth, ASouth, AEast, AWest: Double);
   end;
 
@@ -41,9 +41,9 @@ type
     FLastDragLat: Double;
     FLastDragLng: Double;
     procedure HandleMarkerClick(Sender: TObject);
-    procedure HandleMarkerDrag(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleMarkerDragStart(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleMarkerDragEnd(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure HandleMarkerDrag(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleMarkerDragStart(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleMarkerDragEnd(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure HandleMarkerMouseDown(Sender: TObject);
     procedure HandleMarkerMouseEnter(Sender: TObject);
     procedure HandleMarkerMouseLeave(Sender: TObject);
@@ -112,7 +112,7 @@ implementation
 uses
   System.SysUtils;
 
-procedure TMarkerViewportHostStub.CenterMapTo(const ALatLng: TGMLibLatLng);
+procedure TMarkerViewportHostStub.CenterMapTo(const ALatLng: TMapLibLatLng);
 begin
   Inc(CenterCallCount);
 end;
@@ -131,21 +131,21 @@ begin
   Inc(FClickCount);
 end;
 
-procedure TTestMarkerModel.HandleMarkerDrag(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TTestMarkerModel.HandleMarkerDrag(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Inc(FDragCount);
   FLastDragEventLat := ALatLng.Lat;
   FLastDragEventLng := ALatLng.Lng;
 end;
 
-procedure TTestMarkerModel.HandleMarkerDragStart(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TTestMarkerModel.HandleMarkerDragStart(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Inc(FDragStartCount);
   FLastDragEventLat := ALatLng.Lat;
   FLastDragEventLng := ALatLng.Lng;
 end;
 
-procedure TTestMarkerModel.HandleMarkerDragEnd(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TTestMarkerModel.HandleMarkerDragEnd(Sender: TObject; ALatLng: TMapLibLatLng);
 begin
   Inc(FDragEndCount);
   FLastDragLat := ALatLng.Lat;
@@ -678,3 +678,4 @@ initialization
   TDUnitX.RegisterTestFixture(TTestMarkerModel);
 
 end.
+

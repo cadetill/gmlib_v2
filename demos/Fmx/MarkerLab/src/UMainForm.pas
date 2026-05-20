@@ -1,4 +1,4 @@
-unit UMainForm;
+﻿unit UMainForm;
 
 interface
 
@@ -57,16 +57,16 @@ type
     procedure BuildUi;
     procedure ClearMarkersButtonClick(Sender: TObject);
     procedure ConfigureBrowser;
-    procedure HandleMapClick(Sender: TObject; ALatLng: TGMLibLatLng; const APlaceId: string);
+    procedure HandleMapClick(Sender: TObject; ALatLng: TMapLibLatLng; const APlaceId: string);
     procedure HandleMapReady(Sender: TObject);
     procedure HandleInfoWindowClose(Sender: TObject);
     procedure HandleInfoWindowCloseClick(Sender: TObject);
     procedure HandleInfoWindowDomReady(Sender: TObject);
     procedure HandleInfoWindowVisible(Sender: TObject);
     procedure HandleMarkerClick(Sender: TObject);
-    procedure HandleMarkerDrag(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleMarkerDragStart(Sender: TObject; ALatLng: TGMLibLatLng);
-    procedure HandleMarkerDragEnd(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure HandleMarkerDrag(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleMarkerDragStart(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleMarkerDragEnd(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure HandleMarkerMouseDown(Sender: TObject);
     procedure HandleMarkerMouseEnter(Sender: TObject);
     procedure HandleMarkerMouseLeave(Sender: TObject);
@@ -80,7 +80,7 @@ type
     procedure SetInitialView;
     procedure UpdateMarkerCount;
     procedure UpdateStatus(const AText: string);
-    procedure AddMarker(const ALatLng: TGMLibLatLng; const ATitle: string);
+    procedure AddMarker(const ALatLng: TMapLibLatLng; const ATitle: string);
   public
     constructor CreateNew(AOwner: TComponent; Dummy: NativeInt = 0); override;
     destructor Destroy; override;
@@ -121,7 +121,7 @@ begin
     Log('Map is already active.');
 end;
 
-procedure TMainForm.AddMarker(const ALatLng: TGMLibLatLng; const ATitle: string);
+procedure TMainForm.AddMarker(const ALatLng: TMapLibLatLng; const ATitle: string);
 var
   MarkerItem: TGMMarkerItem;
 begin
@@ -157,7 +157,7 @@ end;
 
 procedure TMainForm.AddSampleButtonClick(Sender: TObject);
 var
-  Coordinate: TGMLibLatLng;
+  Coordinate: TMapLibLatLng;
   Latitude: Double;
   Longitude: Double;
   MarkerItem: TGMMarkerItem;
@@ -175,7 +175,7 @@ begin
     Exit;
   end;
 
-  Coordinate := TGMLibLatLng.Create(Latitude, Longitude);
+  Coordinate := TMapLibLatLng.Create(Latitude, Longitude);
   try
     Inc(FNextMarkerIndex);
     MarkerTitle := Format('Marker %d', [FNextMarkerIndex]);
@@ -439,7 +439,7 @@ begin
   inherited;
 end;
 
-procedure TMainForm.HandleMapClick(Sender: TObject; ALatLng: TGMLibLatLng;
+procedure TMainForm.HandleMapClick(Sender: TObject; ALatLng: TMapLibLatLng;
   const APlaceId: string);
 begin
   Log(Format('Map click at %s, %s (placeId=%s)', [
@@ -507,7 +507,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandleMarkerDrag(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleMarkerDrag(Sender: TObject; ALatLng: TMapLibLatLng);
 var
   MarkerItem: TGMMarkerItem;
 begin
@@ -522,7 +522,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandleMarkerDragStart(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleMarkerDragStart(Sender: TObject; ALatLng: TMapLibLatLng);
 var
   MarkerItem: TGMMarkerItem;
 begin
@@ -537,7 +537,7 @@ begin
   ]));
 end;
 
-procedure TMainForm.HandleMarkerDragEnd(Sender: TObject; ALatLng: TGMLibLatLng);
+procedure TMainForm.HandleMarkerDragEnd(Sender: TObject; ALatLng: TMapLibLatLng);
 var
   MarkerItem: TGMMarkerItem;
 begin
@@ -634,25 +634,25 @@ end;
 
 procedure TMainForm.PopulateDefaultMarkers;
 var
-  DefaultMarkerPosition: TGMLibLatLng;
+  DefaultMarkerPosition: TMapLibLatLng;
   HtmlMarker: TGMMarkerItem;
-  HtmlMarkerPosition: TGMLibLatLng;
+  HtmlMarkerPosition: TMapLibLatLng;
   LabelMarker: TGMMarkerItem;
-  LabelMarkerPosition: TGMLibLatLng;
+  LabelMarkerPosition: TMapLibLatLng;
   PinMarker: TGMMarkerItem;
-  PinMarkerPosition: TGMLibLatLng;
+  PinMarkerPosition: TMapLibLatLng;
 begin
   if FMap.Markers.Count > 0 then
     Exit;
 
-  DefaultMarkerPosition := TGMLibLatLng.Create(41.3874, 2.1686);
+  DefaultMarkerPosition := TMapLibLatLng.Create(41.3874, 2.1686);
   try
     AddMarker(DefaultMarkerPosition, 'mcmDefault');
   finally
     DefaultMarkerPosition.Free;
   end;
 
-  HtmlMarkerPosition := TGMLibLatLng.Create(41.3892, 2.1701);
+  HtmlMarkerPosition := TMapLibLatLng.Create(41.3892, 2.1701);
   try
     AddMarker(HtmlMarkerPosition, 'mcmHtml');
   finally
@@ -665,7 +665,7 @@ begin
     '<div style="padding:8px 12px;border-radius:14px;background:#1d4ed8;color:#eff6ff;' +
     'border:2px solid #93c5fd;font:600 13px Segoe UI,sans-serif;box-shadow:0 10px 24px rgba(30,64,175,.28)">mcmHtml</div>';
 
-  LabelMarkerPosition := TGMLibLatLng.Create(41.3883, 2.1660);
+  LabelMarkerPosition := TMapLibLatLng.Create(41.3883, 2.1660);
   try
     AddMarker(LabelMarkerPosition, 'mcmLabel');
   finally
@@ -684,7 +684,7 @@ begin
   LabelMarker.Options.LabelOptions.FontSize := 13;
   LabelMarker.Options.LabelOptions.FontBold := True;
 
-  PinMarkerPosition := TGMLibLatLng.Create(41.3857, 2.1669);
+  PinMarkerPosition := TMapLibLatLng.Create(41.3857, 2.1669);
   try
     AddMarker(PinMarkerPosition, 'mcmPin');
   finally
@@ -719,7 +719,7 @@ begin
   InfoWindow.Options.Content :=
     '<div style="min-width:220px;padding:6px 4px 2px 4px;font:13px Segoe UI,sans-serif">' +
     '<div style="font-weight:700;color:#0f172a;margin-bottom:6px">InfoWindow slice</div>' +
-    '<div style="color:#334155">Colección <b>TGMMap.InfoWindows</b> operativa.</div>' +
+    '<div style="color:#334155">ColecciÃ³n <b>TGMMap.InfoWindows</b> operativa.</div>' +
     '</div>';
   InfoWindow.Options.HeaderContent := 'Default InfoWindow';
   InfoWindow.Options.HeaderDisabled := FInfoHeaderDisabledCheck.IsChecked;
@@ -770,7 +770,7 @@ end;
 
 procedure TMainForm.SetInitialView;
 var
-  Coordinate: TGMLibLatLng;
+  Coordinate: TMapLibLatLng;
   Latitude: Double;
   Longitude: Double;
   ZoomLevel: Integer;
@@ -793,7 +793,7 @@ begin
     Exit;
   end;
 
-  Coordinate := TGMLibLatLng.Create(Latitude, Longitude);
+  Coordinate := TMapLibLatLng.Create(Latitude, Longitude);
   try
     FMap.Options.Center := Coordinate;
   finally
@@ -819,3 +819,4 @@ begin
 end;
 
 end.
+

@@ -22,7 +22,8 @@ uses
   Winapi.Windows,
   DesignIntf,
   ToolsAPI,
-  uGMLib.Vcl.Map;
+  uGMLib.Vcl.Map,
+  uOSMLib.Vcl.Map;
 
 procedure AddBitmapToSplashScreen;
 var
@@ -52,7 +53,7 @@ end;
 
 procedure Register;
 begin
-  RegisterComponents('MapLib', [TGMLibVclMap]);
+  RegisterComponents('MapLib', [TGMLibVclMap, TOSMLibVclMap]);
   AddBitmapToSplashScreen;
 end;
 

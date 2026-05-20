@@ -73,14 +73,14 @@ type
   TGMRouteWaypoint = class(TCollectionItem)
   private
     FAddress: string;
-    FLocation: TGMLibLatLng;
+    FLocation: TMapLibLatLng;
     FLocationMode: TGMRouteWaypointLocationMode;
     FSideOfRoad: Boolean;
     FVehicleStopover: Boolean;
     FVia: Boolean;
     procedure LocationChanged(Sender: TObject);
     procedure SetAddress(const Value: string);
-    procedure SetLocation(const Value: TGMLibLatLng);
+    procedure SetLocation(const Value: TMapLibLatLng);
     procedure SetLocationMode(const Value: TGMRouteWaypointLocationMode);
     procedure SetSideOfRoad(const Value: Boolean);
     procedure SetVehicleStopover(const Value: Boolean);
@@ -96,7 +96,7 @@ type
     function ToJsonObject: TJSONObject;
   published
     property Address: string read FAddress write SetAddress;
-    property Location: TGMLibLatLng read FLocation write SetLocation;
+    property Location: TMapLibLatLng read FLocation write SetLocation;
     property LocationMode: TGMRouteWaypointLocationMode read FLocationMode write SetLocationMode default rwlmLatLng;
     property SideOfRoad: Boolean read FSideOfRoad write SetSideOfRoad default False;
     property VehicleStopover: Boolean read FVehicleStopover write SetVehicleStopover default False;
@@ -238,7 +238,7 @@ type
     FClosingOthersBeforeVisible: Boolean;
     FComputeAlternativeRoutes: Boolean;
     FDestinationAddress: string;
-    FDestinationLocation: TGMLibLatLng;
+    FDestinationLocation: TMapLibLatLng;
     FLastErrorMessage: string;
     FLastResponse: TGMRouteResponse;
     FLastStatus: string;
@@ -247,7 +247,7 @@ type
     FOnChange: TNotifyEvent;
     FOnCompleted: TGMRouteCompletedEvent;
     FOriginAddress: string;
-    FOriginLocation: TGMLibLatLng;
+    FOriginLocation: TMapLibLatLng;
     FOptimizeWaypointOrder: Boolean;
     {$IFDEF FPC}
     FQueries: specialize TObjectList<TGMRouteQuery>;
@@ -273,12 +273,12 @@ type
     procedure SetCloseOthersBeforeVisible(const Value: Boolean);
     procedure SetComputeAlternativeRoutes(const Value: Boolean);
     procedure SetDestinationAddress(const Value: string);
-    procedure SetDestinationLocation(const Value: TGMLibLatLng);
+    procedure SetDestinationLocation(const Value: TMapLibLatLng);
     procedure SetLanguageCode(const Value: string);
     procedure SetMap(const Value: TComponent);
     procedure SetOptimizeWaypointOrder(const Value: Boolean);
     procedure SetOriginAddress(const Value: string);
-    procedure SetOriginLocation(const Value: TGMLibLatLng);
+    procedure SetOriginLocation(const Value: TMapLibLatLng);
     procedure SetRequestFields(const Value: string);
     procedure SetRoutingPreference(const Value: TGMRouteRoutingPreference);
     procedure SetTravelMode(const Value: TGMRouteTravelMode);
@@ -319,13 +319,13 @@ type
     property AvoidTolls: Boolean read FAvoidTolls write SetAvoidTolls default False;
     property ComputeAlternativeRoutes: Boolean read FComputeAlternativeRoutes write SetComputeAlternativeRoutes default False;
     property DestinationAddress: string read FDestinationAddress write SetDestinationAddress;
-    property DestinationLocation: TGMLibLatLng read FDestinationLocation write SetDestinationLocation;
+    property DestinationLocation: TMapLibLatLng read FDestinationLocation write SetDestinationLocation;
     property LanguageCode: string read FLanguageCode write SetLanguageCode;
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
     property OnCompleted: TGMRouteCompletedEvent read FOnCompleted write FOnCompleted;
     property OptimizeWaypointOrder: Boolean read FOptimizeWaypointOrder write SetOptimizeWaypointOrder default False;
     property OriginAddress: string read FOriginAddress write SetOriginAddress;
-    property OriginLocation: TGMLibLatLng read FOriginLocation write SetOriginLocation;
+    property OriginLocation: TMapLibLatLng read FOriginLocation write SetOriginLocation;
     property RequestFields: string read FRequestFields write SetRequestFields;
     property RoutingPreference: TGMRouteRoutingPreference read FRoutingPreference write SetRoutingPreference default rrpTrafficUnaware;
     property TravelMode: TGMRouteTravelMode read FTravelMode write SetTravelMode default rtmDrive;
@@ -391,6 +391,10 @@ end;
 
 procedure TGMRouteQueryResult.MapChanged(const AOldMap, ANewMap: TComponent);
 begin
+  if Assigned(ANewMap) then
+  begin
+    // no-op: keeps both map parameters intentionally consumed in all compilers
+  end;
   RemoveRenderedPolylineFromMap(AOldMap);
   SyncRenderedPolyline;
 end;
@@ -670,7 +674,7 @@ begin
 end;
 
 function AddJsonLocation(const AOwner: TJSONObject; const AName: string;
-  const AAddress: string; const ALocation: TGMLibLatLng): Boolean;
+  const AAddress: string; const ALocation: TMapLibLatLng): Boolean;
 var
   LocationObject: TJSONObject;
 begin
@@ -1012,6 +1016,7 @@ var
   ResultsArray: TJSONArray;
   i: Integer;
 begin
+  Result := Default(TGMRouteResults);
   SetLength(Result, 0);
   if not Assigned(AJsonObject) then
     Exit;
@@ -1268,7 +1273,7 @@ end;
 constructor TGMRouteWaypoint.Create(ACollection: TCollection);
 begin
   inherited;
-  FLocation := TGMLibLatLng.Create(0, 0);
+  FLocation := TMapLibLatLng.Create(0, 0);
   FLocation.OnChange := {$IFDEF FPC}@{$ENDIF}LocationChanged;
   FLocationMode := rwlmLatLng;
 end;
@@ -1357,7 +1362,7 @@ begin
     Changed(False);
 end;
 
-procedure TGMRouteWaypoint.SetLocation(const Value: TGMLibLatLng);
+procedure TGMRouteWaypoint.SetLocation(const Value: TMapLibLatLng);
 begin
   if Assigned(Value) then
     FLocation.Assign(Value);
@@ -1416,17 +1421,29 @@ end;
 
 function TGMRouteWaypoints.Add(const AAddress: string): TGMRouteWaypoint;
 begin
+{$IFDEF FPC}
+  Result := nil;
+{$ENDIF}
   Result := Add;
-  Result.LocationMode := rwlmAddress;
-  Result.Address := AAddress;
+  if Assigned(Result) then
+  begin
+    Result.LocationMode := rwlmAddress;
+    Result.Address := AAddress;
+  end;
 end;
 
 function TGMRouteWaypoints.Add(ALatitude, ALongitude: Double): TGMRouteWaypoint;
 begin
+{$IFDEF FPC}
+  Result := nil;
+{$ENDIF}
   Result := Add;
-  Result.LocationMode := rwlmLatLng;
-  Result.Location.Lat := ALatitude;
-  Result.Location.Lng := ALongitude;
+  if Assigned(Result) then
+  begin
+    Result.LocationMode := rwlmLatLng;
+    Result.Location.Lat := ALatitude;
+    Result.Location.Lng := ALongitude;
+  end;
 end;
 
 procedure TGMRouteWaypoints.Assign(Source: TPersistent);
@@ -1557,8 +1574,8 @@ end;
 constructor TGMRoutes.Create(AOwner: TComponent);
 begin
   inherited;
-  FOriginLocation := TGMLibLatLng.Create(0, 0);
-  FDestinationLocation := TGMLibLatLng.Create(0, 0);
+  FOriginLocation := TMapLibLatLng.Create(0, 0);
+  FDestinationLocation := TMapLibLatLng.Create(0, 0);
 {$IFDEF FPC}
   FQueries := specialize TObjectList<TGMRouteQuery>.Create(True);
   {$ELSE}
@@ -1832,7 +1849,7 @@ begin
   NotifyChanged;
 end;
 
-procedure TGMRoutes.SetDestinationLocation(const Value: TGMLibLatLng);
+procedure TGMRoutes.SetDestinationLocation(const Value: TMapLibLatLng);
 begin
   if Assigned(Value) then
     FDestinationLocation.Assign(Value);
@@ -1878,7 +1895,7 @@ begin
   NotifyChanged;
 end;
 
-procedure TGMRoutes.SetOriginLocation(const Value: TGMLibLatLng);
+procedure TGMRoutes.SetOriginLocation(const Value: TMapLibLatLng);
 begin
   if Assigned(Value) then
     FOriginLocation.Assign(Value);
@@ -1962,6 +1979,9 @@ begin
 end;
 
 end.
+
+
+
 
 
 

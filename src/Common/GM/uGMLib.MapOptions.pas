@@ -203,7 +203,7 @@ type
     FBackgroundColorCss: string;
     FCameraControl: Boolean;
     FCameraControlOptions: TGMCameraControlOptions;
-    FCenter: TGMLibLatLng;
+    FCenter: TMapLibLatLng;
     FClickableIcons: Boolean;
     FColorScheme: TGMColorScheme;
     FControlSize: Integer;
@@ -264,7 +264,7 @@ type
     procedure SetBackgroundColorCss(const Value: string);
     procedure SetCameraControl(const Value: Boolean);
     procedure SetCameraControlOptions(const Value: TGMCameraControlOptions);
-    procedure SetCenter(const Value: TGMLibLatLng);
+    procedure SetCenter(const Value: TMapLibLatLng);
     procedure SetClickableIcons(const Value: Boolean);
     procedure SetColorScheme(const Value: TGMColorScheme);
     procedure SetControlSize(const Value: Integer);
@@ -332,7 +332,7 @@ type
     function ToJavaScriptLiteral: string;
     property BackgroundColorCss: string read FBackgroundColorCss write SetBackgroundColorCss;
   published
-    property Center: TGMLibLatLng read FCenter write SetCenter;
+    property Center: TMapLibLatLng read FCenter write SetCenter;
     property CameraControl: Boolean read FCameraControl write SetCameraControl stored IsCameraControlStored;
     property CameraControlOptions: TGMCameraControlOptions read FCameraControlOptions write SetCameraControlOptions;
     property ClickableIcons: Boolean read FClickableIcons write SetClickableIcons default True;
@@ -1028,7 +1028,7 @@ constructor TGMMapOptions.Create;
 begin
   inherited;
 
-  FCenter := TGMLibLatLng.Create(0, 0);
+  FCenter := TMapLibLatLng.Create(0, 0);
 {$IFDEF FPC}
   FCenter.OnChange := @CenterChanged;
 {$ELSE}
@@ -1255,7 +1255,7 @@ begin
   Changed;
 end;
 
-procedure TGMMapOptions.SetCenter(const Value: TGMLibLatLng);
+procedure TGMMapOptions.SetCenter(const Value: TMapLibLatLng);
 begin
   if not Assigned(Value) then
     Exit;
@@ -1698,6 +1698,9 @@ begin
 end;
 
 end.
+
+
+
 
 
 

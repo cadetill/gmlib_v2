@@ -1,4 +1,4 @@
-﻿{**
+{**
   @abstract(Modelo de colecciÃ³n de polilÃ­neas del mapa.)
 }
 unit uGMLib.Polyline;
@@ -35,7 +35,7 @@ type
   TGMPolylineItem = class;
   TGMPolylines = class;
 
-  TGMPolylineCoordinateEvent = procedure(Sender: TObject; ALatLng: TGMLibLatLng) of object;
+  TGMPolylineCoordinateEvent = procedure(Sender: TObject; ALatLng: TMapLibLatLng) of object;
   TGMPolylinePathChangedEvent = procedure(Sender: TObject) of object;
   TGMPolylineItemClass = class of TGMPolylineItem;
 
@@ -133,7 +133,7 @@ type
     procedure OptionsChanged(Sender: TObject);
     procedure SetOptions(const Value: TGMPolylineOptions);
     function TryGetCoordinateFromPayload(const APayload: string;
-      out ALatLng: TGMLibLatLng): Boolean;
+      out ALatLng: TMapLibLatLng): Boolean;
   protected
     function BuildObjectId: TGMObjectId; virtual;
     function CreatePolylineOptions: TGMPolylineOptions; virtual;
@@ -237,9 +237,15 @@ end;
 
 function TGMPolylinePath.Add(ALatitude, ALongitude: Double): TGMPolylinePoint;
 begin
+{$IFDEF FPC}
+  Result := nil;
+{$ENDIF}
   Result := Add;
-  Result.Lat := ALatitude;
-  Result.Lng := ALongitude;
+  if Assigned(Result) then
+  begin
+    Result.Lat := ALatitude;
+    Result.Lng := ALongitude;
+  end;
 end;
 
 procedure TGMPolylinePath.Assign(Source: TPersistent);
@@ -671,7 +677,7 @@ var
 {$ELSE}
   JsonValue: TJSONValue;
 {$ENDIF}
-  LatLng: TGMLibLatLng;
+  LatLng: TMapLibLatLng;
 begin
   LatLng := nil;
   if SameText(AEnvelope.MessageType, 'polyline.dragstart') then
@@ -868,7 +874,7 @@ begin
 end;
 
 function TGMPolylineItem.TryGetCoordinateFromPayload(const APayload: string;
-  out ALatLng: TGMLibLatLng): Boolean;
+  out ALatLng: TMapLibLatLng): Boolean;
 var
   JsonObject: TJSONObject;
 {$IFDEF FPC}
@@ -906,7 +912,7 @@ begin
       Exit;
 {$ENDIF}
 
-    ALatLng := TGMLibLatLng.Create(LatValue, LngValue);
+    ALatLng := TMapLibLatLng.Create(LatValue, LngValue);
     Result := True;
   finally
     JsonValue.Free;
@@ -1121,6 +1127,9 @@ begin
 end;
 
 end.
+
+
+
 
 
 

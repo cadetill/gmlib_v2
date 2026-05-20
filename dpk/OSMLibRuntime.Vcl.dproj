@@ -157,6 +157,7 @@
         <DCCReference Include="rtl.dcp"/>
         <DCCReference Include="vcl.dcp"/>
         <DCCReference Include="OSMLibRuntime.dcp"/>
+        <DCCReference Include="GMLibRuntime.Vcl.dcp"/>
         <DCCReference Include="..\src\Vcl\OSM\uOSMLib.Vcl.Map.pas"/>
         <DCCReference Include="..\src\Vcl\OSM\uOSMLib.Vcl.MapBootstrap.pas"/>
         <BuildConfiguration Include="Base">
@@ -1076,4 +1077,3 @@
     <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
     <Import Project="$(MSBuildProjectName).deployproj" Condition="Exists('$(MSBuildProjectName).deployproj')"/>
 </Project>
-

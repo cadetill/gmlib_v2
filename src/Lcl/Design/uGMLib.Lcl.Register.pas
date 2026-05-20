@@ -15,11 +15,12 @@ implementation
 
 uses
   Classes,
-  uGMLib.Lcl.Map;
+  uGMLib.Lcl.Map,
+  uOSMLib.Lcl.Map;
 
 procedure Register;
 begin
-  RegisterComponents('MapLib', [TGMLibLclMap]);
+  RegisterComponents('MapLib', [TGMLibLclMap, TOSMLibLclMap]);
 end;
 
 end.

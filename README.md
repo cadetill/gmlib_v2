@@ -8,7 +8,7 @@ The current codebase includes:
 - a provider-neutral core (`uMapLib.Core.*`)
 - provider-separated source layout (`Common/Vcl/Fmx/Lcl` split into `GM` and `OSM`)
 - design-time packages and demos
-- an initial `OSMLib` skeleton (MapLibre + OSM pilot), still in early stage
+- an `OSMLib` pilot backend (MapLibre + OSM) with working map/events and first marker slice
 
 GMLib was developed and tested on Delphi 11, 12 and 13, and Lazarus 4.6.
 
@@ -54,7 +54,17 @@ The following Google Maps API classes are currently implemented:
 
 - `MapLibCore` is already extracted and used by runtime packages.
 - `GMLib` (Google provider) is functional and organized under provider folders.
-- `OSMLib` package skeleton exists (pilot provider), but full runtime behavior is still pending.
+- `OSMLib` (pilot provider) currently includes:
+  - map activation/bootstrap + map event flow
+  - style switching + fit bounds + center/zoom sync
+  - marker collection with per-item events (`OnClick`, `OnDragStart`, `OnDrag`, `OnDragEnd`)
+  - MegaDemo OSM marker mini-flow (create/list/clear/zoom)
+  - offline-ready map bootstrap knobs:
+    - `OfflineMode`
+    - `OfflineStyleUrl`
+    - `MapLibreCssUrl`
+    - `MapLibreJsUrl`
+    - `OfflineRasterTilesUrlTemplate`
 
 ## Demos
 
@@ -67,7 +77,9 @@ The following Google Maps API classes are currently implemented:
 In Delphi:
 - Open `GMLibGroup`.
 - Compile `MapLibCore`, `GMLibRuntime`, `GMLibRuntime.Vcl` and `GMLibRuntime.FMX`.
-- Compile and install `MapLibDesign.Vcl` (and FMX design package if used in your setup).
+- Compile and install design packages:
+  - `MapLibDesign.Vcl`
+  - `MapLibDesign.Fmx`
 - Put the corresponding path for each platform in the library path:
   `...\lib\$(ProductVersion)\$(Platform)\Delphi`
 - Put the corresponding source paths in the library path.
@@ -75,10 +87,10 @@ In Delphi:
 In Lazarus:
 - Use the package files under `dpk/` as the canonical ones:
   - `dpk/GMLibRuntime.Lcl.lpk`
-  - `dpk/GMLibDesign.Lcl.lpk`
+  - `dpk/MapLibDesign.Lcl.lpk`
 - Compile/install in this order:
   1. Open and compile `GMLibRuntime.Lcl.lpk`
-  2. Open and install `GMLibDesign.Lcl.lpk`
+  2. Open and install `MapLibDesign.Lcl.lpk`
 - If Lazarus generates `.lpk` files under `src/`, treat them as local/temporary artifacts (do not version them).
 - If package links get out of sync, ensure Lazarus points to `dpk/*.lpk` (not `src/**` copies).
 

@@ -1,8 +1,8 @@
 ﻿{**
-  @abstract(NÃºcleo comÃºn del componente de mapa.)
+  @abstract(NÃƒÂºcleo comÃƒÂºn del componente de mapa.)
   @author(Xavier Martinez (cadetill) <cadetill@gmail.com>)
 
-  Esta unidad define el estado compartido y la lÃ³gica base de `TGMMap` antes
+  Esta unidad define el estado compartido y la lÃƒÂ³gica base de `TGMMap` antes
   de conectar un backend concreto de navegador o framework.
 }
 unit uGMLib.Map;
@@ -39,18 +39,18 @@ uses
 type
   TGMCustomMap = class;
 
-  {** @abstract(Evento emitido cuando cambian los lÃ­mites visibles del mapa.) }
+  {** @abstract(Evento emitido cuando cambian los lÃƒÂ­mites visibles del mapa.) }
   TGMMapBoundsEvent = procedure(Sender: TObject; ABounds: TGMLatLngBounds) of object;
   {** @abstract(Evento emitido con una coordenada del mapa.) }
-  TGMMapCoordinateEvent = procedure(Sender: TObject; ALatLng: TGMLibLatLng) of object;
+  TGMMapCoordinateEvent = procedure(Sender: TObject; ALatLng: TMapLibLatLng) of object;
   {** @abstract(Evento emitido con coordenada y `placeId` opcional de click.) }
-  TGMMapClickEvent = procedure(Sender: TObject; ALatLng: TGMLibLatLng;
+  TGMMapClickEvent = procedure(Sender: TObject; ALatLng: TMapLibLatLng;
     const APlaceId: string) of object;
-  {** @abstract(Evento emitido cuando cambia la orientaciÃ³n horizontal del mapa.) }
+  {** @abstract(Evento emitido cuando cambia la orientaciÃƒÂ³n horizontal del mapa.) }
   TGMMapHeadingChangedEvent = procedure(Sender: TObject; AHeading: Double) of object;
   {** @abstract(Evento emitido cuando cambia el tipo de mapa activo.) }
   TGMMapTypeIdChangedEvent = procedure(Sender: TObject; AMapTypeId: TGMMapTypeId) of object;
-  {** @abstract(Evento emitido cuando cambia la inclinaciÃ³n activa del mapa.) }
+  {** @abstract(Evento emitido cuando cambia la inclinaciÃƒÂ³n activa del mapa.) }
   TGMMapTiltChangedEvent = procedure(Sender: TObject; ATilt: Integer) of object;
   {** @abstract(Evento emitido cuando cambia el `RenderingType` activo.) }
   TGMMapRenderingTypeChangedEvent = procedure(Sender: TObject;
@@ -58,7 +58,7 @@ type
   {** @abstract(Evento emitido cuando cambia el nivel de zoom.) }
   TGMMapZoomChangedEvent = procedure(Sender: TObject; AZoom: Integer) of object;
 
-  {** @abstract(Base para componentes pÃºblicos vinculados a un `TGMCustomMap`.) }
+  {** @abstract(Base para componentes pÃƒÂºblicos vinculados a un `TGMCustomMap`.) }
   TGMCustomMapLinkedComponent = class(TMapLibComponent)
   private
     class var FNextObjectId: Integer;
@@ -77,7 +77,7 @@ type
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
     {** @abstract(Procesa un mensaje dirigido a este componente desde el mapa.) }
     procedure ProcessMapMessage(const AEnvelope: TMapLibMessageEnvelope); virtual;
-    {** @abstract(EnvÃ­a JavaScript a travÃ©s del mapa enlazado.) }
+    {** @abstract(EnvÃƒÂ­a JavaScript a travÃƒÂ©s del mapa enlazado.) }
     procedure SendCommand(const ACommand: string); virtual;
     {** @abstract(Notifica al mapa que el estado Delphi del componente ha cambiado.) }
     procedure StateChanged; virtual;
@@ -85,14 +85,14 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
 
-    {** @abstract(Identificador lÃ³gico del componente dentro del mapa.) }
+    {** @abstract(Identificador lÃƒÂ³gico del componente dentro del mapa.) }
     property ObjectId: TGMObjectId read FObjectId;
   published
     {** @abstract(Mapa al que queda enlazado el componente.) }
     property Map: TGMCustomMap read FMap write SetMap;
   end;
 
-  {** @abstract(Clase base comÃºn del mapa de Google Maps.) }
+  {** @abstract(Clase base comÃƒÂºn del mapa de Google Maps.) }
   TGMCustomMap = class(TMapLibComponent, IGMMapViewportHost)
   private
     FActive: Boolean;
@@ -174,7 +174,7 @@ type
     function BuildGeocodeCommand(const AMethod, ARequestId, ARequestLiteral: string): string;
     function BuildGeocodeRequestId: string;
     function BuildGeocodeAddressRequestLiteral(const AAddress: string): string;
-    function BuildGeocodeRequestLiteral(const ALatLng: TGMLibLatLng): string; overload;
+    function BuildGeocodeRequestLiteral(const ALatLng: TMapLibLatLng): string; overload;
     function BuildGeocodePlaceIdRequestLiteral(const APlaceId: string): string;
     procedure AppendGeocodeRequestOptions(const AJsonObject: TJSONObject);
     function BuildElevationRequestId: string;
@@ -184,12 +184,12 @@ type
     function BuildRouteRequestId: string;
     function BuildRoutesCommand(const ARequestId, ARequestLiteral: string): string;
     function TryGetBoundsFromPayload(const APayload: string; out ABounds: TGMLatLngBounds): Boolean;
-    function TryGetCoordinateExFromPayload(const APayload: string; out ALatLng: TGMLibLatLng;
+    function TryGetCoordinateExFromPayload(const APayload: string; out ALatLng: TMapLibLatLng;
       out APlaceId: string): Boolean;
     function TryParseRenderingType(const AValue: string;
       out ARenderingType: TGMRenderingType): Boolean;
     function TryParseMapTypeId(const AValue: string; out AMapTypeId: TGMMapTypeId): Boolean;
-    function TryGetCoordinateFromPayload(const APayload: string; out ALatLng: TGMLibLatLng): Boolean;
+    function TryGetCoordinateFromPayload(const APayload: string; out ALatLng: TMapLibLatLng): Boolean;
     procedure SetAPIKey(const Value: string);
     procedure SetActive(const Value: Boolean);
     procedure SetBridge(const Value: IMapBridgeTransport);
@@ -203,7 +203,7 @@ type
     procedure SetRectangles(const Value: TGMRectangles);
     procedure SetOptions(const Value: TGMMapOptions);
   protected
-    {** @abstract(Marca el bridge como listo y vacÃ­a los comandos pendientes.) }
+    {** @abstract(Marca el bridge como listo y vacÃƒÂ­a los comandos pendientes.) }
     procedure BridgeReady; virtual;
     function CreateCircles: TGMCircles; virtual;
     function CreateInfoWindows: TGMInfoWindows; virtual;
@@ -225,7 +225,7 @@ type
     procedure ClearRuntimeState; virtual;
     {** @abstract(Crea el bloque de opciones concreto usado por este mapa.) }
     function CreateMapOptions: TGMMapOptions; virtual;
-    {** @abstract(Encola un comando mientras el bridge aÃºn no estÃ¡ listo.) }
+    {** @abstract(Encola un comando mientras el bridge aÃƒÂºn no estÃƒÂ¡ listo.) }
     procedure EnqueueCommand(const ACommand: string); virtual;
     function GetDocumentationUrl: string; override;
     {** @abstract(Serializa el estado actual del mapa hacia JavaScript.) }
@@ -236,17 +236,17 @@ type
     procedure ProcessIncomingMessage(const AEnvelope: TMapLibMessageEnvelope); virtual;
     {** @abstract(Registra un componente enlazado para routing por `ObjectId`.) }
     procedure RegisterLinkedComponent(AComponent: TGMCustomMapLinkedComponent); virtual;
-    {** @abstract(EnvÃ­a un comando a JavaScript o lo encola si aÃºn no procede.) }
+    {** @abstract(EnvÃƒÂ­a un comando a JavaScript o lo encola si aÃƒÂºn no procede.) }
     procedure SendCommand(const ACommand: string); virtual;
-    {** @abstract(Sincroniza el centro lÃ³gico del mapa.) }
-    procedure SyncCenter(const Value: TGMLibLatLng; AOrigin: TGMChangeOrigin); virtual;
-    {** @abstract(Sincroniza el heading lÃ³gico del mapa.) }
+    {** @abstract(Sincroniza el centro lÃƒÂ³gico del mapa.) }
+    procedure SyncCenter(const Value: TMapLibLatLng; AOrigin: TGMChangeOrigin); virtual;
+    {** @abstract(Sincroniza el heading lÃƒÂ³gico del mapa.) }
     procedure SyncHeading(Value: Double; AOrigin: TGMChangeOrigin); virtual;
     {** @abstract(Sincroniza el tipo de mapa activo.) }
     procedure SyncMapTypeId(Value: TGMMapTypeId; AOrigin: TGMChangeOrigin); virtual;
-    {** @abstract(Sincroniza el tilt lÃ³gico del mapa.) }
+    {** @abstract(Sincroniza el tilt lÃƒÂ³gico del mapa.) }
     procedure SyncTilt(Value: Integer; AOrigin: TGMChangeOrigin); virtual;
-    {** @abstract(Sincroniza el nivel de zoom lÃ³gico.) }
+    {** @abstract(Sincroniza el nivel de zoom lÃƒÂ³gico.) }
     procedure SyncZoom(Value: Integer; AOrigin: TGMChangeOrigin); virtual;
     {** @abstract(Elimina un componente enlazado del registro interno del mapa.) }
     procedure UnregisterLinkedComponent(AComponent: TGMCustomMapLinkedComponent); virtual;
@@ -254,15 +254,15 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
 
-    {** @abstract(Activa el mapa y congela las opciones de solo inicializaciÃ³n.) }
+    {** @abstract(Activa el mapa y congela las opciones de solo inicializaciÃƒÂ³n.) }
     procedure Activate; virtual;
-    procedure CenterMapTo(const ALatLng: TGMLibLatLng); virtual;
+    procedure CenterMapTo(const ALatLng: TMapLibLatLng); virtual;
     {** @abstract(Desactiva el mapa y limpia el estado transitorio del bridge.) }
     procedure Deactivate; virtual;
     procedure FitBounds(ANorth, ASouth, AEast, AWest: Double); virtual;
     function GeocodeAddress(const AAddress: string; const AOnCompleted: TGMGeocodeCompletedEvent): string; virtual;
     function GeocodePlaceId(const APlaceId: string; const AOnCompleted: TGMGeocodeCompletedEvent): string; virtual;
-    function ReverseGeocode(const ALatLng: TGMLibLatLng; const AOnCompleted: TGMGeocodeCompletedEvent): string; virtual;
+    function ReverseGeocode(const ALatLng: TMapLibLatLng; const AOnCompleted: TGMGeocodeCompletedEvent): string; virtual;
     function ElevationAlongPath(const APath: TGMPolylinePath; const ASamples: Integer;
       const AOnCompleted: TGMElevationCompletedEvent): string; virtual;
     function ElevationForLocations(const ALocations: TGMPolylinePath;
@@ -271,14 +271,14 @@ type
 
     {** @abstract(Transporte actual del bridge hacia el runtime JS.) }
     property Bridge: IMapBridgeTransport read FBridge write SetBridge;
-    {** @abstract(Indica si el mapa ya recibiÃ³ `map.ready` desde JavaScript.) }
+    {** @abstract(Indica si el mapa ya recibiÃƒÂ³ `map.ready` desde JavaScript.) }
     property IsReady: Boolean read FIsReady;
-    {** @abstract(Indica si ya se recibiÃ³ el primer `map.idle` estable del mapa.) }
+    {** @abstract(Indica si ya se recibiÃƒÂ³ el primer `map.idle` estable del mapa.) }
     property HasMapIdle: Boolean read FMapIdleReceived;
-    {** @abstract(Identificador lÃ³gico del mapa usado en `targetId`.) }
+    {** @abstract(Identificador lÃƒÂ³gico del mapa usado en `targetId`.) }
     property MapId: TGMMapId read FMapId;
   published
-    {** @abstract(Activa o desactiva la sesiÃ³n lÃ³gica del mapa.) 
+    {** @abstract(Activa o desactiva la sesiÃƒÂ³n lÃƒÂ³gica del mapa.) 
         @longcode(
           Al pasar a `True`, el mapa fija la firma de opciones de arranque
           (`ColorScheme`, `ControlSize`, `MapId`, `RenderingType`) y espera a
@@ -290,23 +290,23 @@ type
     property APIKey: string read FAPIKey write SetAPIKey;
     property Circles: TGMCircles read FCircles write SetCircles;
     property InfoWindows: TGMInfoWindows read FInfoWindows write SetInfoWindows;
-    {** @abstract(ColecciÃ³n de marcadores gestionada por el mapa.) }
+    {** @abstract(ColecciÃƒÂ³n de marcadores gestionada por el mapa.) }
     property Markers: TGMMarkers read FMarkers write SetMarkers;
-    {** @abstract(ColecciÃ³n de ground overlays gestionada por el mapa.) }
+    {** @abstract(ColecciÃƒÂ³n de ground overlays gestionada por el mapa.) }
     property GroundOverlays: TGMGroundOverlays read FGroundOverlays write SetGroundOverlays;
     property Layers: TGMLayers read FLayers write SetLayers;
-    {** @abstract(ColecciÃ³n de polÃ­gonos gestionada por el mapa.) }
+    {** @abstract(ColecciÃƒÂ³n de polÃƒÂ­gonos gestionada por el mapa.) }
     property Polygons: TGMPolygons read FPolygons write SetPolygons;
     property Polylines: TGMPolylines read FPolylines write SetPolylines;
     property Rectangles: TGMRectangles read FRectangles write SetRectangles;
-    {** @abstract(Bloque principal de `MapOptions` mantenido como estado canÃ³nico en Delphi.) }
+    {** @abstract(Bloque principal de `MapOptions` mantenido como estado canÃƒÂ³nico en Delphi.) }
     property Options: TGMMapOptions read FOptions write SetOptions;
 
-    {** @abstract(Se dispara cuando cambian los lÃ­mites visibles del viewport.) }
+    {** @abstract(Se dispara cuando cambian los lÃƒÂ­mites visibles del viewport.) }
     property OnBoundsChanged: TGMMapBoundsEvent read FOnBoundsChanged write FOnBoundsChanged;
     {** @abstract(Se dispara cuando cambia el centro visible del mapa.) }
     property OnCenterChanged: TGMMapCoordinateEvent read FOnCenterChanged write FOnCenterChanged;
-    {** @abstract(Se dispara al abrir el menÃº contextual del mapa con `placeId` opcional.) }
+    {** @abstract(Se dispara al abrir el menÃƒÂº contextual del mapa con `placeId` opcional.) }
     property OnContextMenu: TGMMapClickEvent read FOnContextMenu write FOnContextMenu;
     {** @abstract(Se dispara al hacer doble click en el mapa.) }
     property OnDblClick: TGMMapCoordinateEvent read FOnDblClick write FOnDblClick;
@@ -322,22 +322,22 @@ type
     property OnIdle: TNotifyEvent read FOnIdle write FOnIdle;
     {** @abstract(Se dispara al hacer click en el mapa con `placeId` opcional.) 
         @longcode(
-          `APlaceId` llega vacÃ­o cuando Google Maps no adjunta informaciÃ³n de
+          `APlaceId` llega vacÃƒÂ­o cuando Google Maps no adjunta informaciÃƒÂ³n de
           POI al evento.
         )
     }
     property OnMapClick: TGMMapClickEvent read FOnMapClick write FOnMapClick;
     {** @abstract(Se dispara cuando cambia el `MapTypeId` activo.) }
     property OnMapTypeIdChanged: TGMMapTypeIdChangedEvent read FOnMapTypeIdChanged write FOnMapTypeIdChanged;
-    {** @abstract(Se dispara cuando el runtime JS confirma que el mapa estÃ¡ listo.) }
+    {** @abstract(Se dispara cuando el runtime JS confirma que el mapa estÃƒÂ¡ listo.) }
     property OnMapReady: TNotifyEvent read FOnMapReady write FOnMapReady;
-    {** @abstract(Se dispara cuando el cursor entra sobre una geometrÃ­a interactiva del mapa.) }
+    {** @abstract(Se dispara cuando el cursor entra sobre una geometrÃƒÂ­a interactiva del mapa.) }
     property OnMouseOut: TGMMapCoordinateEvent read FOnMouseOut write FOnMouseOut;
-    {** @abstract(Se dispara cuando el cursor sale de una geometrÃ­a interactiva del mapa.) }
+    {** @abstract(Se dispara cuando el cursor sale de una geometrÃƒÂ­a interactiva del mapa.) }
     property OnMouseOver: TGMMapCoordinateEvent read FOnMouseOver write FOnMouseOver;
     {** @abstract(Se dispara al mover el cursor sobre el mapa.) }
     property OnMouseMove: TGMMapCoordinateEvent read FOnMouseMove write FOnMouseMove;
-    {** @abstract(Se dispara cuando la proyecciÃ³n del mapa pasa a estar disponible o cambia.) }
+    {** @abstract(Se dispara cuando la proyecciÃƒÂ³n del mapa pasa a estar disponible o cambia.) }
     property OnProjectionChanged: TNotifyEvent read FOnProjectionChanged write FOnProjectionChanged;
     {** @abstract(Se dispara cuando la API JS informa de un nuevo `RenderingType`.) }
     property OnRenderingTypeChanged: TGMMapRenderingTypeChangedEvent read FOnRenderingTypeChanged write FOnRenderingTypeChanged;
@@ -347,9 +347,9 @@ type
     property OnTiltChanged: TGMMapTiltChangedEvent read FOnTiltChanged write FOnTiltChanged;
     {** @abstract(Se dispara cuando cambia el nivel de zoom activo.) }
     property OnZoomChanged: TGMMapZoomChangedEvent read FOnZoomChanged write FOnZoomChanged;
-    {** @abstract(Servicio de geocodificaciÃ³n asociado al mapa.) }
+    {** @abstract(Servicio de geocodificaciÃƒÂ³n asociado al mapa.) }
     property GeoCode: TGMGeoCode read GetGeoCode;
-    {** @abstract(Servicio de elevaciÃ³n asociado al mapa.) }
+    {** @abstract(Servicio de elevaciÃƒÂ³n asociado al mapa.) }
     property Elevations: TGMElevations read GetElevations;
     {** @abstract(Servicio de rutas asociado al mapa.) }
     property Routes: TGMRoutes read GetRoutes;
@@ -526,7 +526,7 @@ end;
 
 procedure TGMCustomMap.CompleteKmlClick(const APayload: string);
 var
-  ClickLatLng: TGMLibLatLng;
+  ClickLatLng: TMapLibLatLng;
 begin
   if not Assigned(FLayers) then
     Exit;
@@ -587,7 +587,7 @@ begin
   end;
 end;
 
-function TGMCustomMap.BuildGeocodeRequestLiteral(const ALatLng: TGMLibLatLng): string;
+function TGMCustomMap.BuildGeocodeRequestLiteral(const ALatLng: TMapLibLatLng): string;
 var
   JsonObject: TJSONObject;
   LocationObject: TJSONObject;
@@ -731,7 +731,7 @@ begin
   ;
 end;
 
-procedure TGMCustomMap.CenterMapTo(const ALatLng: TGMLibLatLng);
+procedure TGMCustomMap.CenterMapTo(const ALatLng: TMapLibLatLng);
 begin
   if not Assigned(ALatLng) then
     Exit;
@@ -967,7 +967,7 @@ begin
   SendCommand(BuildGeocodeCommand('geocodePlaceId', Result, BuildGeocodePlaceIdRequestLiteral(APlaceId)));
 end;
 
-function TGMCustomMap.ReverseGeocode(const ALatLng: TGMLibLatLng;
+function TGMCustomMap.ReverseGeocode(const ALatLng: TMapLibLatLng;
   const AOnCompleted: TGMGeocodeCompletedEvent): string;
 var
   Pending: TGMGeocodePendingRequest;
@@ -1275,7 +1275,7 @@ procedure TGMCustomMap.ProcessIncomingMessage(const AEnvelope: TMapLibMessageEnv
 var
   Bounds: TGMLatLngBounds;
   CircleItem: TGMCircleItem;
-  ClickLatLng: TGMLibLatLng;
+  ClickLatLng: TMapLibLatLng;
   GroundOverlayItem: TGMGroundOverlayItem;
   LinkedComponent: TGMCustomMapLinkedComponent;
   MarkerItem: TGMMarkerItem;
@@ -1851,7 +1851,7 @@ begin
   MapStateChanged;
 end;
 
-procedure TGMCustomMap.SyncCenter(const Value: TGMLibLatLng; AOrigin: TGMChangeOrigin);
+procedure TGMCustomMap.SyncCenter(const Value: TMapLibLatLng; AOrigin: TGMChangeOrigin);
 begin
   if not Assigned(Value) then
     Exit;
@@ -1940,7 +1940,7 @@ begin
 end;
 
 function TGMCustomMap.TryGetCoordinateFromPayload(const APayload: string;
-  out ALatLng: TGMLibLatLng): Boolean;
+  out ALatLng: TMapLibLatLng): Boolean;
 var
   PlaceId: string;
 begin
@@ -1948,7 +1948,7 @@ begin
 end;
 
 function TGMCustomMap.TryGetCoordinateExFromPayload(const APayload: string;
-  out ALatLng: TGMLibLatLng; out APlaceId: string): Boolean;
+  out ALatLng: TMapLibLatLng; out APlaceId: string): Boolean;
 var
   JsonObject: TJSONObject;
 {$IFDEF FPC}
@@ -1972,7 +1972,7 @@ begin
 
     JsonObject := TJSONObject(JsonValue);
 {$IFDEF FPC}
-    ALatLng := TGMLibLatLng.Create(0, 0);
+    ALatLng := TMapLibLatLng.Create(0, 0);
     if Assigned(JsonObject.Find('lat')) then
       ALatLng.Lat := JsonObject.Find('lat').AsFloat;
     if Assigned(JsonObject.Find('lng')) then
@@ -1980,7 +1980,7 @@ begin
     if Assigned(JsonObject.Find('placeId')) then
       APlaceId := JsonObject.Find('placeId').AsString;
 {$ELSE}
-    ALatLng := TGMLibLatLng.Create(
+    ALatLng := TMapLibLatLng.Create(
       JsonObject.GetValue<Double>('lat', 0),
       JsonObject.GetValue<Double>('lng', 0)
     );
@@ -2047,6 +2047,7 @@ begin
 end;
 
 end.
+
 
 
 

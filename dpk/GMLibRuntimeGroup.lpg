@@ -3,7 +3,7 @@
   <ProjectGroup FileVersion="2">
     <Targets>
       <Target FileName="GMLibRuntime.Lcl.lpk"/>
-      <Target FileName="GMLibDesign.Lcl.lpk"/>
+      <Target FileName="MapLibDesign.Lcl.lpk"/>
     </Targets>
   </ProjectGroup>
 </CONFIG>

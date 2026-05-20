@@ -1,4 +1,4 @@
-﻿{**
+{**
   @abstract(Modelo de coleccion de ground overlays del mapa.)
 }
 unit uGMLib.GroundOverlay;
@@ -33,7 +33,7 @@ type
   TGMGroundOverlayItem = class;
   TGMGroundOverlays = class;
 
-  TGMGroundOverlayCoordinateEvent = procedure(Sender: TObject; ALatLng: TGMLibLatLng) of object;
+  TGMGroundOverlayCoordinateEvent = procedure(Sender: TObject; ALatLng: TMapLibLatLng) of object;
   TGMGroundOverlayItemClass = class of TGMGroundOverlayItem;
 
   TGMGroundOverlayOptions = class(TMapLibApiObject)
@@ -82,7 +82,7 @@ type
     procedure OptionsChanged(Sender: TObject);
     procedure SetOptions(const Value: TGMGroundOverlayOptions);
     function TryGetCoordinateFromPayload(const APayload: string;
-      out ALatLng: TGMLibLatLng): Boolean;
+      out ALatLng: TMapLibLatLng): Boolean;
   protected
     function BuildObjectId: TGMObjectId; virtual;
     function CreateGroundOverlayOptions: TGMGroundOverlayOptions; virtual;
@@ -408,7 +408,7 @@ end;
 
 procedure TGMGroundOverlayItem.ProcessMapMessage(const AEnvelope: TMapLibMessageEnvelope);
 var
-  LatLng: TGMLibLatLng;
+  LatLng: TMapLibLatLng;
 begin
   if SameText(AEnvelope.MessageType, 'groundoverlay.click') then
   begin
@@ -448,7 +448,7 @@ begin
 end;
 
 function TGMGroundOverlayItem.TryGetCoordinateFromPayload(const APayload: string;
-  out ALatLng: TGMLibLatLng): Boolean;
+  out ALatLng: TMapLibLatLng): Boolean;
 var
   JsonObj: TJSONObject;
   LatVal: Double;
@@ -478,7 +478,7 @@ begin
     if JsonObj.TryGetValue<Double>('lat', LatVal) and JsonObj.TryGetValue<Double>('lng', LngVal) then
 {$ENDIF}
     begin
-      ALatLng := TGMLibLatLng.Create(LatVal, LngVal);
+      ALatLng := TMapLibLatLng.Create(LatVal, LngVal);
       Result := True;
     end;
   finally
@@ -649,6 +649,9 @@ begin
 end;
 
 end.
+
+
+
 
 
 

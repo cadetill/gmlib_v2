@@ -1,4 +1,4 @@
-{**
+﻿{**
   @abstract(Pruebas automaticas del modelo de `TGMMap.Polygons`.)
 }
 unit uTest.Polygon.Model;
@@ -22,7 +22,7 @@ type
     LastSouth: Double;
     LastEast: Double;
     LastWest: Double;
-    procedure CenterMapTo(const ALatLng: TGMLibLatLng);
+    procedure CenterMapTo(const ALatLng: TMapLibLatLng);
     procedure FitBounds(ANorth, ASouth, AEast, AWest: Double);
   end;
 
@@ -33,7 +33,7 @@ type
     FPathChangedCount: Integer;
     FLastClickLat: Double;
     FLastClickLng: Double;
-    procedure HandlePolygonClick(Sender: TObject; ALatLng: TGMLibLatLng);
+    procedure HandlePolygonClick(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure HandlePolygonPathChanged(Sender: TObject);
   public
     [Test]
@@ -63,7 +63,7 @@ type
 
 implementation
 
-procedure TPolygonViewportHostStub.CenterMapTo(const ALatLng: TGMLibLatLng);
+procedure TPolygonViewportHostStub.CenterMapTo(const ALatLng: TMapLibLatLng);
 begin
   Inc(CenterCallCount);
 end;
@@ -79,7 +79,7 @@ begin
 end;
 
 procedure TTestPolygonModel.HandlePolygonClick(Sender: TObject;
-  ALatLng: TGMLibLatLng);
+  ALatLng: TMapLibLatLng);
 begin
   Inc(FClickCount);
   if Assigned(ALatLng) then
@@ -292,3 +292,4 @@ begin
 end;
 
 end.
+

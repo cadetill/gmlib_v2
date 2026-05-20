@@ -1,4 +1,4 @@
-﻿{**
+{**
   @abstract(Modelo de colecciÃ³n de ventanas de informaciÃ³n del mapa.)
 }
 unit uGMLib.InfoWindow;
@@ -35,7 +35,7 @@ type
 
   TGMInfoWindowContentEvent = procedure(Sender: TObject; const AValue: string) of object;
   TGMInfoWindowHeaderDisabledEvent = procedure(Sender: TObject; AValue: Boolean) of object;
-  TGMInfoWindowPositionEvent = procedure(Sender: TObject; ALatLng: TGMLibLatLng) of object;
+  TGMInfoWindowPositionEvent = procedure(Sender: TObject; ALatLng: TMapLibLatLng) of object;
   TGMInfoWindowZIndexEvent = procedure(Sender: TObject; AValue: Integer) of object;
   TGMInfoWindowItemClass = class of TGMInfoWindowItem;
 
@@ -83,7 +83,7 @@ type
     FMaxWidth: Integer;
     FMinWidth: Integer;
     FPixelOffset: TGMInfoWindowPixelOffset;
-    FPosition: TGMLibLatLng;
+    FPosition: TMapLibLatLng;
     FVisible: Boolean;
     FZIndex: Integer;
     procedure PixelOffsetChanged(Sender: TObject);
@@ -96,7 +96,7 @@ type
     procedure SetMaxWidth(const Value: Integer);
     procedure SetMinWidth(const Value: Integer);
     procedure SetPixelOffset(const Value: TGMInfoWindowPixelOffset);
-    procedure SetPosition(const Value: TGMLibLatLng);
+    procedure SetPosition(const Value: TMapLibLatLng);
     procedure SetVisible(const Value: Boolean);
     procedure SetZIndex(const Value: Integer);
   protected
@@ -116,7 +116,7 @@ type
     property MaxWidth: Integer read FMaxWidth write SetMaxWidth default 0;
     property MinWidth: Integer read FMinWidth write SetMinWidth default 0;
     property PixelOffset: TGMInfoWindowPixelOffset read FPixelOffset write SetPixelOffset;
-    property Position: TGMLibLatLng read FPosition write SetPosition;
+    property Position: TMapLibLatLng read FPosition write SetPosition;
     property Visible: Boolean read FVisible write SetVisible default False;
     property ZIndex: Integer read FZIndex write SetZIndex default 0;
   end;
@@ -141,7 +141,7 @@ type
     FPendingFocus: Boolean;
     FUpdatingFromMapMessage: Boolean;
     procedure ApplyCloseOthersBeforeOpenPolicy;
-    function TryApplyPositionFromPayload(const APayload: string; out ALatLng: TGMLibLatLng): Boolean;
+    function TryApplyPositionFromPayload(const APayload: string; out ALatLng: TMapLibLatLng): Boolean;
     function GetAnchorObjectId: TGMObjectId;
     function GetShouldFocus: Boolean;
     procedure OpenOptionsChanged(Sender: TObject);
@@ -430,7 +430,7 @@ begin
 {$ELSE}
   FPixelOffset.OnChange := PixelOffsetChanged;
 {$ENDIF}
-  FPosition := TGMLibLatLng.Create;
+  FPosition := TMapLibLatLng.Create;
 {$IFDEF FPC}
   FPosition.OnChange := @PositionChanged;
 {$ELSE}
@@ -526,7 +526,7 @@ begin
   FPixelOffset.Assign(Value);
 end;
 
-procedure TGMInfoWindowOptions.SetPosition(const Value: TGMLibLatLng);
+procedure TGMInfoWindowOptions.SetPosition(const Value: TMapLibLatLng);
 begin
   if not Assigned(Value) then
     Exit;
@@ -814,7 +814,7 @@ var
 {$ELSE}
   JsonValue: TJSONValue;
 {$ENDIF}
-  LatLng: TGMLibLatLng;
+  LatLng: TMapLibLatLng;
   ZIndexValue: Integer;
 begin
   if SameText(AEnvelope.MessageType, 'infowindow.closeclick') then
@@ -981,7 +981,7 @@ begin
 end;
 
 function TGMInfoWindowItem.TryApplyPositionFromPayload(const APayload: string;
-  out ALatLng: TGMLibLatLng): Boolean;
+  out ALatLng: TMapLibLatLng): Boolean;
 var
   JsonObject: TJSONObject;
 {$IFDEF FPC}
@@ -1008,12 +1008,12 @@ begin
       Exit;
     if not Assigned(JsonObject.Find('lng')) then
       Exit;
-    ALatLng := TGMLibLatLng.Create(
+    ALatLng := TMapLibLatLng.Create(
       JsonObject.Find('lat').AsFloat,
       JsonObject.Find('lng').AsFloat
     );
 {$ELSE}
-    ALatLng := TGMLibLatLng.Create(
+    ALatLng := TMapLibLatLng.Create(
       JsonObject.GetValue<Double>('lat', 0),
       JsonObject.GetValue<Double>('lng', 0)
     );
@@ -1203,6 +1203,9 @@ begin
 end;
 
 end.
+
+
+
 
 
 

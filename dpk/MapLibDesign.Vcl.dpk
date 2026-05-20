@@ -37,8 +37,7 @@ requires
   OSMLibRuntime.Vcl;
 
 contains
-  uGMLib.Vcl.Register in '..\src\Vcl\GM\uGMLib.Vcl.Register.pas',
-  uOSMLib.Vcl.Register in '..\src\Vcl\OSM\uOSMLib.Vcl.Register.pas';
+  uGMLib.Vcl.Register in '..\src\Vcl\GM\uGMLib.Vcl.Register.pas';
 
 end.
 
