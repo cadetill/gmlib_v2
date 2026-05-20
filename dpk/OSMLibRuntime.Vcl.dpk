@@ -33,7 +33,9 @@
 requires
   rtl,
   vcl,
-  OSMLibRuntime;
+  OSMLibRuntime,
+  vcledge,
+  GMLibRuntime.Vcl;
 
 contains
   uOSMLib.Vcl.Map in '..\src\Vcl\OSM\uOSMLib.Vcl.Map.pas',
