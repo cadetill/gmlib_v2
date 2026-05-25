@@ -6,6 +6,47 @@ Build an offline-native runtime for `OSMLib` that is production-ready on
 `VCL/FMX/LCL/Android/iOS`, with no mandatory external executables at app
 runtime.
 
+## Direction update (2026-05-25)
+
+The current preferred direction for `OSMLib` offline/hybrid is:
+
+- `MapLibre` as the renderer
+- `SQLite` / `MBTiles` as local cache/storage
+- embedded loopback HTTP server (`localhost`) for runtime access
+- configurable remote provider for hybrid mode
+
+This implies:
+
+- `PMTiles` is no longer the main runtime path
+- `Protomaps` is no longer the reference line for this runtime
+- the implementation should optimize for a simple first version with a cheap
+  transition path to a more flexible one
+
+## Style handling
+
+The project intentionally does **not** freeze yet whether the final
+`style.json` should be:
+
+- embedded directly into the generated HTML/bootstrap
+- or served by the local HTTP server
+
+Current rule:
+
+- first implementation should use the simplest workable approach
+- architecture must make it very easy to move later from embedded style to
+  localhost-served style
+- style assembly should live behind a single dedicated concept
+  (`StyleProvider` / `StyleBuilder`) instead of being spread across
+  `TOSMMap`, bootstrap code and demos
+
+## Local assets
+
+For true offline operation:
+
+- `glyphs` should be available locally
+- `sprites` should also be resolvable locally when required by the style
+- offline mode should not depend on remote font/style assets
+
 ## Scope and non-goals
 
 ### In scope
@@ -107,8 +148,8 @@ Rules:
 
 Recommended order:
 
-1. `MBTiles` first (simpler mobile path).
-2. `PMTiles` native reader second.
+1. `MBTiles` first (preferred main path).
+2. `PMTiles` only as a later optional path if it becomes useful again.
 
 ### Region manifest (library standard)
 

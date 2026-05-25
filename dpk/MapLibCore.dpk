@@ -45,6 +45,8 @@ contains
   uMapLib.Offline.RegionCatalog in '..\src\Common\uMapLib.Offline.RegionCatalog.pas',
   uMapLib.Offline.TileServer in '..\src\Common\uMapLib.Offline.TileServer.pas',
   uMapLib.Offline.RegionManager in '..\src\Common\uMapLib.Offline.RegionManager.pas',
+  uMapLib.Offline.Storage in '..\src\Common\uMapLib.Offline.Storage.pas',
+  uMapLib.Offline.Downloader in '..\src\Common\uMapLib.Offline.Downloader.pas',
   uMapLib.Core.Messages in '..\src\Common\uMapLib.Core.Messages.pas',
   uMapLib.Core.Types in '..\src\Common\uMapLib.Core.Types.pas',
   uMapLib.Core.LatLng in '..\src\Common\uMapLib.Core.LatLng.pas',
@@ -52,5 +54,6 @@ contains
   uGMLib.Platform.Format in '..\src\Common\GM\uGMLib.Platform.Format.pas';
 
 end.
+
 
 

@@ -2532,7 +2532,7 @@ object MainFrm: TMainFrm
         Top = 0
         Width = 1227
         Height = 207
-        ActivePage = tsOSMGeneral
+        ActivePage = tsOSMOffline
         Align = alClient
         TabOrder = 0
         object tsOSMGeneral: TTabSheet
@@ -2775,7 +2775,7 @@ object MainFrm: TMainFrm
           object eOSMOfflineTileJsonUrl: TEdit
             Left = 152
             Top = 44
-            Width = 916
+            Width = 577
             Height = 23
             TabOrder = 0
             Text = 
@@ -2785,7 +2785,7 @@ object MainFrm: TMainFrm
           object eOSMOfflineServerExecutable: TEdit
             Left = 152
             Top = 76
-            Width = 916
+            Width = 577
             Height = 23
             TabOrder = 1
             Text = 
@@ -2807,6 +2807,31 @@ object MainFrm: TMainFrm
             Height = 23
             Style = csDropDownList
             TabOrder = 3
+          end
+          object lbOSMRegions: TListBox
+            Left = 764
+            Top = 16
+            Width = 420
+            Height = 110
+            ItemHeight = 15
+            TabOrder = 4
+          end
+          object bOSMDownloadRegion: TButton
+            Left = 764
+            Top = 140
+            Width = 140
+            Height = 25
+            Caption = 'Download Region'
+            TabOrder = 5
+            OnClick = bOSMDownloadRegionClick
+          end
+          object bOSMDeleteRegion: TButton
+            Left = 924
+            Top = 140
+            Width = 140
+            Height = 25
+            Caption = 'Delete Region'
+            TabOrder = 6
           end
         end
         object tsOSMMarkers: TTabSheet
@@ -2860,10 +2885,11 @@ object MainFrm: TMainFrm
     object lStatus: TLabel
       Left = 1
       Top = 1
-      Width = 35
+      Width = 277
       Height = 15
       Align = alTop
       Caption = 'Status:'
+      ExplicitWidth = 35
     end
     object mLog: TMemo
       Left = 1

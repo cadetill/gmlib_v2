@@ -22,9 +22,9 @@ uses
   uMapLib.Core.Component,
   uMapLib.Core.LatLng,
   uMapLib.Core.Messages,
-  // uMapLib.Offline.RegionManager,
-  // uMapLib.Offline.Types,
-  // uMapLib.Core.Offline,
+  uMapLib.Offline.RegionManager,
+  uMapLib.Offline.Types,
+  uMapLib.Core.Offline,
   uMapLib.Core.Types,
   uGMLib.Platform.Format;
 
@@ -100,9 +100,8 @@ type
     // FOfflinePolicy: TMapLibOfflinePolicy;
     // FOfflineTileProvider: TMapLibOfflineTileProvider;
     FBridge: IMapBridgeTransport;
-    // FOfflineTileServer: IMapLibOfflineTileServer;
-    // FOfflineAssetsServer: IMapLibOfflineTileServer;
-    // FOfflineRegionManager: IMapLibOfflineRegionManager;
+    FOfflineRegionManager: IMapLibOfflineRegionManager;
+    FOfflineStoragePath: string;
     FCenterLat: Double;
     FCenterLng: Double;
     FMapId: TGMObjectId;
@@ -157,6 +156,12 @@ type
     FOnWheel: TOSMMapSimpleEvent;
     FOnBoundsChanged: TOSMMapBoundsChangedEvent;
     FOnError: TOSMMapErrorEvent;
+    
+    // Eventos offline
+    FOnOfflineDownloadProgress: TMapLibOfflineDownloadProgressEvent;
+    FOnOfflineRegionReady: TMapLibOfflineRegionReadyEvent;
+    FOnOfflineError: TMapLibOfflineErrorEvent;
+
     FMarkers: TOSMMarkers;
     FStyleUrl: string;
     // FOfflineStyleUrl: string;
@@ -181,6 +186,7 @@ type
     procedure SetCenterLng(const Value: Double);
     procedure SetMapId(const Value: TGMObjectId);
     procedure SetStyleUrl(const Value: string);
+    procedure SetOfflineStoragePath(const Value: string);
     // procedure SetOfflineStyleUrl(const Value: string);
     // procedure SetOfflineRasterTilesUrlTemplate(const Value: string);
     // procedure SetOfflineTileJsonUrl(const Value: string);
@@ -195,6 +201,9 @@ type
     // procedure SetOfflineRegionManager(const Value: IMapLibOfflineRegionManager);
     // procedure SetMapMode(const Value: TMapLibMapMode);
     procedure SetZoom(const Value: Double);
+    procedure HandleOfflineDownloadProgress(Sender: TObject; const AJobId: string; APercent: Double; ABytesDone, ABytesTotal: Int64);
+    procedure HandleOfflineRegionReady(Sender: TObject; const ARegionId: TMapLibOfflineRegionId);
+    procedure HandleOfflineError(Sender: TObject; AErrorCode: Integer; const AUserMessage, ATechnicalMessage: string);
     procedure BridgeMessageReceived(Sender: TObject; const AEnvelope: TMapLibMessageEnvelope);
     function BuildSetViewPayload: string;
     function BuildSetStylePayload: string;
@@ -233,10 +242,10 @@ type
     // procedure EnsureOfflineTileSourceReady;
     // procedure StopOfflineTileServer;
     property Bridge: IMapBridgeTransport read FBridge write SetBridge;
-    // property OfflineRegionManager: IMapLibOfflineRegionManager read FOfflineRegionManager write SetOfflineRegionManager;
-    // property LastOfflineSetupError: string read FLastOfflineSetupError;
+    property OfflineRegionManager: IMapLibOfflineRegionManager read FOfflineRegionManager;
   published
     property Active: Boolean read FActive write SetActive default False;
+    property OfflineStoragePath: string read FOfflineStoragePath write SetOfflineStoragePath;
     // property MapMode: TMapLibMapMode read FMapMode write SetMapMode default omOnline;
     // property OfflineMode: Boolean read FOfflineMode write SetOfflineMode default False;
     // property OfflinePolicy: TMapLibOfflinePolicy read FOfflinePolicy write SetOfflinePolicy
@@ -297,6 +306,9 @@ type
     property OnWheel: TOSMMapSimpleEvent read FOnWheel write FOnWheel;
     property OnBoundsChanged: TOSMMapBoundsChangedEvent read FOnBoundsChanged write FOnBoundsChanged;
     property OnError: TOSMMapErrorEvent read FOnError write FOnError;
+    property OnOfflineDownloadProgress: TMapLibOfflineDownloadProgressEvent read FOnOfflineDownloadProgress write FOnOfflineDownloadProgress;
+    property OnOfflineRegionReady: TMapLibOfflineRegionReadyEvent read FOnOfflineRegionReady write FOnOfflineRegionReady;
+    property OnOfflineError: TMapLibOfflineErrorEvent read FOnOfflineError write FOnOfflineError;
     property Markers: TOSMMarkers read FMarkers;
     property StyleUrl: string read FStyleUrl write SetStyleUrl;
     // property OfflineStyleUrl: string read FOfflineStyleUrl write SetOfflineStyleUrl;
@@ -333,9 +345,7 @@ uses
   Winapi.WinInet,
   {$ENDIF}
 {$ENDIF}
-  uMapLib.Offline.RegionManager,
-  uMapLib.Offline.Types,
-  uMapLib.Core.Offline;
+  System.IOUtils;
 
 const
   DEFAULT_MAPLIBRE_STYLE_URL = 'https://tiles.openfreemap.org/styles/bright';
@@ -769,7 +779,11 @@ begin
   // FMapMode := omOnline;
   // FOfflinePolicy := opPreferOffline;
   // FOfflineTileProvider := otpAuto;
-  // FOfflineRegionManager := TMapLibOfflineRegionManager.Create;
+  FOfflineStoragePath := '';
+  FOfflineRegionManager := TMapLibOfflineRegionManager.Create(FOfflineStoragePath);
+  FOfflineRegionManager.OnDownloadProgress := HandleOfflineDownloadProgress;
+  FOfflineRegionManager.OnRegionReady := HandleOfflineRegionReady;
+  FOfflineRegionManager.OnOfflineError := HandleOfflineError;
   FMarkers := TOSMMarkers.Create(Self);
 {$IFDEF FPC}
   FMarkers.OnChange := @MarkersChanged;
@@ -911,6 +925,35 @@ begin
 
   FStyleUrl := Value;
   ApplyStyle;
+end;
+
+procedure TOSMMap.SetOfflineStoragePath(const Value: string);
+begin
+  if FOfflineStoragePath = Value then
+    Exit;
+  FOfflineStoragePath := Value;
+  if Assigned(FOfflineRegionManager) and (FOfflineRegionManager is TMapLibOfflineRegionManager) then
+    TMapLibOfflineRegionManager(FOfflineRegionManager).StorageBasePath := FOfflineStoragePath;
+end;
+
+procedure TOSMMap.HandleOfflineDownloadProgress(Sender: TObject; const AJobId: string;
+  APercent: Double; ABytesDone, ABytesTotal: Int64);
+begin
+  if Assigned(FOnOfflineDownloadProgress) then
+    FOnOfflineDownloadProgress(Self, AJobId, APercent, ABytesDone, ABytesTotal);
+end;
+
+procedure TOSMMap.HandleOfflineRegionReady(Sender: TObject; const ARegionId: TMapLibOfflineRegionId);
+begin
+  if Assigned(FOnOfflineRegionReady) then
+    FOnOfflineRegionReady(Self, ARegionId);
+end;
+
+procedure TOSMMap.HandleOfflineError(Sender: TObject; AErrorCode: Integer;
+  const AUserMessage, ATechnicalMessage: string);
+begin
+  if Assigned(FOnOfflineError) then
+    FOnOfflineError(Self, AErrorCode, AUserMessage, ATechnicalMessage);
 end;
 
 procedure TOSMMap.SetMapLibreCssUrl(const Value: string);

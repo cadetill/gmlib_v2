@@ -13,7 +13,7 @@ uses
   uGMLib.Vcl.Circle, uGMLib.Vcl.InfoWindow, uGMLib.Google.Types, uGMLib.MapOptions,
   uGMLib.Polyline, uGMLib.Polygon, uGMLib.Rectangle, uGMLib.Circle,
   uGMLib.GroundOverlay, uGMLib.GeoCode, uGMLib.Elevation, uGMLib.Routes,
-  uGMLib.Geometry, uOSMLib.Vcl.Map, uOSMLib.Map;
+  uGMLib.Geometry, uOSMLib.Vcl.Map, uOSMLib.Map, System.IOUtils;
 
 type
   TMainFrm = class(TForm)
@@ -343,6 +343,9 @@ type
     eOSMOfflineServerPort: TEdit;
     lOSMOfflineSourcePreset: TLabel;
     cbOSMOfflineSourcePreset: TComboBox;
+    lbOSMRegions: TListBox;
+    bOSMDownloadRegion: TButton;
+    bOSMDeleteRegion: TButton;
     lbOSMMarkers: TListBox;
     bOSMClearMarkers: TButton;
     bOSMZoomToMarkers: TButton;
@@ -500,12 +503,17 @@ type
     procedure OSMMapBoundsChangedEvent(Sender: TObject; ANorth, ASouth, AEast, AWest: Double);
     procedure OSMMapSimpleEvent(Sender: TObject);
     procedure OSMMapErrorEvent(Sender: TObject; const AMessage: string);
+    procedure OSMMapDownloadProgress(Sender: TObject; const AJobId: string; APercent: Double; ABytesDone, ABytesTotal: Int64);
+    procedure OSMMapRegionReady(Sender: TObject; const ARegionId: TMapLibOfflineRegionId);
+    procedure OSMMapOfflineError(Sender: TObject; AErrorCode: Integer; const AUserMessage, ATechnicalMessage: string);
     procedure ApplyOSMStyleClick(Sender: TObject);
     procedure ApplyOSMEventFilterClick(Sender: TObject);
     procedure OSMStylePresetChange(Sender: TObject);
     procedure OSMMarkerListClick(Sender: TObject);
     procedure OSMClearMarkersClick(Sender: TObject);
     procedure OSMZoomToMarkersClick(Sender: TObject);
+    procedure bOSMDownloadRegionClick(Sender: TObject);
+    procedure bOSMDeleteRegionClick(Sender: TObject);
   private
     FIsDraggingPolyline: Boolean;
     FIsDraggingPolygon: Boolean;
@@ -548,6 +556,7 @@ type
     procedure GeoCodeCompleted(Sender: TObject; const AResponse: TGMGeocodeResponse);
     procedure ElevationCompleted(Sender: TObject; const AResponse: TGMElevationResponse);
     procedure RefreshOSMMarkerList;
+    procedure RefreshOSMRegionsList;
     procedure BindOSMMarkerEvents(AMarker: TOSMMarkerItem);
     function ResolveRepoAssetPath(const ARelativePath: string): string;
     // procedure ConfigureOSMOfflineDefaults;
@@ -732,6 +741,8 @@ constructor TMainFrm.Create(AOwner: TComponent);
 begin
   inherited;
 
+  OSMMap.OfflineStoragePath := TPath.Combine(TPath.GetAppPath, 'offline');
+
   pcSupplier.ActivePageIndex := 0;
   pcGMOptions.ActivePageIndex := 0;
   pcMapOptions.ActivePageIndex := 0;
@@ -815,6 +826,14 @@ begin
   for var I := 0 to OSMMap.Markers.Count - 1 do
     BindOSMMarkerEvents(OSMMap.Markers[I]);
   RefreshOSMMarkerList;
+
+  // Setup OSM Offline events and buttons
+  OSMMap.OnOfflineDownloadProgress := OSMMapDownloadProgress;
+  OSMMap.OnOfflineRegionReady := OSMMapRegionReady;
+  OSMMap.OnOfflineError := OSMMapOfflineError;
+  bOSMDownloadRegion.OnClick := bOSMDownloadRegionClick;
+  bOSMDeleteRegion.OnClick := bOSMDeleteRegionClick;
+  RefreshOSMRegionsList;
 end;
 
 procedure TMainFrm.OSMMapReady(Sender: TObject);
@@ -952,6 +971,119 @@ end;
 procedure TMainFrm.OSMMapErrorEvent(Sender: TObject; const AMessage: string);
 begin
   Log('OSM error: ' + AMessage);
+end;
+
+procedure TMainFrm.OSMMapDownloadProgress(Sender: TObject; const AJobId: string;
+  APercent: Double; ABytesDone, ABytesTotal: Int64);
+begin
+  Log(Format('OSM download %s: %.1f%% (%d/%d bytes)', [AJobId, APercent, ABytesDone, ABytesTotal]));
+end;
+
+procedure TMainFrm.OSMMapRegionReady(Sender: TObject; const ARegionId: TMapLibOfflineRegionId);
+begin
+  Log(Format('OSM Region Ready: %s is downloaded and added to catalog.', [string(ARegionId)]));
+  RefreshOSMRegionsList;
+end;
+
+procedure TMainFrm.OSMMapOfflineError(Sender: TObject; AErrorCode: Integer;
+  const AUserMessage, ATechnicalMessage: string);
+begin
+  Log(Format('OSM Offline Error %d: %s (%s)', [AErrorCode, AUserMessage, ATechnicalMessage]));
+end;
+
+procedure TMainFrm.bOSMDownloadRegionClick(Sender: TObject);
+var
+  RegionId: string;
+  SourceUrl: string;
+  Req: TMapLibOfflineDownloadRequest;
+begin
+  RegionId := 'spain';
+  SourceUrl := 'https://github.com/cadetill/gmlib_v2/raw/master/resources/js/osm/vendor/spain.pmtiles';
+
+  if InputQuery('Download Offline Region', 'Enter Region ID (e.g. spain):', RegionId) then
+  begin
+    if InputQuery('Download Offline Region', 'Enter PMTiles/MBTiles HTTP Source URL:', SourceUrl) then
+    begin
+      if (Trim(RegionId) = '') or (Trim(SourceUrl) = '') then
+      begin
+        ShowMessage('Region ID and Source URL are required.');
+        Exit;
+      end;
+
+      FillChar(Req, SizeOf(Req), 0);
+      Req.RegionId := TMapLibOfflineRegionId(RegionId);
+      Req.SourceUrl := SourceUrl;
+      Req.MinZoom := 0;
+      Req.MaxZoom := 10;
+      Req.Bounds.North := 43.79;
+      Req.Bounds.South := 35.17;
+      Req.Bounds.East := 4.33;
+      Req.Bounds.West := -9.30;
+      Req.DataVersion := '1.0.0';
+
+      if OSMMap.OfflineRegionManager.DownloadRegion(Req) <> '' then
+        Log('OSM download started for region: ' + RegionId)
+      else
+        Log('OSM download failed to start or is already active.');
+    end;
+  end;
+end;
+
+procedure TMainFrm.bOSMDeleteRegionClick(Sender: TObject);
+var
+  RegionId: string;
+  SelectedIdx: Integer;
+  Regions: TArray<TMapLibOfflineRegionMetadata>;
+begin
+  if not Assigned(lbOSMRegions) or (lbOSMRegions.ItemIndex < 0) then
+  begin
+    ShowMessage('Please select a region to delete.');
+    Exit;
+  end;
+
+  SelectedIdx := lbOSMRegions.ItemIndex;
+  Regions := OSMMap.OfflineRegionManager.ListRegions;
+  if (SelectedIdx >= Low(Regions)) and (SelectedIdx <= High(Regions)) then
+  begin
+    RegionId := Regions[SelectedIdx].RegionId;
+    if MessageDlg(Format('Are you sure you want to delete region "%s" and its associated files?', [string(RegionId)]),
+      mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+    begin
+      if OSMMap.OfflineRegionManager.DeleteRegion(RegionId) then
+      begin
+        Log('OSM region deleted: ' + string(RegionId));
+        RefreshOSMRegionsList;
+      end
+      else
+        Log('Failed to delete OSM region: ' + string(RegionId));
+    end;
+  end;
+end;
+
+procedure TMainFrm.RefreshOSMRegionsList;
+var
+  Regions: TArray<TMapLibOfflineRegionMetadata>;
+  I: Integer;
+begin
+  if not Assigned(lbOSMRegions) then
+    Exit;
+
+  lbOSMRegions.Items.BeginUpdate;
+  try
+    lbOSMRegions.Clear;
+    if Assigned(OSMMap) and Assigned(OSMMap.OfflineRegionManager) then
+    begin
+      Regions := OSMMap.OfflineRegionManager.ListRegions;
+      for I := Low(Regions) to High(Regions) do
+      begin
+        lbOSMRegions.Items.Add(
+          Format('%s (%s, %d bytes)', [string(Regions[I].RegionId), Regions[I].StoragePath, Regions[I].SizeBytes])
+        );
+      end;
+    end;
+  finally
+    lbOSMRegions.Items.EndUpdate;
+  end;
 end;
 
 procedure TMainFrm.ApplyOSMStyleClick(Sender: TObject);
