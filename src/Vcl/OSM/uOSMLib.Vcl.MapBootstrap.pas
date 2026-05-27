@@ -14,6 +14,8 @@ uses
 type
   TOSMLibMapBootstrap = class
   private
+    class function BuildCssBlock(AMap: TOSMMap): string; static;
+    class function BuildJsBlock(AMap: TOSMMap): string; static;
     class function BuildTemplateFallback: string; static;
   public
     class function BuildHtml(AMap: TOSMMap): string; static;
@@ -23,6 +25,34 @@ implementation
 
 uses
   System.SysUtils;
+
+class function TOSMLibMapBootstrap.BuildCssBlock(AMap: TOSMMap): string;
+var
+  cssUrl: string;
+begin
+  cssUrl := AMap.ResolveMapLibreCssUrl;
+  if (cssUrl <> '') and FileExists(cssUrl) then
+    Result := '<style>' + TGMLibBootstrapAssets.LoadTextFile(cssUrl) + '</style>'
+  else
+    Result := '<link rel="stylesheet" href="' + GetOSMMapLibreCssUrl(AMap) + '">';
+end;
+
+class function TOSMLibMapBootstrap.BuildJsBlock(AMap: TOSMMap): string;
+var
+  jsUrl: string;
+  jsText: string;
+begin
+  jsUrl := AMap.ResolveMapLibreJsUrl;
+  if (jsUrl <> '') and FileExists(jsUrl) then
+  begin
+    jsText := TGMLibBootstrapAssets.LoadTextFile(jsUrl);
+    Result := '<script>' + jsText + '</script>' +
+      '<script>window.osmlibBootstrap();</script>';
+  end
+  else
+    Result := '<script src="' + GetOSMMapLibreJsUrl(AMap) +
+      '" onload="window.osmlibBootstrap()" onerror="window.osmlibBootstrapError && window.osmlibBootstrapError()"></script>';
+end;
 
 class function TOSMLibMapBootstrap.BuildHtml(AMap: TOSMMap): string;
 var
@@ -50,8 +80,8 @@ begin
   Result := htmlTemplate;
   Result := StringReplace(Result, '{{OSMLIB_MAP_SCRIPT}}', mapScript, [rfReplaceAll]);
   Result := StringReplace(Result, '{{OSMLIB_BOOTSTRAP_CONFIG}}', AMap.BuildJsBootstrapConfig, [rfReplaceAll]);
-  Result := StringReplace(Result, '{{MAPLIBRE_CSS_URL}}', GetOSMMapLibreCssUrl(AMap), [rfReplaceAll]);
-  Result := StringReplace(Result, '{{MAPLIBRE_JS_URL}}', GetOSMMapLibreJsUrl(AMap), [rfReplaceAll]);
+  Result := StringReplace(Result, '{{MAPLIBRE_CSS_BLOCK}}', BuildCssBlock(AMap), [rfReplaceAll]);
+  Result := StringReplace(Result, '{{MAPLIBRE_JS_BLOCK}}', BuildJsBlock(AMap), [rfReplaceAll]);
 end;
 
 class function TOSMLibMapBootstrap.BuildTemplateFallback: string;
@@ -63,7 +93,7 @@ begin
     '  <meta charset="utf-8">' +
     '  <meta name="viewport" content="width=device-width, initial-scale=1.0">' +
     '  <title>OSMLib Map</title>' +
-    '  <link rel="stylesheet" href="{{MAPLIBRE_CSS_URL}}">' +
+    '  {{MAPLIBRE_CSS_BLOCK}}' +
     '  <style>html, body, #osmlib-map { width: 100%; height: 100%; margin: 0; padding: 0; }</style>' +
     '</head>' +
     '<body>' +
@@ -74,7 +104,7 @@ begin
     '      window.osmlib.bootstrap({{OSMLIB_BOOTSTRAP_CONFIG}});' +
     '    };' +
     '  </script>' +
-    '  <script src="{{MAPLIBRE_JS_URL}}" onload="window.osmlibBootstrap()"></script>' +
+    '  {{MAPLIBRE_JS_BLOCK}}' +
     '</body>' +
     '</html>';
 end;

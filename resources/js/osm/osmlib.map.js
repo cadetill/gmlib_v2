@@ -4,6 +4,7 @@
   }
 
   let messageSequence = 0;
+  let bootstrapMapId = "";
 
   function sendEnvelope(envelope) {
     if (window.chrome && window.chrome.webview && typeof window.chrome.webview.postMessage === "function") {
@@ -27,6 +28,10 @@
 
   function sendMessage(messageType, targetId, payload) {
     sendEnvelope({ type: messageType, targetId: targetId || "", payload: payload });
+  }
+
+  function reportBootstrap(message) {
+    sendMessage("map.event.error", bootstrapMapId, { message: "OSM bootstrap: " + message });
   }
 
   function safeNumber(value, fallbackValue) {
@@ -68,6 +73,12 @@
     bootstrap: function (config) {
       const host = document.getElementById('osmlib-map');
       this.mapId = (config && config.mapId) ? String(config.mapId) : "";
+      bootstrapMapId = this.mapId;
+
+      reportBootstrap(
+        "entered. styleUrl=" + String((config && config.styleUrl) || "") +
+        " styleJsonLength=" + String((config && config.styleJson) ? config.styleJson.length : 0)
+      );
 
       if (!host) {
         sendMessage("map.event.error", this.mapId, { message: "OSM bootstrap failed: host element #osmlib-map not found." });
@@ -79,14 +90,25 @@
       }
 
       try {
+        let styleConfig = config && config.styleJson ? config.styleJson : config.styleUrl;
+        if (typeof styleConfig === "string" && styleConfig.trim().startsWith("{")) {
+          styleConfig = JSON.parse(styleConfig);
+        }
+        reportBootstrap("creating map with " + (config && config.styleJson ? "styleJson" : "styleUrl"));
         this.map = new maplibregl.Map({
           container: host,
-          style: config.styleUrl,
+          style: styleConfig,
           center: [config.center.lng, config.center.lat],
           zoom: config.zoom
         });
 
+        this.map.on('error', (e) => {
+          const message = e && e.error && e.error.message ? e.error.message : JSON.stringify(e || {});
+          sendMessage("map.event.error", this.mapId, { message: "OSM map error: " + message });
+        });
+
         this.map.on('load', () => {
+          reportBootstrap("map load");
           sendMessage("map.ready", this.mapId, "");
         });
 
@@ -165,4 +187,18 @@
       }
     }
   };
+
+  window.osmlibBootstrapError = function () {
+    reportBootstrap("maplibre script failed to load");
+  };
+
+  window.addEventListener("error", function (event) {
+    const message = event && event.message ? event.message : "unknown error";
+    reportBootstrap("window error: " + message);
+  });
+
+  window.addEventListener("unhandledrejection", function (event) {
+    const reason = event && event.reason ? String(event.reason) : "unknown rejection";
+    reportBootstrap("unhandled rejection: " + reason);
+  });
 })();

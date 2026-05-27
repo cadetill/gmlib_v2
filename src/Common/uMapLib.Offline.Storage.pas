@@ -12,7 +12,8 @@ uses
 {$IFDEF FPC}
   Classes, SysUtils, fpjson, jsonparser, uMapLib.Offline.Types;
 {$ELSE}
-  System.Classes, System.SysUtils, System.JSON, System.IOUtils, uMapLib.Offline.Types;
+  System.Classes, System.SysUtils, System.JSON, System.IOUtils,
+  System.Generics.Collections, uMapLib.Offline.Types;
 {$ENDIF}
 
 type

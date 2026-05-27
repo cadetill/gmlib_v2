@@ -472,3 +472,133 @@ Build the first version as:
 
 This is the smallest implementation that stays aligned with the long-term
 direction.
+
+## Unit inventory
+
+This section freezes the practical inventory for the first implementation so
+the next step can move directly into code.
+
+### Existing units that remain valid
+
+These units already exist in the repo and still make sense:
+
+- `src/Common/uMapLib.Core.Offline.pas`
+- `src/Common/uMapLib.Offline.Types.pas`
+- `src/Common/uMapLib.Offline.RegionCatalog.pas`
+- `src/Common/uMapLib.Offline.RegionManager.pas`
+
+Notes:
+
+- `RegionManager` is still mostly a no-op today
+- it should remain as the high-level facade for future user-driven region
+  downloads
+- it is not the first implementation focus for navigation runtime
+
+### New units to create for v1
+
+These are the concrete new units recommended for the first implementation:
+
+- `src/Common/uMapLib.Offline.LocalHttpServer.pas`
+- `src/Common/uMapLib.Offline.TileStore.pas`
+- `src/Common/uMapLib.Offline.SqliteTileStore.pas`
+- `src/Common/uMapLib.Offline.RemoteTileProvider.pas`
+- `src/Common/uMapLib.Offline.TileResolver.pas`
+- `src/Common/uMapLib.Offline.StyleProvider.pas`
+- `src/Common/uMapLib.Offline.VectorRuntime.pas`
+
+### Deferred unit
+
+This unit is intentionally deferred until after the first navigation runtime is
+working:
+
+- `src/Common/uMapLib.Offline.RegionDownloader.pas`
+
+Reason:
+
+- user-selected region downloads are wanted
+- but they should be built on top of a working local HTTP + tile cache runtime,
+  not before it
+
+### Old planned names that should not drive v1
+
+These names came from older planning but do not need to be materialized as-is
+for the new direction:
+
+- `uMapLib.Offline.LocalServer`
+- `uMapLib.Offline.Storage`
+- `uMapLib.Offline.Integrity`
+- `uMapLib.Offline.Downloader`
+
+Meaning:
+
+- they are not current repo units
+- they should not dictate the naming of the first implementation
+- if their responsibilities become needed later, they should be folded into the
+  more specific units listed above
+
+### PMTiles-related code
+
+Current `PMTiles`-oriented code and commented paths should be treated as
+legacy/transitional material:
+
+- do not use them as the implementation base for the new vector localhost path
+- do not reactivate them incrementally without first checking whether they
+  still align with the new SQLite/MBTiles design
+
+## First implementation freeze
+
+The first implementation is now frozen as:
+
+- `MapLibre`
+- embedded final `style.json`
+- local `glyphs`
+- localhost-served vector tiles
+- SQLite-backed cache
+- configurable remote vector tile provider
+- basic hybrid behavior
+
+Explicitly not in the first cut:
+
+- region downloader
+- full region catalog UX
+- style served from localhost
+- reintroduced `PMTiles` path
+
+## Current implementation snapshot
+
+The current codebase already has the first skeleton in place:
+
+- `uMapLib.Offline.TileStore`
+- `uMapLib.Offline.StyleProvider`
+- `uMapLib.Offline.RemoteTileProvider`
+- `uMapLib.Offline.TileResolver`
+- `uMapLib.Offline.LocalHttpServer`
+- `uMapLib.Offline.VectorRuntime`
+- `uMapLib.Offline.SqliteTileStore` created but not yet wired into the active
+  OSM runtime
+
+`TOSMMap` also already exposes the first v1-facing properties:
+
+- `MapMode`
+- `OfflinePolicy`
+- `RemoteTileTemplate`
+- `StyleTemplateFileName`
+- `GlyphsRootPath`
+
+Current runtime status:
+
+- embedded `style.json` path already prepared
+- localhost tile route already prepared
+- localhost glyph route already prepared
+- remote tile provider already abstracted
+- SQLite tile store exists but still needs final runtime wiring
+
+## Collaboration note
+
+For this repo, compilation is handled manually by the user.
+
+Operational rule:
+
+- Codex should not run compilations on its own
+- Codex should focus on code changes, static review and architecture work
+- the user compiles locally and reports errors or hints for the next pass

@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, System.StrUtils, Vcl.Graphics, Vcl.Controls, Vcl.Forms,
   Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls, Winapi.WebView2, Winapi.ActiveX,
-  Vcl.Edge, Vcl.ExtCtrls, Vcl.CheckLst, System.RegularExpressions,
+  Vcl.Edge, Vcl.ExtCtrls, Vcl.CheckLst, System.RegularExpressions, System.UITypes,
   uMapLib.Core.Offline, uMapLib.Offline.Types,
   uMapLib.Core.Component, uGMLib.Core.Types, uGMLib.Map, uGMLib.Vcl.Map, uGMLib.Vcl.Marker,
   uGMLib.Vcl.Polyline, uGMLib.Vcl.Polygon, uGMLib.Vcl.Rectangle,
@@ -803,10 +803,10 @@ begin
   cbOSMStyles.ItemIndex := 0;
   cbOSMStyles.OnChange := OSMStylePresetChange;
   cbOSMMapMode.Items.Clear;
-//  cbOSMMapMode.Items.Add('Online');
-  //cbOSMMapMode.Items.Add('Offline');
-  //cbOSMMapMode.Items.Add('Hybrid');
-  //cbOSMMapMode.ItemIndex := 1;
+  cbOSMMapMode.Items.Add('Online');
+  cbOSMMapMode.Items.Add('Offline');
+  cbOSMMapMode.Items.Add('Hybrid');
+  cbOSMMapMode.ItemIndex := 2;
   //cbOSMOfflineSourcePreset.Items.Clear;
   //cbOSMOfflineSourcePreset.Items.Add('TileJSON local (embedded server)');
   //cbOSMOfflineSourcePreset.Items.Add('PMTiles Spain (native pmtiles.js, no pmtiles.exe runtime)');
@@ -839,6 +839,8 @@ end;
 procedure TMainFrm.OSMMapReady(Sender: TObject);
 begin
   Log('OSM map ready.');
+  if OSMMap.MapMode <> omOnline then
+    Log('OSM runtime validation: navega por una zona, desactiva el mapa, vuelve a activarlo y verifica que la misma zona siga cargando desde cache.');
   UpdateStatus('OSM ready');
 end;
 
@@ -1148,11 +1150,12 @@ var
   centerLat: Double;
   centerLng: Double;
   zoom: Double;
-  selectedMapMode: TMapLibMapMode;
-  offlineServerPort: Integer;
-  vendorDir: string;
-  configuredOfflineSource: string;
-  offlineServerExe: string;
+  mapMode: TMapLibMapMode;
+  styleTemplatePath: string;
+  glyphsRootPath: string;
+  remoteTileTemplate: string;
+  localCssPath: string;
+  localJsPath: string;
 begin
   if not TryStrToFloat(Trim(eOSMCenterLat.Text), centerLat, TFormatSettings.Invariant) then
   begin
@@ -1194,68 +1197,64 @@ begin
   OSMMap.CenterLat := centerLat;
   OSMMap.CenterLng := centerLng;
   OSMMap.Zoom := zoom;
-//  case cbOSMMapMode.ItemIndex of
-//    1: selectedMapMode := omOffline;
-//    2: selectedMapMode := omHybrid;
-//  else
-//    selectedMapMode := omOnline;
-//  end;
-  // OSMMap.MapMode := selectedMapMode;
-  //OSMMap.OfflineTileJsonUrl := Trim(eOSMOfflineTileJsonUrl.Text);
-  //OSMMap.OfflineServerExecutable := Trim(eOSMOfflineServerExecutable.Text);
-  //configuredOfflineSource := Trim(OSMMap.OfflineTileJsonUrl);
-  //if SameText(ExtractFileExt(configuredOfflineSource), '.pmtiles') then
-  //  OSMMap.OfflineTileProvider := otpNativePmtiles
-  //else
-  //  OSMMap.OfflineTileProvider := otpEmbeddedTileJson;
-  //if OSMMap.OfflineTileProvider = otpExternalPmtiles then
-  //begin
-  //  offlineServerExe := Trim(OSMMap.OfflineServerExecutable);
-  //  if (offlineServerExe = '') or (not FileExists(offlineServerExe)) then
-  //  begin
-  //    Log('OSM offline blocked: PMTiles provider requires a valid pmtiles.exe path.');
-  //    Log('Configured OfflineServerExecutable=' + offlineServerExe);
-  //    Exit;
-  //  end;
-  //end;
-  //offlineServerPort := StrToIntDef(Trim(eOSMOfflineServerPort.Text), OSMMap.OfflineServerPort);
-  //if offlineServerPort > 0 then
-  //  OSMMap.OfflineServerPort := offlineServerPort;
-//  if (Trim(OSMMap.OfflineTileJsonUrl) <> '') and FileExists(OSMMap.OfflineTileJsonUrl) then
-//  begin
-//    vendorDir := ExtractFilePath(OSMMap.OfflineTileJsonUrl);
-//    if not FileExists(OSMMap.MapLibreCssUrl) then
-//      OSMMap.MapLibreCssUrl := IncludeTrailingPathDelimiter(vendorDir) + 'maplibre-gl.css';
-//    if not FileExists(OSMMap.MapLibreJsUrl) then
-//      OSMMap.MapLibreJsUrl := IncludeTrailingPathDelimiter(vendorDir) + 'maplibre-gl.js';
-//  end;
+
+  case cbOSMMapMode.ItemIndex of
+    1: mapMode := omOffline;
+    2: mapMode := omHybrid;
+  else
+    mapMode := omOnline;
+  end;
+
+  OSMMap.MapMode := mapMode;
+  case mapMode of
+    omOnline:
+      OSMMap.OfflinePolicy := opPreferOnline;
+    omOffline:
+      OSMMap.OfflinePolicy := opOfflineOnly;
+  else
+    OSMMap.OfflinePolicy := opPreferOffline;
+  end;
+
+  remoteTileTemplate := Trim(eOSMOfflineTileJsonUrl.Text);
+  styleTemplatePath := Trim(eOSMOfflineServerPort.Text);
+  glyphsRootPath := Trim(eOSMOfflineServerExecutable.Text);
+
+  if styleTemplatePath = '' then
+    styleTemplatePath := ResolveRepoAssetPath('resources\js\osm\offline\style.template.json');
+  if glyphsRootPath = '' then
+    glyphsRootPath := ResolveRepoAssetPath('resources\js\osm\vendor');
+
+  localCssPath := ResolveRepoAssetPath('resources\js\osm\vendor\maplibre-gl.css');
+  localJsPath := ResolveRepoAssetPath('resources\js\osm\vendor\maplibre-gl.js');
+
+  if mapMode <> omOnline then
+  begin
+    OSMMap.StyleTemplateFileName := styleTemplatePath;
+    OSMMap.GlyphsRootPath := glyphsRootPath;
+    OSMMap.RemoteTileTemplate := remoteTileTemplate;
+
+    if FileExists(localCssPath) then
+      OSMMap.MapLibreCssUrl := localCssPath;
+    if FileExists(localJsPath) then
+      OSMMap.MapLibreJsUrl := localJsPath;
+  end
+  else
+  begin
+    OSMMap.StyleTemplateFileName := '';
+    OSMMap.GlyphsRootPath := '';
+    OSMMap.RemoteTileTemplate := '';
+  end;
 
   Log(Format('OSM assets css=%s js=%s cssExists=%s jsExists=%s',
     [OSMMap.MapLibreCssUrl, OSMMap.MapLibreJsUrl,
      BoolToStr(FileExists(OSMMap.MapLibreCssUrl), True),
      BoolToStr(FileExists(OSMMap.MapLibreJsUrl), True)]));
-//  Log(Format('OSM activating mode=%s provider=%d style=%s tileJson=%s',
-//    [OSMMap.ResolveMapModeName, Ord(OSMMap.OfflineTileProvider), OSMMap.StyleUrl, OSMMap.OfflineTileJsonUrl]));
-//
-//  if OSMMap.MapMode <> omOnline then
-//  begin
-//    OSMMap.EnsureOfflineTileSourceReady;
-//    if (OSMMap.OfflineTileProvider = otpExternalPmtiles) and
-//      (Trim(GetOSMOfflineTileJsonUrl(OSMMap)) = '') then
-//    begin
-//      Log('OSM offline preflight failed.');
-//      Log('OSM offline preflight exe=' + OSMMap.OfflineServerExecutable);
-//      Log('OSM offline preflight port=' + IntToStr(OSMMap.OfflineServerPort));
-//      Log('OSM offline preflight error=' + OSMMap.LastOfflineSetupError);
-//      Exit;
-//    end;
-//  end;
-//
-//  if (OSMMap.MapMode = omOffline) and (not HasOSMOfflineRuntimeAssets) then
-//  begin
-//    Log('OSM offline blocked: missing local MapLibre CSS/JS assets.');
-//    Exit;
-//  end;
+  Log(Format('OSM runtime mode=%d policy=%d styleTemplate=%s glyphs=%s remoteTiles=%s',
+    [Ord(OSMMap.MapMode), Ord(OSMMap.OfflinePolicy), OSMMap.StyleTemplateFileName,
+     OSMMap.GlyphsRootPath, OSMMap.RemoteTileTemplate]));
+
+  if (mapMode <> omOnline) and (remoteTileTemplate = '') then
+    Log('OSM runtime notice: RemoteTileTemplate vacio. Solo se veran tiles si ya existen en cache local.');
 
   OSMMap.Browser := EdgeBrowser1;
   OSMMap.Active := True;
@@ -1441,12 +1440,12 @@ begin
   // OSMMap.MapMode := omOffline;
   // OSMMap.OfflinePolicy := opOfflineOnly;
   eOSMStyleUrl.Text := OSMMap.StyleUrl;
-  // eOSMOfflineTileJsonUrl.Text := OSMMap.OfflineTileJsonUrl;
-  // eOSMOfflineServerExecutable.Text := OSMMap.OfflineServerExecutable;
-  // eOSMOfflineServerPort.Text := IntToStr(OSMMap.OfflineServerPort);
+  eOSMOfflineTileJsonUrl.Text := 'https://tiles.openfreemap.org/planet/latest/{z}/{x}/{y}.pbf';
+  eOSMOfflineServerExecutable.Text := ResolveRepoAssetPath('resources\js\osm\vendor');
+  eOSMOfflineServerPort.Text := ResolveRepoAssetPath('resources\js\osm\offline\style.template.json');
   cbOSMOfflineSourcePreset.ItemIndex := 1;
   // ApplyOSMOfflineSourcePreset;
-  cbOSMMapMode.ItemIndex := 1;
+  cbOSMMapMode.ItemIndex := 2;
   cbOSMLogMove.Checked := False;
   cbOSMLogRender.Checked := False;
   cbOSMLogData.Checked := False;
@@ -1465,7 +1464,7 @@ begin
   for I := 0 to 10 do
   begin
     candidate := ExpandFileName(IncludeTrailingPathDelimiter(baseDir) + ARelativePath);
-    if FileExists(candidate) then
+    if FileExists(candidate) or DirectoryExists(candidate) then
       Exit(candidate);
     baseDir := ExcludeTrailingPathDelimiter(ExtractFileDir(baseDir));
     if baseDir = '' then

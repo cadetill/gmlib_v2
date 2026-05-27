@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OSMLib Map</title>
-  <link rel="stylesheet" href="{{MAPLIBRE_CSS_URL}}">
+  {{MAPLIBRE_CSS_BLOCK}}
   <style>
     html, body, #osmlib-map {
       width: 100%;
@@ -22,6 +22,6 @@
       window.osmlib.bootstrap({{OSMLIB_BOOTSTRAP_CONFIG}});
     };
   </script>
-  <script src="{{MAPLIBRE_JS_URL}}" onload="window.osmlibBootstrap()"></script>
+  {{MAPLIBRE_JS_BLOCK}}
 </body>
 </html>

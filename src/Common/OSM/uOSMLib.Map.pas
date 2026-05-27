@@ -24,6 +24,7 @@ uses
   uMapLib.Core.Messages,
   uMapLib.Offline.RegionManager,
   uMapLib.Offline.Types,
+  uMapLib.Offline.VectorRuntime,
   uMapLib.Core.Offline,
   uMapLib.Core.Types,
   uGMLib.Platform.Format;
@@ -96,12 +97,16 @@ type
   private
     FActive: Boolean;
     // FOfflineMode: Boolean;
-    // FMapMode: TMapLibMapMode;
-    // FOfflinePolicy: TMapLibOfflinePolicy;
+    FMapMode: TMapLibMapMode;
+    FOfflinePolicy: TMapLibOfflinePolicy;
     // FOfflineTileProvider: TMapLibOfflineTileProvider;
     FBridge: IMapBridgeTransport;
     FOfflineRegionManager: IMapLibOfflineRegionManager;
     FOfflineStoragePath: string;
+    FVectorRuntime: TMapLibVectorRuntime;
+    FRemoteTileTemplate: string;
+    FStyleTemplateFileName: string;
+    FGlyphsRootPath: string;
     FCenterLat: Double;
     FCenterLng: Double;
     FMapId: TGMObjectId;
@@ -187,6 +192,11 @@ type
     procedure SetMapId(const Value: TGMObjectId);
     procedure SetStyleUrl(const Value: string);
     procedure SetOfflineStoragePath(const Value: string);
+    procedure SetOfflinePolicy(const Value: TMapLibOfflinePolicy);
+    procedure SetMapMode(const Value: TMapLibMapMode);
+    procedure SetRemoteTileTemplate(const Value: string);
+    procedure SetStyleTemplateFileName(const Value: string);
+    procedure SetGlyphsRootPath(const Value: string);
     // procedure SetOfflineStyleUrl(const Value: string);
     // procedure SetOfflineRasterTilesUrlTemplate(const Value: string);
     // procedure SetOfflineTileJsonUrl(const Value: string);
@@ -243,13 +253,17 @@ type
     // procedure StopOfflineTileServer;
     property Bridge: IMapBridgeTransport read FBridge write SetBridge;
     property OfflineRegionManager: IMapLibOfflineRegionManager read FOfflineRegionManager;
+    property VectorRuntime: TMapLibVectorRuntime read FVectorRuntime;
   published
     property Active: Boolean read FActive write SetActive default False;
     property OfflineStoragePath: string read FOfflineStoragePath write SetOfflineStoragePath;
-    // property MapMode: TMapLibMapMode read FMapMode write SetMapMode default omOnline;
+    property MapMode: TMapLibMapMode read FMapMode write SetMapMode default omOnline;
     // property OfflineMode: Boolean read FOfflineMode write SetOfflineMode default False;
-    // property OfflinePolicy: TMapLibOfflinePolicy read FOfflinePolicy write SetOfflinePolicy
-    //   default opPreferOffline;
+    property OfflinePolicy: TMapLibOfflinePolicy read FOfflinePolicy write SetOfflinePolicy
+      default opPreferOffline;
+    property RemoteTileTemplate: string read FRemoteTileTemplate write SetRemoteTileTemplate;
+    property StyleTemplateFileName: string read FStyleTemplateFileName write SetStyleTemplateFileName;
+    property GlyphsRootPath: string read FGlyphsRootPath write SetGlyphsRootPath;
     // property OfflineTileProvider: TMapLibOfflineTileProvider read FOfflineTileProvider
     //   write SetOfflineTileProvider default otpAuto;
     property CenterLat: Double read FCenterLat write SetCenterLat;
@@ -425,7 +439,6 @@ var
   workDir: string;
   exitCode: Cardinal;
 begin
-  Result := False;
   FLastError := '';
   if IsRunning then
     Exit(True);
@@ -776,10 +789,20 @@ begin
   FBearing := 0;
   FPitch := 0;
   // FOfflineMode := False;
-  // FMapMode := omOnline;
-  // FOfflinePolicy := opPreferOffline;
+  FMapMode := omOnline;
+  FOfflinePolicy := opPreferOffline;
   // FOfflineTileProvider := otpAuto;
-  FOfflineStoragePath := '';
+  FOfflineStoragePath := TPath.Combine(TPath.GetTempPath, 'GMLib\OSM');
+  FRemoteTileTemplate := '';
+  FStyleTemplateFileName := '';
+  FGlyphsRootPath := '';
+  FVectorRuntime := TMapLibVectorRuntime.Create;
+  FVectorRuntime.SourceId := 'osm';
+  FVectorRuntime.MapMode := FMapMode;
+  FVectorRuntime.OfflinePolicy := FOfflinePolicy;
+  FVectorRuntime.OfflineStoragePath := FOfflineStoragePath;
+  FVectorRuntime.StyleTemplateFileName := FStyleTemplateFileName;
+  FVectorRuntime.GlyphsRootPath := FGlyphsRootPath;
   FOfflineRegionManager := TMapLibOfflineRegionManager.Create(FOfflineStoragePath);
   FOfflineRegionManager.OnDownloadProgress := HandleOfflineDownloadProgress;
   FOfflineRegionManager.OnRegionReady := HandleOfflineRegionReady;
@@ -795,6 +818,7 @@ end;
 destructor TOSMMap.Destroy;
 begin
   // StopOfflineTileServer;
+  FVectorRuntime.Free;
   FMarkers.Free;
   inherited Destroy;
 end;
@@ -821,6 +845,8 @@ end;
 
 function TOSMMap.ResolveStyleUrl: string;
 begin
+  if (FMapMode <> omOnline) and Assigned(FVectorRuntime) then
+    Exit('');
   Result := FStyleUrl;
 end;
 
@@ -855,19 +881,31 @@ begin
 end;
 
 function GetOSMMapLibreCssUrl(AMap: TOSMMap): string;
+var
+  isHttp: Boolean;
 begin
   if Assigned(AMap) then
     Result := AMap.ResolveMapLibreCssUrl
   else
     Result := DEFAULT_MAPLIBRE_CSS_URL;
+
+  isHttp := StartsText('http://', Result) or StartsText('https://', Result);
+  if (Result <> '') and not isHttp and FileExists(Result) then
+    Result := 'file:///' + StringReplace(ExpandFileName(Result), '\', '/', [rfReplaceAll]);
 end;
 
 function GetOSMMapLibreJsUrl(AMap: TOSMMap): string;
+var
+  isHttp: Boolean;
 begin
   if Assigned(AMap) then
     Result := AMap.ResolveMapLibreJsUrl
   else
     Result := DEFAULT_MAPLIBRE_JS_URL;
+
+  isHttp := StartsText('http://', Result) or StartsText('https://', Result);
+  if (Result <> '') and not isHttp and FileExists(Result) then
+    Result := 'file:///' + StringReplace(ExpandFileName(Result), '\', '/', [rfReplaceAll]);
 end;
 
 procedure TOSMMap.SetActive(const Value: Boolean);
@@ -932,8 +970,55 @@ begin
   if FOfflineStoragePath = Value then
     Exit;
   FOfflineStoragePath := Value;
+  if Assigned(FVectorRuntime) then
+    FVectorRuntime.OfflineStoragePath := FOfflineStoragePath;
   if Assigned(FOfflineRegionManager) and (FOfflineRegionManager is TMapLibOfflineRegionManager) then
     TMapLibOfflineRegionManager(FOfflineRegionManager).StorageBasePath := FOfflineStoragePath;
+end;
+
+procedure TOSMMap.SetOfflinePolicy(const Value: TMapLibOfflinePolicy);
+begin
+  if FOfflinePolicy = Value then
+    Exit;
+  FOfflinePolicy := Value;
+  if Assigned(FVectorRuntime) then
+    FVectorRuntime.OfflinePolicy := Value;
+end;
+
+procedure TOSMMap.SetMapMode(const Value: TMapLibMapMode);
+begin
+  if FMapMode = Value then
+    Exit;
+  FMapMode := Value;
+  if Assigned(FVectorRuntime) then
+    FVectorRuntime.MapMode := Value;
+end;
+
+procedure TOSMMap.SetRemoteTileTemplate(const Value: string);
+begin
+  if FRemoteTileTemplate = Value then
+    Exit;
+  FRemoteTileTemplate := Value;
+  if Assigned(FVectorRuntime) and Assigned(FVectorRuntime.RemoteTileProvider) then
+    FVectorRuntime.RemoteTileProvider.TileUrlTemplate := Value;
+end;
+
+procedure TOSMMap.SetStyleTemplateFileName(const Value: string);
+begin
+  if FStyleTemplateFileName = Value then
+    Exit;
+  FStyleTemplateFileName := Value;
+  if Assigned(FVectorRuntime) then
+    FVectorRuntime.StyleTemplateFileName := Value;
+end;
+
+procedure TOSMMap.SetGlyphsRootPath(const Value: string);
+begin
+  if FGlyphsRootPath = Value then
+    Exit;
+  FGlyphsRootPath := Value;
+  if Assigned(FVectorRuntime) then
+    FVectorRuntime.GlyphsRootPath := Value;
 end;
 
 procedure TOSMMap.HandleOfflineDownloadProgress(Sender: TObject; const AJobId: string;
@@ -995,10 +1080,18 @@ begin
 end;
 
 function TOSMMap.BuildSetStylePayload: string;
+var
+  styleJson: string;
 begin
+  styleJson := '';
+  if (FMapMode <> omOnline) and Assigned(FVectorRuntime) then
+    styleJson := FVectorRuntime.BuildStyleJson;
+
   Result := Format(
-    '{"styleUrl":"%s"}',
-    [StringReplace(ResolveStyleUrl, '"', '\"', [rfReplaceAll])]
+    '{"styleUrl":"%s","styleJson":"%s"}',
+    [StringReplace(ResolveStyleUrl, '"', '\"', [rfReplaceAll]),
+     StringReplace(styleJson, '"', '\"', [rfReplaceAll])],
+    GMLibInvariantFormatSettings
   );
 end;
 
@@ -1385,6 +1478,12 @@ end;
 
 procedure TOSMMap.Activate;
 begin
+  if (FMapMode <> omOnline) and Assigned(FVectorRuntime) then
+  begin
+    FVectorRuntime.MapMode := FMapMode;
+    FVectorRuntime.OfflinePolicy := FOfflinePolicy;
+    FVectorRuntime.Start;
+  end;
   FActive := True;
   SyncMarkersToBridge;
 end;
@@ -1392,6 +1491,8 @@ end;
 procedure TOSMMap.Deactivate;
 begin
   FActive := False;
+  if Assigned(FVectorRuntime) then
+    FVectorRuntime.Stop;
   // StopOfflineTileServer;
 end;
 
@@ -1426,6 +1527,7 @@ function TOSMMap.BuildJsBootstrapConfig: string;
 var
   Config: TJSONObject;
   Center: TJSONObject;
+  styleJson: string;
 begin
 {$IFDEF FPC}
   Result := '{}';
@@ -1434,6 +1536,15 @@ begin
 
   Config := TJSONObject.Create;
   try
+    styleJson := '';
+    if (FMapMode <> omOnline) and Assigned(FVectorRuntime) then
+    begin
+      FVectorRuntime.MapMode := FMapMode;
+      FVectorRuntime.OfflinePolicy := FOfflinePolicy;
+      FVectorRuntime.Start;
+      styleJson := FVectorRuntime.BuildStyleJson;
+    end;
+
     Center := TJSONObject.Create;
     Center.AddPair('lat', TJSONNumber.Create(FCenterLat));
     Center.AddPair('lng', TJSONNumber.Create(FCenterLng));
@@ -1442,6 +1553,7 @@ begin
     Config.AddPair('center', Center);
     Config.AddPair('zoom', TJSONNumber.Create(FZoom));
     Config.AddPair('styleUrl', ResolveStyleUrl);
+    Config.AddPair('styleJson', styleJson);
 
     Result := Config.ToJSON;
   finally

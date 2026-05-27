@@ -2747,23 +2747,23 @@ object MainFrm: TMainFrm
           object lOSMOfflineTileJsonUrl: TLabel
             Left = 16
             Top = 48
-            Width = 110
+            Width = 115
             Height = 15
-            Caption = 'Offline TileJSON URL'
+            Caption = 'Remote Tile Template'
           end
           object lOSMOfflineServerExecutable: TLabel
             Left = 16
             Top = 80
-            Width = 120
+            Width = 91
             Height = 15
-            Caption = 'Offline Server EXE path'
+            Caption = 'Glyphs Root Path'
           end
           object lOSMOfflineServerPort: TLabel
             Left = 16
             Top = 112
-            Width = 96
+            Width = 104
             Height = 15
-            Caption = 'Offline Server Port'
+            Caption = 'Style Template Path'
           end
           object lOSMOfflineSourcePreset: TLabel
             Left = 16
@@ -2778,9 +2778,7 @@ object MainFrm: TMainFrm
             Width = 577
             Height = 23
             TabOrder = 0
-            Text = 
-              'D:\cadetill\Documents\GitHub\gmlib_v2\resources\js\osm\vendor\sp' +
-              'ain.pmtiles'
+            Text = 'https://tiles.openfreemap.org/planet/latest/{z}/{x}/{y}.pbf'
           end
           object eOSMOfflineServerExecutable: TEdit
             Left = 152
@@ -2788,17 +2786,15 @@ object MainFrm: TMainFrm
             Width = 577
             Height = 23
             TabOrder = 1
-            Text = 
-              'D:\cadetill\Documents\GitHub\gmlib_v2\resources\js\osm\vendor\pm' +
-              'tiles.exe'
+            Text = 'resources\js\osm\vendor'
           end
           object eOSMOfflineServerPort: TEdit
             Left = 152
             Top = 108
-            Width = 120
+            Width = 577
             Height = 23
             TabOrder = 2
-            Text = '8080'
+            Text = 'resources\js\osm\offline\style.template.json'
           end
           object cbOSMOfflineSourcePreset: TComboBox
             Left = 152
@@ -2996,6 +2992,7 @@ object MainFrm: TMainFrm
     Top = 264
   end
   object OSMMap: TOSMLibVclMap
+    OfflineStoragePath = 'C:\Users\cadetill\AppData\Local\Temp\GMLib\OSM'
     MapId = 'OSMLib_MAP'
     StyleUrl = 'https://tiles.openfreemap.org/styles/bright'
     MapLibreCssUrl = 'https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.css'

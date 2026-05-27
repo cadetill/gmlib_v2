@@ -66,6 +66,17 @@ The following Google Maps API classes are currently implemented:
     - `MapLibreJsUrl`
     - `OfflineRasterTilesUrlTemplate`
 
+### OSM hybrid/offline runtime notes
+
+- The current vector runtime expects a direct XYZ template in `RemoteTileTemplate`.
+- `OpenFreeMap` works for runtime validation with:
+  `https://tiles.openfreemap.org/planet/latest/{z}/{x}/{y}.pbf`
+- `MapTiler` has also been validated with:
+  `https://api.maptiler.com/tiles/v3/{z}/{x}/{y}.pbf?key=YOUR_API_KEY`
+- Not every vector tileset is suitable as a full basemap. Example: thematic
+  sources such as `landform` may legitimately return sparse or empty tiles for
+  many coordinates.
+
 ## Demos
 
 - VCL includes broad feature demos and the full-library `MegaDemo`.

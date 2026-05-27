@@ -47,6 +47,27 @@ For true offline operation:
 - `sprites` should also be resolvable locally when required by the style
 - offline mode should not depend on remote font/style assets
 
+## Remote provider notes
+
+For the current runtime slice, the remote vector provider is configured through
+one direct XYZ template (`RemoteTileTemplate`).
+
+Validated examples:
+
+- `OpenFreeMap`
+  - `https://tiles.openfreemap.org/planet/latest/{z}/{x}/{y}.pbf`
+- `MapTiler`
+  - `https://api.maptiler.com/tiles/v3/{z}/{x}/{y}.pbf?key=YOUR_API_KEY`
+
+Important:
+
+- this first runtime path assumes the caller already knows a valid XYZ tile
+  template
+- thematic vector tilesets are not equivalent to a full basemap and may return
+  sparse/empty content by design
+- `TileJSON` support may be added later as an optional higher-level provider
+  configuration path, but it is not required for the current runtime contract
+
 ## Scope and non-goals
 
 ### In scope
