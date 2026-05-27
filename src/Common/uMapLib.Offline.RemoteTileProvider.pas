@@ -22,7 +22,26 @@ type
   {** @abstract(Contrato para descargar tiles desde un proveedor remoto.) }
   IMapLibRemoteTileProvider = interface
     ['{AE910D28-566F-4AE7-A9E7-CBF8509A8F55}']
+    {**
+      @abstract(Construye la URL final de un tile remoto.)
+      @param(ASourceId Identificador logico de la fuente)
+      @param(AZ Nivel de zoom XYZ)
+      @param(AX Coordenada X XYZ)
+      @param(AY Coordenada Y XYZ)
+      @returns(URL final a solicitar al proveedor remoto)
+    }
     function BuildTileUrl(const ASourceId: string; AZ, AX, AY: Integer): string;
+    {**
+      @abstract(Intenta descargar un tile remoto.)
+      @param(ASourceId Identificador logico de la fuente)
+      @param(AZ Nivel de zoom XYZ)
+      @param(AX Coordenada X XYZ)
+      @param(AY Coordenada Y XYZ)
+      @param(ATileData Bytes descargados del tile)
+      @param(AContentType Tipo MIME devuelto por el proveedor)
+      @param(AContentEncoding Codificacion HTTP asociada a la respuesta)
+      @returns(@true si la descarga produce un tile usable)
+    }
     function TryFetchTile(const ASourceId: string; AZ, AX, AY: Integer;
       out ATileData: TBytes; out AContentType, AContentEncoding: string): Boolean;
   end;
@@ -42,7 +61,9 @@ type
   public
     constructor Create;
     destructor Destroy; override;
+    {** @abstract(Construye la URL final del tile aplicando la plantilla actual.) }
     function BuildTileUrl(const ASourceId: string; AZ, AX, AY: Integer): string;
+    {** @abstract(Descarga un tile remoto usando `THTTPClient`.) }
     function TryFetchTile(const ASourceId: string; AZ, AX, AY: Integer;
       out ATileData: TBytes; out AContentType, AContentEncoding: string): Boolean;
 

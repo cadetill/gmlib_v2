@@ -46,6 +46,6 @@ estos ficheros locales:
 
 - `resources/js/osm/vendor/maplibre-gl.css`
 - `resources/js/osm/vendor/maplibre-gl.js`
-- `resources/js/osm/offline/style.json`
+- `resources/js/osm/offline/style.template.json`
 
 Si falta alguno, queda registrado en el log de la demo.

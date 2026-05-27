@@ -75,8 +75,31 @@ type
   public
     constructor Create(const ADatabaseFileName: string);
     destructor Destroy; override;
+    {**
+      @abstract(Intenta recuperar un tile desde la cache SQLite.)
+      @param(ASourceId Identificador logico de la fuente)
+      @param(ASourceVariant Variante o proveedor concreto de la fuente)
+      @param(AZ Nivel de zoom XYZ)
+      @param(AX Coordenada X XYZ)
+      @param(AY Coordenada Y XYZ)
+      @param(ATileData Bytes del tile recuperado)
+      @param(AContentType Tipo MIME persistido)
+      @param(AContentEncoding Codificacion HTTP persistida)
+      @returns(@true si el tile existe en cache)
+    }
     function TryGetTile(const ASourceId, ASourceVariant: string; AZ, AX, AY: Integer;
       out ATileData: TBytes; out AContentType, AContentEncoding: string): Boolean;
+    {**
+      @abstract(Encola la persistencia asincrona de un tile en SQLite.)
+      @param(ASourceId Identificador logico de la fuente)
+      @param(ASourceVariant Variante o proveedor concreto de la fuente)
+      @param(AZ Nivel de zoom XYZ)
+      @param(AX Coordenada X XYZ)
+      @param(AY Coordenada Y XYZ)
+      @param(ATileData Bytes del tile)
+      @param(AContentType Tipo MIME del tile)
+      @param(AContentEncoding Codificacion HTTP del tile)
+    }
     procedure PutTile(const ASourceId, ASourceVariant: string; AZ, AX, AY: Integer;
       const ATileData: TBytes; const AContentType, AContentEncoding: string);
 

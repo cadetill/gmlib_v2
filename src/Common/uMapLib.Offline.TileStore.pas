@@ -25,6 +25,7 @@ type
     {**
       @abstract(Intenta obtener un tile local.)
       @param(ASourceId Identificador logico de la fuente)
+      @param(ASourceVariant Variante o proveedor concreto de la fuente)
       @param(AZ Nivel de zoom XYZ)
       @param(AX Coordenada X XYZ)
       @param(AY Coordenada Y XYZ)
@@ -39,6 +40,7 @@ type
     {**
       @abstract(Guarda o reemplaza un tile local.)
       @param(ASourceId Identificador logico de la fuente)
+      @param(ASourceVariant Variante o proveedor concreto de la fuente)
       @param(AZ Nivel de zoom XYZ)
       @param(AX Coordenada X XYZ)
       @param(AY Coordenada Y XYZ)

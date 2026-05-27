@@ -22,7 +22,10 @@ type
   {** @abstract(Contrato base para construir el style final.) }
   IMapLibStyleProvider = interface
     ['{4CB5F5C8-87DB-482F-A25D-FC60BFC92F7E}']
-    {** @abstract(Devuelve el style final listo para inyectar en HTML o servir por HTTP.) }
+    {**
+      @abstract(Devuelve el style final listo para inyectar en HTML o servir por HTTP.)
+      @returns(Documento Style JSON final con placeholders ya resueltos)
+    }
     function BuildStyleJson: string;
   end;
 
@@ -41,6 +44,10 @@ type
     FSpriteUrl: string;
     function LoadTemplateJson: string;
   public
+    {**
+      @abstract(Construye el style final a partir de plantilla y placeholders.)
+      @returns(Style JSON listo para consumo por MapLibre)
+    }
     function BuildStyleJson: string;
 
     property TemplateJson: string read FTemplateJson write FTemplateJson;

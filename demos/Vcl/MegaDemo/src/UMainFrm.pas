@@ -994,11 +994,14 @@ begin
 end;
 
 procedure TMainFrm.bOSMDownloadRegionClick(Sender: TObject);
+(*
 var
   RegionId: string;
   SourceUrl: string;
   Req: TMapLibOfflineDownloadRequest;
+*)
 begin
+(*
   RegionId := 'spain';
   SourceUrl := 'https://github.com/cadetill/gmlib_v2/raw/master/resources/js/osm/vendor/spain.pmtiles';
 
@@ -1029,6 +1032,7 @@ begin
         Log('OSM download failed to start or is already active.');
     end;
   end;
+*)
 end;
 
 procedure TMainFrm.bOSMDeleteRegionClick(Sender: TObject);
@@ -1476,24 +1480,20 @@ end;
 //var
 //  cssPath: string;
 //  jsPath: string;
-//  stylePath: string;
-//  tileJsonPath: string;
+//  styleTemplatePath: string;
 //begin
 //  cssPath := ResolveRepoAssetPath('resources\js\osm\vendor\maplibre-gl.css');
 //  jsPath := ResolveRepoAssetPath('resources\js\osm\vendor\maplibre-gl.js');
-//  stylePath := ResolveRepoAssetPath('resources\js\osm\offline\style.json');
-//  tileJsonPath := ResolveRepoAssetPath('resources\js\osm\offline\tilejson.json');
+//  styleTemplatePath := ResolveRepoAssetPath('resources\js\osm\offline\style.template.json');
 //
 //  OSMMap.OfflineMode := True;
 //  OSMMap.MapMode := omOffline;
 //  OSMMap.OfflinePolicy := opOfflineOnly;
 //  OSMMap.MapLibreCssUrl := cssPath;
 //  OSMMap.MapLibreJsUrl := jsPath;
-//  OSMMap.OfflineStyleUrl := stylePath;
+//  OSMMap.StyleTemplateFileName := styleTemplatePath;
 //  OSMMap.OfflineRasterTilesUrlTemplate := '';
 //  OSMMap.OfflineServerExecutable := '';
-//  OSMMap.OfflineTileJsonUrl := tileJsonPath;
-//  OSMMap.OfflineTileProvider := otpEmbeddedTileJson;
 //
 //  { Demo default is strict offline to avoid remote dependencies in OSM tests. }
 //
@@ -1501,10 +1501,8 @@ end;
 //    Log('OSM offline: missing resources\js\osm\vendor\maplibre-gl.css');
 //  if jsPath = '' then
 //    Log('OSM offline: missing resources\js\osm\vendor\maplibre-gl.js');
-//  if stylePath = '' then
-//    Log('OSM offline: missing resources\js\osm\offline\style.json');
-//  if tileJsonPath = '' then
-//    Log('OSM offline: optional resources\js\osm\offline\tilejson.json not found.');
+//  if styleTemplatePath = '' then
+//    Log('OSM offline: missing resources\js\osm\offline\style.template.json');
 //end;
 
 //function TMainFrm.HasOSMOfflineRuntimeAssets: Boolean;
@@ -1515,10 +1513,9 @@ end;
 
 //procedure TMainFrm.ApplyOSMOfflineSourcePreset;
 //var
-//  tileJsonPath: string;
 //  pmtilesPath: string;
 //  pmtilesExePath: string;
-//  stylePath: string;
+//  styleTemplatePath: string;
 //begin
 //  case cbOSMOfflineSourcePreset.ItemIndex of
 //    1:
@@ -1530,20 +1527,18 @@ end;
 //
 //        eOSMOfflineTileJsonUrl.Text := pmtilesPath;
 //        eOSMOfflineServerExecutable.Text := pmtilesExePath;
-//        { PMTiles preset uses runtime TileJSON + fallback style to avoid
-//          depending on hardcoded source URLs inside offline/style.json. }
-//        OSMMap.OfflineStyleUrl := '';
+//        { PMTiles preset belonged to the old offline flow. The current vector
+//          runtime builds the final style from style.template.json. }
+//        OSMMap.StyleTemplateFileName := '';
 //        OSMMap.OfflineTileProvider := otpNativePmtiles;
 //        Log('OSM offline preset applied: PMTiles Spain (native pmtiles.js, no pmtiles.exe runtime).');
 //      end;
 //  else
-//    tileJsonPath := ResolveRepoAssetPath('resources\js\osm\offline\tilejson.json');
-//    stylePath := ResolveRepoAssetPath('resources\js\osm\offline\style.json');
-//    eOSMOfflineTileJsonUrl.Text := tileJsonPath;
+//    styleTemplatePath := ResolveRepoAssetPath('resources\js\osm\offline\style.template.json');
 //    eOSMOfflineServerExecutable.Text := '';
-//    OSMMap.OfflineStyleUrl := stylePath;
+//    OSMMap.StyleTemplateFileName := styleTemplatePath;
 //    OSMMap.OfflineTileProvider := otpEmbeddedTileJson;
-//    Log('OSM offline preset applied: TileJSON local (embedded server).');
+//    Log('OSM offline preset applied: vector runtime with style template.');
 //  end;
 //end;
 

@@ -51,11 +51,17 @@ type
   public
     constructor Create(APort: Integer = 0; const AToken: string = '');
     destructor Destroy; override;
+    {** @abstract(Arranca el servidor localhost y reserva un puerto si hace falta.) }
     function Start: Boolean;
+    {** @abstract(Detiene el servidor localhost si estaba activo.) }
     procedure Stop;
+    {** @abstract(Indica si el servidor esta escuchando peticiones.) }
     function IsRunning: Boolean;
+    {** @abstract(Devuelve la base URL efectiva del runtime local.) }
     function GetBaseUrl: string;
+    {** @abstract(Devuelve el ultimo error funcional del arranque.) }
     function GetLastError: string;
+    {** @abstract(Construye una URL completa del runtime a partir de una ruta relativa.) }
     function BuildRuntimeUrl(const APathAndQuery: string): string;
 {$IFNDEF FPC}
     property OnCommand: TMapLibHttpRequestEvent read FOnCommand write FOnCommand;

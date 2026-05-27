@@ -45,6 +45,17 @@ type
       out ATileData: TBytes; out AContentType, AContentEncoding: string): Boolean;
   public
     constructor Create;
+    {**
+      @abstract(Resuelve un tile segun modo, politica y cache disponibles.)
+      @param(ASourceId Identificador logico de la fuente)
+      @param(AZ Nivel de zoom XYZ)
+      @param(AX Coordenada X XYZ)
+      @param(AY Coordenada Y XYZ)
+      @param(ATileData Bytes del tile resuelto)
+      @param(AContentType Tipo MIME del tile resuelto)
+      @param(AContentEncoding Codificacion HTTP del tile resuelto)
+      @returns(Estado final de la resolucion)
+    }
     function ResolveTile(const ASourceId: string; AZ, AX, AY: Integer;
       out ATileData: TBytes; out AContentType, AContentEncoding: string): TMapLibTileResolveStatus;
 

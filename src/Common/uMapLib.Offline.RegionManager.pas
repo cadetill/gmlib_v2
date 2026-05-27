@@ -15,10 +15,14 @@ uses
   uMapLib.Offline.Downloader;
 
 type
+  {** @abstract(Contrato de alto nivel para gestionar regiones offline.) }
   IMapLibOfflineRegionManager = interface(IMapLibOfflineCatalog)
     ['{A9E6F87A-DC3B-479A-A7A8-A4B2640B10D0}']
+    {** @abstract(Inicia la descarga de una region offline.) }
     function DownloadRegion(const ARequest: TMapLibOfflineDownloadRequest): string;
+    {** @abstract(Cancela una descarga activa si el trabajo existe.) }
     function CancelDownload(const AJobId: string): Boolean;
+    {** @abstract(Resuelve la cobertura offline para una posicion y zoom.) }
     function ResolveCoverage(ALat, ALng: Double; AZoom: Double): TMapLibOfflineCoverage;
 
     // Métodos para suscripción de eventos desde el componente TOSMMap
@@ -34,6 +38,7 @@ type
     property OnOfflineError: TMapLibOfflineErrorEvent read GetOnOfflineError write SetOnOfflineError;
   end;
 
+  {** @abstract(Implementacion concreta del gestor de regiones offline.) }
   TMapLibOfflineRegionManager = class(TInterfacedObject, IMapLibOfflineRegionManager)
   private
     FStorageBasePath: string;

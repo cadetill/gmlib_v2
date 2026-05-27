@@ -56,10 +56,15 @@ type
   public
     constructor Create;
     destructor Destroy; override;
+    {** @abstract(Arranca el runtime local y prepara sus colaboradores.) }
     function Start: Boolean;
+    {** @abstract(Detiene el runtime local y libera sus recursos vivos.) }
     procedure Stop;
+    {** @abstract(Devuelve la base URL efectiva del runtime local.) }
     function GetBaseUrl: string;
+    {** @abstract(Construye la plantilla localhost para tiles de una fuente logica.) }
     function BuildTileUrlTemplate(const ASourceId: string = ''): string;
+    {** @abstract(Construye el style JSON final para MapLibre.) }
     function BuildStyleJson: string;
 
     property SourceId: string read FSourceId write FSourceId;

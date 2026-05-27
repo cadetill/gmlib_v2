@@ -96,3 +96,4 @@ src/**/*.lpk
 Help/
 test1/
 
+/resources/js/osm/vendor/Noto Sans Regular/*.pbf
