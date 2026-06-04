@@ -15,10 +15,11 @@ uses
   Vcl.Forms,
   Vcl.Graphics,
   Vcl.StdCtrls,
-  uGMLib.Circle,
-  uGMLib.Core.Types,
-  uGMLib.Map,
-  uGMLib.Vcl.Circle,
+   uGMLib.Circle,
+   uGMLib.Core.Types,
+   uGMLib.Google.Types,
+   uGMLib.Map,
+   uGMLib.Vcl.Circle,
   uGMLib.Vcl.Map;
 
 type

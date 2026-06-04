@@ -19,6 +19,7 @@ uses
 {$ENDIF}
 
 type
+(*
   {** @abstract(Tipos de proveedor offline soportados por las capas legacy y de transicion.) }
   TMapLibOfflineTileProvider = (
     otpAuto,
@@ -26,7 +27,7 @@ type
     otpExternalPmtiles,
     otpNativePmtiles
   );
-
+*)
   {** @abstract(Politica de preferencia entre cache local y proveedor remoto.) }
   TMapLibOfflinePolicy = (
     opPreferOffline,
@@ -65,6 +66,9 @@ type
     Checksum: string;
     StoragePath: string;
   end;
+
+  {** @abstract(Array tipado de metadatos offline compatible con Delphi y FPC.) }
+  TMapLibOfflineRegionMetadataArray = array of TMapLibOfflineRegionMetadata;
 
   {** @abstract(Uso de almacenamiento reportado por el subsistema offline.) }
   TMapLibOfflineStorageUsage = record

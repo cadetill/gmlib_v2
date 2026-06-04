@@ -13,10 +13,10 @@ uses
   uGMLib.Platform.Format, uGMLib.MapOptions, uGMLib.GeoCode, uGMLib.Map, 
   uGMLib.Marker, uGMLib.InfoWindow, uGMLib.GroundOverlay, uGMLib.Polygon, 
   uGMLib.Polyline, uGMLib.Circle, uGMLib.Elevation, uMapLib.Core.Bridge, 
-  uGMLib.Rectangle, uGMLib.Routes, uGMLib.Lcl.Circle, uGMLib.Lcl.Polygon, 
-  uGMLib.Lcl.Rectangle, uGMLib.Lcl.MapBootstrap, uGMLib.Lcl.MapOptions, 
-  uGMLib.Lcl.Bridge.Cef, uGMLib.Lcl.Map, uOSMLib.Map, uOSMLib.Lcl.MapBootstrap,
-  uOSMLib.Lcl.Map;
+  uGMLib.Rectangle, uGMLib.Routes, uGMLib.Lcl.Circle, uGMLib.Lcl.Marker,
+  uGMLib.Lcl.Polygon, uGMLib.Lcl.Polyline, uGMLib.Lcl.Rectangle,
+  uGMLib.Lcl.MapBootstrap, uGMLib.Lcl.MapOptions, uGMLib.Lcl.Bridge.Cef,
+  uGMLib.Lcl.Map, uOSMLib.Map, uOSMLib.Lcl.MapBootstrap, uOSMLib.Lcl.Map;
 
 implementation
 

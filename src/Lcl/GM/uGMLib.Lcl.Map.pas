@@ -23,7 +23,9 @@ uses
   uGMLib.Polyline,
   uGMLib.Rectangle,
   uGMLib.Lcl.Circle,
+  uGMLib.Lcl.Marker,
   uGMLib.Lcl.Polygon,
+  uGMLib.Lcl.Polyline,
   uGMLib.Lcl.Rectangle,
   uGMLib.Lcl.MapBootstrap,
   uGMLib.Lcl.MapOptions;
@@ -37,17 +39,17 @@ type
     function CreateBridgeForBrowser(const ABrowser: TComponent): IMapBridgeTransport;
     function GetCircles: TGMLclCircles;
     function GetInfoWindows: TGMInfoWindows;
-    function GetMarkers: TGMMarkers;
+    function GetMarkers: TGMLclMarkers;
     function GetPolygons: TGMLclPolygons;
-    function GetPolylines: TGMPolylines;
+    function GetPolylines: TGMLclPolylines;
     function GetRectangles: TGMLclRectangles;
     function GetOptions: TGMLclMapOptions;
     procedure SetBrowser(const Value: TComponent);
     procedure SetCircles(const Value: TGMLclCircles);
     procedure SetInfoWindows(const Value: TGMInfoWindows);
-    procedure SetMarkers(const Value: TGMMarkers);
+    procedure SetMarkers(const Value: TGMLclMarkers);
     procedure SetPolygons(const Value: TGMLclPolygons);
-    procedure SetPolylines(const Value: TGMPolylines);
+    procedure SetPolylines(const Value: TGMLclPolylines);
     procedure SetRectangles(const Value: TGMLclRectangles);
     procedure SetOptions(const Value: TGMLclMapOptions);
   protected
@@ -70,9 +72,9 @@ type
     property APIKey;
     property Circles: TGMLclCircles read GetCircles write SetCircles;
     property InfoWindows: TGMInfoWindows read GetInfoWindows write SetInfoWindows;
-    property Markers: TGMMarkers read GetMarkers write SetMarkers;
+    property Markers: TGMLclMarkers read GetMarkers write SetMarkers;
     property Polygons: TGMLclPolygons read GetPolygons write SetPolygons;
-    property Polylines: TGMPolylines read GetPolylines write SetPolylines;
+    property Polylines: TGMLclPolylines read GetPolylines write SetPolylines;
     property Rectangles: TGMLclRectangles read GetRectangles write SetRectangles;
     property Options: TGMLclMapOptions read GetOptions write SetOptions;
 
@@ -156,7 +158,7 @@ end;
 
 function TGMLibLclMap.CreateMarkers: TGMMarkers;
 begin
-  Result := TGMMarkers.Create(Self);
+  Result := TGMLclMarkers.Create(Self);
 end;
 
 function TGMLibLclMap.CreateMapOptions: TGMMapOptions;
@@ -171,7 +173,7 @@ end;
 
 function TGMLibLclMap.CreatePolylines: TGMPolylines;
 begin
-  Result := TGMPolylines.Create(Self);
+  Result := TGMLclPolylines.Create(Self);
 end;
 
 function TGMLibLclMap.CreateRectangles: TGMRectangles;
@@ -196,9 +198,9 @@ begin
   Result := TGMInfoWindows(inherited InfoWindows);
 end;
 
-function TGMLibLclMap.GetMarkers: TGMMarkers;
+function TGMLibLclMap.GetMarkers: TGMLclMarkers;
 begin
-  Result := TGMMarkers(inherited Markers);
+  Result := TGMLclMarkers(inherited Markers);
 end;
 
 function TGMLibLclMap.GetPolygons: TGMLclPolygons;
@@ -206,9 +208,9 @@ begin
   Result := TGMLclPolygons(inherited Polygons);
 end;
 
-function TGMLibLclMap.GetPolylines: TGMPolylines;
+function TGMLibLclMap.GetPolylines: TGMLclPolylines;
 begin
-  Result := TGMPolylines(inherited Polylines);
+  Result := TGMLclPolylines(inherited Polylines);
 end;
 
 function TGMLibLclMap.GetRectangles: TGMLclRectangles;
@@ -248,7 +250,7 @@ begin
   inherited InfoWindows := Value;
 end;
 
-procedure TGMLibLclMap.SetMarkers(const Value: TGMMarkers);
+procedure TGMLibLclMap.SetMarkers(const Value: TGMLclMarkers);
 begin
   inherited Markers := Value;
 end;
@@ -258,7 +260,7 @@ begin
   inherited Polygons := Value;
 end;
 
-procedure TGMLibLclMap.SetPolylines(const Value: TGMPolylines);
+procedure TGMLibLclMap.SetPolylines(const Value: TGMLclPolylines);
 begin
   inherited Polylines := Value;
 end;

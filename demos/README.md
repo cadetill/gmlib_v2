@@ -29,6 +29,12 @@ Demos nuevas del reinicio separadas por framework.
 - `Fmx/ElevationLab`: laboratorio FMX validado de elevaciones para consultas por puntos y por path
 - `Fmx/RoutesLab`: laboratorio FMX validado de rutas con origen, destino y waypoints mixtos, historial de queries y visibilidad por resultado
 
+## OSM
+
+- `Vcl/MegaDemo`: flujo actual de validación visual de `OSMLib`, incluyendo activación online/offline-hybrid, markers, catálogo de regiones offline y ahora también controles de cámara/interacción (`bearing`, `pitch`, `minZoom`, `maxZoom` y flags de interacción principales).
+- `Fmx/MegaDemo`: validación visual activa de `OSMLib` en FMX, con `Online` y `Hybrid` funcionando, markers, persistencia SQLite de tiles verificada y superficie de prueba ampliada para cámara/interacción igual que en VCL.
+- `LCL` ya tiene el componente y la base runtime alineados, pero la validacion visual sigue pendiente.
+
 ## Nota operativa
 
 Las demos leen la variable de entorno `GOOGLE_MAPS_API_KEY` si existe.
@@ -41,7 +47,7 @@ Las demos VCL con `TEdgeBrowser` incluyen ya varios ajustes de compatibilidad pa
 
 ## OSM offline (MegaDemo)
 
-La pestaña OSM de `Vcl/MegaDemo` intenta arrancar en modo offline si encuentra
+Las pestañas OSM de `Vcl/MegaDemo` y `Fmx/MegaDemo` intentan arrancar en modo offline si encuentran
 estos ficheros locales:
 
 - `resources/js/osm/vendor/maplibre-gl.css`
@@ -49,3 +55,12 @@ estos ficheros locales:
 - `resources/js/osm/offline/style.template.json`
 
 Si falta alguno, queda registrado en el log de la demo.
+
+En `FMX`, no volver a incrustar `maplibre-gl.js` inline en el bootstrap HTML:
+esa variante rompio `Online` y `Hybrid`. El bootstrap estable esta en
+`src/Fmx/OSM/uOSMLib.Fmx.MapBootstrap.pas`.
+
+En la ronda actual de trabajo, las MegaDemo `VCL` y `FMX` ya están preparadas
+para registrar familias de eventos de `OSM` (`Move`, `Render`, `Data`) con
+filtro por checkbox, usando `LastEventName` para mostrar el evento real que
+entra desde el runtime JS.

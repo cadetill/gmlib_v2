@@ -98,8 +98,16 @@
         <UnitName Value="uGMLib.Lcl.Circle"/>
       </Item>
       <Item>
+        <Filename Value="..\src\Lcl\GM\uGMLib.Lcl.Marker.pas"/>
+        <UnitName Value="uGMLib.Lcl.Marker"/>
+      </Item>
+      <Item>
         <Filename Value="..\src\Lcl\GM\uGMLib.Lcl.Polygon.pas"/>
         <UnitName Value="uGMLib.Lcl.Polygon"/>
+      </Item>
+      <Item>
+        <Filename Value="..\src\Lcl\GM\uGMLib.Lcl.Polyline.pas"/>
+        <UnitName Value="uGMLib.Lcl.Polyline"/>
       </Item>
       <Item>
         <Filename Value="..\src\Lcl\GM\uGMLib.Lcl.Rectangle.pas"/>

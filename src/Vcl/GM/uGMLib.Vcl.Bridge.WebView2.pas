@@ -14,6 +14,7 @@ interface
 uses
   System.Classes,
   System.Generics.Collections,
+  System.Math,
   System.SysUtils,
   Vcl.ExtCtrls,
   Vcl.Edge,
@@ -25,7 +26,7 @@ uses
 
 type
   {** @abstract(ImplementaciÃ³n inicial del transporte WebView2.) }
-  TGMLibWebView2Bridge = class(TInterfacedObject, IMapBridgeTransport)
+  TGMLibWebView2Bridge = class(TInterfacedObject, IMapBridgeTransport, IMapBridgeInterval)
   private
     FBrowser: TEdgeBrowser;
     FIsReady: Boolean;
@@ -37,6 +38,8 @@ type
     FCommandQueue: TList<string>;
     FFlushTimer: TTimer;
     FFlushInProgress: Boolean;
+    function GetBridgeInterval: Integer;
+    procedure SetBridgeInterval(const Value: Integer);
     procedure DoCreateWebViewCompleted(Sender: TCustomEdgeBrowser; AResult: HRESULT);
     procedure DoNavigationCompleted(Sender: TCustomEdgeBrowser; IsSuccess: Boolean;
       WebErrorStatus: TOleEnum);
@@ -203,6 +206,14 @@ begin
   Result := FIsReady;
 end;
 
+function TGMLibWebView2Bridge.GetBridgeInterval: Integer;
+begin
+  if Assigned(FFlushTimer) then
+    Result := FFlushTimer.Interval
+  else
+    Result := 1;
+end;
+
 procedure TGMLibWebView2Bridge.LoadHtml(const AHtml: string);
 begin
   if not Assigned(FBrowser) then
@@ -279,6 +290,12 @@ procedure TGMLibWebView2Bridge.SetOnMessageReceived(
   const AHandler: TMapBridgeMessageReceivedEvent);
 begin
   FOnMessageReceived := AHandler;
+end;
+
+procedure TGMLibWebView2Bridge.SetBridgeInterval(const Value: Integer);
+begin
+  if Assigned(FFlushTimer) then
+    FFlushTimer.Interval := EnsureRange(Value, 1, 1000);
 end;
 
 procedure TGMLibWebView2Bridge.SetReady(AValue: Boolean);

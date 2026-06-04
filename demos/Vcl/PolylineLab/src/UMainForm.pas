@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.StrUtils, System.SysUtils, System.Variants, System.Classes,
   System.Types, System.TypInfo, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
-  Vcl.Edge, Winapi.WebView2, uGMLib.Core.Types, uGMLib.Vcl.Map, uGMLib.Vcl.Polyline,
+   Vcl.Edge, Winapi.WebView2, uGMLib.Core.Types, uGMLib.Google.Types, uGMLib.Vcl.Map, uGMLib.Vcl.Polyline,
   Winapi.ActiveX;
 
 type

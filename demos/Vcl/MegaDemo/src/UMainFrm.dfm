@@ -14,8 +14,8 @@ object MainFrm: TMainFrm
   TextHeight = 15
   object Splitter1: TSplitter
     Left = 953
-    Top = 237
-    Height = 476
+    Top = 230
+    Height = 483
     Align = alRight
     ExplicitLeft = 624
     ExplicitTop = 328
@@ -23,21 +23,23 @@ object MainFrm: TMainFrm
   end
   object EdgeBrowser1: TEdgeBrowser
     Left = 0
-    Top = 237
+    Top = 230
     Width = 953
-    Height = 476
+    Height = 483
     Align = alClient
     TabOrder = 0
     AllowSingleSignOnUsingOSPrimaryAccount = False
     TargetCompatibleBrowserVersion = '137.0.3296.44'
     UserDataFolder = '%LOCALAPPDATA%\bds.exe.WebView2'
+    ExplicitTop = 237
+    ExplicitHeight = 476
   end
   object pcSupplier: TPageControl
     Left = 0
     Top = 0
     Width = 1235
-    Height = 237
-    ActivePage = tsOSM
+    Height = 230
+    ActivePage = tsGM
     Align = alTop
     TabOrder = 1
     object tsGM: TTabSheet
@@ -895,7 +897,7 @@ object MainFrm: TMainFrm
             Top = 8
             Width = 552
             Height = 163
-            ActivePage = tsHTML
+            ActivePage = tsPin
             Anchors = [akLeft, akTop, akRight]
             TabOrder = 17
             object tsHTML: TTabSheet
@@ -2531,10 +2533,11 @@ object MainFrm: TMainFrm
         Left = 0
         Top = 0
         Width = 1227
-        Height = 207
-        ActivePage = tsOSMOffline
+        Height = 200
+        ActivePage = tsOSMGeneral
         Align = alClient
         TabOrder = 0
+        ExplicitHeight = 207
         object tsOSMGeneral: TTabSheet
           Caption = 'Map'
           object lOSMCenterLat: TLabel
@@ -2559,29 +2562,29 @@ object MainFrm: TMainFrm
             Caption = 'Zoom'
           end
           object lOSMNorth: TLabel
-            Left = 16
-            Top = 122
+            Left = 948
+            Top = 63
             Width = 31
             Height = 15
             Caption = 'North'
           end
           object lOSMSouth: TLabel
-            Left = 104
-            Top = 122
+            Left = 1036
+            Top = 63
             Width = 31
             Height = 15
             Caption = 'South'
           end
           object lOSMEast: TLabel
-            Left = 192
-            Top = 122
+            Left = 948
+            Top = 110
             Width = 21
             Height = 15
             Caption = 'East'
           end
           object lOSMWest: TLabel
-            Left = 280
-            Top = 122
+            Left = 1036
+            Top = 110
             Width = 26
             Height = 15
             Caption = 'West'
@@ -2599,6 +2602,34 @@ object MainFrm: TMainFrm
             Width = 58
             Height = 15
             Caption = 'Map mode'
+          end
+          object lOSMBearing: TLabel
+            Left = 16
+            Top = 122
+            Width = 40
+            Height = 15
+            Caption = 'Bearing'
+          end
+          object lOSMPitch: TLabel
+            Left = 104
+            Top = 122
+            Width = 27
+            Height = 15
+            Caption = 'Pitch'
+          end
+          object lOSMMinZoom: TLabel
+            Left = 192
+            Top = 122
+            Width = 54
+            Height = 15
+            Caption = 'Min zoom'
+          end
+          object lOSMMaxZoom: TLabel
+            Left = 280
+            Top = 122
+            Width = 55
+            Height = 15
+            Caption = 'Max zoom'
           end
           object eOSMCenterLat: TEdit
             Left = 16
@@ -2643,39 +2674,39 @@ object MainFrm: TMainFrm
             OnClick = ApplyOSMViewClick
           end
           object eOSMNorth: TEdit
-            Left = 16
-            Top = 140
+            Left = 948
+            Top = 81
             Width = 80
             Height = 23
             TabOrder = 5
             Text = '41.42'
           end
           object eOSMSouth: TEdit
-            Left = 104
-            Top = 140
+            Left = 1036
+            Top = 81
             Width = 80
             Height = 23
             TabOrder = 6
             Text = '41.35'
           end
           object eOSMEast: TEdit
-            Left = 192
-            Top = 140
+            Left = 948
+            Top = 128
             Width = 80
             Height = 23
             TabOrder = 7
             Text = '2.22'
           end
           object eOSMWest: TEdit
-            Left = 280
-            Top = 140
+            Left = 1036
+            Top = 128
             Width = 80
             Height = 23
             TabOrder = 8
             Text = '2.12'
           end
           object bFitOSMBounds: TButton
-            Left = 946
+            Left = 948
             Top = 32
             Width = 110
             Height = 25
@@ -2739,6 +2770,116 @@ object MainFrm: TMainFrm
             Height = 23
             Style = csDropDownList
             TabOrder = 16
+          end
+          object eOSMBearing: TEdit
+            Left = 16
+            Top = 140
+            Width = 80
+            Height = 23
+            TabOrder = 17
+            Text = '0'
+          end
+          object eOSMPitch: TEdit
+            Left = 104
+            Top = 140
+            Width = 80
+            Height = 23
+            TabOrder = 18
+            Text = '0'
+          end
+          object eOSMMinZoom: TEdit
+            Left = 192
+            Top = 140
+            Width = 80
+            Height = 23
+            TabOrder = 19
+            Text = '0'
+          end
+          object eOSMMaxZoom: TEdit
+            Left = 280
+            Top = 140
+            Width = 80
+            Height = 23
+            TabOrder = 20
+            Text = '22'
+          end
+          object cbOSMDragPan: TCheckBox
+            Left = 384
+            Top = 118
+            Width = 97
+            Height = 17
+            Caption = 'DragPan'
+            Checked = True
+            State = cbChecked
+            TabOrder = 21
+          end
+          object cbOSMDragRotate: TCheckBox
+            Left = 490
+            Top = 118
+            Width = 97
+            Height = 17
+            Caption = 'DragRotate'
+            Checked = True
+            State = cbChecked
+            TabOrder = 22
+          end
+          object cbOSMDoubleClickZoom: TCheckBox
+            Left = 596
+            Top = 118
+            Width = 140
+            Height = 17
+            Caption = 'DoubleClickZoom'
+            Checked = True
+            State = cbChecked
+            TabOrder = 23
+          end
+          object cbOSMScrollZoom: TCheckBox
+            Left = 742
+            Top = 118
+            Width = 97
+            Height = 17
+            Caption = 'ScrollZoom'
+            Checked = True
+            State = cbChecked
+            TabOrder = 24
+          end
+          object cbOSMKeyboard: TCheckBox
+            Left = 384
+            Top = 142
+            Width = 97
+            Height = 17
+            Caption = 'Keyboard'
+            Checked = True
+            State = cbChecked
+            TabOrder = 25
+          end
+          object cbOSMTouchZoomRotate: TCheckBox
+            Left = 490
+            Top = 142
+            Width = 125
+            Height = 17
+            Caption = 'TouchZoomRotate'
+            Checked = True
+            State = cbChecked
+            TabOrder = 26
+          end
+          object cbOSMTouchPitch: TCheckBox
+            Left = 622
+            Top = 142
+            Width = 97
+            Height = 17
+            Caption = 'TouchPitch'
+            Checked = True
+            State = cbChecked
+            TabOrder = 27
+          end
+          object cbOSMCooperativeGestures: TCheckBox
+            Left = 726
+            Top = 142
+            Width = 154
+            Height = 17
+            Caption = 'CooperativeGestures'
+            TabOrder = 28
           end
         end
         object tsOSMOffline: TTabSheet
@@ -2837,7 +2978,7 @@ object MainFrm: TMainFrm
             Left = 16
             Top = 16
             Width = 420
-            Height = 160
+            Height = 150
             ItemHeight = 15
             TabOrder = 0
           end
@@ -2872,12 +3013,14 @@ object MainFrm: TMainFrm
   end
   object pRight: TPanel
     Left = 956
-    Top = 237
+    Top = 230
     Width = 279
-    Height = 476
+    Height = 483
     Align = alRight
     Caption = 'pRight'
     TabOrder = 2
+    ExplicitTop = 237
+    ExplicitHeight = 476
     object lStatus: TLabel
       Left = 1
       Top = 1
@@ -2891,11 +3034,12 @@ object MainFrm: TMainFrm
       Left = 1
       Top = 16
       Width = 277
-      Height = 459
+      Height = 466
       Align = alClient
       ReadOnly = True
       ScrollBars = ssBoth
       TabOrder = 0
+      ExplicitHeight = 459
     end
   end
   object GMMap: TGMLibVclMap
@@ -2993,6 +3137,7 @@ object MainFrm: TMainFrm
   end
   object OSMMap: TOSMLibVclMap
     OfflineStoragePath = 'C:\Users\cadetill\AppData\Local\Temp\GMLib\OSM'
+    MaxZoom = 22.000000000000000000
     MapId = 'OSMLib_MAP'
     StyleUrl = 'https://tiles.openfreemap.org/styles/bright'
     MapLibreCssUrl = 'https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.css'

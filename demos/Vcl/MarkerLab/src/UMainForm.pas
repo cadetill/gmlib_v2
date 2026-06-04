@@ -13,7 +13,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.StrUtils, System.SysUtils, System.Classes, Vcl.Controls,
   Vcl.Forms, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Edge,
-  uGMLib.Core.Types, uGMLib.Marker, uGMLib.Vcl.Map;
+   uGMLib.Core.Types, uGMLib.Google.Types, uGMLib.Marker, uGMLib.Vcl.Map;
 
 const
   WM_ADD_CLICK_MARKER = WM_APP + 42;

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units>
+      <Unit>
+        <Filename Value="MegaDemo.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UsageCount Value="20"/>
+      </Unit>
+      <Unit>
+        <Filename Value="src\UMainFrm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+        <EditorIndex Value="1"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="src\UMainFrm.lfm"/>
+        <IsVisibleTab Value="True"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+        <DefaultSyntaxHighlighter Value="LFM"/>
+      </Unit>
+    </Units>
+    <JumpHistory HistoryIndex="10">
+      <Position>
+        <Filename Value="src\UMainFrm.lfm"/>
+      </Position>
+      <Position>
+        <Filename Value="src\UMainFrm.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="src\UMainFrm.lfm"/>
+      </Position>
+      <Position>
+        <Filename Value="src\UMainFrm.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="src\UMainFrm.lfm"/>
+      </Position>
+      <Position>
+        <Filename Value="src\UMainFrm.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="src\UMainFrm.lfm"/>
+      </Position>
+      <Position>
+        <Filename Value="src\UMainFrm.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="src\UMainFrm.lfm"/>
+      </Position>
+      <Position>
+        <Filename Value="src\UMainFrm.pas"/>
+      </Position>
+      <Position>
+        <Filename Value="src\UMainFrm.lfm"/>
+      </Position>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>

@@ -94,8 +94,8 @@ end;
 constructor TMapLibHttpRemoteTileProvider.Create;
 begin
   inherited Create;
-  FConnectTimeout := 4000;
-  FResponseTimeout := 8000;
+  FConnectTimeout := 15000;
+  FResponseTimeout := 30000;
 {$IFNDEF FPC}
   FHttpClient := THTTPClient.Create;
   FHttpClient.ConnectionTimeout := FConnectTimeout;
@@ -111,12 +111,12 @@ begin
   inherited Destroy;
 end;
 
-function TMapLibHttpRemoteTileProvider._AddRef: Integer;
+function TMapLibHttpRemoteTileProvider._AddRef: Integer; stdcall;
 begin
   Result := -1;
 end;
 
-function TMapLibHttpRemoteTileProvider._Release: Integer;
+function TMapLibHttpRemoteTileProvider._Release: Integer; stdcall;
 begin
   Result := -1;
 end;
@@ -132,7 +132,7 @@ var
 {$ENDIF}
 begin
   Result := False;
-  SetLength(ATileData, 0);
+  ATileData := nil;
   AContentType := '';
   AContentEncoding := '';
 

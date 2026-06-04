@@ -17,6 +17,13 @@ Contenido actual (backend GM):
 
 El componente actual es no visual y requiere un `TEdgeBrowser` externo asignado en la propiedad `Browser`.
 
+Contrato actual de `Browser`:
+
+- `TGMLibVclMap` y `TOSMLibVclMap` esperan un `TEdgeBrowser`
+- el bridge VCL usa `WebView2`
+- `BridgeInterval` existe como propiedad de componente para ajustar el timer
+  interno del bridge cuando aplique
+
 Nota de diseño:
 
 - la clase real registrada en el IDE es `TGMLibVclMap`

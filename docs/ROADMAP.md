@@ -35,21 +35,38 @@
 ## In progress
 
 - OSM pilot backend (`OSMLib`, based on `MapLibre + OSM`):
-  - map/bootstrap and map event flow are working in Delphi and Lazarus.
+  - map/bootstrap and map event flow are working in `VCL`, `FMX`, and `LCL`.
+  - runtime command coverage is no longer limited to bootstrap + click path:
+    `map.set_view`, `map.set_style`, `map.fit_bounds`, and `map.set_options`
+    are now implemented end-to-end.
+  - map event forwarding now includes the main view/runtime families
+    (`move*`, `drag*`, `zoom*`, `rotate*`, `pitch*`, `load`, `idle`,
+    `render`, `data*`, `styledata*`, `boundschanged`, etc.).
   - JSON payload handling has first defensive parsing pass (non-breaking error
     reporting via `OnError` on protocol exceptions).
   - first overlay slice closed: `Markers` with per-item events
     (`OnClick`, `OnDragStart`, `OnDrag`, `OnDragEnd`).
   - helper methods added in marker collection (`Add`, `Clear`,
     `DeleteByObjectId`, `ZoomToMarkers`).
-  - offline pilot available with `MapMode` and style/tile source wiring.
+  - offline/hybrid runtime validated in `VCL`.
+  - `FMX` and `LCL` bootstraps now accept local MapLibre CSS/JS assets through
+    the same embedded/file-switch strategy used in `VCL`.
+  - `GMLibRuntime.Lcl` compile path is back to green after the latest FPC
+    compatibility fixes in the common offline/runtime layer.
+  - `VCL/FMX MegaDemo` now expose camera/interactions for the OSM map runtime,
+    but this specific round still needs compile + visual validation.
 
-- OSM offline native architecture (new focus):
-- OSM offline runtime unification (current step):`r`n  - `OfflineTileProvider` added (`Auto/EmbeddedTileJson/ExternalPmtiles/NativePmtiles`).`r`n  - runtime now separates tile server and offline assets server (localhost).`r`n  - bootstrap consumes runtime-resolved offline URLs (style/tilejson/glyphs).`r`n
+- Google LCL framework parity:
+  - `MapOptions`, `Circle`, `Polygon`, and `Rectangle` already exposed `TColor`.
+  - `Marker` and `Polyline` LCL wrappers were added to complete the same native
+    color policy used by `VCL` and `FMX`.
+
+- OSM offline native architecture (current focus):
   - target runtime is embedded and mobile-ready (`Android/iOS`) with no external
     executables as mandatory runtime dependencies.
-  - current external PMTiles process path is now considered transitional.
-  - next step is a native `OfflineRegionManager` with internal localhost server.
+  - current runtime direction is `MapLibre + localhost + SQLite cache`.
+  - `OfflineRegionManager`, `StyleProvider`, `TileResolver`, and related units
+    are now covered by deterministic unit tests.
 
 ## Next milestones
 
@@ -58,7 +75,9 @@
 - Validate and stabilize framework parity (`VCL`/`FMX`/`LCL`) for the current
   map + marker baseline.
 - Keep OSM bootstrap asset pipeline aligned with the current
-  embedded/file-switch strategy.
+  embedded/file-switch strategy across all wrappers.
+- Validate `VCL` and `FMX MegaDemo` against the expanded OSM runtime before
+  opening new slices or refactors.
 
 ### Milestone 2: first OSM functional slice
 
@@ -75,7 +94,8 @@
 ## Cross-cutting
 
 - Keep docs aligned with real implementation status (`README`, architecture, roadmap).
-- Increase deterministic unit tests on shared/core behavior.
+- Increase deterministic unit tests on shared/core behavior, especially around
+  `OSMLib` and the offline runtime.
 - Keep Delphi 11/12/13 and Lazarus compatibility validated during refactors.
 - Keep optional `CEF4Delphi` bridge outside default mandatory runtime dependencies.
 - `AirQualityMeterElement` remains future/experimental because Google documents it in `v=alpha`.

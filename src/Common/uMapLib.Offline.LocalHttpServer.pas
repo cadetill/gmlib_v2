@@ -15,7 +15,7 @@ uses
 {$IFDEF FPC}
   Classes, SysUtils,
 {$ELSE}
-  System.Classes, System.SysUtils,
+  System.Classes, System.SysUtils, System.TypInfo,
   IdContext, IdCustomHTTPServer, IdHTTPServer, IdExceptionCore, IdException, IdStack
   {$IFDEF MSWINDOWS}, Winapi.Winsock2{$ENDIF},
 {$ENDIF}
@@ -70,11 +70,9 @@ type
 
 implementation
 
-uses
-  uMapLib.Core.Types;
-
 { TMapLibLocalHttpServer }
 
+{$IFNDEF FPC}
 procedure TMapLibLocalHttpServer.ApplyCorsHeaders(
   AResponseInfo: TIdHTTPResponseInfo);
 begin
@@ -82,6 +80,7 @@ begin
   AResponseInfo.CustomHeaders.Values['Access-Control-Allow-Methods'] := 'GET, HEAD, OPTIONS';
   AResponseInfo.CustomHeaders.Values['Access-Control-Allow-Headers'] := '*';
 end;
+{$ENDIF}
 
 function TMapLibLocalHttpServer.BuildRuntimeUrl(const APathAndQuery: string): string;
 var
@@ -227,6 +226,8 @@ function TMapLibLocalHttpServer.Start: Boolean;
 {$IFNDEF FPC}
 var
   effectivePort: Integer;
+  propInfo: PPropInfo;
+  allocatedPort: Integer;
 {$ENDIF}
 begin
   FLastError := '';
@@ -267,10 +268,22 @@ begin
     end;
   end;
 
-  if (FServer.Bindings.Count > 0) and (FServer.Bindings[0].Port > 0) then
-    effectivePort := FServer.Bindings[0].Port
-  else
-    effectivePort := FPort;
+  effectivePort := FPort;
+  if FServer.Bindings.Count > 0 then
+  begin
+    if FServer.Bindings[0].Port > 0 then
+      effectivePort := FServer.Bindings[0].Port
+    else
+    begin
+      propInfo := GetPropInfo(FServer.Bindings[0], 'AllocatedPort');
+      if Assigned(propInfo) then
+      begin
+        allocatedPort := GetOrdProp(FServer.Bindings[0], propInfo);
+        if allocatedPort > 0 then
+          effectivePort := allocatedPort;
+      end;
+    end;
+  end;
 
   FBaseUrl := Format('http://127.0.0.1:%d/', [effectivePort]);
   Result := True;

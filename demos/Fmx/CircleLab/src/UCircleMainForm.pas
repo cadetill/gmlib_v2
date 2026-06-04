@@ -22,6 +22,7 @@ uses
   uGMLib.Core.Types,
   uGMLib.Fmx.Circle,
   uGMLib.Fmx.Map,
+  uGMLib.Google.Types,
   FMX.ScrollBox;
 
 type

@@ -12,6 +12,8 @@ uses
   Classes,
   SysUtils,
   StrUtils,
+  fpjson,
+  jsonparser,
 {$ELSE}
   System.Classes,
   System.SysUtils,
@@ -109,7 +111,18 @@ type
     FGlyphsRootPath: string;
     FCenterLat: Double;
     FCenterLng: Double;
+    FMinZoom: Double;
+    FMaxZoom: Double;
     FMapId: TGMObjectId;
+    FLastEventName: string;
+    FDragPanEnabled: Boolean;
+    FDragRotateEnabled: Boolean;
+    FDoubleClickZoomEnabled: Boolean;
+    FScrollZoomEnabled: Boolean;
+    FKeyboardEnabled: Boolean;
+    FTouchZoomRotateEnabled: Boolean;
+    FTouchPitchEnabled: Boolean;
+    FCooperativeGesturesEnabled: Boolean;
     FOnMapReady: TOSMMapReadyEvent;
     FOnClick: TOSMMapCoordinateEvent;
     FOnContextMenu: TOSMMapCoordinateEvent;
@@ -189,6 +202,8 @@ type
     procedure SetBridge(const Value: IMapBridgeTransport);
     procedure SetCenterLat(const Value: Double);
     procedure SetCenterLng(const Value: Double);
+    procedure SetMinZoom(const Value: Double);
+    procedure SetMaxZoom(const Value: Double);
     procedure SetMapId(const Value: TGMObjectId);
     procedure SetStyleUrl(const Value: string);
     procedure SetOfflineStoragePath(const Value: string);
@@ -205,6 +220,16 @@ type
     // procedure SetOfflineServerEnabled(const Value: Boolean);
     procedure SetMapLibreCssUrl(const Value: string);
     procedure SetMapLibreJsUrl(const Value: string);
+    procedure SetBearing(const Value: Double);
+    procedure SetPitch(const Value: Double);
+    procedure SetDragPanEnabled(const Value: Boolean);
+    procedure SetDragRotateEnabled(const Value: Boolean);
+    procedure SetDoubleClickZoomEnabled(const Value: Boolean);
+    procedure SetScrollZoomEnabled(const Value: Boolean);
+    procedure SetKeyboardEnabled(const Value: Boolean);
+    procedure SetTouchZoomRotateEnabled(const Value: Boolean);
+    procedure SetTouchPitchEnabled(const Value: Boolean);
+    procedure SetCooperativeGesturesEnabled(const Value: Boolean);
     // procedure SetOfflineMode(const Value: Boolean);
     // procedure SetOfflinePolicy(const Value: TMapLibOfflinePolicy);
     // procedure SetOfflineTileProvider(const Value: TMapLibOfflineTileProvider);
@@ -216,10 +241,12 @@ type
     procedure HandleOfflineError(Sender: TObject; AErrorCode: Integer; const AUserMessage, ATechnicalMessage: string);
     procedure BridgeMessageReceived(Sender: TObject; const AEnvelope: TMapLibMessageEnvelope);
     function BuildSetViewPayload: string;
+    function BuildSetOptionsPayload: string;
     function BuildSetStylePayload: string;
     function BuildMarkerAddEnvelope(AMarker: TOSMMarkerItem): TMapLibMessageEnvelope;
     function CreateEnvelope(const AMessageType, APayload: string): TMapLibMessageEnvelope;
     procedure SyncViewToBridge;
+    procedure SyncOptionsToBridge;
     procedure SyncMarkersToBridge;
     procedure MarkersChanged(Sender: TObject);
     procedure DispatchMapEvent(const AEventName, APayload: string);
@@ -242,6 +269,7 @@ type
     function BuildJsBootstrapConfig: string;
     procedure ApplyStyle;
     function ResolveStyleUrl: string;
+    function GetRuntimeBaseUrl: string;
     // function ResolveOfflineStyleUrl: string;
     function ResolveMapLibreCssUrl: string;
     function ResolveMapLibreJsUrl: string;
@@ -254,6 +282,7 @@ type
     property Bridge: IMapBridgeTransport read FBridge write SetBridge;
     property OfflineRegionManager: IMapLibOfflineRegionManager read FOfflineRegionManager;
     property VectorRuntime: TMapLibVectorRuntime read FVectorRuntime;
+    property LastEventName: string read FLastEventName;
   published
     property Active: Boolean read FActive write SetActive default False;
     property OfflineStoragePath: string read FOfflineStoragePath write SetOfflineStoragePath;
@@ -268,6 +297,8 @@ type
     //   write SetOfflineTileProvider default otpAuto;
     property CenterLat: Double read FCenterLat write SetCenterLat;
     property CenterLng: Double read FCenterLng write SetCenterLng;
+    property MinZoom: Double read FMinZoom write SetMinZoom;
+    property MaxZoom: Double read FMaxZoom write SetMaxZoom;
     property MapId: TGMObjectId read FMapId write SetMapId;
     property OnMapReady: TOSMMapReadyEvent read FOnMapReady write FOnMapReady;
     property OnClick: TOSMMapCoordinateEvent read FOnClick write FOnClick;
@@ -334,8 +365,17 @@ type
     property MapLibreCssUrl: string read FMapLibreCssUrl write SetMapLibreCssUrl;
     property MapLibreJsUrl: string read FMapLibreJsUrl write SetMapLibreJsUrl;
     property Zoom: Double read FZoom write SetZoom;
-    property Bearing: Double read FBearing;
-    property Pitch: Double read FPitch;
+    property RuntimeBaseUrl: string read GetRuntimeBaseUrl;
+    property Bearing: Double read FBearing write SetBearing;
+    property Pitch: Double read FPitch write SetPitch;
+    property DragPanEnabled: Boolean read FDragPanEnabled write SetDragPanEnabled default True;
+    property DragRotateEnabled: Boolean read FDragRotateEnabled write SetDragRotateEnabled default True;
+    property DoubleClickZoomEnabled: Boolean read FDoubleClickZoomEnabled write SetDoubleClickZoomEnabled default True;
+    property ScrollZoomEnabled: Boolean read FScrollZoomEnabled write SetScrollZoomEnabled default True;
+    property KeyboardEnabled: Boolean read FKeyboardEnabled write SetKeyboardEnabled default True;
+    property TouchZoomRotateEnabled: Boolean read FTouchZoomRotateEnabled write SetTouchZoomRotateEnabled default True;
+    property TouchPitchEnabled: Boolean read FTouchPitchEnabled write SetTouchPitchEnabled default True;
+    property CooperativeGesturesEnabled: Boolean read FCooperativeGesturesEnabled write SetCooperativeGesturesEnabled default False;
   end;
 
 function GetOSMMapStyleUrl(AMap: TOSMMap): string;
@@ -350,22 +390,35 @@ implementation
 
 uses
   // uMapLib.Offline.TileServer,
-{$IFDEF MSWINDOWS}
-  {$IFDEF FPC}
-  Windows,
-  WinInet,
-  {$ELSE}
-  Winapi.Windows,
-  Winapi.WinInet,
-  {$ENDIF}
+{$IFNDEF FPC}
+  System.IOUtils,
 {$ENDIF}
-  System.IOUtils;
+{$IFDEF MSWINDOWS}
+{$IFDEF FPC}
+  Windows,
+  WinInet
+{$ELSE}
+  Winapi.Windows,
+  Winapi.WinInet
+{$ENDIF}
+{$ENDIF}
+  ;
 
 const
   DEFAULT_MAPLIBRE_STYLE_URL = 'https://tiles.openfreemap.org/styles/bright';
   DEFAULT_MAPLIBRE_CSS_URL = 'https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.css';
   DEFAULT_MAPLIBRE_JS_URL = 'https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.js';
 
+function BuildDefaultOfflineStoragePath: string;
+begin
+{$IFDEF FPC}
+  Result := IncludeTrailingPathDelimiter(GetTempDir) + 'GMLib' + PathDelim + 'OSM';
+{$ELSE}
+  Result := TPath.Combine(TPath.GetTempPath, 'GMLib\OSM');
+{$ENDIF}
+end;
+
+(*
 type
 {$IFDEF MSWINDOWS}
   TOSMExternalPmTilesServer = class(TInterfacedObject, IMapLibOfflineTileServer)
@@ -386,6 +439,7 @@ type
     function GetLastError: string;
   end;
 {$ENDIF}
+*)
 
 {$IFDEF MSWINDOWS}
 function HttpUrlIsReachable(const AUrl: string): Boolean;
@@ -411,6 +465,7 @@ begin
 end;
 {$ENDIF}
 
+(*
 {$IFDEF MSWINDOWS}
 { TOSMExternalPmTilesServer }
 
@@ -516,6 +571,7 @@ begin
   Result := FLastError;
 end;
 {$ENDIF}
+*)
 
 { TOSMMarkerItem }
 
@@ -770,7 +826,10 @@ begin
   inherited Create(AOwner);
   FCenterLat := 0;
   FCenterLng := 0;
+  FMinZoom := 0;
+  FMaxZoom := 22;
   FMapId := 'OSMLib_MAP';
+  FLastEventName := '';
   FStyleUrl := DEFAULT_MAPLIBRE_STYLE_URL;
   // FOfflineStyleUrl := '';
   // FOfflineRasterTilesUrlTemplate := '';
@@ -788,11 +847,19 @@ begin
   FZoom := 1;
   FBearing := 0;
   FPitch := 0;
+  FDragPanEnabled := True;
+  FDragRotateEnabled := True;
+  FDoubleClickZoomEnabled := True;
+  FScrollZoomEnabled := True;
+  FKeyboardEnabled := True;
+  FTouchZoomRotateEnabled := True;
+  FTouchPitchEnabled := True;
+  FCooperativeGesturesEnabled := False;
   // FOfflineMode := False;
   FMapMode := omOnline;
   FOfflinePolicy := opPreferOffline;
   // FOfflineTileProvider := otpAuto;
-  FOfflineStoragePath := TPath.Combine(TPath.GetTempPath, 'GMLib\OSM');
+  FOfflineStoragePath := BuildDefaultOfflineStoragePath;
   FRemoteTileTemplate := '';
   FStyleTemplateFileName := '';
   FGlyphsRootPath := '';
@@ -804,9 +871,15 @@ begin
   FVectorRuntime.StyleTemplateFileName := FStyleTemplateFileName;
   FVectorRuntime.GlyphsRootPath := FGlyphsRootPath;
   FOfflineRegionManager := TMapLibOfflineRegionManager.Create(FOfflineStoragePath);
+{$IFDEF FPC}
+  FOfflineRegionManager.OnDownloadProgress := @HandleOfflineDownloadProgress;
+  FOfflineRegionManager.OnRegionReady := @HandleOfflineRegionReady;
+  FOfflineRegionManager.OnOfflineError := @HandleOfflineError;
+{$ELSE}
   FOfflineRegionManager.OnDownloadProgress := HandleOfflineDownloadProgress;
   FOfflineRegionManager.OnRegionReady := HandleOfflineRegionReady;
   FOfflineRegionManager.OnOfflineError := HandleOfflineError;
+{$ENDIF}
   FMarkers := TOSMMarkers.Create(Self);
 {$IFDEF FPC}
   FMarkers.OnChange := @MarkersChanged;
@@ -880,6 +953,14 @@ begin
     Result := DEFAULT_MAPLIBRE_JS_URL;
 end;
 
+function TOSMMap.GetRuntimeBaseUrl: string;
+begin
+  if Assigned(FVectorRuntime) then
+    Result := FVectorRuntime.GetBaseUrl
+  else
+    Result := '';
+end;
+
 function GetOSMMapLibreCssUrl(AMap: TOSMMap): string;
 var
   isHttp: Boolean;
@@ -949,6 +1030,22 @@ begin
   SyncViewToBridge;
 end;
 
+procedure TOSMMap.SetMinZoom(const Value: Double);
+begin
+  if FMinZoom = Value then
+    Exit;
+  FMinZoom := Value;
+  SyncOptionsToBridge;
+end;
+
+procedure TOSMMap.SetMaxZoom(const Value: Double);
+begin
+  if FMaxZoom = Value then
+    Exit;
+  FMaxZoom := Value;
+  SyncOptionsToBridge;
+end;
+
 procedure TOSMMap.SetMapId(const Value: TGMObjectId);
 begin
   if FMapId = Value then
@@ -972,8 +1069,8 @@ begin
   FOfflineStoragePath := Value;
   if Assigned(FVectorRuntime) then
     FVectorRuntime.OfflineStoragePath := FOfflineStoragePath;
-  if Assigned(FOfflineRegionManager) and (FOfflineRegionManager is TMapLibOfflineRegionManager) then
-    TMapLibOfflineRegionManager(FOfflineRegionManager).StorageBasePath := FOfflineStoragePath;
+  if Assigned(FOfflineRegionManager) then
+    FOfflineRegionManager.SetStorageBasePath(FOfflineStoragePath);
 end;
 
 procedure TOSMMap.SetOfflinePolicy(const Value: TMapLibOfflinePolicy);
@@ -1055,6 +1152,86 @@ begin
   FMapLibreJsUrl := Value;
 end;
 
+procedure TOSMMap.SetBearing(const Value: Double);
+begin
+  if FBearing = Value then
+    Exit;
+  FBearing := Value;
+  SyncViewToBridge;
+end;
+
+procedure TOSMMap.SetPitch(const Value: Double);
+begin
+  if FPitch = Value then
+    Exit;
+  FPitch := Value;
+  SyncViewToBridge;
+end;
+
+procedure TOSMMap.SetDragPanEnabled(const Value: Boolean);
+begin
+  if FDragPanEnabled = Value then
+    Exit;
+  FDragPanEnabled := Value;
+  SyncOptionsToBridge;
+end;
+
+procedure TOSMMap.SetDragRotateEnabled(const Value: Boolean);
+begin
+  if FDragRotateEnabled = Value then
+    Exit;
+  FDragRotateEnabled := Value;
+  SyncOptionsToBridge;
+end;
+
+procedure TOSMMap.SetDoubleClickZoomEnabled(const Value: Boolean);
+begin
+  if FDoubleClickZoomEnabled = Value then
+    Exit;
+  FDoubleClickZoomEnabled := Value;
+  SyncOptionsToBridge;
+end;
+
+procedure TOSMMap.SetScrollZoomEnabled(const Value: Boolean);
+begin
+  if FScrollZoomEnabled = Value then
+    Exit;
+  FScrollZoomEnabled := Value;
+  SyncOptionsToBridge;
+end;
+
+procedure TOSMMap.SetKeyboardEnabled(const Value: Boolean);
+begin
+  if FKeyboardEnabled = Value then
+    Exit;
+  FKeyboardEnabled := Value;
+  SyncOptionsToBridge;
+end;
+
+procedure TOSMMap.SetTouchZoomRotateEnabled(const Value: Boolean);
+begin
+  if FTouchZoomRotateEnabled = Value then
+    Exit;
+  FTouchZoomRotateEnabled := Value;
+  SyncOptionsToBridge;
+end;
+
+procedure TOSMMap.SetTouchPitchEnabled(const Value: Boolean);
+begin
+  if FTouchPitchEnabled = Value then
+    Exit;
+  FTouchPitchEnabled := Value;
+  SyncOptionsToBridge;
+end;
+
+procedure TOSMMap.SetCooperativeGesturesEnabled(const Value: Boolean);
+begin
+  if FCooperativeGesturesEnabled = Value then
+    Exit;
+  FCooperativeGesturesEnabled := Value;
+  SyncOptionsToBridge;
+end;
+
 procedure TOSMMap.SetZoom(const Value: Double);
 begin
   if FZoom = Value then
@@ -1070,11 +1247,37 @@ begin
   FBridge.PostCommand(CreateEnvelope('map.set_view', BuildSetViewPayload));
 end;
 
+procedure TOSMMap.SyncOptionsToBridge;
+begin
+  if not FActive or not Assigned(FBridge) then
+    Exit;
+  FBridge.PostCommand(CreateEnvelope('map.set_options', BuildSetOptionsPayload));
+end;
+
 function TOSMMap.BuildSetViewPayload: string;
 begin
   Result := Format(
-    '{"center":{"lat":%.15g,"lng":%.15g},"zoom":%.15g}',
-    [FCenterLat, FCenterLng, FZoom],
+    '{"center":{"lat":%.15g,"lng":%.15g},"zoom":%.15g,"bearing":%.15g,"pitch":%.15g}',
+    [FCenterLat, FCenterLng, FZoom, FBearing, FPitch],
+    GMLibInvariantFormatSettings
+  );
+end;
+
+function TOSMMap.BuildSetOptionsPayload: string;
+begin
+  Result := Format(
+    '{"minZoom":%.15g,"maxZoom":%.15g,"dragPanEnabled":%s,"dragRotateEnabled":%s,' +
+    '"doubleClickZoomEnabled":%s,"scrollZoomEnabled":%s,"keyboardEnabled":%s,' +
+    '"touchZoomRotateEnabled":%s,"touchPitchEnabled":%s,"cooperativeGesturesEnabled":%s}',
+    [FMinZoom, FMaxZoom,
+     LowerCase(BoolToStr(FDragPanEnabled, True)),
+     LowerCase(BoolToStr(FDragRotateEnabled, True)),
+     LowerCase(BoolToStr(FDoubleClickZoomEnabled, True)),
+     LowerCase(BoolToStr(FScrollZoomEnabled, True)),
+     LowerCase(BoolToStr(FKeyboardEnabled, True)),
+     LowerCase(BoolToStr(FTouchZoomRotateEnabled, True)),
+     LowerCase(BoolToStr(FTouchPitchEnabled, True)),
+     LowerCase(BoolToStr(FCooperativeGesturesEnabled, True))],
     GMLibInvariantFormatSettings
   );
 end;
@@ -1119,6 +1322,7 @@ begin
     begin
       if Assigned(FOnMapReady) then
         FOnMapReady(Self);
+      SyncOptionsToBridge;
       SyncViewToBridge;
       Exit;
     end;
@@ -1196,6 +1400,7 @@ var
     end;
   end;
 begin
+  FLastEventName := AEventName;
   if SameText(AEventName, 'click') then
     DispatchCoordinate(FOnClick)
   else if SameText(AEventName, 'contextmenu') then
@@ -1485,6 +1690,7 @@ begin
     FVectorRuntime.Start;
   end;
   FActive := True;
+  SyncOptionsToBridge;
   SyncMarkersToBridge;
 end;
 
@@ -1524,16 +1730,12 @@ begin
 end;
 
 function TOSMMap.BuildJsBootstrapConfig: string;
+{$IFNDEF FPC}
 var
   Config: TJSONObject;
   Center: TJSONObject;
   styleJson: string;
 begin
-{$IFDEF FPC}
-  Result := '{}';
-  Exit;
-{$ENDIF}
-
   Config := TJSONObject.Create;
   try
     styleJson := '';
@@ -1552,6 +1754,18 @@ begin
     Config.AddPair('mapId', string(FMapId));
     Config.AddPair('center', Center);
     Config.AddPair('zoom', TJSONNumber.Create(FZoom));
+    Config.AddPair('bearing', TJSONNumber.Create(FBearing));
+    Config.AddPair('pitch', TJSONNumber.Create(FPitch));
+    Config.AddPair('minZoom', TJSONNumber.Create(FMinZoom));
+    Config.AddPair('maxZoom', TJSONNumber.Create(FMaxZoom));
+    Config.AddPair('dragPanEnabled', TJSONBool.Create(FDragPanEnabled));
+    Config.AddPair('dragRotateEnabled', TJSONBool.Create(FDragRotateEnabled));
+    Config.AddPair('doubleClickZoomEnabled', TJSONBool.Create(FDoubleClickZoomEnabled));
+    Config.AddPair('scrollZoomEnabled', TJSONBool.Create(FScrollZoomEnabled));
+    Config.AddPair('keyboardEnabled', TJSONBool.Create(FKeyboardEnabled));
+    Config.AddPair('touchZoomRotateEnabled', TJSONBool.Create(FTouchZoomRotateEnabled));
+    Config.AddPair('touchPitchEnabled', TJSONBool.Create(FTouchPitchEnabled));
+    Config.AddPair('cooperativeGesturesEnabled', TJSONBool.Create(FCooperativeGesturesEnabled));
     Config.AddPair('styleUrl', ResolveStyleUrl);
     Config.AddPair('styleJson', styleJson);
 
@@ -1560,5 +1774,10 @@ begin
     Config.Free;
   end;
 end;
+{$ELSE}
+begin
+  Result := '{}';
+end;
+{$ENDIF}
 
 end.

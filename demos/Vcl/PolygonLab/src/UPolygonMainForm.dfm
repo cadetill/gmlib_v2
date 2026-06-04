@@ -21,6 +21,7 @@ object MainForm: TMainForm
     AllowSingleSignOnUsingOSPrimaryAccount = False
     TargetCompatibleBrowserVersion = '137.0.3296.44'
     UserDataFolder = '%LOCALAPPDATA%\bds.exe.WebView2'
+    ExplicitHeight = 553
   end
   object ControlPanel: TPanel
     Left = 600
@@ -30,6 +31,8 @@ object MainForm: TMainForm
     Align = alClient
     Caption = 'Controls'
     TabOrder = 1
+    ExplicitWidth = 282
+    ExplicitHeight = 553
     object ApplyButton: TButton
       Left = 16
       Top = 16
@@ -71,6 +74,8 @@ object MainForm: TMainForm
       Align = alBottom
       ReadOnly = True
       TabOrder = 4
+      ExplicitTop = 472
+      ExplicitWidth = 280
     end
   end
 end

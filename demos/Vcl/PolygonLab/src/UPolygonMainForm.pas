@@ -15,12 +15,13 @@ uses
   Vcl.Forms,
   Vcl.Edge,
   Vcl.StdCtrls,
-  uGMLib.Core.Types,
-  uGMLib.Map,
-  uGMLib.MapOptions,
-  uGMLib.Polygon,
-  uGMLib.Vcl.Map,
-  uGMLib.Vcl.Polygon, Winapi.ActiveX;
+   uGMLib.Core.Types,
+   uGMLib.Google.Types,
+   uGMLib.Map,
+   uGMLib.MapOptions,
+   uGMLib.Polygon,
+   uGMLib.Vcl.Map,
+   uGMLib.Vcl.Polygon, Winapi.ActiveX;
 
 type
   TMainForm = class(TForm)
@@ -31,6 +32,15 @@ type
     ActivateButton: TButton;
     ZoomToPolygonButton: TButton;
     LogMemo: TMemo;
+    procedure ActivateButtonClick(Sender: TObject);
+    procedure ApplyButtonClick(Sender: TObject);
+    procedure ApplyViewButtonClick(Sender: TObject);
+    procedure BrowserCreateWebViewCompleted(Sender: TCustomEdgeBrowser; AResult: HRESULT);
+    procedure ClearButtonClick(Sender: TObject);
+    procedure HandleMapClick(Sender: TObject; ALatLng: TMapLibLatLng; const APlaceId: string);
+    procedure HandleMapReady(Sender: TObject);
+    procedure LoadSampleButtonClick(Sender: TObject);
+    procedure ZoomToPolygonButtonClick(Sender: TObject);
   private
     FAPIKeyEdit: TEdit;
     FAPIKeyLabel: TLabel;
@@ -64,24 +74,15 @@ type
     FZoomLabel: TLabel;
     FVisibleCheck: TCheckBox;
     FMap: TGMLibMap;
-    procedure ActivateButtonClick(Sender: TObject);
-    procedure ApplyButtonClick(Sender: TObject);
-    procedure ApplyViewButtonClick(Sender: TObject);
-    procedure BrowserCreateWebViewCompleted(Sender: TCustomEdgeBrowser; AResult: HRESULT);
     procedure BuildUi;
-    procedure ClearButtonClick(Sender: TObject);
     procedure ConfigureBrowser;
-    procedure HandleMapClick(Sender: TObject; ALatLng: TMapLibLatLng; const APlaceId: string);
-    procedure HandleMapReady(Sender: TObject);
     procedure InitializeDefaults;
     procedure InitializeMap;
-    procedure LoadSampleButtonClick(Sender: TObject);
     procedure Log(const AText: string);
     function ParsePathMemo(out ALatitudes, ALongitudes: TArray<Double>): Boolean;
     procedure PopulateSamplePath;
     procedure UpdatePolygonCount;
     procedure UpdateStatus(const AText: string);
-    procedure ZoomToPolygonButtonClick(Sender: TObject);
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;

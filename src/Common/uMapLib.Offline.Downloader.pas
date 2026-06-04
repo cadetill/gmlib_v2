@@ -9,10 +9,15 @@ unit uMapLib.Offline.Downloader;
 interface
 
 uses
+{$IFDEF FPC}
+  Classes,
+  SysUtils,
+{$ELSE}
   System.Classes,
   System.SysUtils,
   System.Net.HttpClient,
   System.IOUtils,
+{$ENDIF}
   uMapLib.Offline.Types;
 
 type
@@ -26,7 +31,7 @@ type
   TMapLibDownloadCompletedEvent = procedure(Sender: TMapLibDownloadJob;
     const AMetadata: TMapLibOfflineRegionMetadata; const AErrorMsg: string; ASuccess: Boolean) of object;
 
-  {** @abstract(Hilo de segundo plano para la descarga asíncrona de archivos de mapa.) }
+  {** @abstract(Hilo de segundo plano para la descarga asincrona de archivos de mapa.) }
   TMapLibDownloadJob = class(TThread)
   private
     FJobId: string;
@@ -37,13 +42,12 @@ type
     FSuccess: Boolean;
     FErrorMsg: string;
     FResultMetadata: TMapLibOfflineRegionMetadata;
-
-    // Variables locales para sincronización
     FSyncBytesDone: Int64;
     FSyncBytesTotal: Int64;
     FSyncPercent: Double;
-
+{$IFNDEF FPC}
     procedure DoReceiveData(const Sender: TObject; AContentLength, AReadCount: Int64; var AAbort: Boolean);
+{$ENDIF}
     procedure SyncProgress;
     procedure SyncCompleted;
   protected
@@ -60,13 +64,24 @@ type
 
 implementation
 
+function CombinePath(const ALeft, ARight: string): string;
+begin
+{$IFDEF FPC}
+  if ALeft = '' then
+    Result := ARight
+  else
+    Result := IncludeTrailingPathDelimiter(ALeft) + ARight;
+{$ELSE}
+  Result := TPath.Combine(ALeft, ARight);
+{$ENDIF}
+end;
+
 { TMapLibDownloadJob }
 
 constructor TMapLibDownloadJob.Create(const AJobId: string;
   const ARequest: TMapLibOfflineDownloadRequest; const AStorageBasePath: string;
   AOnProgress: TMapLibDownloadProgressEvent; AOnCompleted: TMapLibDownloadCompletedEvent);
 begin
-  // Creamos el hilo suspendido para poder configurar de forma segura sus propiedades
   inherited Create(True);
   FreeOnTerminate := False;
 
@@ -80,6 +95,7 @@ begin
   FillChar(FResultMetadata, SizeOf(FResultMetadata), 0);
 end;
 
+{$IFNDEF FPC}
 procedure TMapLibDownloadJob.DoReceiveData(const Sender: TObject; AContentLength,
   AReadCount: Int64; var AAbort: Boolean);
 begin
@@ -96,9 +112,9 @@ begin
   else
     FSyncPercent := 0;
 
-  // Encolamos el progreso en el hilo principal para no bloquear la descarga
   TThread.Queue(Self, SyncProgress);
 end;
+{$ENDIF}
 
 procedure TMapLibDownloadJob.SyncProgress;
 begin
@@ -113,6 +129,13 @@ begin
 end;
 
 procedure TMapLibDownloadJob.Execute;
+{$IFDEF FPC}
+begin
+  FSuccess := False;
+  FErrorMsg := 'Offline downloader is not implemented for FPC in this milestone.';
+  TThread.Queue(Self, @SyncCompleted);
+end;
+{$ELSE}
 var
   Client: THTTPClient;
   TempFilePath: string;
@@ -134,18 +157,17 @@ begin
 
   FileExt := LowerCase(ExtractFileExt(FRequest.SourceUrl));
   if FileExt = '' then
-    FileExt := '.mbtiles'; // MBTiles por defecto si no hay extensión
+    FileExt := '.mbtiles';
 
-  TempFilePath := TPath.Combine(FStorageBasePath, FRequest.RegionId + '.tmp');
+  TempFilePath := CombinePath(FStorageBasePath, FRequest.RegionId + '.tmp');
   FinalFileName := FRequest.RegionId + FileExt;
-  FinalFilePath := TPath.Combine(FStorageBasePath, FinalFileName);
+  FinalFilePath := CombinePath(FStorageBasePath, FinalFileName);
 
   Client := THTTPClient.Create;
   try
     Client.OnReceiveData := DoReceiveData;
 
     try
-      // Borramos el archivo temporal si ya existiera
       if FileExists(TempFilePath) then
         TFile.Delete(TempFilePath);
 
@@ -159,26 +181,21 @@ begin
         FileStream.Free;
       end;
 
-      if FSuccess then
+      if FSuccess and Terminated then
       begin
-        if Terminated then
-        begin
-          FSuccess := False;
-          FErrorMsg := 'Download cancelled.';
-          if FileExists(TempFilePath) then
-            TFile.Delete(TempFilePath);
-        end;
+        FSuccess := False;
+        FErrorMsg := 'Download cancelled.';
+        if FileExists(TempFilePath) then
+          TFile.Delete(TempFilePath);
       end;
 
       if FSuccess then
       begin
-        // Borramos el archivo definitivo previo si ya existiera (Sobrescritura atómica)
         if FileExists(FinalFilePath) then
           TFile.Delete(FinalFilePath);
 
         TFile.Move(TempFilePath, FinalFilePath);
 
-        // Poblamos la metadata resultante de la descarga con fecha local
         FResultMetadata.RegionId := FRequest.RegionId;
         FResultMetadata.MinZoom := FRequest.MinZoom;
         FResultMetadata.MaxZoom := FRequest.MaxZoom;
@@ -187,8 +204,8 @@ begin
         FResultMetadata.UpdatedAtUtc := Now;
         FResultMetadata.DataVersion := FRequest.DataVersion;
         FResultMetadata.SizeBytes := TFile.GetSize(FinalFilePath);
-        FResultMetadata.Checksum := ''; // En futuros hitos calcularemos un MD5 hash
-        FResultMetadata.StoragePath := FinalFileName; // Guardamos la ruta relativa
+        FResultMetadata.Checksum := '';
+        FResultMetadata.StoragePath := FinalFileName;
       end;
 
     except
@@ -201,7 +218,6 @@ begin
           try
             TFile.Delete(TempFilePath);
           except
-            // ignore
           end;
         end;
       end;
@@ -211,8 +227,8 @@ begin
     Client.Free;
   end;
 
-  // Sincronizamos la finalización en el hilo principal
   TThread.Queue(Self, SyncCompleted);
 end;
+{$ENDIF}
 
 end.

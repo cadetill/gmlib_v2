@@ -21,19 +21,40 @@ type
   private
     FBrowser: TComponent;
     FBridgeImpl: IMapBridgeTransport;
+    FBridgeInterval: Integer;
     function CreateBridgeForBrowser(const ABrowser: TComponent): IMapBridgeTransport;
     procedure SetBrowser(const Value: TComponent);
+    procedure SetBridgeInterval(const Value: Integer);
   protected
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
   public
+    constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     procedure Activate; override;
   published
     property Active;
+    property OfflineStoragePath;
+    property MapMode;
+    property OfflinePolicy;
+    property RemoteTileTemplate;
+    property StyleTemplateFileName;
+    property GlyphsRootPath;
     property CenterLat;
     property CenterLng;
+    property MinZoom;
+    property MaxZoom;
     property MapId;
     property Zoom;
+    property Bearing;
+    property Pitch;
+    property DragPanEnabled;
+    property DragRotateEnabled;
+    property DoubleClickZoomEnabled;
+    property ScrollZoomEnabled;
+    property KeyboardEnabled;
+    property TouchZoomRotateEnabled;
+    property TouchPitchEnabled;
+    property CooperativeGesturesEnabled;
     property Browser: TComponent read FBrowser write SetBrowser;
 
     property OnMapReady;
@@ -87,10 +108,14 @@ type
     property OnWheel;
     property OnBoundsChanged;
     property OnError;
+    property OnOfflineDownloadProgress;
+    property OnOfflineRegionReady;
+    property OnOfflineError;
     property Markers;
     property StyleUrl;
     property MapLibreCssUrl;
     property MapLibreJsUrl;
+    property BridgeInterval: Integer read FBridgeInterval write SetBridgeInterval default 1;
   end;
 
   TOSMLibMap = TOSMLibVclMap;
@@ -102,8 +127,15 @@ uses
 
 { TOSMLibVclMap }
 
+constructor TOSMLibVclMap.Create(AOwner: TComponent);
+begin
+  inherited;
+  FBridgeInterval := 1;
+end;
+
 procedure TOSMLibVclMap.Activate;
 var
+  IntervalBridge: IMapBridgeInterval;
   NamespacedBridge: IMapBridgeJavaScriptNamespace;
 begin
   if Active then
@@ -116,6 +148,8 @@ begin
   if Supports(FBridgeImpl, IMapBridgeJavaScriptNamespace, NamespacedBridge) then
     NamespacedBridge.JavaScriptNamespace := 'maplib';
   Bridge := FBridgeImpl;
+  if Supports(FBridgeImpl, IMapBridgeInterval, IntervalBridge) then
+    IntervalBridge.BridgeInterval := FBridgeInterval;
 
   FBridgeImpl.LoadHtml(TOSMLibMapBootstrap.BuildHtml(Self));
   inherited;
@@ -172,6 +206,19 @@ begin
 
   if Assigned(FBrowser) then
     FBrowser.FreeNotification(Self);
+end;
+
+procedure TOSMLibVclMap.SetBridgeInterval(const Value: Integer);
+var
+  IntervalBridge: IMapBridgeInterval;
+begin
+  if Value < 1 then
+    FBridgeInterval := 1
+  else
+    FBridgeInterval := Value;
+
+  if Supports(FBridgeImpl, IMapBridgeInterval, IntervalBridge) then
+    IntervalBridge.BridgeInterval := FBridgeInterval;
 end;
 
 end.

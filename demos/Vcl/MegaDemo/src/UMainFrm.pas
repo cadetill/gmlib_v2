@@ -312,6 +312,10 @@ type
     lOSMCenterLat: TLabel;
     lOSMCenterLng: TLabel;
     lOSMZoom: TLabel;
+    lOSMBearing: TLabel;
+    lOSMPitch: TLabel;
+    lOSMMinZoom: TLabel;
+    lOSMMaxZoom: TLabel;
     lOSMNorth: TLabel;
     lOSMSouth: TLabel;
     lOSMEast: TLabel;
@@ -319,6 +323,10 @@ type
     eOSMCenterLat: TEdit;
     eOSMCenterLng: TEdit;
     eOSMZoom: TEdit;
+    eOSMBearing: TEdit;
+    eOSMPitch: TEdit;
+    eOSMMinZoom: TEdit;
+    eOSMMaxZoom: TEdit;
     eOSMNorth: TEdit;
     eOSMSouth: TEdit;
     eOSMEast: TEdit;
@@ -333,6 +341,14 @@ type
     cbOSMLogMove: TCheckBox;
     cbOSMLogRender: TCheckBox;
     cbOSMLogData: TCheckBox;
+    cbOSMDragPan: TCheckBox;
+    cbOSMDragRotate: TCheckBox;
+    cbOSMDoubleClickZoom: TCheckBox;
+    cbOSMScrollZoom: TCheckBox;
+    cbOSMKeyboard: TCheckBox;
+    cbOSMTouchZoomRotate: TCheckBox;
+    cbOSMTouchPitch: TCheckBox;
+    cbOSMCooperativeGestures: TCheckBox;
     lOSMMapMode: TLabel;
     cbOSMMapMode: TComboBox;
     lOSMOfflineTileJsonUrl: TLabel;
@@ -754,49 +770,11 @@ begin
   RefreshMarkerList;
   RefreshPolylineList;
   RefreshGroundOverlayList;
-    OSMMap.OnMapReady := OSMMapReady;
+  OSMMap.OnMapReady := OSMMapReady;
   OSMMap.OnClick := OSMMapClickEvent;
   OSMMap.OnContextMenu := OSMMapCoordinateEvent;
   OSMMap.OnDblClick := OSMMapCoordinateEvent;
-  OSMMap.OnMoveStart := OSMMapViewChangedEvent;
-  OSMMap.OnMoveEnd := OSMMapViewChangedEvent;
-  OSMMap.OnDragStart := OSMMapViewChangedEvent;
-  OSMMap.OnDrag := OSMMapViewChangedEvent;
-  OSMMap.OnDragEnd := OSMMapViewChangedEvent;
-  OSMMap.OnZoomStart := OSMMapViewChangedEvent;
-  OSMMap.OnZoomEnd := OSMMapViewChangedEvent;
-  OSMMap.OnRotateStart := OSMMapViewChangedEvent;
-  OSMMap.OnRotate := OSMMapViewChangedEvent;
-  OSMMap.OnRotateEnd := OSMMapViewChangedEvent;
-  OSMMap.OnPitchStart := OSMMapViewChangedEvent;
-  OSMMap.OnPitch := OSMMapViewChangedEvent;
-  OSMMap.OnPitchEnd := OSMMapViewChangedEvent;
   OSMMap.OnBoundsChanged := OSMMapBoundsChangedEvent;
-  OSMMap.OnTouchCancel := OSMMapSimpleEvent;
-  OSMMap.OnTouchEnd := OSMMapSimpleEvent;
-  OSMMap.OnTouchMove := OSMMapSimpleEvent;
-  OSMMap.OnTouchStart := OSMMapSimpleEvent;
-  OSMMap.OnBoxZoomStart := OSMMapSimpleEvent;
-  OSMMap.OnBoxZoomEnd := OSMMapSimpleEvent;
-  OSMMap.OnBoxZoomCancel := OSMMapSimpleEvent;
-  OSMMap.OnResize := OSMMapSimpleEvent;
-  OSMMap.OnRender := OSMMapSimpleEvent;
-  OSMMap.OnIdle := OSMMapSimpleEvent;
-  OSMMap.OnLoad := OSMMapSimpleEvent;
-  OSMMap.OnData := OSMMapSimpleEvent;
-  OSMMap.OnDataLoading := OSMMapSimpleEvent;
-  OSMMap.OnDataAbort := OSMMapSimpleEvent;
-  OSMMap.OnSourceData := OSMMapSimpleEvent;
-  OSMMap.OnSourceDataLoading := OSMMapSimpleEvent;
-  OSMMap.OnSourceDataAbort := OSMMapSimpleEvent;
-  OSMMap.OnStyleData := OSMMapSimpleEvent;
-  OSMMap.OnStyleDataLoading := OSMMapSimpleEvent;
-  OSMMap.OnStyleImageMissing := OSMMapSimpleEvent;
-  OSMMap.OnTerrain := OSMMapSimpleEvent;
-  OSMMap.OnProjectionTransition := OSMMapSimpleEvent;
-  OSMMap.OnWebGLContextLost := OSMMapSimpleEvent;
-  OSMMap.OnWebGLContextRestored := OSMMapSimpleEvent;
-  OSMMap.OnWheel := OSMMapSimpleEvent;
   OSMMap.OnError := OSMMapErrorEvent;
   cbOSMStyles.Items.Clear;
   cbOSMStyles.Items.Add('Custom URL');
@@ -849,10 +827,10 @@ begin
   if not Assigned(ALatLng) then
     Exit;
   if Sender is TOSMMarkerItem then
-    Log(Format('OSM marker %s: %.6f,%.6f',
-      [string(TOSMMarkerItem(Sender).ObjectId), ALatLng.Lat, ALatLng.Lng]))
+    Log(Format('OSM marker %s [%s]: %.6f,%.6f',
+      [string(TOSMMarkerItem(Sender).ObjectId), OSMMap.LastEventName, ALatLng.Lat, ALatLng.Lng]))
   else
-    Log(Format('OSM coord: %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
+    Log(Format('OSM coord [%s]: %.6f,%.6f', [OSMMap.LastEventName, ALatLng.Lat, ALatLng.Lng]));
 end;
 
 procedure TMainFrm.OSMMapClickEvent(Sender: TObject; ALatLng: TMapLibLatLng);
@@ -951,9 +929,12 @@ begin
   begin
     eOSMCenterLat.Text := FloatToStr(ACenter.Lat, TFormatSettings.Invariant);
     eOSMCenterLng.Text := FloatToStr(ACenter.Lng, TFormatSettings.Invariant);
-    Log(Format('OSM view: %.6f,%.6f z=%.2f b=%.2f p=%.2f', [ACenter.Lat, ACenter.Lng, AZoom, ABearing, APitch]));
+    Log(Format('OSM view [%s]: %.6f,%.6f z=%.2f b=%.2f p=%.2f',
+      [OSMMap.LastEventName, ACenter.Lat, ACenter.Lng, AZoom, ABearing, APitch]));
   end;
   eOSMZoom.Text := FloatToStr(AZoom, TFormatSettings.Invariant);
+  eOSMBearing.Text := FloatToStr(ABearing, TFormatSettings.Invariant);
+  eOSMPitch.Text := FloatToStr(APitch, TFormatSettings.Invariant);
 end;
 
 procedure TMainFrm.OSMMapBoundsChangedEvent(Sender: TObject; ANorth, ASouth, AEast, AWest: Double);
@@ -967,7 +948,7 @@ end;
 
 procedure TMainFrm.OSMMapSimpleEvent(Sender: TObject);
 begin
-  Log('OSM event: ' + TComponent(Sender).Name);
+  Log('OSM event: ' + OSMMap.LastEventName);
 end;
 
 procedure TMainFrm.OSMMapErrorEvent(Sender: TObject; const AMessage: string);
@@ -1039,7 +1020,7 @@ procedure TMainFrm.bOSMDeleteRegionClick(Sender: TObject);
 var
   RegionId: string;
   SelectedIdx: Integer;
-  Regions: TArray<TMapLibOfflineRegionMetadata>;
+  Regions: TMapLibOfflineRegionMetadataArray;
 begin
   if not Assigned(lbOSMRegions) or (lbOSMRegions.ItemIndex < 0) then
   begin
@@ -1068,7 +1049,7 @@ end;
 
 procedure TMainFrm.RefreshOSMRegionsList;
 var
-  Regions: TArray<TMapLibOfflineRegionMetadata>;
+  Regions: TMapLibOfflineRegionMetadataArray;
   I: Integer;
 begin
   if not Assigned(lbOSMRegions) then
@@ -1119,31 +1100,95 @@ end;
 
 procedure TMainFrm.ApplyOSMEventFilterClick(Sender: TObject);
 begin
+  OSMMap.OnMoveStart := nil;
   OSMMap.OnMove := nil;
+  OSMMap.OnMoveEnd := nil;
+  OSMMap.OnDragStart := nil;
+  OSMMap.OnDrag := nil;
+  OSMMap.OnDragEnd := nil;
+  OSMMap.OnZoomStart := nil;
   OSMMap.OnZoom := nil;
+  OSMMap.OnZoomEnd := nil;
+  OSMMap.OnRotateStart := nil;
+  OSMMap.OnRotate := nil;
+  OSMMap.OnRotateEnd := nil;
+  OSMMap.OnPitchStart := nil;
+  OSMMap.OnPitch := nil;
+  OSMMap.OnPitchEnd := nil;
   OSMMap.OnRender := nil;
+  OSMMap.OnResize := nil;
+  OSMMap.OnLoad := nil;
+  OSMMap.OnIdle := nil;
   OSMMap.OnData := nil;
   OSMMap.OnDataLoading := nil;
+  OSMMap.OnDataAbort := nil;
   OSMMap.OnSourceData := nil;
   OSMMap.OnSourceDataLoading := nil;
+  OSMMap.OnSourceDataAbort := nil;
   OSMMap.OnStyleData := nil;
   OSMMap.OnStyleDataLoading := nil;
+  OSMMap.OnStyleImageMissing := nil;
+  OSMMap.OnTerrain := nil;
+  OSMMap.OnProjectionTransition := nil;
+  OSMMap.OnWebGLContextLost := nil;
+  OSMMap.OnWebGLContextRestored := nil;
+  OSMMap.OnWheel := nil;
+  OSMMap.OnTouchCancel := nil;
+  OSMMap.OnTouchEnd := nil;
+  OSMMap.OnTouchMove := nil;
+  OSMMap.OnTouchStart := nil;
+  OSMMap.OnBoxZoomStart := nil;
+  OSMMap.OnBoxZoomEnd := nil;
+  OSMMap.OnBoxZoomCancel := nil;
 
   if cbOSMLogMove.Checked then
   begin
+    OSMMap.OnMoveStart := OSMMapViewChangedEvent;
     OSMMap.OnMove := OSMMapViewChangedEvent;
+    OSMMap.OnMoveEnd := OSMMapViewChangedEvent;
+    OSMMap.OnDragStart := OSMMapViewChangedEvent;
+    OSMMap.OnDrag := OSMMapViewChangedEvent;
+    OSMMap.OnDragEnd := OSMMapViewChangedEvent;
+    OSMMap.OnZoomStart := OSMMapViewChangedEvent;
     OSMMap.OnZoom := OSMMapViewChangedEvent;
+    OSMMap.OnZoomEnd := OSMMapViewChangedEvent;
+    OSMMap.OnRotateStart := OSMMapViewChangedEvent;
+    OSMMap.OnRotate := OSMMapViewChangedEvent;
+    OSMMap.OnRotateEnd := OSMMapViewChangedEvent;
+    OSMMap.OnPitchStart := OSMMapViewChangedEvent;
+    OSMMap.OnPitch := OSMMapViewChangedEvent;
+    OSMMap.OnPitchEnd := OSMMapViewChangedEvent;
   end;
   if cbOSMLogRender.Checked then
+  begin
     OSMMap.OnRender := OSMMapSimpleEvent;
+    OSMMap.OnResize := OSMMapSimpleEvent;
+    OSMMap.OnLoad := OSMMapSimpleEvent;
+    OSMMap.OnIdle := OSMMapSimpleEvent;
+    OSMMap.OnTouchCancel := OSMMapSimpleEvent;
+    OSMMap.OnTouchEnd := OSMMapSimpleEvent;
+    OSMMap.OnTouchMove := OSMMapSimpleEvent;
+    OSMMap.OnTouchStart := OSMMapSimpleEvent;
+    OSMMap.OnBoxZoomStart := OSMMapSimpleEvent;
+    OSMMap.OnBoxZoomEnd := OSMMapSimpleEvent;
+    OSMMap.OnBoxZoomCancel := OSMMapSimpleEvent;
+    OSMMap.OnWheel := OSMMapSimpleEvent;
+  end;
   if cbOSMLogData.Checked then
   begin
     OSMMap.OnData := OSMMapSimpleEvent;
     OSMMap.OnDataLoading := OSMMapSimpleEvent;
+    OSMMap.OnDataAbort := OSMMapSimpleEvent;
     OSMMap.OnSourceData := OSMMapSimpleEvent;
     OSMMap.OnSourceDataLoading := OSMMapSimpleEvent;
+    OSMMap.OnSourceDataAbort := OSMMapSimpleEvent;
     OSMMap.OnStyleData := OSMMapSimpleEvent;
     OSMMap.OnStyleDataLoading := OSMMapSimpleEvent;
+    OSMMap.OnStyleImageMissing := OSMMapSimpleEvent;
+    OSMMap.OnTerrain := OSMMapSimpleEvent;
+    OSMMap.OnProjectionTransition := OSMMapSimpleEvent;
+    OSMMap.OnWebGLContextLost := OSMMapSimpleEvent;
+    OSMMap.OnWebGLContextRestored := OSMMapSimpleEvent;
   end;
 
   Log('OSM event filter applied.');
@@ -1154,6 +1199,10 @@ var
   centerLat: Double;
   centerLng: Double;
   zoom: Double;
+  bearing: Double;
+  pitch: Double;
+  minZoom: Double;
+  maxZoom: Double;
   mapMode: TMapLibMapMode;
   styleTemplatePath: string;
   glyphsRootPath: string;
@@ -1174,6 +1223,26 @@ begin
   if not TryStrToFloat(Trim(eOSMZoom.Text), zoom, TFormatSettings.Invariant) then
   begin
     Log('Invalid OSM zoom.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMBearing.Text), bearing, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM bearing.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMPitch.Text), pitch, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM pitch.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMMinZoom.Text), minZoom, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM min zoom.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMMaxZoom.Text), maxZoom, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM max zoom.');
     Exit;
   end;
 
@@ -1201,6 +1270,18 @@ begin
   OSMMap.CenterLat := centerLat;
   OSMMap.CenterLng := centerLng;
   OSMMap.Zoom := zoom;
+  OSMMap.Bearing := bearing;
+  OSMMap.Pitch := pitch;
+  OSMMap.MinZoom := minZoom;
+  OSMMap.MaxZoom := maxZoom;
+  OSMMap.DragPanEnabled := cbOSMDragPan.Checked;
+  OSMMap.DragRotateEnabled := cbOSMDragRotate.Checked;
+  OSMMap.DoubleClickZoomEnabled := cbOSMDoubleClickZoom.Checked;
+  OSMMap.ScrollZoomEnabled := cbOSMScrollZoom.Checked;
+  OSMMap.KeyboardEnabled := cbOSMKeyboard.Checked;
+  OSMMap.TouchZoomRotateEnabled := cbOSMTouchZoomRotate.Checked;
+  OSMMap.TouchPitchEnabled := cbOSMTouchPitch.Checked;
+  OSMMap.CooperativeGesturesEnabled := cbOSMCooperativeGestures.Checked;
 
   case cbOSMMapMode.ItemIndex of
     1: mapMode := omOffline;
@@ -1284,6 +1365,10 @@ var
   centerLat: Double;
   centerLng: Double;
   zoom: Double;
+  bearing: Double;
+  pitch: Double;
+  minZoom: Double;
+  maxZoom: Double;
 begin
   if not OSMMap.Active then
   begin
@@ -1306,10 +1391,42 @@ begin
     Log('Invalid OSM zoom.');
     Exit;
   end;
+  if not TryStrToFloat(Trim(eOSMBearing.Text), bearing, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM bearing.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMPitch.Text), pitch, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM pitch.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMMinZoom.Text), minZoom, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM min zoom.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMMaxZoom.Text), maxZoom, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM max zoom.');
+    Exit;
+  end;
 
   OSMMap.CenterLat := centerLat;
   OSMMap.CenterLng := centerLng;
   OSMMap.Zoom := zoom;
+  OSMMap.Bearing := bearing;
+  OSMMap.Pitch := pitch;
+  OSMMap.MinZoom := minZoom;
+  OSMMap.MaxZoom := maxZoom;
+  OSMMap.DragPanEnabled := cbOSMDragPan.Checked;
+  OSMMap.DragRotateEnabled := cbOSMDragRotate.Checked;
+  OSMMap.DoubleClickZoomEnabled := cbOSMDoubleClickZoom.Checked;
+  OSMMap.ScrollZoomEnabled := cbOSMScrollZoom.Checked;
+  OSMMap.KeyboardEnabled := cbOSMKeyboard.Checked;
+  OSMMap.TouchZoomRotateEnabled := cbOSMTouchZoomRotate.Checked;
+  OSMMap.TouchPitchEnabled := cbOSMTouchPitch.Checked;
+  OSMMap.CooperativeGesturesEnabled := cbOSMCooperativeGestures.Checked;
   Log('OSM view updated.');
 end;
 
@@ -1443,6 +1560,13 @@ begin
   // ConfigureOSMOfflineDefaults;
   // OSMMap.MapMode := omOffline;
   // OSMMap.OfflinePolicy := opOfflineOnly;
+  eOSMCenterLat.Text := '41.3874';
+  eOSMCenterLng.Text := '2.1686';
+  eOSMZoom.Text := '12';
+  eOSMBearing.Text := '0';
+  eOSMPitch.Text := '0';
+  eOSMMinZoom.Text := '0';
+  eOSMMaxZoom.Text := '22';
   eOSMStyleUrl.Text := OSMMap.StyleUrl;
   eOSMOfflineTileJsonUrl.Text := 'https://tiles.openfreemap.org/planet/latest/{z}/{x}/{y}.pbf';
   eOSMOfflineServerExecutable.Text := ResolveRepoAssetPath('resources\js\osm\vendor');
@@ -1450,6 +1574,14 @@ begin
   cbOSMOfflineSourcePreset.ItemIndex := 1;
   // ApplyOSMOfflineSourcePreset;
   cbOSMMapMode.ItemIndex := 2;
+  cbOSMDragPan.Checked := True;
+  cbOSMDragRotate.Checked := True;
+  cbOSMDoubleClickZoom.Checked := True;
+  cbOSMScrollZoom.Checked := True;
+  cbOSMKeyboard.Checked := True;
+  cbOSMTouchZoomRotate.Checked := True;
+  cbOSMTouchPitch.Checked := True;
+  cbOSMCooperativeGestures.Checked := False;
   cbOSMLogMove.Checked := False;
   cbOSMLogRender.Checked := False;
   cbOSMLogData.Checked := False;

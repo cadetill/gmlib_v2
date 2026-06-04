@@ -3,6 +3,9 @@
         <ProjectGuid>{0C604142-4A0B-4566-96B6-4075DBFAF6F1}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
+        <Projects Include="MegaDemo\GMLibMegaDemoFmx.dproj">
+            <Dependencies/>
+        </Projects>
         <Projects Include="MapMinimal\GMLibMapFmxDemo.dproj">
             <Dependencies/>
         </Projects>
@@ -41,6 +44,15 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
+    <Target Name="GMLibMegaDemoFmx">
+        <MSBuild Projects="MegaDemo\GMLibMegaDemoFmx.dproj"/>
+    </Target>
+    <Target Name="GMLibMegaDemoFmx:Clean">
+        <MSBuild Projects="MegaDemo\GMLibMegaDemoFmx.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GMLibMegaDemoFmx:Make">
+        <MSBuild Projects="MegaDemo\GMLibMegaDemoFmx.dproj" Targets="Make"/>
+    </Target>
     <Target Name="GMLibMapFmxDemo">
         <MSBuild Projects="MapMinimal\GMLibMapFmxDemo.dproj"/>
     </Target>
@@ -132,13 +144,13 @@
         <MSBuild Projects="RoutesLab\GMLibRoutesLabFmx.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="GMLibMapFmxDemo;GMLibMapOptionsLabFmx;GMLibMarkerLabFmx;GMLibPolylineLabFmx;GMLibPolygonLabFmx;GMLibRectangleLabFmx;GMLibCircleLabFmx;GMLibElevationLabFmx;GMLibGeoCodeLabFmx;GMLibRoutesLabFmx"/>
+        <CallTarget Targets="GMLibMegaDemoFmx;GMLibMapFmxDemo;GMLibMapOptionsLabFmx;GMLibMarkerLabFmx;GMLibPolylineLabFmx;GMLibPolygonLabFmx;GMLibRectangleLabFmx;GMLibCircleLabFmx;GMLibElevationLabFmx;GMLibGeoCodeLabFmx;GMLibRoutesLabFmx"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="GMLibMapFmxDemo:Clean;GMLibMapOptionsLabFmx:Clean;GMLibMarkerLabFmx:Clean;GMLibPolylineLabFmx:Clean;GMLibPolygonLabFmx:Clean;GMLibRectangleLabFmx:Clean;GMLibCircleLabFmx:Clean;GMLibElevationLabFmx:Clean;GMLibGeoCodeLabFmx:Clean;GMLibRoutesLabFmx:Clean"/>
+        <CallTarget Targets="GMLibMegaDemoFmx:Clean;GMLibMapFmxDemo:Clean;GMLibMapOptionsLabFmx:Clean;GMLibMarkerLabFmx:Clean;GMLibPolylineLabFmx:Clean;GMLibPolygonLabFmx:Clean;GMLibRectangleLabFmx:Clean;GMLibCircleLabFmx:Clean;GMLibElevationLabFmx:Clean;GMLibGeoCodeLabFmx:Clean;GMLibRoutesLabFmx:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="GMLibMapFmxDemo:Make;GMLibMapOptionsLabFmx:Make;GMLibMarkerLabFmx:Make;GMLibPolylineLabFmx:Make;GMLibPolygonLabFmx:Make;GMLibRectangleLabFmx:Make;GMLibCircleLabFmx:Make;GMLibElevationLabFmx:Make;GMLibGeoCodeLabFmx:Make;GMLibRoutesLabFmx:Make"/>
+        <CallTarget Targets="GMLibMegaDemoFmx:Make;GMLibMapFmxDemo:Make;GMLibMapOptionsLabFmx:Make;GMLibMarkerLabFmx:Make;GMLibPolylineLabFmx:Make;GMLibPolygonLabFmx:Make;GMLibRectangleLabFmx:Make;GMLibCircleLabFmx:Make;GMLibElevationLabFmx:Make;GMLibGeoCodeLabFmx:Make;GMLibRoutesLabFmx:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

@@ -27,7 +27,8 @@ uses
 
 type
   {** @abstract(Implementación inicial del transporte FMX con @code(TWebBrowser).) }
-  TGMLibFmxWebBrowserBridge = class(TInterfacedObject, IMapBridgeTransport, IMapBridgeJavaScriptNamespace)
+  TGMLibFmxWebBrowserBridge = class(TInterfacedObject, IMapBridgeTransport,
+    IMapBridgeJavaScriptNamespace, IMapBridgeInterval)
   private const
     cMessagePrefix = 'https://gmlib.local/__gmlib_message__?';
   private
@@ -44,6 +45,8 @@ type
     FCommandQueue: TList<string>;
     FFlushInProgress: Boolean;
     FJavaScriptNamespace: string;
+    function GetBridgeInterval: Integer;
+    procedure SetBridgeInterval(const Value: Integer);
     function GetPollInterval: Integer;
     procedure SetPollInterval(const Value: Integer);
     procedure DoDidFinishLoad(ASender: TObject);
@@ -349,12 +352,22 @@ begin
   Result := FJavaScriptNamespace;
 end;
 
+function TGMLibFmxWebBrowserBridge.GetBridgeInterval: Integer;
+begin
+  Result := GetPollInterval;
+end;
+
 procedure TGMLibFmxWebBrowserBridge.SetJavaScriptNamespace(const ANamespace: string);
 begin
   if Trim(ANamespace) = '' then
     FJavaScriptNamespace := 'gmlib'
   else
     FJavaScriptNamespace := Trim(ANamespace);
+end;
+
+procedure TGMLibFmxWebBrowserBridge.SetBridgeInterval(const Value: Integer);
+begin
+  SetPollInterval(Value);
 end;
 
 procedure TGMLibFmxWebBrowserBridge.SetOnMessageReceived(

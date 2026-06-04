@@ -6,8 +6,9 @@ uses
   Winapi.Windows, Winapi.Messages, System.StrUtils, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls,
   Winapi.WebView2, Winapi.ActiveX, Vcl.Edge, System.TypInfo,
-  uGMLib.Core.Types,
-  uGMLib.Vcl.Map;
+   uGMLib.Core.Types,
+   uGMLib.Google.Types,
+   uGMLib.Vcl.Map;
 
 type
   TMainForm = class(TForm)

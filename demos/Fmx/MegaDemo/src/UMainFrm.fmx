@@ -1,0 +1,3793 @@
+object MainFrm: TMainFrm
+  Left = 0
+  Top = 0
+  Caption = 'GMLib FMX MegaDemo'
+  ClientHeight = 720
+  ClientWidth = 1240
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop, iPhone, iPad]
+  DesignerMasterStyle = 0
+  object pcSupplier: TTabControl
+    Align = Top
+    Size.Width = 1240.000000000000000000
+    Size.Height = 225.000000000000000000
+    Size.PlatformDefault = False
+    TabIndex = 0
+    TabOrder = 0
+    TabPosition = Top
+    OnChange = SupplierTabChange
+    Sizes = (
+      1240s
+      199s
+      1240s
+      199s)
+    object tsGM: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = True
+      Size.Width = 91.000000000000000000
+      Size.Height = 26.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'Google Maps'
+      ExplicitSize.cx = 50.000000000000000000
+      ExplicitSize.cy = 50.000000000000000000
+      object pcGMOptions: TTabControl
+        Align = Client
+        Size.Width = 1240.000000000000000000
+        Size.Height = 199.000000000000000000
+        Size.PlatformDefault = False
+        TabIndex = 0
+        TabOrder = 0
+        TabPosition = Top
+        Sizes = (
+          1240s
+          173s
+          1240s
+          173s
+          1240s
+          173s
+          1240s
+          173s
+          1240s
+          173s
+          1240s
+          173s
+          1240s
+          173s
+          1240s
+          173s
+          1240s
+          173s)
+        object tsMap: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = True
+          Size.Width = 44.000000000000000000
+          Size.Height = 26.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = ''
+          TabOrder = 0
+          Text = 'Map'
+          ExplicitSize.cx = 50.000000000000000000
+          ExplicitSize.cy = 50.000000000000000000
+          object pMapTop: TLayout
+            Align = Top
+            Size.Width = 1240.000000000000000000
+            Size.Height = 37.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            object lAPIKey: TLabel
+              Position.X = 20.000000000000000000
+              Position.Y = 9.000000000000000000
+              Size.Width = 43.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'API Key:'
+            end
+            object eAPIKey: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 0
+              Position.X = 69.000000000000000000
+              Position.Y = 6.000000000000000000
+              Size.Width = 280.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object MapIdLabel: TLabel
+              Position.X = 365.000000000000000000
+              Position.Y = 9.000000000000000000
+              Size.Width = 41.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Map ID:'
+            end
+            object eMapId: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 1
+              Position.X = 412.000000000000000000
+              Position.Y = 6.000000000000000000
+              Size.Width = 200.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object bActivate: TButton
+              Position.X = 755.000000000000000000
+              Position.Y = 9.000000000000000000
+              Size.Width = 90.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 2
+              Text = 'Activate'
+              OnClick = ActivateBtnClick
+            end
+            object bApplyOptions: TButton
+              Position.X = 634.000000000000000000
+              Position.Y = 6.000000000000000000
+              Size.Width = 100.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 3
+              Text = 'Apply Options'
+              OnClick = ApplyOptionsBtnClick
+            end
+          end
+          object pcMapOptions: TTabControl
+            Align = Client
+            Size.Width = 1240.000000000000000000
+            Size.Height = 136.000000000000000000
+            Size.PlatformDefault = False
+            TabIndex = 0
+            TabOrder = 1
+            TabPosition = Top
+            Sizes = (
+              1240s
+              110s
+              1240s
+              110s)
+            object tsGMGeneral: TTabItem
+              CustomIcon = <
+                item
+                end>
+              IsSelected = True
+              Size.Width = 61.000000000000000000
+              Size.Height = 26.000000000000000000
+              Size.PlatformDefault = False
+              StyleLookup = ''
+              TabOrder = 0
+              Text = 'General'
+              ExplicitSize.cx = 50.000000000000000000
+              ExplicitSize.cy = 50.000000000000000000
+              object FGeneralScroll: TVertScrollBox
+                Align = Client
+                Size.Width = 1240.000000000000000000
+                Size.Height = 110.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                Viewport.Width = 1240.000000000000000000
+                Viewport.Height = 110.000000000000000000
+                object lblMapType: TLabel
+                  Position.X = 20.000000000000000000
+                  Position.Y = 12.000000000000000000
+                  Size.Width = 60.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Map Type:'
+                  TabOrder = 0
+                end
+                object cbMapTypeId: TComboBox
+                  Items.Strings = (
+                    'Roadmap'
+                    'Satellite'
+                    'Hybrid'
+                    'Terrain')
+                  ItemIndex = 0
+                  Position.X = 20.000000000000000000
+                  Position.Y = 28.000000000000000000
+                  Size.Width = 85.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 1
+                end
+                object lColorScheme: TLabel
+                  Position.X = 127.000000000000000000
+                  Position.Y = 12.000000000000000000
+                  Size.Width = 87.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Color Scheme:'
+                  TabOrder = 2
+                end
+                object cbColorScheme: TComboBox
+                  Items.Strings = (
+                    'Light'
+                    'Dark'
+                    'Follow')
+                  ItemIndex = 0
+                  Position.X = 127.000000000000000000
+                  Position.Y = 28.000000000000000000
+                  Size.Width = 85.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 3
+                end
+                object lRenderType: TLabel
+                  Position.X = 230.000000000000000000
+                  Position.Y = 12.000000000000000000
+                  Size.Width = 60.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Rendering:'
+                  TabOrder = 4
+                end
+                object cbRenderType: TComboBox
+                  Items.Strings = (
+                    'Raster'
+                    'Vector')
+                  ItemIndex = 0
+                  Position.X = 230.000000000000000000
+                  Position.Y = 28.000000000000000000
+                  Size.Width = 75.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 5
+                end
+                object lGestureHandling: TLabel
+                  Position.X = 559.000000000000000000
+                  Position.Y = 58.000000000000000000
+                  Size.Width = 95.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Gesture Handling:'
+                  TabOrder = 6
+                end
+                object cbGestureHandling: TComboBox
+                  Items.Strings = (
+                    'ghAuto'
+                    'ghCooperative'
+                    'ghGreedy'
+                    'ghNone')
+                  ItemIndex = 0
+                  Position.X = 559.000000000000000000
+                  Position.Y = 76.000000000000000000
+                  Size.Width = 150.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 7
+                end
+                object HeadingLabel: TLabel
+                  Position.X = 559.000000000000000000
+                  Position.Y = 12.000000000000000000
+                  Size.Width = 50.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Heading:'
+                  TabOrder = 8
+                end
+                object eHeading: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 9
+                  Position.X = 559.000000000000000000
+                  Position.Y = 28.000000000000000000
+                  Size.Width = 60.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object TiltLabel: TLabel
+                  Position.X = 634.000000000000000000
+                  Position.Y = 12.000000000000000000
+                  Size.Width = 25.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Tilt:'
+                  TabOrder = 10
+                end
+                object eTilt: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 11
+                  Position.X = 634.000000000000000000
+                  Position.Y = 28.000000000000000000
+                  Size.Width = 60.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object lBackGroundColor: TLabel
+                  Position.X = 20.000000000000000000
+                  Position.Y = 58.000000000000000000
+                  Size.Width = 100.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Background Color:'
+                  TabOrder = 12
+                end
+                object lCenter: TLabel
+                  Position.X = 459.000000000000000000
+                  Position.Y = 12.000000000000000000
+                  Size.Width = 40.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Center:'
+                  TabOrder = 13
+                end
+                object eLat: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 14
+                  Position.X = 416.000000000000000000
+                  Position.Y = 28.000000000000000000
+                  Size.Width = 57.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object lSep: TLabel
+                  Position.X = 477.000000000000000000
+                  Position.Y = 30.000000000000000000
+                  Size.Width = 10.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = ','
+                  TabOrder = 17
+                end
+                object eLng: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 18
+                  Position.X = 481.000000000000000000
+                  Position.Y = 28.000000000000000000
+                  Size.Width = 57.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object lZoom: TLabel
+                  Position.X = 348.000000000000000000
+                  Position.Y = 12.000000000000000000
+                  Size.Width = 35.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Zoom:'
+                  TabOrder = 19
+                end
+                object eZoom: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 20
+                  Position.X = 348.000000000000000000
+                  Position.Y = 28.000000000000000000
+                  Size.Width = 60.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object lMinZoom: TLabel
+                  Position.X = 348.000000000000000000
+                  Position.Y = 58.000000000000000000
+                  Size.Width = 60.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Min Zoom:'
+                  TabOrder = 21
+                end
+                object eMinZoom: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 22
+                  Position.X = 346.000000000000000000
+                  Position.Y = 76.000000000000000000
+                  Size.Width = 60.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object lMaxZoom: TLabel
+                  Position.X = 416.000000000000000000
+                  Position.Y = 58.000000000000000000
+                  Size.Width = 60.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Max Zoom:'
+                  TabOrder = 23
+                end
+                object eMaxZoom: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 24
+                  Position.X = 416.000000000000000000
+                  Position.Y = 76.000000000000000000
+                  Size.Width = 60.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object cbClickableIcons: TCheckBox
+                  Position.X = 746.000000000000000000
+                  Position.Y = 8.000000000000000000
+                  Size.Width = 110.000000000000000000
+                  Size.Height = 19.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 25
+                  Text = 'Clickable Icons'
+                end
+                object cbDisableDefaultUI: TCheckBox
+                  Position.X = 746.000000000000000000
+                  Position.Y = 26.000000000000000000
+                  Size.Width = 130.000000000000000000
+                  Size.Height = 19.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 26
+                  Text = 'Disable Default UI'
+                end
+                object cbDisableDoubleClickZoom: TCheckBox
+                  Position.X = 746.000000000000000000
+                  Position.Y = 44.000000000000000000
+                  Size.Width = 160.000000000000000000
+                  Size.Height = 19.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 27
+                  Text = 'Disable DblClick Zoom'
+                end
+                object cbScrollwheel: TCheckBox
+                  Position.X = 908.000000000000000000
+                  Position.Y = 63.000000000000000000
+                  Size.Width = 100.000000000000000000
+                  Size.Height = 19.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 28
+                  Text = 'Scrollwheel'
+                end
+                object cbKeyboardShortcuts: TCheckBox
+                  Position.X = 908.000000000000000000
+                  Position.Y = 26.000000000000000000
+                  Size.Width = 130.000000000000000000
+                  Size.Height = 19.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 29
+                  Text = 'Keyboard Shortcuts'
+                end
+                object cbIsFractionalZoomEnabled: TCheckBox
+                  Position.X = 908.000000000000000000
+                  Position.Y = 8.000000000000000000
+                  Size.Width = 150.000000000000000000
+                  Size.Height = 19.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 30
+                  Text = 'Fractional Zoom'
+                end
+                object cbNoClear: TCheckBox
+                  Position.X = 908.000000000000000000
+                  Position.Y = 44.000000000000000000
+                  Size.Width = 100.000000000000000000
+                  Size.Height = 19.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 31
+                  Text = 'No Clear'
+                end
+                object FBackgroundColorCombo: TColorComboBox
+                  DropDownKind = Custom
+                  Color = claBlack
+                  DisableFocusEffect = False
+                  ItemIndex = 7
+                  Position.X = 20.000000000000000000
+                  Position.Y = 76.000000000000000000
+                  TabOrder = 32
+                end
+                object lblControlSize: TLabel
+                  Position.X = 264.000000000000000000
+                  Position.Y = 58.000000000000000000
+                  Size.Width = 67.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Control Size:'
+                  TabOrder = 15
+                end
+                object FControlSizeEd: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 16
+                  Position.X = 264.000000000000000000
+                  Position.Y = 76.000000000000000000
+                  Size.Width = 60.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+              end
+            end
+            object FTabControls: TTabItem
+              CustomIcon = <
+                item
+                end>
+              IsSelected = False
+              Size.Width = 65.000000000000000000
+              Size.Height = 26.000000000000000000
+              Size.PlatformDefault = False
+              StyleLookup = ''
+              TabOrder = 0
+              Text = 'Controls'
+              ExplicitSize.cx = 50.000000000000000000
+              ExplicitSize.cy = 50.000000000000000000
+              object FControlsScroll: TVertScrollBox
+                Align = Client
+                Size.Width = 1240.000000000000000000
+                Size.Height = 110.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                Viewport.Width = 1240.000000000000000000
+                Viewport.Height = 110.000000000000000000
+                object FZoomCtrlChk: TCheckBox
+                  Position.X = 827.000000000000000000
+                  Position.Y = 50.000000000000000000
+                  Size.Width = 110.000000000000000000
+                  Size.Height = 19.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 0
+                  Text = 'Zoom Control'
+                end
+                object FZoomPosCombo: TComboBox
+                  Items.Strings = (
+                    'cpBlockEndInlineCenter'
+                    'cpBlockEndInlineEnd'
+                    'cpBlockEndInlineStart'
+                    'cpBlockStartInlineCenter'
+                    'cpBlockStartInlineEnd'
+                    'cpBlockStartInlineStart'
+                    'cpBottomCenter'
+                    'cpBottomLeft'
+                    'cpBottomRight'
+                    'cpInlineEndBlockCenter'
+                    'cpInlineEndBlockEnd'
+                    'cpInlineEndBlockStart'
+                    'cpInlineStartBlockCenter'
+                    'cpInlineStartBlockEnd'
+                    'cpInlineStartBlockStart'
+                    'cpLeftBottom'
+                    'cpLeftCenter'
+                    'cpLeftTop'
+                    'cpRightBottom'
+                    'cpRightCenter'
+                    'cpRightTop'
+                    'cpTopCenter'
+                    'cpTopLeft'
+                    'cpTopRight')
+                  ItemIndex = 22
+                  Position.X = 827.000000000000000000
+                  Position.Y = 68.000000000000000000
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 1
+                end
+                object FMapTypeCtrlChk: TCheckBox
+                  Position.X = 286.000000000000000000
+                  Position.Y = 6.000000000000000000
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 19.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 2
+                  Text = 'Map Type Control'
+                end
+                object FMapTypePosCombo: TComboBox
+                  Items.Strings = (
+                    'cpBlockEndInlineCenter'
+                    'cpBlockEndInlineEnd'
+                    'cpBlockEndInlineStart'
+                    'cpBlockStartInlineCenter'
+                    'cpBlockStartInlineEnd'
+                    'cpBlockStartInlineStart'
+                    'cpBottomCenter'
+                    'cpBottomLeft'
+                    'cpBottomRight'
+                    'cpInlineEndBlockCenter'
+                    'cpInlineEndBlockEnd'
+                    'cpInlineEndBlockStart'
+                    'cpInlineStartBlockCenter'
+                    'cpInlineStartBlockEnd'
+                    'cpInlineStartBlockStart'
+                    'cpLeftBottom'
+                    'cpLeftCenter'
+                    'cpLeftTop'
+                    'cpRightBottom'
+                    'cpRightCenter'
+                    'cpRightTop'
+                    'cpTopCenter'
+                    'cpTopLeft'
+                    'cpTopRight')
+                  ItemIndex = 20
+                  Position.X = 286.000000000000000000
+                  Position.Y = 24.000000000000000000
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 3
+                end
+                object FMapTypeStyleCombo: TComboBox
+                  Items.Strings = (
+                    'mtcsDefault'
+                    'mtcsDropdownMenu'
+                    'mtcsHorizontalBar')
+                  ItemIndex = 0
+                  Position.X = 286.000000000000000000
+                  Position.Y = 52.000000000000000000
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 4
+                end
+                object FScaleCtrlChk: TCheckBox
+                  Position.X = 700.000000000000000000
+                  Position.Y = 6.000000000000000000
+                  Size.Width = 100.000000000000000000
+                  Size.Height = 19.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 5
+                  Text = 'Scale Control'
+                end
+                object FScaleStyleCombo: TComboBox
+                  Items.Strings = (
+                    'cpBlockEndInlineCenter'
+                    'cpBlockEndInlineEnd'
+                    'cpBlockEndInlineStart'
+                    'cpBlockStartInlineCenter'
+                    'cpBlockStartInlineEnd'
+                    'cpBlockStartInlineStart'
+                    'cpBottomCenter'
+                    'cpBottomLeft'
+                    'cpBottomRight'
+                    'cpInlineEndBlockCenter'
+                    'cpInlineEndBlockEnd'
+                    'cpInlineEndBlockStart'
+                    'cpInlineStartBlockCenter'
+                    'cpInlineStartBlockEnd'
+                    'cpInlineStartBlockStart'
+                    'cpLeftBottom'
+                    'cpLeftCenter'
+                    'cpLeftTop'
+                    'cpRightBottom'
+                    'cpRightCenter'
+                    'cpRightTop'
+                    'cpTopCenter'
+                    'cpTopLeft'
+                    'cpTopRight')
+                  ItemIndex = 0
+                  Position.X = 700.000000000000000000
+                  Position.Y = 24.000000000000000000
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 6
+                end
+                object FRotateCtrlChk: TCheckBox
+                  Position.X = 564.000000000000000000
+                  Position.Y = 6.000000000000000000
+                  Size.Width = 110.000000000000000000
+                  Size.Height = 19.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 7
+                  Text = 'Rotate Control'
+                end
+                object FRotatePosCombo: TComboBox
+                  Items.Strings = (
+                    'cpBlockEndInlineCenter'
+                    'cpBlockEndInlineEnd'
+                    'cpBlockEndInlineStart'
+                    'cpBlockStartInlineCenter'
+                    'cpBlockStartInlineEnd'
+                    'cpBlockStartInlineStart'
+                    'cpBottomCenter'
+                    'cpBottomLeft'
+                    'cpBottomRight'
+                    'cpInlineEndBlockCenter'
+                    'cpInlineEndBlockEnd'
+                    'cpInlineEndBlockStart'
+                    'cpInlineStartBlockCenter'
+                    'cpInlineStartBlockEnd'
+                    'cpInlineStartBlockStart'
+                    'cpLeftBottom'
+                    'cpLeftCenter'
+                    'cpLeftTop'
+                    'cpRightBottom'
+                    'cpRightCenter'
+                    'cpRightTop'
+                    'cpTopCenter'
+                    'cpTopLeft'
+                    'cpTopRight')
+                  ItemIndex = 22
+                  Position.X = 564.000000000000000000
+                  Position.Y = 24.000000000000000000
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 8
+                end
+                object FStreetViewCtrlChk: TCheckBox
+                  Position.X = 827.000000000000000000
+                  Position.Y = 6.000000000000000000
+                  Size.Width = 130.000000000000000000
+                  Size.Height = 19.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 9
+                  Text = 'Street View Control'
+                end
+                object FStreetViewPosCombo: TComboBox
+                  Items.Strings = (
+                    'cpBlockEndInlineCenter'
+                    'cpBlockEndInlineEnd'
+                    'cpBlockEndInlineStart'
+                    'cpBlockStartInlineCenter'
+                    'cpBlockStartInlineEnd'
+                    'cpBlockStartInlineStart'
+                    'cpBottomCenter'
+                    'cpBottomLeft'
+                    'cpBottomRight'
+                    'cpInlineEndBlockCenter'
+                    'cpInlineEndBlockEnd'
+                    'cpInlineEndBlockStart'
+                    'cpInlineStartBlockCenter'
+                    'cpInlineStartBlockEnd'
+                    'cpInlineStartBlockStart'
+                    'cpLeftBottom'
+                    'cpLeftCenter'
+                    'cpLeftTop'
+                    'cpRightBottom'
+                    'cpRightCenter'
+                    'cpRightTop'
+                    'cpTopCenter'
+                    'cpTopLeft'
+                    'cpTopRight')
+                  ItemIndex = 22
+                  Position.X = 827.000000000000000000
+                  Position.Y = 24.000000000000000000
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 10
+                end
+                object FFullscreenCtrlChk: TCheckBox
+                  Position.X = 158.000000000000000000
+                  Position.Y = 6.000000000000000000
+                  Size.Width = 130.000000000000000000
+                  Size.Height = 19.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 11
+                  Text = 'Fullscreen Control'
+                end
+                object FFullscreenPosCombo: TComboBox
+                  Items.Strings = (
+                    'cpBlockEndInlineCenter'
+                    'cpBlockEndInlineEnd'
+                    'cpBlockEndInlineStart'
+                    'cpBlockStartInlineCenter'
+                    'cpBlockStartInlineEnd'
+                    'cpBlockStartInlineStart'
+                    'cpBottomCenter'
+                    'cpBottomLeft'
+                    'cpBottomRight'
+                    'cpInlineEndBlockCenter'
+                    'cpInlineEndBlockEnd'
+                    'cpInlineEndBlockStart'
+                    'cpInlineStartBlockCenter'
+                    'cpInlineStartBlockEnd'
+                    'cpInlineStartBlockStart'
+                    'cpLeftBottom'
+                    'cpLeftCenter'
+                    'cpLeftTop'
+                    'cpRightBottom'
+                    'cpRightCenter'
+                    'cpRightTop'
+                    'cpTopCenter'
+                    'cpTopLeft'
+                    'cpTopRight')
+                  ItemIndex = 20
+                  Position.X = 158.000000000000000000
+                  Position.Y = 24.000000000000000000
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 12
+                end
+                object FCameraCtrlChk: TCheckBox
+                  Position.X = 30.000000000000000000
+                  Position.Y = 6.000000000000000000
+                  Size.Width = 110.000000000000000000
+                  Size.Height = 19.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 13
+                  Text = 'Camera Control'
+                end
+                object FCameraPosCombo: TComboBox
+                  Items.Strings = (
+                    'cpBlockEndInlineCenter'
+                    'cpBlockEndInlineEnd'
+                    'cpBlockEndInlineStart'
+                    'cpBlockStartInlineCenter'
+                    'cpBlockStartInlineEnd'
+                    'cpBlockStartInlineStart'
+                    'cpBottomCenter'
+                    'cpBottomLeft'
+                    'cpBottomRight'
+                    'cpInlineEndBlockCenter'
+                    'cpInlineEndBlockEnd'
+                    'cpInlineEndBlockStart'
+                    'cpInlineStartBlockCenter'
+                    'cpInlineStartBlockEnd'
+                    'cpInlineStartBlockStart'
+                    'cpLeftBottom'
+                    'cpLeftCenter'
+                    'cpLeftTop'
+                    'cpRightBottom'
+                    'cpRightCenter'
+                    'cpRightTop'
+                    'cpTopCenter'
+                    'cpTopLeft'
+                    'cpTopRight')
+                  ItemIndex = 9
+                  Position.X = 30.000000000000000000
+                  Position.Y = 24.000000000000000000
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 14
+                end
+                object clbMapTypeIds: TListBox
+                  Position.X = 414.000000000000000000
+                  Position.Y = 6.000000000000000000
+                  Size.Width = 129.000000000000000000
+                  Size.Height = 80.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 15
+                  DisableFocusEffect = True
+                  Items.Strings = (
+                    'mtRoadmap'
+                    'mtSatellite'
+                    'mtHybrid'
+                    'mtTerrain')
+                  DefaultItemStyles.ItemStyle = ''
+                  DefaultItemStyles.GroupHeaderStyle = ''
+                  DefaultItemStyles.GroupFooterStyle = ''
+                  ShowCheckboxes = True
+                  Viewport.Width = 125.000000000000000000
+                  Viewport.Height = 76.000000000000000000
+                end
+              end
+            end
+          end
+        end
+        object FTabMarkers: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = False
+          Size.Width = 63.000000000000000000
+          Size.Height = 26.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = ''
+          TabOrder = 0
+          Text = 'Markers'
+          ExplicitSize.cx = 50.000000000000000000
+          ExplicitSize.cy = 50.000000000000000000
+          object FMarkersScroll: TVertScrollBox
+            Align = Client
+            Size.Width = 1240.000000000000000000
+            Size.Height = 173.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            Viewport.Width = 1240.000000000000000000
+            Viewport.Height = 173.000000000000000000
+            object FMarkerAddBtn: TButton
+              Position.X = 218.000000000000000000
+              Position.Y = 8.000000000000000000
+              Size.Width = 80.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+              Text = 'Add'
+              OnClick = MarkerAddClick
+            end
+            object FMarkerDelBtn: TButton
+              Position.X = 218.000000000000000000
+              Position.Y = 36.000000000000000000
+              Size.Width = 80.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 1
+              Text = 'Delete'
+              OnClick = MarkerDeleteClick
+            end
+            object FMarkerClearBtn: TButton
+              Position.X = 218.000000000000000000
+              Position.Y = 65.000000000000000000
+              Size.Width = 80.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 2
+              Text = 'Clear'
+              OnClick = MarkerClearClick
+            end
+            object FMarkerUpdateBtn: TButton
+              Position.X = 218.000000000000000000
+              Position.Y = 103.000000000000000000
+              Size.Width = 80.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 3
+              Text = 'Update'
+              OnClick = MarkerUpdateClick
+            end
+            object FZoomToMarkerBtn: TButton
+              Position.X = 322.000000000000000000
+              Position.Y = 103.000000000000000000
+              Size.Width = 88.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 4
+              Text = 'ZoomToMarker'
+              OnClick = ZoomToMarkerClick
+            end
+            object FZoomToMarkersBtn: TButton
+              Position.X = 420.000000000000000000
+              Position.Y = 103.000000000000000000
+              Size.Width = 88.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 5
+              Text = 'Zoom To All'
+              OnClick = ZoomToMarkersClick
+            end
+            object FMarkerList: TListBox
+              Position.X = 10.000000000000000000
+              Position.Y = 8.000000000000000000
+              Size.Width = 200.000000000000000000
+              Size.Height = 120.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 6
+              DisableFocusEffect = True
+              DefaultItemStyles.ItemStyle = ''
+              DefaultItemStyles.GroupHeaderStyle = ''
+              DefaultItemStyles.GroupFooterStyle = ''
+              OnChange = MarkerListClick
+              Viewport.Width = 196.000000000000000000
+              Viewport.Height = 116.000000000000000000
+            end
+            object lblMarkerLat: TLabel
+              Position.X = 322.000000000000000000
+              Position.Y = 8.000000000000000000
+              Size.Width = 25.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Lat:'
+              TabOrder = 7
+            end
+            object FMarkerLatEd: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 8
+              Position.X = 322.000000000000000000
+              Position.Y = 23.000000000000000000
+              Size.Width = 68.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object lblMarkerLng: TLabel
+              Position.X = 398.000000000000000000
+              Position.Y = 8.000000000000000000
+              Size.Width = 30.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Lng:'
+              TabOrder = 9
+            end
+            object FMarkerLngEd: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 10
+              Position.X = 398.000000000000000000
+              Position.Y = 23.000000000000000000
+              Size.Width = 68.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object lblMarkerTitle: TLabel
+              Position.X = 523.000000000000000000
+              Position.Y = 8.000000000000000000
+              Size.Width = 38.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Title:'
+              TabOrder = 11
+            end
+            object FMarkerTitleEd: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 12
+              Position.X = 523.000000000000000000
+              Position.Y = 23.000000000000000000
+              Size.Width = 126.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object FMarkerDraggChk: TCheckBox
+              Position.X = 322.000000000000000000
+              Position.Y = 46.000000000000000000
+              Size.Width = 90.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 13
+              Text = 'Draggable'
+            end
+            object FMarkerVisChk: TCheckBox
+              Position.X = 322.000000000000000000
+              Position.Y = 64.000000000000000000
+              Size.Width = 70.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 14
+              Text = 'Visible'
+            end
+            object FMarkerClickChk: TCheckBox
+              Position.X = 322.000000000000000000
+              Position.Y = 82.000000000000000000
+              Size.Width = 80.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 15
+              Text = 'Clickable'
+            end
+            object lblMarkerContentMode: TLabel
+              Position.X = 523.000000000000000000
+              Position.Y = 91.000000000000000000
+              Size.Width = 80.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Content Mode:'
+              TabOrder = 16
+            end
+            object FMarkerContentModeCombo: TComboBox
+              Items.Strings = (
+                'mcmDefault'
+                'mcmPin'
+                'mcmHtml'
+                'mcmLabel')
+              ItemIndex = 0
+              Position.X = 523.000000000000000000
+              Position.Y = 106.000000000000000000
+              Size.Width = 120.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 18
+            end
+            object lblMarkerCollision: TLabel
+              Position.X = 523.000000000000000000
+              Position.Y = 50.000000000000000000
+              Size.Width = 70.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Collision:'
+              TabOrder = 19
+            end
+            object FMarkerCollisionCombo: TComboBox
+              Items.Strings = (
+                'cbRequired'
+                'cbOptionalAndHidesLowerPriority'
+                'cbRequiredAndHidesOptional')
+              ItemIndex = 0
+              Position.X = 523.000000000000000000
+              Position.Y = 65.000000000000000000
+              Size.Width = 120.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 20
+            end
+            object FMarkerContentTabControl: TTabControl
+              Position.X = 657.000000000000000000
+              Position.Y = 8.000000000000000000
+              Size.Width = 486.000000000000000000
+              Size.Height = 120.000000000000000000
+              Size.PlatformDefault = False
+              TabIndex = 0
+              TabOrder = 17
+              TabPosition = Top
+              Sizes = (
+                486s
+                94s
+                486s
+                94s
+                486s
+                94s)
+              object FTabMarkerHTML: TTabItem
+                CustomIcon = <
+                  item
+                  end>
+                IsSelected = True
+                Size.Width = 52.000000000000000000
+                Size.Height = 26.000000000000000000
+                Size.PlatformDefault = False
+                StyleLookup = ''
+                TabOrder = 0
+                Text = 'HTML'
+                ExplicitSize.cx = 50.000000000000000000
+                ExplicitSize.cy = 50.000000000000000000
+                object FMarkerHtmlMemo: TMemo
+                  Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+                  DataDetectorTypes = []
+                  Align = Client
+                  Size.Width = 486.000000000000000000
+                  Size.Height = 94.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 0
+                  Viewport.Width = 482.000000000000000000
+                  Viewport.Height = 90.000000000000000000
+                end
+              end
+              object FTabMarkerLabel: TTabItem
+                CustomIcon = <
+                  item
+                  end>
+                IsSelected = False
+                Size.Width = 48.000000000000000000
+                Size.Height = 26.000000000000000000
+                Size.PlatformDefault = False
+                StyleLookup = ''
+                TabOrder = 0
+                Text = 'Label'
+                ExplicitSize.cx = 50.000000000000000000
+                ExplicitSize.cy = 50.000000000000000000
+                object lblMarkerLabelText: TLabel
+                  Position.X = 10.000000000000000000
+                  Position.Y = 10.000000000000000000
+                  Size.Width = 30.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Text:'
+                  TabOrder = 0
+                end
+                object FMarkerLabelTextEd: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 1
+                  Position.X = 50.000000000000000000
+                  Position.Y = 8.000000000000000000
+                  Size.Width = 127.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object lblMarkerLabelTextColor: TLabel
+                  Position.X = 10.000000000000000000
+                  Position.Y = 38.000000000000000000
+                  Size.Width = 60.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Text Color:'
+                  TabOrder = 2
+                end
+                object FMarkerLabelTextColorCombo: TColorComboBox
+                  DropDownKind = Custom
+                  Color = claBlack
+                  DisableFocusEffect = False
+                  ItemIndex = 7
+                  Position.X = 80.000000000000000000
+                  Position.Y = 36.000000000000000000
+                  Size.Width = 97.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 3
+                end
+                object lblMarkerLabelBgColor: TLabel
+                  Position.X = 10.000000000000000000
+                  Position.Y = 66.000000000000000000
+                  Size.Width = 80.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Bg Color:'
+                  TabOrder = 4
+                end
+                object FMarkerLabelBgColorCombo: TColorComboBox
+                  DropDownKind = Custom
+                  Color = claBlack
+                  DisableFocusEffect = False
+                  ItemIndex = 7
+                  Position.X = 80.000000000000000000
+                  Position.Y = 64.000000000000000000
+                  Size.Width = 97.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 5
+                end
+                object lblMarkerLabelBorderColor: TLabel
+                  Position.X = 188.000000000000000000
+                  Position.Y = 38.000000000000000000
+                  Size.Width = 82.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Border Color:'
+                  TabOrder = 6
+                end
+                object FMarkerLabelBorderColorCombo: TColorComboBox
+                  DropDownKind = Custom
+                  Color = claBlack
+                  DisableFocusEffect = False
+                  ItemIndex = 7
+                  Position.X = 269.000000000000000000
+                  Position.Y = 36.000000000000000000
+                  Size.Width = 95.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 7
+                end
+                object lblMarkerLabelCorner: TLabel
+                  Position.X = 188.000000000000000000
+                  Position.Y = 15.000000000000000000
+                  Size.Width = 82.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Corner Radius:'
+                  TabOrder = 8
+                end
+                object FMarkerLabelCornerEd: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 9
+                  Position.X = 269.000000000000000000
+                  Position.Y = 8.000000000000000000
+                  Size.Width = 50.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object lblFontSize: TLabel
+                  Position.X = 370.000000000000000000
+                  Position.Y = 10.000000000000000000
+                  Size.Width = 58.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Font Size:'
+                  TabOrder = 10
+                end
+                object FMarkerLabelFontSizeEd: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 11
+                  Position.X = 430.000000000000000000
+                  Position.Y = 8.000000000000000000
+                  Size.Width = 50.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object FMarkerLabelFontBoldChk: TCheckBox
+                  Position.X = 198.000000000000000000
+                  Position.Y = 61.000000000000000000
+                  Size.Width = 60.000000000000000000
+                  Size.Height = 19.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 12
+                  Text = 'Bold'
+                end
+                object lblMarkerLabelPadH: TLabel
+                  Position.X = 370.000000000000000000
+                  Position.Y = 40.000000000000000000
+                  Size.Width = 58.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Padding H:'
+                  TabOrder = 13
+                end
+                object FMarkerLabelPadHEd: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 14
+                  Position.X = 430.000000000000000000
+                  Position.Y = 38.000000000000000000
+                  Size.Width = 50.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object lblMarkerLabelPadV: TLabel
+                  Position.X = 370.000000000000000000
+                  Position.Y = 66.000000000000000000
+                  Size.Width = 58.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Padding V:'
+                  TabOrder = 15
+                end
+                object FMarkerLabelPadVEd: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 16
+                  Position.X = 430.000000000000000000
+                  Position.Y = 64.000000000000000000
+                  Size.Width = 50.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+              end
+              object FTabMarkerPin: TTabItem
+                CustomIcon = <
+                  item
+                  end>
+                IsSelected = False
+                Size.Width = 37.000000000000000000
+                Size.Height = 26.000000000000000000
+                Size.PlatformDefault = False
+                StyleLookup = ''
+                TabOrder = 0
+                Text = 'Pin'
+                ExplicitSize.cx = 50.000000000000000000
+                ExplicitSize.cy = 50.000000000000000000
+                object lblMarkerPinBgColor: TLabel
+                  Position.X = 210.000000000000000000
+                  Position.Y = 10.000000000000000000
+                  Size.Width = 100.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Background Color:'
+                  TabOrder = 0
+                end
+                object FMarkerPinBgColorCombo: TColorComboBox
+                  DropDownKind = Custom
+                  Color = claBlack
+                  DisableFocusEffect = False
+                  ItemIndex = 7
+                  Position.X = 312.000000000000000000
+                  Position.Y = 8.000000000000000000
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 1
+                end
+                object lblMarkerPinBorderColor: TLabel
+                  Position.X = 210.000000000000000000
+                  Position.Y = 38.000000000000000000
+                  Size.Width = 74.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Border Color:'
+                  TabOrder = 2
+                end
+                object FMarkerPinBorderColorCombo: TColorComboBox
+                  DropDownKind = Custom
+                  Color = claBlack
+                  DisableFocusEffect = False
+                  ItemIndex = 7
+                  Position.X = 312.000000000000000000
+                  Position.Y = 38.000000000000000000
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 3
+                end
+                object lblMarkerPinGlyphText: TLabel
+                  Position.X = 10.000000000000000000
+                  Position.Y = 10.000000000000000000
+                  Size.Width = 60.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Glyph Text:'
+                  TabOrder = 4
+                end
+                object FMarkerPinGlyphTextEd: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 5
+                  Position.X = 80.000000000000000000
+                  Position.Y = 8.000000000000000000
+                  Size.Width = 105.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object lblMarkerPinGlyphColor: TLabel
+                  Position.X = 10.000000000000000000
+                  Position.Y = 38.000000000000000000
+                  Size.Width = 66.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Glyph Color:'
+                  TabOrder = 6
+                end
+                object FMarkerPinGlyphColorCombo: TColorComboBox
+                  DropDownKind = Custom
+                  Color = claBlack
+                  DisableFocusEffect = False
+                  ItemIndex = 7
+                  Position.X = 80.000000000000000000
+                  Position.Y = 35.000000000000000000
+                  Size.Width = 120.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 7
+                end
+                object lblMarkerPinScale: TLabel
+                  Position.X = 210.000000000000000000
+                  Position.Y = 70.000000000000000000
+                  Size.Width = 35.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Scale:'
+                  TabOrder = 8
+                end
+                object FMarkerPinScaleEd: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 9
+                  Position.X = 312.000000000000000000
+                  Position.Y = 64.000000000000000000
+                  Size.Width = 60.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+              end
+            end
+          end
+        end
+        object FTabOverlays: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = False
+          Size.Width = 66.000000000000000000
+          Size.Height = 26.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = ''
+          TabOrder = 0
+          Text = 'Overlays'
+          ExplicitSize.cx = 50.000000000000000000
+          ExplicitSize.cy = 50.000000000000000000
+          object FOverlaysTabControl: TTabControl
+            Align = Client
+            Size.Width = 1240.000000000000000000
+            Size.Height = 173.000000000000000000
+            Size.PlatformDefault = False
+            TabIndex = 0
+            TabOrder = 0
+            TabPosition = Top
+            Sizes = (
+              1240s
+              147s
+              1240s
+              147s
+              1240s
+              147s
+              1240s
+              147s
+              1240s
+              147s)
+            object FTabPolyline: TTabItem
+              CustomIcon = <
+                item
+                end>
+              IsSelected = True
+              Size.Width = 61.000000000000000000
+              Size.Height = 26.000000000000000000
+              Size.PlatformDefault = False
+              StyleLookup = ''
+              TabOrder = 0
+              Text = 'Polyline'
+              ExplicitSize.cx = 50.000000000000000000
+              ExplicitSize.cy = 50.000000000000000000
+              object FPolylineAddBtn: TButton
+                Position.X = 153.000000000000000000
+                Position.Y = 8.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 23.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                Text = 'Add'
+                OnClick = PolylineAddClick
+              end
+              object FPolylineDelBtn: TButton
+                Position.X = 153.000000000000000000
+                Position.Y = 33.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 23.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 1
+                Text = 'Delete'
+                OnClick = PolylineDeleteClick
+              end
+              object FPolylineClearBtn: TButton
+                Position.X = 153.000000000000000000
+                Position.Y = 57.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 23.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 2
+                Text = 'Clear'
+                OnClick = PolylineClearClick
+              end
+              object FPolylineUpdBtn: TButton
+                Position.X = 153.000000000000000000
+                Position.Y = 85.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 23.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 3
+                Text = 'Update'
+                OnClick = PolylineUpdateClick
+              end
+              object FZoomToPolylineBtn: TButton
+                Position.X = 694.000000000000000000
+                Size.Width = 100.000000000000000000
+                Size.Height = 25.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 4
+                Text = 'Zoom To'
+                OnClick = ZoomToPolylineClick
+              end
+              object FZoomToPolylinesBtn: TButton
+                Position.X = 694.000000000000000000
+                Position.Y = 33.000000000000000000
+                Size.Width = 110.000000000000000000
+                Size.Height = 25.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 5
+                Text = 'Zoom To All'
+                OnClick = ZoomToPolylinesClick
+              end
+              object FPolylineList: TListBox
+                Position.X = 10.000000000000000000
+                Position.Y = 8.000000000000000000
+                Size.Width = 135.000000000000000000
+                Size.Height = 100.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 6
+                DisableFocusEffect = True
+                DefaultItemStyles.ItemStyle = ''
+                DefaultItemStyles.GroupHeaderStyle = ''
+                DefaultItemStyles.GroupFooterStyle = ''
+                OnChange = PolylineListClick
+                Viewport.Width = 131.000000000000000000
+                Viewport.Height = 96.000000000000000000
+              end
+              object lblPolylinePath: TLabel
+                Position.X = 254.000000000000000000
+                Position.Y = 8.000000000000000000
+                Size.Width = 30.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Path:'
+                TabOrder = 7
+              end
+              object FPolylinePathMemo: TMemo
+                Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+                DataDetectorTypes = []
+                Position.X = 254.000000000000000000
+                Position.Y = 24.000000000000000000
+                Size.Width = 155.000000000000000000
+                Size.Height = 84.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 8
+                Viewport.Width = 151.000000000000000000
+                Viewport.Height = 80.000000000000000000
+              end
+              object lblPolylineStrokeColor: TLabel
+                Position.X = 427.000000000000000000
+                Position.Y = 10.000000000000000000
+                Size.Width = 70.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Stroke Color:'
+                TabOrder = 9
+              end
+              object FPolylineStrokeColorCombo: TColorComboBox
+                DropDownKind = Custom
+                Color = claNull
+                DisableFocusEffect = False
+                ItemIndex = 147
+                Position.X = 500.000000000000000000
+                Position.Y = 8.000000000000000000
+                Size.Width = 77.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 10
+              end
+              object lblPolylineOpacity: TLabel
+                Position.X = 417.000000000000000000
+                Position.Y = 40.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Stroke Opacity:'
+                TabOrder = 11
+              end
+              object FPolylineStrokeOpacityEd: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 12
+                Position.X = 500.000000000000000000
+                Position.Y = 38.000000000000000000
+                Size.Width = 60.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+              end
+              object lblPolylineWeight: TLabel
+                Position.X = 417.000000000000000000
+                Position.Y = 70.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Stroke Weight:'
+                TabOrder = 13
+              end
+              object FPolylineStrokeWeightEd: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 14
+                Position.X = 500.000000000000000000
+                Position.Y = 68.000000000000000000
+                Size.Width = 60.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+              end
+              object FPolylineClickChk: TCheckBox
+                Position.X = 585.000000000000000000
+                Position.Y = 4.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 19.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 15
+                Text = 'Clickable'
+              end
+              object FPolylineDragChk: TCheckBox
+                Position.X = 585.000000000000000000
+                Position.Y = 23.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 19.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 16
+                Text = 'Draggable'
+              end
+              object FPolylineEditChk: TCheckBox
+                Position.X = 585.000000000000000000
+                Position.Y = 42.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 19.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 17
+                Text = 'Editable'
+              end
+              object FPolylineGeoChk: TCheckBox
+                Position.X = 585.000000000000000000
+                Position.Y = 61.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 19.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 18
+                Text = 'Geodesic'
+              end
+              object FPolylineVisChk: TCheckBox
+                Position.X = 585.000000000000000000
+                Position.Y = 80.000000000000000000
+                Size.Width = 70.000000000000000000
+                Size.Height = 19.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 19
+                Text = 'Visible'
+              end
+            end
+            object FTabPolygon: TTabItem
+              CustomIcon = <
+                item
+                end>
+              IsSelected = False
+              Size.Width = 63.000000000000000000
+              Size.Height = 26.000000000000000000
+              Size.PlatformDefault = False
+              StyleLookup = ''
+              TabOrder = 0
+              Text = 'Polygon'
+              ExplicitSize.cx = 50.000000000000000000
+              ExplicitSize.cy = 50.000000000000000000
+              object FPolygonAddBtn: TButton
+                Position.X = 153.000000000000000000
+                Position.Y = 8.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 23.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                Text = 'Add'
+                OnClick = PolygonAddClick
+              end
+              object FPolygonDelBtn: TButton
+                Position.X = 153.000000000000000000
+                Position.Y = 33.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 23.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 1
+                Text = 'Delete'
+                OnClick = PolygonDeleteClick
+              end
+              object FPolygonClearBtn: TButton
+                Position.X = 153.000000000000000000
+                Position.Y = 57.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 23.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 2
+                Text = 'Clear'
+                OnClick = PolygonClearClick
+              end
+              object FPolygonUpdBtn: TButton
+                Position.X = 153.000000000000000000
+                Position.Y = 85.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 23.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 3
+                Text = 'Update'
+                OnClick = PolygonUpdateClick
+              end
+              object FZoomToPolygonBtn: TButton
+                Position.X = 561.000000000000000000
+                Position.Y = 83.000000000000000000
+                Size.Width = 100.000000000000000000
+                Size.Height = 25.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 4
+                Text = 'Zoom To'
+                OnClick = ZoomToPolygonClick
+              end
+              object FZoomToPolygonsBtn: TButton
+                Position.X = 665.000000000000000000
+                Position.Y = 83.000000000000000000
+                Size.Width = 110.000000000000000000
+                Size.Height = 25.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 5
+                Text = 'Zoom To All'
+                OnClick = ZoomToPolygonsClick
+              end
+              object FPolygonList: TListBox
+                Position.X = 10.000000000000000000
+                Position.Y = 8.000000000000000000
+                Size.Width = 135.000000000000000000
+                Size.Height = 100.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 6
+                DisableFocusEffect = True
+                DefaultItemStyles.ItemStyle = ''
+                DefaultItemStyles.GroupHeaderStyle = ''
+                DefaultItemStyles.GroupFooterStyle = ''
+                OnChange = PolygonListClick
+                Viewport.Width = 131.000000000000000000
+                Viewport.Height = 96.000000000000000000
+              end
+              object lblPolygonPath: TLabel
+                Position.X = 254.000000000000000000
+                Position.Y = 8.000000000000000000
+                Size.Width = 30.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Path:'
+                TabOrder = 7
+              end
+              object FPolygonPathMemo: TMemo
+                Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+                DataDetectorTypes = []
+                Position.X = 254.000000000000000000
+                Position.Y = 24.000000000000000000
+                Size.Width = 155.000000000000000000
+                Size.Height = 84.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 8
+                Viewport.Width = 151.000000000000000000
+                Viewport.Height = 80.000000000000000000
+              end
+              object lblPolygonStrokeColor: TLabel
+                Position.X = 420.000000000000000000
+                Position.Y = 8.000000000000000000
+                Size.Width = 70.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Stroke Color:'
+                TabOrder = 9
+              end
+              object FPolygonStrokeColorCombo: TColorComboBox
+                DropDownKind = Custom
+                Color = claBlack
+                DisableFocusEffect = False
+                ItemIndex = 7
+                Position.X = 508.000000000000000000
+                Position.Y = 3.000000000000000000
+                Size.Width = 100.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 10
+              end
+              object lblPolygonFillColor: TLabel
+                Position.X = 628.000000000000000000
+                Position.Y = 8.000000000000000000
+                Size.Width = 50.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Fill Color:'
+                TabOrder = 11
+              end
+              object FPolygonFillColorCombo: TColorComboBox
+                DropDownKind = Custom
+                Color = claBlack
+                DisableFocusEffect = False
+                ItemIndex = 7
+                Position.X = 695.000000000000000000
+                Position.Y = 3.000000000000000000
+                Size.Width = 100.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 12
+              end
+              object lblPolygonStrokeOp: TLabel
+                Position.X = 420.000000000000000000
+                Position.Y = 28.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Stroke Opacity:'
+                TabOrder = 13
+              end
+              object FPolygonStrokeOpEd: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 14
+                Position.X = 508.000000000000000000
+                Position.Y = 26.000000000000000000
+                Size.Width = 60.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+              end
+              object lblPolygonStrokeWt: TLabel
+                Position.X = 425.000000000000000000
+                Position.Y = 56.000000000000000000
+                Size.Width = 78.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Stroke Weight:'
+                TabOrder = 15
+              end
+              object FPolygonStrokeWtEd: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 16
+                Position.X = 508.000000000000000000
+                Position.Y = 51.000000000000000000
+                Size.Width = 60.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+              end
+              object lblPolygonFillOp: TLabel
+                Position.X = 628.000000000000000000
+                Position.Y = 28.000000000000000000
+                Size.Width = 65.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Fill Opacity:'
+                TabOrder = 17
+              end
+              object FPolygonFillOpEd: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 18
+                Position.X = 695.000000000000000000
+                Position.Y = 28.000000000000000000
+                Size.Width = 60.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+              end
+              object FPolygonClickChk: TCheckBox
+                Position.X = 824.000000000000000000
+                Position.Y = 52.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 19.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 19
+                Text = 'Clickable'
+              end
+              object FPolygonDragChk: TCheckBox
+                Position.X = 824.000000000000000000
+                Position.Y = 68.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 19.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 20
+                Text = 'Draggable'
+              end
+              object FPolygonEditChk: TCheckBox
+                Position.X = 824.000000000000000000
+                Position.Y = 4.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 19.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 21
+                Text = 'Editable'
+              end
+              object FPolygonGeoChk: TCheckBox
+                Position.X = 824.000000000000000000
+                Position.Y = 20.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 19.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 22
+                Text = 'Geodesic'
+              end
+              object FPolygonVisChk: TCheckBox
+                Position.X = 824.000000000000000000
+                Position.Y = 36.000000000000000000
+                Size.Width = 70.000000000000000000
+                Size.Height = 19.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 23
+                Text = 'Visible'
+              end
+            end
+            object FTabRectangle: TTabItem
+              CustomIcon = <
+                item
+                end>
+              IsSelected = False
+              Size.Width = 72.000000000000000000
+              Size.Height = 26.000000000000000000
+              Size.PlatformDefault = False
+              StyleLookup = ''
+              TabOrder = 0
+              Text = 'Rectangle'
+              ExplicitSize.cx = 50.000000000000000000
+              ExplicitSize.cy = 50.000000000000000000
+              object FRectAddBtn: TButton
+                Position.X = 153.000000000000000000
+                Position.Y = 8.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 23.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                Text = 'Add'
+                OnClick = RectAddClick
+              end
+              object FRectDelBtn: TButton
+                Position.X = 153.000000000000000000
+                Position.Y = 33.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 23.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 1
+                Text = 'Delete'
+                OnClick = RectDeleteClick
+              end
+              object FRectClearBtn: TButton
+                Position.X = 153.000000000000000000
+                Position.Y = 57.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 23.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 2
+                Text = 'Clear'
+                OnClick = RectClearClick
+              end
+              object FRectUpdBtn: TButton
+                Position.X = 153.000000000000000000
+                Position.Y = 85.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 23.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 3
+                Text = 'Update'
+                OnClick = RectUpdateClick
+              end
+              object FZoomToRectBtn: TButton
+                Position.X = 861.000000000000000000
+                Position.Y = 10.000000000000000000
+                Size.Width = 84.000000000000000000
+                Size.Height = 25.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 4
+                Text = 'Zoom To'
+                OnClick = ZoomToRectClick
+              end
+              object FZoomToRectsBtn: TButton
+                Position.X = 861.000000000000000000
+                Position.Y = 43.000000000000000000
+                Size.Width = 84.000000000000000000
+                Size.Height = 25.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 5
+                Text = 'Zoom To All'
+                OnClick = ZoomToRectsClick
+              end
+              object FRectList: TListBox
+                Position.X = 10.000000000000000000
+                Position.Y = 8.000000000000000000
+                Size.Width = 135.000000000000000000
+                Size.Height = 100.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 6
+                DisableFocusEffect = True
+                DefaultItemStyles.ItemStyle = ''
+                DefaultItemStyles.GroupHeaderStyle = ''
+                DefaultItemStyles.GroupFooterStyle = ''
+                OnChange = RectListClick
+                Viewport.Width = 131.000000000000000000
+                Viewport.Height = 96.000000000000000000
+              end
+              object lblRectNorth: TLabel
+                Position.X = 236.000000000000000000
+                Position.Y = 12.000000000000000000
+                Size.Width = 35.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'North:'
+                TabOrder = 7
+              end
+              object FRectNorthEd: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 8
+                Position.X = 276.000000000000000000
+                Position.Y = 10.000000000000000000
+                Size.Width = 58.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+              end
+              object lblRectSouth: TLabel
+                Position.X = 236.000000000000000000
+                Position.Y = 38.000000000000000000
+                Size.Width = 35.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'South:'
+                TabOrder = 9
+              end
+              object FRectSouthEd: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 10
+                Position.X = 276.000000000000000000
+                Position.Y = 36.000000000000000000
+                Size.Width = 58.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+              end
+              object lblRectEast: TLabel
+                Position.X = 340.000000000000000000
+                Position.Y = 12.000000000000000000
+                Size.Width = 25.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'East:'
+                TabOrder = 11
+              end
+              object FRectEastEd: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 12
+                Position.X = 375.000000000000000000
+                Position.Y = 10.000000000000000000
+                Size.Width = 58.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+              end
+              object lblRectWest: TLabel
+                Position.X = 340.000000000000000000
+                Position.Y = 38.000000000000000000
+                Size.Width = 30.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'West:'
+                TabOrder = 13
+              end
+              object FRectWestEd: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 14
+                Position.X = 375.000000000000000000
+                Position.Y = 36.000000000000000000
+                Size.Width = 58.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+              end
+              object lblRectStrokeColor: TLabel
+                Position.X = 451.000000000000000000
+                Position.Y = 10.000000000000000000
+                Size.Width = 70.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Stroke Color:'
+                TabOrder = 15
+              end
+              object FRectStrokeColorCombo: TColorComboBox
+                DropDownKind = Custom
+                Color = claBlack
+                DisableFocusEffect = False
+                ItemIndex = 7
+                Position.X = 524.000000000000000000
+                Position.Y = 8.000000000000000000
+                Size.Width = 69.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 16
+              end
+              object lblRectFillColor: TLabel
+                Position.X = 613.000000000000000000
+                Position.Y = 10.000000000000000000
+                Size.Width = 50.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Fill Color:'
+                TabOrder = 17
+              end
+              object FRectFillColorCombo: TColorComboBox
+                DropDownKind = Custom
+                Color = claBlack
+                DisableFocusEffect = False
+                ItemIndex = 7
+                Position.X = 665.000000000000000000
+                Position.Y = 8.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 18
+              end
+              object lblRectStrokeOp: TLabel
+                Position.X = 441.000000000000000000
+                Position.Y = 40.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Stroke Opacity:'
+                TabOrder = 19
+              end
+              object FRectStrokeOpEd: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 20
+                Position.X = 524.000000000000000000
+                Position.Y = 38.000000000000000000
+                Size.Width = 60.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+              end
+              object lblRectStrokeWt: TLabel
+                Position.X = 443.000000000000000000
+                Position.Y = 70.000000000000000000
+                Size.Width = 78.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Stroke Weight:'
+                TabOrder = 21
+              end
+              object FRectStrokeWtEd: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 22
+                Position.X = 524.000000000000000000
+                Position.Y = 68.000000000000000000
+                Size.Width = 60.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+              end
+              object lblRectFillOp: TLabel
+                Position.X = 598.000000000000000000
+                Position.Y = 40.000000000000000000
+                Size.Width = 65.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Fill Opacity:'
+                TabOrder = 23
+              end
+              object FRectFillOpEd: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 24
+                Position.X = 665.000000000000000000
+                Position.Y = 38.000000000000000000
+                Size.Width = 60.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+              end
+              object FRectClickChk: TCheckBox
+                Position.X = 753.000000000000000000
+                Position.Y = 49.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 19.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 25
+                Text = 'Clickable'
+              end
+              object FRectDragChk: TCheckBox
+                Position.X = 753.000000000000000000
+                Position.Y = 68.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 19.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 26
+                Text = 'Draggable'
+              end
+              object FRectEditChk: TCheckBox
+                Position.X = 753.000000000000000000
+                Position.Y = 12.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 19.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 27
+                Text = 'Editable'
+              end
+              object FRectVisChk: TCheckBox
+                Position.X = 753.000000000000000000
+                Position.Y = 30.000000000000000000
+                Size.Width = 70.000000000000000000
+                Size.Height = 19.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 28
+                Text = 'Visible'
+              end
+            end
+            object FTabCircle: TTabItem
+              CustomIcon = <
+                item
+                end>
+              IsSelected = False
+              Size.Width = 50.000000000000000000
+              Size.Height = 26.000000000000000000
+              Size.PlatformDefault = False
+              StyleLookup = ''
+              TabOrder = 0
+              Text = 'Circle'
+              ExplicitSize.cx = 50.000000000000000000
+              ExplicitSize.cy = 50.000000000000000000
+              object FCircleAddBtn: TButton
+                Position.X = 153.000000000000000000
+                Position.Y = 8.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 23.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                Text = 'Add'
+                OnClick = CircleAddClick
+              end
+              object FCircleDelBtn: TButton
+                Position.X = 153.000000000000000000
+                Position.Y = 33.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 23.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 1
+                Text = 'Delete'
+                OnClick = CircleDeleteClick
+              end
+              object FCircleClearBtn: TButton
+                Position.X = 153.000000000000000000
+                Position.Y = 57.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 23.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 2
+                Text = 'Clear'
+                OnClick = CircleClearClick
+              end
+              object FCircleUpdBtn: TButton
+                Position.X = 153.000000000000000000
+                Position.Y = 85.000000000000000000
+                Size.Width = 63.000000000000000000
+                Size.Height = 23.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 3
+                Text = 'Update'
+                OnClick = CircleUpdateClick
+              end
+              object FZoomToCircleBtn: TButton
+                Position.X = 846.000000000000000000
+                Position.Y = 7.000000000000000000
+                Size.Width = 100.000000000000000000
+                Size.Height = 25.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 4
+                Text = 'Zoom To'
+                OnClick = ZoomToCircleClick
+              end
+              object FZoomToCirclesBtn: TButton
+                Position.X = 846.000000000000000000
+                Position.Y = 40.000000000000000000
+                Size.Width = 100.000000000000000000
+                Size.Height = 25.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 5
+                Text = 'Zoom To All'
+                OnClick = ZoomToCirclesClick
+              end
+              object FCircleList: TListBox
+                Position.X = 10.000000000000000000
+                Position.Y = 8.000000000000000000
+                Size.Width = 135.000000000000000000
+                Size.Height = 100.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 6
+                DisableFocusEffect = True
+                DefaultItemStyles.ItemStyle = ''
+                DefaultItemStyles.GroupHeaderStyle = ''
+                DefaultItemStyles.GroupFooterStyle = ''
+                OnChange = CircleListClick
+                Viewport.Width = 131.000000000000000000
+                Viewport.Height = 96.000000000000000000
+              end
+              object lblCircleCenterLat: TLabel
+                Position.X = 247.000000000000000000
+                Position.Y = 10.000000000000000000
+                Size.Width = 66.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Center Lat:'
+                TabOrder = 7
+              end
+              object FCircleLatEd: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 8
+                Position.X = 247.000000000000000000
+                Position.Y = 25.000000000000000000
+                Size.Width = 66.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+              end
+              object lblCircleCenterLng: TLabel
+                Position.X = 321.000000000000000000
+                Position.Y = 10.000000000000000000
+                Size.Width = 62.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Center Lng:'
+                TabOrder = 9
+              end
+              object FCircleLngEd: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 10
+                Position.X = 321.000000000000000000
+                Position.Y = 25.000000000000000000
+                Size.Width = 66.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+              end
+              object lblCircleRadius: TLabel
+                Position.X = 247.000000000000000000
+                Position.Y = 60.000000000000000000
+                Size.Width = 40.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Radius:'
+                TabOrder = 11
+              end
+              object FRadiusEd: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 12
+                Position.X = 247.000000000000000000
+                Position.Y = 78.000000000000000000
+                Size.Width = 66.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+              end
+              object lblCircleStrokeColor: TLabel
+                Position.X = 407.000000000000000000
+                Position.Y = 27.000000000000000000
+                Size.Width = 70.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Stroke Color:'
+                TabOrder = 13
+              end
+              object FCircleStrokeColorCombo: TColorComboBox
+                DropDownKind = Custom
+                Color = claBlack
+                DisableFocusEffect = False
+                ItemIndex = 7
+                Position.X = 479.000000000000000000
+                Position.Y = 25.000000000000000000
+                Size.Width = 74.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 14
+              end
+              object lblCircleFillColor: TLabel
+                Position.X = 587.000000000000000000
+                Position.Y = 27.000000000000000000
+                Size.Width = 50.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Fill Color:'
+                TabOrder = 15
+              end
+              object FCircleFillColorCombo: TColorComboBox
+                DropDownKind = Custom
+                Color = claBlack
+                DisableFocusEffect = False
+                ItemIndex = 7
+                Position.X = 640.000000000000000000
+                Position.Y = 25.000000000000000000
+                Size.Width = 73.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 16
+              end
+              object lblCircleStrokeOp: TLabel
+                Position.X = 397.000000000000000000
+                Position.Y = 57.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Stroke Opacity:'
+                TabOrder = 17
+              end
+              object FCircleStrokeOpEd: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 18
+                Position.X = 479.000000000000000000
+                Position.Y = 55.000000000000000000
+                Size.Width = 60.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+              end
+              object lblCircleStrokeWt: TLabel
+                Position.X = 399.000000000000000000
+                Position.Y = 87.000000000000000000
+                Size.Width = 78.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Stroke Weight:'
+                TabOrder = 19
+              end
+              object FCircleStrokeWtEd: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 20
+                Position.X = 479.000000000000000000
+                Position.Y = 85.000000000000000000
+                Size.Width = 60.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+              end
+              object lblCircleFillOp: TLabel
+                Position.X = 572.000000000000000000
+                Position.Y = 57.000000000000000000
+                Size.Width = 65.000000000000000000
+                Size.Height = 15.000000000000000000
+                Size.PlatformDefault = False
+                Text = 'Fill Opacity:'
+                TabOrder = 21
+              end
+              object FCircleFillOpEd: TEdit
+                Touch.InteractiveGestures = [LongTap, DoubleTap]
+                TabOrder = 22
+                Position.X = 640.000000000000000000
+                Position.Y = 55.000000000000000000
+                Size.Width = 60.000000000000000000
+                Size.Height = 22.000000000000000000
+                Size.PlatformDefault = False
+              end
+              object FCircleClickChk: TCheckBox
+                Position.X = 736.000000000000000000
+                Position.Y = 58.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 19.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 23
+                Text = 'Clickable'
+              end
+              object FCircleDragChk: TCheckBox
+                Position.X = 736.000000000000000000
+                Position.Y = 81.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 19.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 24
+                Text = 'Draggable'
+              end
+              object FCircleEditChk: TCheckBox
+                Position.X = 736.000000000000000000
+                Position.Y = 10.000000000000000000
+                Size.Width = 80.000000000000000000
+                Size.Height = 19.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 25
+                Text = 'Editable'
+              end
+              object FCircleVisChk: TCheckBox
+                Position.X = 736.000000000000000000
+                Position.Y = 34.000000000000000000
+                Size.Width = 70.000000000000000000
+                Size.Height = 19.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 26
+                Text = 'Visible'
+              end
+            end
+            object FTabGroundOverlay: TTabItem
+              CustomIcon = <
+                item
+                end>
+              IsSelected = False
+              Size.Width = 104.000000000000000000
+              Size.Height = 26.000000000000000000
+              Size.PlatformDefault = False
+              StyleLookup = ''
+              TabOrder = 0
+              Text = 'Ground Overlay'
+              ExplicitSize.cx = 50.000000000000000000
+              ExplicitSize.cy = 50.000000000000000000
+              object FGroundScroll: TVertScrollBox
+                Align = Client
+                Size.Width = 1240.000000000000000000
+                Size.Height = 147.000000000000000000
+                Size.PlatformDefault = False
+                TabOrder = 0
+                Viewport.Width = 1240.000000000000000000
+                Viewport.Height = 147.000000000000000000
+                object FGroundAddBtn: TButton
+                  Position.X = 153.000000000000000000
+                  Position.Y = 8.000000000000000000
+                  Size.Width = 63.000000000000000000
+                  Size.Height = 23.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 0
+                  Text = 'Add'
+                  OnClick = GroundAddClick
+                end
+                object FGroundDelBtn: TButton
+                  Position.X = 153.000000000000000000
+                  Position.Y = 33.000000000000000000
+                  Size.Width = 63.000000000000000000
+                  Size.Height = 23.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 1
+                  Text = 'Delete'
+                  OnClick = GroundDeleteClick
+                end
+                object FGroundClearBtn: TButton
+                  Position.X = 153.000000000000000000
+                  Position.Y = 57.000000000000000000
+                  Size.Width = 63.000000000000000000
+                  Size.Height = 23.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 2
+                  Text = 'Clear'
+                  OnClick = GroundClearClick
+                end
+                object FGroundUpdBtn: TButton
+                  Position.X = 153.000000000000000000
+                  Position.Y = 85.000000000000000000
+                  Size.Width = 63.000000000000000000
+                  Size.Height = 23.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 3
+                  Text = 'Update'
+                  OnClick = GroundUpdateClick
+                end
+                object FGroundZoomBtn: TButton
+                  Position.X = 750.000000000000000000
+                  Position.Y = 18.000000000000000000
+                  Size.Width = 100.000000000000000000
+                  Size.Height = 25.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 4
+                  Text = 'Zoom To'
+                  OnClick = GroundZoomClick
+                end
+                object FGroundZoomAllBtn: TButton
+                  Position.X = 750.000000000000000000
+                  Position.Y = 51.000000000000000000
+                  Size.Width = 100.000000000000000000
+                  Size.Height = 25.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 5
+                  Text = 'Zoom To All'
+                  OnClick = GroundZoomAllClick
+                end
+                object FGroundList: TListBox
+                  Position.X = 8.000000000000000000
+                  Position.Y = 10.000000000000000000
+                  Size.Width = 135.000000000000000000
+                  Size.Height = 100.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 6
+                  DisableFocusEffect = True
+                  DefaultItemStyles.ItemStyle = ''
+                  DefaultItemStyles.GroupHeaderStyle = ''
+                  DefaultItemStyles.GroupFooterStyle = ''
+                  OnChange = GroundListClick
+                  Viewport.Width = 131.000000000000000000
+                  Viewport.Height = 96.000000000000000000
+                end
+                object lblGroundUrl: TLabel
+                  Position.X = 244.000000000000000000
+                  Position.Y = 10.000000000000000000
+                  Size.Width = 25.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'URL:'
+                  TabOrder = 7
+                end
+                object FGroundUrlEd: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 8
+                  Position.X = 274.000000000000000000
+                  Position.Y = 8.000000000000000000
+                  Size.Width = 340.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object lblGroundNorth: TLabel
+                  Position.X = 234.000000000000000000
+                  Position.Y = 40.000000000000000000
+                  Size.Width = 35.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'North:'
+                  TabOrder = 9
+                end
+                object FGroundNorthEd: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 10
+                  Position.X = 234.000000000000000000
+                  Position.Y = 63.000000000000000000
+                  Size.Width = 71.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object lblGroundSouth: TLabel
+                  Position.X = 313.000000000000000000
+                  Position.Y = 40.000000000000000000
+                  Size.Width = 35.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'South:'
+                  TabOrder = 11
+                end
+                object FGroundSouthEd: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 12
+                  Position.X = 313.000000000000000000
+                  Position.Y = 63.000000000000000000
+                  Size.Width = 71.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object lblGroundEast: TLabel
+                  Position.X = 392.000000000000000000
+                  Position.Y = 40.000000000000000000
+                  Size.Width = 25.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'East:'
+                  TabOrder = 13
+                end
+                object FGroundEastEd: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 14
+                  Position.X = 392.000000000000000000
+                  Position.Y = 63.000000000000000000
+                  Size.Width = 71.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object lblGroundWest: TLabel
+                  Position.X = 471.000000000000000000
+                  Position.Y = 40.000000000000000000
+                  Size.Width = 30.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'West:'
+                  TabOrder = 15
+                end
+                object FGroundWestEd: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 16
+                  Position.X = 471.000000000000000000
+                  Position.Y = 63.000000000000000000
+                  Size.Width = 71.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object lblGroundOpacity: TLabel
+                  Position.X = 564.000000000000000000
+                  Position.Y = 41.000000000000000000
+                  Size.Width = 50.000000000000000000
+                  Size.Height = 15.000000000000000000
+                  Size.PlatformDefault = False
+                  Text = 'Opacity:'
+                  TabOrder = 17
+                end
+                object FGroundOpacityEd: TEdit
+                  Touch.InteractiveGestures = [LongTap, DoubleTap]
+                  TabOrder = 18
+                  Position.X = 564.000000000000000000
+                  Position.Y = 64.000000000000000000
+                  Size.Width = 50.000000000000000000
+                  Size.Height = 22.000000000000000000
+                  Size.PlatformDefault = False
+                end
+                object FGroundClickableChk: TCheckBox
+                  Position.X = 635.000000000000000000
+                  Position.Y = 10.000000000000000000
+                  Size.Width = 80.000000000000000000
+                  Size.Height = 19.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 19
+                  Text = 'Clickable'
+                end
+                object FGroundVisibleChk: TCheckBox
+                  Position.X = 635.000000000000000000
+                  Position.Y = 37.000000000000000000
+                  Size.Width = 70.000000000000000000
+                  Size.Height = 19.000000000000000000
+                  Size.PlatformDefault = False
+                  TabOrder = 20
+                  Text = 'Visible'
+                end
+              end
+            end
+          end
+        end
+        object FTabLayers: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = False
+          Size.Width = 54.000000000000000000
+          Size.Height = 26.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = ''
+          TabOrder = 0
+          Text = 'Layers'
+          ExplicitSize.cx = 50.000000000000000000
+          ExplicitSize.cy = 50.000000000000000000
+          object FLayersScroll: TVertScrollBox
+            Align = Client
+            Size.Width = 1240.000000000000000000
+            Size.Height = 173.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            Viewport.Width = 1240.000000000000000000
+            Viewport.Height = 173.000000000000000000
+            object FTrafficVisChk: TCheckBox
+              Position.X = 20.000000000000000000
+              Position.Y = 10.000000000000000000
+              Size.Width = 140.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+              Text = 'Traffic Visible'
+            end
+            object FTrafficAutoChk: TCheckBox
+              Position.X = 20.000000000000000000
+              Position.Y = 34.000000000000000000
+              Size.Width = 140.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 1
+              Text = 'Traffic AutoRefresh'
+            end
+            object FTransitVisChk: TCheckBox
+              Position.X = 20.000000000000000000
+              Position.Y = 66.000000000000000000
+              Size.Width = 130.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 2
+              Text = 'Transit Visible'
+            end
+            object FBicyclingVisChk: TCheckBox
+              Position.X = 20.000000000000000000
+              Position.Y = 90.000000000000000000
+              Size.Width = 130.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 3
+              Text = 'Bicycling Visible'
+            end
+            object lblKmlUrl: TLabel
+              Position.X = 174.000000000000000000
+              Position.Y = 12.000000000000000000
+              Size.Width = 49.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Kml URL:'
+              TabOrder = 4
+            end
+            object FKmlUrlEd: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 5
+              Position.X = 228.000000000000000000
+              Position.Y = 10.000000000000000000
+              Size.Width = 493.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object lblKmlZIndex: TLabel
+              Position.X = 178.000000000000000000
+              Position.Y = 42.000000000000000000
+              Size.Width = 40.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'ZIndex:'
+              TabOrder = 6
+            end
+            object FKmlZIndexEd: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 7
+              Position.X = 228.000000000000000000
+              Position.Y = 40.000000000000000000
+              Size.Width = 60.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object FKmlVisChk: TCheckBox
+              Position.X = 308.000000000000000000
+              Position.Y = 43.000000000000000000
+              Size.Width = 70.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 8
+              Text = 'Visible'
+            end
+            object FKmlClickChk: TCheckBox
+              Position.X = 380.000000000000000000
+              Position.Y = 43.000000000000000000
+              Size.Width = 80.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 9
+              Text = 'Clickable'
+            end
+            object FKmlPreserveChk: TCheckBox
+              Position.X = 470.000000000000000000
+              Position.Y = 43.000000000000000000
+              Size.Width = 120.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 10
+              Text = 'Preserve Viewport'
+            end
+            object FKmlScreenChk: TCheckBox
+              Position.X = 308.000000000000000000
+              Position.Y = 70.000000000000000000
+              Size.Width = 130.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 11
+              Text = 'Screen Overlays'
+            end
+            object FKmlSuppressChk: TCheckBox
+              Position.X = 440.000000000000000000
+              Position.Y = 70.000000000000000000
+              Size.Width = 150.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 12
+              Text = 'Suppress InfoWindows'
+            end
+            object FApplyLayersBtn: TButton
+              Position.X = 174.000000000000000000
+              Position.Y = 74.000000000000000000
+              Size.Width = 100.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 13
+              Text = 'Apply Layers'
+              OnClick = ApplyLayersClick
+            end
+          end
+        end
+        object FTabInfoWindows: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = False
+          Size.Width = 90.000000000000000000
+          Size.Height = 26.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = ''
+          TabOrder = 0
+          Text = 'InfoWindows'
+          ExplicitSize.cx = 50.000000000000000000
+          ExplicitSize.cy = 50.000000000000000000
+          object FInfoWindowLabel: TLabel
+            AutoSize = True
+            Position.X = 20.000000000000000000
+            Position.Y = 20.000000000000000000
+            Size.Width = 621.000000000000000000
+            Size.Height = 64.000000000000000000
+            Size.PlatformDefault = False
+            Text = 
+              'Create a marker on the map by clicking on it, then tap on it to ' +
+              'display an info window with:'#13#10'- position'#13#10'- geocoding'#13#10'- elevati' +
+              'on'
+            TabOrder = 0
+          end
+        end
+        object FTabGeoCode: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = False
+          Size.Width = 70.000000000000000000
+          Size.Height = 26.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = ''
+          TabOrder = 0
+          Text = 'GeoCode'
+          ExplicitSize.cx = 50.000000000000000000
+          ExplicitSize.cy = 50.000000000000000000
+          object FGeoScroll: TVertScrollBox
+            Align = Client
+            Size.Width = 1240.000000000000000000
+            Size.Height = 173.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            Viewport.Width = 1240.000000000000000000
+            Viewport.Height = 173.000000000000000000
+            object Label1: TLabel
+              AutoSize = True
+              Position.X = 20.000000000000000000
+              Position.Y = 20.000000000000000000
+              Size.Width = 621.000000000000000000
+              Size.Height = 64.000000000000000000
+              Size.PlatformDefault = False
+              Text = 
+                'Create a marker on the map by clicking on it, then tap on it to ' +
+                'display an info window with:'#13#10'- position'#13#10'- geocoding'#13#10'- elevati' +
+                'on'
+              TabOrder = 0
+            end
+          end
+        end
+        object FTabElevation: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = False
+          Size.Width = 68.000000000000000000
+          Size.Height = 26.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = ''
+          TabOrder = 0
+          Text = 'Elevation'
+          ExplicitSize.cx = 50.000000000000000000
+          ExplicitSize.cy = 50.000000000000000000
+          object FElevScroll: TVertScrollBox
+            Align = Client
+            Size.Width = 1240.000000000000000000
+            Size.Height = 173.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            Viewport.Width = 1240.000000000000000000
+            Viewport.Height = 173.000000000000000000
+            object Label2: TLabel
+              AutoSize = True
+              Position.X = 20.000000000000000000
+              Position.Y = 20.000000000000000000
+              Size.Width = 621.000000000000000000
+              Size.Height = 64.000000000000000000
+              Size.PlatformDefault = False
+              Text = 
+                'Create a marker on the map by clicking on it, then tap on it to ' +
+                'display an info window with:'#13#10'- position'#13#10'- geocoding'#13#10'- elevati' +
+                'on'
+              TabOrder = 0
+            end
+          end
+        end
+        object FTabRoutes: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = False
+          Size.Width = 57.000000000000000000
+          Size.Height = 26.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = ''
+          TabOrder = 0
+          Text = 'Routes'
+          ExplicitSize.cx = 50.000000000000000000
+          ExplicitSize.cy = 50.000000000000000000
+          object FRoutesScroll: TVertScrollBox
+            Align = Client
+            Size.Width = 1240.000000000000000000
+            Size.Height = 173.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            Viewport.Width = 1240.000000000000000000
+            Viewport.Height = 173.000000000000000000
+            object lblRouteOrigin: TLabel
+              Position.X = 20.000000000000000000
+              Position.Y = 12.000000000000000000
+              Size.Width = 40.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Origin:'
+              TabOrder = 1
+            end
+            object FRouteFromEd: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 2
+              Position.X = 70.000000000000000000
+              Position.Y = 10.000000000000000000
+              Size.Width = 200.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object lblRouteDest: TLabel
+              Position.X = 20.000000000000000000
+              Position.Y = 40.000000000000000000
+              Size.Width = 60.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Dest:'
+              TabOrder = 3
+            end
+            object FRouteToEd: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 4
+              Position.X = 70.000000000000000000
+              Position.Y = 38.000000000000000000
+              Size.Width = 200.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object FRouteComputeBtn: TButton
+              Position.X = 20.000000000000000000
+              Position.Y = 76.000000000000000000
+              Size.Width = 100.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 5
+              Text = 'Compute'
+              OnClick = RouteComputeClick
+            end
+            object cbRouteCloseOthers: TCheckBox
+              Position.X = 686.000000000000000000
+              Position.Y = 13.000000000000000000
+              Size.Width = 227.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 6
+              Text = 'Cerrar otras rutas al mostrar esta'
+            end
+            object lbRoutes: TListBox
+              Position.X = 310.000000000000000000
+              Position.Y = 35.000000000000000000
+              Size.Width = 347.000000000000000000
+              Size.Height = 96.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 7
+              DisableFocusEffect = True
+              DefaultItemStyles.ItemStyle = ''
+              DefaultItemStyles.GroupHeaderStyle = ''
+              DefaultItemStyles.GroupFooterStyle = ''
+              OnChange = RouteListClick
+              Viewport.Width = 343.000000000000000000
+              Viewport.Height = 92.000000000000000000
+            end
+            object Label3: TLabel
+              Position.X = 310.000000000000000000
+              Position.Y = 12.000000000000000000
+              Size.Width = 40.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Routes'
+              TabOrder = 0
+            end
+          end
+        end
+        object FTabGeometry: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = False
+          Size.Width = 73.000000000000000000
+          Size.Height = 26.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = ''
+          TabOrder = 0
+          Text = 'Geometry'
+          ExplicitSize.cx = 50.000000000000000000
+          ExplicitSize.cy = 50.000000000000000000
+          object FGeometryScroll: TVertScrollBox
+            Align = Client
+            Size.Width = 1240.000000000000000000
+            Size.Height = 173.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            Viewport.Width = 1240.000000000000000000
+            Viewport.Height = 173.000000000000000000
+            object lblGeomFromLat: TLabel
+              Position.X = 20.000000000000000000
+              Position.Y = 12.000000000000000000
+              Size.Width = 50.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'From Lat:'
+              TabOrder = 0
+            end
+            object FGeomFromLatEd: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 1
+              Position.X = 80.000000000000000000
+              Position.Y = 10.000000000000000000
+              Size.Width = 100.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object lblGeomFromLng: TLabel
+              Position.X = 190.000000000000000000
+              Position.Y = 12.000000000000000000
+              Size.Width = 55.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'From Lng:'
+              TabOrder = 2
+            end
+            object FGeomFromLngEd: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 3
+              Position.X = 250.000000000000000000
+              Position.Y = 10.000000000000000000
+              Size.Width = 100.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object lblGeomToLat: TLabel
+              Position.X = 20.000000000000000000
+              Position.Y = 40.000000000000000000
+              Size.Width = 40.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'To Lat:'
+              TabOrder = 4
+            end
+            object FGeomToLatEd: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 5
+              Position.X = 80.000000000000000000
+              Position.Y = 38.000000000000000000
+              Size.Width = 100.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object lblGeomToLng: TLabel
+              Position.X = 190.000000000000000000
+              Position.Y = 40.000000000000000000
+              Size.Width = 45.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'To Lng:'
+              TabOrder = 6
+            end
+            object FGeomToLngEd: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 7
+              Position.X = 250.000000000000000000
+              Position.Y = 38.000000000000000000
+              Size.Width = 100.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object lblGeomPointLat: TLabel
+              Position.X = 20.000000000000000000
+              Position.Y = 68.000000000000000000
+              Size.Width = 70.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Point Lat:'
+              TabOrder = 8
+            end
+            object FGeomPointLatEd: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 9
+              Position.X = 95.000000000000000000
+              Position.Y = 66.000000000000000000
+              Size.Width = 100.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object lblGeomPointLng: TLabel
+              Position.X = 205.000000000000000000
+              Position.Y = 68.000000000000000000
+              Size.Width = 75.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Point Lng:'
+              TabOrder = 10
+            end
+            object FGeomPointLngEd: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 11
+              Position.X = 285.000000000000000000
+              Position.Y = 66.000000000000000000
+              Size.Width = 100.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object FGeomComputeBtn: TButton
+              Position.X = 20.000000000000000000
+              Position.Y = 96.000000000000000000
+              Size.Width = 100.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 12
+              Text = 'Compute'
+              OnClick = GeomComputeClick
+            end
+            object FGeomResultMemo: TMemo
+              Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+              DataDetectorTypes = []
+              Position.X = 420.000000000000000000
+              Position.Y = 10.000000000000000000
+              Size.Width = 450.000000000000000000
+              Size.Height = 100.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 13
+              Viewport.Width = 446.000000000000000000
+              Viewport.Height = 96.000000000000000000
+            end
+          end
+        end
+      end
+    end
+    object tsOSM: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 104.000000000000000000
+      Size.Height = 26.000000000000000000
+      Size.PlatformDefault = False
+      StyleLookup = ''
+      TabOrder = 0
+      Text = 'OpenStreetMap'
+      ExplicitSize.cx = 50.000000000000000000
+      ExplicitSize.cy = 50.000000000000000000
+      object pcOSMOptions: TTabControl
+        Align = Client
+        Size.Width = 1240.000000000000000000
+        Size.Height = 199.000000000000000000
+        Size.PlatformDefault = False
+        TabIndex = 0
+        TabOrder = 0
+        TabPosition = Top
+        Sizes = (
+          1240s
+          173s
+          1240s
+          173s
+          1240s
+          173s)
+        object tsOSMGeneral: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = True
+          Size.Width = 61.000000000000000000
+          Size.Height = 26.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = ''
+          TabOrder = 0
+          Text = 'General'
+          ExplicitSize.cx = 50.000000000000000000
+          ExplicitSize.cy = 50.000000000000000000
+          object FOSMScroll: TVertScrollBox
+            Align = Client
+            Size.Width = 1240.000000000000000000
+            Size.Height = 173.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            Viewport.Width = 1240.000000000000000000
+            Viewport.Height = 173.000000000000000000
+            object bActivateOSM: TButton
+              Position.X = 20.000000000000000000
+              Position.Y = 98.000000000000000000
+              Size.Width = 90.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 0
+              Text = 'Activate'
+              OnClick = OSMActivateClick
+            end
+            object lblOSMCenterLat: TLabel
+              Position.X = 20.000000000000000000
+              Position.Y = 8.000000000000000000
+              Size.Width = 58.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Center Lat:'
+              TabOrder = 1
+            end
+            object eOSMCenterLat: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 2
+              Position.X = 20.000000000000000000
+              Position.Y = 25.000000000000000000
+              Size.Width = 100.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object lblOSMCenterLng: TLabel
+              Position.X = 128.000000000000000000
+              Position.Y = 8.000000000000000000
+              Size.Width = 63.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Center Lng:'
+              TabOrder = 3
+            end
+            object eOSMCenterLng: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 4
+              Position.X = 128.000000000000000000
+              Position.Y = 25.000000000000000000
+              Size.Width = 100.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object lblOSMZoom: TLabel
+              Position.X = 245.000000000000000000
+              Position.Y = 8.000000000000000000
+              Size.Width = 35.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Zoom:'
+              TabOrder = 5
+            end
+            object eOSMZoom: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 6
+              Position.X = 245.000000000000000000
+              Position.Y = 25.000000000000000000
+              Size.Width = 60.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object bApplyOSMView: TButton
+              Position.X = 118.000000000000000000
+              Position.Y = 98.000000000000000000
+              Size.Width = 90.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 7
+              Text = 'Apply View'
+              OnClick = OSMApplyViewClick
+            end
+            object lblOSMBearing: TLabel
+              Position.X = 20.000000000000000000
+              Position.Y = 126.000000000000000000
+              Size.Width = 43.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Bearing'
+              TabOrder = 8
+            end
+            object eOSMBearing: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 9
+              Text = '0'
+              Position.X = 20.000000000000000000
+              Position.Y = 142.000000000000000000
+              Size.Width = 70.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object lblOSMPitch: TLabel
+              Position.X = 100.000000000000000000
+              Position.Y = 126.000000000000000000
+              Size.Width = 31.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Pitch'
+              TabOrder = 10
+            end
+            object eOSMPitch: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 11
+              Text = '0'
+              Position.X = 100.000000000000000000
+              Position.Y = 142.000000000000000000
+              Size.Width = 70.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object lblOSMMinZoom: TLabel
+              Position.X = 180.000000000000000000
+              Position.Y = 126.000000000000000000
+              Size.Width = 56.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Min zoom'
+              TabOrder = 12
+            end
+            object eOSMMinZoom: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 13
+              Text = '0'
+              Position.X = 180.000000000000000000
+              Position.Y = 142.000000000000000000
+              Size.Width = 70.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object lblOSMMaxZoom: TLabel
+              Position.X = 260.000000000000000000
+              Position.Y = 126.000000000000000000
+              Size.Width = 61.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Max zoom'
+              TabOrder = 14
+            end
+            object eOSMMaxZoom: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 15
+              Text = '22'
+              Position.X = 260.000000000000000000
+              Position.Y = 142.000000000000000000
+              Size.Width = 70.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object lblOSMStyleUrl: TLabel
+              Position.X = 364.000000000000000000
+              Position.Y = 8.000000000000000000
+              Size.Width = 55.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Style URL:'
+              TabOrder = 16
+            end
+            object eOSMStyleUrl: TEdit
+              Touch.InteractiveGestures = [LongTap, DoubleTap]
+              TabOrder = 17
+              Position.X = 424.000000000000000000
+              Position.Y = 6.000000000000000000
+              Size.Width = 280.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+            end
+            object bApplyOSMStyle: TButton
+              Position.X = 712.000000000000000000
+              Position.Y = 3.000000000000000000
+              Size.Width = 90.000000000000000000
+              Size.Height = 25.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 18
+              Text = 'Apply Style'
+              OnClick = OSMApplyStyleClick
+            end
+            object lblOSMMapMode: TLabel
+              Position.X = 20.000000000000000000
+              Position.Y = 55.000000000000000000
+              Size.Width = 64.000000000000000000
+              Size.Height = 15.000000000000000000
+              Size.PlatformDefault = False
+              Text = 'Map Mode:'
+              TabOrder = 19
+            end
+            object cbOSMMapMode: TComboBox
+              Position.X = 20.000000000000000000
+              Position.Y = 71.000000000000000000
+              Size.Width = 120.000000000000000000
+              Size.Height = 22.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 20
+            end
+            object cbOSMLogMove: TCheckBox
+              Position.X = 364.000000000000000000
+              Position.Y = 55.000000000000000000
+              Size.Width = 120.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 21
+              Text = 'Log Move Events'
+            end
+            object cbOSMLogRender: TCheckBox
+              Position.X = 494.000000000000000000
+              Position.Y = 55.000000000000000000
+              Size.Width = 130.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 22
+              Text = 'Log Render Events'
+            end
+            object cbOSMLogData: TCheckBox
+              Position.X = 634.000000000000000000
+              Position.Y = 55.000000000000000000
+              Size.Width = 120.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 23
+              Text = 'Log Data Events'
+            end
+            object cbOSMDragPan: TCheckBox
+              IsChecked = True
+              Position.X = 364.000000000000000000
+              Position.Y = 100.000000000000000000
+              Size.Width = 90.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 24
+              Text = 'DragPan'
+            end
+            object cbOSMDragRotate: TCheckBox
+              IsChecked = True
+              Position.X = 458.000000000000000000
+              Position.Y = 100.000000000000000000
+              Size.Width = 100.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 25
+              Text = 'DragRotate'
+            end
+            object cbOSMDoubleClickZoom: TCheckBox
+              IsChecked = True
+              Position.X = 562.000000000000000000
+              Position.Y = 100.000000000000000000
+              Size.Width = 125.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 26
+              Text = 'DoubleClickZoom'
+            end
+            object cbOSMScrollZoom: TCheckBox
+              IsChecked = True
+              Position.X = 690.000000000000000000
+              Position.Y = 100.000000000000000000
+              Size.Width = 100.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 27
+              Text = 'ScrollZoom'
+            end
+            object cbOSMKeyboard: TCheckBox
+              IsChecked = True
+              Position.X = 364.000000000000000000
+              Position.Y = 126.000000000000000000
+              Size.Width = 90.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 28
+              Text = 'Keyboard'
+            end
+            object cbOSMTouchZoomRotate: TCheckBox
+              IsChecked = True
+              Position.X = 458.000000000000000000
+              Position.Y = 126.000000000000000000
+              Size.Width = 128.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 29
+              Text = 'TouchZoomRotate'
+            end
+            object cbOSMTouchPitch: TCheckBox
+              IsChecked = True
+              Position.X = 592.000000000000000000
+              Position.Y = 126.000000000000000000
+              Size.Width = 95.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 30
+              Text = 'TouchPitch'
+            end
+            object cbOSMCooperativeGestures: TCheckBox
+              Position.X = 690.000000000000000000
+              Position.Y = 126.000000000000000000
+              Size.Width = 150.000000000000000000
+              Size.Height = 19.000000000000000000
+              Size.PlatformDefault = False
+              TabOrder = 31
+              Text = 'CooperativeGestures'
+            end
+          end
+        end
+        object tsOSMOffline: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = False
+          Size.Width = 90.000000000000000000
+          Size.Height = 26.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = ''
+          TabOrder = 0
+          Text = 'Offline Mode'
+          ExplicitSize.cx = 50.000000000000000000
+          ExplicitSize.cy = 50.000000000000000000
+          object lOSMOfflineTileJsonUrl: TLabel
+            Position.X = 5.000000000000000000
+            Position.Y = 14.000000000000000000
+            Size.Width = 115.000000000000000000
+            Size.Height = 15.000000000000000000
+            Size.PlatformDefault = False
+            Text = 'Remote Tile Template'
+            TabOrder = 0
+          end
+          object eOSMOfflineTileJsonUrl: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            TabOrder = 1
+            Text = 'https://tiles.openfreemap.org/planet/latest/{z}/{x}/{y}.pbf'
+            Position.X = 130.000000000000000000
+            Position.Y = 12.000000000000000000
+            Size.Width = 360.000000000000000000
+            Size.Height = 22.000000000000000000
+            Size.PlatformDefault = False
+          end
+          object lOSMOfflineServerExecutable: TLabel
+            Position.X = 29.000000000000000000
+            Position.Y = 42.000000000000000000
+            Size.Width = 91.000000000000000000
+            Size.Height = 15.000000000000000000
+            Size.PlatformDefault = False
+            Text = 'Glyphs Root Path'
+            TabOrder = 2
+          end
+          object eOSMOfflineServerExecutable: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            TabOrder = 3
+            Text = 'resources\js\osm\vendor'
+            Position.X = 130.000000000000000000
+            Position.Y = 40.000000000000000000
+            Size.Width = 360.000000000000000000
+            Size.Height = 22.000000000000000000
+            Size.PlatformDefault = False
+          end
+          object lOSMOfflineServerPort: TLabel
+            Position.X = 16.000000000000000000
+            Position.Y = 70.000000000000000000
+            Size.Width = 104.000000000000000000
+            Size.Height = 15.000000000000000000
+            Size.PlatformDefault = False
+            Text = 'Style Template Path'
+            TabOrder = 4
+          end
+          object eOSMOfflineServerPort: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            TabOrder = 5
+            Text = 'resources\js\osm\offline\style.template.json'
+            Position.X = 130.000000000000000000
+            Position.Y = 68.000000000000000000
+            Size.Width = 360.000000000000000000
+            Size.Height = 22.000000000000000000
+            Size.PlatformDefault = False
+          end
+          object lOSMOfflineSourcePreset: TLabel
+            Position.X = 10.000000000000000000
+            Position.Y = 100.000000000000000000
+            Size.Width = 110.000000000000000000
+            Size.Height = 15.000000000000000000
+            Size.PlatformDefault = False
+            Text = 'Offline source preset'
+            TabOrder = 6
+          end
+          object cbOSMOfflineSourcePreset: TComboBox
+            Position.X = 130.000000000000000000
+            Position.Y = 98.000000000000000000
+            Size.Width = 150.000000000000000000
+            Size.Height = 22.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 7
+          end
+          object bOSMDownloadRegion: TButton
+            Position.X = 540.000000000000000000
+            Position.Y = 8.000000000000000000
+            Size.Width = 110.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 8
+            Text = 'Download Region'
+            OnClick = OSMDownloadRegionClick
+          end
+          object bOSMDeleteRegion: TButton
+            Position.X = 660.000000000000000000
+            Position.Y = 8.000000000000000000
+            Size.Width = 110.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 9
+            Text = 'Delete Region'
+            OnClick = OSMDeleteRegionClick
+          end
+          object lbOSMRegions: TListBox
+            Position.X = 540.000000000000000000
+            Position.Y = 40.000000000000000000
+            Size.Width = 480.000000000000000000
+            Size.Height = 80.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 10
+            DisableFocusEffect = True
+            DefaultItemStyles.ItemStyle = ''
+            DefaultItemStyles.GroupHeaderStyle = ''
+            DefaultItemStyles.GroupFooterStyle = ''
+            Viewport.Width = 476.000000000000000000
+            Viewport.Height = 76.000000000000000000
+          end
+        end
+        object tsOSMMarkers: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = False
+          Size.Width = 63.000000000000000000
+          Size.Height = 26.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = ''
+          TabOrder = 0
+          Text = 'Markers'
+          ExplicitSize.cx = 50.000000000000000000
+          ExplicitSize.cy = 50.000000000000000000
+          object lbOSMMarkers: TListBox
+            Position.X = 20.000000000000000000
+            Position.Y = 20.000000000000000000
+            Size.Width = 200.000000000000000000
+            Size.Height = 120.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            DisableFocusEffect = True
+            DefaultItemStyles.ItemStyle = ''
+            DefaultItemStyles.GroupHeaderStyle = ''
+            DefaultItemStyles.GroupFooterStyle = ''
+            OnChange = OSMMarkerListClick
+            Viewport.Width = 196.000000000000000000
+            Viewport.Height = 116.000000000000000000
+          end
+          object bOSMClearMarkers: TButton
+            Position.X = 246.000000000000000000
+            Position.Y = 53.000000000000000000
+            Size.Width = 80.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 1
+            Text = 'Clear'
+            OnClick = OSMClearMarkersClick
+          end
+          object bOSMZoomToMarkers: TButton
+            Position.X = 246.000000000000000000
+            Position.Y = 20.000000000000000000
+            Size.Width = 110.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 2
+            Text = 'Zoom To Markers'
+            OnClick = OSMZoomToMarkersClick
+          end
+        end
+      end
+    end
+  end
+  object pRight: TLayout
+    Align = Right
+    Position.X = 961.000000000000000000
+    Position.Y = 225.000000000000000000
+    Size.Width = 279.000000000000000000
+    Size.Height = 495.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    object lStatus: TLabel
+      Align = Top
+      Size.Width = 279.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Map inactive...'
+    end
+    object mLog: TMemo
+      Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+      DataDetectorTypes = []
+      ReadOnly = True
+      Align = Client
+      Size.Width = 279.000000000000000000
+      Size.Height = 470.000000000000000000
+      Size.PlatformDefault = False
+      Viewport.Width = 275.000000000000000000
+      Viewport.Height = 466.000000000000000000
+    end
+  end
+  object EdgeBrowser1: TWebBrowser
+    Align = Client
+    Size.Width = 961.000000000000000000
+    Size.Height = 495.000000000000000000
+    Size.PlatformDefault = False
+    WindowsEngine = EdgeOnly
+  end
+  object GMMap: TGMLibFmxMap
+    Circles = <>
+    InfoWindows = <>
+    Markers = <>
+    GroundOverlays = <>
+    Layers.Kml.ZIndex = 0
+    Polygons = <>
+    Polylines = <>
+    Rectangles = <>
+    OnBoundsChanged = GMMapMapBoundsChanged
+    OnDblClick = GMMapMapDblClick
+    OnDragEnd = GMMapMapDragEnd
+    OnIdle = GMMapIdle
+    OnMapClick = GMMapMapClick
+    OnMapReady = GMMapMapReady
+    OnMouseMove = GMMapMouseMove
+    OnZoomChanged = GMMapMapZoomChanged
+    Left = 112
+    Top = 432
+  end
+  object OSMMap: TOSMLibFmxMap
+    OfflineStoragePath = 'C:\Users\cadetill\AppData\Local\Temp\GMLib\OSM'
+    MaxZoom = 22.000000000000000000
+    MapId = 'OSMLib_MAP'
+    OnMapReady = OSMMapReady
+    OnBoundsChanged = OSMMapBoundsChangedEvent
+    OnOfflineDownloadProgress = OSMMapDownloadProgress
+    OnOfflineRegionReady = OSMMapRegionReady
+    OnOfflineError = OSMMapOfflineError
+    StyleUrl = 'https://tiles.openfreemap.org/styles/bright'
+    MapLibreCssUrl = 'https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.css'
+    MapLibreJsUrl = 'https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.js'
+    Zoom = 1.000000000000000000
+    Left = 200
+    Top = 432
+  end
+end

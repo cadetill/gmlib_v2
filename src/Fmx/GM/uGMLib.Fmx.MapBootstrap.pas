@@ -1,4 +1,4 @@
-{**
+﻿{**
   @abstract(Soporte de carga y composición del bootstrap FMX del mapa.)
   @author(Xavier Martinez (cadetill) <cadetill@gmail.com>)
 
@@ -45,28 +45,28 @@ begin
   else
     htmlTemplate := BuildTemplateFallback;
 
-  mapScriptPath := TGMLibBootstrapAssets.ResolveResourceFile('resources\js\common\gmlib.map.js');
+  mapScriptPath := TGMLibBootstrapAssets.ResolveResourceFile('resources\js\gm\gmlib.map.js');
   if FileExists(mapScriptPath) then
     mapScript := TGMLibBootstrapAssets.LoadTextFile(mapScriptPath)
   else
     mapScript := '';
 {$ELSE}
   htmlTemplatePath := TGMLibBootstrapAssets.EnsureAssetFile('gmlib.map.html',
-    'GMLIB_MAP_HTML', 'resources\js\common\gmlib.map.html');
+    'GMLIB_MAP_HTML', 'resources\js\gm\gmlib.map.html');
   if htmlTemplatePath <> '' then
     htmlTemplate := TGMLibBootstrapAssets.LoadTextFile(htmlTemplatePath)
   else
     htmlTemplate := BuildTemplateFallback;
 
   mapScriptPath := TGMLibBootstrapAssets.EnsureAssetFile('gmlib.map.js',
-    'GMLIB_MAP_JS', 'resources\js\common\gmlib.map.js');
+    'GMLIB_MAP_JS', 'resources\js\gm\gmlib.map.js');
   if mapScriptPath <> '' then
     mapScript := TGMLibBootstrapAssets.LoadTextFile(mapScriptPath)
   else
     mapScript := '';
 {$ENDIF}
   if mapScript = '' then
-    raise Exception.Create('Map JavaScript resource "resources\js\common\gmlib.map.js" was not found.');
+    raise Exception.Create('Map JavaScript resource "resources\js\gm\gmlib.map.js" was not found.');
 
   Result := htmlTemplate;
   Result := StringReplace(Result, '{{GMLIB_MAP_SCRIPT}}', mapScript, [rfReplaceAll]);

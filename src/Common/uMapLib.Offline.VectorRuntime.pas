@@ -128,11 +128,11 @@ end;
 
 function TMapLibVectorRuntime.BuildStyleJson: string;
 var
-  sourceId: string;
+  effectiveSourceId: string;
 begin
-  sourceId := FSourceId;
-  if sourceId = '' then
-    sourceId := 'osm';
+  effectiveSourceId := FSourceId;
+  if effectiveSourceId = '' then
+    effectiveSourceId := 'osm';
 
   if Assigned(FStyleProvider) then
   begin
@@ -142,7 +142,7 @@ begin
     if Trim(FStyleTemplateFileName) <> '' then
       FStyleProvider.TemplateJson := '';
     FStyleProvider.TemplateFileName := FStyleTemplateFileName;
-    FStyleProvider.TileUrlTemplate := BuildTileUrlTemplate(sourceId);
+    FStyleProvider.TileUrlTemplate := BuildTileUrlTemplate(effectiveSourceId);
 {$IFNDEF FPC}
     FStyleProvider.GlyphsUrlTemplate := BuildGlyphsUrlTemplate;
 {$ENDIF}
@@ -154,15 +154,15 @@ end;
 
 function TMapLibVectorRuntime.BuildTileUrlTemplate(const ASourceId: string): string;
 var
-  sourceId: string;
+  effectiveSourceId: string;
 begin
-  sourceId := ASourceId;
-  if sourceId = '' then
-    sourceId := FSourceId;
-  if sourceId = '' then
-    sourceId := 'osm';
+  effectiveSourceId := ASourceId;
+  if effectiveSourceId = '' then
+    effectiveSourceId := FSourceId;
+  if effectiveSourceId = '' then
+    effectiveSourceId := 'osm';
   Result := FLocalHttpServer.BuildRuntimeUrl(Format(
-    'tile?source=%s&z={z}&x={x}&y={y}', [sourceId]));
+    'tile?source=%s&z={z}&x={x}&y={y}', [effectiveSourceId]));
 end;
 
 {$IFNDEF FPC}

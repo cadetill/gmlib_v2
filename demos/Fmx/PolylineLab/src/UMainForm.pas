@@ -18,6 +18,7 @@ uses
   FMX.Types,
   FMX.WebBrowser,
   uGMLib.Core.Types,
+  uGMLib.Google.Types,
   uGMLib.Fmx.Map,
   uGMLib.Fmx.Polyline, FMX.ScrollBox;
 

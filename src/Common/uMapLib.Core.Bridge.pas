@@ -22,6 +22,13 @@ type
     property JavaScriptNamespace: string read GetJavaScriptNamespace write SetJavaScriptNamespace;
   end;
 
+  IMapBridgeInterval = interface
+    ['{B8956706-4BF6-4E03-84CA-CB721DD64A10}']
+    procedure SetBridgeInterval(const Value: Integer);
+    function GetBridgeInterval: Integer;
+    property BridgeInterval: Integer read GetBridgeInterval write SetBridgeInterval;
+  end;
+
   IMapBridgeTransport = interface
     ['{0D8A77BD-5A15-4310-A8EE-88C1307AE7A3}']
     function GetBackend: TGMBridgeBackend;

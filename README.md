@@ -29,6 +29,26 @@ You can put these credentials directly into the component or into environment va
 
 *This is a Google Maps platform restriction, not a GMLib one.*
 
+## OSM / MapLibre Requirements
+
+`OSMLib` does not require a Google-style API key to show a map.
+
+Its current runtime is based on `MapLibre GL JS` and an OSM-compatible style /
+tiles setup. Depending on the provider you choose, you may still need:
+
+- a valid `Style URL`
+- a valid vector tile template in `RemoteTileTemplate`
+- a provider API key if that provider requires one
+
+For offline or hybrid runtime validation, the current codebase also expects:
+
+- `maplibre-gl.css`
+- `maplibre-gl.js`
+- `resources/js/osm/offline/style.template.json`
+
+*These are runtime/provider requirements of the current `OSMLib` implementation,
+not a Google-style platform restriction.*
+
 ## Current Status
 
 The following Google Maps API classes are currently implemented:
@@ -50,21 +70,64 @@ The following Google Maps API classes are currently implemented:
 - [google.maps.ElevationService](https://developers.google.com/maps/documentation/javascript/reference/elevation) and associated classes for requesting elevation data.
 - [google.maps.routes.Route](https://developers.google.com/maps/documentation/javascript/reference/route) and associated classes for route requests.
 
+The following OSM / MapLibre runtime surface is currently implemented:
+
+- [MapLibre GL JS `Map`](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/) and associated map lifecycle/bootstrap flow in `VCL`, `FMX`, and `LCL`.
+- View/camera synchronization and commands:
+  - [center / zoom / bearing / pitch](https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/CameraOptions/)
+  - [fitBounds](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#fitbounds)
+  - [setStyle](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#setstyle)
+- Main map event forwarding from JS to Delphi/Lazarus, including:
+  - [mouse/touch/view events](https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MapEventType/)
+  - render/load/idle/data/style event families
+  - bounds change notifications
+- First overlay slice:
+  - [MapLibre GL JS `Marker`](https://maplibre.org/maplibre-gl-js/docs/API/classes/Marker/)
+  - collection management in `TOSMMap.Markers`
+  - per-item events: `OnClick`, `OnDragStart`, `OnDrag`, `OnDragEnd`
+- Current public OSM runtime configuration surface:
+  - `MapMode`
+  - `OfflinePolicy`
+  - `OfflineStoragePath`
+  - `RemoteTileTemplate`
+  - `StyleTemplateFileName`
+  - `GlyphsRootPath`
+  - `MapLibreCssUrl`
+  - `MapLibreJsUrl`
+  - `Bearing`
+  - `Pitch`
+  - `MinZoom`
+  - `MaxZoom`
+  - `DragPanEnabled`
+  - `DragRotateEnabled`
+  - `DoubleClickZoomEnabled`
+  - `ScrollZoomEnabled`
+  - `KeyboardEnabled`
+  - `TouchZoomRotateEnabled`
+  - `TouchPitchEnabled`
+  - `CooperativeGesturesEnabled`
+
 ### Multi-provider status
 
 - `MapLibCore` is already extracted and used by runtime packages.
 - `GMLib` (Google provider) is functional and organized under provider folders.
 - `OSMLib` (pilot provider) currently includes:
-  - map activation/bootstrap + map event flow
-  - style switching + fit bounds + center/zoom sync
+  - map activation/bootstrap + map event flow in `VCL`, `FMX`, and `LCL`
+  - style switching + fit bounds + center/zoom/bearing/pitch sync
   - marker collection with per-item events (`OnClick`, `OnDragStart`, `OnDrag`, `OnDragEnd`)
-  - MegaDemo OSM marker mini-flow (create/list/clear/zoom)
-  - offline-ready map bootstrap knobs:
-    - `OfflineMode`
-    - `OfflineStyleUrl`
+  - interaction toggles (`DragPan`, `DragRotate`, `DoubleClickZoom`, `ScrollZoom`, `Keyboard`, `TouchZoomRotate`, `TouchPitch`, `CooperativeGestures`)
+  - validated `VCL` MegaDemo OSM marker/offline flow
+  - current offline/hybrid runtime surface:
+    - `MapMode`
+    - `OfflinePolicy`
+    - `OfflineStoragePath`
+    - `RemoteTileTemplate`
+    - `StyleTemplateFileName`
+    - `GlyphsRootPath`
     - `MapLibreCssUrl`
     - `MapLibreJsUrl`
-    - `OfflineRasterTilesUrlTemplate`
+  - `GMLibRuntime.Lcl` compile path is back in sync with the current shared
+    runtime layer
 
 ### OSM hybrid/offline runtime notes
 
@@ -80,7 +143,11 @@ The following Google Maps API classes are currently implemented:
 ## Demos
 
 - VCL includes broad feature demos and the full-library `MegaDemo`.
-- FMX includes runtime demos for the implemented Google slices.
+- FMX includes runtime demos for the implemented Google slices, and the OSM
+  `MegaDemo` is available as the active OSM validation surface too.
+- OSM visual validation is currently centered on `demos/Vcl/MegaDemo` and
+  `demos/Fmx/MegaDemo`, which are the reference baselines for
+  online/offline/hybrid behavior and for the current camera/interaction surface.
 - LCL support is available for Google runtime with CEF4Delphi bridge path.
 
 ## How to install
@@ -116,4 +183,5 @@ In Lazarus:
 ## Links
 
 * [CEF4Delphi](https://github.com/salvadordf/CEF4Delphi)
+* [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/)
 * [PasDoc](https://github.com/pasdoc/pasdoc/)

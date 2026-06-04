@@ -19,6 +19,7 @@ uses
   FMX.WebBrowser,
   uGMLib.Core.Types,
   uGMLib.Fmx.Map,
+  uGMLib.Google.Types,
   uGMLib.MapOptions;
 
 type

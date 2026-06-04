@@ -13,7 +13,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes, Vcl.Controls,
   Vcl.Graphics,
   Vcl.Forms, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Edge,
-  uGMLib.Core.Types, uGMLib.MapOptions, uGMLib.Vcl.Map;
+   uGMLib.Core.Types, uGMLib.Google.Types, uGMLib.MapOptions, uGMLib.Vcl.Map;
 
 type
   {** @abstract(Formulario principal de la demo `MapOptionsLab`.) }

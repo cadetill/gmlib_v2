@@ -13,11 +13,12 @@ uses
   Vcl.Forms,
   Vcl.Graphics,
   Vcl.StdCtrls,
-  uGMLib.Core.Types,
-  uGMLib.Map,
-  uGMLib.Vcl.Map,
-  uGMLib.Rectangle,
-  uGMLib.Vcl.Rectangle, Winapi.ActiveX;
+   uGMLib.Core.Types,
+   uGMLib.Google.Types,
+   uGMLib.Map,
+   uGMLib.Vcl.Map,
+   uGMLib.Rectangle,
+   uGMLib.Vcl.Rectangle, Winapi.ActiveX;
 
 type
   TMainForm = class(TForm)
