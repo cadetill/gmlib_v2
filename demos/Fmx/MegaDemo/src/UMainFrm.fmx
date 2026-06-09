@@ -3717,6 +3717,245 @@ object MainFrm: TMainFrm
             OnClick = OSMZoomToMarkersClick
           end
         end
+        object tsOSMPopups: TTabItem
+          CustomIcon = <
+            item
+            end>
+          IsSelected = False
+          Size.Width = 57.000000000000000000
+          Size.Height = 26.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = ''
+          TabOrder = 3
+          Text = 'Popups'
+          object lbOSMPopups: TListBox
+            Position.X = 20.000000000000000000
+            Position.Y = 20.000000000000000000
+            Size.Width = 220.000000000000000000
+            Size.Height = 120.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 0
+            DisableFocusEffect = True
+            DefaultItemStyles.ItemStyle = ''
+            DefaultItemStyles.GroupHeaderStyle = ''
+            DefaultItemStyles.GroupFooterStyle = ''
+            Viewport.Width = 216.000000000000000000
+            Viewport.Height = 116.000000000000000000
+          end
+          object bOSMAddPopup: TButton
+            Position.X = 255.000000000000000000
+            Position.Y = 20.000000000000000000
+            Size.Width = 95.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 1
+            Text = 'Add Popup'
+          end
+          object bOSMDeletePopup: TButton
+            Position.X = 255.000000000000000000
+            Position.Y = 52.000000000000000000
+            Size.Width = 95.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 2
+            Text = 'Delete Popup'
+          end
+          object bOSMClearPopups: TButton
+            Position.X = 255.000000000000000000
+            Position.Y = 84.000000000000000000
+            Size.Width = 95.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 3
+            Text = 'Clear Popups'
+          end
+          object bOSMUpdatePopup: TButton
+            Position.X = 255.000000000000000000
+            Position.Y = 116.000000000000000000
+            Size.Width = 95.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 4
+            Text = 'Update Popup'
+          end
+          object bOSMPopupUseSelectedMarker: TButton
+            Position.X = 356.000000000000000000
+            Position.Y = 116.000000000000000000
+            Size.Width = 120.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 5
+            Text = 'Use Sel. Marker'
+          end
+          object lOSMPopupLat: TLabel
+            Position.X = 356.000000000000000000
+            Position.Y = 20.000000000000000000
+            Size.Width = 16.000000000000000000
+            Size.Height = 15.000000000000000000
+            Size.PlatformDefault = False
+            Text = 'Lat'
+          end
+          object eOSMPopupLat: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            TabOrder = 6
+            Position.X = 356.000000000000000000
+            Position.Y = 36.000000000000000000
+            Size.Width = 70.000000000000000000
+            Size.Height = 22.000000000000000000
+            Size.PlatformDefault = False
+          end
+          object lOSMPopupLng: TLabel
+            Position.X = 432.000000000000000000
+            Position.Y = 20.000000000000000000
+            Size.Width = 20.000000000000000000
+            Size.Height = 15.000000000000000000
+            Size.PlatformDefault = False
+            Text = 'Lng'
+          end
+          object eOSMPopupLng: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            TabOrder = 7
+            Position.X = 432.000000000000000000
+            Position.Y = 36.000000000000000000
+            Size.Width = 70.000000000000000000
+            Size.Height = 22.000000000000000000
+            Size.PlatformDefault = False
+          end
+          object lOSMPopupAnchorObjectId: TLabel
+            Position.X = 508.000000000000000000
+            Position.Y = 20.000000000000000000
+            Size.Width = 88.000000000000000000
+            Size.Height = 15.000000000000000000
+            Size.PlatformDefault = False
+            Text = 'Anchor object id'
+          end
+          object eOSMPopupAnchorObjectId: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            TabOrder = 8
+            Position.X = 508.000000000000000000
+            Position.Y = 36.000000000000000000
+            Size.Width = 150.000000000000000000
+            Size.Height = 22.000000000000000000
+            Size.PlatformDefault = False
+          end
+          object lOSMPopupMaxWidth: TLabel
+            Position.X = 356.000000000000000000
+            Position.Y = 63.000000000000000000
+            Size.Width = 55.000000000000000000
+            Size.Height = 15.000000000000000000
+            Size.PlatformDefault = False
+            Text = 'Max width'
+          end
+          object eOSMPopupMaxWidth: TEdit
+            Touch.InteractiveGestures = [LongTap, DoubleTap]
+            TabOrder = 9
+            Position.X = 356.000000000000000000
+            Position.Y = 79.000000000000000000
+            Size.Width = 70.000000000000000000
+            Size.Height = 22.000000000000000000
+            Size.PlatformDefault = False
+          end
+          object lOSMPopupPresetStyle: TLabel
+            Position.X = 432.000000000000000000
+            Position.Y = 63.000000000000000000
+            Size.Width = 60.000000000000000000
+            Size.Height = 15.000000000000000000
+            Size.PlatformDefault = False
+            Text = 'Preset style'
+          end
+          object cbOSMPopupCssClass: TComboBox
+            Position.X = 432.000000000000000000
+            Position.Y = 79.000000000000000000
+            Size.Width = 110.000000000000000000
+            Size.Height = 22.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 10
+          end
+          object lOSMPopupContentType: TLabel
+            Position.X = 548.000000000000000000
+            Position.Y = 63.000000000000000000
+            Size.Width = 67.000000000000000000
+            Size.Height = 15.000000000000000000
+            Size.PlatformDefault = False
+            Text = 'Content type'
+          end
+          object cbOSMPopupContentType: TComboBox
+            Position.X = 548.000000000000000000
+            Position.Y = 79.000000000000000000
+            Size.Width = 110.000000000000000000
+            Size.Height = 22.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 11
+          end
+          object lOSMPopupContent: TLabel
+            Position.X = 680.000000000000000000
+            Position.Y = 20.000000000000000000
+            Size.Width = 43.000000000000000000
+            Size.Height = 15.000000000000000000
+            Size.PlatformDefault = False
+            Text = 'Content'
+          end
+          object mOSMPopupContent: TMemo
+            Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+            DataDetectorTypes = []
+            Position.X = 680.000000000000000000
+            Position.Y = 36.000000000000000000
+            Size.Width = 320.000000000000000000
+            Size.Height = 80.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 12
+            Viewport.Width = 316.000000000000000000
+            Viewport.Height = 76.000000000000000000
+          end
+          object cbOSMPopupVisible: TCheckBox
+            Position.X = 680.000000000000000000
+            Position.Y = 122.000000000000000000
+            Size.Width = 60.000000000000000000
+            Size.Height = 19.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 13
+            IsChecked = True
+            Text = 'Visible'
+          end
+          object cbOSMPopupCloseButton: TCheckBox
+            Position.X = 748.000000000000000000
+            Position.Y = 122.000000000000000000
+            Size.Width = 95.000000000000000000
+            Size.Height = 19.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 14
+            IsChecked = True
+            Text = 'Close button'
+          end
+          object cbOSMPopupCloseOnClick: TCheckBox
+            Position.X = 850.000000000000000000
+            Position.Y = 122.000000000000000000
+            Size.Width = 95.000000000000000000
+            Size.Height = 19.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 15
+            IsChecked = True
+            Text = 'Close on click'
+          end
+          object cbOSMPopupCloseOnMove: TCheckBox
+            Position.X = 680.000000000000000000
+            Position.Y = 147.000000000000000000
+            Size.Width = 103.000000000000000000
+            Size.Height = 19.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 16
+            Text = 'Close on move'
+          end
+          object cbOSMPopupCloseOthersBeforeOpen: TCheckBox
+            Position.X = 790.000000000000000000
+            Position.Y = 147.000000000000000000
+            Size.Width = 170.000000000000000000
+            Size.Height = 19.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 17
+            Text = 'Close others before open'
+          end
+        end
       end
     end
   end

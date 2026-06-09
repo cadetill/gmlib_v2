@@ -213,8 +213,8 @@ baseline. The 2026-06-05 round moved it to a much more stable state.
 1. Decide whether weak properties such as `AnchorX/AnchorY`, `PopupText`, or
    some `Shadow*` fields should stay exposed in v1 or be trimmed from demos.
 2. Tighten the visual/documented contract of `Pin.ShapeVariant`.
-3. Continue validation of the new OSM `Popup` slice now that core, JS runtime,
-   and VCL MegaDemo wiring already exist.
+3. Keep the popup slice stable while deciding whether the next work should go
+   to weak marker properties cleanup or to the offline/native OSM roadmap.
 
 ## OSM Popup status
 
@@ -269,17 +269,22 @@ The OSM provider now has a validated dedicated `Popup` slice.
 
 - VCL MegaDemo already includes a dedicated OSM `Popups` tab with CRUD and the
   editable popup surface
+- FMX MegaDemo now also includes a dedicated OSM `Popups` tab with the same
+  popup baseline surface needed for manual validation
 - `Add Popup`, anchored popup behavior, close propagation, and
   `CloseOthersBeforeOpen` were manually validated in `VCL`
 - marker click in `VCL MegaDemo` now opens an anchored popup showing marker
   coordinates, following the same validation goal as the Google-side
   marker/InfoWindow flow
+- marker click in `FMX MegaDemo` now opens an anchored popup showing marker
+  coordinates and refreshes it after marker `dragend`
 - popup creation/update remains batched in the core to avoid premature bridge
   synchronization during item initialization
 
 ### Current status
 
 - popup free-position and anchored flows are validated in `VCL`
+- FMX MegaDemo already exposes the same popup baseline for parity validation
 - anchor-loss behavior is now closed: when the anchor marker disappears, the
   popup closes
 - `OnOpen` and `OnClose` are both routed from JS to Delphi

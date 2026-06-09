@@ -378,6 +378,7 @@ type
     tsOSMGeneral: TTabItem;
     tsOSMOffline: TTabItem;
     tsOSMMarkers: TTabItem;
+    tsOSMPopups: TTabItem;
 
     // === OSM > General ===
     FOSMScroll: TVertScrollBox;
@@ -429,6 +430,34 @@ type
     lbOSMMarkers: TListBox;
     bOSMClearMarkers: TButton;
     bOSMZoomToMarkers: TButton;
+
+    // === OSM > Popups ===
+    lbOSMPopups: TListBox;
+    bOSMAddPopup: TButton;
+    bOSMDeletePopup: TButton;
+    bOSMClearPopups: TButton;
+    bOSMUpdatePopup: TButton;
+    bOSMPopupUseSelectedMarker: TButton;
+    lOSMPopupLat: TLabel;
+    lOSMPopupLng: TLabel;
+    lOSMPopupAnchorObjectId: TLabel;
+    lOSMPopupMaxWidth: TLabel;
+    lOSMPopupPresetStyle: TLabel;
+    lOSMPopupContentType: TLabel;
+    lOSMPopupContent: TLabel;
+    eOSMPopupLat: TEdit;
+    eOSMPopupLng: TEdit;
+    eOSMPopupAnchorObjectId: TEdit;
+    eOSMPopupMaxWidth: TEdit;
+    cbOSMPopupCssClass: TComboBox;
+    cbOSMPopupContentType: TComboBox;
+    mOSMPopupContent: TMemo;
+    cbOSMPopupVisible: TCheckBox;
+    cbOSMPopupCloseButton: TCheckBox;
+    cbOSMPopupCloseOnClick: TCheckBox;
+    cbOSMPopupCloseOnMove: TCheckBox;
+    cbOSMPopupCloseOthersBeforeOpen: TCheckBox;
+
     FBackgroundColorCombo: TColorComboBox;
     lblControlSize: TLabel;
     FControlSizeEd: TEdit;
@@ -499,6 +528,12 @@ type
     procedure OSMClearMarkersClick(Sender: TObject);
     procedure OSMZoomToMarkersClick(Sender: TObject);
     procedure OSMMarkerListClick(Sender: TObject);
+    procedure OSMPopupListClick(Sender: TObject);
+    procedure OSMAddPopupClick(Sender: TObject);
+    procedure OSMUpdatePopupClick(Sender: TObject);
+    procedure OSMDeletePopupClick(Sender: TObject);
+    procedure OSMClearPopupsClick(Sender: TObject);
+    procedure OSMUseSelectedMarkerForPopupClick(Sender: TObject);
 
     // === Map events ===
     procedure GMMapMapReady(Sender: TObject);
@@ -513,6 +548,7 @@ type
     // === OSM Map events ===
     procedure OSMMapReady(Sender: TObject);
     procedure OSMMapClickEvent(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure OSMMarkerClickEvent(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure OSMMapCoordinateEvent(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure OSMMapSimpleEvent(Sender: TObject);
     procedure OSMMapBoundsChangedEvent(Sender: TObject; ANorth, ASouth, AEast, AWest: Double);
@@ -558,6 +594,8 @@ type
     FIsDraggingCircle: Boolean;
     FCurrentMarkerForInfoWindow: TGMFmxMarkerItem;
     FCurrentInfoWindowForMarker: TGMFmxInfoWindowItem;
+    FCurrentOSMMarkerForPopup: TOSMMarkerItem;
+    FCurrentOSMPopupForMarker: TOSMPopupItem;
 
     function GM_COLORS(AIndex: Integer): TAlphaColor;
     procedure Log(const AText: string);
@@ -574,6 +612,7 @@ type
     procedure RefreshRouteList;
     procedure RefreshGroundOverlayList;
     procedure RefreshOSMMarkerList;
+    procedure RefreshOSMPopupList;
     procedure RefreshOSMRegionsList;
     function ResolveRepoRootPath: string;
     function ResolveRepoAssetPathFromRoot(const ARelativePath: string): string;
@@ -585,6 +624,16 @@ type
     procedure BindCircleEvents(ACircle: TGMFmxCircleItem);
     procedure BindGroundOverlayEvents(AGroundOverlay: TGMGroundOverlayItem);
     procedure BindOSMMarkerEvents(AMarker: TOSMMarkerItem);
+    procedure BindOSMPopupEvents(APopup: TOSMPopupItem);
+    procedure LoadOSMPopupToUI(APopup: TOSMPopupItem);
+    procedure LoadUIToOSMPopup(APopup: TOSMPopupItem; APreservePosition: Boolean = False);
+    function GetSelectedOSMPopupPresetStyle: TOSMPopupPresetStyle;
+    function GetSelectedOSMPopupContentType: TOSMPopupContentType;
+    procedure SelectOSMPopupPresetStyle(AValue: TOSMPopupPresetStyle);
+    procedure SelectOSMPopupContentType(AValue: TOSMPopupContentType);
+    procedure OSMPopupCloseEvent(Sender: TObject);
+    procedure OSMPopupOpenEvent(Sender: TObject);
+    procedure ShowOSMMarkerPopup(AMarker: TOSMMarkerItem);
 
     procedure ShowMarkerInfoWindow(AMarker: TGMFmxMarkerItem);
   public
@@ -633,6 +682,17 @@ begin
   cbOSMMapMode.Items.Add('Offline');
   cbOSMMapMode.Items.Add('Hybrid');
   cbOSMMapMode.ItemIndex := 2;
+  cbOSMPopupCssClass.Items.Clear;
+  cbOSMPopupCssClass.Items.Add('Default');
+  cbOSMPopupCssClass.Items.Add('Note');
+  cbOSMPopupCssClass.Items.Add('Warning');
+  cbOSMPopupCssClass.Items.Add('Dark');
+  cbOSMPopupCssClass.Items.Add('Success');
+  cbOSMPopupCssClass.ItemIndex := 0;
+  cbOSMPopupContentType.Items.Clear;
+  cbOSMPopupContentType.Items.Add('HTML');
+  cbOSMPopupContentType.Items.Add('Text');
+  cbOSMPopupContentType.ItemIndex := 0;
   OSMMap.OnMapReady := OSMMapReady;
   OSMMap.OnClick := OSMMapClickEvent;
   OSMMap.OnContextMenu := OSMMapCoordinateEvent;
@@ -643,10 +703,19 @@ begin
   OSMMap.OnOfflineDownloadProgress := OSMMapDownloadProgress;
   OSMMap.OnOfflineRegionReady := OSMMapRegionReady;
   OSMMap.OnOfflineError := OSMMapOfflineError;
+  lbOSMPopups.OnChange := OSMPopupListClick;
+  bOSMAddPopup.OnClick := OSMAddPopupClick;
+  bOSMUpdatePopup.OnClick := OSMUpdatePopupClick;
+  bOSMDeletePopup.OnClick := OSMDeletePopupClick;
+  bOSMClearPopups.OnClick := OSMClearPopupsClick;
+  bOSMPopupUseSelectedMarker.OnClick := OSMUseSelectedMarkerForPopupClick;
 
   for var I := 0 to OSMMap.Markers.Count - 1 do
     BindOSMMarkerEvents(OSMMap.Markers[I]);
+  for var I := 0 to OSMMap.Popups.Count - 1 do
+    BindOSMPopupEvents(OSMMap.Popups[I]);
   RefreshOSMMarkerList;
+  RefreshOSMPopupList;
   RefreshOSMRegionsList;
 
   Log('MegaDemo FMX initialized.');
@@ -777,6 +846,19 @@ begin
   cbOSMOfflineSourcePreset.ItemIndex := 1;
   lbOSMRegions.Clear;
   lbOSMMarkers.Clear;
+  lbOSMPopups.Clear;
+  eOSMPopupLat.Text := '41.3874';
+  eOSMPopupLng.Text := '2.1686';
+  eOSMPopupAnchorObjectId.Text := '';
+  eOSMPopupMaxWidth.Text := '0';
+  cbOSMPopupCssClass.ItemIndex := 0;
+  cbOSMPopupContentType.ItemIndex := 0;
+  mOSMPopupContent.Lines.Text := '';
+  cbOSMPopupVisible.IsChecked := True;
+  cbOSMPopupCloseButton.IsChecked := True;
+  cbOSMPopupCloseOnClick.IsChecked := True;
+  cbOSMPopupCloseOnMove.IsChecked := False;
+  cbOSMPopupCloseOthersBeforeOpen.IsChecked := False;
   OSMMap.StyleUrl := eOSMStyleUrl.Text;
   OSMMap.MapLibreCssUrl := ResolveRepoAssetPathFromRoot('resources\js\osm\vendor\maplibre-gl.css');
   OSMMap.MapLibreJsUrl := ResolveRepoAssetPathFromRoot('resources\js\osm\vendor\maplibre-gl.js');
@@ -2635,11 +2717,46 @@ begin
   RefreshOSMMarkerList;
 end;
 
+procedure TMainFrm.OSMMarkerClickEvent(Sender: TObject; ALatLng: TMapLibLatLng);
+var
+  Marker: TOSMMarkerItem;
+begin
+  if Sender is TOSMMarkerItem then
+    Marker := TOSMMarkerItem(Sender)
+  else
+    Marker := nil;
+
+  if Assigned(ALatLng) and Assigned(Marker) then
+    Log(Format('OSM marker click: %s @ %.6f, %.6f', [string(Marker.ObjectId), ALatLng.Lat, ALatLng.Lng]))
+  else if Assigned(Marker) then
+    Log('OSM marker click: ' + string(Marker.ObjectId))
+  else
+    Log('OSM marker click');
+
+  if Assigned(lbOSMMarkers) and Assigned(Marker) then
+    lbOSMMarkers.ItemIndex := lbOSMMarkers.Items.IndexOfObject(Marker);
+
+  ShowOSMMarkerPopup(Marker);
+end;
+
 procedure TMainFrm.OSMMapCoordinateEvent(Sender: TObject; ALatLng: TMapLibLatLng);
+var
+  Marker: TOSMMarkerItem;
 begin
   if not Assigned(ALatLng) then
     Exit;
+
+  if Sender is TOSMMarkerItem then
+    Marker := TOSMMarkerItem(Sender)
+  else
+    Marker := nil;
+
   Log(Format('OSM coordinate [%s]: %.6f, %.6f', [OSMMap.LastEventName, ALatLng.Lat, ALatLng.Lng]));
+
+  if Assigned(Marker) and SameText(OSMMap.LastEventName, 'dragend') and
+     Assigned(FCurrentOSMMarkerForPopup) and (Marker = FCurrentOSMMarkerForPopup) and
+     Assigned(FCurrentOSMPopupForMarker) and FCurrentOSMPopupForMarker.Options.Visible then
+    ShowOSMMarkerPopup(Marker);
 end;
 
 procedure TMainFrm.OSMMapSimpleEvent(Sender: TObject);
@@ -2833,19 +2950,67 @@ begin
   end;
 end;
 
+procedure TMainFrm.RefreshOSMPopupList;
+var
+  I: Integer;
+  Popup: TOSMPopupItem;
+  anchorText: string;
+begin
+  if not Assigned(lbOSMPopups) then
+    Exit;
+
+  lbOSMPopups.Items.BeginUpdate;
+  try
+    lbOSMPopups.Clear;
+    for I := 0 to OSMMap.Popups.Count - 1 do
+    begin
+      Popup := OSMMap.Popups[I];
+      anchorText := IfThen(string(Popup.AnchorObjectId) <> '', string(Popup.AnchorObjectId), '-');
+      lbOSMPopups.Items.AddObject(
+        Format('%s [anchor=%s] (%.5f, %.5f) %s', [
+          string(Popup.ObjectId),
+          anchorText,
+          Popup.Options.Position.Lat,
+          Popup.Options.Position.Lng,
+          IfThen(Popup.Options.Visible, 'open', 'closed')
+        ]),
+        Popup
+      );
+    end;
+  finally
+    lbOSMPopups.Items.EndUpdate;
+  end;
+end;
+
 procedure TMainFrm.BindOSMMarkerEvents(AMarker: TOSMMarkerItem);
 begin
   if not Assigned(AMarker) then
     Exit;
 
-  AMarker.OnClick := OSMMapCoordinateEvent;
+  AMarker.OnClick := OSMMarkerClickEvent;
   AMarker.OnDragStart := OSMMapCoordinateEvent;
   AMarker.OnDrag := OSMMapCoordinateEvent;
   AMarker.OnDragEnd := OSMMapCoordinateEvent;
 end;
 
+procedure TMainFrm.BindOSMPopupEvents(APopup: TOSMPopupItem);
+begin
+  if not Assigned(APopup) then
+    Exit;
+
+  APopup.OnClose := OSMPopupCloseEvent;
+  APopup.OnOpen := OSMPopupOpenEvent;
+end;
+
 procedure TMainFrm.OSMClearMarkersClick(Sender: TObject);
 begin
+  if Assigned(FCurrentOSMPopupForMarker) then
+  begin
+    OSMMap.Popups.Clear;
+    FCurrentOSMPopupForMarker := nil;
+    FCurrentOSMMarkerForPopup := nil;
+    RefreshOSMPopupList;
+  end;
   OSMMap.Markers.Clear;
   RefreshOSMMarkerList;
   Log('OSM markers cleared');
@@ -2872,6 +3037,293 @@ begin
 
   Log(Format('OSM marker selected: %s @ %.6f, %.6f',
     [string(Marker.ObjectId), Marker.Lat, Marker.Lng]));
+end;
+
+procedure TMainFrm.LoadOSMPopupToUI(APopup: TOSMPopupItem);
+begin
+  if not Assigned(APopup) then
+    Exit;
+
+  eOSMPopupLat.Text := FloatToStr(APopup.Options.Position.Lat, TFormatSettings.Invariant);
+  eOSMPopupLng.Text := FloatToStr(APopup.Options.Position.Lng, TFormatSettings.Invariant);
+  eOSMPopupAnchorObjectId.Text := string(APopup.AnchorObjectId);
+  eOSMPopupMaxWidth.Text := IntToStr(APopup.Options.MaxWidth);
+  SelectOSMPopupPresetStyle(APopup.Options.PresetStyle);
+  SelectOSMPopupContentType(APopup.Options.ContentType);
+  mOSMPopupContent.Lines.Text := APopup.Options.Content;
+  cbOSMPopupVisible.IsChecked := APopup.Options.Visible;
+  cbOSMPopupCloseButton.IsChecked := APopup.Options.CloseButton;
+  cbOSMPopupCloseOnClick.IsChecked := APopup.Options.CloseOnClick;
+  cbOSMPopupCloseOnMove.IsChecked := APopup.Options.CloseOnMove;
+  cbOSMPopupCloseOthersBeforeOpen.IsChecked := OSMMap.Popups.CloseOthersBeforeOpen;
+end;
+
+procedure TMainFrm.LoadUIToOSMPopup(APopup: TOSMPopupItem; APreservePosition: Boolean);
+var
+  Lat: Double;
+  Lng: Double;
+begin
+  if not Assigned(APopup) then
+    Exit;
+
+  APopup.BeginUpdate;
+  try
+    if not APreservePosition then
+    begin
+      if TryStrToFloat(Trim(eOSMPopupLat.Text), Lat, TFormatSettings.Invariant) then
+        APopup.Options.Position.Lat := Lat;
+      if TryStrToFloat(Trim(eOSMPopupLng.Text), Lng, TFormatSettings.Invariant) then
+        APopup.Options.Position.Lng := Lng;
+    end;
+
+    OSMMap.Popups.CloseOthersBeforeOpen := cbOSMPopupCloseOthersBeforeOpen.IsChecked;
+    APopup.AnchorObjectId := TGMObjectId(Trim(eOSMPopupAnchorObjectId.Text));
+    APopup.Options.MaxWidth := StrToIntDef(Trim(eOSMPopupMaxWidth.Text), 0);
+    APopup.Options.PresetStyle := GetSelectedOSMPopupPresetStyle;
+    APopup.Options.ContentType := GetSelectedOSMPopupContentType;
+    APopup.Options.Content := mOSMPopupContent.Lines.Text;
+    APopup.Options.CloseButton := cbOSMPopupCloseButton.IsChecked;
+    APopup.Options.CloseOnClick := cbOSMPopupCloseOnClick.IsChecked;
+    APopup.Options.CloseOnMove := cbOSMPopupCloseOnMove.IsChecked;
+    APopup.Options.Visible := cbOSMPopupVisible.IsChecked;
+  finally
+    APopup.EndUpdate;
+  end;
+end;
+
+function TMainFrm.GetSelectedOSMPopupPresetStyle: TOSMPopupPresetStyle;
+begin
+  Result := ppsDefault;
+  if not Assigned(cbOSMPopupCssClass) then
+    Exit;
+
+  case cbOSMPopupCssClass.ItemIndex of
+    1: Result := ppsNote;
+    2: Result := ppsWarning;
+    3: Result := ppsDark;
+    4: Result := ppsSuccess;
+  end;
+end;
+
+function TMainFrm.GetSelectedOSMPopupContentType: TOSMPopupContentType;
+begin
+  Result := pctHtml;
+  if Assigned(cbOSMPopupContentType) and (cbOSMPopupContentType.ItemIndex = 1) then
+    Result := pctText;
+end;
+
+procedure TMainFrm.SelectOSMPopupPresetStyle(AValue: TOSMPopupPresetStyle);
+begin
+  if not Assigned(cbOSMPopupCssClass) then
+    Exit;
+
+  case AValue of
+    ppsNote: cbOSMPopupCssClass.ItemIndex := 1;
+    ppsWarning: cbOSMPopupCssClass.ItemIndex := 2;
+    ppsDark: cbOSMPopupCssClass.ItemIndex := 3;
+    ppsSuccess: cbOSMPopupCssClass.ItemIndex := 4;
+  else
+    cbOSMPopupCssClass.ItemIndex := 0;
+  end;
+end;
+
+procedure TMainFrm.SelectOSMPopupContentType(AValue: TOSMPopupContentType);
+begin
+  if not Assigned(cbOSMPopupContentType) then
+    Exit;
+
+  case AValue of
+    pctText: cbOSMPopupContentType.ItemIndex := 1;
+  else
+    cbOSMPopupContentType.ItemIndex := 0;
+  end;
+end;
+
+procedure TMainFrm.OSMPopupCloseEvent(Sender: TObject);
+var
+  Popup: TOSMPopupItem;
+begin
+  if Sender is TOSMPopupItem then
+  begin
+    Popup := TOSMPopupItem(Sender);
+    Log('OSM popup closed: ' + string(Popup.ObjectId));
+    RefreshOSMPopupList;
+    if Assigned(lbOSMPopups) then
+      lbOSMPopups.ItemIndex := lbOSMPopups.Items.IndexOfObject(Popup);
+    LoadOSMPopupToUI(Popup);
+  end;
+end;
+
+procedure TMainFrm.OSMPopupOpenEvent(Sender: TObject);
+var
+  Popup: TOSMPopupItem;
+begin
+  if Sender is TOSMPopupItem then
+  begin
+    Popup := TOSMPopupItem(Sender);
+    Log('OSM popup opened: ' + string(Popup.ObjectId));
+    RefreshOSMPopupList;
+    if Assigned(lbOSMPopups) then
+      lbOSMPopups.ItemIndex := lbOSMPopups.Items.IndexOfObject(Popup);
+  end;
+end;
+
+procedure TMainFrm.ShowOSMMarkerPopup(AMarker: TOSMMarkerItem);
+var
+  Popup: TOSMPopupItem;
+  popupContent: string;
+begin
+  if not Assigned(AMarker) then
+    Exit;
+
+  // La demo reutiliza un unico popup automatico para markers y asi evita
+  // crear items efimeros cada vez que se hace click o termina un drag.
+  if not Assigned(FCurrentOSMPopupForMarker) then
+  begin
+    FCurrentOSMPopupForMarker := OSMMap.Popups.Add;
+    BindOSMPopupEvents(FCurrentOSMPopupForMarker);
+  end;
+
+  FCurrentOSMMarkerForPopup := AMarker;
+  Popup := FCurrentOSMPopupForMarker;
+  popupContent := Format(
+    '<div><strong>Marker position</strong><br/>Lat: %.6f<br/>Lng: %.6f</div>',
+    [AMarker.Lat, AMarker.Lng],
+    TFormatSettings.Invariant
+  );
+
+  Popup.BeginUpdate;
+  try
+    Popup.AnchorObjectId := AMarker.ObjectId;
+    Popup.Options.Position.Lat := AMarker.Lat;
+    Popup.Options.Position.Lng := AMarker.Lng;
+    Popup.Options.PresetStyle := ppsDark;
+    Popup.Options.ContentType := pctHtml;
+    Popup.Options.MaxWidth := 220;
+    Popup.Options.Content := popupContent;
+    Popup.Options.CloseButton := True;
+    Popup.Options.CloseOnClick := False;
+    Popup.Options.CloseOnMove := False;
+    Popup.Options.Visible := True;
+  finally
+    Popup.EndUpdate;
+  end;
+
+  RefreshOSMPopupList;
+  if Assigned(lbOSMPopups) then
+    lbOSMPopups.ItemIndex := lbOSMPopups.Items.IndexOfObject(Popup);
+end;
+
+procedure TMainFrm.OSMPopupListClick(Sender: TObject);
+var
+  Popup: TOSMPopupItem;
+begin
+  if not Assigned(lbOSMPopups) or (lbOSMPopups.ItemIndex < 0) then
+    Exit;
+
+  Popup := TOSMPopupItem(lbOSMPopups.Items.Objects[lbOSMPopups.ItemIndex]);
+  if not Assigned(Popup) then
+    Exit;
+
+  LoadOSMPopupToUI(Popup);
+  Log('OSM popup selected: ' + string(Popup.ObjectId));
+end;
+
+procedure TMainFrm.OSMAddPopupClick(Sender: TObject);
+var
+  Popup: TOSMPopupItem;
+begin
+  if Trim(mOSMPopupContent.Lines.Text) = '' then
+    mOSMPopupContent.Lines.Text := '<b>OSM popup</b>';
+
+  cbOSMPopupVisible.IsChecked := True;
+  Popup := OSMMap.Popups.Add;
+  try
+    BindOSMPopupEvents(Popup);
+    LoadUIToOSMPopup(Popup);
+    RefreshOSMPopupList;
+    lbOSMPopups.ItemIndex := lbOSMPopups.Items.IndexOfObject(Popup);
+    LoadOSMPopupToUI(Popup);
+    Log('OSM popup added: ' + string(Popup.ObjectId));
+  except
+    Popup.Free;
+    raise;
+  end;
+end;
+
+procedure TMainFrm.OSMUpdatePopupClick(Sender: TObject);
+var
+  Popup: TOSMPopupItem;
+begin
+  if not Assigned(lbOSMPopups) or (lbOSMPopups.ItemIndex < 0) then
+  begin
+    Log('No OSM popup selected.');
+    Exit;
+  end;
+
+  Popup := TOSMPopupItem(lbOSMPopups.Items.Objects[lbOSMPopups.ItemIndex]);
+  if not Assigned(Popup) then
+    Exit;
+
+  LoadUIToOSMPopup(Popup);
+  RefreshOSMPopupList;
+  lbOSMPopups.ItemIndex := lbOSMPopups.Items.IndexOfObject(Popup);
+  Log('OSM popup updated: ' + string(Popup.ObjectId));
+end;
+
+procedure TMainFrm.OSMDeletePopupClick(Sender: TObject);
+var
+  Popup: TOSMPopupItem;
+begin
+  if not Assigned(lbOSMPopups) or (lbOSMPopups.ItemIndex < 0) then
+  begin
+    Log('No OSM popup selected.');
+    Exit;
+  end;
+
+  Popup := TOSMPopupItem(lbOSMPopups.Items.Objects[lbOSMPopups.ItemIndex]);
+  if not Assigned(Popup) then
+    Exit;
+
+  if Assigned(FCurrentOSMPopupForMarker) and (Popup = FCurrentOSMPopupForMarker) then
+  begin
+    FCurrentOSMPopupForMarker := nil;
+    FCurrentOSMMarkerForPopup := nil;
+  end;
+
+  OSMMap.Popups.Delete(Popup.Index);
+  RefreshOSMPopupList;
+  lbOSMPopups.ItemIndex := -1;
+  Log('OSM popup deleted.');
+end;
+
+procedure TMainFrm.OSMClearPopupsClick(Sender: TObject);
+begin
+  FCurrentOSMPopupForMarker := nil;
+  FCurrentOSMMarkerForPopup := nil;
+  OSMMap.Popups.Clear;
+  RefreshOSMPopupList;
+  Log('OSM popups cleared');
+end;
+
+procedure TMainFrm.OSMUseSelectedMarkerForPopupClick(Sender: TObject);
+var
+  Marker: TOSMMarkerItem;
+begin
+  if not Assigned(lbOSMMarkers) or (lbOSMMarkers.ItemIndex < 0) then
+  begin
+    Log('No OSM marker selected for popup anchor.');
+    Exit;
+  end;
+
+  Marker := TOSMMarkerItem(lbOSMMarkers.Items.Objects[lbOSMMarkers.ItemIndex]);
+  if not Assigned(Marker) then
+    Exit;
+
+  eOSMPopupAnchorObjectId.Text := string(Marker.ObjectId);
+  eOSMPopupLat.Text := FloatToStr(Marker.Lat, TFormatSettings.Invariant);
+  eOSMPopupLng.Text := FloatToStr(Marker.Lng, TFormatSettings.Invariant);
+  Log('OSM popup anchor set to marker: ' + string(Marker.ObjectId));
 end;
 
 function TMainFrm.ResolveRepoRootPath: string;
