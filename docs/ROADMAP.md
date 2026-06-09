@@ -66,6 +66,8 @@
     - marker-anchored popup
     - `OnOpen`
     - `OnClose`
+    - `CloseOnMove`
+    - `ContentType` (`HTML` / plain text)
     - typed visual presets
     - closed anchor-loss behavior (popup closes if the anchor marker disappears)
   - helper methods added in marker collection (`Add`, `Clear`,
@@ -80,6 +82,9 @@
     - interaction flags
     - `RenderWorldCopies`
     - online style presets for OpenFreeMap
+    - popup CRUD/testing UI
+  - `FMX MegaDemo` now also exposes popup CRUD/testing UI plus marker-click
+    popup validation flow
   - latest round compiles cleanly according to manual validation.
 
 - Google LCL framework parity:
@@ -109,7 +114,7 @@
 - Keep `VCL` and `FMX MegaDemo` as the validation baseline before opening new
   slices or refactors.
 
-### Milestone 2: first OSM functional slice
+### Milestone 2: expand OSM overlay surface after popup closure
 
 - Extend marker options/events (draggable/visible/title/color and update path).
 - Finish marker visual surface investigation in this order:
@@ -124,9 +129,7 @@
 - Add first marker-specific visual options:
   - `GlyphTextColor`
   - `HideDefaultCenterDot`
-- Add popup parity policy vs Google InfoWindow behavior where applicable.
-- Keep popup parity focused on useful behavior (`anchor`, lifecycle events,
-  visual presets) without forcing Google-specific API semantics 1:1.
+- Keep popup API frozen unless a concrete parity or runtime gap appears.
 - Keep package boundaries stable (`MapLibCore` vs provider runtimes).
 
 ### Milestone 3: parity planning

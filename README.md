@@ -108,14 +108,16 @@ The following OSM / MapLibre runtime surface is currently implemented:
     - typed visual presets
     - closed anchor-loss rule (popup closes if the anchor marker disappears)
   - VCL MegaDemo includes an OSM `Popups` tab with CRUD/testing UI
-  - FMX MegaDemo includes an OSM `Popups` tab with the same baseline popup
-    CRUD/testing flow
+  - FMX MegaDemo includes an OSM `Popups` tab with the same popup CRUD/testing
+    surface
   - marker click in `VCL MegaDemo` opens an anchored popup showing the current
     marker coordinates
   - marker click in `FMX MegaDemo` also opens an anchored popup showing the
     current marker coordinates and refreshes it after `dragend`
   - popup creation lifecycle was hardened with the same batching approach used
     for markers to avoid premature bridge sync during `Add Popup`
+  - the popup slice should now be treated as functionally closed at the current
+    OSM validation level
   - marker core/runtime surface is currently ahead of MegaDemo UI coverage;
     part of the newly added marker options still needs to be exposed in the demo
   - current offline/hybrid runtime surface:
