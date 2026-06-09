@@ -38,6 +38,7 @@ requires
   GMLibRuntime.Vcl;
 
 contains
+  uOSMLib.Vcl.Marker in '..\src\Vcl\OSM\uOSMLib.Vcl.Marker.pas',
   uOSMLib.Vcl.Map in '..\src\Vcl\OSM\uOSMLib.Vcl.Map.pas',
   uOSMLib.Vcl.MapBootstrap in '..\src\Vcl\OSM\uOSMLib.Vcl.MapBootstrap.pas';
 

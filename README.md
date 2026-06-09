@@ -73,39 +73,9 @@ The following Google Maps API classes are currently implemented:
 The following OSM / MapLibre runtime surface is currently implemented:
 
 - [MapLibre GL JS `Map`](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/) and associated map lifecycle/bootstrap flow in `VCL`, `FMX`, and `LCL`.
-- View/camera synchronization and commands:
-  - [center / zoom / bearing / pitch](https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/CameraOptions/)
-  - [fitBounds](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#fitbounds)
-  - [setStyle](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/#setstyle)
-- Main map event forwarding from JS to Delphi/Lazarus, including:
-  - [mouse/touch/view events](https://maplibre.org/maplibre-gl-js/docs/API/type-aliases/MapEventType/)
-  - render/load/idle/data/style event families
-  - bounds change notifications
-- First overlay slice:
+- Overlay slice:
   - [MapLibre GL JS `Marker`](https://maplibre.org/maplibre-gl-js/docs/API/classes/Marker/)
-  - collection management in `TOSMMap.Markers`
-  - per-item events: `OnClick`, `OnDragStart`, `OnDrag`, `OnDragEnd`
-- Current public OSM runtime configuration surface:
-  - `MapMode`
-  - `OfflinePolicy`
-  - `OfflineStoragePath`
-  - `RemoteTileTemplate`
-  - `StyleTemplateFileName`
-  - `GlyphsRootPath`
-  - `MapLibreCssUrl`
-  - `MapLibreJsUrl`
-  - `Bearing`
-  - `Pitch`
-  - `MinZoom`
-  - `MaxZoom`
-  - `DragPanEnabled`
-  - `DragRotateEnabled`
-  - `DoubleClickZoomEnabled`
-  - `ScrollZoomEnabled`
-  - `KeyboardEnabled`
-  - `TouchZoomRotateEnabled`
-  - `TouchPitchEnabled`
-  - `CooperativeGesturesEnabled`
+  - [MapLibre GL JS `Popup`](https://maplibre.org/maplibre-gl-js/docs/API/classes/Popup/)
 
 ### Multi-provider status
 
@@ -114,9 +84,36 @@ The following OSM / MapLibre runtime surface is currently implemented:
 - `OSMLib` (pilot provider) currently includes:
   - map activation/bootstrap + map event flow in `VCL`, `FMX`, and `LCL`
   - style switching + fit bounds + center/zoom/bearing/pitch sync
-  - marker collection with per-item events (`OnClick`, `OnDragStart`, `OnDrag`, `OnDragEnd`)
+  - map restrictions/options:
+    - `min/max zoom`
+    - `min/max pitch`
+    - `max bounds`
+    - `renderWorldCopies`
+  - marker collection with per-item events (`OnClick`, `OnDblClick`, `OnMouseEnter`, `OnMouseLeave`, `OnMouseDown`, `OnMouseUp`, `OnDragStart`, `OnDrag`, `OnDragEnd`)
+  - marker kinds `Standard`, `Pin`, and `Dot` with per-kind options classes
+  - `Pin` visual selectors now exposed as enums instead of free strings
   - interaction toggles (`DragPan`, `DragRotate`, `DoubleClickZoom`, `ScrollZoom`, `Keyboard`, `TouchZoomRotate`, `TouchPitch`, `CooperativeGestures`)
+  - `cooperativegestureprevented` routed to Delphi/Lazarus
   - validated `VCL` MegaDemo OSM marker/offline flow
+  - design-time marker persistence restored after typed wrapper refactor
+  - click-to-add marker flow stabilized after creation/update notification fixes
+  - MegaDemo OSM marker editors now accept local or invariant decimal input for doubles
+  - first dedicated OSM `Popup` slice added in core and JS runtime
+  - validated OSM `Popup` slice with:
+    - free-position popup
+    - marker-anchored popup
+    - `OnOpen` / `OnClose`
+    - `CloseOnMove`
+    - `ContentType` (`HTML` / plain text)
+    - typed visual presets
+    - closed anchor-loss rule (popup closes if the anchor marker disappears)
+  - VCL MegaDemo includes an OSM `Popups` tab with CRUD/testing UI
+  - marker click in `VCL MegaDemo` opens an anchored popup showing the current
+    marker coordinates
+  - popup creation lifecycle was hardened with the same batching approach used
+    for markers to avoid premature bridge sync during `Add Popup`
+  - marker core/runtime surface is currently ahead of MegaDemo UI coverage;
+    part of the newly added marker options still needs to be exposed in the demo
   - current offline/hybrid runtime surface:
     - `MapMode`
     - `OfflinePolicy`

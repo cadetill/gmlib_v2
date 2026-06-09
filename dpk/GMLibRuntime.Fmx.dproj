@@ -169,6 +169,7 @@
         <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.Polyline.pas"/>
         <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.Rectangle.pas"/>
         <DCCReference Include="..\src\Fmx\GM\uGMLib.Fmx.Circle.pas"/>
+        <DCCReference Include="..\src\Fmx\OSM\uOSMLib.Fmx.Marker.pas"/>
         <DCCReference Include="..\src\Fmx\OSM\uOSMLib.Fmx.Map.pas"/>
         <DCCReference Include="..\src\Fmx\OSM\uOSMLib.Fmx.MapBootstrap.pas"/>
         <BuildConfiguration Include="Base">

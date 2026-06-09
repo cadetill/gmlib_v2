@@ -159,6 +159,7 @@
         <DCCReference Include="OSMLibRuntime.dcp"/>
         <DCCReference Include="vcledge.dcp"/>
         <DCCReference Include="GMLibRuntime.Vcl.dcp"/>
+        <DCCReference Include="..\src\Vcl\OSM\uOSMLib.Vcl.Marker.pas"/>
         <DCCReference Include="..\src\Vcl\OSM\uOSMLib.Vcl.Map.pas"/>
         <DCCReference Include="..\src\Vcl\OSM\uOSMLib.Vcl.MapBootstrap.pas"/>
         <BuildConfiguration Include="Base">

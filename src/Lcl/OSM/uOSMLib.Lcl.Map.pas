@@ -12,6 +12,7 @@ uses
   uMapLib.Core.Bridge,
   uMapLib.Core.BridgeRegistry,
   uOSMLib.Map,
+  uOSMLib.Lcl.Marker,
   uOSMLib.Lcl.MapBootstrap;
 
 type
@@ -21,9 +22,12 @@ type
     FBridgeImpl: IMapBridgeTransport;
     FBridgeInterval: Integer;
     function CreateBridgeForBrowser(const ABrowser: TComponent): IMapBridgeTransport;
+    function GetMarkers: TOSMLclMarkers;
     procedure SetBrowser(const Value: TComponent);
     procedure SetBridgeInterval(const Value: Integer);
+    procedure SetMarkers(const Value: TOSMLclMarkers);
   protected
+    function CreateMarkers: TOSMMarkers; override;
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
   public
     constructor Create(AOwner: TComponent); override;
@@ -39,7 +43,24 @@ type
     property GlyphsRootPath;
     property CenterLat;
     property CenterLng;
+    property MinZoom;
+    property MaxZoom;
+    property MinPitch;
+    property MaxPitch;
+    property MaxBounds;
     property MapId;
+    property Zoom;
+    property Bearing;
+    property Pitch;
+    property RenderWorldCopies;
+    property DragPanEnabled;
+    property DragRotateEnabled;
+    property DoubleClickZoomEnabled;
+    property ScrollZoomEnabled;
+    property KeyboardEnabled;
+    property TouchZoomRotateEnabled;
+    property TouchPitchEnabled;
+    property CooperativeGesturesEnabled;
     property OnMapReady;
     property OnClick;
     property OnContextMenu;
@@ -89,16 +110,16 @@ type
     property OnWebGLContextLost;
     property OnWebGLContextRestored;
     property OnWheel;
+    property OnCooperativeGesturePrevented;
     property OnBoundsChanged;
     property OnError;
     property OnOfflineDownloadProgress;
     property OnOfflineRegionReady;
     property OnOfflineError;
-    property Markers;
+    property Markers: TOSMLclMarkers read GetMarkers write SetMarkers;
     property StyleUrl;
     property MapLibreCssUrl;
     property MapLibreJsUrl;
-    property Zoom;
     property Browser: TComponent read FBrowser write SetBrowser;
     property BridgeInterval: Integer read FBridgeInterval write SetBridgeInterval default 100;
   end;
@@ -138,6 +159,11 @@ begin
   inherited;
 end;
 
+function TOSMLibLclMap.CreateMarkers: TOSMMarkers;
+begin
+  Result := TOSMLclMarkers.Create(Self);
+end;
+
 function TOSMLibLclMap.CreateBridgeForBrowser(const ABrowser: TComponent): IMapBridgeTransport;
 begin
   Result := CreateRegisteredBridgeForBrowser(ABrowser, FBridgeImpl);
@@ -158,6 +184,16 @@ begin
   Bridge := nil;
   FBridgeImpl := nil;
   inherited;
+end;
+
+function TOSMLibLclMap.GetMarkers: TOSMLclMarkers;
+begin
+  Result := TOSMLclMarkers(inherited Markers);
+end;
+
+procedure TOSMLibLclMap.SetMarkers(const Value: TOSMLclMarkers);
+begin
+  inherited Markers := Value;
 end;
 
 procedure TOSMLibLclMap.Notification(AComponent: TComponent; Operation: TOperation);

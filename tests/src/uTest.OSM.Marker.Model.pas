@@ -169,6 +169,11 @@ begin
     Marker.Lng := 2.1686;
     Marker.Title := 'Marker "quoted"';
     Marker.Visible := False;
+    Marker.StandardOptions.ColorCss := '#ff0000';
+    Marker.StandardOptions.GlyphText := 'A';
+    Marker.StandardOptions.GlyphTextColorCss := '#ffffff';
+    Marker.StandardOptions.Scale := 1.25;
+    Marker.StandardOptions.HideDefaultCenterDot := True;
 
     Payload := Marker.BuildAddPayload;
 
@@ -177,6 +182,11 @@ begin
     Assert.IsTrue(Pos('"lng":2.1686', Payload) > 0);
     Assert.IsTrue(Pos('"title":"Marker \"quoted\""', Payload) > 0);
     Assert.IsTrue(Pos('"visible":false', Payload) > 0);
+    Assert.IsTrue(Pos('"kind":"standard"', Payload) > 0);
+    Assert.IsTrue(Pos('"color":"#ff0000"', Payload) > 0);
+    Assert.IsTrue(Pos('"glyphText":"A"', Payload) > 0);
+    Assert.IsTrue(Pos('"glyphTextColor":"#ffffff"', Payload) > 0);
+    Assert.IsTrue(Pos('"hideDefaultCenterDot":true', Payload) > 0);
   finally
     Markers.Free;
   end;

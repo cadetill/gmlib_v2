@@ -14,6 +14,7 @@ uses
   uMapLib.Core.BridgeRegistry,
   uGMLib.Vcl.Bridge.WebView2,
   uOSMLib.Map,
+  uOSMLib.Vcl.Marker,
   uOSMLib.Vcl.MapBootstrap;
 
 type
@@ -23,9 +24,12 @@ type
     FBridgeImpl: IMapBridgeTransport;
     FBridgeInterval: Integer;
     function CreateBridgeForBrowser(const ABrowser: TComponent): IMapBridgeTransport;
+    function GetMarkers: TOSMVclMarkers;
     procedure SetBrowser(const Value: TComponent);
     procedure SetBridgeInterval(const Value: Integer);
+    procedure SetMarkers(const Value: TOSMVclMarkers);
   protected
+    function CreateMarkers: TOSMMarkers; override;
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
   public
     constructor Create(AOwner: TComponent); override;
@@ -43,10 +47,14 @@ type
     property CenterLng;
     property MinZoom;
     property MaxZoom;
+    property MinPitch;
+    property MaxPitch;
+    property MaxBounds;
     property MapId;
     property Zoom;
     property Bearing;
     property Pitch;
+    property RenderWorldCopies;
     property DragPanEnabled;
     property DragRotateEnabled;
     property DoubleClickZoomEnabled;
@@ -106,12 +114,13 @@ type
     property OnWebGLContextLost;
     property OnWebGLContextRestored;
     property OnWheel;
+    property OnCooperativeGesturePrevented;
     property OnBoundsChanged;
     property OnError;
     property OnOfflineDownloadProgress;
     property OnOfflineRegionReady;
     property OnOfflineError;
-    property Markers;
+    property Markers: TOSMVclMarkers read GetMarkers write SetMarkers;
     property StyleUrl;
     property MapLibreCssUrl;
     property MapLibreJsUrl;
@@ -155,6 +164,11 @@ begin
   inherited;
 end;
 
+function TOSMLibVclMap.CreateMarkers: TOSMMarkers;
+begin
+  Result := TOSMVclMarkers.Create(Self);
+end;
+
 function TOSMLibVclMap.CreateBridgeForBrowser(const ABrowser: TComponent): IMapBridgeTransport;
 begin
   Result := CreateRegisteredBridgeForBrowser(ABrowser, FBridgeImpl);
@@ -185,6 +199,16 @@ begin
   Bridge := nil;
   FBridgeImpl := nil;
   inherited;
+end;
+
+function TOSMLibVclMap.GetMarkers: TOSMVclMarkers;
+begin
+  Result := TOSMVclMarkers(inherited Markers);
+end;
+
+procedure TOSMLibVclMap.SetMarkers(const Value: TOSMVclMarkers);
+begin
+  inherited Markers := Value;
 end;
 
 procedure TOSMLibVclMap.Notification(AComponent: TComponent; Operation: TOperation);

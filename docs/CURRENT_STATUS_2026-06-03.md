@@ -55,6 +55,10 @@ runtime behavior in `resources/js/osm/osmlib.map.js`.
 - `Pitch`
 - `MinZoom`
 - `MaxZoom`
+- `MinPitch`
+- `MaxPitch`
+- `MaxBounds`
+- `RenderWorldCopies`
 - `DragPanEnabled`
 - `DragRotateEnabled`
 - `DoubleClickZoomEnabled`
@@ -63,7 +67,21 @@ runtime behavior in `resources/js/osm/osmlib.map.js`.
 - `TouchZoomRotateEnabled`
 - `TouchPitchEnabled`
 - `CooperativeGesturesEnabled`
+- `OnCooperativeGesturePrevented`
 - `LastEventName`
+
+### State synchronization
+
+The map now keeps Delphi-side view state synchronized from JS runtime view
+events even when no Delphi event handler is assigned.
+
+This applies to:
+
+- `CenterLat`
+- `CenterLng`
+- `Zoom`
+- `Bearing`
+- `Pitch`
 
 ### MegaDemo status
 
@@ -73,28 +91,198 @@ runtime behavior in `resources/js/osm/osmlib.map.js`.
 - `pitch`
 - `minZoom`
 - `maxZoom`
+- `minPitch`
+- `maxPitch`
+- `maxBounds`
+- `renderWorldCopies`
 - main interaction flags
 - filtered logging for move/render/data event families
 
 The demos now use `LastEventName` to log the actual runtime event received.
 
+`Vcl/MegaDemo` also now includes:
+
+- OpenFreeMap online style presets
+- automatic disable of style presets / `Apply Style` in `Offline` and `Hybrid`
+  mode
+- `Use MaxBounds` toggle reusing the current north/south/east/west editors
+
 ### Important note
 
-This round was done at code/documentation level only.
+This document started as a code/documentation-only snapshot, but the current
+state has since been manually compiled and validated in follow-up work.
 
-- No compilation was run in this session.
-- No visual validation was run in this session.
+- The latest reported status is: compile OK.
+- Online OpenFreeMap presets were manually checked in `VCL`.
 
 ### Re-entry checklist
 
-1. Compile `VCL MegaDemo`.
-2. Compile `FMX MegaDemo`.
-3. Validate:
-   - `Apply View`
-   - `Fit Bounds`
-   - `Apply Style`
-   - interaction checkboxes
-   - move/render/data logs
+1. Decide if visible bounds should stay event-only or become a read-only
+   Delphi property too.
+2. Re-check `FMX MegaDemo` against the same OSM map baseline.
+3. If the map layer is considered closed, open the next OSM slice
+   (`Markers` options/visual surface).
+
+## OSM Markers snapshot
+
+The active OSM slice is still `Markers`, but it is no longer only a first
+baseline. The 2026-06-05 round moved it to a much more stable state.
+
+### Current working state
+
+- marker add/delete/clear remains functional
+- map click can create markers
+- `Draggable` works end-to-end
+- `Visible` is applied in JS
+- single-marker updates use `marker.set_options`
+- drag events now refresh the Delphi-side marker position
+- design-time marker persistence has been restored
+- click-to-add no longer raises the previous bridge-side AV
+- `Opacity` now works again in `Standard`, `Pin`, and `Dot`
+
+### Current marker surface
+
+- marker `Kind`:
+  - `Standard`
+  - `Pin`
+  - `Dot`
+- kind-specific options:
+  - `StandardOptions`
+  - `PinOptions`
+  - `DotOptions`
+- `Pin` typed enums:
+  - `CornerStyle`
+  - `ShapeVariant`
+- current per-item events:
+  - `OnClick`
+  - `OnDblClick`
+  - `OnMouseEnter`
+  - `OnMouseLeave`
+  - `OnMouseDown`
+  - `OnMouseUp`
+  - `OnDragStart`
+  - `OnDrag`
+  - `OnDragEnd`
+- helper loading already exists through:
+  - `LoadFromArray`
+  - `LoadFromCSV`
+  - `LoadFromDataSet`
+- the core/runtime surface has already grown beyond the current MegaDemo UI:
+  - advanced common visual options
+  - expanded `StandardOptions`
+  - expanded `PinOptions`
+  - expanded `DotOptions`
+
+### Wrapper status
+
+- wrapper-level native colors already exist:
+  - `VCL`: `TColor`
+  - `FMX`: `TAlphaColor`
+  - `LCL`: `TColor`
+- CSS color storage remains internal to the common OSM model
+- wrapper defaults now resolve to black for empty/invalid CSS:
+  - `VCL/LCL`: `clBlack`
+  - `FMX`: `TAlphaColorRec.Black`
+
+### Recent fixes already applied
+
+- marker `dragend` now updates Delphi-side state correctly
+- marker `Title` is applied to the marker DOM as tooltip/`aria-label`
+- FMX/VCL wrapper units for OSM markers were added and registered in runtime
+  packages
+- the previous `OSMMarkerKindToString` blocker is no longer relevant for the
+  current branch state
+- marker creation now avoids premature bridge sync while the collection item is
+  still initializing
+- MegaDemo VCL now accepts both local and invariant decimal formats for OSM
+  marker `Double` editors
+- `Pin.ShapeVariant` now has a first basic visual differentiation in JS
+
+### Current weak spots
+
+- `Pin.ShapeVariant` is now typed and visible, but still not a fully closed
+  visual family
+- `AnchorX/AnchorY` work as offsets, but their public semantics remain weak
+- `PopupText` is still a temporary bridge feature until a real OSM `Popup`
+  slice exists
+- `Shadow*` behavior exists but is not yet visually harmonized across
+  `Standard`, `Pin`, and `Dot`
+
+### Suggested next step
+
+1. Decide whether weak properties such as `AnchorX/AnchorY`, `PopupText`, or
+   some `Shadow*` fields should stay exposed in v1 or be trimmed from demos.
+2. Tighten the visual/documented contract of `Pin.ShapeVariant`.
+3. Continue validation of the new OSM `Popup` slice now that core, JS runtime,
+   and VCL MegaDemo wiring already exist.
+
+## OSM Popup status
+
+The OSM provider now has a validated dedicated `Popup` slice.
+
+### Current surface
+
+- `TOSMMap.Popups`
+- `TOSMPopupItem`
+- `TOSMPopupOptions`
+- current popup properties:
+  - `Content`
+  - `ContentType`
+  - `Position`
+  - `Visible`
+  - `CloseButton`
+  - `CloseOnClick`
+  - `CloseOnMove`
+  - `MaxWidth`
+  - `AnchorObjectId`
+- current popup methods:
+  - `Open`
+  - `OpenByObjectId`
+  - `Close`
+- current popup event:
+  - `OnOpen`
+  - `OnClose`
+
+### Runtime coverage
+
+- JS bridge commands already exist for:
+  - `popup.add`
+  - `popup.set_options`
+  - `popup.remove`
+  - `popup.clear`
+- popups can currently work:
+  - by explicit position
+  - anchored to an existing marker by `AnchorObjectId`
+- anchored popups are refreshed when the target marker is created, updated, or
+  dragged
+- anchored popups now close automatically if the anchor marker disappears
+- popup visual presets are now exposed through typed Delphi options:
+  - `ppsDefault`
+  - `ppsNote`
+  - `ppsWarning`
+  - `ppsDark`
+  - `ppsSuccess`
+- popup content can now be sent either as trusted HTML or as plain text
+  through typed Delphi options instead of always forcing HTML
+
+### MegaDemo status
+
+- VCL MegaDemo already includes a dedicated OSM `Popups` tab with CRUD and the
+  editable popup surface
+- `Add Popup`, anchored popup behavior, close propagation, and
+  `CloseOthersBeforeOpen` were manually validated in `VCL`
+- marker click in `VCL MegaDemo` now opens an anchored popup showing marker
+  coordinates, following the same validation goal as the Google-side
+  marker/InfoWindow flow
+- popup creation/update remains batched in the core to avoid premature bridge
+  synchronization during item initialization
+
+### Current status
+
+- popup free-position and anchored flows are validated in `VCL`
+- anchor-loss behavior is now closed: when the anchor marker disappears, the
+  popup closes
+- `OnOpen` and `OnClose` are both routed from JS to Delphi
 
 ## GM LCL color wrappers
 

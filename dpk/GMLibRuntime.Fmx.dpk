@@ -48,6 +48,7 @@ contains
   uGMLib.Fmx.Polyline in '..\src\Fmx\GM\uGMLib.Fmx.Polyline.pas',
   uGMLib.Fmx.Rectangle in '..\src\Fmx\GM\uGMLib.Fmx.Rectangle.pas',
   uGMLib.Fmx.Circle in '..\src\Fmx\GM\uGMLib.Fmx.Circle.pas',
+  uOSMLib.Fmx.Marker in '..\src\Fmx\OSM\uOSMLib.Fmx.Marker.pas',
   uOSMLib.Fmx.Map in '..\src\Fmx\OSM\uOSMLib.Fmx.Map.pas',
   uOSMLib.Fmx.MapBootstrap in '..\src\Fmx\OSM\uOSMLib.Fmx.MapBootstrap.pas';
 

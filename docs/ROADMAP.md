@@ -39,13 +39,35 @@
   - runtime command coverage is no longer limited to bootstrap + click path:
     `map.set_view`, `map.set_style`, `map.fit_bounds`, and `map.set_options`
     are now implemented end-to-end.
+  - current map core now includes:
+    - `Bearing`
+    - `Pitch`
+    - `MinZoom`
+    - `MaxZoom`
+    - `MinPitch`
+    - `MaxPitch`
+    - `MaxBounds`
+    - `RenderWorldCopies`
+    - interaction flags for drag/zoom/keyboard/touch/cooperative gestures
   - map event forwarding now includes the main view/runtime families
     (`move*`, `drag*`, `zoom*`, `rotate*`, `pitch*`, `load`, `idle`,
     `render`, `data*`, `styledata*`, `boundschanged`, etc.).
+  - map event surface now also exposes `OnCooperativeGesturePrevented`.
+  - JS -> Delphi view synchronization now keeps `CenterLat`, `CenterLng`,
+    `Zoom`, `Bearing`, and `Pitch` updated even when no Delphi event handler is
+    attached.
   - JSON payload handling has first defensive parsing pass (non-breaking error
     reporting via `OnError` on protocol exceptions).
   - first overlay slice closed: `Markers` with per-item events
     (`OnClick`, `OnDragStart`, `OnDrag`, `OnDragEnd`).
+  - next overlay slice now also closed at the current validation level:
+    `Popups` with:
+    - free-position popup
+    - marker-anchored popup
+    - `OnOpen`
+    - `OnClose`
+    - typed visual presets
+    - closed anchor-loss behavior (popup closes if the anchor marker disappears)
   - helper methods added in marker collection (`Add`, `Clear`,
     `DeleteByObjectId`, `ZoomToMarkers`).
   - offline/hybrid runtime validated in `VCL`.
@@ -53,8 +75,12 @@
     the same embedded/file-switch strategy used in `VCL`.
   - `GMLibRuntime.Lcl` compile path is back to green after the latest FPC
     compatibility fixes in the common offline/runtime layer.
-  - `VCL/FMX MegaDemo` now expose camera/interactions for the OSM map runtime,
-    but this specific round still needs compile + visual validation.
+  - `VCL MegaDemo` now exposes:
+    - camera + restrictions (`min/max zoom`, `min/max pitch`, `max bounds`)
+    - interaction flags
+    - `RenderWorldCopies`
+    - online style presets for OpenFreeMap
+  - latest round compiles cleanly according to manual validation.
 
 - Google LCL framework parity:
   - `MapOptions`, `Circle`, `Polygon`, and `Rectangle` already exposed `TColor`.
@@ -72,17 +98,35 @@
 
 ### Milestone 1: finish OSM pilot map core
 
-- Validate and stabilize framework parity (`VCL`/`FMX`/`LCL`) for the current
-  map + marker baseline.
+- Finish validation/stabilization of the current OSM map core across
+  `VCL`/`FMX`/`LCL`.
+- Decide whether visible bounds should remain event-only (`OnBoundsChanged`) or
+  whether a read-only Delphi property is worth adding.
+- Decide whether any extra map-only interaction flags are still needed for v1,
+  or whether the current surface is enough to freeze the map layer.
 - Keep OSM bootstrap asset pipeline aligned with the current
   embedded/file-switch strategy across all wrappers.
-- Validate `VCL` and `FMX MegaDemo` against the expanded OSM runtime before
-  opening new slices or refactors.
+- Keep `VCL` and `FMX MegaDemo` as the validation baseline before opening new
+  slices or refactors.
 
 ### Milestone 2: first OSM functional slice
 
 - Extend marker options/events (draggable/visible/title/color and update path).
+- Finish marker visual surface investigation in this order:
+  - keep `Standard` marker as the baseline
+  - validate `Color`
+  - validate `Scale`
+  - validate `GlyphText` without disturbing native marker anchoring
+- Add marker style variants:
+  - `Standard`
+  - `Pin`
+  - `Dot`
+- Add first marker-specific visual options:
+  - `GlyphTextColor`
+  - `HideDefaultCenterDot`
 - Add popup parity policy vs Google InfoWindow behavior where applicable.
+- Keep popup parity focused on useful behavior (`anchor`, lifecycle events,
+  visual presets) without forcing Google-specific API semantics 1:1.
 - Keep package boundaries stable (`MapLibCore` vs provider runtimes).
 
 ### Milestone 3: parity planning

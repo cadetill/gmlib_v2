@@ -13,7 +13,7 @@ uses
   uGMLib.Vcl.Circle, uGMLib.Vcl.InfoWindow, uGMLib.Google.Types, uGMLib.MapOptions,
   uGMLib.Polyline, uGMLib.Polygon, uGMLib.Rectangle, uGMLib.Circle,
   uGMLib.GroundOverlay, uGMLib.GeoCode, uGMLib.Elevation, uGMLib.Routes,
-  uGMLib.Geometry, uOSMLib.Vcl.Map, uOSMLib.Map, System.IOUtils;
+  uGMLib.Geometry, uOSMLib.Vcl.Map, uOSMLib.Vcl.Marker, uOSMLib.Map, System.IOUtils;
 
 type
   TMainFrm = class(TForm)
@@ -316,6 +316,8 @@ type
     lOSMPitch: TLabel;
     lOSMMinZoom: TLabel;
     lOSMMaxZoom: TLabel;
+    lOSMMinPitch: TLabel;
+    lOSMMaxPitch: TLabel;
     lOSMNorth: TLabel;
     lOSMSouth: TLabel;
     lOSMEast: TLabel;
@@ -327,6 +329,8 @@ type
     eOSMPitch: TEdit;
     eOSMMinZoom: TEdit;
     eOSMMaxZoom: TEdit;
+    eOSMMinPitch: TEdit;
+    eOSMMaxPitch: TEdit;
     eOSMNorth: TEdit;
     eOSMSouth: TEdit;
     eOSMEast: TEdit;
@@ -349,6 +353,8 @@ type
     cbOSMTouchZoomRotate: TCheckBox;
     cbOSMTouchPitch: TCheckBox;
     cbOSMCooperativeGestures: TCheckBox;
+    cbOSMUseMaxBounds: TCheckBox;
+    cbOSMRenderWorldCopies: TCheckBox;
     lOSMMapMode: TLabel;
     cbOSMMapMode: TComboBox;
     lOSMOfflineTileJsonUrl: TLabel;
@@ -366,15 +372,132 @@ type
     bOSMClearMarkers: TButton;
     bOSMZoomToMarkers: TButton;
     bApplyOSMEventFilter: TButton;
+    lOSMMarkerLat: TLabel;
+    lOSMMarkerLng: TLabel;
+    lOSMMarkerTitle: TLabel;
+    lOSMMarkerKind: TLabel;
+    eOSMMarkerLat: TEdit;
+    eOSMMarkerLng: TEdit;
+    eOSMMarkerTitle: TEdit;
+    cbOSMMarkerVisible: TCheckBox;
+    cbOSMMarkerDraggable: TCheckBox;
+    cbOSMMarkerKind: TComboBox;
+    bOSMAddMarker: TButton;
+    bOSMUpdateMarker: TButton;
+    bOSMDeleteMarker: TButton;
     pcSupplier: TPageControl;
     tsGM: TTabSheet;
     tsOSM: TTabSheet;
     pcOSMOptions: TPageControl;
     tsOSMOffline: TTabSheet;
     tsOSMMarkers: TTabSheet;
+    tsOSMPopups: TTabSheet;
     pRight: TPanel;
     lStatus: TLabel;
     Splitter1: TSplitter;
+    pcOSMMarkers: TPageControl;
+    tsOSMStandardMarkers: TTabSheet;
+    tsOSMPinMarkers: TTabSheet;
+    tsOSMDotMarkers: TTabSheet;
+    sbOSMStandardMarkers: TScrollBox;
+    sbOSMPinMarkers: TScrollBox;
+    sbOSMDotMarkers: TScrollBox;
+    lOSMMarkerColor: TLabel;
+    cbOSMMarkerColor: TColorBox;
+    lOSMMarkerScale: TLabel;
+    eOSMMarkerScale: TEdit;
+    eOSMMarkerGlyphText: TEdit;
+    lOSMMarkerGlyphText: TLabel;
+    cbOSMMarkerGlyphTextColor: TColorBox;
+    lOSMMarkerGlyphTextColor: TLabel;
+    cbOSMMarkerHideCenterDot: TCheckBox;
+    cbOSMMarkerStandardBorderColor: TColorBox;
+    eOSMMarkerStandardBorderWidth: TEdit;
+    eOSMMarkerStandardGlyphFontSize: TEdit;
+    eOSMMarkerStandardGlyphOffsetX: TEdit;
+    eOSMMarkerStandardGlyphOffsetY: TEdit;
+    eOSMMarkerStandardOpacity: TEdit;
+    eOSMMarkerStandardZIndex: TEdit;
+    eOSMMarkerStandardRotation: TEdit;
+    eOSMMarkerStandardAnchorX: TEdit;
+    eOSMMarkerStandardAnchorY: TEdit;
+    eOSMMarkerStandardPopupText: TEdit;
+    cbOSMMarkerStandardShadowEnabled: TCheckBox;
+    cbOSMMarkerStandardPopupEnabled: TCheckBox;
+    cbOSMMarkerStandardUseDefaultShape: TCheckBox;
+    cbOSMMarkerStandardUseGlyph: TCheckBox;
+    cbOSMMarkerPinBackgroundColor: TColorBox;
+    cbOSMMarkerPinBorderColor: TColorBox;
+    cbOSMMarkerPinGlyphTextColor: TColorBox;
+    cbOSMMarkerPinShadowColor: TColorBox;
+    eOSMMarkerPinBorderWidth: TEdit;
+    cbOSMMarkerPinCornerStyle: TComboBox;
+    eOSMMarkerPinGlyphFontSize: TEdit;
+    eOSMMarkerPinGlyphText: TEdit;
+    eOSMMarkerPinMinHeight: TEdit;
+    eOSMMarkerPinMinWidth: TEdit;
+    eOSMMarkerPinPadding: TEdit;
+    eOSMMarkerPinPointerLength: TEdit;
+    eOSMMarkerPinPointerWidth: TEdit;
+    eOSMMarkerPinScale: TEdit;
+    eOSMMarkerPinShadowBlur: TEdit;
+    cbOSMMarkerPinShapeVariant: TComboBox;
+    eOSMMarkerPinOpacity: TEdit;
+    eOSMMarkerPinZIndex: TEdit;
+    eOSMMarkerPinRotation: TEdit;
+    eOSMMarkerPinAnchorX: TEdit;
+    eOSMMarkerPinAnchorY: TEdit;
+    eOSMMarkerPinPopupText: TEdit;
+    cbOSMMarkerPinShadowEnabled: TCheckBox;
+    cbOSMMarkerPinPopupEnabled: TCheckBox;
+    cbOSMMarkerDotColor: TColorBox;
+    cbOSMMarkerDotBorderColor: TColorBox;
+    cbOSMMarkerDotGlyphTextColor: TColorBox;
+    cbOSMMarkerDotPulseColor: TColorBox;
+    cbOSMMarkerDotShadowColor: TColorBox;
+    eOSMMarkerDotBorderWidth: TEdit;
+    eOSMMarkerDotDiameter: TEdit;
+    eOSMMarkerDotGlyphFontSize: TEdit;
+    eOSMMarkerDotGlyphText: TEdit;
+    eOSMMarkerDotPulseDuration: TEdit;
+    eOSMMarkerDotPulseRadius: TEdit;
+    eOSMMarkerDotRadius: TEdit;
+    eOSMMarkerDotScale: TEdit;
+    eOSMMarkerDotShadowBlur: TEdit;
+    eOSMMarkerDotOpacity: TEdit;
+    eOSMMarkerDotZIndex: TEdit;
+    eOSMMarkerDotRotation: TEdit;
+    eOSMMarkerDotAnchorX: TEdit;
+    eOSMMarkerDotAnchorY: TEdit;
+    eOSMMarkerDotPopupText: TEdit;
+    cbOSMMarkerDotPulseEnabled: TCheckBox;
+    cbOSMMarkerDotShadowEnabled: TCheckBox;
+    cbOSMMarkerDotPopupEnabled: TCheckBox;
+    lbOSMPopups: TListBox;
+    bOSMAddPopup: TButton;
+    bOSMUpdatePopup: TButton;
+    bOSMDeletePopup: TButton;
+    bOSMClearPopups: TButton;
+    bOSMPopupUseSelectedMarker: TButton;
+    lOSMPopupLat: TLabel;
+    lOSMPopupLng: TLabel;
+    lOSMPopupAnchorObjectId: TLabel;
+    lOSMPopupMaxWidth: TLabel;
+    lOSMPopupCssClass: TLabel;
+    lOSMPopupContentType: TLabel;
+    lOSMPopupContent: TLabel;
+    eOSMPopupLat: TEdit;
+    eOSMPopupLng: TEdit;
+    eOSMPopupAnchorObjectId: TEdit;
+    eOSMPopupMaxWidth: TEdit;
+    cbOSMPopupCssClass: TComboBox;
+    cbOSMPopupContentType: TComboBox;
+    mOSMPopupContent: TMemo;
+    cbOSMPopupVisible: TCheckBox;
+    cbOSMPopupCloseButton: TCheckBox;
+    cbOSMPopupCloseOnClick: TCheckBox;
+    cbOSMPopupCloseOnMove: TCheckBox;
+    cbOSMPopupCloseOthersBeforeOpen: TCheckBox;
     procedure bActivateClick(Sender: TObject);
     procedure bAddMarkerClick(Sender: TObject);
     procedure bDeleteMarkerClick(Sender: TObject);
@@ -514,7 +637,7 @@ type
     procedure FitOSMBoundsClick(Sender: TObject);
     procedure OSMMapCoordinateEvent(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure OSMMapClickEvent(Sender: TObject; ALatLng: TMapLibLatLng);
-    procedure OSMMarkerClickEvent(Sender: TObject; const AMarkerId: TGMObjectId; ALatLng: TMapLibLatLng);
+    procedure OSMMarkerClickEvent(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure OSMMapViewChangedEvent(Sender: TObject; ACenter: TMapLibLatLng; AZoom, ABearing, APitch: Double);
     procedure OSMMapBoundsChangedEvent(Sender: TObject; ANorth, ASouth, AEast, AWest: Double);
     procedure OSMMapSimpleEvent(Sender: TObject);
@@ -525,9 +648,19 @@ type
     procedure ApplyOSMStyleClick(Sender: TObject);
     procedure ApplyOSMEventFilterClick(Sender: TObject);
     procedure OSMStylePresetChange(Sender: TObject);
+    procedure OSMMapModeChange(Sender: TObject);
     procedure OSMMarkerListClick(Sender: TObject);
+    procedure OSMAddMarkerClick(Sender: TObject);
+    procedure OSMUpdateMarkerClick(Sender: TObject);
+    procedure OSMDeleteMarkerClick(Sender: TObject);
     procedure OSMClearMarkersClick(Sender: TObject);
     procedure OSMZoomToMarkersClick(Sender: TObject);
+    procedure OSMPopupListClick(Sender: TObject);
+    procedure OSMAddPopupClick(Sender: TObject);
+    procedure OSMUpdatePopupClick(Sender: TObject);
+    procedure OSMDeletePopupClick(Sender: TObject);
+    procedure OSMClearPopupsClick(Sender: TObject);
+    procedure OSMUseSelectedMarkerForPopupClick(Sender: TObject);
     procedure bOSMDownloadRegionClick(Sender: TObject);
     procedure bOSMDeleteRegionClick(Sender: TObject);
   private
@@ -537,6 +670,8 @@ type
     FIsDraggingCircle: Boolean;
     FCurrentMarkerForInfoWindow: TGMVclMarkerItem;
     FCurrentInfoWindowForMarker: TGMVclInfoWindowItem;
+    FCurrentOSMMarkerForPopup: TOSMVclMarkerItem;
+    FCurrentOSMPopupForMarker: TOSMPopupItem;
     procedure Log(const AText: string);
     procedure UpdateStatus(const AText: string);
     procedure InitializeDefaults;
@@ -572,8 +707,34 @@ type
     procedure GeoCodeCompleted(Sender: TObject; const AResponse: TGMGeocodeResponse);
     procedure ElevationCompleted(Sender: TObject; const AResponse: TGMElevationResponse);
     procedure RefreshOSMMarkerList;
+    procedure RefreshOSMPopupList;
     procedure RefreshOSMRegionsList;
     procedure BindOSMMarkerEvents(AMarker: TOSMMarkerItem);
+    procedure BindOSMPopupEvents(APopup: TOSMPopupItem);
+    procedure LoadOSMMarkerToUI(AMarker: TOSMVclMarkerItem);
+    procedure LoadUIToOSMMarker(AMarker: TOSMVclMarkerItem; APreservePosition: Boolean = False);
+    procedure LoadOSMPopupToUI(APopup: TOSMPopupItem);
+    procedure LoadUIToOSMPopup(APopup: TOSMPopupItem; APreservePosition: Boolean = False);
+    function GetSelectedOSMPopupPresetStyle: TOSMPopupPresetStyle;
+    function GetSelectedOSMPopupContentType: TOSMPopupContentType;
+    procedure SelectOSMPopupPresetStyle(AValue: TOSMPopupPresetStyle);
+    procedure SelectOSMPopupContentType(AValue: TOSMPopupContentType);
+    procedure OSMPopupCloseEvent(Sender: TObject);
+    procedure OSMPopupOpenEvent(Sender: TObject);
+    procedure ShowOSMMarkerPopup(AMarker: TOSMVclMarkerItem);
+    function OSMMarkerKindToComboIndex(AKind: TOSMMarkerKind): Integer;
+    function OSMComboIndexToMarkerKind(AIndex: Integer): TOSMMarkerKind;
+    function OSMPinCornerStyleToComboIndex(AValue: TOSMMarkerPinCornerStyle): Integer;
+    function OSMComboIndexToPinCornerStyle(AIndex: Integer): TOSMMarkerPinCornerStyle;
+    function OSMPinShapeVariantToComboIndex(AValue: TOSMMarkerPinShapeVariant): Integer;
+    function OSMComboIndexToPinShapeVariant(AIndex: Integer): TOSMMarkerPinShapeVariant;
+    function TryReadOSMMapUiSettings(out ACenterLat, ACenterLng, AZoom,
+      ABearing, APitch, AMinZoom, AMaxZoom, AMinPitch, AMaxPitch: Double;
+      out AUseMaxBounds: Boolean; out ANorth, ASouth, AEast, AWest: Double): Boolean;
+    procedure ApplyOSMMapUiSettings(ACenterLat, ACenterLng, AZoom, ABearing,
+      APitch, AMinZoom, AMaxZoom, AMinPitch, AMaxPitch: Double;
+      AUseMaxBounds: Boolean; ANorth, ASouth, AEast, AWest: Double);
+    procedure UpdateOSMStylePresetAvailability;
     function ResolveRepoAssetPath(const ARelativePath: string): string;
     // procedure ConfigureOSMOfflineDefaults;
     // function HasOSMOfflineRuntimeAssets: Boolean;
@@ -592,6 +753,30 @@ var
 implementation
 
 {$R *.dfm}
+
+function TryParseFlexibleFloat(const AText: string; out AValue: Double): Boolean;
+var
+  localFormatSettings: TFormatSettings;
+  normalizedText: string;
+begin
+  Result := TryStrToFloat(Trim(AText), AValue, TFormatSettings.Invariant);
+  if Result then
+    Exit;
+
+  localFormatSettings := TFormatSettings.Create;
+  Result := TryStrToFloat(Trim(AText), AValue, localFormatSettings);
+  if Result then
+    Exit;
+
+  normalizedText := Trim(AText).Replace(',', '.');
+  Result := TryStrToFloat(normalizedText, AValue, TFormatSettings.Invariant);
+end;
+
+function ParseFlexibleFloatDef(const AText: string; ADefault: Double): Double;
+begin
+  if not TryParseFlexibleFloat(AText, Result) then
+    Result := ADefault;
+end;
 
 procedure TMainFrm.bActivateClick(Sender: TObject);
 begin
@@ -778,6 +963,11 @@ begin
   OSMMap.OnError := OSMMapErrorEvent;
   cbOSMStyles.Items.Clear;
   cbOSMStyles.Items.Add('Custom URL');
+  cbOSMStyles.Items.Add('OpenFreeMap Bright|https://tiles.openfreemap.org/styles/bright');
+  cbOSMStyles.Items.Add('OpenFreeMap Liberty|https://tiles.openfreemap.org/styles/liberty');
+  cbOSMStyles.Items.Add('OpenFreeMap Positron|https://tiles.openfreemap.org/styles/positron');
+  cbOSMStyles.Items.Add('OpenFreeMap Dark|https://tiles.openfreemap.org/styles/dark');
+  cbOSMStyles.Items.Add('OpenFreeMap Fiord|https://tiles.openfreemap.org/styles/fiord');
   cbOSMStyles.ItemIndex := 0;
   cbOSMStyles.OnChange := OSMStylePresetChange;
   cbOSMMapMode.Items.Clear;
@@ -785,6 +975,18 @@ begin
   cbOSMMapMode.Items.Add('Offline');
   cbOSMMapMode.Items.Add('Hybrid');
   cbOSMMapMode.ItemIndex := 2;
+  cbOSMMapMode.OnChange := OSMMapModeChange;
+  cbOSMPopupCssClass.Items.Clear;
+  cbOSMPopupCssClass.Items.Add('Default');
+  cbOSMPopupCssClass.Items.Add('Note');
+  cbOSMPopupCssClass.Items.Add('Warning');
+  cbOSMPopupCssClass.Items.Add('Dark');
+  cbOSMPopupCssClass.Items.Add('Success');
+  cbOSMPopupCssClass.ItemIndex := 0;
+  cbOSMPopupContentType.Items.Clear;
+  cbOSMPopupContentType.Items.Add('HTML');
+  cbOSMPopupContentType.Items.Add('Text');
+  cbOSMPopupContentType.ItemIndex := 0;
   //cbOSMOfflineSourcePreset.Items.Clear;
   //cbOSMOfflineSourcePreset.Items.Add('TileJSON local (embedded server)');
   //cbOSMOfflineSourcePreset.Items.Add('PMTiles Spain (native pmtiles.js, no pmtiles.exe runtime)');
@@ -800,10 +1002,22 @@ begin
   lbOSMMarkers.OnClick := OSMMarkerListClick;
   bOSMClearMarkers.OnClick := OSMClearMarkersClick;
   bOSMZoomToMarkers.OnClick := OSMZoomToMarkersClick;
+  bOSMAddMarker.OnClick := OSMAddMarkerClick;
+  bOSMUpdateMarker.OnClick := OSMUpdateMarkerClick;
+  bOSMDeleteMarker.OnClick := OSMDeleteMarkerClick;
+  lbOSMPopups.OnClick := OSMPopupListClick;
+  bOSMAddPopup.OnClick := OSMAddPopupClick;
+  bOSMUpdatePopup.OnClick := OSMUpdatePopupClick;
+  bOSMDeletePopup.OnClick := OSMDeletePopupClick;
+  bOSMClearPopups.OnClick := OSMClearPopupsClick;
+  bOSMPopupUseSelectedMarker.OnClick := OSMUseSelectedMarkerForPopupClick;
 
   for var I := 0 to OSMMap.Markers.Count - 1 do
     BindOSMMarkerEvents(OSMMap.Markers[I]);
   RefreshOSMMarkerList;
+  for var I := 0 to OSMMap.Popups.Count - 1 do
+    BindOSMPopupEvents(OSMMap.Popups[I]);
+  RefreshOSMPopupList;
 
   // Setup OSM Offline events and buttons
   OSMMap.OnOfflineDownloadProgress := OSMMapDownloadProgress;
@@ -812,6 +1026,12 @@ begin
   bOSMDownloadRegion.OnClick := bOSMDownloadRegionClick;
   bOSMDeleteRegion.OnClick := bOSMDeleteRegionClick;
   RefreshOSMRegionsList;
+  UpdateOSMStylePresetAvailability;
+  cbOSMMarkerKind.Items.Clear;
+  cbOSMMarkerKind.Items.Add('Standard');
+  cbOSMMarkerKind.Items.Add('Pin');
+  cbOSMMarkerKind.Items.Add('Dot');
+  cbOSMMarkerKind.ItemIndex := 0;
 end;
 
 procedure TMainFrm.OSMMapReady(Sender: TObject);
@@ -823,49 +1043,88 @@ begin
 end;
 
 procedure TMainFrm.OSMMapCoordinateEvent(Sender: TObject; ALatLng: TMapLibLatLng);
+var
+  marker: TOSMVclMarkerItem;
 begin
+  if Sender is TOSMVclMarkerItem then
+    marker := TOSMVclMarkerItem(Sender)
+  else
+    marker := nil;
+
   if not Assigned(ALatLng) then
     Exit;
-  if Sender is TOSMMarkerItem then
+  if Assigned(marker) then
     Log(Format('OSM marker %s [%s]: %.6f,%.6f',
-      [string(TOSMMarkerItem(Sender).ObjectId), OSMMap.LastEventName, ALatLng.Lat, ALatLng.Lng]))
+      [string(marker.ObjectId), OSMMap.LastEventName, ALatLng.Lat, ALatLng.Lng]))
   else
     Log(Format('OSM coord [%s]: %.6f,%.6f', [OSMMap.LastEventName, ALatLng.Lat, ALatLng.Lng]));
+
+  if Assigned(marker) and SameText(OSMMap.LastEventName, 'dragend') then
+  begin
+    RefreshOSMMarkerList;
+    lbOSMMarkers.ItemIndex := lbOSMMarkers.Items.IndexOfObject(marker);
+    LoadOSMMarkerToUI(marker);
+    if Assigned(FCurrentOSMMarkerForPopup) and (marker = FCurrentOSMMarkerForPopup) and
+       Assigned(FCurrentOSMPopupForMarker) and FCurrentOSMPopupForMarker.Options.Visible then
+      ShowOSMMarkerPopup(marker);
+  end;
 end;
 
 procedure TMainFrm.OSMMapClickEvent(Sender: TObject; ALatLng: TMapLibLatLng);
 var
-  Marker: TOSMMarkerItem;
+  Marker: TOSMVclMarkerItem;
+  markerTitle: string;
 begin
   OSMMapCoordinateEvent(Sender, ALatLng);
   if not Assigned(ALatLng) then
     Exit;
 
-  Marker := OSMMap.Markers.Add;
-  Marker.Lat := ALatLng.Lat;
-  Marker.Lng := ALatLng.Lng;
-  Marker.Title := Format('OSM Marker %d', [OSMMap.Markers.Count]);
+  markerTitle := Trim(eOSMMarkerTitle.Text);
+  if markerTitle = '' then
+    markerTitle := Format('OSM Marker %d', [OSMMap.Markers.Count + 1]);
+
+  Marker := OSMMap.Markers.Add(ALatLng.Lat, ALatLng.Lng, markerTitle);
+  LoadUIToOSMMarker(Marker, True);
   BindOSMMarkerEvents(Marker);
   Log('OSM marker added: ' + string(Marker.ObjectId));
   RefreshOSMMarkerList;
+  lbOSMMarkers.ItemIndex := lbOSMMarkers.Items.IndexOfObject(Marker);
+  LoadOSMMarkerToUI(Marker);
 end;
 
-procedure TMainFrm.OSMMarkerClickEvent(Sender: TObject; const AMarkerId: TGMObjectId;
-  ALatLng: TMapLibLatLng);
+procedure TMainFrm.OSMMarkerClickEvent(Sender: TObject; ALatLng: TMapLibLatLng);
+var
+  marker: TOSMVclMarkerItem;
 begin
-  if Assigned(ALatLng) then
-    Log(Format('OSM marker click: %s @ %.6f,%.6f', [string(AMarkerId), ALatLng.Lat, ALatLng.Lng]))
+  if Sender is TOSMVclMarkerItem then
+    marker := TOSMVclMarkerItem(Sender)
   else
-    Log('OSM marker click: ' + string(AMarkerId));
+    marker := nil;
 
-  if Assigned(lbOSMMarkers) then
-    lbOSMMarkers.ItemIndex := lbOSMMarkers.Items.IndexOfObject(OSMMap.Markers.FindByObjectId(AMarkerId));
+  if Assigned(ALatLng) then
+  begin
+    if Assigned(marker) then
+      Log(Format('OSM marker click: %s @ %.6f,%.6f', [string(marker.ObjectId), ALatLng.Lat, ALatLng.Lng]))
+    else
+      Log(Format('OSM marker click @ %.6f,%.6f', [ALatLng.Lat, ALatLng.Lng]));
+  end
+  else if Assigned(marker) then
+    Log('OSM marker click: ' + string(marker.ObjectId))
+  else
+    Log('OSM marker click');
+
+  if Assigned(lbOSMMarkers) and Assigned(marker) then
+  begin
+    lbOSMMarkers.ItemIndex := lbOSMMarkers.Items.IndexOfObject(marker);
+    LoadOSMMarkerToUI(marker);
+    ShowOSMMarkerPopup(marker);
+  end;
 end;
 
 procedure TMainFrm.RefreshOSMMarkerList;
 var
   I: Integer;
-  Marker: TOSMMarkerItem;
+  Marker: TOSMVclMarkerItem;
 begin
   if not Assigned(lbOSMMarkers) then
     Exit;
@@ -877,7 +1136,12 @@ begin
     begin
       Marker := OSMMap.Markers[I];
       lbOSMMarkers.Items.AddObject(
-        Format('%s (%.5f, %.5f)', [string(Marker.ObjectId), Marker.Lat, Marker.Lng]),
+        Format('%s [%s] (%.5f, %.5f)', [
+          string(Marker.ObjectId),
+          IfThen(Marker.Title <> '', Marker.Title, '-'),
+          Marker.Lat,
+          Marker.Lng
+        ]),
         Marker
       );
     end;
@@ -888,18 +1152,314 @@ end;
 
 procedure TMainFrm.OSMMarkerListClick(Sender: TObject);
 var
-  Marker: TOSMMarkerItem;
+  Marker: TOSMVclMarkerItem;
 begin
   if not Assigned(lbOSMMarkers) or (lbOSMMarkers.ItemIndex < 0) then
     Exit;
-  Marker := TOSMMarkerItem(lbOSMMarkers.Items.Objects[lbOSMMarkers.ItemIndex]);
+  Marker := TOSMVclMarkerItem(lbOSMMarkers.Items.Objects[lbOSMMarkers.ItemIndex]);
   if not Assigned(Marker) then
     Exit;
+  LoadOSMMarkerToUI(Marker);
   Log(Format('OSM marker selected: %s @ %.6f, %.6f', [string(Marker.ObjectId), Marker.Lat, Marker.Lng]));
+end;
+
+procedure TMainFrm.LoadOSMMarkerToUI(AMarker: TOSMVclMarkerItem);
+begin
+  if not Assigned(AMarker) then
+    Exit;
+
+  eOSMMarkerLat.Text := FloatToStr(AMarker.Lat, TFormatSettings.Invariant);
+  eOSMMarkerLng.Text := FloatToStr(AMarker.Lng, TFormatSettings.Invariant);
+  eOSMMarkerTitle.Text := AMarker.Title;
+  cbOSMMarkerVisible.Checked := AMarker.Visible;
+  cbOSMMarkerDraggable.Checked := AMarker.Draggable;
+  cbOSMMarkerKind.ItemIndex := OSMMarkerKindToComboIndex(AMarker.Kind);
+  case AMarker.Kind of
+    mkPin:
+      begin
+        pcOSMMarkers.ActivePage := tsOSMPinMarkers;
+        cbOSMMarkerPinBackgroundColor.Selected := AMarker.PinOptions.BackgroundColor;
+        cbOSMMarkerPinBorderColor.Selected := AMarker.PinOptions.BorderColor;
+        cbOSMMarkerPinGlyphTextColor.Selected := AMarker.PinOptions.GlyphTextColor;
+        cbOSMMarkerPinShadowColor.Selected := AMarker.PinOptions.ShadowColor;
+        eOSMMarkerPinBorderWidth.Text := FloatToStr(AMarker.PinOptions.BorderWidth, TFormatSettings.Invariant);
+        cbOSMMarkerPinCornerStyle.ItemIndex := OSMPinCornerStyleToComboIndex(AMarker.PinOptions.CornerStyle);
+        eOSMMarkerPinGlyphFontSize.Text := IntToStr(AMarker.PinOptions.GlyphFontSize);
+        eOSMMarkerPinGlyphText.Text := AMarker.PinOptions.GlyphText;
+        eOSMMarkerPinMinHeight.Text := IntToStr(AMarker.PinOptions.MinHeight);
+        eOSMMarkerPinMinWidth.Text := IntToStr(AMarker.PinOptions.MinWidth);
+        eOSMMarkerPinPadding.Text := IntToStr(AMarker.PinOptions.Padding);
+        eOSMMarkerPinPointerLength.Text := IntToStr(AMarker.PinOptions.PointerLength);
+        eOSMMarkerPinPointerWidth.Text := IntToStr(AMarker.PinOptions.PointerWidth);
+        eOSMMarkerPinScale.Text := FloatToStr(AMarker.PinOptions.Scale, TFormatSettings.Invariant);
+        eOSMMarkerPinShadowBlur.Text := FloatToStr(AMarker.PinOptions.ShadowBlur, TFormatSettings.Invariant);
+        cbOSMMarkerPinShapeVariant.ItemIndex := OSMPinShapeVariantToComboIndex(AMarker.PinOptions.ShapeVariant);
+        eOSMMarkerPinOpacity.Text := FloatToStr(AMarker.PinOptions.Opacity, TFormatSettings.Invariant);
+        eOSMMarkerPinZIndex.Text := IntToStr(AMarker.PinOptions.ZIndex);
+        eOSMMarkerPinRotation.Text := FloatToStr(AMarker.PinOptions.Rotation, TFormatSettings.Invariant);
+        eOSMMarkerPinAnchorX.Text := FloatToStr(AMarker.PinOptions.AnchorX, TFormatSettings.Invariant);
+        eOSMMarkerPinAnchorY.Text := FloatToStr(AMarker.PinOptions.AnchorY, TFormatSettings.Invariant);
+        eOSMMarkerPinPopupText.Text := AMarker.PinOptions.PopupText;
+        cbOSMMarkerPinShadowEnabled.Checked := AMarker.PinOptions.ShadowEnabled;
+        cbOSMMarkerPinPopupEnabled.Checked := AMarker.PinOptions.PopupEnabled;
+      end;
+    mkDot:
+      begin
+        pcOSMMarkers.ActivePage := tsOSMDotMarkers;
+        cbOSMMarkerDotColor.Selected := AMarker.DotOptions.Color;
+        cbOSMMarkerDotBorderColor.Selected := AMarker.DotOptions.BorderColor;
+        cbOSMMarkerDotGlyphTextColor.Selected := AMarker.DotOptions.GlyphTextColor;
+        cbOSMMarkerDotPulseColor.Selected := AMarker.DotOptions.PulseColor;
+        cbOSMMarkerDotShadowColor.Selected := AMarker.DotOptions.ShadowColor;
+        eOSMMarkerDotBorderWidth.Text := FloatToStr(AMarker.DotOptions.BorderWidth, TFormatSettings.Invariant);
+        eOSMMarkerDotDiameter.Text := FloatToStr(AMarker.DotOptions.Diameter, TFormatSettings.Invariant);
+        eOSMMarkerDotGlyphFontSize.Text := IntToStr(AMarker.DotOptions.GlyphFontSize);
+        eOSMMarkerDotGlyphText.Text := AMarker.DotOptions.GlyphText;
+        eOSMMarkerDotPulseDuration.Text := FloatToStr(AMarker.DotOptions.PulseDuration, TFormatSettings.Invariant);
+        eOSMMarkerDotPulseRadius.Text := FloatToStr(AMarker.DotOptions.PulseRadius, TFormatSettings.Invariant);
+        eOSMMarkerDotRadius.Text := FloatToStr(AMarker.DotOptions.Radius, TFormatSettings.Invariant);
+        eOSMMarkerDotScale.Text := FloatToStr(AMarker.DotOptions.Scale, TFormatSettings.Invariant);
+        eOSMMarkerDotShadowBlur.Text := FloatToStr(AMarker.DotOptions.ShadowBlur, TFormatSettings.Invariant);
+        eOSMMarkerDotOpacity.Text := FloatToStr(AMarker.DotOptions.Opacity, TFormatSettings.Invariant);
+        eOSMMarkerDotZIndex.Text := IntToStr(AMarker.DotOptions.ZIndex);
+        eOSMMarkerDotRotation.Text := FloatToStr(AMarker.DotOptions.Rotation, TFormatSettings.Invariant);
+        eOSMMarkerDotAnchorX.Text := FloatToStr(AMarker.DotOptions.AnchorX, TFormatSettings.Invariant);
+        eOSMMarkerDotAnchorY.Text := FloatToStr(AMarker.DotOptions.AnchorY, TFormatSettings.Invariant);
+        eOSMMarkerDotPopupText.Text := AMarker.DotOptions.PopupText;
+        cbOSMMarkerDotPulseEnabled.Checked := AMarker.DotOptions.PulseEnabled;
+        cbOSMMarkerDotShadowEnabled.Checked := AMarker.DotOptions.ShadowEnabled;
+        cbOSMMarkerDotPopupEnabled.Checked := AMarker.DotOptions.PopupEnabled;
+      end;
+  else
+    pcOSMMarkers.ActivePage := tsOSMStandardMarkers;
+    cbOSMMarkerHideCenterDot.Checked := AMarker.StandardOptions.HideDefaultCenterDot;
+    cbOSMMarkerColor.Selected := AMarker.StandardOptions.Color;
+    eOSMMarkerScale.Text := FloatToStr(AMarker.StandardOptions.Scale, TFormatSettings.Invariant);
+    eOSMMarkerGlyphText.Text := AMarker.StandardOptions.GlyphText;
+    cbOSMMarkerGlyphTextColor.Selected := AMarker.StandardOptions.GlyphTextColor;
+    cbOSMMarkerStandardBorderColor.Selected := AMarker.StandardOptions.BorderColor;
+    eOSMMarkerStandardBorderWidth.Text := FloatToStr(AMarker.StandardOptions.BorderWidth, TFormatSettings.Invariant);
+    eOSMMarkerStandardGlyphFontSize.Text := IntToStr(AMarker.StandardOptions.GlyphFontSize);
+    eOSMMarkerStandardGlyphOffsetX.Text := FloatToStr(AMarker.StandardOptions.GlyphOffsetX, TFormatSettings.Invariant);
+    eOSMMarkerStandardGlyphOffsetY.Text := FloatToStr(AMarker.StandardOptions.GlyphOffsetY, TFormatSettings.Invariant);
+    eOSMMarkerStandardOpacity.Text := FloatToStr(AMarker.StandardOptions.Opacity, TFormatSettings.Invariant);
+    eOSMMarkerStandardZIndex.Text := IntToStr(AMarker.StandardOptions.ZIndex);
+    eOSMMarkerStandardRotation.Text := FloatToStr(AMarker.StandardOptions.Rotation, TFormatSettings.Invariant);
+    eOSMMarkerStandardAnchorX.Text := FloatToStr(AMarker.StandardOptions.AnchorX, TFormatSettings.Invariant);
+    eOSMMarkerStandardAnchorY.Text := FloatToStr(AMarker.StandardOptions.AnchorY, TFormatSettings.Invariant);
+    eOSMMarkerStandardPopupText.Text := AMarker.StandardOptions.PopupText;
+    cbOSMMarkerStandardShadowEnabled.Checked := AMarker.StandardOptions.ShadowEnabled;
+    cbOSMMarkerStandardPopupEnabled.Checked := AMarker.StandardOptions.PopupEnabled;
+    cbOSMMarkerStandardUseDefaultShape.Checked := AMarker.StandardOptions.UseDefaultMapLibreShape;
+    cbOSMMarkerStandardUseGlyph.Checked := AMarker.StandardOptions.UseGlyph;
+  end;
+end;
+
+procedure TMainFrm.LoadUIToOSMMarker(AMarker: TOSMVclMarkerItem; APreservePosition: Boolean);
+var
+  lat: Double;
+  lng: Double;
+  scaleValue: Double;
+  markerKind: TOSMMarkerKind;
+begin
+  if not Assigned(AMarker) then
+    Exit;
+
+  AMarker.BeginUpdate;
+  try
+    if not APreservePosition then
+    begin
+      if TryParseFlexibleFloat(Trim(eOSMMarkerLat.Text), lat) then
+        AMarker.Lat := lat;
+      if TryParseFlexibleFloat(Trim(eOSMMarkerLng.Text), lng) then
+        AMarker.Lng := lng;
+    end;
+
+    AMarker.Title := Trim(eOSMMarkerTitle.Text);
+    AMarker.Visible := cbOSMMarkerVisible.Checked;
+    AMarker.Draggable := cbOSMMarkerDraggable.Checked;
+    markerKind := OSMComboIndexToMarkerKind(cbOSMMarkerKind.ItemIndex);
+    AMarker.Kind := markerKind;
+    scaleValue := ParseFlexibleFloatDef(Trim(eOSMMarkerScale.Text), 1);
+    if scaleValue <= 0 then
+      scaleValue := 1;
+
+    case markerKind of
+      mkPin:
+        begin
+          AMarker.PinOptions.BackgroundColor := cbOSMMarkerPinBackgroundColor.Selected;
+          AMarker.PinOptions.BorderColor := cbOSMMarkerPinBorderColor.Selected;
+          AMarker.PinOptions.GlyphTextColor := cbOSMMarkerPinGlyphTextColor.Selected;
+          AMarker.PinOptions.ShadowColor := cbOSMMarkerPinShadowColor.Selected;
+          AMarker.PinOptions.BorderWidth := ParseFlexibleFloatDef(Trim(eOSMMarkerPinBorderWidth.Text), 0);
+          AMarker.PinOptions.CornerStyle := OSMComboIndexToPinCornerStyle(cbOSMMarkerPinCornerStyle.ItemIndex);
+          AMarker.PinOptions.GlyphFontSize := StrToIntDef(Trim(eOSMMarkerPinGlyphFontSize.Text), 0);
+          AMarker.PinOptions.GlyphText := Trim(eOSMMarkerPinGlyphText.Text);
+          AMarker.PinOptions.MinHeight := StrToIntDef(Trim(eOSMMarkerPinMinHeight.Text), 0);
+          AMarker.PinOptions.MinWidth := StrToIntDef(Trim(eOSMMarkerPinMinWidth.Text), 0);
+          AMarker.PinOptions.Padding := StrToIntDef(Trim(eOSMMarkerPinPadding.Text), 0);
+          AMarker.PinOptions.PointerLength := StrToIntDef(Trim(eOSMMarkerPinPointerLength.Text), 0);
+          AMarker.PinOptions.PointerWidth := StrToIntDef(Trim(eOSMMarkerPinPointerWidth.Text), 0);
+          AMarker.PinOptions.Scale := ParseFlexibleFloatDef(Trim(eOSMMarkerPinScale.Text), 1);
+          AMarker.PinOptions.ShadowBlur := ParseFlexibleFloatDef(Trim(eOSMMarkerPinShadowBlur.Text), 0);
+          AMarker.PinOptions.ShapeVariant := OSMComboIndexToPinShapeVariant(cbOSMMarkerPinShapeVariant.ItemIndex);
+          AMarker.PinOptions.Opacity := ParseFlexibleFloatDef(Trim(eOSMMarkerPinOpacity.Text), 1);
+          AMarker.PinOptions.ZIndex := StrToIntDef(Trim(eOSMMarkerPinZIndex.Text), 0);
+          AMarker.PinOptions.Rotation := ParseFlexibleFloatDef(Trim(eOSMMarkerPinRotation.Text), 0);
+          AMarker.PinOptions.AnchorX := ParseFlexibleFloatDef(Trim(eOSMMarkerPinAnchorX.Text), 0);
+          AMarker.PinOptions.AnchorY := ParseFlexibleFloatDef(Trim(eOSMMarkerPinAnchorY.Text), 0);
+          AMarker.PinOptions.PopupText := Trim(eOSMMarkerPinPopupText.Text);
+          AMarker.PinOptions.ShadowEnabled := cbOSMMarkerPinShadowEnabled.Checked;
+          AMarker.PinOptions.PopupEnabled := cbOSMMarkerPinPopupEnabled.Checked;
+        end;
+      mkDot:
+        begin
+          AMarker.DotOptions.Color := cbOSMMarkerDotColor.Selected;
+          AMarker.DotOptions.BorderColor := cbOSMMarkerDotBorderColor.Selected;
+          AMarker.DotOptions.GlyphTextColor := cbOSMMarkerDotGlyphTextColor.Selected;
+          AMarker.DotOptions.PulseColor := cbOSMMarkerDotPulseColor.Selected;
+          AMarker.DotOptions.ShadowColor := cbOSMMarkerDotShadowColor.Selected;
+          AMarker.DotOptions.BorderWidth := ParseFlexibleFloatDef(Trim(eOSMMarkerDotBorderWidth.Text), 0);
+          AMarker.DotOptions.Diameter := ParseFlexibleFloatDef(Trim(eOSMMarkerDotDiameter.Text), 0);
+          AMarker.DotOptions.GlyphFontSize := StrToIntDef(Trim(eOSMMarkerDotGlyphFontSize.Text), 0);
+          AMarker.DotOptions.GlyphText := Trim(eOSMMarkerDotGlyphText.Text);
+          AMarker.DotOptions.PulseDuration := ParseFlexibleFloatDef(Trim(eOSMMarkerDotPulseDuration.Text), 0);
+          AMarker.DotOptions.PulseRadius := ParseFlexibleFloatDef(Trim(eOSMMarkerDotPulseRadius.Text), 0);
+          AMarker.DotOptions.Radius := ParseFlexibleFloatDef(Trim(eOSMMarkerDotRadius.Text), 0);
+          AMarker.DotOptions.Scale := ParseFlexibleFloatDef(Trim(eOSMMarkerDotScale.Text), 1);
+          AMarker.DotOptions.ShadowBlur := ParseFlexibleFloatDef(Trim(eOSMMarkerDotShadowBlur.Text), 0);
+          AMarker.DotOptions.Opacity := ParseFlexibleFloatDef(Trim(eOSMMarkerDotOpacity.Text), 1);
+          AMarker.DotOptions.ZIndex := StrToIntDef(Trim(eOSMMarkerDotZIndex.Text), 0);
+          AMarker.DotOptions.Rotation := ParseFlexibleFloatDef(Trim(eOSMMarkerDotRotation.Text), 0);
+          AMarker.DotOptions.AnchorX := ParseFlexibleFloatDef(Trim(eOSMMarkerDotAnchorX.Text), 0);
+          AMarker.DotOptions.AnchorY := ParseFlexibleFloatDef(Trim(eOSMMarkerDotAnchorY.Text), 0);
+          AMarker.DotOptions.PopupText := Trim(eOSMMarkerDotPopupText.Text);
+          AMarker.DotOptions.PulseEnabled := cbOSMMarkerDotPulseEnabled.Checked;
+          AMarker.DotOptions.ShadowEnabled := cbOSMMarkerDotShadowEnabled.Checked;
+          AMarker.DotOptions.PopupEnabled := cbOSMMarkerDotPopupEnabled.Checked;
+        end;
+    else
+      AMarker.StandardOptions.HideDefaultCenterDot := cbOSMMarkerHideCenterDot.Checked;
+      AMarker.StandardOptions.Color := cbOSMMarkerColor.Selected;
+      AMarker.StandardOptions.Scale := scaleValue;
+      AMarker.StandardOptions.GlyphText := Trim(eOSMMarkerGlyphText.Text);
+      AMarker.StandardOptions.GlyphTextColor := cbOSMMarkerGlyphTextColor.Selected;
+      AMarker.StandardOptions.BorderColor := cbOSMMarkerStandardBorderColor.Selected;
+      AMarker.StandardOptions.BorderWidth := ParseFlexibleFloatDef(Trim(eOSMMarkerStandardBorderWidth.Text), 0);
+      AMarker.StandardOptions.GlyphFontSize := StrToIntDef(Trim(eOSMMarkerStandardGlyphFontSize.Text), 0);
+      AMarker.StandardOptions.GlyphOffsetX := ParseFlexibleFloatDef(Trim(eOSMMarkerStandardGlyphOffsetX.Text), 0);
+      AMarker.StandardOptions.GlyphOffsetY := ParseFlexibleFloatDef(Trim(eOSMMarkerStandardGlyphOffsetY.Text), 0);
+      AMarker.StandardOptions.Opacity := ParseFlexibleFloatDef(Trim(eOSMMarkerStandardOpacity.Text), 1);
+      AMarker.StandardOptions.ZIndex := StrToIntDef(Trim(eOSMMarkerStandardZIndex.Text), 0);
+      AMarker.StandardOptions.Rotation := ParseFlexibleFloatDef(Trim(eOSMMarkerStandardRotation.Text), 0);
+      AMarker.StandardOptions.AnchorX := ParseFlexibleFloatDef(Trim(eOSMMarkerStandardAnchorX.Text), 0);
+      AMarker.StandardOptions.AnchorY := ParseFlexibleFloatDef(Trim(eOSMMarkerStandardAnchorY.Text), 0);
+      AMarker.StandardOptions.PopupText := Trim(eOSMMarkerStandardPopupText.Text);
+      AMarker.StandardOptions.ShadowEnabled := cbOSMMarkerStandardShadowEnabled.Checked;
+      AMarker.StandardOptions.PopupEnabled := cbOSMMarkerStandardPopupEnabled.Checked;
+      AMarker.StandardOptions.UseDefaultMapLibreShape := cbOSMMarkerStandardUseDefaultShape.Checked;
+      AMarker.StandardOptions.UseGlyph := cbOSMMarkerStandardUseGlyph.Checked;
+    end;
+  finally
+    AMarker.EndUpdate;
+  end;
+end;
+
+procedure TMainFrm.OSMAddMarkerClick(Sender: TObject);
+var
+  Marker: TOSMVclMarkerItem;
+  lat: Double;
+  lng: Double;
+  markerTitle: string;
+begin
+  if not TryStrToFloat(Trim(eOSMMarkerLat.Text), lat, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM marker latitude.');
+    Exit;
+  end;
+
+  if not TryStrToFloat(Trim(eOSMMarkerLng.Text), lng, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM marker longitude.');
+    Exit;
+  end;
+
+  markerTitle := Trim(eOSMMarkerTitle.Text);
+  if markerTitle = '' then
+    markerTitle := Format('OSM Marker %d', [OSMMap.Markers.Count + 1]);
+
+  Marker := OSMMap.Markers.Add(lat, lng, markerTitle);
+  try
+    LoadUIToOSMMarker(Marker, True);
+    BindOSMMarkerEvents(Marker);
+    RefreshOSMMarkerList;
+    lbOSMMarkers.ItemIndex := lbOSMMarkers.Items.IndexOfObject(Marker);
+    LoadOSMMarkerToUI(Marker);
+    Log('OSM marker added: ' + string(Marker.ObjectId));
+  except
+    Marker.Free;
+    raise;
+  end;
+end;
+
+procedure TMainFrm.OSMUpdateMarkerClick(Sender: TObject);
+var
+  Marker: TOSMVclMarkerItem;
+begin
+  if not Assigned(lbOSMMarkers) or (lbOSMMarkers.ItemIndex < 0) then
+  begin
+    Log('No OSM marker selected.');
+    Exit;
+  end;
+
+  Marker := TOSMVclMarkerItem(lbOSMMarkers.Items.Objects[lbOSMMarkers.ItemIndex]);
+  if not Assigned(Marker) then
+    Exit;
+
+  LoadUIToOSMMarker(Marker);
+  RefreshOSMMarkerList;
+  lbOSMMarkers.ItemIndex := lbOSMMarkers.Items.IndexOfObject(Marker);
+  Log('OSM marker updated: ' + string(Marker.ObjectId));
+end;
+
+procedure TMainFrm.OSMDeleteMarkerClick(Sender: TObject);
+var
+  Marker: TOSMVclMarkerItem;
+begin
+  if not Assigned(lbOSMMarkers) or (lbOSMMarkers.ItemIndex < 0) then
+  begin
+    Log('No OSM marker selected.');
+    Exit;
+  end;
+
+  Marker := TOSMVclMarkerItem(lbOSMMarkers.Items.Objects[lbOSMMarkers.ItemIndex]);
+  if not Assigned(Marker) then
+    Exit;
+
+  if Assigned(FCurrentOSMMarkerForPopup) and (Marker = FCurrentOSMMarkerForPopup) then
+  begin
+    if Assigned(FCurrentOSMPopupForMarker) then
+      OSMMap.Popups.Delete(FCurrentOSMPopupForMarker.Index);
+    FCurrentOSMPopupForMarker := nil;
+    FCurrentOSMMarkerForPopup := nil;
+  end;
+
+  OSMMap.Markers.Delete(Marker.Index);
+  RefreshOSMMarkerList;
+  RefreshOSMPopupList;
+  lbOSMMarkers.ItemIndex := -1;
+  Log('OSM marker deleted.');
 end;
 
 procedure TMainFrm.OSMClearMarkersClick(Sender: TObject);
 begin
+  if Assigned(FCurrentOSMPopupForMarker) then
+  begin
+    OSMMap.Popups.Clear;
+    FCurrentOSMPopupForMarker := nil;
+    FCurrentOSMMarkerForPopup := nil;
+    RefreshOSMPopupList;
+  end;
   OSMMap.Markers.Clear;
   RefreshOSMMarkerList;
   Log('OSM markers cleared');
@@ -913,14 +1473,439 @@ begin
     Log('No visible OSM markers to zoom');
 end;
 
+procedure TMainFrm.RefreshOSMPopupList;
+var
+  I: Integer;
+  Popup: TOSMPopupItem;
+  anchorText: string;
+begin
+  if not Assigned(lbOSMPopups) then
+    Exit;
+
+  lbOSMPopups.Items.BeginUpdate;
+  try
+    lbOSMPopups.Clear;
+    for I := 0 to OSMMap.Popups.Count - 1 do
+    begin
+      Popup := OSMMap.Popups[I];
+      anchorText := IfThen(string(Popup.AnchorObjectId) <> '', string(Popup.AnchorObjectId), '-');
+      lbOSMPopups.Items.AddObject(
+        Format('%s [anchor=%s] (%.5f, %.5f) %s', [
+          string(Popup.ObjectId),
+          anchorText,
+          Popup.Options.Position.Lat,
+          Popup.Options.Position.Lng,
+          IfThen(Popup.Options.Visible, 'open', 'closed')
+        ]),
+        Popup
+      );
+    end;
+  finally
+    lbOSMPopups.Items.EndUpdate;
+  end;
+end;
+
+procedure TMainFrm.BindOSMPopupEvents(APopup: TOSMPopupItem);
+begin
+  if not Assigned(APopup) then
+    Exit;
+  APopup.OnClose := OSMPopupCloseEvent;
+  APopup.OnOpen := OSMPopupOpenEvent;
+end;
+
+procedure TMainFrm.LoadOSMPopupToUI(APopup: TOSMPopupItem);
+begin
+  if not Assigned(APopup) then
+    Exit;
+
+  eOSMPopupLat.Text := FloatToStr(APopup.Options.Position.Lat, TFormatSettings.Invariant);
+  eOSMPopupLng.Text := FloatToStr(APopup.Options.Position.Lng, TFormatSettings.Invariant);
+  eOSMPopupAnchorObjectId.Text := string(APopup.AnchorObjectId);
+  eOSMPopupMaxWidth.Text := IntToStr(APopup.Options.MaxWidth);
+  SelectOSMPopupPresetStyle(APopup.Options.PresetStyle);
+  SelectOSMPopupContentType(APopup.Options.ContentType);
+  mOSMPopupContent.Lines.Text := APopup.Options.Content;
+  cbOSMPopupVisible.Checked := APopup.Options.Visible;
+  cbOSMPopupCloseButton.Checked := APopup.Options.CloseButton;
+  cbOSMPopupCloseOnClick.Checked := APopup.Options.CloseOnClick;
+  cbOSMPopupCloseOnMove.Checked := APopup.Options.CloseOnMove;
+  cbOSMPopupCloseOthersBeforeOpen.Checked := OSMMap.Popups.CloseOthersBeforeOpen;
+end;
+
+procedure TMainFrm.LoadUIToOSMPopup(APopup: TOSMPopupItem; APreservePosition: Boolean);
+var
+  lat: Double;
+  lng: Double;
+begin
+  if not Assigned(APopup) then
+    Exit;
+
+  APopup.BeginUpdate;
+  try
+    if not APreservePosition then
+    begin
+      if TryParseFlexibleFloat(Trim(eOSMPopupLat.Text), lat) then
+        APopup.Options.Position.Lat := lat;
+      if TryParseFlexibleFloat(Trim(eOSMPopupLng.Text), lng) then
+        APopup.Options.Position.Lng := lng;
+    end;
+
+    OSMMap.Popups.CloseOthersBeforeOpen := cbOSMPopupCloseOthersBeforeOpen.Checked;
+    APopup.AnchorObjectId := TGMObjectId(Trim(eOSMPopupAnchorObjectId.Text));
+    APopup.Options.MaxWidth := StrToIntDef(Trim(eOSMPopupMaxWidth.Text), 0);
+    APopup.Options.PresetStyle := GetSelectedOSMPopupPresetStyle;
+    APopup.Options.ContentType := GetSelectedOSMPopupContentType;
+    APopup.Options.Content := mOSMPopupContent.Lines.Text;
+    APopup.Options.CloseButton := cbOSMPopupCloseButton.Checked;
+    APopup.Options.CloseOnClick := cbOSMPopupCloseOnClick.Checked;
+    APopup.Options.CloseOnMove := cbOSMPopupCloseOnMove.Checked;
+    APopup.Options.Visible := cbOSMPopupVisible.Checked;
+  finally
+    APopup.EndUpdate;
+  end;
+end;
+
+function TMainFrm.GetSelectedOSMPopupPresetStyle: TOSMPopupPresetStyle;
+begin
+  Result := ppsDefault;
+  if not Assigned(cbOSMPopupCssClass) or (cbOSMPopupCssClass.ItemIndex < 0) then
+    Exit;
+
+  case cbOSMPopupCssClass.ItemIndex of
+    1:
+      Result := ppsNote;
+    2:
+      Result := ppsWarning;
+    3:
+      Result := ppsDark;
+    4:
+      Result := ppsSuccess;
+  else
+    Result := ppsDefault;
+  end;
+end;
+
+function TMainFrm.GetSelectedOSMPopupContentType: TOSMPopupContentType;
+begin
+  Result := pctHtml;
+  if not Assigned(cbOSMPopupContentType) then
+    Exit;
+
+  if cbOSMPopupContentType.ItemIndex = 1 then
+    Result := pctText;
+end;
+
+procedure TMainFrm.SelectOSMPopupPresetStyle(AValue: TOSMPopupPresetStyle);
+begin
+  if not Assigned(cbOSMPopupCssClass) then
+    Exit;
+
+  case AValue of
+    ppsNote:
+      cbOSMPopupCssClass.ItemIndex := 1;
+    ppsWarning:
+      cbOSMPopupCssClass.ItemIndex := 2;
+    ppsDark:
+      cbOSMPopupCssClass.ItemIndex := 3;
+    ppsSuccess:
+      cbOSMPopupCssClass.ItemIndex := 4;
+  else
+    cbOSMPopupCssClass.ItemIndex := 0;
+  end;
+end;
+
+procedure TMainFrm.SelectOSMPopupContentType(AValue: TOSMPopupContentType);
+begin
+  if not Assigned(cbOSMPopupContentType) then
+    Exit;
+
+  case AValue of
+    pctText:
+      cbOSMPopupContentType.ItemIndex := 1;
+  else
+    cbOSMPopupContentType.ItemIndex := 0;
+  end;
+end;
+
+procedure TMainFrm.OSMPopupCloseEvent(Sender: TObject);
+var
+  Popup: TOSMPopupItem;
+begin
+  if Sender is TOSMPopupItem then
+  begin
+    Popup := TOSMPopupItem(Sender);
+    Log('OSM popup closed: ' + string(Popup.ObjectId));
+    RefreshOSMPopupList;
+    if Assigned(lbOSMPopups) then
+      lbOSMPopups.ItemIndex := lbOSMPopups.Items.IndexOfObject(Popup);
+    LoadOSMPopupToUI(Popup);
+  end;
+end;
+
+procedure TMainFrm.OSMPopupOpenEvent(Sender: TObject);
+var
+  Popup: TOSMPopupItem;
+begin
+  if Sender is TOSMPopupItem then
+  begin
+    Popup := TOSMPopupItem(Sender);
+    Log('OSM popup opened: ' + string(Popup.ObjectId));
+    RefreshOSMPopupList;
+    if Assigned(lbOSMPopups) then
+      lbOSMPopups.ItemIndex := lbOSMPopups.Items.IndexOfObject(Popup);
+  end;
+end;
+
+procedure TMainFrm.ShowOSMMarkerPopup(AMarker: TOSMVclMarkerItem);
+var
+  Popup: TOSMPopupItem;
+  popupContent: string;
+begin
+  if not Assigned(AMarker) then
+    Exit;
+
+  // Reuse a single popup instance so marker-click inspection behaves like
+  // the Google demo without growing the popup collection on each click.
+  if not Assigned(FCurrentOSMPopupForMarker) then
+  begin
+    FCurrentOSMPopupForMarker := OSMMap.Popups.Add;
+    BindOSMPopupEvents(FCurrentOSMPopupForMarker);
+  end;
+
+  FCurrentOSMMarkerForPopup := AMarker;
+  Popup := FCurrentOSMPopupForMarker;
+  popupContent := Format(
+    '<div><strong>Marker position</strong><br/>Lat: %.6f<br/>Lng: %.6f</div>',
+    [AMarker.Lat, AMarker.Lng],
+    TFormatSettings.Invariant
+  );
+
+  Popup.BeginUpdate;
+  try
+    Popup.AnchorObjectId := AMarker.ObjectId;
+    Popup.Options.Position.Lat := AMarker.Lat;
+    Popup.Options.Position.Lng := AMarker.Lng;
+    Popup.Options.PresetStyle := ppsDark;
+    Popup.Options.ContentType := pctHtml;
+    Popup.Options.MaxWidth := 220;
+    Popup.Options.Content := popupContent;
+    Popup.Options.CloseButton := True;
+    Popup.Options.CloseOnClick := False;
+    Popup.Options.CloseOnMove := False;
+    Popup.Options.Visible := True;
+  finally
+    Popup.EndUpdate;
+  end;
+
+  RefreshOSMPopupList;
+  if Assigned(lbOSMPopups) then
+    lbOSMPopups.ItemIndex := lbOSMPopups.Items.IndexOfObject(Popup);
+end;
+
+procedure TMainFrm.OSMPopupListClick(Sender: TObject);
+var
+  Popup: TOSMPopupItem;
+begin
+  if not Assigned(lbOSMPopups) or (lbOSMPopups.ItemIndex < 0) then
+    Exit;
+  Popup := TOSMPopupItem(lbOSMPopups.Items.Objects[lbOSMPopups.ItemIndex]);
+  if not Assigned(Popup) then
+    Exit;
+  LoadOSMPopupToUI(Popup);
+  Log('OSM popup selected: ' + string(Popup.ObjectId));
+end;
+
+procedure TMainFrm.OSMAddPopupClick(Sender: TObject);
+var
+  Popup: TOSMPopupItem;
+begin
+  if Trim(mOSMPopupContent.Lines.Text) = '' then
+    mOSMPopupContent.Lines.Text := '<b>OSM popup</b>';
+
+  cbOSMPopupVisible.Checked := True;
+
+  Popup := OSMMap.Popups.Add;
+  try
+    BindOSMPopupEvents(Popup);
+    LoadUIToOSMPopup(Popup);
+    RefreshOSMPopupList;
+    lbOSMPopups.ItemIndex := lbOSMPopups.Items.IndexOfObject(Popup);
+    LoadOSMPopupToUI(Popup);
+    Log('OSM popup added: ' + string(Popup.ObjectId));
+  except
+    Popup.Free;
+    raise;
+  end;
+end;
+
+procedure TMainFrm.OSMUpdatePopupClick(Sender: TObject);
+var
+  Popup: TOSMPopupItem;
+begin
+  if not Assigned(lbOSMPopups) or (lbOSMPopups.ItemIndex < 0) then
+  begin
+    Log('No OSM popup selected.');
+    Exit;
+  end;
+
+  Popup := TOSMPopupItem(lbOSMPopups.Items.Objects[lbOSMPopups.ItemIndex]);
+  if not Assigned(Popup) then
+    Exit;
+
+  LoadUIToOSMPopup(Popup);
+  RefreshOSMPopupList;
+  lbOSMPopups.ItemIndex := lbOSMPopups.Items.IndexOfObject(Popup);
+  Log('OSM popup updated: ' + string(Popup.ObjectId));
+end;
+
+procedure TMainFrm.OSMDeletePopupClick(Sender: TObject);
+var
+  Popup: TOSMPopupItem;
+begin
+  if not Assigned(lbOSMPopups) or (lbOSMPopups.ItemIndex < 0) then
+  begin
+    Log('No OSM popup selected.');
+    Exit;
+  end;
+
+  Popup := TOSMPopupItem(lbOSMPopups.Items.Objects[lbOSMPopups.ItemIndex]);
+  if not Assigned(Popup) then
+    Exit;
+
+  if Assigned(FCurrentOSMPopupForMarker) and (Popup = FCurrentOSMPopupForMarker) then
+  begin
+    FCurrentOSMPopupForMarker := nil;
+    FCurrentOSMMarkerForPopup := nil;
+  end;
+
+  OSMMap.Popups.Delete(Popup.Index);
+  RefreshOSMPopupList;
+  lbOSMPopups.ItemIndex := -1;
+  Log('OSM popup deleted.');
+end;
+
+procedure TMainFrm.OSMClearPopupsClick(Sender: TObject);
+begin
+  FCurrentOSMPopupForMarker := nil;
+  FCurrentOSMMarkerForPopup := nil;
+  OSMMap.Popups.Clear;
+  RefreshOSMPopupList;
+  Log('OSM popups cleared');
+end;
+
+procedure TMainFrm.OSMUseSelectedMarkerForPopupClick(Sender: TObject);
+var
+  Marker: TOSMVclMarkerItem;
+begin
+  if not Assigned(lbOSMMarkers) or (lbOSMMarkers.ItemIndex < 0) then
+  begin
+    Log('No OSM marker selected for popup anchor.');
+    Exit;
+  end;
+
+  Marker := TOSMVclMarkerItem(lbOSMMarkers.Items.Objects[lbOSMMarkers.ItemIndex]);
+  if not Assigned(Marker) then
+    Exit;
+
+  eOSMPopupAnchorObjectId.Text := string(Marker.ObjectId);
+  eOSMPopupLat.Text := FloatToStr(Marker.Lat, TFormatSettings.Invariant);
+  eOSMPopupLng.Text := FloatToStr(Marker.Lng, TFormatSettings.Invariant);
+  Log('OSM popup anchor set to marker: ' + string(Marker.ObjectId));
+end;
+
 procedure TMainFrm.BindOSMMarkerEvents(AMarker: TOSMMarkerItem);
 begin
   if not Assigned(AMarker) then
     Exit;
-  AMarker.OnClick := OSMMapCoordinateEvent;
+  AMarker.OnClick := OSMMarkerClickEvent;
+  AMarker.OnDblClick := OSMMarkerClickEvent;
+  AMarker.OnMouseEnter := OSMMapCoordinateEvent;
+  AMarker.OnMouseLeave := OSMMapCoordinateEvent;
+  AMarker.OnMouseDown := OSMMapCoordinateEvent;
+  AMarker.OnMouseUp := OSMMapCoordinateEvent;
   AMarker.OnDragStart := OSMMapCoordinateEvent;
   AMarker.OnDrag := OSMMapCoordinateEvent;
   AMarker.OnDragEnd := OSMMapCoordinateEvent;
+end;
+
+function TMainFrm.OSMMarkerKindToComboIndex(AKind: TOSMMarkerKind): Integer;
+begin
+  case AKind of
+    mkPin:
+      Result := 1;
+    mkDot:
+      Result := 2;
+  else
+    Result := 0;
+  end;
+end;
+
+function TMainFrm.OSMComboIndexToMarkerKind(AIndex: Integer): TOSMMarkerKind;
+begin
+  case AIndex of
+    1:
+      Result := mkPin;
+    2:
+      Result := mkDot;
+  else
+    Result := mkStandard;
+  end;
+end;
+
+function TMainFrm.OSMPinCornerStyleToComboIndex(AValue: TOSMMarkerPinCornerStyle): Integer;
+begin
+  case AValue of
+    mcsSquare:
+      Result := 1;
+    mcsPill:
+      Result := 2;
+  else
+    Result := 0;
+  end;
+end;
+
+function TMainFrm.OSMComboIndexToPinCornerStyle(AIndex: Integer): TOSMMarkerPinCornerStyle;
+begin
+  case AIndex of
+    1:
+      Result := mcsSquare;
+    2:
+      Result := mcsPill;
+  else
+    Result := mcsDefault;
+  end;
+end;
+
+function TMainFrm.OSMPinShapeVariantToComboIndex(AValue: TOSMMarkerPinShapeVariant): Integer;
+begin
+  case AValue of
+    msvClassic:
+      Result := 1;
+    msvPill:
+      Result := 2;
+    msvTag:
+      Result := 3;
+    msvBubble:
+      Result := 4;
+  else
+    Result := 0;
+  end;
+end;
+
+function TMainFrm.OSMComboIndexToPinShapeVariant(AIndex: Integer): TOSMMarkerPinShapeVariant;
+begin
+  case AIndex of
+    1:
+      Result := msvClassic;
+    2:
+      Result := msvPill;
+    3:
+      Result := msvTag;
+    4:
+      Result := msvBubble;
+  else
+    Result := msvDefault;
+  end;
 end;
 
 procedure TMainFrm.OSMMapViewChangedEvent(Sender: TObject; ACenter: TMapLibLatLng; AZoom, ABearing, APitch: Double);
@@ -1083,6 +2068,7 @@ procedure TMainFrm.OSMStylePresetChange(Sender: TObject);
 var
   itemText: string;
   sepPos: Integer;
+  styleName: string;
   styleUrl: string;
 begin
   if cbOSMStyles.ItemIndex <= 0 then
@@ -1093,9 +2079,25 @@ begin
   if sepPos <= 0 then
     Exit;
 
+  styleName := Copy(itemText, 1, sepPos - 1);
   styleUrl := Copy(itemText, sepPos + 1, MaxInt);
   eOSMStyleUrl.Text := styleUrl;
+  Log('OSM style preset selected: ' + styleName);
   ApplyOSMStyleClick(nil);
+end;
+
+procedure TMainFrm.UpdateOSMStylePresetAvailability;
+var
+  isOnlineMode: Boolean;
+begin
+  isOnlineMode := cbOSMMapMode.ItemIndex = 0;
+  cbOSMStyles.Enabled := isOnlineMode;
+  bApplyOSMStyle.Enabled := isOnlineMode;
+end;
+
+procedure TMainFrm.OSMMapModeChange(Sender: TObject);
+begin
+  UpdateOSMStylePresetAvailability;
 end;
 
 procedure TMainFrm.ApplyOSMEventFilterClick(Sender: TObject);
@@ -1133,6 +2135,7 @@ begin
   OSMMap.OnWebGLContextLost := nil;
   OSMMap.OnWebGLContextRestored := nil;
   OSMMap.OnWheel := nil;
+  OSMMap.OnCooperativeGesturePrevented := nil;
   OSMMap.OnTouchCancel := nil;
   OSMMap.OnTouchEnd := nil;
   OSMMap.OnTouchMove := nil;
@@ -1173,6 +2176,7 @@ begin
     OSMMap.OnBoxZoomEnd := OSMMapSimpleEvent;
     OSMMap.OnBoxZoomCancel := OSMMapSimpleEvent;
     OSMMap.OnWheel := OSMMapSimpleEvent;
+    OSMMap.OnCooperativeGesturePrevented := OSMMapSimpleEvent;
   end;
   if cbOSMLogData.Checked then
   begin
@@ -1194,6 +2198,129 @@ begin
   Log('OSM event filter applied.');
 end;
 
+function TMainFrm.TryReadOSMMapUiSettings(out ACenterLat, ACenterLng, AZoom,
+  ABearing, APitch, AMinZoom, AMaxZoom, AMinPitch, AMaxPitch: Double;
+  out AUseMaxBounds: Boolean; out ANorth, ASouth, AEast, AWest: Double): Boolean;
+begin
+  Result := False;
+  AUseMaxBounds := cbOSMUseMaxBounds.Checked;
+  ANorth := 0;
+  ASouth := 0;
+  AEast := 0;
+  AWest := 0;
+
+  if not TryStrToFloat(Trim(eOSMCenterLat.Text), ACenterLat, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM center latitude.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMCenterLng.Text), ACenterLng, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM center longitude.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMZoom.Text), AZoom, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM zoom.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMBearing.Text), ABearing, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM bearing.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMPitch.Text), APitch, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM pitch.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMMinZoom.Text), AMinZoom, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM min zoom.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMMaxZoom.Text), AMaxZoom, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM max zoom.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMMinPitch.Text), AMinPitch, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM min pitch.');
+    Exit;
+  end;
+  if not TryStrToFloat(Trim(eOSMMaxPitch.Text), AMaxPitch, TFormatSettings.Invariant) then
+  begin
+    Log('Invalid OSM max pitch.');
+    Exit;
+  end;
+
+  if AUseMaxBounds then
+  begin
+    if not TryStrToFloat(Trim(eOSMNorth.Text), ANorth, TFormatSettings.Invariant) then
+    begin
+      Log('Invalid OSM max bounds north value.');
+      Exit;
+    end;
+    if not TryStrToFloat(Trim(eOSMSouth.Text), ASouth, TFormatSettings.Invariant) then
+    begin
+      Log('Invalid OSM max bounds south value.');
+      Exit;
+    end;
+    if not TryStrToFloat(Trim(eOSMEast.Text), AEast, TFormatSettings.Invariant) then
+    begin
+      Log('Invalid OSM max bounds east value.');
+      Exit;
+    end;
+    if not TryStrToFloat(Trim(eOSMWest.Text), AWest, TFormatSettings.Invariant) then
+    begin
+      Log('Invalid OSM max bounds west value.');
+      Exit;
+    end;
+  end;
+
+  Result := True;
+end;
+
+procedure TMainFrm.ApplyOSMMapUiSettings(ACenterLat, ACenterLng, AZoom,
+  ABearing, APitch, AMinZoom, AMaxZoom, AMinPitch, AMaxPitch: Double;
+  AUseMaxBounds: Boolean; ANorth, ASouth, AEast, AWest: Double);
+begin
+  OSMMap.CenterLat := ACenterLat;
+  OSMMap.CenterLng := ACenterLng;
+  OSMMap.Zoom := AZoom;
+  OSMMap.Bearing := ABearing;
+  OSMMap.Pitch := APitch;
+  OSMMap.MinZoom := AMinZoom;
+  OSMMap.MaxZoom := AMaxZoom;
+  OSMMap.MinPitch := AMinPitch;
+  OSMMap.MaxPitch := AMaxPitch;
+  OSMMap.RenderWorldCopies := cbOSMRenderWorldCopies.Checked;
+  OSMMap.DragPanEnabled := cbOSMDragPan.Checked;
+  OSMMap.DragRotateEnabled := cbOSMDragRotate.Checked;
+  OSMMap.DoubleClickZoomEnabled := cbOSMDoubleClickZoom.Checked;
+  OSMMap.ScrollZoomEnabled := cbOSMScrollZoom.Checked;
+  OSMMap.KeyboardEnabled := cbOSMKeyboard.Checked;
+  OSMMap.TouchZoomRotateEnabled := cbOSMTouchZoomRotate.Checked;
+  OSMMap.TouchPitchEnabled := cbOSMTouchPitch.Checked;
+  OSMMap.CooperativeGesturesEnabled := cbOSMCooperativeGestures.Checked;
+
+  if AUseMaxBounds then
+  begin
+    OSMMap.MaxBounds.BeginUpdate;
+    try
+      OSMMap.MaxBounds.North := ANorth;
+      OSMMap.MaxBounds.South := ASouth;
+      OSMMap.MaxBounds.East := AEast;
+      OSMMap.MaxBounds.West := AWest;
+    finally
+      OSMMap.MaxBounds.EndUpdate;
+    end;
+  end
+  else
+    OSMMap.MaxBounds.Clear;
+end;
+
 procedure TMainFrm.ActivateOSMClick(Sender: TObject);
 var
   centerLat: Double;
@@ -1203,6 +2330,13 @@ var
   pitch: Double;
   minZoom: Double;
   maxZoom: Double;
+  minPitch: Double;
+  maxPitch: Double;
+  useMaxBounds: Boolean;
+  north: Double;
+  south: Double;
+  east: Double;
+  west: Double;
   mapMode: TMapLibMapMode;
   styleTemplatePath: string;
   glyphsRootPath: string;
@@ -1210,41 +2344,9 @@ var
   localCssPath: string;
   localJsPath: string;
 begin
-  if not TryStrToFloat(Trim(eOSMCenterLat.Text), centerLat, TFormatSettings.Invariant) then
-  begin
-    Log('Invalid OSM center latitude.');
+  if not TryReadOSMMapUiSettings(centerLat, centerLng, zoom, bearing, pitch,
+    minZoom, maxZoom, minPitch, maxPitch, useMaxBounds, north, south, east, west) then
     Exit;
-  end;
-  if not TryStrToFloat(Trim(eOSMCenterLng.Text), centerLng, TFormatSettings.Invariant) then
-  begin
-    Log('Invalid OSM center longitude.');
-    Exit;
-  end;
-  if not TryStrToFloat(Trim(eOSMZoom.Text), zoom, TFormatSettings.Invariant) then
-  begin
-    Log('Invalid OSM zoom.');
-    Exit;
-  end;
-  if not TryStrToFloat(Trim(eOSMBearing.Text), bearing, TFormatSettings.Invariant) then
-  begin
-    Log('Invalid OSM bearing.');
-    Exit;
-  end;
-  if not TryStrToFloat(Trim(eOSMPitch.Text), pitch, TFormatSettings.Invariant) then
-  begin
-    Log('Invalid OSM pitch.');
-    Exit;
-  end;
-  if not TryStrToFloat(Trim(eOSMMinZoom.Text), minZoom, TFormatSettings.Invariant) then
-  begin
-    Log('Invalid OSM min zoom.');
-    Exit;
-  end;
-  if not TryStrToFloat(Trim(eOSMMaxZoom.Text), maxZoom, TFormatSettings.Invariant) then
-  begin
-    Log('Invalid OSM max zoom.');
-    Exit;
-  end;
 
 //  cbOSMOfflineSourcePreset.OnChange(cbOSMOfflineSourcePreset);
 
@@ -1267,21 +2369,8 @@ begin
     Log('GM map deactivated (OSM map activation).');
   end;
 
-  OSMMap.CenterLat := centerLat;
-  OSMMap.CenterLng := centerLng;
-  OSMMap.Zoom := zoom;
-  OSMMap.Bearing := bearing;
-  OSMMap.Pitch := pitch;
-  OSMMap.MinZoom := minZoom;
-  OSMMap.MaxZoom := maxZoom;
-  OSMMap.DragPanEnabled := cbOSMDragPan.Checked;
-  OSMMap.DragRotateEnabled := cbOSMDragRotate.Checked;
-  OSMMap.DoubleClickZoomEnabled := cbOSMDoubleClickZoom.Checked;
-  OSMMap.ScrollZoomEnabled := cbOSMScrollZoom.Checked;
-  OSMMap.KeyboardEnabled := cbOSMKeyboard.Checked;
-  OSMMap.TouchZoomRotateEnabled := cbOSMTouchZoomRotate.Checked;
-  OSMMap.TouchPitchEnabled := cbOSMTouchPitch.Checked;
-  OSMMap.CooperativeGesturesEnabled := cbOSMCooperativeGestures.Checked;
+  ApplyOSMMapUiSettings(centerLat, centerLng, zoom, bearing, pitch, minZoom,
+    maxZoom, minPitch, maxPitch, useMaxBounds, north, south, east, west);
 
   case cbOSMMapMode.ItemIndex of
     1: mapMode := omOffline;
@@ -1369,6 +2458,13 @@ var
   pitch: Double;
   minZoom: Double;
   maxZoom: Double;
+  minPitch: Double;
+  maxPitch: Double;
+  useMaxBounds: Boolean;
+  north: Double;
+  south: Double;
+  east: Double;
+  west: Double;
 begin
   if not OSMMap.Active then
   begin
@@ -1376,57 +2472,12 @@ begin
     Exit;
   end;
 
-  if not TryStrToFloat(Trim(eOSMCenterLat.Text), centerLat, TFormatSettings.Invariant) then
-  begin
-    Log('Invalid OSM center latitude.');
+  if not TryReadOSMMapUiSettings(centerLat, centerLng, zoom, bearing, pitch,
+    minZoom, maxZoom, minPitch, maxPitch, useMaxBounds, north, south, east, west) then
     Exit;
-  end;
-  if not TryStrToFloat(Trim(eOSMCenterLng.Text), centerLng, TFormatSettings.Invariant) then
-  begin
-    Log('Invalid OSM center longitude.');
-    Exit;
-  end;
-  if not TryStrToFloat(Trim(eOSMZoom.Text), zoom, TFormatSettings.Invariant) then
-  begin
-    Log('Invalid OSM zoom.');
-    Exit;
-  end;
-  if not TryStrToFloat(Trim(eOSMBearing.Text), bearing, TFormatSettings.Invariant) then
-  begin
-    Log('Invalid OSM bearing.');
-    Exit;
-  end;
-  if not TryStrToFloat(Trim(eOSMPitch.Text), pitch, TFormatSettings.Invariant) then
-  begin
-    Log('Invalid OSM pitch.');
-    Exit;
-  end;
-  if not TryStrToFloat(Trim(eOSMMinZoom.Text), minZoom, TFormatSettings.Invariant) then
-  begin
-    Log('Invalid OSM min zoom.');
-    Exit;
-  end;
-  if not TryStrToFloat(Trim(eOSMMaxZoom.Text), maxZoom, TFormatSettings.Invariant) then
-  begin
-    Log('Invalid OSM max zoom.');
-    Exit;
-  end;
 
-  OSMMap.CenterLat := centerLat;
-  OSMMap.CenterLng := centerLng;
-  OSMMap.Zoom := zoom;
-  OSMMap.Bearing := bearing;
-  OSMMap.Pitch := pitch;
-  OSMMap.MinZoom := minZoom;
-  OSMMap.MaxZoom := maxZoom;
-  OSMMap.DragPanEnabled := cbOSMDragPan.Checked;
-  OSMMap.DragRotateEnabled := cbOSMDragRotate.Checked;
-  OSMMap.DoubleClickZoomEnabled := cbOSMDoubleClickZoom.Checked;
-  OSMMap.ScrollZoomEnabled := cbOSMScrollZoom.Checked;
-  OSMMap.KeyboardEnabled := cbOSMKeyboard.Checked;
-  OSMMap.TouchZoomRotateEnabled := cbOSMTouchZoomRotate.Checked;
-  OSMMap.TouchPitchEnabled := cbOSMTouchPitch.Checked;
-  OSMMap.CooperativeGesturesEnabled := cbOSMCooperativeGestures.Checked;
+  ApplyOSMMapUiSettings(centerLat, centerLng, zoom, bearing, pitch, minZoom,
+    maxZoom, minPitch, maxPitch, useMaxBounds, north, south, east, west);
   Log('OSM view updated.');
 end;
 
@@ -1567,6 +2618,8 @@ begin
   eOSMPitch.Text := '0';
   eOSMMinZoom.Text := '0';
   eOSMMaxZoom.Text := '22';
+  eOSMMinPitch.Text := '0';
+  eOSMMaxPitch.Text := '60';
   eOSMStyleUrl.Text := OSMMap.StyleUrl;
   eOSMOfflineTileJsonUrl.Text := 'https://tiles.openfreemap.org/planet/latest/{z}/{x}/{y}.pbf';
   eOSMOfflineServerExecutable.Text := ResolveRepoAssetPath('resources\js\osm\vendor');
@@ -1582,9 +2635,101 @@ begin
   cbOSMTouchZoomRotate.Checked := True;
   cbOSMTouchPitch.Checked := True;
   cbOSMCooperativeGestures.Checked := False;
+  cbOSMUseMaxBounds.Checked := False;
+  cbOSMRenderWorldCopies.Checked := True;
   cbOSMLogMove.Checked := False;
   cbOSMLogRender.Checked := False;
   cbOSMLogData.Checked := False;
+  eOSMMarkerLat.Text := '41.3874';
+  eOSMMarkerLng.Text := '2.1686';
+  eOSMMarkerTitle.Text := '';
+  cbOSMMarkerVisible.Checked := True;
+  cbOSMMarkerDraggable.Checked := False;
+  cbOSMMarkerKind.ItemIndex := 0;
+  cbOSMMarkerHideCenterDot.Checked := False;
+  cbOSMMarkerColor.Selected := clRed;
+  eOSMMarkerScale.Text := '1';
+  eOSMMarkerGlyphText.Text := '';
+  cbOSMMarkerGlyphTextColor.Selected := clWhite;
+  cbOSMMarkerStandardBorderColor.Selected := clBlack;
+  eOSMMarkerStandardBorderWidth.Text := '0';
+  eOSMMarkerStandardGlyphFontSize.Text := '0';
+  eOSMMarkerStandardGlyphOffsetX.Text := '0';
+  eOSMMarkerStandardGlyphOffsetY.Text := '0';
+  eOSMMarkerStandardOpacity.Text := '1';
+  eOSMMarkerStandardZIndex.Text := '0';
+  eOSMMarkerStandardRotation.Text := '0';
+  eOSMMarkerStandardAnchorX.Text := '0';
+  eOSMMarkerStandardAnchorY.Text := '0';
+  eOSMMarkerStandardPopupText.Text := '';
+  cbOSMMarkerStandardShadowEnabled.Checked := False;
+  cbOSMMarkerStandardPopupEnabled.Checked := True;
+  cbOSMMarkerStandardUseDefaultShape.Checked := True;
+  cbOSMMarkerStandardUseGlyph.Checked := True;
+
+  cbOSMMarkerPinBackgroundColor.Selected := clBlack;
+  cbOSMMarkerPinBorderColor.Selected := clBlack;
+  cbOSMMarkerPinGlyphTextColor.Selected := clBlack;
+  cbOSMMarkerPinShadowColor.Selected := clBlack;
+  eOSMMarkerPinBorderWidth.Text := '0';
+  cbOSMMarkerPinCornerStyle.ItemIndex := 0;
+  eOSMMarkerPinGlyphFontSize.Text := '0';
+  eOSMMarkerPinGlyphText.Text := '';
+  eOSMMarkerPinMinHeight.Text := '0';
+  eOSMMarkerPinMinWidth.Text := '0';
+  eOSMMarkerPinPadding.Text := '0';
+  eOSMMarkerPinPointerLength.Text := '0';
+  eOSMMarkerPinPointerWidth.Text := '0';
+  eOSMMarkerPinScale.Text := '1';
+  eOSMMarkerPinShadowBlur.Text := '0';
+  cbOSMMarkerPinShapeVariant.ItemIndex := 0;
+  eOSMMarkerPinOpacity.Text := '1';
+  eOSMMarkerPinZIndex.Text := '0';
+  eOSMMarkerPinRotation.Text := '0';
+  eOSMMarkerPinAnchorX.Text := '0';
+  eOSMMarkerPinAnchorY.Text := '0';
+  eOSMMarkerPinPopupText.Text := '';
+  cbOSMMarkerPinShadowEnabled.Checked := False;
+  cbOSMMarkerPinPopupEnabled.Checked := True;
+
+  cbOSMMarkerDotColor.Selected := clBlack;
+  cbOSMMarkerDotBorderColor.Selected := clBlack;
+  cbOSMMarkerDotGlyphTextColor.Selected := clBlack;
+  cbOSMMarkerDotPulseColor.Selected := clBlack;
+  cbOSMMarkerDotShadowColor.Selected := clBlack;
+  eOSMMarkerDotBorderWidth.Text := '0';
+  eOSMMarkerDotDiameter.Text := '0';
+  eOSMMarkerDotGlyphFontSize.Text := '0';
+  eOSMMarkerDotGlyphText.Text := '';
+  eOSMMarkerDotPulseDuration.Text := '0';
+  eOSMMarkerDotPulseRadius.Text := '0';
+  eOSMMarkerDotRadius.Text := '0';
+  eOSMMarkerDotScale.Text := '1';
+  eOSMMarkerDotShadowBlur.Text := '0';
+  eOSMMarkerDotOpacity.Text := '1';
+  eOSMMarkerDotZIndex.Text := '0';
+  eOSMMarkerDotRotation.Text := '0';
+  eOSMMarkerDotAnchorX.Text := '0';
+  eOSMMarkerDotAnchorY.Text := '0';
+  eOSMMarkerDotPopupText.Text := '';
+  cbOSMMarkerDotPulseEnabled.Checked := False;
+  cbOSMMarkerDotShadowEnabled.Checked := False;
+  cbOSMMarkerDotPopupEnabled.Checked := True;
+
+  eOSMPopupLat.Text := '41.3874';
+  eOSMPopupLng.Text := '2.1686';
+  eOSMPopupAnchorObjectId.Text := '';
+  eOSMPopupMaxWidth.Text := '0';
+  if Assigned(cbOSMPopupCssClass) and (cbOSMPopupCssClass.Items.Count > 0) then
+    cbOSMPopupCssClass.ItemIndex := 0;
+  if Assigned(cbOSMPopupContentType) and (cbOSMPopupContentType.Items.Count > 0) then
+    cbOSMPopupContentType.ItemIndex := 0;
+  mOSMPopupContent.Lines.Text := '';
+  cbOSMPopupVisible.Checked := True;
+  cbOSMPopupCloseButton.Checked := True;
+  cbOSMPopupCloseOnClick.Checked := True;
+  cbOSMPopupCloseOnMove.Checked := False;
+  cbOSMPopupCloseOthersBeforeOpen.Checked := False;
 
   UpdateStatus('Defaults loaded.');
 end;

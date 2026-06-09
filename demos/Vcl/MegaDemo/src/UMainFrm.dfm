@@ -14,8 +14,8 @@ object MainFrm: TMainFrm
   TextHeight = 15
   object Splitter1: TSplitter
     Left = 953
-    Top = 230
-    Height = 483
+    Top = 235
+    Height = 478
     Align = alRight
     ExplicitLeft = 624
     ExplicitTop = 328
@@ -23,22 +23,20 @@ object MainFrm: TMainFrm
   end
   object EdgeBrowser1: TEdgeBrowser
     Left = 0
-    Top = 230
+    Top = 235
     Width = 953
-    Height = 483
+    Height = 478
     Align = alClient
     TabOrder = 0
     AllowSingleSignOnUsingOSPrimaryAccount = False
     TargetCompatibleBrowserVersion = '137.0.3296.44'
     UserDataFolder = '%LOCALAPPDATA%\bds.exe.WebView2'
-    ExplicitTop = 237
-    ExplicitHeight = 476
   end
   object pcSupplier: TPageControl
     Left = 0
     Top = 0
     Width = 1235
-    Height = 230
+    Height = 235
     ActivePage = tsGM
     Align = alTop
     TabOrder = 1
@@ -49,7 +47,7 @@ object MainFrm: TMainFrm
         Top = 0
         Width = 1227
         Height = 265
-        ActivePage = tsMap
+        ActivePage = tsOverlays
         Align = alTop
         TabOrder = 0
         object tsMap: TTabSheet
@@ -2533,11 +2531,10 @@ object MainFrm: TMainFrm
         Left = 0
         Top = 0
         Width = 1227
-        Height = 200
-        ActivePage = tsOSMGeneral
+        Height = 205
+        ActivePage = tsOSMPopups
         Align = alClient
         TabOrder = 0
-        ExplicitHeight = 207
         object tsOSMGeneral: TTabSheet
           Caption = 'Map'
           object lOSMCenterLat: TLabel
@@ -2562,29 +2559,29 @@ object MainFrm: TMainFrm
             Caption = 'Zoom'
           end
           object lOSMNorth: TLabel
-            Left = 948
-            Top = 63
+            Left = 945
+            Top = 42
             Width = 31
             Height = 15
             Caption = 'North'
           end
           object lOSMSouth: TLabel
-            Left = 1036
-            Top = 63
+            Left = 1033
+            Top = 42
             Width = 31
             Height = 15
             Caption = 'South'
           end
           object lOSMEast: TLabel
-            Left = 948
-            Top = 110
+            Left = 945
+            Top = 89
             Width = 21
             Height = 15
             Caption = 'East'
           end
           object lOSMWest: TLabel
-            Left = 1036
-            Top = 110
+            Left = 1033
+            Top = 89
             Width = 26
             Height = 15
             Caption = 'West'
@@ -2631,6 +2628,20 @@ object MainFrm: TMainFrm
             Height = 15
             Caption = 'Max zoom'
           end
+          object lOSMMinPitch: TLabel
+            Left = 262
+            Top = 63
+            Width = 51
+            Height = 15
+            Caption = 'Min pitch'
+          end
+          object lOSMMaxPitch: TLabel
+            Left = 326
+            Top = 63
+            Width = 52
+            Height = 15
+            Caption = 'Max pitch'
+          end
           object eOSMCenterLat: TEdit
             Left = 16
             Top = 34
@@ -2674,40 +2685,40 @@ object MainFrm: TMainFrm
             OnClick = ApplyOSMViewClick
           end
           object eOSMNorth: TEdit
-            Left = 948
-            Top = 81
+            Left = 945
+            Top = 60
             Width = 80
             Height = 23
             TabOrder = 5
             Text = '41.42'
           end
           object eOSMSouth: TEdit
-            Left = 1036
-            Top = 81
+            Left = 1033
+            Top = 60
             Width = 80
             Height = 23
             TabOrder = 6
             Text = '41.35'
           end
           object eOSMEast: TEdit
-            Left = 948
-            Top = 128
+            Left = 945
+            Top = 107
             Width = 80
             Height = 23
             TabOrder = 7
             Text = '2.22'
           end
           object eOSMWest: TEdit
-            Left = 1036
-            Top = 128
+            Left = 1033
+            Top = 107
             Width = 80
             Height = 23
             TabOrder = 8
             Text = '2.12'
           end
           object bFitOSMBounds: TButton
-            Left = 948
-            Top = 32
+            Left = 945
+            Top = 3
             Width = 110
             Height = 25
             Caption = 'Fit Bounds'
@@ -2742,23 +2753,23 @@ object MainFrm: TMainFrm
           object cbOSMLogMove: TCheckBox
             Left = 384
             Top = 92
-            Width = 140
+            Width = 115
             Height = 17
             Caption = 'Log Move/Zoom'
             TabOrder = 13
           end
           object cbOSMLogRender: TCheckBox
-            Left = 530
+            Left = 506
             Top = 92
-            Width = 120
+            Width = 95
             Height = 17
             Caption = 'Log Render'
             TabOrder = 14
           end
           object cbOSMLogData: TCheckBox
-            Left = 656
+            Left = 616
             Top = 92
-            Width = 120
+            Width = 89
             Height = 17
             Caption = 'Log Data'
             TabOrder = 15
@@ -2803,83 +2814,117 @@ object MainFrm: TMainFrm
             TabOrder = 20
             Text = '22'
           end
+          object eOSMMinPitch: TEdit
+            Left = 262
+            Top = 81
+            Width = 54
+            Height = 23
+            TabOrder = 21
+            Text = '0'
+          end
+          object eOSMMaxPitch: TEdit
+            Left = 326
+            Top = 81
+            Width = 52
+            Height = 23
+            TabOrder = 22
+            Text = '60'
+          end
           object cbOSMDragPan: TCheckBox
             Left = 384
-            Top = 118
+            Top = 113
             Width = 97
             Height = 17
             Caption = 'DragPan'
             Checked = True
             State = cbChecked
-            TabOrder = 21
+            TabOrder = 23
           end
           object cbOSMDragRotate: TCheckBox
-            Left = 490
-            Top = 118
+            Left = 506
+            Top = 113
             Width = 97
             Height = 17
             Caption = 'DragRotate'
             Checked = True
             State = cbChecked
-            TabOrder = 22
+            TabOrder = 24
           end
           object cbOSMDoubleClickZoom: TCheckBox
-            Left = 596
-            Top = 118
-            Width = 140
+            Left = 616
+            Top = 113
+            Width = 121
             Height = 17
             Caption = 'DoubleClickZoom'
             Checked = True
             State = cbChecked
-            TabOrder = 23
+            TabOrder = 25
           end
           object cbOSMScrollZoom: TCheckBox
-            Left = 742
-            Top = 118
-            Width = 97
+            Left = 717
+            Top = 92
+            Width = 87
             Height = 17
             Caption = 'ScrollZoom'
             Checked = True
             State = cbChecked
-            TabOrder = 24
+            TabOrder = 26
           end
           object cbOSMKeyboard: TCheckBox
             Left = 384
-            Top = 142
+            Top = 134
             Width = 97
             Height = 17
             Caption = 'Keyboard'
             Checked = True
             State = cbChecked
-            TabOrder = 25
+            TabOrder = 27
           end
           object cbOSMTouchZoomRotate: TCheckBox
-            Left = 490
-            Top = 142
+            Left = 506
+            Top = 134
             Width = 125
             Height = 17
             Caption = 'TouchZoomRotate'
             Checked = True
             State = cbChecked
-            TabOrder = 26
+            TabOrder = 28
           end
           object cbOSMTouchPitch: TCheckBox
-            Left = 622
-            Top = 142
-            Width = 97
+            Left = 820
+            Top = 92
+            Width = 90
             Height = 17
             Caption = 'TouchPitch'
             Checked = True
             State = cbChecked
-            TabOrder = 27
+            TabOrder = 29
           end
           object cbOSMCooperativeGestures: TCheckBox
-            Left = 726
-            Top = 142
+            Left = 742
+            Top = 113
             Width = 154
             Height = 17
             Caption = 'CooperativeGestures'
-            TabOrder = 28
+            TabOrder = 30
+          end
+          object cbOSMUseMaxBounds: TCheckBox
+            Left = 945
+            Top = 140
+            Width = 110
+            Height = 17
+            Caption = 'Use MaxBounds'
+            TabOrder = 31
+          end
+          object cbOSMRenderWorldCopies: TCheckBox
+            Left = 633
+            Top = 134
+            Width = 140
+            Height = 17
+            Caption = 'RenderWorldCopies'
+            Checked = True
+            State = cbChecked
+            TabOrder = 32
           end
         end
         object tsOSMOffline: TTabSheet
@@ -2974,38 +3019,1342 @@ object MainFrm: TMainFrm
         object tsOSMMarkers: TTabSheet
           Caption = 'Markers'
           ImageIndex = 2
+          DesignSize = (
+            1219
+            175)
+          object lOSMMarkerLat: TLabel
+            Left = 331
+            Top = 8
+            Width = 16
+            Height = 15
+            Caption = 'Lat'
+          end
+          object lOSMMarkerLng: TLabel
+            Left = 402
+            Top = 8
+            Width = 20
+            Height = 15
+            Caption = 'Lng'
+          end
+          object lOSMMarkerTitle: TLabel
+            Left = 331
+            Top = 50
+            Width = 23
+            Height = 15
+            Caption = 'Title'
+          end
+          object lOSMMarkerKind: TLabel
+            Left = 331
+            Top = 91
+            Width = 24
+            Height = 15
+            Caption = 'Kind'
+          end
           object lbOSMMarkers: TListBox
-            Left = 16
-            Top = 16
-            Width = 420
-            Height = 150
+            Left = 8
+            Top = 8
+            Width = 200
+            Height = 163
             ItemHeight = 15
             TabOrder = 0
           end
           object bOSMClearMarkers: TButton
-            Left = 448
-            Top = 16
-            Width = 136
+            Left = 214
+            Top = 68
+            Width = 89
             Height = 25
-            Caption = 'Clear OSM Markers'
+            Caption = 'Clear Markers'
             TabOrder = 1
           end
-          object bOSMZoomToMarkers: TButton
-            Left = 448
-            Top = 48
-            Width = 136
+          object bOSMAddMarker: TButton
+            Left = 214
+            Top = 8
+            Width = 89
             Height = 25
-            Caption = 'Zoom To OSM Markers'
+            Caption = 'Add Marker'
             TabOrder = 2
           end
+          object bOSMUpdateMarker: TButton
+            Left = 214
+            Top = 103
+            Width = 89
+            Height = 25
+            Caption = 'Update Marker'
+            TabOrder = 3
+          end
+          object bOSMDeleteMarker: TButton
+            Left = 214
+            Top = 39
+            Width = 89
+            Height = 25
+            Caption = 'Delete Marker'
+            TabOrder = 4
+          end
+          object bOSMZoomToMarkers: TButton
+            Left = 488
+            Top = 8
+            Width = 97
+            Height = 25
+            Caption = 'Zoom To Markers'
+            TabOrder = 5
+          end
           object bApplyOSMEventFilter: TButton
-            Left = 448
-            Top = 80
-            Width = 136
+            Left = 488
+            Top = 39
+            Width = 97
             Height = 25
             Caption = 'Apply Event Filter'
-            TabOrder = 3
+            TabOrder = 6
             OnClick = ApplyOSMEventFilterClick
+          end
+          object eOSMMarkerLat: TEdit
+            Left = 331
+            Top = 23
+            Width = 65
+            Height = 23
+            TabOrder = 7
+          end
+          object eOSMMarkerLng: TEdit
+            Left = 402
+            Top = 23
+            Width = 65
+            Height = 23
+            TabOrder = 8
+          end
+          object eOSMMarkerTitle: TEdit
+            Left = 331
+            Top = 65
+            Width = 105
+            Height = 23
+            TabOrder = 9
+          end
+          object cbOSMMarkerVisible: TCheckBox
+            Left = 331
+            Top = 135
+            Width = 65
+            Height = 17
+            Caption = 'Visible'
+            Checked = True
+            State = cbChecked
+            TabOrder = 10
+          end
+          object cbOSMMarkerDraggable: TCheckBox
+            Left = 402
+            Top = 135
+            Width = 75
+            Height = 17
+            Caption = 'Draggable'
+            TabOrder = 11
+          end
+          object cbOSMMarkerKind: TComboBox
+            Left = 331
+            Top = 107
+            Width = 97
+            Height = 23
+            Style = csDropDownList
+            TabOrder = 12
+          end
+          object pcOSMMarkers: TPageControl
+            Left = 591
+            Top = 3
+            Width = 625
+            Height = 168
+            ActivePage = tsOSMDotMarkers
+            Anchors = [akLeft, akTop, akRight, akBottom]
+            TabOrder = 13
+            object tsOSMStandardMarkers: TTabSheet
+              Caption = 'Standard'
+              object sbOSMStandardMarkers: TScrollBox
+                Left = 0
+                Top = 0
+                Width = 617
+                Height = 138
+                HorzScrollBar.Visible = False
+                VertScrollBar.Tracking = True
+                Align = alClient
+                BorderStyle = bsNone
+                TabOrder = 0
+                object lOSMMarkerColor: TLabel
+                  Left = 16
+                  Top = 10
+                  Width = 29
+                  Height = 15
+                  Caption = 'Color'
+                end
+                object lOSMMarkerGlyphTextColor: TLabel
+                  Left = 120
+                  Top = 10
+                  Width = 61
+                  Height = 15
+                  Caption = 'Glyph color'
+                end
+                object lOSMMarkerScale: TLabel
+                  Left = 224
+                  Top = 10
+                  Width = 27
+                  Height = 15
+                  Caption = 'Scale'
+                end
+                object lOSMMarkerGlyphText: TLabel
+                  Left = 16
+                  Top = 56
+                  Width = 53
+                  Height = 15
+                  Caption = 'Glyph text'
+                end
+                object lOSMMarkerStandardBorderColor: TLabel
+                  Left = 265
+                  Top = 10
+                  Width = 65
+                  Height = 15
+                  Caption = 'Border color'
+                end
+                object lOSMMarkerStandardBorderWidth: TLabel
+                  Left = 362
+                  Top = 10
+                  Width = 68
+                  Height = 15
+                  Caption = 'Border width'
+                end
+                object lOSMMarkerStandardGlyphFontSize: TLabel
+                  Left = 437
+                  Top = 10
+                  Width = 78
+                  Height = 15
+                  Caption = 'Glyph font size'
+                end
+                object lOSMMarkerStandardPopupText: TLabel
+                  Left = 87
+                  Top = 56
+                  Width = 57
+                  Height = 15
+                  Caption = 'Popup text'
+                end
+                object lOSMMarkerStandardOpacity: TLabel
+                  Left = 216
+                  Top = 57
+                  Width = 41
+                  Height = 15
+                  Caption = 'Opacity'
+                end
+                object lOSMMarkerStandardZIndex: TLabel
+                  Left = 280
+                  Top = 57
+                  Width = 35
+                  Height = 15
+                  Caption = 'ZIndex'
+                end
+                object lOSMMarkerStandardRotation: TLabel
+                  Left = 344
+                  Top = 57
+                  Width = 45
+                  Height = 15
+                  Caption = 'Rotation'
+                end
+                object lOSMMarkerStandardAnchorX: TLabel
+                  Left = 408
+                  Top = 57
+                  Width = 49
+                  Height = 15
+                  Caption = 'Anchor X'
+                end
+                object lOSMMarkerStandardAnchorY: TLabel
+                  Left = 472
+                  Top = 57
+                  Width = 49
+                  Height = 15
+                  Caption = 'Anchor Y'
+                end
+                object lOSMMarkerStandardGlyphOffsetX: TLabel
+                  Left = 536
+                  Top = 10
+                  Width = 62
+                  Height = 15
+                  Caption = 'Glyph off. X'
+                end
+                object lOSMMarkerStandardGlyphOffsetY: TLabel
+                  Left = 536
+                  Top = 56
+                  Width = 62
+                  Height = 15
+                  Caption = 'Glyph off. Y'
+                end
+                object cbOSMMarkerColor: TColorBox
+                  Left = 16
+                  Top = 27
+                  Width = 90
+                  Height = 22
+                  Selected = clRed
+                  TabOrder = 0
+                end
+                object cbOSMMarkerGlyphTextColor: TColorBox
+                  Left = 120
+                  Top = 27
+                  Width = 90
+                  Height = 22
+                  Selected = clWhite
+                  TabOrder = 1
+                end
+                object eOSMMarkerScale: TEdit
+                  Left = 224
+                  Top = 27
+                  Width = 33
+                  Height = 23
+                  TabOrder = 2
+                  Text = '1'
+                end
+                object eOSMMarkerGlyphText: TEdit
+                  Left = 16
+                  Top = 73
+                  Width = 65
+                  Height = 23
+                  TabOrder = 3
+                end
+                object cbOSMMarkerHideCenterDot: TCheckBox
+                  Left = 264
+                  Top = 112
+                  Width = 121
+                  Height = 17
+                  Caption = 'Hide center dot'
+                  TabOrder = 4
+                end
+                object cbOSMMarkerStandardBorderColor: TColorBox
+                  Left = 265
+                  Top = 27
+                  Width = 90
+                  Height = 22
+                  TabOrder = 5
+                end
+                object eOSMMarkerStandardBorderWidth: TEdit
+                  Left = 362
+                  Top = 27
+                  Width = 52
+                  Height = 23
+                  TabOrder = 6
+                  Text = '0'
+                end
+                object eOSMMarkerStandardGlyphFontSize: TEdit
+                  Left = 437
+                  Top = 27
+                  Width = 52
+                  Height = 23
+                  TabOrder = 7
+                  Text = '0'
+                end
+                object eOSMMarkerStandardPopupText: TEdit
+                  Left = 87
+                  Top = 73
+                  Width = 114
+                  Height = 23
+                  TabOrder = 8
+                end
+                object cbOSMMarkerStandardShadowEnabled: TCheckBox
+                  Left = 504
+                  Top = 112
+                  Width = 81
+                  Height = 17
+                  Caption = 'Shadow'
+                  TabOrder = 9
+                end
+                object cbOSMMarkerStandardPopupEnabled: TCheckBox
+                  Left = 407
+                  Top = 112
+                  Width = 81
+                  Height = 17
+                  Caption = 'Popup'
+                  Checked = True
+                  State = cbChecked
+                  TabOrder = 10
+                end
+                object cbOSMMarkerStandardUseDefaultShape: TCheckBox
+                  Left = 16
+                  Top = 112
+                  Width = 133
+                  Height = 17
+                  Caption = 'Use default shape'
+                  Checked = True
+                  State = cbChecked
+                  TabOrder = 11
+                end
+                object cbOSMMarkerStandardUseGlyph: TCheckBox
+                  Left = 155
+                  Top = 112
+                  Width = 81
+                  Height = 17
+                  Caption = 'Use glyph'
+                  Checked = True
+                  State = cbChecked
+                  TabOrder = 12
+                end
+                object eOSMMarkerStandardOpacity: TEdit
+                  Left = 216
+                  Top = 73
+                  Width = 50
+                  Height = 23
+                  TabOrder = 13
+                  Text = '1'
+                end
+                object eOSMMarkerStandardZIndex: TEdit
+                  Left = 280
+                  Top = 73
+                  Width = 50
+                  Height = 23
+                  TabOrder = 14
+                  Text = '0'
+                end
+                object eOSMMarkerStandardRotation: TEdit
+                  Left = 344
+                  Top = 73
+                  Width = 50
+                  Height = 23
+                  TabOrder = 15
+                  Text = '0'
+                end
+                object eOSMMarkerStandardAnchorX: TEdit
+                  Left = 408
+                  Top = 73
+                  Width = 50
+                  Height = 23
+                  TabOrder = 16
+                  Text = '0'
+                end
+                object eOSMMarkerStandardAnchorY: TEdit
+                  Left = 472
+                  Top = 73
+                  Width = 50
+                  Height = 23
+                  TabOrder = 17
+                  Text = '0'
+                end
+                object eOSMMarkerStandardGlyphOffsetX: TEdit
+                  Left = 536
+                  Top = 27
+                  Width = 50
+                  Height = 23
+                  TabOrder = 18
+                  Text = '0'
+                end
+                object eOSMMarkerStandardGlyphOffsetY: TEdit
+                  Left = 536
+                  Top = 73
+                  Width = 50
+                  Height = 23
+                  TabOrder = 19
+                  Text = '0'
+                end
+              end
+            end
+            object tsOSMPinMarkers: TTabSheet
+              Caption = 'Pin'
+              ImageIndex = 1
+              object sbOSMPinMarkers: TScrollBox
+                Left = 0
+                Top = 0
+                Width = 617
+                Height = 138
+                HorzScrollBar.Visible = False
+                VertScrollBar.Tracking = True
+                Align = alClient
+                BorderStyle = bsNone
+                TabOrder = 0
+                object lOSMMarkerPinBackgroundColor: TLabel
+                  Left = 16
+                  Top = 10
+                  Width = 94
+                  Height = 15
+                  Caption = 'Background color'
+                end
+                object lOSMMarkerPinBorderColor: TLabel
+                  Left = 120
+                  Top = 10
+                  Width = 65
+                  Height = 15
+                  Caption = 'Border color'
+                end
+                object lOSMMarkerPinGlyphColor: TLabel
+                  Left = 224
+                  Top = 10
+                  Width = 61
+                  Height = 15
+                  Caption = 'Glyph color'
+                end
+                object lOSMMarkerPinShadowColor: TLabel
+                  Left = 328
+                  Top = 10
+                  Width = 72
+                  Height = 15
+                  Caption = 'Shadow color'
+                end
+                object lOSMMarkerPinScale: TLabel
+                  Left = 432
+                  Top = 10
+                  Width = 27
+                  Height = 15
+                  Caption = 'Scale'
+                end
+                object lOSMMarkerPinBorderWidth: TLabel
+                  Left = 488
+                  Top = 10
+                  Width = 68
+                  Height = 15
+                  Caption = 'Border width'
+                end
+                object lOSMMarkerPinGlyphFontSize: TLabel
+                  Left = 560
+                  Top = 10
+                  Width = 56
+                  Height = 15
+                  Caption = 'Glyph font'
+                end
+                object lOSMMarkerPinGlyphText: TLabel
+                  Left = 16
+                  Top = 56
+                  Width = 53
+                  Height = 15
+                  Caption = 'Glyph text'
+                end
+                object lOSMMarkerPinPopupText: TLabel
+                  Left = 80
+                  Top = 56
+                  Width = 57
+                  Height = 15
+                  Caption = 'Popup text'
+                end
+                object lOSMMarkerPinCornerStyle: TLabel
+                  Left = 202
+                  Top = 56
+                  Width = 63
+                  Height = 15
+                  Caption = 'Corner style'
+                end
+                object lOSMMarkerPinShapeVariant: TLabel
+                  Left = 282
+                  Top = 56
+                  Width = 71
+                  Height = 15
+                  Caption = 'Shape variant'
+                end
+                object lOSMMarkerPinMinWidth: TLabel
+                  Left = 16
+                  Top = 102
+                  Width = 54
+                  Height = 15
+                  Caption = 'Min width'
+                end
+                object lOSMMarkerPinMinHeight: TLabel
+                  Left = 80
+                  Top = 102
+                  Width = 58
+                  Height = 15
+                  Caption = 'Min height'
+                end
+                object lOSMMarkerPinPadding: TLabel
+                  Left = 144
+                  Top = 102
+                  Width = 44
+                  Height = 15
+                  Caption = 'Padding'
+                end
+                object lOSMMarkerPinPointerLength: TLabel
+                  Left = 200
+                  Top = 102
+                  Width = 75
+                  Height = 15
+                  Caption = 'Pointer length'
+                end
+                object lOSMMarkerPinPointerWidth: TLabel
+                  Left = 280
+                  Top = 102
+                  Width = 71
+                  Height = 15
+                  Caption = 'Pointer width'
+                end
+                object lOSMMarkerPinShadowBlur: TLabel
+                  Left = 352
+                  Top = 102
+                  Width = 66
+                  Height = 15
+                  Caption = 'Shadow blur'
+                end
+                object lOSMMarkerPinOpacity: TLabel
+                  Left = 416
+                  Top = 102
+                  Width = 41
+                  Height = 15
+                  Caption = 'Opacity'
+                end
+                object lOSMMarkerPinZIndex: TLabel
+                  Left = 480
+                  Top = 102
+                  Width = 35
+                  Height = 15
+                  Caption = 'ZIndex'
+                end
+                object lOSMMarkerPinRotation: TLabel
+                  Left = 544
+                  Top = 102
+                  Width = 45
+                  Height = 15
+                  Caption = 'Rotation'
+                end
+                object lOSMMarkerPinAnchorX: TLabel
+                  Left = 362
+                  Top = 56
+                  Width = 49
+                  Height = 15
+                  Caption = 'Anchor X'
+                end
+                object lOSMMarkerPinAnchorY: TLabel
+                  Left = 426
+                  Top = 56
+                  Width = 49
+                  Height = 15
+                  Caption = 'Anchor Y'
+                end
+                object cbOSMMarkerPinBackgroundColor: TColorBox
+                  Left = 16
+                  Top = 27
+                  Width = 90
+                  Height = 22
+                  TabOrder = 0
+                end
+                object cbOSMMarkerPinBorderColor: TColorBox
+                  Left = 120
+                  Top = 27
+                  Width = 90
+                  Height = 22
+                  TabOrder = 1
+                end
+                object cbOSMMarkerPinGlyphTextColor: TColorBox
+                  Left = 224
+                  Top = 27
+                  Width = 90
+                  Height = 22
+                  TabOrder = 2
+                end
+                object cbOSMMarkerPinShadowColor: TColorBox
+                  Left = 328
+                  Top = 27
+                  Width = 90
+                  Height = 22
+                  TabOrder = 3
+                end
+                object eOSMMarkerPinScale: TEdit
+                  Left = 432
+                  Top = 27
+                  Width = 48
+                  Height = 23
+                  TabOrder = 4
+                  Text = '1'
+                end
+                object eOSMMarkerPinBorderWidth: TEdit
+                  Left = 488
+                  Top = 27
+                  Width = 48
+                  Height = 23
+                  TabOrder = 5
+                  Text = '0'
+                end
+                object eOSMMarkerPinGlyphFontSize: TEdit
+                  Left = 560
+                  Top = 27
+                  Width = 48
+                  Height = 23
+                  TabOrder = 6
+                  Text = '0'
+                end
+                object eOSMMarkerPinGlyphText: TEdit
+                  Left = 16
+                  Top = 73
+                  Width = 58
+                  Height = 23
+                  TabOrder = 7
+                end
+                object eOSMMarkerPinPopupText: TEdit
+                  Left = 80
+                  Top = 73
+                  Width = 114
+                  Height = 23
+                  TabOrder = 8
+                end
+                object cbOSMMarkerPinCornerStyle: TComboBox
+                  Left = 202
+                  Top = 73
+                  Width = 72
+                  Height = 23
+                  Style = csDropDownList
+                  ItemIndex = 0
+                  TabOrder = 9
+                  Text = 'Default'
+                  Items.Strings = (
+                    'Default'
+                    'Square'
+                    'Pill')
+                end
+                object cbOSMMarkerPinShapeVariant: TComboBox
+                  Left = 282
+                  Top = 73
+                  Width = 71
+                  Height = 23
+                  Style = csDropDownList
+                  ItemIndex = 0
+                  TabOrder = 10
+                  Text = 'Default'
+                  Items.Strings = (
+                    'Default'
+                    'Classic'
+                    'Pill'
+                    'Tag'
+                    'Bubble')
+                end
+                object cbOSMMarkerPinShadowEnabled: TCheckBox
+                  Left = 512
+                  Top = 79
+                  Width = 63
+                  Height = 17
+                  Caption = 'Shadow'
+                  TabOrder = 11
+                end
+                object cbOSMMarkerPinPopupEnabled: TCheckBox
+                  Left = 512
+                  Top = 56
+                  Width = 56
+                  Height = 17
+                  Caption = 'Popup'
+                  Checked = True
+                  State = cbChecked
+                  TabOrder = 12
+                end
+                object eOSMMarkerPinMinWidth: TEdit
+                  Left = 16
+                  Top = 119
+                  Width = 48
+                  Height = 23
+                  TabOrder = 13
+                  Text = '0'
+                end
+                object eOSMMarkerPinMinHeight: TEdit
+                  Left = 80
+                  Top = 119
+                  Width = 48
+                  Height = 23
+                  TabOrder = 14
+                  Text = '0'
+                end
+                object eOSMMarkerPinPadding: TEdit
+                  Left = 144
+                  Top = 119
+                  Width = 48
+                  Height = 23
+                  TabOrder = 15
+                  Text = '0'
+                end
+                object eOSMMarkerPinPointerLength: TEdit
+                  Left = 200
+                  Top = 119
+                  Width = 48
+                  Height = 23
+                  TabOrder = 16
+                  Text = '0'
+                end
+                object eOSMMarkerPinPointerWidth: TEdit
+                  Left = 280
+                  Top = 119
+                  Width = 48
+                  Height = 23
+                  TabOrder = 17
+                  Text = '0'
+                end
+                object eOSMMarkerPinShadowBlur: TEdit
+                  Left = 352
+                  Top = 119
+                  Width = 48
+                  Height = 23
+                  TabOrder = 18
+                  Text = '0'
+                end
+                object eOSMMarkerPinOpacity: TEdit
+                  Left = 416
+                  Top = 119
+                  Width = 48
+                  Height = 23
+                  TabOrder = 19
+                  Text = '1'
+                end
+                object eOSMMarkerPinZIndex: TEdit
+                  Left = 480
+                  Top = 119
+                  Width = 48
+                  Height = 23
+                  TabOrder = 20
+                  Text = '0'
+                end
+                object eOSMMarkerPinRotation: TEdit
+                  Left = 544
+                  Top = 119
+                  Width = 48
+                  Height = 23
+                  TabOrder = 21
+                  Text = '0'
+                end
+                object eOSMMarkerPinAnchorX: TEdit
+                  Left = 362
+                  Top = 73
+                  Width = 48
+                  Height = 23
+                  TabOrder = 22
+                  Text = '0'
+                end
+                object eOSMMarkerPinAnchorY: TEdit
+                  Left = 426
+                  Top = 73
+                  Width = 48
+                  Height = 23
+                  TabOrder = 23
+                  Text = '0'
+                end
+              end
+            end
+            object tsOSMDotMarkers: TTabSheet
+              Caption = 'Dot'
+              ImageIndex = 2
+              object sbOSMDotMarkers: TScrollBox
+                Left = 0
+                Top = 0
+                Width = 617
+                Height = 138
+                HorzScrollBar.Visible = False
+                VertScrollBar.Tracking = True
+                Align = alClient
+                BorderStyle = bsNone
+                TabOrder = 0
+                object lOSMMarkerDotColor: TLabel
+                  Left = 16
+                  Top = 10
+                  Width = 29
+                  Height = 15
+                  Caption = 'Color'
+                end
+                object lOSMMarkerDotBorderColor: TLabel
+                  Left = 120
+                  Top = 10
+                  Width = 65
+                  Height = 15
+                  Caption = 'Border color'
+                end
+                object lOSMMarkerDotGlyphColor: TLabel
+                  Left = 224
+                  Top = 10
+                  Width = 61
+                  Height = 15
+                  Caption = 'Glyph color'
+                end
+                object lOSMMarkerDotPulseColor: TLabel
+                  Left = 328
+                  Top = 10
+                  Width = 58
+                  Height = 15
+                  Caption = 'Pulse color'
+                end
+                object lOSMMarkerDotShadowColor: TLabel
+                  Left = 432
+                  Top = 10
+                  Width = 72
+                  Height = 15
+                  Caption = 'Shadow color'
+                end
+                object lOSMMarkerDotScale: TLabel
+                  Left = 536
+                  Top = 10
+                  Width = 27
+                  Height = 15
+                  Caption = 'Scale'
+                end
+                object lOSMMarkerDotGlyphText: TLabel
+                  Left = 16
+                  Top = 56
+                  Width = 53
+                  Height = 15
+                  Caption = 'Glyph text'
+                end
+                object lOSMMarkerDotPopupText: TLabel
+                  Left = 88
+                  Top = 56
+                  Width = 57
+                  Height = 15
+                  Caption = 'Popup text'
+                end
+                object lOSMMarkerDotBorderWidth: TLabel
+                  Left = 16
+                  Top = 102
+                  Width = 68
+                  Height = 15
+                  Caption = 'Border width'
+                end
+                object lOSMMarkerDotRadius: TLabel
+                  Left = 88
+                  Top = 102
+                  Width = 35
+                  Height = 15
+                  Caption = 'Radius'
+                end
+                object lOSMMarkerDotDiameter: TLabel
+                  Left = 144
+                  Top = 102
+                  Width = 48
+                  Height = 15
+                  Caption = 'Diameter'
+                end
+                object lOSMMarkerDotGlyphFontSize: TLabel
+                  Left = 208
+                  Top = 102
+                  Width = 56
+                  Height = 15
+                  Caption = 'Glyph font'
+                end
+                object lOSMMarkerDotPulseRadius: TLabel
+                  Left = 272
+                  Top = 102
+                  Width = 63
+                  Height = 15
+                  Caption = 'Pulse radius'
+                end
+                object lOSMMarkerDotPulseDuration: TLabel
+                  Left = 344
+                  Top = 102
+                  Width = 76
+                  Height = 15
+                  Caption = 'Pulse duration'
+                end
+                object lOSMMarkerDotShadowBlur: TLabel
+                  Left = 424
+                  Top = 102
+                  Width = 66
+                  Height = 15
+                  Caption = 'Shadow blur'
+                end
+                object lOSMMarkerDotOpacity: TLabel
+                  Left = 496
+                  Top = 102
+                  Width = 41
+                  Height = 15
+                  Caption = 'Opacity'
+                end
+                object lOSMMarkerDotZIndex: TLabel
+                  Left = 560
+                  Top = 102
+                  Width = 35
+                  Height = 15
+                  Caption = 'ZIndex'
+                end
+                object lOSMMarkerDotRotation: TLabel
+                  Left = 224
+                  Top = 56
+                  Width = 45
+                  Height = 15
+                  Caption = 'Rotation'
+                end
+                object lOSMMarkerDotAnchorX: TLabel
+                  Left = 288
+                  Top = 56
+                  Width = 49
+                  Height = 15
+                  Caption = 'Anchor X'
+                end
+                object lOSMMarkerDotAnchorY: TLabel
+                  Left = 352
+                  Top = 56
+                  Width = 49
+                  Height = 15
+                  Caption = 'Anchor Y'
+                end
+                object cbOSMMarkerDotColor: TColorBox
+                  Left = 16
+                  Top = 27
+                  Width = 90
+                  Height = 22
+                  TabOrder = 0
+                end
+                object cbOSMMarkerDotBorderColor: TColorBox
+                  Left = 120
+                  Top = 27
+                  Width = 90
+                  Height = 22
+                  TabOrder = 1
+                end
+                object cbOSMMarkerDotGlyphTextColor: TColorBox
+                  Left = 224
+                  Top = 27
+                  Width = 90
+                  Height = 22
+                  TabOrder = 2
+                end
+                object cbOSMMarkerDotPulseColor: TColorBox
+                  Left = 328
+                  Top = 27
+                  Width = 90
+                  Height = 22
+                  TabOrder = 3
+                end
+                object cbOSMMarkerDotShadowColor: TColorBox
+                  Left = 432
+                  Top = 27
+                  Width = 90
+                  Height = 22
+                  TabOrder = 4
+                end
+                object eOSMMarkerDotScale: TEdit
+                  Left = 536
+                  Top = 27
+                  Width = 48
+                  Height = 23
+                  TabOrder = 5
+                  Text = '1'
+                end
+                object eOSMMarkerDotGlyphText: TEdit
+                  Left = 16
+                  Top = 73
+                  Width = 66
+                  Height = 23
+                  TabOrder = 6
+                end
+                object eOSMMarkerDotPopupText: TEdit
+                  Left = 88
+                  Top = 73
+                  Width = 114
+                  Height = 23
+                  TabOrder = 7
+                end
+                object cbOSMMarkerDotPulseEnabled: TCheckBox
+                  Left = 466
+                  Top = 69
+                  Width = 52
+                  Height = 17
+                  Caption = 'Pulse'
+                  TabOrder = 8
+                end
+                object cbOSMMarkerDotShadowEnabled: TCheckBox
+                  Left = 534
+                  Top = 79
+                  Width = 63
+                  Height = 17
+                  Caption = 'Shadow'
+                  TabOrder = 9
+                end
+                object cbOSMMarkerDotPopupEnabled: TCheckBox
+                  Left = 534
+                  Top = 56
+                  Width = 56
+                  Height = 17
+                  Caption = 'Popup'
+                  Checked = True
+                  State = cbChecked
+                  TabOrder = 10
+                end
+                object eOSMMarkerDotBorderWidth: TEdit
+                  Left = 16
+                  Top = 119
+                  Width = 48
+                  Height = 23
+                  TabOrder = 11
+                  Text = '0'
+                end
+                object eOSMMarkerDotRadius: TEdit
+                  Left = 88
+                  Top = 119
+                  Width = 48
+                  Height = 23
+                  TabOrder = 12
+                  Text = '0'
+                end
+                object eOSMMarkerDotDiameter: TEdit
+                  Left = 144
+                  Top = 119
+                  Width = 48
+                  Height = 23
+                  TabOrder = 13
+                  Text = '0'
+                end
+                object eOSMMarkerDotGlyphFontSize: TEdit
+                  Left = 208
+                  Top = 119
+                  Width = 48
+                  Height = 23
+                  TabOrder = 14
+                  Text = '0'
+                end
+                object eOSMMarkerDotPulseRadius: TEdit
+                  Left = 272
+                  Top = 119
+                  Width = 48
+                  Height = 23
+                  TabOrder = 15
+                  Text = '0'
+                end
+                object eOSMMarkerDotPulseDuration: TEdit
+                  Left = 344
+                  Top = 119
+                  Width = 48
+                  Height = 23
+                  TabOrder = 16
+                  Text = '0'
+                end
+                object eOSMMarkerDotShadowBlur: TEdit
+                  Left = 424
+                  Top = 119
+                  Width = 48
+                  Height = 23
+                  TabOrder = 17
+                  Text = '0'
+                end
+                object eOSMMarkerDotOpacity: TEdit
+                  Left = 496
+                  Top = 119
+                  Width = 48
+                  Height = 23
+                  TabOrder = 18
+                  Text = '1'
+                end
+                object eOSMMarkerDotZIndex: TEdit
+                  Left = 560
+                  Top = 119
+                  Width = 48
+                  Height = 23
+                  TabOrder = 19
+                  Text = '0'
+                end
+                object eOSMMarkerDotRotation: TEdit
+                  Left = 224
+                  Top = 73
+                  Width = 48
+                  Height = 23
+                  TabOrder = 20
+                  Text = '0'
+                end
+                object eOSMMarkerDotAnchorX: TEdit
+                  Left = 288
+                  Top = 73
+                  Width = 48
+                  Height = 23
+                  TabOrder = 21
+                  Text = '0'
+                end
+                object eOSMMarkerDotAnchorY: TEdit
+                  Left = 352
+                  Top = 73
+                  Width = 48
+                  Height = 23
+                  TabOrder = 22
+                  Text = '0'
+                end
+              end
+            end
+          end
+        end
+        object tsOSMPopups: TTabSheet
+          Caption = 'Popups'
+          ImageIndex = 3
+          DesignSize = (
+            1219
+            175)
+          object lOSMPopupLat: TLabel
+            Left = 344
+            Top = 8
+            Width = 16
+            Height = 15
+            Caption = 'Lat'
+          end
+          object lOSMPopupLng: TLabel
+            Left = 432
+            Top = 8
+            Width = 20
+            Height = 15
+            Caption = 'Lng'
+          end
+          object lOSMPopupAnchorObjectId: TLabel
+            Left = 520
+            Top = 8
+            Width = 88
+            Height = 15
+            Caption = 'Anchor object id'
+          end
+          object lOSMPopupMaxWidth: TLabel
+            Left = 344
+            Top = 56
+            Width = 55
+            Height = 15
+            Caption = 'Max width'
+          end
+          object lOSMPopupCssClass: TLabel
+            Left = 432
+            Top = 56
+            Width = 59
+            Height = 15
+            Caption = 'Preset style'
+          end
+          object lOSMPopupContentType: TLabel
+            Left = 584
+            Top = 56
+            Width = 69
+            Height = 15
+            Caption = 'Content type'
+          end
+          object lOSMPopupContent: TLabel
+            Left = 688
+            Top = 8
+            Width = 43
+            Height = 15
+            Caption = 'Content'
+          end
+          object lbOSMPopups: TListBox
+            Left = 8
+            Top = 8
+            Width = 220
+            Height = 163
+            ItemHeight = 15
+            TabOrder = 0
+          end
+          object bOSMAddPopup: TButton
+            Left = 236
+            Top = 8
+            Width = 96
+            Height = 25
+            Caption = 'Add Popup'
+            TabOrder = 1
+          end
+          object bOSMDeletePopup: TButton
+            Left = 236
+            Top = 39
+            Width = 96
+            Height = 25
+            Caption = 'Delete Popup'
+            TabOrder = 2
+          end
+          object bOSMClearPopups: TButton
+            Left = 236
+            Top = 70
+            Width = 96
+            Height = 25
+            Caption = 'Clear Popups'
+            TabOrder = 3
+          end
+          object bOSMUpdatePopup: TButton
+            Left = 236
+            Top = 101
+            Width = 96
+            Height = 25
+            Caption = 'Update Popup'
+            TabOrder = 4
+          end
+          object bOSMPopupUseSelectedMarker: TButton
+            Left = 236
+            Top = 132
+            Width = 96
+            Height = 25
+            Caption = 'Use Sel. Marker'
+            TabOrder = 5
+          end
+          object eOSMPopupLat: TEdit
+            Left = 344
+            Top = 23
+            Width = 80
+            Height = 23
+            TabOrder = 6
+            Text = '41.3874'
+          end
+          object eOSMPopupLng: TEdit
+            Left = 432
+            Top = 23
+            Width = 80
+            Height = 23
+            TabOrder = 7
+            Text = '2.1686'
+          end
+          object eOSMPopupAnchorObjectId: TEdit
+            Left = 520
+            Top = 23
+            Width = 152
+            Height = 23
+            TabOrder = 8
+          end
+          object eOSMPopupMaxWidth: TEdit
+            Left = 344
+            Top = 71
+            Width = 80
+            Height = 23
+            TabOrder = 9
+            Text = '0'
+          end
+          object cbOSMPopupCssClass: TComboBox
+            Left = 432
+            Top = 71
+            Width = 144
+            Height = 23
+            Style = csDropDownList
+            TabOrder = 10
+          end
+          object cbOSMPopupContentType: TComboBox
+            Left = 584
+            Top = 71
+            Width = 88
+            Height = 23
+            Style = csDropDownList
+            TabOrder = 11
+          end
+          object mOSMPopupContent: TMemo
+            Left = 688
+            Top = 23
+            Width = 523
+            Height = 108
+            Anchors = [akLeft, akTop, akRight, akBottom]
+            ScrollBars = ssVertical
+            TabOrder = 12
+          end
+          object cbOSMPopupVisible: TCheckBox
+            Left = 344
+            Top = 112
+            Width = 65
+            Height = 17
+            Caption = 'Visible'
+            Checked = True
+            State = cbChecked
+            TabOrder = 13
+          end
+          object cbOSMPopupCloseButton: TCheckBox
+            Left = 432
+            Top = 112
+            Width = 97
+            Height = 17
+            Caption = 'Close button'
+            Checked = True
+            State = cbChecked
+            TabOrder = 14
+          end
+          object cbOSMPopupCloseOnClick: TCheckBox
+            Left = 544
+            Top = 112
+            Width = 97
+            Height = 17
+            Caption = 'Close on click'
+            Checked = True
+            State = cbChecked
+            TabOrder = 15
+          end
+          object cbOSMPopupCloseOnMove: TCheckBox
+            Left = 344
+            Top = 136
+            Width = 113
+            Height = 17
+            Caption = 'Close on move'
+            TabOrder = 16
+          end
+          object cbOSMPopupCloseOthersBeforeOpen: TCheckBox
+            Left = 472
+            Top = 136
+            Width = 177
+            Height = 17
+            Caption = 'Close others before open'
+            TabOrder = 17
           end
         end
       end
@@ -3013,14 +4362,12 @@ object MainFrm: TMainFrm
   end
   object pRight: TPanel
     Left = 956
-    Top = 230
+    Top = 235
     Width = 279
-    Height = 483
+    Height = 478
     Align = alRight
     Caption = 'pRight'
     TabOrder = 2
-    ExplicitTop = 237
-    ExplicitHeight = 476
     object lStatus: TLabel
       Left = 1
       Top = 1
@@ -3034,12 +4381,11 @@ object MainFrm: TMainFrm
       Left = 1
       Top = 16
       Width = 277
-      Height = 466
+      Height = 461
       Align = alClient
       ReadOnly = True
       ScrollBars = ssBoth
       TabOrder = 0
-      ExplicitHeight = 459
     end
   end
   object GMMap: TGMLibVclMap
@@ -3132,18 +4478,21 @@ object MainFrm: TMainFrm
     OnTiltChanged = MapTiltChanged
     OnZoomChanged = MapZoomChanged
     Browser = EdgeBrowser1
-    Left = 168
-    Top = 264
+    Left = 272
+    Top = 432
   end
   object OSMMap: TOSMLibVclMap
     OfflineStoragePath = 'C:\Users\cadetill\AppData\Local\Temp\GMLib\OSM'
     MaxZoom = 22.000000000000000000
+    MaxPitch = 60.000000000000000000
     MapId = 'OSMLib_MAP'
+    Markers = <>
+    Popups = <>
     StyleUrl = 'https://tiles.openfreemap.org/styles/bright'
     MapLibreCssUrl = 'https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.css'
     MapLibreJsUrl = 'https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.js'
     Zoom = 1.000000000000000000
-    Left = 264
-    Top = 264
+    Left = 368
+    Top = 432
   end
 end
