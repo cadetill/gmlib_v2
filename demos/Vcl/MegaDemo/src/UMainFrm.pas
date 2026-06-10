@@ -1199,7 +1199,6 @@ begin
         eOSMMarkerPinRotation.Text := FloatToStr(AMarker.PinOptions.Rotation, TFormatSettings.Invariant);
         eOSMMarkerPinAnchorX.Text := FloatToStr(AMarker.PinOptions.AnchorX, TFormatSettings.Invariant);
         eOSMMarkerPinAnchorY.Text := FloatToStr(AMarker.PinOptions.AnchorY, TFormatSettings.Invariant);
-        eOSMMarkerPinPopupText.Text := AMarker.PinOptions.PopupText;
         cbOSMMarkerPinShadowEnabled.Checked := AMarker.PinOptions.ShadowEnabled;
         cbOSMMarkerPinPopupEnabled.Checked := AMarker.PinOptions.PopupEnabled;
       end;
@@ -1225,7 +1224,6 @@ begin
         eOSMMarkerDotRotation.Text := FloatToStr(AMarker.DotOptions.Rotation, TFormatSettings.Invariant);
         eOSMMarkerDotAnchorX.Text := FloatToStr(AMarker.DotOptions.AnchorX, TFormatSettings.Invariant);
         eOSMMarkerDotAnchorY.Text := FloatToStr(AMarker.DotOptions.AnchorY, TFormatSettings.Invariant);
-        eOSMMarkerDotPopupText.Text := AMarker.DotOptions.PopupText;
         cbOSMMarkerDotPulseEnabled.Checked := AMarker.DotOptions.PulseEnabled;
         cbOSMMarkerDotShadowEnabled.Checked := AMarker.DotOptions.ShadowEnabled;
         cbOSMMarkerDotPopupEnabled.Checked := AMarker.DotOptions.PopupEnabled;
@@ -1247,8 +1245,6 @@ begin
     eOSMMarkerStandardRotation.Text := FloatToStr(AMarker.StandardOptions.Rotation, TFormatSettings.Invariant);
     eOSMMarkerStandardAnchorX.Text := FloatToStr(AMarker.StandardOptions.AnchorX, TFormatSettings.Invariant);
     eOSMMarkerStandardAnchorY.Text := FloatToStr(AMarker.StandardOptions.AnchorY, TFormatSettings.Invariant);
-    eOSMMarkerStandardPopupText.Text := AMarker.StandardOptions.PopupText;
-    cbOSMMarkerStandardShadowEnabled.Checked := AMarker.StandardOptions.ShadowEnabled;
     cbOSMMarkerStandardPopupEnabled.Checked := AMarker.StandardOptions.PopupEnabled;
     cbOSMMarkerStandardUseDefaultShape.Checked := AMarker.StandardOptions.UseDefaultMapLibreShape;
     cbOSMMarkerStandardUseGlyph.Checked := AMarker.StandardOptions.UseGlyph;
@@ -1308,7 +1304,6 @@ begin
           AMarker.PinOptions.Rotation := ParseFlexibleFloatDef(Trim(eOSMMarkerPinRotation.Text), 0);
           AMarker.PinOptions.AnchorX := ParseFlexibleFloatDef(Trim(eOSMMarkerPinAnchorX.Text), 0);
           AMarker.PinOptions.AnchorY := ParseFlexibleFloatDef(Trim(eOSMMarkerPinAnchorY.Text), 0);
-          AMarker.PinOptions.PopupText := Trim(eOSMMarkerPinPopupText.Text);
           AMarker.PinOptions.ShadowEnabled := cbOSMMarkerPinShadowEnabled.Checked;
           AMarker.PinOptions.PopupEnabled := cbOSMMarkerPinPopupEnabled.Checked;
         end;
@@ -1333,7 +1328,6 @@ begin
           AMarker.DotOptions.Rotation := ParseFlexibleFloatDef(Trim(eOSMMarkerDotRotation.Text), 0);
           AMarker.DotOptions.AnchorX := ParseFlexibleFloatDef(Trim(eOSMMarkerDotAnchorX.Text), 0);
           AMarker.DotOptions.AnchorY := ParseFlexibleFloatDef(Trim(eOSMMarkerDotAnchorY.Text), 0);
-          AMarker.DotOptions.PopupText := Trim(eOSMMarkerDotPopupText.Text);
           AMarker.DotOptions.PulseEnabled := cbOSMMarkerDotPulseEnabled.Checked;
           AMarker.DotOptions.ShadowEnabled := cbOSMMarkerDotShadowEnabled.Checked;
           AMarker.DotOptions.PopupEnabled := cbOSMMarkerDotPopupEnabled.Checked;
@@ -1354,8 +1348,6 @@ begin
       AMarker.StandardOptions.Rotation := ParseFlexibleFloatDef(Trim(eOSMMarkerStandardRotation.Text), 0);
       AMarker.StandardOptions.AnchorX := ParseFlexibleFloatDef(Trim(eOSMMarkerStandardAnchorX.Text), 0);
       AMarker.StandardOptions.AnchorY := ParseFlexibleFloatDef(Trim(eOSMMarkerStandardAnchorY.Text), 0);
-      AMarker.StandardOptions.PopupText := Trim(eOSMMarkerStandardPopupText.Text);
-      AMarker.StandardOptions.ShadowEnabled := cbOSMMarkerStandardShadowEnabled.Checked;
       AMarker.StandardOptions.PopupEnabled := cbOSMMarkerStandardPopupEnabled.Checked;
       AMarker.StandardOptions.UseDefaultMapLibreShape := cbOSMMarkerStandardUseDefaultShape.Checked;
       AMarker.StandardOptions.UseGlyph := cbOSMMarkerStandardUseGlyph.Checked;

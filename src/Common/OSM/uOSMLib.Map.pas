@@ -37,6 +37,19 @@ uses
 type
   TOSMMarkerKind = (mkStandard, mkPin, mkDot);
   TOSMMarkerPinCornerStyle = (mcsDefault, mcsSquare, mcsPill);
+  {**
+    @abstract(Variantes visuales de la familia de marker @code(Pin).)
+
+    Define la silueta base del cuerpo del pin sin cambiar la familia de marker.
+    El significado publico que se fija para v1 es:
+    @unorderedList(
+      @item(@code(msvDefault) - alias del aspecto @italic(classic) por defecto)
+      @item(@code(msvClassic) - pin clasico con cuerpo redondeado y punta visible)
+      @item(@code(msvPill) - cuerpo tipo capsula con punta mas compacta)
+      @item(@code(msvTag) - cuerpo asimetrico estilo etiqueta con punta visible)
+      @item(@code(msvBubble) - burbuja redondeada sin punta inferior)
+    )
+  }
   TOSMMarkerPinShapeVariant = (msvDefault, msvClassic, msvPill, msvTag, msvBubble);
   TOSMPopupContentType = (pctHtml, pctText);
   TOSMPopupPresetStyle = (ppsDefault, ppsNote, ppsWarning, ppsDark, ppsSuccess);
@@ -94,11 +107,29 @@ type
     procedure Assign(Source: TPersistent); override;
     property GlyphTextColorCss: string read FGlyphTextColorCss write SetGlyphTextColorCss;
   published
+    {**
+      @abstract(Ajuste fino horizontal del anclaje visual del marker.)
+
+      No redefine el tipo de anchor del marker. Debe tratarse como un offset
+      fino para corregir alineacion visual en casos concretos.
+    }
     property AnchorX: Double read FAnchorX write SetAnchorX;
+    {**
+      @abstract(Ajuste fino vertical del anclaje visual del marker.)
+
+      No redefine el tipo de anchor del marker. Debe tratarse como un offset
+      fino para corregir alineacion visual en casos concretos.
+    }
     property AnchorY: Double read FAnchorY write SetAnchorY;
     property GlyphText: string read FGlyphText write SetGlyphText;
     property Opacity: Double read FOpacity write SetOpacity;
     property PopupEnabled: Boolean read FPopupEnabled write SetPopupEnabled default True;
+    {**
+      @abstract(Texto legacy de conveniencia para popup simple del marker.)
+
+      Se mantiene por compatibilidad y como atajo tecnico, pero la superficie
+      popup recomendada para OSM es el slice dedicado @code(TOSMMap.Popups).
+    }
     property PopupText: string read FPopupText write SetPopupText;
     property Rotation: Double read FRotation write SetRotation;
     property Scale: Double read FScale write SetScale;
@@ -139,6 +170,13 @@ type
     property GlyphOffsetX: Double read FGlyphOffsetX write SetGlyphOffsetX;
     property GlyphOffsetY: Double read FGlyphOffsetY write SetGlyphOffsetY;
     property HideDefaultCenterDot: Boolean read FHideDefaultCenterDot write SetHideDefaultCenterDot default False;
+    {**
+      @abstract(Toggle simple de sombra para el marker Standard.)
+
+      La superficie avanzada de sombras se considera propia de @code(Pin) y
+      @code(Dot). En @code(Standard) este flag se mantiene como compatibilidad
+      ligera, no como familia avanzada de opciones visuales.
+    }
     property ShadowEnabled: Boolean read FShadowEnabled write SetShadowEnabled default False;
     property UseDefaultMapLibreShape: Boolean read FUseDefaultMapLibreShape write SetUseDefaultMapLibreShape default True;
     property UseGlyph: Boolean read FUseGlyph write SetUseGlyph default True;
@@ -193,6 +231,18 @@ type
     property PointerWidth: Integer read FPointerWidth write SetPointerWidth default 0;
     property ShadowBlur: Double read FShadowBlur write SetShadowBlur;
     property ShadowEnabled: Boolean read FShadowEnabled write SetShadowEnabled default False;
+    {**
+      @abstract(Variante visual de la familia @code(Pin).)
+
+      No cambia el tipo de marker, solo la silueta renderizada dentro de la
+      familia @code(Pin). Para semantica publica estable:
+      @unorderedList(
+        @item(@code(msvDefault)/@code(msvClassic) - pin clasico)
+        @item(@code(msvPill) - capsula con punta)
+        @item(@code(msvTag) - etiqueta asimetrica)
+        @item(@code(msvBubble) - burbuja sin punta)
+      )
+    }
     property ShapeVariant: TOSMMarkerPinShapeVariant read FShapeVariant write SetShapeVariant default msvDefault;
   end;
 
@@ -818,7 +868,6 @@ uses
 {$ENDIF}
 {$IFDEF MSWINDOWS}
 {$IFDEF FPC}
-  Windows,
   WinInet
 {$ELSE}
   Winapi.Windows,
@@ -1687,7 +1736,7 @@ begin
     CREATE_NO_WINDOW, nil, PChar(workDir), StartupInfo, ProcessInfo) then
   begin
     {$IFDEF FPC}
-    FLastError := SysErrorMessage(Windows.GetLastError);
+    FLastError := SysErrorMessage(GetLastOSError);
     {$ELSE}
     FLastError := SysErrorMessage(Winapi.Windows.GetLastError);
     {$ENDIF}
@@ -2640,6 +2689,7 @@ end;
 
 procedure TOSMPopupItem.ProcessMapEvent(const AEventName, APayload: string);
 begin
+  if APayload = #0 then ;
   if SameText(AEventName, 'open') then
   begin
     FUpdatingFromMapMessage := True;
@@ -3651,6 +3701,7 @@ begin
 {$IFDEF FPC}
   Result := False;
   ALatLng := nil;
+  if APayload = #0 then ;
 {$ELSE}
   Result := False;
   ALatLng := nil;
@@ -3685,6 +3736,7 @@ begin
   Result := False;
   AMarkerId := '';
   ALatLng := nil;
+  if APayload = #0 then ;
 {$ELSE}
   Result := False;
   AMarkerId := '';
@@ -3714,6 +3766,7 @@ begin
   Result := False;
   APopupId := '';
 {$IFDEF FPC}
+  if APayload = #0 then ;
 {$ELSE}
   JsonObject := nil;
   if not TryParsePayloadObject(APayload, JsonObject) then
@@ -3744,6 +3797,7 @@ begin
   AZoom := 0;
   ABearing := 0;
   APitch := 0;
+  if APayload = #0 then ;
 {$ELSE}
   Result := False;
   ACenter := nil;
@@ -3786,6 +3840,7 @@ begin
   ASouth := 0;
   AEast := 0;
   AWest := 0;
+  if APayload = #0 then ;
 {$ELSE}
   Result := False;
   ANorth := 0;
@@ -3815,6 +3870,7 @@ var
 begin
 {$IFDEF FPC}
   Result := '';
+  if APayload = #0 then ;
 {$ELSE}
   Result := '';
   JsonObject := nil;

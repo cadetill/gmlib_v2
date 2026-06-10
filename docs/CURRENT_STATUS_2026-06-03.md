@@ -115,14 +115,24 @@ state has since been manually compiled and validated in follow-up work.
 - The latest reported status is: compile OK.
 - Online OpenFreeMap presets were manually checked in `VCL`.
 
+### Offline/native note
+
+- the shared offline/native stack already includes a real
+  `OfflineRegionManager`
+- the shared vector runtime already includes an embedded localhost server for
+  tiles/glyphs/style routing
+- `VCL`, `FMX`, and `LCL` all expose the same public offline/hybrid OSM
+  surface at wrapper level
+- the shared runtime now also includes SQLite tile-cache persistence on the
+  `FPC/LCL` path, so the main offline infrastructure gap is closed across the
+  three desktop frameworks
+
 ### Re-entry checklist
 
-1. Decide if visible bounds should stay event-only or become a read-only
-   Delphi property too.
-2. Decide whether weak marker properties should stay exposed in v1 or be
+1. Decide whether weak marker properties should stay exposed in v1 or be
    trimmed from demos.
-3. If the map layer is considered closed, continue with marker surface cleanup
-   or move back to the offline/native roadmap.
+2. If the map layer is considered closed, continue with homogeneous offline
+   runtime validation in `VCL`, `FMX`, and `LCL`.
 
 ## OSM Markers snapshot
 
@@ -197,26 +207,27 @@ baseline. The 2026-06-05 round moved it to a much more stable state.
   still initializing
 - MegaDemo VCL now accepts both local and invariant decimal formats for OSM
   marker `Double` editors
-- `Pin.ShapeVariant` now has a first basic visual differentiation in JS
+- `Pin.ShapeVariant` now has a stable first visual contract in JS:
+  - `Default/Classic`: rounded pin with tail
+  - `Pill`: capsule body with tail
+  - `Tag`: asymmetric tag-like body with tail
+  - `Bubble`: rounded bubble without tail
 
 ### Current weak spots
 
-- `Pin.ShapeVariant` is now typed and visible, but still not a fully closed
-  visual family
-- `AnchorX/AnchorY` work as offsets, but their public semantics remain weak
+- `AnchorX/AnchorY` stay exposed as fine visual offsets, not as a primary
+  anchor API
 - `PopupText` is now legacy-facing convenience surface; the dedicated OSM
-  `Popup` slice is the real popup API
-- `Shadow*` behavior exists but is not yet visually harmonized across
-  `Standard`, `Pin`, and `Dot`
+  `Popup` slice is the real popup API, and `PopupText` is no longer part of
+  the active MegaDemo editing flow
+- advanced shadow surface is now considered `Pin`/`Dot`-specific; `Standard`
+  keeps only a lightweight compatibility toggle
 
 ### Suggested next step
 
-1. Decide whether weak properties such as `AnchorX/AnchorY`, legacy
-   `PopupText`, or
-   some `Shadow*` fields should stay exposed in v1 or be trimmed from demos.
-2. Tighten the visual/documented contract of `Pin.ShapeVariant`.
-3. Continue with weak marker-property cleanup or with the offline/native OSM
-   roadmap, but without reopening popup scope unless a real gap appears.
+1. Continue with marker-surface stabilization only if a real runtime or UX gap
+   appears.
+2. Otherwise move back to the offline/native OSM roadmap.
 
 ## OSM Popup status
 
@@ -293,6 +304,11 @@ The OSM provider now has a validated dedicated `Popup` slice.
 - `OnOpen` and `OnClose` are both routed from JS to Delphi
 - popup API and MegaDemo coverage should now be treated as closed at the
   current OSM validation level
+
+## OSM map core decision
+
+- visible bounds stay event-only through `OnBoundsChanged`
+- no read-only Delphi bounds property is planned for the current OSM map layer
 
 ## GM LCL color wrappers
 

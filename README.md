@@ -92,6 +92,16 @@ The following OSM / MapLibre runtime surface is currently implemented:
   - marker collection with per-item events (`OnClick`, `OnDblClick`, `OnMouseEnter`, `OnMouseLeave`, `OnMouseDown`, `OnMouseUp`, `OnDragStart`, `OnDrag`, `OnDragEnd`)
   - marker kinds `Standard`, `Pin`, and `Dot` with per-kind options classes
   - `Pin` visual selectors now exposed as enums instead of free strings
+  - `Pin.ShapeVariant` is now treated as a closed visual contract:
+    - `Default/Classic`: rounded pin with tail
+    - `Pill`: capsule body with tail
+    - `Tag`: asymmetric tag-like body with tail
+    - `Bubble`: rounded bubble without tail
+  - `AnchorX/Y` are treated as fine visual offsets, not as a primary anchor API
+  - legacy `PopupText` remains only as compatibility surface; active popup work
+    should go through `TOSMMap.Popups`
+  - advanced shadow surface is treated as `Pin`/`Dot`-specific; `Standard`
+    keeps only a lightweight compatibility toggle
   - interaction toggles (`DragPan`, `DragRotate`, `DoubleClickZoom`, `ScrollZoom`, `Keyboard`, `TouchZoomRotate`, `TouchPitch`, `CooperativeGestures`)
   - `cooperativegestureprevented` routed to Delphi/Lazarus
   - validated `VCL` MegaDemo OSM marker/offline flow
@@ -129,6 +139,15 @@ The following OSM / MapLibre runtime surface is currently implemented:
     - `GlyphsRootPath`
     - `MapLibreCssUrl`
     - `MapLibreJsUrl`
+  - native offline pieces already implemented in shared code:
+    - `OfflineRegionManager`
+    - embedded localhost runtime server
+    - `StyleProvider`
+    - `TileResolver`
+    - `VectorRuntime`
+    - `SqliteTileStore`
+  - embedded localhost serving and SQLite tile-cache persistence are now
+    aligned across `VCL`, `FMX`, and `LCL/FPC`
   - `GMLibRuntime.Lcl` compile path is back in sync with the current shared
     runtime layer
 
@@ -151,7 +170,8 @@ The following OSM / MapLibre runtime surface is currently implemented:
 - OSM visual validation is currently centered on `demos/Vcl/MegaDemo` and
   `demos/Fmx/MegaDemo`, which are the reference baselines for
   online/offline/hybrid behavior and for the current camera/interaction surface.
-- LCL support is available for Google runtime with CEF4Delphi bridge path.
+- LCL also exposes the OSM offline/hybrid surface, including the embedded
+  localhost runtime path and SQLite tile-cache persistence in the shared layer.
 
 ## How to install
 

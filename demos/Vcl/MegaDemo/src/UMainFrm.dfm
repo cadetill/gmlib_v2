@@ -3228,7 +3228,8 @@ object MainFrm: TMainFrm
                   Top = 56
                   Width = 57
                   Height = 15
-                  Caption = 'Popup text'
+                  Caption = 'Legacy popup text'
+                  Visible = False
                 end
                 object lOSMMarkerStandardOpacity: TLabel
                   Left = 216
@@ -3254,16 +3255,16 @@ object MainFrm: TMainFrm
                 object lOSMMarkerStandardAnchorX: TLabel
                   Left = 408
                   Top = 57
-                  Width = 49
+                  Width = 67
                   Height = 15
-                  Caption = 'Anchor X'
+                  Caption = 'Anchor X off.'
                 end
                 object lOSMMarkerStandardAnchorY: TLabel
                   Left = 472
                   Top = 57
-                  Width = 49
+                  Width = 67
                   Height = 15
-                  Caption = 'Anchor Y'
+                  Caption = 'Anchor Y off.'
                 end
                 object lOSMMarkerStandardGlyphOffsetX: TLabel
                   Left = 536
@@ -3347,6 +3348,7 @@ object MainFrm: TMainFrm
                   Width = 114
                   Height = 23
                   TabOrder = 8
+                  Visible = False
                 end
                 object cbOSMMarkerStandardShadowEnabled: TCheckBox
                   Left = 504
@@ -3355,6 +3357,7 @@ object MainFrm: TMainFrm
                   Height = 17
                   Caption = 'Shadow'
                   TabOrder = 9
+                  Visible = False
                 end
                 object cbOSMMarkerStandardPopupEnabled: TCheckBox
                   Left = 407
@@ -3516,9 +3519,10 @@ object MainFrm: TMainFrm
                 object lOSMMarkerPinPopupText: TLabel
                   Left = 80
                   Top = 56
-                  Width = 57
+                  Width = 95
                   Height = 15
-                  Caption = 'Popup text'
+                  Caption = 'Legacy popup text'
+                  Visible = False
                 end
                 object lOSMMarkerPinCornerStyle: TLabel
                   Left = 202
@@ -3600,16 +3604,16 @@ object MainFrm: TMainFrm
                 object lOSMMarkerPinAnchorX: TLabel
                   Left = 362
                   Top = 56
-                  Width = 49
+                  Width = 67
                   Height = 15
-                  Caption = 'Anchor X'
+                  Caption = 'Anchor X off.'
                 end
                 object lOSMMarkerPinAnchorY: TLabel
                   Left = 426
                   Top = 56
-                  Width = 49
+                  Width = 67
                   Height = 15
-                  Caption = 'Anchor Y'
+                  Caption = 'Anchor Y off.'
                 end
                 object cbOSMMarkerPinBackgroundColor: TColorBox
                   Left = 16
@@ -3676,6 +3680,7 @@ object MainFrm: TMainFrm
                   Width = 114
                   Height = 23
                   TabOrder = 8
+                  Visible = False
                 end
                 object cbOSMMarkerPinCornerStyle: TComboBox
                   Left = 202
@@ -3880,9 +3885,10 @@ object MainFrm: TMainFrm
                 object lOSMMarkerDotPopupText: TLabel
                   Left = 88
                   Top = 56
-                  Width = 57
+                  Width = 95
                   Height = 15
-                  Caption = 'Popup text'
+                  Caption = 'Legacy popup text'
+                  Visible = False
                 end
                 object lOSMMarkerDotBorderWidth: TLabel
                   Left = 16
@@ -3957,16 +3963,16 @@ object MainFrm: TMainFrm
                 object lOSMMarkerDotAnchorX: TLabel
                   Left = 288
                   Top = 56
-                  Width = 49
+                  Width = 67
                   Height = 15
-                  Caption = 'Anchor X'
+                  Caption = 'Anchor X off.'
                 end
                 object lOSMMarkerDotAnchorY: TLabel
                   Left = 352
                   Top = 56
-                  Width = 49
+                  Width = 67
                   Height = 15
-                  Caption = 'Anchor Y'
+                  Caption = 'Anchor Y off.'
                 end
                 object cbOSMMarkerDotColor: TColorBox
                   Left = 16
@@ -4024,6 +4030,7 @@ object MainFrm: TMainFrm
                   Width = 114
                   Height = 23
                   TabOrder = 7
+                  Visible = False
                 end
                 object cbOSMMarkerDotPulseEnabled: TCheckBox
                   Left = 466

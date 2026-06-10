@@ -374,6 +374,11 @@
         const height = bodyHeight + pointerLength;
         const pinBody = document.createElement("div");
         const pinTail = document.createElement("div");
+        // Public v1 semantics for Pin shape variants:
+        // classic/default = rounded pin with tail
+        // pill = capsule body with tail
+        // tag = asymmetric tag-like body with tail
+        // bubble = rounded bubble without tail
         const shapeVariant = options.shapeVariant || "classic";
 
         element.style.width = String(width) + "px";

@@ -13,10 +13,10 @@ interface
 
 uses
 {$IFDEF FPC}
-  Classes, SysUtils,
+  Classes, SysUtils, StrUtils, URIParser,
 {$ELSE}
   System.Classes, System.SysUtils, System.StrUtils, System.IOUtils,
-  IdContext, IdCustomHTTPServer, IdURI,
+  IdURI,
 {$ENDIF}
   uMapLib.Core.Offline,
   uMapLib.Offline.LocalHttpServer,
@@ -42,17 +42,15 @@ type
     FStyleProvider: TMapLibStyleProvider;
     FTileResolver: TMapLibTileResolver;
     FRemoteTileProvider: TMapLibHttpRemoteTileProvider;
-{$IFNDEF FPC}
     procedure ConfigureTileStore;
     function ResolveTileStoreDatabaseFileName: string;
     function BuildGlyphsUrlTemplate: string;
     function DetectContentEncoding(const AData: TBytes): string;
-    function TryServeGlyphRequest(ARequestInfo: TIdHTTPRequestInfo;
-      AResponseInfo: TIdHTTPResponseInfo): Boolean;
-    procedure HandleServerCommand(Sender: TObject; AContext: TIdContext;
-      ARequestInfo: TIdHTTPRequestInfo; AResponseInfo: TIdHTTPResponseInfo;
+    function TryServeGlyphRequest(ARequest: TMapLibHttpRequestData;
+      AResponse: TMapLibHttpResponseData): Boolean;
+    procedure HandleServerCommand(Sender: TObject; ARequest: TMapLibHttpRequestData;
+      AResponse: TMapLibHttpResponseData;
       var AHandled: Boolean);
-{$ENDIF}
   public
     constructor Create;
     destructor Destroy; override;
@@ -81,7 +79,10 @@ type
 
 implementation
 
-{$IFNDEF FPC}
+{$IFDEF FPC}
+uses
+  uMapLib.Offline.SqliteTileStore;
+{$ELSE}
 uses
   uMapLib.Offline.SqliteTileStore;
 {$ENDIF}
@@ -113,13 +114,77 @@ const
 
 { TMapLibVectorRuntime }
 
-{$IFNDEF FPC}
-function ParseRequestInteger(ARequestInfo: TIdHTTPRequestInfo; const AName: string;
+function ParseRequestInteger(AParams: TStrings; const AName: string;
   out AValue: Integer): Boolean;
 begin
-  Result := TryStrToInt(Trim(ARequestInfo.Params.Values[AName]), AValue);
+  Result := Assigned(AParams) and TryStrToInt(Trim(AParams.Values[AName]), AValue);
 end;
+
+function DecodeUrlComponent(const AValue: string): string;
+{$IFDEF FPC}
+var
+  index: Integer;
+  hexValue: string;
 {$ENDIF}
+begin
+{$IFDEF FPC}
+  Result := '';
+  index := 1;
+  while index <= Length(AValue) do
+  begin
+    case AValue[index] of
+      '+':
+        Result := Result + ' ';
+      '%':
+        begin
+          if index + 2 <= Length(AValue) then
+          begin
+            hexValue := '$' + Copy(AValue, index + 1, 2);
+            Result := Result + Chr(StrToIntDef(hexValue, Ord('?')));
+            Inc(index, 2);
+          end
+          else
+            Result := Result + AValue[index];
+        end;
+    else
+      Result := Result + AValue[index];
+    end;
+    Inc(index);
+  end;
+{$ELSE}
+  Result := TIdURI.URLDecode(AValue);
+{$ENDIF}
+end;
+
+function CombinePath(const ABasePath, AChild: string): string;
+begin
+{$IFDEF FPC}
+  Result := IncludeTrailingPathDelimiter(ABasePath) + AChild;
+{$ELSE}
+  Result := TPath.Combine(ABasePath, AChild);
+{$ENDIF}
+end;
+
+function ReadAllBytesFromFile(const AFileName: string): TBytes;
+{$IFDEF FPC}
+var
+  stream: TFileStream;
+{$ENDIF}
+begin
+{$IFDEF FPC}
+  Result := nil;
+  stream := TFileStream.Create(AFileName, fmOpenRead or fmShareDenyNone);
+  try
+    SetLength(Result, stream.Size);
+    if Length(Result) > 0 then
+      stream.ReadBuffer(Result[0], Length(Result));
+  finally
+    stream.Free;
+  end;
+{$ELSE}
+  Result := TFile.ReadAllBytes(AFileName);
+{$ENDIF}
+end;
 
 function BuildJsonError(const AMessage: string): string;
 begin
@@ -143,9 +208,7 @@ begin
       FStyleProvider.TemplateJson := '';
     FStyleProvider.TemplateFileName := FStyleTemplateFileName;
     FStyleProvider.TileUrlTemplate := BuildTileUrlTemplate(effectiveSourceId);
-{$IFNDEF FPC}
     FStyleProvider.GlyphsUrlTemplate := BuildGlyphsUrlTemplate;
-{$ENDIF}
     Result := FStyleProvider.BuildStyleJson;
   end
   else
@@ -165,7 +228,6 @@ begin
     'tile?source=%s&z={z}&x={x}&y={y}', [effectiveSourceId]));
 end;
 
-{$IFNDEF FPC}
 procedure TMapLibVectorRuntime.ConfigureTileStore;
 var
   databaseFileName: string;
@@ -191,6 +253,17 @@ begin
 end;
 
 function TMapLibVectorRuntime.ResolveTileStoreDatabaseFileName: string;
+{$IFDEF FPC}
+var
+  storagePath: string;
+begin
+  storagePath := Trim(FOfflineStoragePath);
+  if storagePath = '' then
+    storagePath := IncludeTrailingPathDelimiter(GetTempDir(False)) + 'GMLib' + PathDelim + 'OSM';
+
+  Result := IncludeTrailingPathDelimiter(storagePath) + 'vector-runtime-cache.sqlite3';
+end;
+{$ELSE}
 var
   storagePath: string;
 begin
@@ -216,7 +289,9 @@ begin
   FStyleProvider := TMapLibStyleProvider.Create;
   FRemoteTileProvider := TMapLibHttpRemoteTileProvider.Create;
   FTileResolver.RemoteTileProvider := FRemoteTileProvider;
-{$IFNDEF FPC}
+{$IFDEF FPC}
+  FLocalHttpServer.OnCommand := @HandleServerCommand;
+{$ELSE}
   FLocalHttpServer.OnCommand := HandleServerCommand;
 {$ENDIF}
 end;
@@ -242,7 +317,6 @@ begin
   Result := FLocalHttpServer.GetBaseUrl;
 end;
 
-{$IFNDEF FPC}
 function TMapLibVectorRuntime.BuildGlyphsUrlTemplate: string;
 begin
   Result := FLocalHttpServer.BuildRuntimeUrl('glyphs/{fontstack}/{range}.pbf');
@@ -256,8 +330,8 @@ begin
 end;
 
 procedure TMapLibVectorRuntime.HandleServerCommand(Sender: TObject;
-  AContext: TIdContext; ARequestInfo: TIdHTTPRequestInfo;
-  AResponseInfo: TIdHTTPResponseInfo; var AHandled: Boolean);
+  ARequest: TMapLibHttpRequestData; AResponse: TMapLibHttpResponseData;
+  var AHandled: Boolean);
 var
   tileData: TBytes;
   contentType: string;
@@ -268,28 +342,28 @@ var
   tileX: Integer;
   tileY: Integer;
 begin
-  if TryServeGlyphRequest(ARequestInfo, AResponseInfo) then
+  if TryServeGlyphRequest(ARequest, AResponse) then
   begin
     AHandled := True;
     Exit;
   end;
 
-  if not SameText(ARequestInfo.Document, '/tile') then
+  if not SameText(ARequest.Document, '/tile') then
     Exit;
 
   AHandled := True;
 
-  if not ParseRequestInteger(ARequestInfo, 'z', tileZ) or
-     not ParseRequestInteger(ARequestInfo, 'x', tileX) or
-     not ParseRequestInteger(ARequestInfo, 'y', tileY) then
+  if not ParseRequestInteger(ARequest.Params, 'z', tileZ) or
+     not ParseRequestInteger(ARequest.Params, 'x', tileX) or
+     not ParseRequestInteger(ARequest.Params, 'y', tileY) then
   begin
-    AResponseInfo.ResponseNo := 400;
-    AResponseInfo.ContentType := 'application/json; charset=utf-8';
-    AResponseInfo.ContentText := BuildJsonError('Invalid tile coordinates.');
+    AResponse.StatusCode := 400;
+    AResponse.ContentType := 'application/json; charset=utf-8';
+    AResponse.ContentText := BuildJsonError('Invalid tile coordinates.');
     Exit;
   end;
 
-  tileSource := Trim(ARequestInfo.Params.Values['source']);
+  tileSource := Trim(ARequest.Params.Values['source']);
   if tileSource = '' then
     tileSource := FSourceId;
 
@@ -302,37 +376,37 @@ begin
   case resolveStatus of
     trsLocal, trsRemote:
       begin
-        AResponseInfo.ResponseNo := 200;
+        AResponse.StatusCode := 200;
         if contentType <> '' then
-          AResponseInfo.ContentType := contentType
+          AResponse.ContentType := contentType
         else
-          AResponseInfo.ContentType := 'application/x-protobuf';
+          AResponse.ContentType := 'application/x-protobuf';
         if contentEncoding <> '' then
-          AResponseInfo.CustomHeaders.Values['Content-Encoding'] := contentEncoding;
-        AResponseInfo.ContentStream := TBytesStream.Create(tileData);
-        AResponseInfo.FreeContentStream := True;
+          AResponse.Headers.Values['Content-Encoding'] := contentEncoding;
+        AResponse.ContentStream := TBytesStream.Create(tileData);
+        AResponse.FreeContentStream := True;
       end;
     trsBlocked:
       begin
-        AResponseInfo.ResponseNo := 404;
-        AResponseInfo.ContentType := 'application/json; charset=utf-8';
-        AResponseInfo.ContentText := BuildJsonError('Tile is unavailable in offline mode.');
+        AResponse.StatusCode := 404;
+        AResponse.ContentType := 'application/json; charset=utf-8';
+        AResponse.ContentText := BuildJsonError('Tile is unavailable in offline mode.');
       end;
   else
     begin
-      AResponseInfo.ResponseNo := 404;
-      AResponseInfo.ContentType := 'application/json; charset=utf-8';
-      AResponseInfo.ContentText := BuildJsonError('Tile not found.');
+      AResponse.StatusCode := 404;
+      AResponse.ContentType := 'application/json; charset=utf-8';
+      AResponse.ContentText := BuildJsonError('Tile not found.');
     end;
   end;
 end;
 
 function TMapLibVectorRuntime.TryServeGlyphRequest(
-  ARequestInfo: TIdHTTPRequestInfo; AResponseInfo: TIdHTTPResponseInfo): Boolean;
+  ARequest: TMapLibHttpRequestData; AResponse: TMapLibHttpResponseData): Boolean;
 var
   documentPath: string;
   glyphRelativePath: string;
-  pathParts: TArray<string>;
+  pathParts: TStringList;
   fileName: string;
   fontStack: string;
   glyphFileName: string;
@@ -342,58 +416,63 @@ var
 begin
   Result := False;
 
-  documentPath := Trim(ARequestInfo.Document);
+  documentPath := Trim(ARequest.Document);
   if not StartsText('/glyphs/', documentPath) then
     Exit;
 
   Result := True;
   if Trim(FGlyphsRootPath) = '' then
   begin
-    AResponseInfo.ResponseNo := 404;
-    AResponseInfo.ContentType := 'application/json; charset=utf-8';
-    AResponseInfo.ContentText := BuildJsonError('Glyphs root path is not configured.');
+    AResponse.StatusCode := 404;
+    AResponse.ContentType := 'application/json; charset=utf-8';
+    AResponse.ContentText := BuildJsonError('Glyphs root path is not configured.');
     Exit;
   end;
 
   glyphRelativePath := Copy(documentPath, Length('/glyphs/') + 1, MaxInt);
-  pathParts := SplitString(glyphRelativePath, '/');
-  if Length(pathParts) <> 2 then
-  begin
-    AResponseInfo.ResponseNo := 400;
-    AResponseInfo.ContentType := 'application/json; charset=utf-8';
-    AResponseInfo.ContentText := BuildJsonError('Invalid glyph request.');
-    Exit;
+  pathParts := TStringList.Create;
+  try
+    pathParts.StrictDelimiter := True;
+    pathParts.Delimiter := '/';
+    pathParts.DelimitedText := glyphRelativePath;
+    if pathParts.Count <> 2 then
+    begin
+      AResponse.StatusCode := 400;
+      AResponse.ContentType := 'application/json; charset=utf-8';
+      AResponse.ContentText := BuildJsonError('Invalid glyph request.');
+      Exit;
+    end;
+
+    fontStack := DecodeUrlComponent(pathParts[0]);
+    fileName := DecodeUrlComponent(pathParts[1]);
+  finally
+    pathParts.Free;
   end;
 
-  fontStack := TIdURI.URLDecode(pathParts[0]);
-  fileName := TIdURI.URLDecode(pathParts[1]);
   glyphFileName := ExtractFileName(fileName);
-  glyphFilePath := TPath.Combine(TPath.Combine(FGlyphsRootPath, fontStack), glyphFileName);
+  glyphFilePath := CombinePath(CombinePath(FGlyphsRootPath, fontStack), glyphFileName);
 
   if not FileExists(glyphFilePath) then
   begin
-    AResponseInfo.ResponseNo := 404;
-    AResponseInfo.ContentType := 'application/json; charset=utf-8';
-    AResponseInfo.ContentText := BuildJsonError('Glyph file not found.');
+    AResponse.StatusCode := 404;
+    AResponse.ContentType := 'application/json; charset=utf-8';
+    AResponse.ContentText := BuildJsonError('Glyph file not found.');
     Exit;
   end;
 
-  glyphData := TFile.ReadAllBytes(glyphFilePath);
+  glyphData := ReadAllBytesFromFile(glyphFilePath);
   contentEncoding := DetectContentEncoding(glyphData);
-  AResponseInfo.ResponseNo := 200;
-  AResponseInfo.ContentType := 'application/x-protobuf';
+  AResponse.StatusCode := 200;
+  AResponse.ContentType := 'application/x-protobuf';
   if contentEncoding <> '' then
-    AResponseInfo.CustomHeaders.Values['Content-Encoding'] := contentEncoding;
-  AResponseInfo.ContentStream := TBytesStream.Create(glyphData);
-  AResponseInfo.FreeContentStream := True;
+    AResponse.Headers.Values['Content-Encoding'] := contentEncoding;
+  AResponse.ContentStream := TBytesStream.Create(glyphData);
+  AResponse.FreeContentStream := True;
 end;
-{$ENDIF}
 
 function TMapLibVectorRuntime.Start: Boolean;
 begin
-{$IFNDEF FPC}
   ConfigureTileStore;
-{$ENDIF}
   Result := FLocalHttpServer.Start;
 end;
 

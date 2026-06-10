@@ -14,53 +14,33 @@
         <Filename Value="src\UMainFrm.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="-1"/>
         <UsageCount Value="20"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="src\UMainFrm.lfm"/>
-        <IsVisibleTab Value="True"/>
+        <HasResources Value="True"/>
+        <EditorIndex Value="-1"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
       </Unit>
+      <Unit>
+        <Filename Value="..\..\..\src\Common\uMapLib.Offline.LocalHttpServer.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="416"/>
+        <CursorPos X="15" Y="428"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\src\Common\uMapLib.Offline.VectorRuntime.pas"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="111"/>
+        <CursorPos X="13" Y="123"/>
+        <UsageCount Value="10"/>
+      </Unit>
     </Units>
-    <JumpHistory HistoryIndex="10">
-      <Position>
-        <Filename Value="src\UMainFrm.lfm"/>
-      </Position>
-      <Position>
-        <Filename Value="src\UMainFrm.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="src\UMainFrm.lfm"/>
-      </Position>
-      <Position>
-        <Filename Value="src\UMainFrm.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="src\UMainFrm.lfm"/>
-      </Position>
-      <Position>
-        <Filename Value="src\UMainFrm.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="src\UMainFrm.lfm"/>
-      </Position>
-      <Position>
-        <Filename Value="src\UMainFrm.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="src\UMainFrm.lfm"/>
-      </Position>
-      <Position>
-        <Filename Value="src\UMainFrm.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="src\UMainFrm.lfm"/>
-      </Position>
-    </JumpHistory>
+    <JumpHistory HistoryIndex="-1"/>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode=""/>

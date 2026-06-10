@@ -96,6 +96,15 @@
   - target runtime is embedded and mobile-ready (`Android/iOS`) with no external
     executables as mandatory runtime dependencies.
   - current runtime direction is `MapLibre + localhost + SQLite cache`.
+  - the shared layer already includes:
+    - `OfflineRegionManager`
+    - embedded localhost runtime serving
+    - `StyleProvider`
+    - `TileResolver`
+    - `VectorRuntime`
+    - `SqliteTileStore`
+  - embedded localhost serving and SQLite tile-cache persistence are now
+    aligned in the shared runtime for `VCL`, `FMX`, and `LCL/FPC`.
   - `OfflineRegionManager`, `StyleProvider`, `TileResolver`, and related units
     are now covered by deterministic unit tests.
 
@@ -105,8 +114,8 @@
 
 - Finish validation/stabilization of the current OSM map core across
   `VCL`/`FMX`/`LCL`.
-- Decide whether visible bounds should remain event-only (`OnBoundsChanged`) or
-  whether a read-only Delphi property is worth adding.
+- Visible bounds stay event-only through `OnBoundsChanged`; no extra read-only
+  Delphi property is planned for the current map layer.
 - Decide whether any extra map-only interaction flags are still needed for v1,
   or whether the current surface is enough to freeze the map layer.
 - Keep OSM bootstrap asset pipeline aligned with the current
@@ -122,6 +131,15 @@
   - validate `Color`
   - validate `Scale`
   - validate `GlyphText` without disturbing native marker anchoring
+- Treat `Pin.ShapeVariant` as closed visual contract:
+  - `Default/Classic`: rounded pin with tail
+  - `Pill`: capsule body with tail
+  - `Tag`: asymmetric tag-like body with tail
+  - `Bubble`: rounded bubble without tail
+- Keep `AnchorX/Y` documented as fine visual offsets only.
+- Keep legacy `PopupText` out of active demo editing and route new popup work
+  through `TOSMMap.Popups`.
+- Treat advanced shadow options as `Pin`/`Dot`-specific.
 - Add marker style variants:
   - `Standard`
   - `Pin`
@@ -151,27 +169,30 @@
 
 ### Milestone A: offline API freeze
 
-- define `OfflineRegionManager` high-level contract:
+- `OfflineRegionManager` high-level contract is already in place:
   - `DownloadRegion(...)`
   - `DeleteRegion(...)`
   - `ListRegions(...)`
   - `GetStorageUsage(...)`
-- define hybrid policy enum:
+- hybrid policy enum is already in place:
   - `PreferOffline`
   - `PreferOnline`
   - `OfflineOnly`
-- define first offline events/state surface (`OnOfflineError`, readiness/coverage).
+- first offline events/state surface is already exposed (`OnOfflineError`,
+  readiness/progress/coverage).
 
 ### Milestone B: embedded local serving
 
-- implement tiny embedded HTTP server (loopback only) to expose internal tile/style assets.
-- no external listener and no dependency on external runtime binaries.
-- secure-by-default flow for app-local use.
+- embedded loopback HTTP server is already implemented in the shared runtime.
+- no external listener and no dependency on external runtime binaries remain in
+  the active path.
+- current follow-up is validation hardening, not initial implementation.
 
 ### Milestone C: region catalog and storage
 
 - persistent region index (bbox, zoom range, size, version, checksum).
 - active-region selection and storage usage query.
+- keep SQLite cache/runtime validation aligned across `VCL`, `FMX`, and `LCL`.
 
 ### Milestone D: download/update pipeline
 
