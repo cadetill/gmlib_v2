@@ -49,6 +49,12 @@ For offline or hybrid runtime validation, the current codebase also expects:
 *These are runtime/provider requirements of the current `OSMLib` implementation,
 not a Google-style platform restriction.*
 
+Bootstrap HTML/JS assets for both `GMLib` and `OSMLib` are expected to be
+consumed from embedded resources extracted by the runtime. The
+`MAP_BOOTSTRAP_FROM_FILES` switch in `gmlib.inc` is a development-only
+override and should stay disabled for normal packaging, especially on
+`Android/iOS`.
+
 ## Current Status
 
 The following Google Maps API classes are currently implemented:
@@ -167,6 +173,9 @@ The following OSM / MapLibre runtime surface is currently implemented:
 - VCL includes broad feature demos and the full-library `MegaDemo`.
 - FMX includes runtime demos for the implemented Google slices, and the OSM
   `MegaDemo` is available as the active OSM validation surface too.
+- `demos/Fmx/OSMMobileMinimal` now acts as the minimal online validation demo
+  for `OSMLib` on `FMX` mobile (`Android/iOS`), using the embedded bootstrap
+  asset pipeline.
 - OSM visual validation is currently centered on `demos/Vcl/MegaDemo` and
   `demos/Fmx/MegaDemo`, which are the reference baselines for
   online/offline/hybrid behavior and for the current camera/interaction surface.

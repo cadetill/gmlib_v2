@@ -1,4 +1,4 @@
-GMLIB_MAP_HTML RCDATA "js\common\gmlib.map.html"
-GMLIB_MAP_JS   RCDATA "js\common\gmlib.map.js"
+GMLIB_MAP_HTML RCDATA "js\gm\gmlib.map.html"
+GMLIB_MAP_JS   RCDATA "js\gm\gmlib.map.js"
 OSMLIB_MAP_HTML RCDATA "js\osm\osmlib.map.html"
 OSMLIB_MAP_JS   RCDATA "js\osm\osmlib.map.js"

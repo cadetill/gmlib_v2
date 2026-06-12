@@ -21,7 +21,8 @@ uses
 {$ELSE}
   System.Classes,
   System.IOUtils,
-  System.SysUtils
+  System.SysUtils,
+  System.Types
   {$IFDEF MSWINDOWS},
   Winapi.Windows
   {$ENDIF};
@@ -30,6 +31,8 @@ uses
 type
   {** @abstract(Helper para extraer los recursos del bootstrap a disco temporal.) }
   TGMLibBootstrapAssets = class
+  strict private class var
+    FLastDiagnostic: string;
   private
     class function BuildTempBootstrapDir: string; static;
     class function FindResourceFile(const ARelativePath: string): string; static;
@@ -38,9 +41,11 @@ type
   public
     class function EnsureAssetFile(const ATargetFileName, AResourceName,
       ARelativePath: string): string; static;
+    class function GetLastDiagnostic: string; static;
     class function LoadTextFile(const AFileName: string): string; static;
     class function PathToFileUrl(const AFileName: string): string; static;
     class function ResolveResourceFile(const ARelativePath: string): string; static;
+    class property LastDiagnostic: string read GetLastDiagnostic;
   end;
 
 implementation
@@ -68,8 +73,12 @@ var
   resourceText: string;
 begin
   Result := '';
+  FLastDiagnostic := '';
   if ATargetFileName = '' then
+  begin
+    FLastDiagnostic := 'ATargetFileName is empty.';
     Exit;
+  end;
 
   targetPath := IncludeTrailingPathDelimiter(BuildTempBootstrapDir) + ATargetFileName;
 
@@ -77,16 +86,32 @@ begin
   if resourceText <> '' then
   begin
     SaveTextToFile(targetPath, resourceText);
+    FLastDiagnostic := Format('Embedded resource "%s" extracted to "%s".',
+      [AResourceName, targetPath]);
     Exit(targetPath);
   end;
 
   sourcePath := FindResourceFile(ARelativePath);
   if sourcePath = '' then
+  begin
+    if FLastDiagnostic = '' then
+      FLastDiagnostic := Format(
+        'Embedded resource "%s" was not found and repository fallback "%s" was not resolved.',
+        [AResourceName, ARelativePath]
+      );
     Exit('');
+  end;
 
   SaveTextToFile(targetPath, LoadTextFile(sourcePath));
+  FLastDiagnostic := Format('Repository fallback "%s" copied to "%s".',
+    [sourcePath, targetPath]);
 
   Result := targetPath;
+end;
+
+class function TGMLibBootstrapAssets.GetLastDiagnostic: string;
+begin
+  Result := FLastDiagnostic;
 end;
 
 class function TGMLibBootstrapAssets.FindResourceFile(
@@ -160,6 +185,7 @@ var
 {$ENDIF}
 {$IFNDEF MSWINDOWS}
 var
+  moduleHandle: NativeUInt;
   resourceStream: TResourceStream;
   resourceBytes: TBytes;
 {$ENDIF}
@@ -171,9 +197,14 @@ begin
     resourceStream := TResourceStream.Create(
       HInstance,
       AResourceName,
-      PChar(cBootstrapResourceType)
+      RT_RCDATA
     );
   except
+    on E: Exception do
+      FLastDiagnostic := Format(
+        'FPC resource "%s" could not be opened from HInstance=%p: %s',
+        [AResourceName, Pointer(HInstance), E.Message]
+      );
     Exit;
   end;
 
@@ -193,32 +224,71 @@ begin
 
   resourceHandle := FindResource(moduleHandle, PChar(AResourceName), RT_RCDATA);
   if resourceHandle = 0 then
+  begin
+    FLastDiagnostic := Format(
+      'Windows resource "%s" not found in module handle %p.',
+      [AResourceName, Pointer(moduleHandle)]
+    );
     Exit;
+  end;
 
   resourceData := LoadResource(moduleHandle, resourceHandle);
   if resourceData = 0 then
+  begin
+    FLastDiagnostic := Format(
+      'Windows resource "%s" found but LoadResource failed for module handle %p.',
+      [AResourceName, Pointer(moduleHandle)]
+    );
     Exit;
+  end;
 
   resourcePtr := LockResource(resourceData);
   if resourcePtr = nil then
+  begin
+    FLastDiagnostic := Format(
+      'Windows resource "%s" found but LockResource returned nil for module handle %p.',
+      [AResourceName, Pointer(moduleHandle)]
+    );
     Exit;
+  end;
 
   SetLength(resourceBytes, SizeofResource(moduleHandle, resourceHandle));
   if Length(resourceBytes) = 0 then
+  begin
+    FLastDiagnostic := Format(
+      'Windows resource "%s" resolved with zero bytes in module handle %p.',
+      [AResourceName, Pointer(moduleHandle)]
+    );
     Exit;
+  end;
 
   Move(resourcePtr^, resourceBytes[0], Length(resourceBytes));
   Result := TEncoding.UTF8.GetString(resourceBytes);
+  FLastDiagnostic := Format(
+    'Windows resource "%s" loaded from module handle %p (%d bytes).',
+    [AResourceName, Pointer(moduleHandle), Length(resourceBytes)]
+  );
 {$ENDIF}
 {$IFNDEF MSWINDOWS}
+  moduleHandle := FindClassHInstance(TGMLibBootstrapAssets);
+  if moduleHandle = 0 then
+    moduleHandle := HInstance;
+
   try
     resourceStream := TResourceStream.Create(
-      HInstance,
+      moduleHandle,
       AResourceName,
-      PChar(cBootstrapResourceType)
+      RT_RCDATA
     );
   except
-    Exit;
+    on E: Exception do
+    begin
+      FLastDiagnostic := Format(
+        'Non-Windows resource "%s" could not be opened from module handle %p: %s',
+        [AResourceName, Pointer(moduleHandle), E.Message]
+      );
+      Exit;
+    end;
   end;
 
   try
@@ -226,6 +296,10 @@ begin
     if resourceStream.Size > 0 then
       resourceStream.ReadBuffer(resourceBytes[0], Length(resourceBytes));
     Result := TEncoding.UTF8.GetString(resourceBytes);
+    FLastDiagnostic := Format(
+      'Non-Windows resource "%s" loaded from module handle %p (%d bytes).',
+      [AResourceName, Pointer(moduleHandle), Length(resourceBytes)]
+    );
   finally
     resourceStream.Free;
   end;

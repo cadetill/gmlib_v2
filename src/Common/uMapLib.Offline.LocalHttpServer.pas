@@ -366,8 +366,6 @@ end;
 
 function TMapLibLocalHttpServer.IsExpectedSocketDisconnect(
   AException: Exception): Boolean;
-var
-  socketError: EIdSocketError;
 begin
   Result := AException is EIdConnClosedGracefully;
   if Result then
@@ -375,9 +373,9 @@ begin
 
   if AException is EIdSocketError then
   begin
-    socketError := EIdSocketError(AException);
 {$IFDEF MSWINDOWS}
-    Result := (socketError.LastError = WSAECONNABORTED) or (socketError.LastError = WSAECONNRESET);
+    Result := (EIdSocketError(AException).LastError = WSAECONNABORTED) or
+      (EIdSocketError(AException).LastError = WSAECONNRESET);
 {$ELSE}
     Result := False;
 {$ENDIF}

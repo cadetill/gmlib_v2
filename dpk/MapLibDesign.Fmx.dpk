@@ -22,7 +22,6 @@ package MapLibDesign.Fmx;
 {$VARSTRINGCHECKS ON}
 {$WRITEABLECONST OFF}
 {$MINENUMSIZE 1}
-{$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
 {$DESCRIPTION 'MapLib Design-Time FMX Package'}
@@ -39,4 +38,3 @@ contains
   uGMLib.Fmx.Register in '..\src\Fmx\GM\uGMLib.Fmx.Register.pas';
 
 end.
-

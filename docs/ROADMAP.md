@@ -13,6 +13,8 @@
   - `Layers` (`Traffic`, `Transit`, `Bicycling`, `Kml`)
 - Shared bootstrap/runtime JS is integrated and working.
 - Runtime asset packaging is implemented via embedded resources extracted to temp files.
+- Embedded bootstrap extraction is now validated on `FMX` mobile for both
+  `GMLib` and `OSMLib`; `MAP_BOOTSTRAP_FROM_FILES` remains development-only.
 - Core extraction completed:
   - `MapLibCore` created and integrated.
   - neutral units consolidated under `uMapLib.Core.*`.
@@ -85,6 +87,8 @@
     - popup CRUD/testing UI
   - `FMX MegaDemo` now also exposes popup CRUD/testing UI plus marker-click
     popup validation flow
+  - `demos/Fmx/OSMMobileMinimal` is now the minimal online validation demo for
+    `OSMLib` on `FMX` mobile (`Android/iOS`).
   - latest round compiles cleanly according to manual validation.
 
 - Google LCL framework parity:

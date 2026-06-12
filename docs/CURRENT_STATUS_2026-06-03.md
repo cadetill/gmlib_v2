@@ -1,5 +1,18 @@
 # Current Status - June 3, 2026
 
+## Mobile bootstrap validation update
+
+The shared bootstrap asset pipeline is now also validated on `FMX` mobile.
+
+- `GMLib` and `OSMLib` both load bootstrap HTML/JS from embedded `RCDATA`
+  resources extracted by `uGMLib.BootstrapAssets`.
+- The Delphi non-Windows resource-loading path now uses `RT_RCDATA`, which was
+  the missing piece for `Android/iOS`.
+- `MAP_BOOTSTRAP_FROM_FILES` should be treated as a development-only switch and
+  stays disabled in normal builds.
+- `demos/Fmx/OSMMobileMinimal` now works as the minimal online validation demo
+  for `OSMLib` on `FMX` mobile.
+
 ## OSM map runtime
 
 This session aligned the public Delphi surface of `TOSMMap` with the actual

@@ -38,7 +38,7 @@ type
     FOldDidFinishLoad: TWebBrowserDidFinishLoad;
 {$IF CompilerVersion >= 37}
     FOldShouldLoadURL: TWebBrowserShouldLoadURL;
-{$IFEND}
+{$ENDIF}
     FOldShouldStartLoadWithRequest: TWebBrowserShouldStartLoadWithRequest;
     FPollInFlight: Boolean;
     FPollTimer: TTimer;
@@ -54,7 +54,7 @@ type
 {$IF CompilerVersion >= 37}
     procedure DoShouldLoadURL(ASender: TObject; const URL: string; var ACancel: Boolean);
     function NormalizeJavaScriptResult(const AResult: string): string;
-{$IFEND}
+{$ENDIF}
     procedure DoShouldStartLoadWithRequest(ASender: TObject; const URL: string);
     procedure PollMessageQueue;
     procedure FlushPendingJavaScripts;
@@ -96,13 +96,13 @@ begin
     FOldDidFinishLoad := FBrowser.OnDidFinishLoad;
 {$IF CompilerVersion >= 37}
     FOldShouldLoadURL := FBrowser.OnShouldLoadURL;
-{$IFEND}
+{$ENDIF}
     FOldShouldStartLoadWithRequest := FBrowser.OnShouldStartLoadWithRequest;
 
     FBrowser.OnDidFinishLoad := DoDidFinishLoad;
 {$IF CompilerVersion >= 37}
     FBrowser.OnShouldLoadURL := DoShouldLoadURL;
-{$IFEND}
+{$ENDIF}
     FBrowser.OnShouldStartLoadWithRequest := DoShouldStartLoadWithRequest;
   end;
 end;
@@ -148,7 +148,7 @@ begin
     FBrowser.OnDidFinishLoad := FOldDidFinishLoad;
 {$IF CompilerVersion >= 37}
     FBrowser.OnShouldLoadURL := FOldShouldLoadURL;
-{$IFEND}
+{$ENDIF}
     FBrowser.OnShouldStartLoadWithRequest := FOldShouldStartLoadWithRequest;
   end;
 
@@ -156,7 +156,7 @@ begin
   FOldDidFinishLoad := nil;
 {$IF CompilerVersion >= 37}
   FOldShouldLoadURL := nil;
-{$IFEND}
+{$ENDIF}
   FOldShouldStartLoadWithRequest := nil;
   FPollInFlight := False;
   FFlushInProgress := False;
@@ -213,7 +213,7 @@ begin
   if Assigned(FOldShouldLoadURL) then
     FOldShouldLoadURL(ASender, URL, ACancel);
 end;
-{$IFEND}
+{$ENDIF}
 
 procedure TGMLibFmxWebBrowserBridge.ExecuteJavaScript(const AScript: string);
 begin
@@ -344,7 +344,7 @@ begin
       end;
     end
   );
-{$IFEND}
+{$ENDIF}
 end;
 
 function TGMLibFmxWebBrowserBridge.GetJavaScriptNamespace: string;
@@ -404,7 +404,7 @@ begin
     JsonValue.Free;
   end;
 end;
-{$IFEND}
+{$ENDIF}
 
 function TGMLibFmxWebBrowserBridge.TryExtractMessageJson(const AUrl: string;
   out AJson: string): Boolean;

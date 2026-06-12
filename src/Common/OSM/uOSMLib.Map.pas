@@ -864,9 +864,12 @@ implementation
 uses
   // uMapLib.Offline.TileServer,
 {$IFNDEF FPC}
-  System.IOUtils,
+  System.IOUtils
 {$ENDIF}
 {$IFDEF MSWINDOWS}
+{$IFNDEF FPC}
+  ,
+{$ENDIF}
 {$IFDEF FPC}
   WinInet
 {$ELSE}

@@ -1,0 +1,85 @@
+object MainForm: TMainForm
+  Left = 0
+  Top = 0
+  Caption = 'OSMLib FMX Mobile Minimal'
+  ClientHeight = 860
+  ClientWidth = 432
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop, iPhone, iPad]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 0
+  object TopToolBar: TToolBar
+    Size.Width = 432.000000000000000000
+    Size.Height = 56.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object btnActivate: TButton
+      Align = Left
+      Size.Width = 110.000000000000000000
+      Size.Height = 56.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Text = 'Activate'
+      OnClick = btnActivateClick
+    end
+    object btnResetView: TButton
+      Align = Left
+      Position.X = 110.000000000000000000
+      Size.Width = 110.000000000000000000
+      Size.Height = 56.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      Text = 'Reset view'
+      OnClick = btnResetViewClick
+    end
+    object btnTogglePopup: TButton
+      Align = Left
+      Position.X = 220.000000000000000000
+      Size.Width = 110.000000000000000000
+      Size.Height = 56.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      Text = 'Toggle popup'
+      OnClick = btnTogglePopupClick
+    end
+    object lblStatus: TLabel
+      Align = Client
+      StyledSettings = [Family, Style, FontColor, Other]
+      Margins.Left = 8.000000000000000000
+      Size.Width = 94.000000000000000000
+      Size.Height = 56.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 13.000000000000000000
+      Text = 'Idle'
+      TabOrder = 3
+    end
+  end
+  object LogMemo: TMemo
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    DataDetectorTypes = []
+    ReadOnly = True
+    Align = Bottom
+    Position.Y = 720.000000000000000000
+    Size.Width = 432.000000000000000000
+    Size.Height = 140.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    Viewport.Width = 428.000000000000000000
+    Viewport.Height = 136.000000000000000000
+  end
+  object MapHost: TLayout
+    Align = Client
+    Size.Width = 432.000000000000000000
+    Size.Height = 664.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 2
+    object WebBrowser1: TWebBrowser
+      Align = Client
+      Size.Width = 432.000000000000000000
+      Size.Height = 664.000000000000000000
+      Size.PlatformDefault = False
+      WindowsEngine = IEOnly
+    end
+  end
+end

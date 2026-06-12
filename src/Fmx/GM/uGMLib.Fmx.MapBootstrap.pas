@@ -39,7 +39,7 @@ var
   mapScript: string;
 begin
 {$IFDEF MAP_BOOTSTRAP_FROM_FILES}
-  htmlTemplatePath := TGMLibBootstrapAssets.ResolveResourceFile('resources\js\common\gmlib.map.html');
+  htmlTemplatePath := TGMLibBootstrapAssets.ResolveResourceFile('resources\js\gm\gmlib.map.html');
   if FileExists(htmlTemplatePath) then
     htmlTemplate := TGMLibBootstrapAssets.LoadTextFile(htmlTemplatePath)
   else

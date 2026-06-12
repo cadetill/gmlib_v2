@@ -75,7 +75,10 @@ begin
   else
     mapScript := '';
   if mapScript = '' then
-    raise Exception.Create('Map JavaScript resource "resources\js\osm\osmlib.map.js" was not found.');
+    raise Exception.CreateFmt(
+      'Map JavaScript resource "resources\js\osm\osmlib.map.js" was not found. %s',
+      [TGMLibBootstrapAssets.LastDiagnostic]
+    );
 
   Result := htmlTemplate;
   Result := StringReplace(Result, '{{OSMLIB_MAP_SCRIPT}}', mapScript, [rfReplaceAll]);
