@@ -34,10 +34,14 @@ type
     FMapMode: TMapLibMapMode;
     FOfflinePolicy: TMapLibOfflinePolicy;
     FOfflineStoragePath: string;
+    FActiveRegionFileName: string;
     FStyleTemplateFileName: string;
     FGlyphsRootPath: string;
     FTileStore: IMapLibTileStore;
+    FCacheTileStore: IMapLibTileStore;
+    FRegionTileStore: IMapLibTileStore;
     FTileStoreDatabaseFileName: string;
+    FRegionTileStoreFileName: string;
     FLocalHttpServer: TMapLibLocalHttpServer;
     FStyleProvider: TMapLibStyleProvider;
     FTileResolver: TMapLibTileResolver;
@@ -69,6 +73,7 @@ type
     property MapMode: TMapLibMapMode read FMapMode write FMapMode;
     property OfflinePolicy: TMapLibOfflinePolicy read FOfflinePolicy write FOfflinePolicy;
     property OfflineStoragePath: string read FOfflineStoragePath write FOfflineStoragePath;
+    property ActiveRegionFileName: string read FActiveRegionFileName write FActiveRegionFileName;
     property StyleTemplateFileName: string read FStyleTemplateFileName write FStyleTemplateFileName;
     property GlyphsRootPath: string read FGlyphsRootPath write FGlyphsRootPath;
     property LocalHttpServer: TMapLibLocalHttpServer read FLocalHttpServer;
@@ -81,10 +86,14 @@ implementation
 
 {$IFDEF FPC}
 uses
-  uMapLib.Offline.SqliteTileStore;
+  uMapLib.Offline.SqliteTileStore,
+  uMapLib.Offline.RegionTileStore,
+  uMapLib.Offline.CompositeTileStore;
 {$ELSE}
 uses
-  uMapLib.Offline.SqliteTileStore;
+  uMapLib.Offline.SqliteTileStore,
+  uMapLib.Offline.RegionTileStore,
+  uMapLib.Offline.CompositeTileStore;
 {$ENDIF}
 
 const
@@ -109,6 +118,27 @@ const
       '{"id":"poi-dots","type":"circle","source":"osm","source-layer":"poi","minzoom":10,"paint":{"circle-color":"#8b5a2b","circle-radius":1.8,"circle-opacity":0.65}},' +
       '{"id":"place-labels","type":"symbol","source":"osm","source-layer":"place","layout":{"text-field":["coalesce",["get","name:es"],["get","name"],["get","name_en"]],"text-font":["Noto Sans Regular"],"text-size":["interpolate",["linear"],["zoom"],4,10,8,12,12,14],"text-variable-anchor":["center","top","bottom","left","right"],"text-radial-offset":0.5,"text-justify":"auto"},"paint":{"text-color":"#263248","text-halo-color":"#f6f8fb","text-halo-width":1.2}},' +
       '{"id":"transportation-labels","type":"symbol","source":"osm","source-layer":"transportation_name","minzoom":10,"layout":{"symbol-placement":"line","text-field":["coalesce",["get","name:es"],["get","name"],["get","name_en"]],"text-font":["Noto Sans Regular"],"text-size":10,"text-letter-spacing":0.02},"paint":{"text-color":"#51607a","text-halo-color":"#ffffff","text-halo-width":1}}' +
+    ']'+
+    '}';
+
+  cDefaultVectorStyleTemplateNoGlyphs =
+    '{' +
+    '"version":8,' +
+    '"name":"OSMLib Local Vector Runtime",' +
+    '"sources":{"osm":{"type":"vector","tiles":["{{VECTOR_TILE_URL}}"],"minzoom":0,"maxzoom":14}},' +
+    '"layers":[' +
+      '{"id":"background","type":"background","paint":{"background-color":"#eef2f6"}},' +
+      '{"id":"landcover","type":"fill","source":"osm","source-layer":"landcover","paint":{"fill-color":"#dce9d1","fill-opacity":0.7}},' +
+      '{"id":"landuse","type":"fill","source":"osm","source-layer":"landuse","paint":{"fill-color":"#e8eddc","fill-opacity":0.45}},' +
+      '{"id":"park","type":"fill","source":"osm","source-layer":"park","paint":{"fill-color":"#d9ead3","fill-opacity":0.8}},' +
+      '{"id":"water","type":"fill","source":"osm","source-layer":"water","paint":{"fill-color":"#9ec9ff","fill-opacity":0.95}},' +
+      '{"id":"waterway","type":"line","source":"osm","source-layer":"waterway","paint":{"line-color":"#7eb6f5","line-width":["interpolate",["linear"],["zoom"],6,0.4,10,1.1,14,2.2]}},' +
+      '{"id":"boundary","type":"line","source":"osm","source-layer":"boundary","paint":{"line-color":"#8f98a6","line-width":["interpolate",["linear"],["zoom"],3,0.3,8,0.8,14,1.4],"line-dasharray":[2,2]}},' +
+      '{"id":"transportation-casing","type":"line","source":"osm","source-layer":"transportation","paint":{"line-color":"#c8c2b8","line-width":["interpolate",["linear"],["zoom"],3,0.4,8,1.6,12,3.8,15,8.5],"line-opacity":0.85}},' +
+      '{"id":"transportation-fill","type":"line","source":"osm","source-layer":"transportation","paint":{"line-color":"#ffffff","line-width":["interpolate",["linear"],["zoom"],3,0.2,8,1.0,12,2.6,15,6.2],"line-opacity":0.95}},' +
+      '{"id":"building","type":"fill","source":"osm","source-layer":"building","minzoom":11,"paint":{"fill-color":"#d7d0c4","fill-outline-color":"#c1b9ad","fill-opacity":0.85}},' +
+      '{"id":"place-dots","type":"circle","source":"osm","source-layer":"place","paint":{"circle-color":"#3f4d63","circle-radius":["interpolate",["linear"],["zoom"],3,1.2,8,2.4,12,3.4],"circle-opacity":0.8}},' +
+      '{"id":"poi-dots","type":"circle","source":"osm","source-layer":"poi","minzoom":10,"paint":{"circle-color":"#8b5a2b","circle-radius":1.8,"circle-opacity":0.65}}' +
     ']'+
     '}';
 
@@ -203,7 +233,14 @@ begin
   begin
     if (Trim(FStyleProvider.TemplateJson) = '') and
       (Trim(FStyleTemplateFileName) = '') then
-      FStyleProvider.TemplateJson := cDefaultVectorStyleTemplate;
+    begin
+      // When no glyph corpus is configured we still want a functional offline
+      // style on mobile, even if that means rendering without text labels.
+      if Trim(FGlyphsRootPath) <> '' then
+        FStyleProvider.TemplateJson := cDefaultVectorStyleTemplate
+      else
+        FStyleProvider.TemplateJson := cDefaultVectorStyleTemplateNoGlyphs;
+    end;
     if Trim(FStyleTemplateFileName) <> '' then
       FStyleProvider.TemplateJson := '';
     FStyleProvider.TemplateFileName := FStyleTemplateFileName;
@@ -231,24 +268,65 @@ end;
 procedure TMapLibVectorRuntime.ConfigureTileStore;
 var
   databaseFileName: string;
+  preferredRegionFileName: string;
 begin
   databaseFileName := ResolveTileStoreDatabaseFileName;
+  preferredRegionFileName := Trim(FActiveRegionFileName);
+
   if databaseFileName = '' then
   begin
-    FTileStore := nil;
+    FCacheTileStore := nil;
     FTileStoreDatabaseFileName := '';
-    FTileResolver.TileStore := nil;
-    Exit;
   end;
-
-  if (FTileStore <> nil) and SameText(FTileStoreDatabaseFileName, databaseFileName) then
+  if (databaseFileName <> '') and
+    ((FCacheTileStore = nil) or not SameText(FTileStoreDatabaseFileName, databaseFileName)) then
   begin
-    FTileResolver.TileStore := FTileStore;
-    Exit;
+    try
+      FCacheTileStore := TMapLibSqliteTileStore.Create(databaseFileName);
+      FTileStoreDatabaseFileName := databaseFileName;
+    except
+      on E: Exception do
+      begin
+        // On some mobile deployments the native SQLite library may be missing.
+        // The runtime must keep working without persistent cache instead of
+        // failing the whole map activation path.
+        FCacheTileStore := nil;
+        FTileStoreDatabaseFileName := '';
+      end;
+    end;
   end;
 
-  FTileStore := TMapLibSqliteTileStore.Create(databaseFileName);
-  FTileStoreDatabaseFileName := databaseFileName;
+  if Trim(FOfflineStoragePath) = '' then
+  begin
+    FRegionTileStore := nil;
+    FRegionTileStoreFileName := '';
+  end
+  else if (FRegionTileStore = nil) or
+    not SameText(FRegionTileStoreFileName,
+      FOfflineStoragePath + '|' + preferredRegionFileName) then
+  begin
+    try
+      FRegionTileStore := TMapLibOfflineRegionTileStore.Create(
+        FOfflineStoragePath,
+        preferredRegionFileName
+      );
+      FRegionTileStoreFileName := FOfflineStoragePath + '|' + preferredRegionFileName;
+    except
+      on E: Exception do
+      begin
+        FRegionTileStore := nil;
+        FRegionTileStoreFileName := '';
+      end;
+    end;
+  end;
+
+  if Assigned(FRegionTileStore) and Assigned(FCacheTileStore) then
+    FTileStore := TMapLibCompositeTileStore.Create(FRegionTileStore, FCacheTileStore, FCacheTileStore)
+  else if Assigned(FRegionTileStore) then
+    FTileStore := FRegionTileStore
+  else
+    FTileStore := FCacheTileStore;
+
   FTileResolver.TileStore := FTileStore;
 end;
 
@@ -259,7 +337,7 @@ var
 begin
   storagePath := Trim(FOfflineStoragePath);
   if storagePath = '' then
-    storagePath := IncludeTrailingPathDelimiter(GetTempDir(False)) + 'GMLib' + PathDelim + 'OSM';
+    storagePath := IncludeTrailingPathDelimiter(GetAppConfigDir(False)) + 'GMLib' + PathDelim + 'OSM';
 
   Result := IncludeTrailingPathDelimiter(storagePath) + 'vector-runtime-cache.sqlite3';
 end;
@@ -269,7 +347,7 @@ var
 begin
   storagePath := Trim(FOfflineStoragePath);
   if storagePath = '' then
-    storagePath := TPath.Combine(TPath.GetTempPath, 'GMLib\OSM');
+    storagePath := TPath.Combine(TPath.Combine(TPath.GetDocumentsPath, 'GMLib'), 'OSM');
 
   Result := TPath.Combine(storagePath, 'vector-runtime-cache.sqlite3');
 end;
@@ -282,6 +360,7 @@ begin
   FMapMode := omOnline;
   FOfflinePolicy := opPreferOffline;
   FOfflineStoragePath := '';
+  FActiveRegionFileName := '';
   FStyleTemplateFileName := '';
   FGlyphsRootPath := '';
   FLocalHttpServer := TMapLibLocalHttpServer.Create(0);
@@ -304,6 +383,8 @@ begin
     FTileResolver.RemoteTileProvider := nil;
     FTileResolver.TileStore := nil;
   end;
+  FRegionTileStore := nil;
+  FCacheTileStore := nil;
   FTileStore := nil;
   FRemoteTileProvider.Free;
   FStyleProvider.Free;

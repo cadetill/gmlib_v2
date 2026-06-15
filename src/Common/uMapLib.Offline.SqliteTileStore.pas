@@ -33,6 +33,9 @@ uses
   FireDAC.Stan.Param,
   FireDAC.Phys,
   FireDAC.Phys.SQLite,
+{$IF DEFINED(ANDROID) OR DEFINED(IOS)}
+  FireDAC.Phys.SQLiteWrapper.Stat,
+{$ENDIF}
   FireDAC.Phys.SQLiteDef,
   FireDAC.DatS,
   FireDAC.DApt,
@@ -275,6 +278,9 @@ begin
   Result.ResourceOptions.SilentMode := True;
   Result.Params.Clear;
   Result.Params.Add('DriverID=SQLite');
+{$IF DEFINED(ANDROID) OR DEFINED(IOS)}
+  Result.Params.Add('EngineLinkage=Static');
+{$ENDIF}
   Result.Params.Add('Database=' + FDatabaseFileName);
   Result.Params.Add('LockingMode=Normal');
   Result.Params.Add('Synchronous=Off');

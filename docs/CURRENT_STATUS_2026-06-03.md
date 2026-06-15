@@ -1,5 +1,58 @@
 # Current Status - June 3, 2026
 
+## Update - June 15, 2026
+
+The shared OSM offline/native work is now beyond cache warm-up only. A first
+usable `MBTiles` region-building flow is working in `FMX`.
+
+- `OfflineRegionManager.BuildRegion(...)` now builds a real `.mbtiles` region
+  from the current viewport plus a zoom range.
+- `MegaDemo FMX` now supports:
+  - viewport tile-count estimation
+  - v1 guard rails:
+    - `<= 5000` normal
+    - `5001..10000` warning
+    - `> 10000` blocked
+  - region build start from `Current viewport`
+  - `Go To Region` for jumping to disconnected offline regions
+  - delete/list flows validated manually
+- offline region resolution now works by automatic coverage lookup rather than
+  only by a single manually active region.
+
+### V1 decisions
+
+- region format is now `MBTiles` only
+- mobile/desktop offline remains positioned as an emergency/fallback feature
+- disconnected regions are acceptable in v1; UX is handled by `Go To Region`
+- the default generated region id is based on viewport center, e.g.
+  `region-n42_50-e1_51-z12`
+
+### Build performance status
+
+The `MBTiles` writer was reworked for bulk insert behavior:
+
+- persistent SQLite connection
+- reusable prepared queries
+- batched commits
+- bulk-insert pragmas
+- throttled UI progress notifications
+- temporary `.building.mbtiles` file with final rename on success
+- tiles inserted without key/index maintenance during load
+- unique tile index created at the end
+
+Manual reference measurement reported in `FMX Win32`:
+
+- region: `region-n42_50-e1_51-z12`
+- zoom range: `8..18`
+- estimated tiles: `5995`
+- total time: `03:22`
+
+This is considered sufficient for v1 even though some slowdown still appears
+toward the end of the build.
+
+No extra download concurrency is planned for `v1`; the current sequential
+builder is considered acceptable for the emergency/fallback offline scope.
+
 ## Mobile bootstrap validation update
 
 The shared bootstrap asset pipeline is now also validated on `FMX` mobile.
@@ -12,6 +65,23 @@ The shared bootstrap asset pipeline is now also validated on `FMX` mobile.
   stays disabled in normal builds.
 - `demos/Fmx/OSMMobileMinimal` now works as the minimal online validation demo
   for `OSMLib` on `FMX` mobile.
+- `OSMLib` mobile offline/hybrid now also resolves `MapLibre CSS/JS` and the
+  offline style template from embedded resources when those paths are not
+  provided explicitly.
+- default offline storage now points to a persistent app/user location instead
+  of a temp folder.
+- when no glyph corpus is configured, the shared vector runtime falls back to a
+  no-label built-in style so that a first offline/mobile activation path still
+  works without repo-local font folders.
+- the `FMX Android` localhost runtime path also requires
+  `android:usesCleartextTraffic="true"` so the embedded `WebView` can consume
+  `http://127.0.0.1:...` tile/style requests.
+- the mobile SQLite cache path now uses native path composition
+  (`.../GMLib/OSM`) instead of passing `GMLib\OSM` as a single literal
+  segment, which was creating an incorrect folder name on Android.
+- the FireDAC SQLite path for `Android/iOS` now needs static linkage
+  (`FireDAC.Phys.SQLiteWrapper.Stat` / `EngineLinkage=Static`) instead of
+  relying on a dynamic `libsqlite.so` load.
 
 ## OSM map runtime
 
@@ -127,6 +197,11 @@ state has since been manually compiled and validated in follow-up work.
 
 - The latest reported status is: compile OK.
 - Online OpenFreeMap presets were manually checked in `VCL`.
+- `OSMMobileMinimal` has now also been manually validated again in
+  `Android` for:
+  - `Online`
+  - `Hybrid`
+  - `Offline` after cache warm-up
 
 ### Offline/native note
 
@@ -139,13 +214,15 @@ state has since been manually compiled and validated in follow-up work.
 - the shared runtime now also includes SQLite tile-cache persistence on the
   `FPC/LCL` path, so the main offline infrastructure gap is closed across the
   three desktop frameworks
+- the first mobile-oriented offline/hybrid activation path no longer depends on
+  repo-relative MapLibre/style assets
 
 ### Re-entry checklist
 
 1. Decide whether weak marker properties should stay exposed in v1 or be
    trimmed from demos.
-2. If the map layer is considered closed, continue with homogeneous offline
-   runtime validation in `VCL`, `FMX`, and `LCL`.
+2. Continue with real mobile offline/hybrid validation in `FMX Android/iOS`,
+   especially cache-warm (`Hybrid`) -> cache-only (`Offline`) behavior.
 
 ## OSM Markers snapshot
 

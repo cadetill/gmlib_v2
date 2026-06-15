@@ -17,8 +17,7 @@ The current preferred direction for `OSMLib` offline/hybrid is:
 
 This implies:
 
-- `PMTiles` is no longer the main runtime path
-- `Protomaps` is no longer the reference line for this runtime
+- `MBTiles` is the only planned region/package path for this runtime
 - the implementation should optimize for a simple first version with a cheap
   transition path to a more flexible one
 
@@ -80,7 +79,7 @@ Important:
 
 ### Out of scope (for runtime)
 
-- Mandatory external process dependency (`pmtiles.exe`, etc.).
+- Mandatory external process dependency for offline runtime.
 - Manual style editing by final app users as primary flow.
 
 ## Architecture overview
@@ -169,15 +168,14 @@ Rules:
 
 Recommended order:
 
-1. `MBTiles` first (preferred main path).
-2. `PMTiles` only as a later optional path if it becomes useful again.
+1. `MBTiles` as the preferred and only planned main path for now.
 
 ### Region manifest (library standard)
 
 Each region includes a manifest with:
 
 - `regionId`
-- `format` (`mbtiles` or `pmtiles`)
+- `format` (`mbtiles`)
 - `bounds`
 - `minZoom/maxZoom`
 - `version`
@@ -250,5 +248,5 @@ For `omHybrid`, use explicit policy:
 
 - `MapMode` baseline exists.
 - OSM offline bootstrap wiring exists.
-- External PMTiles process path exists and is transitional.
+- Legacy external archive-serving path exists and is transitional.
 - Native `OfflineRegionManager` implementation is pending.

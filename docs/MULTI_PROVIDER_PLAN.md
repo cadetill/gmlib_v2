@@ -61,7 +61,7 @@ Current OSM status and next architectural shift:
 
 - map/bootstrap/event baseline exists in `VCL/FMX/LCL`.
 - `MapMode` (`online/offline/hybrid`) and initial offline wiring exist.
-- current PMTiles external-process path is considered transitional.
+- current legacy external archive-serving path is considered transitional.
 - next target is offline-native runtime for apps (especially `Android/iOS`):
   - embedded `OfflineRegionManager`
   - tiny loopback-only local HTTP serving for runtime assets

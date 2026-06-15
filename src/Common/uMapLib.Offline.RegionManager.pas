@@ -16,7 +16,8 @@ uses
 {$ENDIF}
   uMapLib.Offline.RegionCatalog,
   uMapLib.Offline.Types,
-  uMapLib.Offline.Downloader;
+  uMapLib.Offline.Downloader,
+  uMapLib.Offline.RegionBuilder;
 
 type
   {** @abstract(Contrato de alto nivel para gestionar regiones offline.) }
@@ -24,6 +25,8 @@ type
     ['{A9E6F87A-DC3B-479A-A7A8-A4B2640B10D0}']
     {** @abstract(Inicia la descarga de una region offline.) }
     function DownloadRegion(const ARequest: TMapLibOfflineDownloadRequest): string;
+    {** @abstract(Construye una region MBTiles desde un bbox y rango de zooms.) }
+    function BuildRegion(const ARequest: TMapLibOfflineBuildRegionRequest): string;
     {** @abstract(Cancela una descarga activa si el trabajo existe.) }
     function CancelDownload(const AJobId: string): Boolean;
     {** @abstract(Resuelve la cobertura offline para una posicion y zoom.) }
@@ -51,8 +54,10 @@ type
     FActiveRegion: TMapLibOfflineRegionId;
 {$IFDEF FPC}
     FDownloadJobs: TStringList;
+    FBuildJobs: TStringList;
 {$ELSE}
     FDownloadJobs: TDictionary<string, TMapLibDownloadJob>;
+    FBuildJobs: TDictionary<string, TMapLibRegionBuildJob>;
 {$ENDIF}
 
     // Eventos públicos
@@ -62,14 +67,21 @@ type
 
     function GetCatalogFileName: string;
     function ResolveAbsoluteStoragePath(const APath: string): string;
+    function RegionExists(const ARegionId: TMapLibOfflineRegionId): Boolean;
     function HasDownloadJob(const AJobId: string): Boolean;
+    function HasBuildJob(const AJobId: string): Boolean;
     function TryGetDownloadJob(const AJobId: string; out AJob: TMapLibDownloadJob): Boolean;
+    function TryGetBuildJob(const AJobId: string; out AJob: TMapLibRegionBuildJob): Boolean;
     procedure AddDownloadJob(const AJobId: string; AJob: TMapLibDownloadJob);
+    procedure AddBuildJob(const AJobId: string; AJob: TMapLibRegionBuildJob);
     procedure RemoveDownloadJob(const AJobId: string);
+    procedure RemoveBuildJob(const AJobId: string);
 
     // Callbacks internos del hilo descargador
     procedure HandleDownloadProgress(Sender: TMapLibDownloadJob; ABytesDone, ABytesTotal: Int64; APercent: Double);
     procedure HandleDownloadCompleted(Sender: TMapLibDownloadJob; const AMetadata: TMapLibOfflineRegionMetadata; const AErrorMsg: string; ASuccess: Boolean);
+    procedure HandleBuildProgress(Sender: TMapLibRegionBuildJob; ABytesDone, ABytesTotal: Int64; APercent: Double);
+    procedure HandleBuildCompleted(Sender: TMapLibRegionBuildJob; const AMetadata: TMapLibOfflineRegionMetadata; const AErrorMsg: string; ASuccess: Boolean);
   public
     constructor Create(const AStorageBasePath: string = '');
     destructor Destroy; override;
@@ -83,6 +95,7 @@ type
 
     // IMapLibOfflineRegionManager
     function DownloadRegion(const ARequest: TMapLibOfflineDownloadRequest): string;
+    function BuildRegion(const ARequest: TMapLibOfflineBuildRegionRequest): string;
     function CancelDownload(const AJobId: string): Boolean;
     function ResolveCoverage(ALat, ALng: Double; AZoom: Double): TMapLibOfflineCoverage;
 
@@ -168,8 +181,11 @@ begin
 {$IFDEF FPC}
   FDownloadJobs := TStringList.Create;
   FDownloadJobs.CaseSensitive := False;
+  FBuildJobs := TStringList.Create;
+  FBuildJobs.CaseSensitive := False;
 {$ELSE}
   FDownloadJobs := TDictionary<string, TMapLibDownloadJob>.Create;
+  FBuildJobs := TDictionary<string, TMapLibRegionBuildJob>.Create;
 {$ENDIF}
   FOnDownloadProgress := nil;
   FOnRegionReady := nil;
@@ -181,6 +197,7 @@ var
 {$IFDEF FPC}
   I: Integer;
 {$ELSE}
+  BuildJob: TMapLibRegionBuildJob;
   Job: TMapLibDownloadJob;
 {$ENDIF}
 begin
@@ -192,6 +209,12 @@ begin
     TMapLibDownloadJob(FDownloadJobs.Objects[I]).WaitFor;
     TMapLibDownloadJob(FDownloadJobs.Objects[I]).Free;
   end;
+  for I := 0 to FBuildJobs.Count - 1 do
+  begin
+    TMapLibRegionBuildJob(FBuildJobs.Objects[I]).Terminate;
+    TMapLibRegionBuildJob(FBuildJobs.Objects[I]).WaitFor;
+    TMapLibRegionBuildJob(FBuildJobs.Objects[I]).Free;
+  end;
 {$ELSE}
   for Job in FDownloadJobs.Values do
   begin
@@ -199,8 +222,15 @@ begin
     Job.WaitFor;
     Job.Free;
   end;
+  for BuildJob in FBuildJobs.Values do
+  begin
+    BuildJob.Terminate;
+    BuildJob.WaitFor;
+    BuildJob.Free;
+  end;
 {$ENDIF}
   FDownloadJobs.Free;
+  FBuildJobs.Free;
   inherited;
 end;
 
@@ -220,12 +250,37 @@ begin
     Result := CombinePath(FStorageBasePath, APath);
 end;
 
+function TMapLibOfflineRegionManager.RegionExists(
+  const ARegionId: TMapLibOfflineRegionId): Boolean;
+var
+  regionIndex: Integer;
+  regions: TMapLibOfflineRegionMetadataArray;
+begin
+  Result := False;
+  if Trim(ARegionId) = '' then
+    Exit;
+
+  regions := ListRegions;
+  for regionIndex := Low(regions) to High(regions) do
+    if SameText(regions[regionIndex].RegionId, ARegionId) then
+      Exit(True);
+end;
+
 function TMapLibOfflineRegionManager.HasDownloadJob(const AJobId: string): Boolean;
 begin
 {$IFDEF FPC}
   Result := FDownloadJobs.IndexOf(AJobId) >= 0;
 {$ELSE}
   Result := FDownloadJobs.ContainsKey(AJobId);
+{$ENDIF}
+end;
+
+function TMapLibOfflineRegionManager.HasBuildJob(const AJobId: string): Boolean;
+begin
+{$IFDEF FPC}
+  Result := FBuildJobs.IndexOf(AJobId) >= 0;
+{$ELSE}
+  Result := FBuildJobs.ContainsKey(AJobId);
 {$ENDIF}
 end;
 
@@ -248,6 +303,25 @@ begin
 {$ENDIF}
 end;
 
+function TMapLibOfflineRegionManager.TryGetBuildJob(const AJobId: string;
+  out AJob: TMapLibRegionBuildJob): Boolean;
+{$IFDEF FPC}
+var
+  index: Integer;
+{$ENDIF}
+begin
+{$IFDEF FPC}
+  index := FBuildJobs.IndexOf(AJobId);
+  Result := index >= 0;
+  if Result then
+    AJob := TMapLibRegionBuildJob(FBuildJobs.Objects[index])
+  else
+    AJob := nil;
+{$ELSE}
+  Result := FBuildJobs.TryGetValue(AJobId, AJob);
+{$ENDIF}
+end;
+
 procedure TMapLibOfflineRegionManager.AddDownloadJob(const AJobId: string;
   AJob: TMapLibDownloadJob);
 begin
@@ -255,6 +329,16 @@ begin
   FDownloadJobs.AddObject(AJobId, AJob);
 {$ELSE}
   FDownloadJobs.Add(AJobId, AJob);
+{$ENDIF}
+end;
+
+procedure TMapLibOfflineRegionManager.AddBuildJob(const AJobId: string;
+  AJob: TMapLibRegionBuildJob);
+begin
+{$IFDEF FPC}
+  FBuildJobs.AddObject(AJobId, AJob);
+{$ELSE}
+  FBuildJobs.Add(AJobId, AJob);
 {$ENDIF}
 end;
 
@@ -270,6 +354,21 @@ begin
     FDownloadJobs.Delete(index);
 {$ELSE}
   FDownloadJobs.Remove(AJobId);
+{$ENDIF}
+end;
+
+procedure TMapLibOfflineRegionManager.RemoveBuildJob(const AJobId: string);
+{$IFDEF FPC}
+var
+  index: Integer;
+{$ENDIF}
+begin
+{$IFDEF FPC}
+  index := FBuildJobs.IndexOf(AJobId);
+  if index >= 0 then
+    FBuildJobs.Delete(index);
+{$ELSE}
+  FBuildJobs.Remove(AJobId);
 {$ENDIF}
 end;
 
@@ -341,6 +440,8 @@ begin
 
   // Guardamos el catálogo actualizado
   TMapLibOfflineCatalogStorage.SaveToFile(GetCatalogFileName, NewRegions);
+  if SameText(FActiveRegion, ARegionId) then
+    FActiveRegion := '';
   Result := True;
 end;
 
@@ -378,7 +479,14 @@ end;
 procedure TMapLibOfflineRegionManager.SetActiveRegion(
   const ARegionId: TMapLibOfflineRegionId);
 begin
-  FActiveRegion := ARegionId;
+  if Trim(ARegionId) = '' then
+  begin
+    FActiveRegion := '';
+    Exit;
+  end;
+
+  if RegionExists(ARegionId) then
+    FActiveRegion := ARegionId;
 end;
 
 function TMapLibOfflineRegionManager.GetActiveRegionId: TMapLibOfflineRegionId;
@@ -429,14 +537,59 @@ begin
   Result := JobId;
 end;
 
+function TMapLibOfflineRegionManager.BuildRegion(
+  const ARequest: TMapLibOfflineBuildRegionRequest): string;
+var
+  Job: TMapLibRegionBuildJob;
+  JobId: string;
+begin
+  Result := '';
+  if ARequest.RegionId = '' then
+    Exit;
+
+  if HasDownloadJob(ARequest.RegionId) or HasBuildJob(ARequest.RegionId) then
+    Exit;
+
+  JobId := ARequest.RegionId;
+  if (FStorageBasePath <> '') and not DirectoryExists(FStorageBasePath) then
+{$IFDEF FPC}
+    ForceDirectories(FStorageBasePath);
+{$ELSE}
+    TDirectory.CreateDirectory(FStorageBasePath);
+{$ENDIF}
+
+  Job := TMapLibRegionBuildJob.Create(
+    JobId,
+    ARequest,
+    FStorageBasePath,
+{$IFDEF FPC}
+    @HandleBuildProgress,
+    @HandleBuildCompleted
+{$ELSE}
+    HandleBuildProgress,
+    HandleBuildCompleted
+{$ENDIF}
+  );
+
+  AddBuildJob(JobId, Job);
+  Job.Start;
+  Result := JobId;
+end;
+
 function TMapLibOfflineRegionManager.CancelDownload(const AJobId: string): Boolean;
 var
+  BuildJob: TMapLibRegionBuildJob;
   Job: TMapLibDownloadJob;
 begin
   Result := False;
   if TryGetDownloadJob(AJobId, Job) then
   begin
     Job.Terminate;
+    Result := True;
+  end;
+  if TryGetBuildJob(AJobId, BuildJob) then
+  begin
+    BuildJob.Terminate;
     Result := True;
   end;
 end;
@@ -469,6 +622,14 @@ end;
 
 procedure TMapLibOfflineRegionManager.HandleDownloadProgress(Sender: TMapLibDownloadJob;
   ABytesDone, ABytesTotal: Int64; APercent: Double);
+begin
+  if Assigned(FOnDownloadProgress) then
+    FOnDownloadProgress(Self, Sender.JobId, APercent, ABytesDone, ABytesTotal);
+end;
+
+procedure TMapLibOfflineRegionManager.HandleBuildProgress(
+  Sender: TMapLibRegionBuildJob; ABytesDone, ABytesTotal: Int64;
+  APercent: Double);
 begin
   if Assigned(FOnDownloadProgress) then
     FOnDownloadProgress(Self, Sender.JobId, APercent, ABytesDone, ABytesTotal);
@@ -523,6 +684,52 @@ begin
   finally
     // Removemos y liberamos el hilo
     RemoveDownloadJob(Sender.JobId);
+    Sender.Free;
+  end;
+end;
+
+procedure TMapLibOfflineRegionManager.HandleBuildCompleted(
+  Sender: TMapLibRegionBuildJob; const AMetadata: TMapLibOfflineRegionMetadata;
+  const AErrorMsg: string; ASuccess: Boolean);
+var
+  IsNew: Boolean;
+  NewList: TMapLibOfflineRegionMetadataArray;
+  Regions: TMapLibOfflineRegionMetadataArray;
+  I: Integer;
+begin
+  try
+    if ASuccess then
+    begin
+      Regions := ListRegions;
+      IsNew := True;
+      for I := Low(Regions) to High(Regions) do
+      begin
+        if SameText(Regions[I].RegionId, AMetadata.RegionId) then
+        begin
+          Regions[I] := AMetadata;
+          IsNew := False;
+          Break;
+        end;
+      end;
+
+      if IsNew then
+      begin
+        SetLength(NewList, Length(Regions) + 1);
+        for I := Low(Regions) to High(Regions) do
+          NewList[I] := Regions[I];
+        NewList[High(NewList)] := AMetadata;
+        Regions := NewList;
+      end;
+
+      TMapLibOfflineCatalogStorage.SaveToFile(GetCatalogFileName, Regions);
+      FActiveRegion := AMetadata.RegionId;
+      if Assigned(FOnRegionReady) then
+        FOnRegionReady(Self, AMetadata.RegionId);
+    end
+    else if Assigned(FOnOfflineError) then
+      FOnOfflineError(Self, 401, 'Error building offline region.', AErrorMsg);
+  finally
+    RemoveBuildJob(Sender.JobId);
     Sender.Free;
   end;
 end;

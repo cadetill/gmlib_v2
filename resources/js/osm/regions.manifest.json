@@ -1,0 +1,16 @@
+{
+  "regions": [
+    {
+      "regionId": "iberia",
+      "title": "Iberia (edit sourceUrl before use)",
+      "sourceUrl": "",
+      "minZoom": 0,
+      "maxZoom": 10,
+      "north": 45.0,
+      "south": 35.0,
+      "east": 5.5,
+      "west": -10.5,
+      "dataVersion": "1.0.0"
+    }
+  ]
+}

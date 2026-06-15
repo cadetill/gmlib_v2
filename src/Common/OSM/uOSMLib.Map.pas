@@ -32,7 +32,8 @@ uses
   uMapLib.Offline.VectorRuntime,
   uMapLib.Core.Offline,
   uMapLib.Core.Types,
-  uGMLib.Platform.Format;
+  uGMLib.Platform.Format,
+  uGMLib.BootstrapAssets;
 
 type
   TOSMMarkerKind = (mkStandard, mkPin, mkDot);
@@ -631,17 +632,6 @@ type
     FMarkers: TOSMMarkers;
     FPopups: TOSMPopups;
     FStyleUrl: string;
-    // FOfflineStyleUrl: string;
-    // FOfflineRasterTilesUrlTemplate: string;
-    // FOfflineTileJsonUrl: string;
-    // FRuntimeOfflineTileJsonUrl: string;
-    // FRuntimeOfflineStyleUrl: string;
-    // FRuntimeOfflineAssetsBaseUrl: string;
-    // FLastOfflineSetupError: string;
-    // FOfflineServerExecutable: string;
-    // FOfflineServerPort: Integer;
-    // FOfflineServerEnabled: Boolean;
-    // FOfflinePmtilesArchivePath: string;
     FMapLibreCssUrl: string;
     FMapLibreJsUrl: string;
     FZoom: Double;
@@ -740,7 +730,11 @@ type
     // function ResolveOfflineStyleUrl: string;
     function ResolveMapLibreCssUrl: string;
     function ResolveMapLibreJsUrl: string;
+    function ResolveActiveRegionFileName: string;
+    function ResolveOfflineGlyphsRootPath: string;
+    function ResolveOfflineStyleTemplateFileName(const AGlyphsRootPath: string): string;
     // function ResolveMapModeName: string;
+    procedure PrepareOfflineRuntimeAssets;
     // function ResolveOfflineStyleRuntimeUrl: string;
     // function ResolveOfflineAssetsBaseUrl: string;
     // function ResolveLastOfflineSetupError: string;
@@ -1628,34 +1622,11 @@ end;
 function BuildDefaultOfflineStoragePath: string;
 begin
 {$IFDEF FPC}
-  Result := IncludeTrailingPathDelimiter(GetTempDir) + 'GMLib' + PathDelim + 'OSM';
+  Result := IncludeTrailingPathDelimiter(GetAppConfigDir(False)) + 'GMLib' + PathDelim + 'OSM';
 {$ELSE}
-  Result := TPath.Combine(TPath.GetTempPath, 'GMLib\OSM');
+  Result := TPath.Combine(TPath.Combine(TPath.GetDocumentsPath, 'GMLib'), 'OSM');
 {$ENDIF}
 end;
-
-(*
-type
-{$IFDEF MSWINDOWS}
-  TOSMExternalPmTilesServer = class(TInterfacedObject, IMapLibOfflineTileServer)
-  private
-    FExecutablePath: string;
-    FArchivePath: string;
-    FPort: Integer;
-    FProcessHandle: THandle;
-    FBaseUrl: string;
-    FLastError: string;
-  public
-    constructor Create(const AExecutablePath, AArchivePath: string; APort: Integer);
-    destructor Destroy; override;
-    function Start: Boolean;
-    procedure Stop;
-    function IsRunning: Boolean;
-    function GetBaseUrl: string;
-    function GetLastError: string;
-  end;
-{$ENDIF}
-*)
 
 {$IFDEF MSWINDOWS}
 function HttpUrlIsReachable(const AUrl: string): Boolean;
@@ -1680,114 +1651,6 @@ begin
   end;
 end;
 {$ENDIF}
-
-(*
-{$IFDEF MSWINDOWS}
-{ TOSMExternalPmTilesServer }
-
-constructor TOSMExternalPmTilesServer.Create(const AExecutablePath, AArchivePath: string; APort: Integer);
-begin
-  inherited Create;
-  FExecutablePath := AExecutablePath;
-  FArchivePath := AArchivePath;
-  FPort := APort;
-  FProcessHandle := 0;
-  FBaseUrl := Format('http://127.0.0.1:%d/', [FPort]);
-  FLastError := '';
-end;
-
-destructor TOSMExternalPmTilesServer.Destroy;
-begin
-  Stop;
-  inherited;
-end;
-
-function TOSMExternalPmTilesServer.Start: Boolean;
-var
-  StartupInfo: TStartupInfo;
-  ProcessInfo: TProcessInformation;
-  commandLine: string;
-  workDir: string;
-  exitCode: Cardinal;
-begin
-  FLastError := '';
-  if IsRunning then
-    Exit(True);
-
-  if (FExecutablePath = '') or (not FileExists(FExecutablePath)) then
-  begin
-    FLastError := 'Offline server executable was not found.';
-    Exit(False);
-  end;
-
-  if (FArchivePath = '') or (not FileExists(FArchivePath)) then
-  begin
-    FLastError := 'Offline PMTiles archive was not found.';
-    Exit(False);
-  end;
-
-  commandLine := Format('"%s" serve "%s" --port %d --interface 127.0.0.1 --cors=* --public-url=http://127.0.0.1:%d',
-    [FExecutablePath, ExcludeTrailingPathDelimiter(ExtractFileDir(FArchivePath)), FPort, FPort]);
-  workDir := ExtractFilePath(FExecutablePath);
-  FillChar(StartupInfo, SizeOf(StartupInfo), 0);
-  StartupInfo.cb := SizeOf(StartupInfo);
-  StartupInfo.dwFlags := STARTF_USESHOWWINDOW;
-  StartupInfo.wShowWindow := SW_HIDE;
-  FillChar(ProcessInfo, SizeOf(ProcessInfo), 0);
-
-  if not CreateProcess(nil, PChar(commandLine), nil, nil, False,
-    CREATE_NO_WINDOW, nil, PChar(workDir), StartupInfo, ProcessInfo) then
-  begin
-    {$IFDEF FPC}
-    FLastError := SysErrorMessage(GetLastOSError);
-    {$ELSE}
-    FLastError := SysErrorMessage(Winapi.Windows.GetLastError);
-    {$ENDIF}
-    Exit(False);
-  end;
-
-  CloseHandle(ProcessInfo.hThread);
-  FProcessHandle := ProcessInfo.hProcess;
-  Sleep(250);
-  if not IsRunning then
-  begin
-    exitCode := 0;
-    GetExitCodeProcess(FProcessHandle, exitCode);
-    FLastError := Format('Offline tile server terminated during startup (exit code %d).', [exitCode]);
-    CloseHandle(FProcessHandle);
-    FProcessHandle := 0;
-    Exit(False);
-  end;
-  Result := True;
-end;
-
-procedure TOSMExternalPmTilesServer.Stop;
-begin
-  if FProcessHandle = 0 then
-    Exit;
-
-  if WaitForSingleObject(FProcessHandle, 0) = WAIT_TIMEOUT then
-    TerminateProcess(FProcessHandle, 0);
-  CloseHandle(FProcessHandle);
-  FProcessHandle := 0;
-end;
-
-function TOSMExternalPmTilesServer.IsRunning: Boolean;
-begin
-  Result := (FProcessHandle <> 0) and (WaitForSingleObject(FProcessHandle, 0) = WAIT_TIMEOUT);
-end;
-
-function TOSMExternalPmTilesServer.GetBaseUrl: string;
-begin
-  Result := FBaseUrl;
-end;
-
-function TOSMExternalPmTilesServer.GetLastError: string;
-begin
-  Result := FLastError;
-end;
-{$ENDIF}
-*)
 
 { TOSMMarkerItem }
 
@@ -2901,17 +2764,6 @@ begin
   FMapId := 'OSMLib_MAP';
   FLastEventName := '';
   FStyleUrl := DEFAULT_MAPLIBRE_STYLE_URL;
-  // FOfflineStyleUrl := '';
-  // FOfflineRasterTilesUrlTemplate := '';
-  // FOfflineTileJsonUrl := '';
-  // FRuntimeOfflineTileJsonUrl := '';
-  // FRuntimeOfflineStyleUrl := '';
-  // FRuntimeOfflineAssetsBaseUrl := '';
-  // FLastOfflineSetupError := '';
-  // FOfflineServerExecutable := '';
-  // FOfflineServerPort := 8090;
-  // FOfflineServerEnabled := True;
-  // FOfflinePmtilesArchivePath := '';
   FMapLibreCssUrl := DEFAULT_MAPLIBRE_CSS_URL;
   FMapLibreJsUrl := DEFAULT_MAPLIBRE_JS_URL;
   FZoom := 1;
@@ -3048,19 +2900,139 @@ begin
 end;
 
 function TOSMMap.ResolveMapLibreCssUrl: string;
+var
+  assetPath: string;
 begin
   if Trim(FMapLibreCssUrl) <> '' then
-    Result := FMapLibreCssUrl
-  else
-    Result := DEFAULT_MAPLIBRE_CSS_URL;
+    Exit(FMapLibreCssUrl);
+
+  if FMapMode <> omOnline then
+  begin
+    assetPath := TGMLibBootstrapAssets.EnsureAssetFile(
+      'osm\maplibre-gl.css',
+      'OSMLIB_MAPLIBRE_CSS',
+      'resources\js\osm\maplibre-gl.css'
+    );
+    if assetPath <> '' then
+      Exit(assetPath);
+  end;
+
+  Result := DEFAULT_MAPLIBRE_CSS_URL;
 end;
 
 function TOSMMap.ResolveMapLibreJsUrl: string;
+var
+  assetPath: string;
 begin
   if Trim(FMapLibreJsUrl) <> '' then
-    Result := FMapLibreJsUrl
-  else
-    Result := DEFAULT_MAPLIBRE_JS_URL;
+    Exit(FMapLibreJsUrl);
+
+  if FMapMode <> omOnline then
+  begin
+    assetPath := TGMLibBootstrapAssets.EnsureAssetFile(
+      'osm\maplibre-gl.js',
+      'OSMLIB_MAPLIBRE_JS',
+      'resources\js\osm\maplibre-gl.js'
+    );
+    if assetPath <> '' then
+      Exit(assetPath);
+  end;
+
+  Result := DEFAULT_MAPLIBRE_JS_URL;
+end;
+
+function TOSMMap.ResolveActiveRegionFileName: string;
+var
+  activeRegionId: TMapLibOfflineRegionId;
+  regionIndex: Integer;
+  regions: TMapLibOfflineRegionMetadataArray;
+begin
+  Result := '';
+  if not Assigned(FOfflineRegionManager) then
+    Exit;
+
+  activeRegionId := FOfflineRegionManager.GetActiveRegionId;
+  if Trim(activeRegionId) = '' then
+    Exit;
+
+  regions := FOfflineRegionManager.ListRegions;
+  for regionIndex := Low(regions) to High(regions) do
+  begin
+    if SameText(regions[regionIndex].RegionId, activeRegionId) then
+    begin
+{$IFDEF FPC}
+      if (ExtractFileDrive(regions[regionIndex].StoragePath) <> '') or
+        ((regions[regionIndex].StoragePath <> '') and
+         (regions[regionIndex].StoragePath[1] = PathDelim)) then
+        Result := regions[regionIndex].StoragePath
+      else
+        Result := IncludeTrailingPathDelimiter(FOfflineStoragePath) + regions[regionIndex].StoragePath;
+{$ELSE}
+      if TPath.IsPathRooted(regions[regionIndex].StoragePath) then
+        Result := regions[regionIndex].StoragePath
+      else
+        Result := TPath.Combine(FOfflineStoragePath, regions[regionIndex].StoragePath);
+{$ENDIF}
+      Exit;
+    end;
+  end;
+end;
+
+function TOSMMap.ResolveOfflineGlyphsRootPath: string;
+{$IFNDEF FPC}
+var
+  glyphsStoragePath: string;
+{$ENDIF}
+begin
+  if Trim(FGlyphsRootPath) <> '' then
+    Exit(FGlyphsRootPath);
+
+{$IFDEF FPC}
+  if DirectoryExists(TGMLibBootstrapAssets.ResolveResourceFile('resources\js\osm')) then
+    Exit(TGMLibBootstrapAssets.ResolveResourceFile('resources\js\osm'));
+  Result := '';
+{$ELSE}
+  glyphsStoragePath := TPath.Combine(FOfflineStoragePath, 'glyphs');
+  Result := TGMLibBootstrapAssets.EnsureZipExpandedDirectory(
+    glyphsStoragePath,
+    'Noto Sans Regular',
+    'osm\Noto_Sans_Regular.zip',
+    'OSMLIB_GLYPHS_NOTO_SANS_REGULAR_ZIP',
+    'resources\js\osm\Noto_Sans_Regular.zip'
+  );
+{$ENDIF}
+end;
+
+function TOSMMap.ResolveOfflineStyleTemplateFileName(
+  const AGlyphsRootPath: string): string;
+begin
+  if Trim(FStyleTemplateFileName) <> '' then
+    Exit(FStyleTemplateFileName);
+
+  if Trim(AGlyphsRootPath) = '' then
+    Exit('');
+
+  Result := TGMLibBootstrapAssets.EnsureAssetFile(
+    'osm\style.template.json',
+    'OSMLIB_OFFLINE_STYLE_TEMPLATE',
+    'resources\js\osm\style.template.json'
+  );
+end;
+
+procedure TOSMMap.PrepareOfflineRuntimeAssets;
+var
+  resolvedGlyphsRootPath: string;
+begin
+  if (FMapMode = omOnline) or not Assigned(FVectorRuntime) then
+    Exit;
+
+  resolvedGlyphsRootPath := ResolveOfflineGlyphsRootPath;
+  FVectorRuntime.MapMode := FMapMode;
+  FVectorRuntime.OfflinePolicy := FOfflinePolicy;
+  FVectorRuntime.OfflineStoragePath := FOfflineStoragePath;
+  FVectorRuntime.ActiveRegionFileName := ResolveActiveRegionFileName;
+  FVectorRuntime.StyleTemplateFileName := ResolveOfflineStyleTemplateFileName(resolvedGlyphsRootPath);
+  FVectorRuntime.GlyphsRootPath := resolvedGlyphsRootPath;
 end;
 
 function TOSMMap.GetRuntimeBaseUrl: string;
@@ -3202,7 +3174,10 @@ begin
     Exit;
   FOfflineStoragePath := Value;
   if Assigned(FVectorRuntime) then
+  begin
     FVectorRuntime.OfflineStoragePath := FOfflineStoragePath;
+    FVectorRuntime.ActiveRegionFileName := ResolveActiveRegionFileName;
+  end;
   if Assigned(FOfflineRegionManager) then
     FOfflineRegionManager.SetStorageBasePath(FOfflineStoragePath);
 end;
@@ -3222,7 +3197,10 @@ begin
     Exit;
   FMapMode := Value;
   if Assigned(FVectorRuntime) then
+  begin
     FVectorRuntime.MapMode := Value;
+    FVectorRuntime.ActiveRegionFileName := ResolveActiveRegionFileName;
+  end;
 end;
 
 procedure TOSMMap.SetRemoteTileTemplate(const Value: string);
@@ -3261,6 +3239,12 @@ end;
 
 procedure TOSMMap.HandleOfflineRegionReady(Sender: TObject; const ARegionId: TMapLibOfflineRegionId);
 begin
+  if Assigned(FOfflineRegionManager) then
+    FOfflineRegionManager.SetActiveRegion(ARegionId);
+  if Assigned(FVectorRuntime) then
+    FVectorRuntime.ActiveRegionFileName := ResolveActiveRegionFileName;
+  if FActive and (FMapMode <> omOnline) then
+    ApplyStyle;
   if Assigned(FOnOfflineRegionReady) then
     FOnOfflineRegionReady(Self, ARegionId);
 end;
@@ -3432,7 +3416,11 @@ var
 begin
   styleJson := '';
   if (FMapMode <> omOnline) and Assigned(FVectorRuntime) then
+  begin
+    PrepareOfflineRuntimeAssets;
+    FVectorRuntime.Start;
     styleJson := FVectorRuntime.BuildStyleJson;
+  end;
 
   Result := Format(
     '{"styleUrl":"%s","styleJson":"%s"}',
@@ -3897,8 +3885,7 @@ procedure TOSMMap.Activate;
 begin
   if (FMapMode <> omOnline) and Assigned(FVectorRuntime) then
   begin
-    FVectorRuntime.MapMode := FMapMode;
-    FVectorRuntime.OfflinePolicy := FOfflinePolicy;
+    PrepareOfflineRuntimeAssets;
     FVectorRuntime.Start;
   end;
   FActive := True;
@@ -3991,8 +3978,11 @@ begin
   if not FActive or not Assigned(FBridge) then
     Exit;
 
-  // StopOfflineTileServer;
-  // EnsureOfflineTileSourceReady;
+  if (FMapMode <> omOnline) and Assigned(FVectorRuntime) then
+  begin
+    PrepareOfflineRuntimeAssets;
+    FVectorRuntime.Start;
+  end;
   FBridge.PostCommand(CreateEnvelope('map.set_style', BuildSetStylePayload));
 end;
 
@@ -4009,8 +3999,7 @@ begin
     styleJson := '';
     if (FMapMode <> omOnline) and Assigned(FVectorRuntime) then
     begin
-      FVectorRuntime.MapMode := FMapMode;
-      FVectorRuntime.OfflinePolicy := FOfflinePolicy;
+      PrepareOfflineRuntimeAssets;
       FVectorRuntime.Start;
       styleJson := FVectorRuntime.BuildStyleJson;
     end;

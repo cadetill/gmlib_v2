@@ -8,14 +8,14 @@
       <Unit>
         <Filename Value="MegaDemo.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="22"/>
       </Unit>
       <Unit>
         <Filename Value="src\UMainFrm.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="22"/>
       </Unit>
       <Unit>
         <Filename Value="src\UMainFrm.lfm"/>
@@ -34,13 +34,54 @@
       <Unit>
         <Filename Value="..\..\..\src\Common\uMapLib.Offline.VectorRuntime.pas"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="111"/>
-        <CursorPos X="13" Y="123"/>
-        <UsageCount Value="10"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="259"/>
+        <CursorPos X="3" Y="271"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\src\Common\GM\uGMLib.BootstrapAssets.pas"/>
+        <TopLine Value="313"/>
+        <CursorPos X="7" Y="325"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\src\Common\uMapLib.Offline.MBTilesWriter.pas"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="62"/>
+        <CursorPos X="21" Y="74"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\..\..\src\Common\uMapLib.Offline.RegionBuilder.pas"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="150"/>
+        <CursorPos X="36" Y="162"/>
+        <UsageCount Value="11"/>
+        <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="-1"/>
+    <JumpHistory HistoryIndex="3">
+      <Position>
+        <Filename Value="..\..\..\src\Common\GM\uGMLib.BootstrapAssets.pas"/>
+        <Caret Line="325" Column="7" TopLine="313"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\src\Common\uMapLib.Offline.MBTilesWriter.pas"/>
+        <Caret Line="74" Column="21" TopLine="62"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\src\Common\uMapLib.Offline.RegionBuilder.pas"/>
+        <Caret Line="133" Column="6" TopLine="121"/>
+      </Position>
+      <Position>
+        <Filename Value="..\..\..\src\Common\uMapLib.Offline.RegionBuilder.pas"/>
+        <Caret Line="162" Column="36" TopLine="150"/>
+      </Position>
+    </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode=""/>

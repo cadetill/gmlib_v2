@@ -21,11 +21,13 @@ interface
 
 uses
   System.Classes, System.SysUtils, System.StrUtils, System.Types, System.UITypes,
+  System.JSON, System.Generics.Collections,
   System.Math, System.RegularExpressions, System.IOUtils,
   FMX.Controls, FMX.Controls.Presentation, FMX.Edit, FMX.Forms, FMX.Layouts,
   FMX.ListBox, FMX.Memo, FMX.Memo.Types, FMX.StdCtrls, FMX.Types, FMX.WebBrowser,
   FMX.ScrollBox, FMX.TabControl, FMX.DialogService,
   uMapLib.Core.Offline, uMapLib.Offline.Types,
+  uMapLib.Offline.TileCoverage,
   uMapLib.Core.Component,
   uGMLib.Core.Types, uGMLib.Google.Types, uGMLib.Map, uGMLib.MapOptions,
   uGMLib.Fmx.Map, uGMLib.Fmx.Marker, uGMLib.Fmx.Polyline, uGMLib.Fmx.Polygon,
@@ -36,6 +38,16 @@ uses
   uOSMLib.Fmx.Map, uOSMLib.Map, FMX.Colors;
 
 type
+  TOSMDownloadRegionCatalogEntry = record
+    RegionId: string;
+    Title: string;
+    SourceUrl: string;
+    MinZoom: Integer;
+    MaxZoom: Integer;
+    Bounds: TMapLibOfflineRegionBounds;
+    DataVersion: string;
+  end;
+
   TMainFrm = class(TForm)
     // === Outer structure ===
     pcSupplier: TTabControl;
@@ -424,6 +436,7 @@ type
     cbOSMOfflineSourcePreset: TComboBox;
     bOSMDownloadRegion: TButton;
     bOSMDeleteRegion: TButton;
+    bOSMGoToRegion: TButton;
     lbOSMRegions: TListBox;
 
     // === OSM > Markers ===
@@ -524,7 +537,9 @@ type
     procedure ApplyOSMEventFilterClick(Sender: TObject);
     procedure OSMDownloadRegionClick(Sender: TObject);
     procedure OSMDeleteRegionClick(Sender: TObject);
+    procedure OSMGoToRegionClick(Sender: TObject);
     procedure OSMListRegionsClick(Sender: TObject);
+    procedure OSMRegionListClick(Sender: TObject);
     procedure OSMClearMarkersClick(Sender: TObject);
     procedure OSMZoomToMarkersClick(Sender: TObject);
     procedure OSMMarkerListClick(Sender: TObject);
@@ -596,6 +611,11 @@ type
     FCurrentInfoWindowForMarker: TGMFmxInfoWindowItem;
     FCurrentOSMMarkerForPopup: TOSMMarkerItem;
     FCurrentOSMPopupForMarker: TOSMPopupItem;
+    FOSMDownloadRegionCatalog: TArray<TOSMDownloadRegionCatalogEntry>;
+    FOSMCurrentBounds: TMapLibOfflineRegionBounds;
+    FHasOSMCurrentBounds: Boolean;
+    FOSMRegionBuildStartedAt: TDictionary<string, TDateTime>;
+    FOSMRegionBuildTileCount: TDictionary<string, Integer>;
 
     function GM_COLORS(AIndex: Integer): TAlphaColor;
     procedure Log(const AText: string);
@@ -614,6 +634,12 @@ type
     procedure RefreshOSMMarkerList;
     procedure RefreshOSMPopupList;
     procedure RefreshOSMRegionsList;
+    procedure EstimateCurrentViewportOfflineRegion;
+    procedure LoadOSMDownloadRegionCatalog;
+    function ResolveOSMDownloadRegionManifestFileName: string;
+    function BuildCurrentViewportDefaultRegionId: string;
+    function TryGetSelectedOSMDownloadRegionCatalogEntry(
+      out AEntry: TOSMDownloadRegionCatalogEntry): Boolean;
     function ResolveRepoRootPath: string;
     function ResolveRepoAssetPathFromRoot(const ARelativePath: string): string;
 
@@ -638,6 +664,7 @@ type
     procedure ShowMarkerInfoWindow(AMarker: TGMFmxMarkerItem);
   public
     constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
   end;
 
 const
@@ -646,6 +673,8 @@ const
     $FFFF00FF, $FF00FFFF, $FFFFFFFF, $FF808080, $FFC0C0C0
   );
   COORD_TOLERANCE = 0.000001;
+  cOSMOfflineRegionTileCountNormalMax = 5000;
+  cOSMOfflineRegionTileCountWarningMax = 10000;
 
 var
   MainFrm: TMainFrm;
@@ -657,11 +686,36 @@ implementation
 uses
   FMX.Dialogs;
 
+function DialogInputQuery(const ACaption: string; const APrompts: array of string;
+  var AValues: array of string): Boolean;
+begin
+  {$WARN SYMBOL_DEPRECATED OFF}
+  Result := InputQuery(ACaption, APrompts, AValues);
+  {$WARN SYMBOL_DEPRECATED ON}
+end;
+
+procedure DialogShowMessage(const AMessage: string);
+begin
+  {$WARN SYMBOL_DEPRECATED OFF}
+  ShowMessage(AMessage);
+  {$WARN SYMBOL_DEPRECATED ON}
+end;
+
+function DialogMessageConfirm(const AMessage: string): Boolean;
+begin
+  {$WARN SYMBOL_DEPRECATED OFF}
+  Result := MessageDlg(AMessage, TMsgDlgType.mtConfirmation,
+    [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo], 0) = mrYes;
+  {$WARN SYMBOL_DEPRECATED ON}
+end;
+
 { TMainFrm }
 
 constructor TMainFrm.Create(AOwner: TComponent);
 begin
   inherited;
+  FOSMRegionBuildStartedAt := TDictionary<string, TDateTime>.Create;
+  FOSMRegionBuildTileCount := TDictionary<string, Integer>.Create;
   InitializeDefaults;
   RefreshMarkerList;
   RefreshPolylineList;
@@ -682,6 +736,8 @@ begin
   cbOSMMapMode.Items.Add('Offline');
   cbOSMMapMode.Items.Add('Hybrid');
   cbOSMMapMode.ItemIndex := 2;
+  lOSMOfflineSourcePreset.Text := 'Download region';
+  LoadOSMDownloadRegionCatalog;
   cbOSMPopupCssClass.Items.Clear;
   cbOSMPopupCssClass.Items.Add('Default');
   cbOSMPopupCssClass.Items.Add('Note');
@@ -703,6 +759,7 @@ begin
   OSMMap.OnOfflineDownloadProgress := OSMMapDownloadProgress;
   OSMMap.OnOfflineRegionReady := OSMMapRegionReady;
   OSMMap.OnOfflineError := OSMMapOfflineError;
+  lbOSMRegions.OnChange := OSMRegionListClick;
   lbOSMPopups.OnChange := OSMPopupListClick;
   bOSMAddPopup.OnClick := OSMAddPopupClick;
   bOSMUpdatePopup.OnClick := OSMUpdatePopupClick;
@@ -719,6 +776,13 @@ begin
   RefreshOSMRegionsList;
 
   Log('MegaDemo FMX initialized.');
+end;
+
+destructor TMainFrm.Destroy;
+begin
+  FOSMRegionBuildTileCount.Free;
+  FOSMRegionBuildStartedAt.Free;
+  inherited;
 end;
 
 function TMainFrm.GM_COLORS(AIndex: Integer): TAlphaColor;
@@ -841,9 +905,10 @@ begin
   cbOSMLogData.IsChecked := False;
   cbOSMMapMode.ItemIndex := 2;
   eOSMOfflineTileJsonUrl.Text := 'https://tiles.openfreemap.org/planet/latest/{z}/{x}/{y}.pbf';
-  eOSMOfflineServerExecutable.Text := ResolveRepoAssetPathFromRoot('resources\js\osm\vendor');
-  eOSMOfflineServerPort.Text := ResolveRepoAssetPathFromRoot('resources\js\osm\offline\style.template.json');
-  cbOSMOfflineSourcePreset.ItemIndex := 1;
+  eOSMOfflineServerExecutable.Text := ResolveRepoAssetPathFromRoot('resources\js\osm');
+  eOSMOfflineServerPort.Text := ResolveRepoAssetPathFromRoot('resources\js\osm\style.template.json');
+  if cbOSMOfflineSourcePreset.Count > 0 then
+    cbOSMOfflineSourcePreset.ItemIndex := 0;
   lbOSMRegions.Clear;
   lbOSMMarkers.Clear;
   lbOSMPopups.Clear;
@@ -859,9 +924,10 @@ begin
   cbOSMPopupCloseOnClick.IsChecked := True;
   cbOSMPopupCloseOnMove.IsChecked := False;
   cbOSMPopupCloseOthersBeforeOpen.IsChecked := False;
+  FHasOSMCurrentBounds := False;
   OSMMap.StyleUrl := eOSMStyleUrl.Text;
-  OSMMap.MapLibreCssUrl := ResolveRepoAssetPathFromRoot('resources\js\osm\vendor\maplibre-gl.css');
-  OSMMap.MapLibreJsUrl := ResolveRepoAssetPathFromRoot('resources\js\osm\vendor\maplibre-gl.js');
+  OSMMap.MapLibreCssUrl := ResolveRepoAssetPathFromRoot('resources\js\osm\maplibre-gl.css');
+  OSMMap.MapLibreJsUrl := ResolveRepoAssetPathFromRoot('resources\js\osm\maplibre-gl.js');
   OSMMap.MapMode := omHybrid;
   OSMMap.OfflinePolicy := opPreferOffline;
   OSMMap.OfflineStoragePath := TPath.Combine(TPath.GetAppPath, 'offline');
@@ -2509,16 +2575,16 @@ begin
   glyphsRootPath := Trim(eOSMOfflineServerExecutable.Text);
 
   if styleTemplatePath = '' then
-    styleTemplatePath := ResolveRepoAssetPathFromRoot('resources\js\osm\offline\style.template.json');
+    styleTemplatePath := ResolveRepoAssetPathFromRoot('resources\js\osm\style.template.json');
   if (styleTemplatePath <> '') and not FileExists(styleTemplatePath) then
-    styleTemplatePath := ResolveRepoAssetPathFromRoot('resources\js\osm\offline\style.template.json');
+    styleTemplatePath := ResolveRepoAssetPathFromRoot('resources\js\osm\style.template.json');
   if glyphsRootPath = '' then
-    glyphsRootPath := ResolveRepoAssetPathFromRoot('resources\js\osm\vendor');
+    glyphsRootPath := ResolveRepoAssetPathFromRoot('resources\js\osm');
   if (glyphsRootPath <> '') and not DirectoryExists(glyphsRootPath) then
-    glyphsRootPath := ResolveRepoAssetPathFromRoot('resources\js\osm\vendor');
+    glyphsRootPath := ResolveRepoAssetPathFromRoot('resources\js\osm');
 
-  localCssPath := ResolveRepoAssetPathFromRoot('resources\js\osm\vendor\maplibre-gl.css');
-  localJsPath := ResolveRepoAssetPathFromRoot('resources\js\osm\vendor\maplibre-gl.js');
+  localCssPath := ResolveRepoAssetPathFromRoot('resources\js\osm\maplibre-gl.css');
+  localJsPath := ResolveRepoAssetPathFromRoot('resources\js\osm\maplibre-gl.js');
 
   if mapMode <> omOnline then
   begin
@@ -2766,6 +2832,11 @@ end;
 
 procedure TMainFrm.OSMMapBoundsChangedEvent(Sender: TObject; ANorth, ASouth, AEast, AWest: Double);
 begin
+  FOSMCurrentBounds.North := ANorth;
+  FOSMCurrentBounds.South := ASouth;
+  FOSMCurrentBounds.East := AEast;
+  FOSMCurrentBounds.West := AWest;
+  FHasOSMCurrentBounds := True;
   Log(Format('OSM bounds: N=%.4f S=%.4f E=%.4f W=%.4f', [ANorth, ASouth, AEast, AWest]));
 end;
 
@@ -2791,12 +2862,59 @@ end;
 
 procedure TMainFrm.OSMMapDownloadProgress(Sender: TObject; const AJobId: string; APercent: Double; ABytesDone, ABytesTotal: Int64);
 begin
-  Log(Format('OSM download %s: %.1f%% (%d/%d bytes)', [AJobId, APercent, ABytesDone, ABytesTotal]));
+  Log(Format('OSM download %s: %.1f%% (%d/%d tiles)', [AJobId, APercent, ABytesDone, ABytesTotal]));
 end;
 
 procedure TMainFrm.OSMMapRegionReady(Sender: TObject; const ARegionId: TMapLibOfflineRegionId);
+var
+  buildDuration: TDateTime;
+  buildStartedAt: TDateTime;
+  regionFileName: string;
+  regionPath: string;
+  regions: TMapLibOfflineRegionMetadataArray;
+  tileCount: Integer;
+  index: Integer;
 begin
-  Log('OSM offline region ready: ' + string(ARegionId));
+  tileCount := 0;
+  if Assigned(FOSMRegionBuildTileCount) then
+    FOSMRegionBuildTileCount.TryGetValue(string(ARegionId), tileCount);
+
+  if Assigned(FOSMRegionBuildStartedAt) and
+    FOSMRegionBuildStartedAt.TryGetValue(string(ARegionId), buildStartedAt) then
+  begin
+    buildDuration := Now - buildStartedAt;
+    Log(Format(
+      'OSM offline region ready: %s. Finished at %s after %s. Estimated tiles=%d',
+      [string(ARegionId),
+       FormatDateTime('hh:nn:ss', Now),
+       FormatDateTime('nn:ss', buildDuration),
+       tileCount]
+    ));
+    FOSMRegionBuildStartedAt.Remove(string(ARegionId));
+  end
+  else
+    Log(Format('OSM offline region ready: %s. Finished at %s. Estimated tiles=%d',
+      [string(ARegionId), FormatDateTime('hh:nn:ss', Now), tileCount]));
+
+  if Assigned(FOSMRegionBuildTileCount) then
+    FOSMRegionBuildTileCount.Remove(string(ARegionId));
+  Log('OSM offline storage: ' + OSMMap.OfflineStoragePath);
+  regionFileName := '';
+  if Assigned(OSMMap) and Assigned(OSMMap.OfflineRegionManager) then
+  begin
+    regions := OSMMap.OfflineRegionManager.ListRegions;
+    for index := Low(regions) to High(regions) do
+      if SameText(regions[index].RegionId, ARegionId) then
+      begin
+        regionFileName := regions[index].StoragePath;
+        Break;
+      end;
+  end;
+  if regionFileName <> '' then
+  begin
+    regionPath := TPath.Combine(OSMMap.OfflineStoragePath, regionFileName);
+    Log('OSM offline region file: ' + regionPath);
+  end;
   RefreshOSMRegionsList;
 end;
 
@@ -2809,8 +2927,10 @@ end;
 
 procedure TMainFrm.RefreshOSMRegionsList;
 var
+  activeRegionId: TMapLibOfflineRegionId;
   Regions: TMapLibOfflineRegionMetadataArray;
   I: Integer;
+  selectedIndex: Integer;
 begin
   if not Assigned(lbOSMRegions) then
     Exit;
@@ -2818,71 +2938,362 @@ begin
   lbOSMRegions.Items.BeginUpdate;
   try
     lbOSMRegions.Clear;
+    selectedIndex := -1;
     if Assigned(OSMMap) and Assigned(OSMMap.OfflineRegionManager) then
     begin
+      activeRegionId := OSMMap.OfflineRegionManager.GetActiveRegionId;
       Regions := OSMMap.OfflineRegionManager.ListRegions;
       for I := Low(Regions) to High(Regions) do
-        lbOSMRegions.Items.Add(
-          Format('%s (%s, %d bytes)', [string(Regions[I].RegionId), Regions[I].StoragePath, Regions[I].SizeBytes]));
+      begin
+        if SameText(Regions[I].RegionId, activeRegionId) then
+        begin
+          lbOSMRegions.Items.Add(
+            Format('* %s (%s, %d bytes)', [string(Regions[I].RegionId), Regions[I].StoragePath, Regions[I].SizeBytes]));
+          selectedIndex := I;
+        end
+        else
+          lbOSMRegions.Items.Add(
+            Format('%s (%s, %d bytes)', [string(Regions[I].RegionId), Regions[I].StoragePath, Regions[I].SizeBytes]));
+      end;
+      if (selectedIndex >= 0) and (selectedIndex < lbOSMRegions.Count) then
+        lbOSMRegions.ItemIndex := selectedIndex;
     end;
   finally
     lbOSMRegions.Items.EndUpdate;
   end;
 end;
 
+procedure TMainFrm.LoadOSMDownloadRegionCatalog;
+var
+  entriesValue: TJSONValue;
+  itemObject: TJSONObject;
+  jsonArray: TJSONArray;
+  jsonObject: TJSONObject;
+  manifestFileName: string;
+  fileContent: string;
+  entry: TOSMDownloadRegionCatalogEntry;
+  index: Integer;
+begin
+  SetLength(FOSMDownloadRegionCatalog, 0);
+  cbOSMOfflineSourcePreset.Items.Clear;
+  cbOSMOfflineSourcePreset.Items.Add('Current viewport (estimate only)');
+  cbOSMOfflineSourcePreset.Items.Add('Custom URL...');
+
+  manifestFileName := ResolveOSMDownloadRegionManifestFileName;
+  if (manifestFileName = '') or not FileExists(manifestFileName) then
+    Exit;
+
+  fileContent := TFile.ReadAllText(manifestFileName, TEncoding.UTF8);
+  jsonObject := TJSONObject.ParseJSONValue(fileContent) as TJSONObject;
+  try
+    if not Assigned(jsonObject) then
+      Exit;
+
+    entriesValue := jsonObject.GetValue('regions');
+    if not (entriesValue is TJSONArray) then
+      Exit;
+
+    jsonArray := TJSONArray(entriesValue);
+    SetLength(FOSMDownloadRegionCatalog, jsonArray.Count);
+    for index := 0 to jsonArray.Count - 1 do
+    begin
+      if not (jsonArray.Items[index] is TJSONObject) then
+        Continue;
+
+      itemObject := TJSONObject(jsonArray.Items[index]);
+      entry.RegionId := itemObject.GetValue<string>('regionId', '');
+      entry.Title := itemObject.GetValue<string>('title', entry.RegionId);
+      entry.SourceUrl := itemObject.GetValue<string>('sourceUrl', '');
+      entry.MinZoom := itemObject.GetValue<Integer>('minZoom', 0);
+      entry.MaxZoom := itemObject.GetValue<Integer>('maxZoom', 10);
+      entry.Bounds.North := itemObject.GetValue<Double>('north', 0);
+      entry.Bounds.South := itemObject.GetValue<Double>('south', 0);
+      entry.Bounds.East := itemObject.GetValue<Double>('east', 0);
+      entry.Bounds.West := itemObject.GetValue<Double>('west', 0);
+      entry.DataVersion := itemObject.GetValue<string>('dataVersion', '1.0.0');
+      FOSMDownloadRegionCatalog[index] := entry;
+      cbOSMOfflineSourcePreset.Items.Add(entry.Title);
+    end;
+  finally
+    jsonObject.Free;
+  end;
+end;
+
+function TMainFrm.ResolveOSMDownloadRegionManifestFileName: string;
+begin
+  Result := ResolveRepoAssetPathFromRoot('resources\js\osm\regions.manifest.json');
+end;
+
+function TMainFrm.BuildCurrentViewportDefaultRegionId: string;
+var
+  centerLat: Double;
+  centerLng: Double;
+  latToken: string;
+  lngToken: string;
+  currentZoom: Integer;
+begin
+  currentZoom := Round(StrToFloatDef(eOSMZoom.Text, 0, TFormatSettings.Invariant));
+  if FHasOSMCurrentBounds then
+  begin
+    centerLat := (FOSMCurrentBounds.North + FOSMCurrentBounds.South) / 2;
+    centerLng := (FOSMCurrentBounds.East + FOSMCurrentBounds.West) / 2;
+    latToken := StringReplace(FormatFloat('0.00', Abs(centerLat), TFormatSettings.Invariant), '.', '_', [rfReplaceAll]);
+    lngToken := StringReplace(FormatFloat('0.00', Abs(centerLng), TFormatSettings.Invariant), '.', '_', [rfReplaceAll]);
+    if centerLat >= 0 then
+      latToken := 'n' + latToken
+    else
+      latToken := 's' + latToken;
+    if centerLng >= 0 then
+      lngToken := 'e' + lngToken
+    else
+      lngToken := 'w' + lngToken;
+    Result := Format('region-%s-%s-z%d', [latToken, lngToken, currentZoom]);
+  end
+  else
+    Result := Format('region-z%d', [currentZoom]);
+end;
+
+function TMainFrm.TryGetSelectedOSMDownloadRegionCatalogEntry(
+  out AEntry: TOSMDownloadRegionCatalogEntry): Boolean;
+var
+  catalogIndex: Integer;
+begin
+  AEntry := Default(TOSMDownloadRegionCatalogEntry);
+  Result := Assigned(cbOSMOfflineSourcePreset) and
+    (cbOSMOfflineSourcePreset.ItemIndex > 1);
+  if not Result then
+    Exit;
+
+  catalogIndex := cbOSMOfflineSourcePreset.ItemIndex - 2;
+  Result := (catalogIndex >= Low(FOSMDownloadRegionCatalog)) and
+    (catalogIndex <= High(FOSMDownloadRegionCatalog));
+  if Result then
+    AEntry := FOSMDownloadRegionCatalog[catalogIndex];
+end;
+
+procedure TMainFrm.EstimateCurrentViewportOfflineRegion;
+var
+  buildRequest: TMapLibOfflineBuildRegionRequest;
+  currentZoom: Double;
+  defaultMaxZoom: Integer;
+  defaultMinZoom: Integer;
+  inputValues: array of string;
+  coverageSummary: TMapLibOfflineTileCoverageSummary;
+  estimateMessage: string;
+  estimateTitle: string;
+  maxZoom: Integer;
+  minZoom: Integer;
+  remoteTileTemplate: string;
+  regionId: string;
+begin
+  if not FHasOSMCurrentBounds then
+  begin
+    Log('Current OSM viewport bounds are not available yet.');
+    Exit;
+  end;
+
+  currentZoom := StrToFloatDef(eOSMZoom.Text, 0, TFormatSettings.Invariant);
+  defaultMinZoom := Max(0, Floor(currentZoom) - 2);
+  defaultMaxZoom := Min(14, Ceil(currentZoom) + 2);
+  regionId := BuildCurrentViewportDefaultRegionId;
+  SetLength(inputValues, 3);
+  inputValues[0] := regionId;
+  inputValues[1] := IntToStr(defaultMinZoom);
+  inputValues[2] := IntToStr(defaultMaxZoom);
+  if not DialogInputQuery('Estimate Offline Region',
+    ['Region ID:', 'Min zoom:', 'Max zoom:'], inputValues) then
+    Exit;
+
+  regionId := Trim(inputValues[0]);
+  minZoom := StrToIntDef(Trim(inputValues[1]), defaultMinZoom);
+  maxZoom := StrToIntDef(Trim(inputValues[2]), defaultMaxZoom);
+  coverageSummary := MapLibBuildTileCoverageSummary(
+    FOSMCurrentBounds,
+    minZoom,
+    maxZoom
+  );
+
+  Log(Format(
+    'OSM offline estimate [%s]: bounds N=%.4f S=%.4f E=%.4f W=%.4f zoom=%d..%d tiles=%d',
+    [regionId,
+     FOSMCurrentBounds.North,
+     FOSMCurrentBounds.South,
+     FOSMCurrentBounds.East,
+     FOSMCurrentBounds.West,
+     coverageSummary.MinZoom,
+     coverageSummary.MaxZoom,
+     coverageSummary.TileCount]
+  ));
+
+  if coverageSummary.TileCount <= cOSMOfflineRegionTileCountNormalMax then
+  begin
+    estimateTitle := 'Estimate OK';
+    estimateMessage := Format(
+      'Estimate for "%s": %d tiles across zooms %d..%d. This is within the normal limit.' + sLineBreak + sLineBreak +
+      'Do you want to build this offline region now?',
+      [regionId, coverageSummary.TileCount, coverageSummary.MinZoom, coverageSummary.MaxZoom]
+    );
+  end
+  else if coverageSummary.TileCount <= cOSMOfflineRegionTileCountWarningMax then
+  begin
+    estimateTitle := 'Estimate Warning';
+    estimateMessage := Format(
+      'Estimate for "%s": %d tiles across zooms %d..%d. This exceeds the normal limit (%d) but is still within the warning range.' + sLineBreak + sLineBreak +
+      'Do you want to build this offline region now?',
+      [regionId, coverageSummary.TileCount, coverageSummary.MinZoom, coverageSummary.MaxZoom,
+       cOSMOfflineRegionTileCountNormalMax]
+    );
+  end
+  else
+  begin
+    estimateTitle := 'Estimate Too Large';
+    estimateMessage := Format(
+      'Estimate for "%s": %d tiles across zooms %d..%d. This exceeds the hard limit (%d). Reduce viewport or zoom range.',
+      [regionId, coverageSummary.TileCount, coverageSummary.MinZoom, coverageSummary.MaxZoom,
+       cOSMOfflineRegionTileCountWarningMax]
+    );
+  end;
+
+  if coverageSummary.TileCount > cOSMOfflineRegionTileCountWarningMax then
+  begin
+    DialogShowMessage(estimateTitle + sLineBreak + sLineBreak + estimateMessage);
+    Exit;
+  end;
+
+  if not DialogMessageConfirm(estimateTitle + sLineBreak + sLineBreak + estimateMessage) then
+    Exit;
+
+  remoteTileTemplate := Trim(OSMMap.RemoteTileTemplate);
+  if remoteTileTemplate = '' then
+    remoteTileTemplate := Trim(eOSMOfflineTileJsonUrl.Text);
+
+  if remoteTileTemplate = '' then
+  begin
+    DialogShowMessage('Remote tile template is empty. Fill the offline tile URL first.');
+    Exit;
+  end;
+
+  buildRequest.RegionId := regionId;
+  buildRequest.SourceId := 'osm';
+  buildRequest.RemoteTileTemplate := remoteTileTemplate;
+  buildRequest.MinZoom := coverageSummary.MinZoom;
+  buildRequest.MaxZoom := coverageSummary.MaxZoom;
+  buildRequest.Bounds := FOSMCurrentBounds;
+  buildRequest.DataVersion := '1.0.0';
+
+  if Assigned(OSMMap.OfflineRegionManager) and
+    (OSMMap.OfflineRegionManager.BuildRegion(buildRequest) <> '') then
+  begin
+    if Assigned(FOSMRegionBuildStartedAt) then
+      FOSMRegionBuildStartedAt.AddOrSetValue(regionId, Now);
+    if Assigned(FOSMRegionBuildTileCount) then
+      FOSMRegionBuildTileCount.AddOrSetValue(regionId, coverageSummary.TileCount);
+    Log(Format('OSM region build started: %s at %s. Estimated tiles=%d',
+      [regionId, FormatDateTime('hh:nn:ss', Now), coverageSummary.TileCount]));
+  end
+  else
+    Log('OSM region build failed to start or is already active.');
+end;
+
+procedure TMainFrm.OSMRegionListClick(Sender: TObject);
+var
+  regionId: string;
+  regions: TMapLibOfflineRegionMetadataArray;
+begin
+  if not Assigned(OSMMap) or not Assigned(OSMMap.OfflineRegionManager) then
+    Exit;
+  if not Assigned(lbOSMRegions) or (lbOSMRegions.ItemIndex < 0) then
+    Exit;
+
+  regions := OSMMap.OfflineRegionManager.ListRegions;
+  if (lbOSMRegions.ItemIndex < Low(regions)) or (lbOSMRegions.ItemIndex > High(regions)) then
+    Exit;
+
+  regionId := string(regions[lbOSMRegions.ItemIndex].RegionId);
+  OSMMap.OfflineRegionManager.SetActiveRegion(regionId);
+  if OSMMap.MapMode <> omOnline then
+    OSMMap.ApplyStyle;
+  RefreshOSMRegionsList;
+  Log('OSM preferred region set to: ' + regionId);
+end;
+
 procedure TMainFrm.OSMDownloadRegionClick(Sender: TObject);
 var
+  catalogEntry: TOSMDownloadRegionCatalogEntry;
   RegionId: string;
   SourceUrl: string;
   Req: TMapLibOfflineDownloadRequest;
 begin
-  RegionId := 'spain';
-  SourceUrl := 'https://github.com/cadetill/gmlib_v2/raw/master/resources/js/osm/vendor/spain.pmtiles';
-  TDialogService.InputQuery(
-    'Download Offline Region',
-    ['Enter Region ID (e.g. spain):'],
-    [RegionId],
-    procedure(const AResult: TModalResult; const AValues: array of string)
+  var inputValues: array of string;
+
+  if Assigned(cbOSMOfflineSourcePreset) and
+    (cbOSMOfflineSourcePreset.ItemIndex = 0) then
+  begin
+    EstimateCurrentViewportOfflineRegion;
+    Exit;
+  end;
+
+  if TryGetSelectedOSMDownloadRegionCatalogEntry(catalogEntry) then
+  begin
+    if (Trim(catalogEntry.RegionId) = '') or (Trim(catalogEntry.SourceUrl) = '') then
     begin
-      if AResult <> mrOk then
-        Exit;
-      if Length(AValues) > 0 then
-        RegionId := AValues[0];
-      TDialogService.InputQuery(
-        'Download Offline Region',
-        ['Enter PMTiles/MBTiles HTTP Source URL:'],
-        [SourceUrl],
-        procedure(const AInnerResult: TModalResult; const AInnerValues: array of string)
-        begin
-          if AInnerResult <> mrOk then
-            Exit;
-          if Length(AInnerValues) > 0 then
-            SourceUrl := AInnerValues[0];
-          if (Trim(RegionId) = '') or (Trim(SourceUrl) = '') then
-          begin
-            Log('Region ID and Source URL are required.');
-            Exit;
-          end;
-          if Assigned(OSMMap.OfflineRegionManager) then
-          begin
-            Req.RegionId := TMapLibOfflineRegionId(RegionId);
-            Req.SourceUrl := SourceUrl;
-            Req.MinZoom := 0;
-            Req.MaxZoom := 10;
-            Req.Bounds.North := 43.79;
-            Req.Bounds.South := 35.17;
-            Req.Bounds.East := 4.33;
-            Req.Bounds.West := -9.30;
-            Req.DataVersion := '1.0.0';
-            if OSMMap.OfflineRegionManager.DownloadRegion(Req) <> '' then
-              Log('OSM download started for region: ' + RegionId)
-            else
-              Log('OSM download failed to start or is already active.');
-          end;
-        end
-      );
-    end
-  );
+      Log('Selected catalog entry is incomplete.');
+      Exit;
+    end;
+
+    if Assigned(OSMMap.OfflineRegionManager) then
+    begin
+      Req.RegionId := TMapLibOfflineRegionId(catalogEntry.RegionId);
+      Req.SourceUrl := catalogEntry.SourceUrl;
+      Req.MinZoom := catalogEntry.MinZoom;
+      Req.MaxZoom := catalogEntry.MaxZoom;
+      Req.Bounds := catalogEntry.Bounds;
+      Req.DataVersion := catalogEntry.DataVersion;
+      if OSMMap.OfflineRegionManager.DownloadRegion(Req) <> '' then
+        Log('OSM download started for region: ' + catalogEntry.Title)
+      else
+        Log('OSM download failed to start or is already active.');
+    end;
+    Exit;
+  end;
+
+  RegionId := 'spain';
+  SourceUrl := 'https://example.invalid/spain.mbtiles';
+  SetLength(inputValues, 1);
+  inputValues[0] := RegionId;
+  if not DialogInputQuery('Download Offline Region',
+    ['Enter Region ID (e.g. spain):'], inputValues) then
+    Exit;
+  RegionId := inputValues[0];
+
+  SetLength(inputValues, 1);
+  inputValues[0] := SourceUrl;
+  if not DialogInputQuery('Download Offline Region',
+    ['Enter MBTiles HTTP Source URL:'], inputValues) then
+    Exit;
+  SourceUrl := inputValues[0];
+
+  if (Trim(RegionId) = '') or (Trim(SourceUrl) = '') then
+  begin
+    Log('Region ID and Source URL are required.');
+    Exit;
+  end;
+  if Assigned(OSMMap.OfflineRegionManager) then
+  begin
+    Req.RegionId := TMapLibOfflineRegionId(RegionId);
+    Req.SourceUrl := SourceUrl;
+    Req.MinZoom := 0;
+    Req.MaxZoom := 10;
+    Req.Bounds.North := 43.79;
+    Req.Bounds.South := 35.17;
+    Req.Bounds.East := 4.33;
+    Req.Bounds.West := -9.30;
+    Req.DataVersion := '1.0.0';
+    if OSMMap.OfflineRegionManager.DownloadRegion(Req) <> '' then
+      Log('OSM download started for region: ' + RegionId)
+    else
+      Log('OSM download failed to start or is already active.');
+  end;
 end;
 
 procedure TMainFrm.OSMDeleteRegionClick(Sender: TObject);
@@ -2905,26 +3316,54 @@ begin
   if (I >= Low(Regions)) and (I <= High(Regions)) then
   begin
     regionId := string(Regions[I].RegionId);
-    TDialogService.MessageDialog(
-      Format('Are you sure you want to delete region "%s" and its associated files?', [regionId]),
-      TMsgDlgType.mtConfirmation,
-      [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo],
-      TMsgDlgBtn.mbNo,
-      0,
-      procedure(const AResult: TModalResult)
+    if DialogMessageConfirm(
+      Format('Are you sure you want to delete region "%s" and its associated files?', [regionId])
+    ) then
+    begin
+      if OSMMap.OfflineRegionManager.DeleteRegion(regionId) then
       begin
-        if AResult = mrYes then
-        begin
-          if OSMMap.OfflineRegionManager.DeleteRegion(regionId) then
-          begin
-            Log('OSM region deleted: ' + regionId);
-            RefreshOSMRegionsList;
-          end
-          else
-            Log('Failed to delete OSM region: ' + regionId);
-        end;
-      end);
+        Log('OSM region deleted: ' + regionId);
+        RefreshOSMRegionsList;
+      end
+      else
+        Log('Failed to delete OSM region: ' + regionId);
+    end;
   end;
+end;
+
+procedure TMainFrm.OSMGoToRegionClick(Sender: TObject);
+var
+  regionId: string;
+  regions: TMapLibOfflineRegionMetadataArray;
+  selectedIndex: Integer;
+begin
+  if not Assigned(lbOSMRegions) or (lbOSMRegions.ItemIndex < 0) then
+  begin
+    Log('Please select a region to navigate to.');
+    Exit;
+  end;
+
+  if not Assigned(OSMMap) or not Assigned(OSMMap.OfflineRegionManager) then
+    Exit;
+
+  regions := OSMMap.OfflineRegionManager.ListRegions;
+  selectedIndex := lbOSMRegions.ItemIndex;
+  if (selectedIndex < Low(regions)) or (selectedIndex > High(regions)) then
+    Exit;
+
+  regionId := string(regions[selectedIndex].RegionId);
+  OSMMap.FitBounds(
+    regions[selectedIndex].Bounds.North,
+    regions[selectedIndex].Bounds.South,
+    regions[selectedIndex].Bounds.East,
+    regions[selectedIndex].Bounds.West
+  );
+  Log(Format('OSM go to region: %s (N=%.4f S=%.4f E=%.4f W=%.4f)',
+    [regionId,
+     regions[selectedIndex].Bounds.North,
+     regions[selectedIndex].Bounds.South,
+     regions[selectedIndex].Bounds.East,
+     regions[selectedIndex].Bounds.West]));
 end;
 
 procedure TMainFrm.OSMListRegionsClick(Sender: TObject);

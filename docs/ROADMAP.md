@@ -15,6 +15,9 @@
 - Runtime asset packaging is implemented via embedded resources extracted to temp files.
 - Embedded bootstrap extraction is now validated on `FMX` mobile for both
   `GMLib` and `OSMLib`; `MAP_BOOTSTRAP_FROM_FILES` remains development-only.
+- The next mobile offline step is no longer "make bootstrap work", but
+  "validate real cache/offline behavior" because the embedded asset path is now
+  also in place for offline `MapLibre CSS/JS` and style-template resolution.
 - Core extraction completed:
   - `MapLibCore` created and integrated.
   - neutral units consolidated under `uMapLib.Core.*`.
@@ -87,9 +90,14 @@
     - popup CRUD/testing UI
   - `FMX MegaDemo` now also exposes popup CRUD/testing UI plus marker-click
     popup validation flow
-  - `demos/Fmx/OSMMobileMinimal` is now the minimal online validation demo for
-    `OSMLib` on `FMX` mobile (`Android/iOS`).
+- `demos/Fmx/OSMMobileMinimal` is now the minimal `FMX` mobile validation demo
+  for `OSMLib` on `Android/iOS`, with explicit `Online/Hybrid/Offline` mode
+  switching.
   - latest round compiles cleanly according to manual validation.
+  - current decision: mobile `Offline` is treated as an emergency/fallback
+    mode, not as a full replacement for online rendering quality.
+  - current glyph policy: keep only `Noto Sans Regular` as the embedded local
+    corpus for labels unless a concrete product/runtime need justifies more.
 
 - Google LCL framework parity:
   - `MapOptions`, `Circle`, `Polygon`, and `Rectangle` already exposed `TColor`.
@@ -111,6 +119,14 @@
     aligned in the shared runtime for `VCL`, `FMX`, and `LCL/FPC`.
   - `OfflineRegionManager`, `StyleProvider`, `TileResolver`, and related units
     are now covered by deterministic unit tests.
+  - first `BuildRegion` viewport -> `MBTiles` flow is now working in
+    `FMX MegaDemo`, including:
+    - tile-count estimation
+    - v1 limits (`<=5000` normal, `<=10000` warning, `>10000` blocked)
+    - auto coverage lookup between downloaded regions
+    - `Go To Region` for disconnected offline areas
+  - current build performance is considered sufficient for `v1`; no extra
+    download concurrency is planned for now.
 
 ## Next milestones
 
@@ -208,5 +224,8 @@
 
 - deterministic offline/online fallback behavior per policy.
 - framework parity validation (`VCL/FMX/LCL/Android/iOS`).
+- keep mobile offline pragmatic:
+  - enough labels to remain usable in emergencies
+  - avoid large glyph bundles by default
 
 

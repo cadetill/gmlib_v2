@@ -20,7 +20,7 @@ object MainForm: TMainForm
       Size.Height = 56.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
-      Text = 'Activate'
+      Text = 'Online'
       OnClick = btnActivateClick
     end
     object btnResetView: TButton
@@ -30,7 +30,7 @@ object MainForm: TMainForm
       Size.Height = 56.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 1
-      Text = 'Reset view'
+      Text = 'Hybrid'
       OnClick = btnResetViewClick
     end
     object btnTogglePopup: TButton
@@ -40,7 +40,7 @@ object MainForm: TMainForm
       Size.Height = 56.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 2
-      Text = 'Toggle popup'
+      Text = 'Offline'
       OnClick = btnTogglePopupClick
     end
     object lblStatus: TLabel

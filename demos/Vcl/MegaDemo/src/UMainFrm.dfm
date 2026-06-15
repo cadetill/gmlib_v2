@@ -2972,7 +2972,7 @@ object MainFrm: TMainFrm
             Width = 577
             Height = 23
             TabOrder = 1
-            Text = 'resources\js\osm\vendor'
+            Text = 'resources\js\osm'
           end
           object eOSMOfflineServerPort: TEdit
             Left = 152
@@ -2980,7 +2980,7 @@ object MainFrm: TMainFrm
             Width = 577
             Height = 23
             TabOrder = 2
-            Text = 'resources\js\osm\offline\style.template.json'
+            Text = 'resources\js\osm\style.template.json'
           end
           object cbOSMOfflineSourcePreset: TComboBox
             Left = 152

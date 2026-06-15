@@ -20,6 +20,9 @@ type
 
     [Test]
     procedure GetStorageUsage_SumsRegionSizes;
+
+    [Test]
+    procedure DeleteRegion_ClearsActiveRegionWhenItMatchesDeletedRegion;
   end;
 
 implementation
@@ -118,6 +121,39 @@ begin
       Usage := Manager.GetStorageUsage;
       Assert.AreEqual(Int64(7), Usage.UsedBytes);
       Assert.IsTrue(Usage.AvailableBytes > 0);
+    finally
+      Manager.Free;
+    end;
+  finally
+    if DirectoryExists(StoragePath) then
+      TDirectory.Delete(StoragePath, True);
+  end;
+end;
+
+procedure TTestMapLibOfflineRegionManager.DeleteRegion_ClearsActiveRegionWhenItMatchesDeletedRegion;
+var
+  CatalogFileName: string;
+  Manager: TMapLibOfflineRegionManager;
+  Regions: TMapLibOfflineRegionMetadataArray;
+  StoragePath: string;
+begin
+  StoragePath := TPath.Combine(TPath.GetTempPath, TPath.GetRandomFileName);
+  ForceDirectories(StoragePath);
+  try
+    Regions := [
+      BuildRegionMetadata('region-a', 'region-a.mbtiles', 1, 10, 50, 40, 5, -5, 5)
+    ];
+
+    CatalogFileName := TPath.Combine(StoragePath, 'regions.json');
+    TMapLibOfflineCatalogStorage.SaveToFile(CatalogFileName, Regions);
+
+    Manager := TMapLibOfflineRegionManager.Create(StoragePath);
+    try
+      Manager.SetActiveRegion('region-a');
+      Assert.AreEqual('region-a', string(Manager.GetActiveRegionId));
+
+      Assert.IsTrue(Manager.DeleteRegion('region-a'));
+      Assert.AreEqual('', string(Manager.GetActiveRegionId));
     finally
       Manager.Free;
     end;

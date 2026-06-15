@@ -18,6 +18,7 @@ uses
   FMX.WebBrowser,
   uMapLib.Core.LatLng,
   uMapLib.Core.Offline,
+  uMapLib.Offline.Types,
   uOSMLib.Map,
   uOSMLib.Fmx.Map,
   uOSMLib.Fmx.Marker;
@@ -43,11 +44,14 @@ type
     cDefaultStyleUrl = 'https://tiles.openfreemap.org/styles/liberty';
     cDefaultMapLibreCssUrl = 'https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.css';
     cDefaultMapLibreJsUrl = 'https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.js';
+    cDefaultRemoteTileTemplate = 'https://tiles.openfreemap.org/planet/latest/{z}/{x}/{y}.pbf';
   private
+    FCurrentMode: TMapLibMapMode;
     FMap: TOSMLibFmxMap;
     FMapReady: Boolean;
     FMarker: TOSMFmxMarkerItem;
     FPopup: TOSMPopupItem;
+    procedure ActivateMode(AMode: TMapLibMapMode);
     function BuildCoordinateText(ALat, ALng: Double): string;
     procedure ConfigureBrowser;
     procedure CreateOrUpdatePopup(const ATitle: string; ALat, ALng: Double);
@@ -57,8 +61,11 @@ type
     procedure HandleMapReady(Sender: TObject);
     procedure HandleMarkerClick(Sender: TObject; ALatLng: TMapLibLatLng);
     procedure HandleMarkerDragEnd(Sender: TObject; ALatLng: TMapLibLatLng);
+    procedure HandleOfflineError(Sender: TObject; AErrorCode: Integer;
+      const AUserMessage, ATechnicalMessage: string);
     procedure InitializeMap;
     procedure Log(const AText: string);
+    function MapModeToText(AMode: TMapLibMapMode): string;
     procedure UpdateStatus(const AText: string);
   public
     destructor Destroy; override;
@@ -73,54 +80,67 @@ implementation
 
 procedure TMainForm.btnActivateClick(Sender: TObject);
 begin
-  if not Assigned(FMap) then
-    Exit;
-
-  if FMap.Active then
-  begin
-    Log('Map is already active.');
-    Exit;
-  end;
-
-  UpdateStatus('Loading online map...');
-  FMap.Active := True;
-  Log('Online map activation requested.');
+  ActivateMode(omOnline);
 end;
 
 procedure TMainForm.btnResetViewClick(Sender: TObject);
 begin
-  if not Assigned(FMap) then
-    Exit;
-
-  FMap.CenterLat := cDefaultLat;
-  FMap.CenterLng := cDefaultLng;
-  FMap.Zoom := cDefaultZoom;
-  UpdateStatus('Default view restored');
-  Log('Default view restored.');
+  ActivateMode(omHybrid);
 end;
 
 procedure TMainForm.btnTogglePopupClick(Sender: TObject);
 begin
+  ActivateMode(omOffline);
+end;
+
+procedure TMainForm.ActivateMode(AMode: TMapLibMapMode);
+begin
   if not Assigned(FMap) then
     Exit;
 
-  if not FMapReady then
-  begin
-    Log('Map is not ready yet.');
-    Exit;
-  end;
+  if FMap.Active then
+    FMap.Active := False;
 
-  if not Assigned(FPopup) then
-  begin
-    EnsureTestMarker;
-    Exit;
-  end;
+  FMapReady := False;
+  FCurrentMode := AMode;
+  FMap.CenterLat := cDefaultLat;
+  FMap.CenterLng := cDefaultLng;
+  FMap.Zoom := cDefaultZoom;
+  FMap.StyleUrl := cDefaultStyleUrl;
+  FMap.StyleTemplateFileName := '';
+  FMap.GlyphsRootPath := '';
 
-  FPopup.Options.Visible := not FPopup.Options.Visible;
-  if FPopup.Options.Visible then
-    Log('Popup opened.')
+  case AMode of
+    omOnline:
+      begin
+        FMap.OfflinePolicy := opPreferOnline;
+        FMap.RemoteTileTemplate := '';
+        FMap.MapLibreCssUrl := cDefaultMapLibreCssUrl;
+        FMap.MapLibreJsUrl := cDefaultMapLibreJsUrl;
+      end;
+    omOffline:
+      begin
+        FMap.OfflinePolicy := opOfflineOnly;
+        FMap.RemoteTileTemplate := cDefaultRemoteTileTemplate;
+        FMap.MapLibreCssUrl := '';
+        FMap.MapLibreJsUrl := '';
+      end;
   else
-    Log('Popup closed.');
+    begin
+      FMap.OfflinePolicy := opPreferOffline;
+      FMap.RemoteTileTemplate := cDefaultRemoteTileTemplate;
+      FMap.MapLibreCssUrl := '';
+      FMap.MapLibreJsUrl := '';
+    end;
+  end;
+
+  FMap.MapMode := AMode;
+  UpdateStatus('Loading ' + MapModeToText(AMode) + ' map...');
+  Log(Format('%s activation requested. Storage=%s', [
+    MapModeToText(AMode),
+    FMap.OfflineStoragePath
+  ]));
+  FMap.Active := True;
 end;
 
 function TMainForm.BuildCoordinateText(ALat, ALng: Double): string;
@@ -188,6 +208,9 @@ begin
   ConfigureBrowser;
   LogMemo.Lines.Clear;
   UpdateStatus('Idle');
+  btnActivate.Text := 'Online';
+  btnResetView.Text := 'Hybrid';
+  btnTogglePopup.Text := 'Offline';
   InitializeMap;
   TThread.Queue(nil,
     procedure
@@ -216,8 +239,10 @@ procedure TMainForm.HandleMapReady(Sender: TObject);
 begin
   FMapReady := True;
   EnsureTestMarker;
-  UpdateStatus('Map ready');
-  Log('Map ready.');
+  UpdateStatus(MapModeToText(FCurrentMode) + ' ready');
+  Log(MapModeToText(FCurrentMode) + ' map ready.');
+  if FCurrentMode <> omOnline then
+    Log('Runtime base URL: ' + FMap.GetRuntimeBaseUrl);
 end;
 
 procedure TMainForm.HandleMarkerClick(Sender: TObject; ALatLng: TMapLibLatLng);
@@ -234,25 +259,51 @@ begin
   Log(Format('Marker drag end at %.6f, %.6f', [ALatLng.Lat, ALatLng.Lng]));
 end;
 
+procedure TMainForm.HandleOfflineError(Sender: TObject; AErrorCode: Integer;
+  const AUserMessage, ATechnicalMessage: string);
+begin
+  UpdateStatus('Offline error');
+  Log(Format('Offline error %d: %s | %s', [
+    AErrorCode,
+    AUserMessage,
+    ATechnicalMessage
+  ]));
+end;
+
 procedure TMainForm.InitializeMap;
 begin
   FMap := TOSMLibFmxMap.Create(nil);
   FMap.Browser := WebBrowser1;
+  FCurrentMode := omOnline;
   FMap.MapMode := omOnline;
   FMap.StyleUrl := cDefaultStyleUrl;
   FMap.MapLibreCssUrl := cDefaultMapLibreCssUrl;
   FMap.MapLibreJsUrl := cDefaultMapLibreJsUrl;
+  FMap.RemoteTileTemplate := cDefaultRemoteTileTemplate;
   FMap.CenterLat := cDefaultLat;
   FMap.CenterLng := cDefaultLng;
   FMap.Zoom := cDefaultZoom;
   FMap.OnMapReady := HandleMapReady;
   FMap.OnClick := HandleMapClick;
   FMap.OnError := HandleMapError;
+  FMap.OnOfflineError := HandleOfflineError;
 end;
 
 procedure TMainForm.Log(const AText: string);
 begin
   LogMemo.Lines.Add(FormatDateTime('hh:nn:ss', Now) + '  ' + AText);
+end;
+
+function TMainForm.MapModeToText(AMode: TMapLibMapMode): string;
+begin
+  case AMode of
+    omOffline:
+      Result := 'Offline';
+    omHybrid:
+      Result := 'Hybrid';
+  else
+    Result := 'Online';
+  end;
 end;
 
 procedure TMainForm.UpdateStatus(const AText: string);

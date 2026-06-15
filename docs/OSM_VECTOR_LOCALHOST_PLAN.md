@@ -19,8 +19,7 @@ built next.
 The agreed direction is:
 
 - keep `MapLibre` as the main OSM renderer
-- stop treating `PMTiles` as the main runtime path
-- treat `Protomaps` as out of scope for this new runtime
+- treat `MBTiles` as the only planned region/package path for this runtime
 - make the first version as simple as possible
 - keep it cheap to move later from:
   - embedded `style.json`
@@ -42,7 +41,7 @@ The agreed direction is:
 - background prefetch/catalog UX
 - multiple map providers in the same first implementation
 - aggressive style editing features
-- resurrecting the old `PMTiles` path
+- resurrecting discarded legacy archive paths
 
 ## Public runtime model
 
@@ -448,7 +447,7 @@ The first cut should prefer correctness over over-optimization.
 ### Phase 4
 
 - add stale-cache / refresh policy if needed
-- simplify/remove obsolete `PMTiles` code paths
+- simplify/remove obsolete legacy archive code paths
 - clean demo UI that still exposes dead offline controls
 
 ## Open decisions still allowed
@@ -536,10 +535,10 @@ Meaning:
 - if their responsibilities become needed later, they should be folded into the
   more specific units listed above
 
-### PMTiles-related code
+### Legacy archive-related code
 
-Current `PMTiles`-oriented code and commented paths should be treated as
-legacy/transitional material:
+Current legacy archive-oriented code and commented paths should be treated as
+transitional material:
 
 - do not use them as the implementation base for the new vector localhost path
 - do not reactivate them incrementally without first checking whether they
@@ -562,7 +561,7 @@ Explicitly not in the first cut:
 - region downloader
 - full region catalog UX
 - style served from localhost
-- reintroduced `PMTiles` path
+- reintroduced discarded legacy archive path
 
 ## Current implementation snapshot
 

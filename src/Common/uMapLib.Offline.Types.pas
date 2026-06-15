@@ -19,15 +19,6 @@ uses
 {$ENDIF}
 
 type
-(*
-  {** @abstract(Tipos de proveedor offline soportados por las capas legacy y de transicion.) }
-  TMapLibOfflineTileProvider = (
-    otpAuto,
-    otpEmbeddedTileJson,
-    otpExternalPmtiles,
-    otpNativePmtiles
-  );
-*)
   {** @abstract(Politica de preferencia entre cache local y proveedor remoto.) }
   TMapLibOfflinePolicy = (
     opPreferOffline,
@@ -86,6 +77,17 @@ type
   TMapLibOfflineDownloadRequest = record
     RegionId: TMapLibOfflineRegionId;
     SourceUrl: string;
+    MinZoom: Integer;
+    MaxZoom: Integer;
+    Bounds: TMapLibOfflineRegionBounds;
+    DataVersion: string;
+  end;
+
+  {** @abstract(Solicitud para construir una región MBTiles desde un bbox y zooms.) }
+  TMapLibOfflineBuildRegionRequest = record
+    RegionId: TMapLibOfflineRegionId;
+    SourceId: string;
+    RemoteTileTemplate: string;
     MinZoom: Integer;
     MaxZoom: Integer;
     Bounds: TMapLibOfflineRegionBounds;

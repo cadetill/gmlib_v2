@@ -9,13 +9,13 @@
         <Projects Include="GMLibRuntime.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="OSMLibRuntime.dproj">
+            <Dependencies/>
+        </Projects>
         <Projects Include="GMLibRuntime.Vcl.dproj">
             <Dependencies/>
         </Projects>
         <Projects Include="GMLibRuntime.Fmx.dproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="OSMLibRuntime.dproj">
             <Dependencies/>
         </Projects>
         <Projects Include="OSMLibRuntime.Vcl.dproj">
@@ -62,6 +62,15 @@
     <Target Name="GMLibRuntime:Make">
         <MSBuild Projects="GMLibRuntime.dproj" Targets="Make"/>
     </Target>
+    <Target Name="OSMLibRuntime">
+        <MSBuild Projects="OSMLibRuntime.dproj"/>
+    </Target>
+    <Target Name="OSMLibRuntime:Clean">
+        <MSBuild Projects="OSMLibRuntime.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="OSMLibRuntime:Make">
+        <MSBuild Projects="OSMLibRuntime.dproj" Targets="Make"/>
+    </Target>
     <Target Name="GMLibRuntime_Vcl">
         <MSBuild Projects="GMLibRuntime.Vcl.dproj"/>
     </Target>
@@ -79,15 +88,6 @@
     </Target>
     <Target Name="GMLibRuntime_Fmx:Make">
         <MSBuild Projects="GMLibRuntime.Fmx.dproj" Targets="Make"/>
-    </Target>
-    <Target Name="OSMLibRuntime">
-        <MSBuild Projects="OSMLibRuntime.dproj"/>
-    </Target>
-    <Target Name="OSMLibRuntime:Clean">
-        <MSBuild Projects="OSMLibRuntime.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="OSMLibRuntime:Make">
-        <MSBuild Projects="OSMLibRuntime.dproj" Targets="Make"/>
     </Target>
     <Target Name="OSMLibRuntime_Vcl">
         <MSBuild Projects="OSMLibRuntime.Vcl.dproj"/>
@@ -144,13 +144,13 @@
         <MSBuild Projects="..\demos\Fmx\OSMMobileMinimal\GMLibOSMMobileMinimalFmx.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="MapLibCore;GMLibRuntime;GMLibRuntime_Vcl;GMLibRuntime_Fmx;OSMLibRuntime;OSMLibRuntime_Vcl;MapLibDesign_Vcl;MapLibDesign_Fmx;MegaDemo;MegaDemoFmx;GMLibOSMMobileMinimalFmx"/>
+        <CallTarget Targets="MapLibCore;GMLibRuntime;OSMLibRuntime;GMLibRuntime_Vcl;GMLibRuntime_Fmx;OSMLibRuntime_Vcl;MapLibDesign_Vcl;MapLibDesign_Fmx;MegaDemo;MegaDemoFmx;GMLibOSMMobileMinimalFmx"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="MapLibCore:Clean;GMLibRuntime:Clean;GMLibRuntime_Vcl:Clean;GMLibRuntime_Fmx:Clean;OSMLibRuntime:Clean;OSMLibRuntime_Vcl:Clean;MapLibDesign_Vcl:Clean;MapLibDesign_Fmx:Clean;MegaDemo:Clean;MegaDemoFmx:Clean;GMLibOSMMobileMinimalFmx:Clean"/>
+        <CallTarget Targets="MapLibCore:Clean;GMLibRuntime:Clean;OSMLibRuntime:Clean;GMLibRuntime_Vcl:Clean;GMLibRuntime_Fmx:Clean;OSMLibRuntime_Vcl:Clean;MapLibDesign_Vcl:Clean;MapLibDesign_Fmx:Clean;MegaDemo:Clean;MegaDemoFmx:Clean;GMLibOSMMobileMinimalFmx:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="MapLibCore:Make;GMLibRuntime:Make;GMLibRuntime_Vcl:Make;GMLibRuntime_Fmx:Make;OSMLibRuntime:Make;OSMLibRuntime_Vcl:Make;MapLibDesign_Vcl:Make;MapLibDesign_Fmx:Make;MegaDemo:Make;MegaDemoFmx:Make;GMLibOSMMobileMinimalFmx:Make"/>
+        <CallTarget Targets="MapLibCore:Make;GMLibRuntime:Make;OSMLibRuntime:Make;GMLibRuntime_Vcl:Make;GMLibRuntime_Fmx:Make;OSMLibRuntime_Vcl:Make;MapLibDesign_Vcl:Make;MapLibDesign_Fmx:Make;MegaDemo:Make;MegaDemoFmx:Make;GMLibOSMMobileMinimalFmx:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

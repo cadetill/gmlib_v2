@@ -1104,8 +1104,8 @@ object MainFrm: TMainFrm
                   Size.Height = 94.000000000000000000
                   Size.PlatformDefault = False
                   TabOrder = 0
-                  Viewport.Width = 482.000000000000000000
-                  Viewport.Height = 90.000000000000000000
+                  Viewport.Width = 486.000000000000000000
+                  Viewport.Height = 94.000000000000000000
                 end
               end
               object FTabMarkerLabel: TTabItem
@@ -1537,8 +1537,8 @@ object MainFrm: TMainFrm
                 Size.Height = 84.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 8
-                Viewport.Width = 151.000000000000000000
-                Viewport.Height = 80.000000000000000000
+                Viewport.Width = 155.000000000000000000
+                Viewport.Height = 84.000000000000000000
               end
               object lblPolylineStrokeColor: TLabel
                 Position.X = 427.000000000000000000
@@ -1749,8 +1749,8 @@ object MainFrm: TMainFrm
                 Size.Height = 84.000000000000000000
                 Size.PlatformDefault = False
                 TabOrder = 8
-                Viewport.Width = 151.000000000000000000
-                Viewport.Height = 80.000000000000000000
+                Viewport.Width = 155.000000000000000000
+                Viewport.Height = 84.000000000000000000
               end
               object lblPolygonStrokeColor: TLabel
                 Position.X = 420.000000000000000000
@@ -3187,8 +3187,8 @@ object MainFrm: TMainFrm
               Size.Height = 100.000000000000000000
               Size.PlatformDefault = False
               TabOrder = 13
-              Viewport.Width = 446.000000000000000000
-              Viewport.Height = 96.000000000000000000
+              Viewport.Width = 450.000000000000000000
+              Viewport.Height = 100.000000000000000000
             end
           end
         end
@@ -3216,6 +3216,8 @@ object MainFrm: TMainFrm
         TabOrder = 0
         TabPosition = Top
         Sizes = (
+          1240s
+          173s
           1240s
           173s
           1240s
@@ -3590,7 +3592,7 @@ object MainFrm: TMainFrm
           object eOSMOfflineServerExecutable: TEdit
             Touch.InteractiveGestures = [LongTap, DoubleTap]
             TabOrder = 3
-            Text = 'resources\js\osm\vendor'
+            Text = 'resources\js\osm'
             Position.X = 130.000000000000000000
             Position.Y = 40.000000000000000000
             Size.Width = 360.000000000000000000
@@ -3609,7 +3611,7 @@ object MainFrm: TMainFrm
           object eOSMOfflineServerPort: TEdit
             Touch.InteractiveGestures = [LongTap, DoubleTap]
             TabOrder = 5
-            Text = 'resources\js\osm\offline\style.template.json'
+            Text = 'resources\js\osm\style.template.json'
             Position.X = 130.000000000000000000
             Position.Y = 68.000000000000000000
             Size.Width = 360.000000000000000000
@@ -3653,13 +3655,23 @@ object MainFrm: TMainFrm
             Text = 'Delete Region'
             OnClick = OSMDeleteRegionClick
           end
+          object bOSMGoToRegion: TButton
+            Position.X = 780.000000000000000000
+            Position.Y = 8.000000000000000000
+            Size.Width = 110.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 10
+            Text = 'Go To Region'
+            OnClick = OSMGoToRegionClick
+          end
           object lbOSMRegions: TListBox
             Position.X = 540.000000000000000000
             Position.Y = 40.000000000000000000
             Size.Width = 480.000000000000000000
             Size.Height = 80.000000000000000000
             Size.PlatformDefault = False
-            TabOrder = 10
+            TabOrder = 11
             DisableFocusEffect = True
             DefaultItemStyles.ItemStyle = ''
             DefaultItemStyles.GroupHeaderStyle = ''
@@ -3722,12 +3734,14 @@ object MainFrm: TMainFrm
             item
             end>
           IsSelected = False
-          Size.Width = 57.000000000000000000
+          Size.Width = 60.000000000000000000
           Size.Height = 26.000000000000000000
           Size.PlatformDefault = False
           StyleLookup = ''
-          TabOrder = 3
+          TabOrder = 0
           Text = 'Popups'
+          ExplicitSize.cx = 57.000000000000000000
+          ExplicitSize.cy = 26.000000000000000000
           object lbOSMPopups: TListBox
             Position.X = 20.000000000000000000
             Position.Y = 20.000000000000000000
@@ -3794,6 +3808,7 @@ object MainFrm: TMainFrm
             Size.Height = 15.000000000000000000
             Size.PlatformDefault = False
             Text = 'Lat'
+            TabOrder = 18
           end
           object eOSMPopupLat: TEdit
             Touch.InteractiveGestures = [LongTap, DoubleTap]
@@ -3811,6 +3826,7 @@ object MainFrm: TMainFrm
             Size.Height = 15.000000000000000000
             Size.PlatformDefault = False
             Text = 'Lng'
+            TabOrder = 19
           end
           object eOSMPopupLng: TEdit
             Touch.InteractiveGestures = [LongTap, DoubleTap]
@@ -3828,6 +3844,7 @@ object MainFrm: TMainFrm
             Size.Height = 15.000000000000000000
             Size.PlatformDefault = False
             Text = 'Anchor object id'
+            TabOrder = 20
           end
           object eOSMPopupAnchorObjectId: TEdit
             Touch.InteractiveGestures = [LongTap, DoubleTap]
@@ -3845,6 +3862,7 @@ object MainFrm: TMainFrm
             Size.Height = 15.000000000000000000
             Size.PlatformDefault = False
             Text = 'Max width'
+            TabOrder = 21
           end
           object eOSMPopupMaxWidth: TEdit
             Touch.InteractiveGestures = [LongTap, DoubleTap]
@@ -3862,6 +3880,7 @@ object MainFrm: TMainFrm
             Size.Height = 15.000000000000000000
             Size.PlatformDefault = False
             Text = 'Preset style'
+            TabOrder = 22
           end
           object cbOSMPopupCssClass: TComboBox
             Position.X = 432.000000000000000000
@@ -3878,6 +3897,7 @@ object MainFrm: TMainFrm
             Size.Height = 15.000000000000000000
             Size.PlatformDefault = False
             Text = 'Content type'
+            TabOrder = 23
           end
           object cbOSMPopupContentType: TComboBox
             Position.X = 548.000000000000000000
@@ -3894,6 +3914,7 @@ object MainFrm: TMainFrm
             Size.Height = 15.000000000000000000
             Size.PlatformDefault = False
             Text = 'Content'
+            TabOrder = 24
           end
           object mOSMPopupContent: TMemo
             Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
@@ -3904,37 +3925,37 @@ object MainFrm: TMainFrm
             Size.Height = 80.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 12
-            Viewport.Width = 316.000000000000000000
-            Viewport.Height = 76.000000000000000000
+            Viewport.Width = 320.000000000000000000
+            Viewport.Height = 80.000000000000000000
           end
           object cbOSMPopupVisible: TCheckBox
+            IsChecked = True
             Position.X = 680.000000000000000000
             Position.Y = 122.000000000000000000
             Size.Width = 60.000000000000000000
             Size.Height = 19.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 13
-            IsChecked = True
             Text = 'Visible'
           end
           object cbOSMPopupCloseButton: TCheckBox
+            IsChecked = True
             Position.X = 748.000000000000000000
             Position.Y = 122.000000000000000000
             Size.Width = 95.000000000000000000
             Size.Height = 19.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 14
-            IsChecked = True
             Text = 'Close button'
           end
           object cbOSMPopupCloseOnClick: TCheckBox
+            IsChecked = True
             Position.X = 850.000000000000000000
             Position.Y = 122.000000000000000000
             Size.Width = 95.000000000000000000
             Size.Height = 19.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 15
-            IsChecked = True
             Text = 'Close on click'
           end
           object cbOSMPopupCloseOnMove: TCheckBox
@@ -4016,12 +4037,15 @@ object MainFrm: TMainFrm
   object OSMMap: TOSMLibFmxMap
     OfflineStoragePath = 'C:\Users\cadetill\AppData\Local\Temp\GMLib\OSM'
     MaxZoom = 22.000000000000000000
+    MaxPitch = 60.000000000000000000
     MapId = 'OSMLib_MAP'
     OnMapReady = OSMMapReady
     OnBoundsChanged = OSMMapBoundsChangedEvent
     OnOfflineDownloadProgress = OSMMapDownloadProgress
     OnOfflineRegionReady = OSMMapRegionReady
     OnOfflineError = OSMMapOfflineError
+    Markers = <>
+    Popups = <>
     StyleUrl = 'https://tiles.openfreemap.org/styles/bright'
     MapLibreCssUrl = 'https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.css'
     MapLibreJsUrl = 'https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.js'

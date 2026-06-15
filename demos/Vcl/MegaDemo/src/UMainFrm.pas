@@ -989,7 +989,7 @@ begin
   cbOSMPopupContentType.ItemIndex := 0;
   //cbOSMOfflineSourcePreset.Items.Clear;
   //cbOSMOfflineSourcePreset.Items.Add('TileJSON local (embedded server)');
-  //cbOSMOfflineSourcePreset.Items.Add('PMTiles Spain (native pmtiles.js, no pmtiles.exe runtime)');
+  //cbOSMOfflineSourcePreset.Items.Add('Legacy archive preset removed');
   //cbOSMOfflineSourcePreset.ItemIndex := 1;
   //cbOSMOfflineSourcePreset.OnChange := OSMOfflineSourcePresetChange;
   bApplyOSMStyle.OnClick := ApplyOSMStyleClick;
@@ -1961,11 +1961,11 @@ var
 begin
 (*
   RegionId := 'spain';
-  SourceUrl := 'https://github.com/cadetill/gmlib_v2/raw/master/resources/js/osm/vendor/spain.pmtiles';
+  SourceUrl := 'https://example.invalid/spain.mbtiles';
 
   if InputQuery('Download Offline Region', 'Enter Region ID (e.g. spain):', RegionId) then
   begin
-    if InputQuery('Download Offline Region', 'Enter PMTiles/MBTiles HTTP Source URL:', SourceUrl) then
+    if InputQuery('Download Offline Region', 'Enter MBTiles HTTP Source URL:', SourceUrl) then
     begin
       if (Trim(RegionId) = '') or (Trim(SourceUrl) = '') then
       begin
@@ -2386,12 +2386,12 @@ begin
   glyphsRootPath := Trim(eOSMOfflineServerExecutable.Text);
 
   if styleTemplatePath = '' then
-    styleTemplatePath := ResolveRepoAssetPath('resources\js\osm\offline\style.template.json');
+    styleTemplatePath := ResolveRepoAssetPath('resources\js\osm\style.template.json');
   if glyphsRootPath = '' then
-    glyphsRootPath := ResolveRepoAssetPath('resources\js\osm\vendor');
+    glyphsRootPath := ResolveRepoAssetPath('resources\js\osm');
 
-  localCssPath := ResolveRepoAssetPath('resources\js\osm\vendor\maplibre-gl.css');
-  localJsPath := ResolveRepoAssetPath('resources\js\osm\vendor\maplibre-gl.js');
+  localCssPath := ResolveRepoAssetPath('resources\js\osm\maplibre-gl.css');
+  localJsPath := ResolveRepoAssetPath('resources\js\osm\maplibre-gl.js');
 
   if mapMode <> omOnline then
   begin
@@ -2429,10 +2429,7 @@ begin
 //  Log('OSM runtime tileJson=' + GetOSMOfflineTileJsonUrl(OSMMap));
 //  if Pos('http://127.0.0.1:', LowerCase(GetOSMOfflineTileJsonUrl(OSMMap))) = 1 then
 //  begin
-//    if OSMMap.OfflineTileProvider = otpExternalPmtiles then
-//      Log('OSM offline is using external PMTiles localhost server.')
-//    else
-//      Log('OSM offline is using embedded localhost tile server.');
+//    Log('OSM offline is using localhost tile serving.');
 //  end
 //  else
 //    Log('OSM offline is not using embedded localhost tile server for this configuration.');
@@ -2614,8 +2611,8 @@ begin
   eOSMMaxPitch.Text := '60';
   eOSMStyleUrl.Text := OSMMap.StyleUrl;
   eOSMOfflineTileJsonUrl.Text := 'https://tiles.openfreemap.org/planet/latest/{z}/{x}/{y}.pbf';
-  eOSMOfflineServerExecutable.Text := ResolveRepoAssetPath('resources\js\osm\vendor');
-  eOSMOfflineServerPort.Text := ResolveRepoAssetPath('resources\js\osm\offline\style.template.json');
+  eOSMOfflineServerExecutable.Text := ResolveRepoAssetPath('resources\js\osm');
+  eOSMOfflineServerPort.Text := ResolveRepoAssetPath('resources\js\osm\style.template.json');
   cbOSMOfflineSourcePreset.ItemIndex := 1;
   // ApplyOSMOfflineSourcePreset;
   cbOSMMapMode.ItemIndex := 2;
@@ -2782,25 +2779,22 @@ end;
 
 //procedure TMainFrm.ApplyOSMOfflineSourcePreset;
 //var
-//  pmtilesPath: string;
-//  pmtilesExePath: string;
+//  mbtilesPath: string;
+//  localServerPath: string;
 //  styleTemplatePath: string;
 //begin
 //  case cbOSMOfflineSourcePreset.ItemIndex of
 //    1:
 //      begin
-//        pmtilesPath := ResolveRepoAssetPath('resources\js\osm\vendor\spain.pmtiles');
-//        pmtilesExePath := ResolveRepoAssetPath('resources\tools\pmtiles.exe');
-//        if pmtilesExePath = '' then
-//          pmtilesExePath := ResolveRepoAssetPath('resources\js\osm\vendor\pmtiles.exe');
+//        mbtilesPath := ResolveRepoAssetPath('resources\js\osm\spain.mbtiles');
+//        localServerPath := '';
 //
-//        eOSMOfflineTileJsonUrl.Text := pmtilesPath;
-//        eOSMOfflineServerExecutable.Text := pmtilesExePath;
-//        { PMTiles preset belonged to the old offline flow. The current vector
-//          runtime builds the final style from style.template.json. }
+//        eOSMOfflineTileJsonUrl.Text := mbtilesPath;
+//        eOSMOfflineServerExecutable.Text := localServerPath;
+//        { Legacy preset kept only as historical note. The active offline
+//          direction is MBTiles + embedded localhost + SQLite cache. }
 //        OSMMap.StyleTemplateFileName := '';
-//        OSMMap.OfflineTileProvider := otpNativePmtiles;
-//        Log('OSM offline preset applied: PMTiles Spain (native pmtiles.js, no pmtiles.exe runtime).');
+//        Log('OSM offline preset applied: MBTiles sample region.');
 //      end;
 //  else
 //    styleTemplatePath := ResolveRepoAssetPath('resources\js\osm\offline\style.template.json');

@@ -40,7 +40,9 @@ tiles setup. Depending on the provider you choose, you may still need:
 - a valid vector tile template in `RemoteTileTemplate`
 - a provider API key if that provider requires one
 
-For offline or hybrid runtime validation, the current codebase also expects:
+For offline or hybrid runtime validation, the current codebase can now resolve
+the base runtime assets from embedded resources when the explicit properties are
+left blank:
 
 - `maplibre-gl.css`
 - `maplibre-gl.js`
@@ -176,6 +178,23 @@ The following OSM / MapLibre runtime surface is currently implemented:
 - `demos/Fmx/OSMMobileMinimal` now acts as the minimal online validation demo
   for `OSMLib` on `FMX` mobile (`Android/iOS`), using the embedded bootstrap
   asset pipeline.
+- `demos/Fmx/OSMMobileMinimal` now also exposes a first explicit
+  `Online/Hybrid/Offline` validation flow for mobile, relying on embedded
+  MapLibre CSS/JS and persistent offline storage instead of repo-relative
+  paths.
+- for `FMX Android`, the embedded localhost runtime also requires
+  `android:usesCleartextTraffic="true"` in the app manifest so the WebView can
+  consume `http://127.0.0.1:...` tile/style requests.
+- for FireDAC SQLite cache on `Android/iOS`, the current runtime path should
+  use static SQLite linkage (`FireDAC.Phys.SQLiteWrapper.Stat` /
+  `EngineLinkage=Static`) instead of depending on a dynamic `libsqlite.so`
+  load.
+- mobile/offline storage paths should be composed with native path joins
+  (`.../GMLib/OSM`), not by passing `GMLib\OSM` as a single literal segment.
+- current mobile glyph policy is intentionally pragmatic:
+  - `Offline` is treated as an emergency/fallback mode
+  - `Noto Sans Regular` is kept as the only embedded local glyph corpus for now
+  - extra families/weights are deferred unless a concrete need appears
 - OSM visual validation is currently centered on `demos/Vcl/MegaDemo` and
   `demos/Fmx/MegaDemo`, which are the reference baselines for
   online/offline/hybrid behavior and for the current camera/interaction surface.
