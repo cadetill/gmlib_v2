@@ -170,6 +170,7 @@ end;
 var
   finalFileName: string;
   finalFilePath: string;
+  shouldDeleteTempFile: Boolean;
   tempFileName: string;
   tempFilePath: string;
 begin
@@ -180,6 +181,7 @@ begin
   FSyncPercent := 0;
   FSuccessfulTileCount := 0;
   FFailedTileCount := 0;
+  shouldDeleteTempFile := False;
 
   if Trim(FStorageBasePath) = '' then
   begin
@@ -229,8 +231,7 @@ begin
     begin
       FSuccess := False;
       FErrorMsg := 'Region build cancelled.';
-      if FileExists(tempFilePath) then
-        TFile.Delete(tempFilePath);
+      shouldDeleteTempFile := True;
     end
     else if FSuccessfulTileCount <= 0 then
     begin
@@ -239,8 +240,7 @@ begin
         FErrorMsg := 'Region build did not download any usable tiles.'
       else
         FErrorMsg := 'Region build finished without storing any tiles.';
-      if FileExists(tempFilePath) then
-        TFile.Delete(tempFilePath);
+      shouldDeleteTempFile := True;
     end
     else
     begin
@@ -266,19 +266,21 @@ begin
     begin
       FSuccess := False;
       FErrorMsg := E.Message;
-      if FileExists(tempFilePath) then
-      begin
-        try
-          TFile.Delete(tempFilePath);
-        except
-        end;
-      end;
+      shouldDeleteTempFile := True;
     end;
   end;
   FWriter.Free;
   FWriter := nil;
   FProvider.Free;
   FProvider := nil;
+
+  if shouldDeleteTempFile and FileExists(tempFilePath) then
+  begin
+    try
+      TFile.Delete(tempFilePath);
+    except
+    end;
+  end;
 
   TThread.Queue(Self, SyncCompleted);
 end;

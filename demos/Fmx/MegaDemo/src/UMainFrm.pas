@@ -435,6 +435,7 @@ type
     lOSMOfflineSourcePreset: TLabel;
     cbOSMOfflineSourcePreset: TComboBox;
     bOSMDownloadRegion: TButton;
+    bOSMCancelOfflineJob: TButton;
     bOSMDeleteRegion: TButton;
     bOSMGoToRegion: TButton;
     lbOSMRegions: TListBox;
@@ -536,6 +537,7 @@ type
     procedure OSMApplyStyleClick(Sender: TObject);
     procedure ApplyOSMEventFilterClick(Sender: TObject);
     procedure OSMDownloadRegionClick(Sender: TObject);
+    procedure OSMCancelOfflineJobClick(Sender: TObject);
     procedure OSMDeleteRegionClick(Sender: TObject);
     procedure OSMGoToRegionClick(Sender: TObject);
     procedure OSMListRegionsClick(Sender: TObject);
@@ -616,6 +618,7 @@ type
     FHasOSMCurrentBounds: Boolean;
     FOSMRegionBuildStartedAt: TDictionary<string, TDateTime>;
     FOSMRegionBuildTileCount: TDictionary<string, Integer>;
+    FOSMActiveOfflineJobId: string;
 
     function GM_COLORS(AIndex: Integer): TAlphaColor;
     procedure Log(const AText: string);
@@ -716,6 +719,7 @@ begin
   inherited;
   FOSMRegionBuildStartedAt := TDictionary<string, TDateTime>.Create;
   FOSMRegionBuildTileCount := TDictionary<string, Integer>.Create;
+  FOSMActiveOfflineJobId := '';
   InitializeDefaults;
   RefreshMarkerList;
   RefreshPolylineList;
@@ -2862,6 +2866,7 @@ end;
 
 procedure TMainFrm.OSMMapDownloadProgress(Sender: TObject; const AJobId: string; APercent: Double; ABytesDone, ABytesTotal: Int64);
 begin
+  FOSMActiveOfflineJobId := string(AJobId);
   Log(Format('OSM download %s: %.1f%% (%d/%d tiles)', [AJobId, APercent, ABytesDone, ABytesTotal]));
 end;
 
@@ -2875,6 +2880,9 @@ var
   tileCount: Integer;
   index: Integer;
 begin
+  if SameText(FOSMActiveOfflineJobId, string(ARegionId)) then
+    FOSMActiveOfflineJobId := '';
+
   tileCount := 0;
   if Assigned(FOSMRegionBuildTileCount) then
     FOSMRegionBuildTileCount.TryGetValue(string(ARegionId), tileCount);
@@ -2920,6 +2928,9 @@ end;
 
 procedure TMainFrm.OSMMapOfflineError(Sender: TObject; AErrorCode: Integer; const AUserMessage, ATechnicalMessage: string);
 begin
+  if (AErrorCode = 400) or (AErrorCode = 401) or (AErrorCode = 402) or
+    (AErrorCode = 403) then
+    FOSMActiveOfflineJobId := '';
   Log(Format('OSM offline error %d: %s (%s)', [AErrorCode, AUserMessage, ATechnicalMessage]));
 end;
 
@@ -3184,6 +3195,7 @@ begin
   if Assigned(OSMMap.OfflineRegionManager) and
     (OSMMap.OfflineRegionManager.BuildRegion(buildRequest) <> '') then
   begin
+    FOSMActiveOfflineJobId := regionId;
     if Assigned(FOSMRegionBuildStartedAt) then
       FOSMRegionBuildStartedAt.AddOrSetValue(regionId, Now);
     if Assigned(FOSMRegionBuildTileCount) then
@@ -3250,7 +3262,10 @@ begin
       Req.Bounds := catalogEntry.Bounds;
       Req.DataVersion := catalogEntry.DataVersion;
       if OSMMap.OfflineRegionManager.DownloadRegion(Req) <> '' then
+      begin
+        FOSMActiveOfflineJobId := catalogEntry.RegionId;
         Log('OSM download started for region: ' + catalogEntry.Title)
+      end
       else
         Log('OSM download failed to start or is already active.');
     end;
@@ -3290,10 +3305,30 @@ begin
     Req.Bounds.West := -9.30;
     Req.DataVersion := '1.0.0';
     if OSMMap.OfflineRegionManager.DownloadRegion(Req) <> '' then
+    begin
+      FOSMActiveOfflineJobId := RegionId;
       Log('OSM download started for region: ' + RegionId)
+    end
     else
       Log('OSM download failed to start or is already active.');
   end;
+end;
+
+procedure TMainFrm.OSMCancelOfflineJobClick(Sender: TObject);
+begin
+  if not Assigned(OSMMap) or not Assigned(OSMMap.OfflineRegionManager) then
+    Exit;
+
+  if Trim(FOSMActiveOfflineJobId) = '' then
+  begin
+    Log('No active offline job to cancel.');
+    Exit;
+  end;
+
+  if OSMMap.OfflineRegionManager.CancelDownload(FOSMActiveOfflineJobId) then
+    Log('OSM offline cancel requested for job: ' + FOSMActiveOfflineJobId)
+  else
+    Log('OSM offline cancel request failed for job: ' + FOSMActiveOfflineJobId);
 end;
 
 procedure TMainFrm.OSMDeleteRegionClick(Sender: TObject);

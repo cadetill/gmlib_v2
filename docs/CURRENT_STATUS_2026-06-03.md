@@ -1,5 +1,38 @@
 # Current Status - June 3, 2026
 
+## Update - June 16, 2026
+
+The offline-region v1 flow was hardened after the first usable `BuildRegion`
+round.
+
+- `OfflineRegionManager` now validates requests before starting a job:
+  - required `RegionId`
+  - required `SourceUrl` / `RemoteTileTemplate`
+  - coherent zoom range
+  - coherent bounds
+- region id collisions are now treated as a hard precondition failure:
+  - if a region already exists in the catalog, callers must delete it first
+  - `DownloadRegion(...)` / `BuildRegion(...)` now raise
+    `EInvalidOpException` synchronously in that case
+- `DeleteRegion(...)` no longer removes a region while a download/build job for
+  that same region is active
+- stale `*.tmp` and `*.building.mbtiles` files are now cleaned when the manager
+  is created or when its storage base path changes
+- `MegaDemo FMX` now exposes an explicit `Cancel Job` action for the active
+  offline job
+- cancellation is now reported distinctly from operational failures:
+  - `402`: offline region download cancelled
+  - `403`: offline region build cancelled
+- the previous build-cancel SQLite lock issue was fixed by releasing the
+  `MBTiles` writer before deleting the temporary `.building.mbtiles` file
+
+Manual validation reported on June 16, 2026:
+
+- rebuilding an existing region: correctly blocked
+- redownloading an existing region: correctly blocked
+- cancelling `BuildRegion` from `MegaDemo FMX`: now ends as clean `403`
+  cancellation instead of a spurious file-lock `401`
+
 ## Update - June 15, 2026
 
 The shared OSM offline/native work is now beyond cache warm-up only. A first

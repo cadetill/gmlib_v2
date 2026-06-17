@@ -3638,30 +3638,40 @@ object MainFrm: TMainFrm
           object bOSMDownloadRegion: TButton
             Position.X = 540.000000000000000000
             Position.Y = 8.000000000000000000
-            Size.Width = 110.000000000000000000
+            Size.Width = 100.000000000000000000
             Size.Height = 25.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 8
             Text = 'Download Region'
             OnClick = OSMDownloadRegionClick
           end
-          object bOSMDeleteRegion: TButton
-            Position.X = 660.000000000000000000
+          object bOSMCancelOfflineJob: TButton
+            Position.X = 650.000000000000000000
             Position.Y = 8.000000000000000000
-            Size.Width = 110.000000000000000000
+            Size.Width = 100.000000000000000000
             Size.Height = 25.000000000000000000
             Size.PlatformDefault = False
             TabOrder = 9
+            Text = 'Cancel Job'
+            OnClick = OSMCancelOfflineJobClick
+          end
+          object bOSMDeleteRegion: TButton
+            Position.X = 760.000000000000000000
+            Position.Y = 8.000000000000000000
+            Size.Width = 100.000000000000000000
+            Size.Height = 25.000000000000000000
+            Size.PlatformDefault = False
+            TabOrder = 10
             Text = 'Delete Region'
             OnClick = OSMDeleteRegionClick
           end
           object bOSMGoToRegion: TButton
-            Position.X = 780.000000000000000000
+            Position.X = 870.000000000000000000
             Position.Y = 8.000000000000000000
-            Size.Width = 110.000000000000000000
+            Size.Width = 100.000000000000000000
             Size.Height = 25.000000000000000000
             Size.PlatformDefault = False
-            TabOrder = 10
+            TabOrder = 11
             Text = 'Go To Region'
             OnClick = OSMGoToRegionClick
           end
@@ -3671,7 +3681,7 @@ object MainFrm: TMainFrm
             Size.Width = 480.000000000000000000
             Size.Height = 80.000000000000000000
             Size.PlatformDefault = False
-            TabOrder = 11
+            TabOrder = 12
             DisableFocusEffect = True
             DefaultItemStyles.ItemStyle = ''
             DefaultItemStyles.GroupHeaderStyle = ''

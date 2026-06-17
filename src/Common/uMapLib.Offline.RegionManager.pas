@@ -67,7 +67,13 @@ type
 
     function GetCatalogFileName: string;
     function ResolveAbsoluteStoragePath(const APath: string): string;
+    procedure EnsureStorageBasePathExists;
+    procedure CleanupStaleTemporaryArtifacts;
     function RegionExists(const ARegionId: TMapLibOfflineRegionId): Boolean;
+    function ValidateDownloadRequest(const ARequest: TMapLibOfflineDownloadRequest;
+      out AUserMessage, ATechnicalMessage: string): Boolean;
+    function ValidateBuildRequest(const ARequest: TMapLibOfflineBuildRegionRequest;
+      out AUserMessage, ATechnicalMessage: string): Boolean;
     function HasDownloadJob(const AJobId: string): Boolean;
     function HasBuildJob(const AJobId: string): Boolean;
     function TryGetDownloadJob(const AJobId: string; out AJob: TMapLibDownloadJob): Boolean;
@@ -120,6 +126,12 @@ uses
   System.Classes, System.SysUtils, System.IOUtils,
 {$ENDIF}
   uMapLib.Offline.Storage;
+
+const
+  cOfflineDownloadTempExtension = '.tmp';
+  cOfflineBuildTempSuffix = '.building.mbtiles';
+  cOfflineDownloadCancelledMessage = 'Download cancelled.';
+  cOfflineBuildCancelledMessage = 'Region build cancelled.';
 
 function CombinePath(const ALeft, ARight: string): string;
 begin
@@ -190,6 +202,7 @@ begin
   FOnDownloadProgress := nil;
   FOnRegionReady := nil;
   FOnOfflineError := nil;
+  CleanupStaleTemporaryArtifacts;
 end;
 
 destructor TMapLibOfflineRegionManager.Destroy;
@@ -242,12 +255,179 @@ begin
     Result := CombinePath(FStorageBasePath, 'regions.json');
 end;
 
+procedure TMapLibOfflineRegionManager.EnsureStorageBasePathExists;
+begin
+  if FStorageBasePath = '' then
+    Exit;
+
+  if not DirectoryExists(FStorageBasePath) then
+{$IFDEF FPC}
+    ForceDirectories(FStorageBasePath);
+{$ELSE}
+    TDirectory.CreateDirectory(FStorageBasePath);
+{$ENDIF}
+end;
+
+procedure TMapLibOfflineRegionManager.CleanupStaleTemporaryArtifacts;
+{$IFDEF FPC}
+var
+  searchRec: TSearchRec;
+  searchResult: Integer;
+  temporaryFileMask: string;
+{$ELSE}
+var
+  temporaryFileName: string;
+{$ENDIF}
+begin
+  if Trim(FStorageBasePath) = '' then
+    Exit;
+
+  if not DirectoryExists(FStorageBasePath) then
+    Exit;
+
+{$IFDEF FPC}
+  temporaryFileMask := IncludeTrailingPathDelimiter(FStorageBasePath) + '*' + cOfflineDownloadTempExtension;
+  searchResult := FindFirst(temporaryFileMask, faAnyFile, searchRec);
+  try
+    while searchResult = 0 do
+    begin
+      if ((searchRec.Attr and faDirectory) = 0) then
+        try
+          SysUtils.DeleteFile(IncludeTrailingPathDelimiter(FStorageBasePath) + searchRec.Name);
+        except
+        end;
+      searchResult := FindNext(searchRec);
+    end;
+  finally
+    FindClose(searchRec);
+  end;
+
+  temporaryFileMask := IncludeTrailingPathDelimiter(FStorageBasePath) + '*' + cOfflineBuildTempSuffix;
+  searchResult := FindFirst(temporaryFileMask, faAnyFile, searchRec);
+  try
+    while searchResult = 0 do
+    begin
+      if ((searchRec.Attr and faDirectory) = 0) then
+        try
+          SysUtils.DeleteFile(IncludeTrailingPathDelimiter(FStorageBasePath) + searchRec.Name);
+        except
+        end;
+      searchResult := FindNext(searchRec);
+    end;
+  finally
+    FindClose(searchRec);
+  end;
+{$ELSE}
+  for temporaryFileName in TDirectory.GetFiles(FStorageBasePath, '*' + cOfflineDownloadTempExtension) do
+    try
+      TFile.Delete(temporaryFileName);
+    except
+    end;
+
+  for temporaryFileName in TDirectory.GetFiles(FStorageBasePath, '*' + cOfflineBuildTempSuffix) do
+    try
+      TFile.Delete(temporaryFileName);
+    except
+    end;
+{$ENDIF}
+end;
+
 function TMapLibOfflineRegionManager.ResolveAbsoluteStoragePath(const APath: string): string;
 begin
   if IsAbsolutePath(APath) or (FStorageBasePath = '') then
     Result := APath
   else
     Result := CombinePath(FStorageBasePath, APath);
+end;
+
+function TMapLibOfflineRegionManager.ValidateDownloadRequest(
+  const ARequest: TMapLibOfflineDownloadRequest; out AUserMessage,
+  ATechnicalMessage: string): Boolean;
+begin
+  AUserMessage := '';
+  ATechnicalMessage := '';
+
+  if Trim(ARequest.RegionId) = '' then
+  begin
+    AUserMessage := 'Region ID is required.';
+    ATechnicalMessage := 'Download request has an empty RegionId.';
+    Exit(False);
+  end;
+
+  if Trim(ARequest.SourceUrl) = '' then
+  begin
+    AUserMessage := 'Source URL is required.';
+    ATechnicalMessage := 'Download request has an empty SourceUrl.';
+    Exit(False);
+  end;
+
+  if ARequest.MinZoom > ARequest.MaxZoom then
+  begin
+    AUserMessage := 'Zoom range is invalid.';
+    ATechnicalMessage := 'Download request has MinZoom greater than MaxZoom.';
+    Exit(False);
+  end;
+
+  if ARequest.Bounds.South > ARequest.Bounds.North then
+  begin
+    AUserMessage := 'Region bounds are invalid.';
+    ATechnicalMessage := 'Download request has South greater than North.';
+    Exit(False);
+  end;
+
+  if ARequest.Bounds.West > ARequest.Bounds.East then
+  begin
+    AUserMessage := 'Region bounds are invalid.';
+    ATechnicalMessage := 'Download request has West greater than East.';
+    Exit(False);
+  end;
+
+  Result := True;
+end;
+
+function TMapLibOfflineRegionManager.ValidateBuildRequest(
+  const ARequest: TMapLibOfflineBuildRegionRequest; out AUserMessage,
+  ATechnicalMessage: string): Boolean;
+begin
+  AUserMessage := '';
+  ATechnicalMessage := '';
+
+  if Trim(ARequest.RegionId) = '' then
+  begin
+    AUserMessage := 'Region ID is required.';
+    ATechnicalMessage := 'Build request has an empty RegionId.';
+    Exit(False);
+  end;
+
+  if Trim(ARequest.RemoteTileTemplate) = '' then
+  begin
+    AUserMessage := 'Remote tile template is required.';
+    ATechnicalMessage := 'Build request has an empty RemoteTileTemplate.';
+    Exit(False);
+  end;
+
+  if ARequest.MinZoom > ARequest.MaxZoom then
+  begin
+    AUserMessage := 'Zoom range is invalid.';
+    ATechnicalMessage := 'Build request has MinZoom greater than MaxZoom.';
+    Exit(False);
+  end;
+
+  if ARequest.Bounds.South > ARequest.Bounds.North then
+  begin
+    AUserMessage := 'Region bounds are invalid.';
+    ATechnicalMessage := 'Build request has South greater than North.';
+    Exit(False);
+  end;
+
+  if ARequest.Bounds.West > ARequest.Bounds.East then
+  begin
+    AUserMessage := 'Region bounds are invalid.';
+    ATechnicalMessage := 'Build request has West greater than East.';
+    Exit(False);
+  end;
+
+  Result := True;
 end;
 
 function TMapLibOfflineRegionManager.RegionExists(
@@ -395,6 +575,9 @@ var
   TargetFile: string;
 begin
   Result := False;
+  if HasDownloadJob(ARegionId) or HasBuildJob(ARegionId) then
+    Exit;
+
   Regions := ListRegions;
   if Length(Regions) = 0 then
     Exit;
@@ -497,27 +680,37 @@ end;
 function TMapLibOfflineRegionManager.DownloadRegion(
   const ARequest: TMapLibOfflineDownloadRequest): string;
 var
+  technicalMessage: string;
+  userMessage: string;
   JobId: string;
   Job: TMapLibDownloadJob;
 begin
   Result := '';
-  if ARequest.RegionId = '' then
+  if not ValidateDownloadRequest(ARequest, userMessage, technicalMessage) then
+  begin
+    if Assigned(FOnOfflineError) then
+      FOnOfflineError(Self, 410, userMessage, technicalMessage);
     Exit;
+  end;
 
-  // Validamos si ya existe una descarga activa para esta región
-  if HasDownloadJob(ARequest.RegionId) then
+  if RegionExists(ARequest.RegionId) then
+    raise EInvalidOpException.CreateFmt(
+      'Offline region "%s" already exists. Delete it before downloading it again.',
+      [string(ARequest.RegionId)]
+    );
+
+  if HasDownloadJob(ARequest.RegionId) or HasBuildJob(ARequest.RegionId) then
+  begin
+    if Assigned(FOnOfflineError) then
+      FOnOfflineError(Self, 411, 'A job for this region is already active.',
+        'Download request was rejected because the region already has an active download/build job.');
     Exit;
+  end;
 
-  // Usamos el ID de la región como identificador del trabajo
   JobId := ARequest.RegionId;
 
-  // Creamos el directorio base si no existe
-  if (FStorageBasePath <> '') and not DirectoryExists(FStorageBasePath) then
-{$IFDEF FPC}
-    ForceDirectories(FStorageBasePath);
-{$ELSE}
-    TDirectory.CreateDirectory(FStorageBasePath);
-{$ENDIF}
+  EnsureStorageBasePathExists;
+  CleanupStaleTemporaryArtifacts;
 
   Job := TMapLibDownloadJob.Create(
     JobId,
@@ -540,23 +733,36 @@ end;
 function TMapLibOfflineRegionManager.BuildRegion(
   const ARequest: TMapLibOfflineBuildRegionRequest): string;
 var
+  technicalMessage: string;
+  userMessage: string;
   Job: TMapLibRegionBuildJob;
   JobId: string;
 begin
   Result := '';
-  if ARequest.RegionId = '' then
+  if not ValidateBuildRequest(ARequest, userMessage, technicalMessage) then
+  begin
+    if Assigned(FOnOfflineError) then
+      FOnOfflineError(Self, 420, userMessage, technicalMessage);
     Exit;
+  end;
+
+  if RegionExists(ARequest.RegionId) then
+    raise EInvalidOpException.CreateFmt(
+      'Offline region "%s" already exists. Delete it before building it again.',
+      [string(ARequest.RegionId)]
+    );
 
   if HasDownloadJob(ARequest.RegionId) or HasBuildJob(ARequest.RegionId) then
+  begin
+    if Assigned(FOnOfflineError) then
+      FOnOfflineError(Self, 421, 'A job for this region is already active.',
+        'Build request was rejected because the region already has an active download/build job.');
     Exit;
+  end;
 
   JobId := ARequest.RegionId;
-  if (FStorageBasePath <> '') and not DirectoryExists(FStorageBasePath) then
-{$IFDEF FPC}
-    ForceDirectories(FStorageBasePath);
-{$ELSE}
-    TDirectory.CreateDirectory(FStorageBasePath);
-{$ENDIF}
+  EnsureStorageBasePathExists;
+  CleanupStaleTemporaryArtifacts;
 
   Job := TMapLibRegionBuildJob.Create(
     JobId,
@@ -678,7 +884,12 @@ begin
     else
     begin
       if Assigned(FOnOfflineError) then
-        FOnOfflineError(Self, 400, 'Error downloading offline region.', AErrorMsg);
+      begin
+        if SameText(Trim(AErrorMsg), cOfflineDownloadCancelledMessage) then
+          FOnOfflineError(Self, 402, 'Offline region download cancelled.', AErrorMsg)
+        else
+          FOnOfflineError(Self, 400, 'Error downloading offline region.', AErrorMsg);
+      end;
     end;
 
   finally
@@ -727,7 +938,12 @@ begin
         FOnRegionReady(Self, AMetadata.RegionId);
     end
     else if Assigned(FOnOfflineError) then
-      FOnOfflineError(Self, 401, 'Error building offline region.', AErrorMsg);
+    begin
+      if SameText(Trim(AErrorMsg), cOfflineBuildCancelledMessage) then
+        FOnOfflineError(Self, 403, 'Offline region build cancelled.', AErrorMsg)
+      else
+        FOnOfflineError(Self, 401, 'Error building offline region.', AErrorMsg);
+    end;
   finally
     RemoveBuildJob(Sender.JobId);
     Sender.Free;
@@ -770,6 +986,7 @@ end;
 procedure TMapLibOfflineRegionManager.SetStorageBasePath(const AValue: string);
 begin
   FStorageBasePath := AValue;
+  CleanupStaleTemporaryArtifacts;
 end;
 
 end.

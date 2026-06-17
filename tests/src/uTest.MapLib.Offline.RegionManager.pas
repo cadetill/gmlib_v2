@@ -23,6 +23,21 @@ type
 
     [Test]
     procedure DeleteRegion_ClearsActiveRegionWhenItMatchesDeletedRegion;
+
+    [Test]
+    procedure BuildRegion_RejectsInvalidZoomRange;
+
+    [Test]
+    procedure DownloadRegion_RejectsEmptySourceUrl;
+
+    [Test]
+    procedure Create_RemovesStaleTemporaryArtifacts;
+
+    [Test]
+    procedure DownloadRegion_RaisesWhenRegionAlreadyExists;
+
+    [Test]
+    procedure BuildRegion_RaisesWhenRegionAlreadyExists;
   end;
 
 implementation
@@ -187,6 +202,190 @@ begin
 
       Assert.AreEqual(Integer(ocsCovered), Integer(Coverage.State));
       Assert.AreEqual('iberia', Coverage.RegionId);
+    finally
+      Manager.Free;
+    end;
+  finally
+    if DirectoryExists(StoragePath) then
+      TDirectory.Delete(StoragePath, True);
+  end;
+end;
+
+procedure TTestMapLibOfflineRegionManager.BuildRegion_RejectsInvalidZoomRange;
+var
+  Manager: TMapLibOfflineRegionManager;
+  Request: TMapLibOfflineBuildRegionRequest;
+  StoragePath: string;
+begin
+  StoragePath := TPath.Combine(TPath.GetTempPath, TPath.GetRandomFileName);
+  ForceDirectories(StoragePath);
+  try
+    Manager := TMapLibOfflineRegionManager.Create(StoragePath);
+    try
+      Request.RegionId := 'invalid-zoom';
+      Request.SourceId := 'osm';
+      Request.RemoteTileTemplate := 'https://tiles.example/{z}/{x}/{y}.pbf';
+      Request.MinZoom := 10;
+      Request.MaxZoom := 5;
+      Request.Bounds.North := 45;
+      Request.Bounds.South := 40;
+      Request.Bounds.East := 5;
+      Request.Bounds.West := 0;
+      Request.DataVersion := 'v1';
+
+      Assert.AreEqual('', Manager.BuildRegion(Request));
+    finally
+      Manager.Free;
+    end;
+  finally
+    if DirectoryExists(StoragePath) then
+      TDirectory.Delete(StoragePath, True);
+  end;
+end;
+
+procedure TTestMapLibOfflineRegionManager.DownloadRegion_RejectsEmptySourceUrl;
+var
+  Manager: TMapLibOfflineRegionManager;
+  Request: TMapLibOfflineDownloadRequest;
+  StoragePath: string;
+begin
+  StoragePath := TPath.Combine(TPath.GetTempPath, TPath.GetRandomFileName);
+  ForceDirectories(StoragePath);
+  try
+    Manager := TMapLibOfflineRegionManager.Create(StoragePath);
+    try
+      Request.RegionId := 'missing-source';
+      Request.SourceUrl := '';
+      Request.MinZoom := 1;
+      Request.MaxZoom := 5;
+      Request.Bounds.North := 45;
+      Request.Bounds.South := 40;
+      Request.Bounds.East := 5;
+      Request.Bounds.West := 0;
+      Request.DataVersion := 'v1';
+
+      Assert.AreEqual('', Manager.DownloadRegion(Request));
+    finally
+      Manager.Free;
+    end;
+  finally
+    if DirectoryExists(StoragePath) then
+      TDirectory.Delete(StoragePath, True);
+  end;
+end;
+
+procedure TTestMapLibOfflineRegionManager.Create_RemovesStaleTemporaryArtifacts;
+var
+  BuildingFileName: string;
+  DownloadTempFileName: string;
+  Manager: TMapLibOfflineRegionManager;
+  StoragePath: string;
+begin
+  StoragePath := TPath.Combine(TPath.GetTempPath, TPath.GetRandomFileName);
+  ForceDirectories(StoragePath);
+  try
+    DownloadTempFileName := TPath.Combine(StoragePath, 'region-a.tmp');
+    BuildingFileName := TPath.Combine(StoragePath, 'region-b.building.mbtiles');
+    TFile.WriteAllText(DownloadTempFileName, 'partial-download', TEncoding.UTF8);
+    TFile.WriteAllText(BuildingFileName, 'partial-build', TEncoding.UTF8);
+
+    Manager := TMapLibOfflineRegionManager.Create(StoragePath);
+    try
+      Assert.IsFalse(FileExists(DownloadTempFileName));
+      Assert.IsFalse(FileExists(BuildingFileName));
+    finally
+      Manager.Free;
+    end;
+  finally
+    if DirectoryExists(StoragePath) then
+      TDirectory.Delete(StoragePath, True);
+  end;
+end;
+
+procedure TTestMapLibOfflineRegionManager.DownloadRegion_RaisesWhenRegionAlreadyExists;
+var
+  CatalogFileName: string;
+  Manager: TMapLibOfflineRegionManager;
+  Request: TMapLibOfflineDownloadRequest;
+  Regions: TMapLibOfflineRegionMetadataArray;
+  StoragePath: string;
+begin
+  StoragePath := TPath.Combine(TPath.GetTempPath, TPath.GetRandomFileName);
+  ForceDirectories(StoragePath);
+  try
+    Regions := [
+      BuildRegionMetadata('region-a', 'region-a.mbtiles', 1, 10, 50, 40, 5, -5, 5)
+    ];
+
+    CatalogFileName := TPath.Combine(StoragePath, 'regions.json');
+    TMapLibOfflineCatalogStorage.SaveToFile(CatalogFileName, Regions);
+
+    Manager := TMapLibOfflineRegionManager.Create(StoragePath);
+    try
+      Request.RegionId := 'region-a';
+      Request.SourceUrl := 'https://example.invalid/region-a.mbtiles';
+      Request.MinZoom := 1;
+      Request.MaxZoom := 10;
+      Request.Bounds.North := 50;
+      Request.Bounds.South := 40;
+      Request.Bounds.East := 5;
+      Request.Bounds.West := -5;
+      Request.DataVersion := 'v1';
+
+      Assert.WillRaise(
+        procedure
+        begin
+          Manager.DownloadRegion(Request);
+        end,
+        EInvalidOpException
+      );
+    finally
+      Manager.Free;
+    end;
+  finally
+    if DirectoryExists(StoragePath) then
+      TDirectory.Delete(StoragePath, True);
+  end;
+end;
+
+procedure TTestMapLibOfflineRegionManager.BuildRegion_RaisesWhenRegionAlreadyExists;
+var
+  CatalogFileName: string;
+  Manager: TMapLibOfflineRegionManager;
+  Request: TMapLibOfflineBuildRegionRequest;
+  Regions: TMapLibOfflineRegionMetadataArray;
+  StoragePath: string;
+begin
+  StoragePath := TPath.Combine(TPath.GetTempPath, TPath.GetRandomFileName);
+  ForceDirectories(StoragePath);
+  try
+    Regions := [
+      BuildRegionMetadata('region-a', 'region-a.mbtiles', 1, 10, 50, 40, 5, -5, 5)
+    ];
+
+    CatalogFileName := TPath.Combine(StoragePath, 'regions.json');
+    TMapLibOfflineCatalogStorage.SaveToFile(CatalogFileName, Regions);
+
+    Manager := TMapLibOfflineRegionManager.Create(StoragePath);
+    try
+      Request.RegionId := 'region-a';
+      Request.SourceId := 'osm';
+      Request.RemoteTileTemplate := 'https://tiles.example/{z}/{x}/{y}.pbf';
+      Request.MinZoom := 1;
+      Request.MaxZoom := 10;
+      Request.Bounds.North := 50;
+      Request.Bounds.South := 40;
+      Request.Bounds.East := 5;
+      Request.Bounds.West := -5;
+      Request.DataVersion := 'v1';
+
+      Assert.WillRaise(
+        procedure
+        begin
+          Manager.BuildRegion(Request);
+        end,
+        EInvalidOpException
+      );
     finally
       Manager.Free;
     end;

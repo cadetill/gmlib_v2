@@ -125,6 +125,12 @@
     - v1 limits (`<=5000` normal, `<=10000` warning, `>10000` blocked)
     - auto coverage lookup between downloaded regions
     - `Go To Region` for disconnected offline areas
+  - the offline region manager/runtime contract was hardened for `v1`:
+    - early request validation
+    - duplicate `RegionId` blocked until the old region is deleted
+    - stale `*.tmp` / `*.building.mbtiles` cleanup on re-entry
+    - explicit cancel action exposed in `FMX MegaDemo`
+    - cancellation now reported separately from real download/build failures
   - current build performance is considered sufficient for `v1`; no extra
     download concurrency is planned for now.
 
