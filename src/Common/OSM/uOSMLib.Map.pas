@@ -882,8 +882,38 @@ const
 
 function JsonEscape(const AValue: string): string;
 begin
-  Result := StringReplace(AValue, '"', '\"', [rfReplaceAll]);
+  Result := StringReplace(AValue, '\', '\\', [rfReplaceAll]);
+  Result := StringReplace(Result, '"', '\"', [rfReplaceAll]);
+  Result := StringReplace(Result, #13, '\r', [rfReplaceAll]);
+  Result := StringReplace(Result, #10, '\n', [rfReplaceAll]);
 end;
+
+procedure AppendOSMMapTrace(const AMessage: string);
+{$IFDEF FPC}
+var
+  logLines: TStringList;
+  logFileName: string;
+begin
+  try
+    logFileName := IncludeTrailingPathDelimiter(ExtractFilePath(ParamStr(0))) +
+      'gmlib_lcl_hybrid_trace.log';
+    logLines := TStringList.Create;
+    try
+      if FileExists(logFileName) then
+        logLines.LoadFromFile(logFileName);
+      logLines.Add(FormatDateTime('hh:nn:ss.zzz', Now) + ' [OSMMap] ' + AMessage);
+      logLines.SaveToFile(logFileName);
+    finally
+      logLines.Free;
+    end;
+  except
+    // Logging must never break the runtime.
+  end;
+end;
+{$ELSE}
+begin
+end;
+{$ENDIF}
 
 function SplitCsvLine(const ALine: string; ADelimiter: Char): TStrings;
 begin
@@ -3424,8 +3454,7 @@ begin
 
   Result := Format(
     '{"styleUrl":"%s","styleJson":"%s"}',
-    [StringReplace(ResolveStyleUrl, '"', '\"', [rfReplaceAll]),
-     StringReplace(styleJson, '"', '\"', [rfReplaceAll])],
+    [JsonEscape(ResolveStyleUrl), JsonEscape(styleJson)],
     GMLibInvariantFormatSettings
   );
 end;
@@ -3452,6 +3481,8 @@ end;
 procedure TOSMMap.BridgeMessageReceived(Sender: TObject; const AEnvelope: TMapLibMessageEnvelope);
 begin
   try
+    AppendOSMMapTrace('BridgeMessageReceived type=' + AEnvelope.MessageType +
+      ' target=' + AEnvelope.TargetId + ' payloadLength=' + IntToStr(Length(AEnvelope.Payload)));
     if (AEnvelope.TargetId <> '') and (AEnvelope.TargetId <> FMapId) then
       Exit;
 
@@ -3462,6 +3493,12 @@ begin
       SyncOptionsToBridge;
       SyncViewToBridge;
       SyncPopupsToBridge;
+      Exit;
+    end;
+
+    if SameText(AEnvelope.MessageType, 'map.event.bootstraplog') then
+    begin
+      AppendOSMMapTrace('BootstrapLog raw=' + AEnvelope.Payload);
       Exit;
     end;
 
@@ -3987,12 +4024,13 @@ begin
 end;
 
 function TOSMMap.BuildJsBootstrapConfig: string;
-{$IFNDEF FPC}
 var
+  styleJson: string;
+  maxBoundsLiteral: string;
+{$IFNDEF FPC}
   Config: TJSONObject;
   Center: TJSONObject;
   Bounds: TJSONObject;
-  styleJson: string;
 begin
   Config := TJSONObject.Create;
   try
@@ -4037,6 +4075,7 @@ begin
     Config.AddPair('touchZoomRotateEnabled', TJSONBool.Create(FTouchZoomRotateEnabled));
     Config.AddPair('touchPitchEnabled', TJSONBool.Create(FTouchPitchEnabled));
     Config.AddPair('cooperativeGesturesEnabled', TJSONBool.Create(FCooperativeGesturesEnabled));
+    Config.AddPair('runtimeBaseUrl', GetRuntimeBaseUrl);
     Config.AddPair('styleUrl', ResolveStyleUrl);
     Config.AddPair('styleJson', styleJson);
 
@@ -4047,7 +4086,51 @@ begin
 end;
 {$ELSE}
 begin
-  Result := '{}';
+  styleJson := '';
+  if (FMapMode <> omOnline) and Assigned(FVectorRuntime) then
+  begin
+    PrepareOfflineRuntimeAssets;
+    FVectorRuntime.Start;
+    styleJson := FVectorRuntime.BuildStyleJson;
+  end;
+
+  if FMaxBounds.IsComplete then
+    maxBoundsLiteral := FMaxBounds.ToJsonLiteral
+  else
+    maxBoundsLiteral := 'null';
+
+  Result := Format(
+    '{"mapId":"%s","center":{"lat":%.15g,"lng":%.15g},"zoom":%.15g,"bearing":%.15g,' +
+    '"pitch":%.15g,"minZoom":%.15g,"maxZoom":%.15g,"minPitch":%.15g,"maxPitch":%.15g,' +
+    '"maxBounds":%s,"renderWorldCopies":%s,"dragPanEnabled":%s,"dragRotateEnabled":%s,' +
+    '"doubleClickZoomEnabled":%s,"scrollZoomEnabled":%s,"keyboardEnabled":%s,' +
+    '"touchZoomRotateEnabled":%s,"touchPitchEnabled":%s,"cooperativeGesturesEnabled":%s,' +
+    '"runtimeBaseUrl":"%s","styleUrl":"%s","styleJson":"%s"}',
+    [JsonEscape(string(FMapId)),
+     FCenterLat,
+     FCenterLng,
+     FZoom,
+     FBearing,
+     FPitch,
+     FMinZoom,
+     FMaxZoom,
+     FMinPitch,
+     FMaxPitch,
+     maxBoundsLiteral,
+     LowerCase(BoolToStr(FRenderWorldCopies, True)),
+     LowerCase(BoolToStr(FDragPanEnabled, True)),
+     LowerCase(BoolToStr(FDragRotateEnabled, True)),
+     LowerCase(BoolToStr(FDoubleClickZoomEnabled, True)),
+     LowerCase(BoolToStr(FScrollZoomEnabled, True)),
+     LowerCase(BoolToStr(FKeyboardEnabled, True)),
+     LowerCase(BoolToStr(FTouchZoomRotateEnabled, True)),
+     LowerCase(BoolToStr(FTouchPitchEnabled, True)),
+     LowerCase(BoolToStr(FCooperativeGesturesEnabled, True)),
+     JsonEscape(GetRuntimeBaseUrl),
+     JsonEscape(ResolveStyleUrl),
+     JsonEscape(styleJson)],
+    GMLibInvariantFormatSettings
+  );
 end;
 {$ENDIF}
 

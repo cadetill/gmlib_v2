@@ -11,6 +11,7 @@ uses
   {$IFDEF FPC}Classes{$ELSE}System.Classes{$ENDIF},
   uMapLib.Core.Bridge,
   uMapLib.Core.BridgeRegistry,
+  uMapLib.Core.Offline,
   uOSMLib.Map,
   uOSMLib.Lcl.Marker,
   uOSMLib.Lcl.MapBootstrap;
@@ -131,6 +132,33 @@ implementation
 uses
   SysUtils;
 
+procedure AppendOSMLclMapTrace(const AMessage: string);
+{$IFDEF FPC}
+var
+  logLines: TStringList;
+  logFileName: string;
+begin
+  try
+    logFileName := IncludeTrailingPathDelimiter(ExtractFilePath(ParamStr(0))) +
+      'gmlib_lcl_hybrid_trace.log';
+    logLines := TStringList.Create;
+    try
+      if FileExists(logFileName) then
+        logLines.LoadFromFile(logFileName);
+      logLines.Add(FormatDateTime('hh:nn:ss.zzz', Now) + ' [OSMLclMap] ' + AMessage);
+      logLines.SaveToFile(logFileName);
+    finally
+      logLines.Free;
+    end;
+  except
+    // Logging must never break the runtime.
+  end;
+end;
+{$ELSE}
+begin
+end;
+{$ENDIF}
+
 constructor TOSMLibLclMap.Create(AOwner: TComponent);
 begin
   inherited;
@@ -139,8 +167,11 @@ end;
 
 procedure TOSMLibLclMap.Activate;
 var
+  DocumentBaseUrlBridge: IMapBridgeDocumentBaseUrl;
   IntervalBridge: IMapBridgeInterval;
+  NavigationBridge: IMapBridgeNavigation;
   NamespacedBridge: IMapBridgeJavaScriptNamespace;
+  bootstrapHtml: string;
 begin
   if Active then
     Exit;
@@ -154,8 +185,29 @@ begin
   Bridge := FBridgeImpl;
   if Supports(FBridgeImpl, IMapBridgeInterval, IntervalBridge) then
     IntervalBridge.BridgeInterval := FBridgeInterval;
-  // EnsureOfflineTileSourceReady;
-  FBridgeImpl.LoadHtml(TOSMLibLclMapBootstrap.BuildHtml(Self));
+
+  if MapMode <> uMapLib.Core.Offline.omOnline then
+  begin
+    PrepareOfflineRuntimeAssets;
+    VectorRuntime.Start;
+    bootstrapHtml := TOSMLibLclMapBootstrap.BuildHtml(Self);
+    VectorRuntime.BootstrapHtml := bootstrapHtml;
+    AppendOSMLclMapTrace('Offline runtime baseUrl=' + RuntimeBaseUrl);
+    if Supports(FBridgeImpl, IMapBridgeDocumentBaseUrl, DocumentBaseUrlBridge) then
+    begin
+      DocumentBaseUrlBridge.DocumentBaseUrl := RuntimeBaseUrl;
+      AppendOSMLclMapTrace('Bridge document baseUrl set to ' + DocumentBaseUrlBridge.DocumentBaseUrl);
+    end;
+    if Supports(FBridgeImpl, IMapBridgeNavigation, NavigationBridge) then
+    begin
+      AppendOSMLclMapTrace('Navigating browser to ' + VectorRuntime.BuildBootstrapUrl);
+      NavigationBridge.Navigate(VectorRuntime.BuildBootstrapUrl);
+    end
+    else
+      FBridgeImpl.LoadHtml(bootstrapHtml);
+  end;
+  if MapMode = uMapLib.Core.Offline.omOnline then
+    FBridgeImpl.LoadHtml(TOSMLibLclMapBootstrap.BuildHtml(Self));
   inherited;
 end;
 

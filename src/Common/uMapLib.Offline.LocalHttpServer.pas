@@ -51,6 +51,17 @@ type
   published
     property Address;
   end;
+
+  TMapLibFPHTTPServerThread = class(TThread)
+  private
+    FServer: TMapLibFPHTTPServer;
+    FStartError: string;
+  protected
+    procedure Execute; override;
+  public
+    constructor Create(AServer: TMapLibFPHTTPServer);
+    property StartError: string read FStartError;
+  end;
 {$ENDIF}
 
   {** @abstract(Servidor localhost generico para rutas del runtime.) }
@@ -63,6 +74,7 @@ type
     FOnCommand: TMapLibHttpRequestEvent;
 {$IFDEF FPC}
     FServer: TMapLibFPHTTPServer;
+    FServerThread: TMapLibFPHTTPServerThread;
     procedure ApplyCorsHeaders(AResponse: TResponse);
     procedure ApplyResponseData(AResponse: TResponse;
       AResponseData: TMapLibHttpResponseData);
@@ -105,7 +117,60 @@ type
 
 implementation
 
+procedure AppendLocalHttpServerTrace(const AMessage: string);
+{$IFDEF FPC}
+var
+  logLines: TStringList;
+  logFileName: string;
+begin
+  try
+    logFileName := IncludeTrailingPathDelimiter(ExtractFilePath(ParamStr(0))) +
+      'gmlib_lcl_hybrid_trace.log';
+    logLines := TStringList.Create;
+    try
+      if FileExists(logFileName) then
+        logLines.LoadFromFile(logFileName);
+      logLines.Add(FormatDateTime('hh:nn:ss.zzz', Now) + ' [LocalHttpServer] ' + AMessage);
+      logLines.SaveToFile(logFileName);
+    finally
+      logLines.Free;
+    end;
+  except
+    // Logging must never break the runtime.
+  end;
+end;
+{$ELSE}
+begin
+end;
+{$ENDIF}
+
 { TMapLibHttpRequestData }
+
+{$IFDEF FPC}
+{ TMapLibFPHTTPServerThread }
+
+constructor TMapLibFPHTTPServerThread.Create(AServer: TMapLibFPHTTPServer);
+begin
+  inherited Create(False);
+  FreeOnTerminate := False;
+  FServer := AServer;
+  FStartError := '';
+end;
+
+procedure TMapLibFPHTTPServerThread.Execute;
+begin
+  try
+    if Assigned(FServer) then
+      FServer.Active := True;
+  except
+    on E: Exception do
+    begin
+      FStartError := E.Message;
+      AppendLocalHttpServerTrace('Server thread exception: ' + E.Message);
+    end;
+  end;
+end;
+{$ENDIF}
 
 constructor TMapLibHttpRequestData.Create;
 begin
@@ -145,6 +210,10 @@ begin
   AResponse.CustomHeaders.Values['Access-Control-Allow-Origin'] := '*';
   AResponse.CustomHeaders.Values['Access-Control-Allow-Methods'] := 'GET, HEAD, OPTIONS';
   AResponse.CustomHeaders.Values['Access-Control-Allow-Headers'] := '*';
+  AResponse.CustomHeaders.Values['Cache-Control'] := 'no-store, no-cache, must-revalidate, max-age=0';
+  AResponse.CustomHeaders.Values['Pragma'] := 'no-cache';
+  AResponse.CustomHeaders.Values['Expires'] := '0';
+  AResponse.CustomHeaders.Values['Connection'] := 'close';
 end;
 {$ELSE}
   AResponseInfo: TIdHTTPResponseInfo);
@@ -152,6 +221,10 @@ begin
   AResponseInfo.CustomHeaders.Values['Access-Control-Allow-Origin'] := '*';
   AResponseInfo.CustomHeaders.Values['Access-Control-Allow-Methods'] := 'GET, HEAD, OPTIONS';
   AResponseInfo.CustomHeaders.Values['Access-Control-Allow-Headers'] := '*';
+  AResponseInfo.CustomHeaders.Values['Cache-Control'] := 'no-store, no-cache, must-revalidate, max-age=0';
+  AResponseInfo.CustomHeaders.Values['Pragma'] := 'no-cache';
+  AResponseInfo.CustomHeaders.Values['Expires'] := '0';
+  AResponseInfo.CustomHeaders.Values['Connection'] := 'close';
 end;
 {$ENDIF}
 
@@ -160,6 +233,7 @@ procedure TMapLibLocalHttpServer.ApplyResponseData(
   AResponse: TResponse; AResponseData: TMapLibHttpResponseData);
 var
   I: Integer;
+  textStream: TStringStream;
 begin
   AResponse.Code := AResponseData.StatusCode;
   if AResponseData.ContentType <> '' then
@@ -170,13 +244,24 @@ begin
 
   if Assigned(AResponseData.ContentStream) then
   begin
+    if AResponseData.ContentStream is TBytesStream then
+      TBytesStream(AResponseData.ContentStream).Position := 0
+    else
+      AResponseData.ContentStream.Position := 0;
+    AResponse.ContentLength := AResponseData.ContentStream.Size;
     AResponse.ContentStream := AResponseData.ContentStream;
     AResponse.FreeContentStream := AResponseData.FreeContentStream;
     AResponseData.ContentStream := nil;
     AResponseData.FreeContentStream := False;
   end
   else if AResponseData.ContentText <> '' then
-    AResponse.Content := RawByteString(AResponseData.ContentText);
+  begin
+    textStream := TStringStream.Create(AResponseData.ContentText);
+    textStream.Position := 0;
+    AResponse.ContentLength := textStream.Size;
+    AResponse.ContentStream := textStream;
+    AResponse.FreeContentStream := True;
+  end;
 end;
 {$ELSE}
   AResponseInfo: TIdHTTPResponseInfo; AResponseData: TMapLibHttpResponseData);
@@ -288,6 +373,9 @@ end;
 constructor TMapLibLocalHttpServer.Create(APort: Integer; const AToken: string);
 begin
   inherited Create;
+{$IFDEF FPC}
+  Randomize;
+{$ENDIF}
   FPort := APort;
   FToken := Trim(AToken);
   if FToken = '' then
@@ -326,6 +414,11 @@ begin
     if Pos('?', documentPath) > 0 then
       documentPath := Copy(documentPath, 1, Pos('?', documentPath) - 1);
     DispatchRequest(ARequest.Method, documentPath, ARequest.QueryFields, responseData);
+    if SameText(documentPath, '/bootstrap') then
+      AppendLocalHttpServerTrace(Format(
+        'Bootstrap response text bytes=%d streamAssigned=%s contentType=%s',
+        [Length(responseData.ContentText), BoolToStr(Assigned(responseData.ContentStream), True),
+         responseData.ContentType]));
     ApplyResponseData(AResponse, responseData);
   finally
     responseData.Free;
@@ -407,6 +500,7 @@ function TMapLibLocalHttpServer.Start: Boolean;
 var
   effectivePort: Integer;
   attempts: Integer;
+  waitCount: Integer;
 {$ELSE}
 var
   effectivePort: Integer;
@@ -428,20 +522,41 @@ begin
     else
       effectivePort := FPort;
 
+    AppendLocalHttpServerTrace(Format('Start attempt=%d requestedPort=%d effectivePort=%d',
+      [attempts + 1, FPort, effectivePort]));
+
     FServer := TMapLibFPHTTPServer.Create(nil);
     try
       FServer.Address := '127.0.0.1';
       FServer.Port := effectivePort;
       FServer.Threaded := True;
       FServer.OnRequest := @HandleRequest;
-      FServer.Active := True;
+      AppendLocalHttpServerTrace('About to activate TFPHTTPServer in worker thread');
+      FServerThread := TMapLibFPHTTPServerThread.Create(FServer);
+      waitCount := 0;
+      while waitCount < 20 do
+      begin
+        if FServer.Active then
+          Break;
+        if Assigned(FServerThread) and (FServerThread.StartError <> '') then
+          raise Exception.Create(FServerThread.StartError);
+        Sleep(25);
+        Inc(waitCount);
+      end;
+      if not FServer.Active then
+        raise Exception.Create('TFPHTTPServer did not report Active=True after startup timeout.');
+      AppendLocalHttpServerTrace('TFPHTTPServer activation state=' +
+        BoolToStr(FServer.Active, True));
       FPort := effectivePort;
       FBaseUrl := Format('http://127.0.0.1:%d/', [effectivePort]);
+      AppendLocalHttpServerTrace('Start success baseUrl=' + FBaseUrl);
       Exit(True);
     except
       on E: Exception do
       begin
+        AppendLocalHttpServerTrace('Start exception: ' + E.Message);
         FLastError := E.Message;
+        FreeAndNil(FServerThread);
         FreeAndNil(FServer);
         Inc(attempts);
         if FPort > 0 then
@@ -511,8 +626,14 @@ begin
   if Assigned(FServer) then
   begin
     try
+      AppendLocalHttpServerTrace('Stop requested');
       FServer.Active := False;
     finally
+      if Assigned(FServerThread) then
+      begin
+        FServerThread.WaitFor;
+        FreeAndNil(FServerThread);
+      end;
       FreeAndNil(FServer);
     end;
   end;

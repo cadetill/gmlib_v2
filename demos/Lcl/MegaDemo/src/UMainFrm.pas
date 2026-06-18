@@ -5,17 +5,19 @@
 interface
 
 uses
-  Windows, LCLType, SysUtils, Classes, StrUtils,
-  Graphics, Controls, Forms, Dialogs, ComCtrls, StdCtrls,
+  Windows, LCLType, SysUtils, Classes, StrUtils, Math,
+  Graphics, Controls, Forms, Dialogs, ComCtrls, StdCtrls, ColorBox,
   ExtCtrls, CheckLst, RegExpr,
-  uMapLib.Core.Offline, uMapLib.Offline.Types,
+  uMapLib.Core.Offline, uMapLib.Offline.Types, uMapLib.Offline.TileCoverage,
   uMapLib.Core.Component, uGMLib.Core.Types, uGMLib.Map,
-  uGMLib.Lcl.Map, uGMLib.Lcl.Marker, uGMLib.Lcl.Polyline, uGMLib.Lcl.Polygon,
+  uGMLib.Lcl.Bridge.Cef, uGMLib.Lcl.Map, uGMLib.Lcl.Marker, uGMLib.Lcl.Polyline, uGMLib.Lcl.Polygon,
   uGMLib.Lcl.Rectangle, uGMLib.Lcl.Circle,
   uGMLib.Google.Types, uGMLib.MapOptions,
+  uGMLib.InfoWindow, uGMLib.GeoCode, uGMLib.Elevation, uGMLib.Routes,
   uGMLib.Polyline, uGMLib.Polygon, uGMLib.Rectangle, uGMLib.Circle,
-  uGMLib.GroundOverlay, uGMLib.GeoCode, uGMLib.Elevation, uGMLib.Routes,
-  uGMLib.Geometry, uOSMLib.Lcl.Map, uOSMLib.Map;
+  uGMLib.GroundOverlay,
+  uGMLib.Geometry, uOSMLib.Lcl.Map, uOSMLib.Map,
+  uCEFChromiumWindow;
 
 type
   TMainFrm = class(TForm)
@@ -364,6 +366,9 @@ type
     lbOSMRegions: TListBox;
     bOSMDownloadRegion: TButton;
     bOSMDeleteRegion: TButton;
+    bOSMBuildRegion: TButton;
+    bOSMGoToRegion: TButton;
+    bOSMCancelJob: TButton;
     lbOSMMarkers: TListBox;
     bOSMClearMarkers: TButton;
     bOSMZoomToMarkers: TButton;
@@ -532,6 +537,9 @@ type
     procedure OSMZoomToMarkersClick(Sender: TObject);
     procedure bOSMDownloadRegionClick(Sender: TObject);
     procedure bOSMDeleteRegionClick(Sender: TObject);
+    procedure bOSMBuildRegionClick(Sender: TObject);
+    procedure bOSMGoToRegionClick(Sender: TObject);
+    procedure bOSMCancelJobClick(Sender: TObject);
   private
     FIsDraggingPolyline: Boolean;
     FIsDraggingPolygon: Boolean;
@@ -539,6 +547,7 @@ type
     FIsDraggingCircle: Boolean;
     FCurrentMarkerForInfoWindow: TGMLclMarkerItem;
     FCurrentInfoWindowForMarker: TGMInfoWindowItem;
+    FOSMActiveOfflineJobId: string;
     procedure Log(const AText: string);
     procedure UpdateStatus(const AText: string);
     procedure InitializeDefaults;
@@ -575,6 +584,7 @@ type
     procedure ElevationCompleted(Sender: TObject; const AResponse: TGMElevationResponse);
     procedure RefreshOSMMarkerList;
     procedure RefreshOSMRegionsList;
+    function BuildCurrentViewportDefaultRegionId: string;
     procedure BindOSMMarkerEvents(AMarker: TOSMMarkerItem);
     function ResolveRepoAssetPath(const ARelativePath: string): string;
     // procedure ConfigureOSMOfflineDefaults;
@@ -595,8 +605,8 @@ implementation
 
 {$R *.lfm}
 
-const
-  cInvariantFormatSettings: TFormatSettings = (DecimalSeparator: '.');
+var
+  cInvariantFormatSettings: TFormatSettings;
 
 procedure TMainFrm.bActivateClick(Sender: TObject);
 begin
@@ -759,8 +769,11 @@ begin
 end;
 
 constructor TMainFrm.Create(AOwner: TComponent);
+var
+  I: Integer;
 begin
   inherited;
+  FOSMActiveOfflineJobId := '';
 
   OSMMap.OfflineStoragePath := IncludeTrailingPathDelimiter(ExtractFilePath(ParamStr(0))) + 'offline';
 
@@ -775,16 +788,16 @@ begin
   RefreshMarkerList;
   RefreshPolylineList;
   RefreshGroundOverlayList;
-  OSMMap.OnMapReady := OSMMapReady;
-  OSMMap.OnClick := OSMMapClickEvent;
-  OSMMap.OnContextMenu := OSMMapCoordinateEvent;
-  OSMMap.OnDblClick := OSMMapCoordinateEvent;
-  OSMMap.OnBoundsChanged := OSMMapBoundsChangedEvent;
-  OSMMap.OnError := OSMMapErrorEvent;
+  OSMMap.OnMapReady := @OSMMapReady;
+  OSMMap.OnClick := @OSMMapClickEvent;
+  OSMMap.OnContextMenu := @OSMMapCoordinateEvent;
+  OSMMap.OnDblClick := @OSMMapCoordinateEvent;
+  OSMMap.OnBoundsChanged := @OSMMapBoundsChangedEvent;
+  OSMMap.OnError := @OSMMapErrorEvent;
   cbOSMStyles.Items.Clear;
   cbOSMStyles.Items.Add('Custom URL');
   cbOSMStyles.ItemIndex := 0;
-  cbOSMStyles.OnChange := OSMStylePresetChange;
+  cbOSMStyles.OnChange := @OSMStylePresetChange;
   cbOSMMapMode.Items.Clear;
   cbOSMMapMode.Items.Add('Online');
   cbOSMMapMode.Items.Add('Offline');
@@ -795,27 +808,30 @@ begin
   //cbOSMOfflineSourcePreset.Items.Add('Legacy archive preset removed');
   //cbOSMOfflineSourcePreset.ItemIndex := 1;
   //cbOSMOfflineSourcePreset.OnChange := OSMOfflineSourcePresetChange;
-  bApplyOSMStyle.OnClick := ApplyOSMStyleClick;
-  bApplyOSMEventFilter.OnClick := ApplyOSMEventFilterClick;
+  bApplyOSMStyle.OnClick := @ApplyOSMStyleClick;
+  bApplyOSMEventFilter.OnClick := @ApplyOSMEventFilterClick;
   ApplyOSMEventFilterClick(nil);
-  bActivateOSM.OnClick := ActivateOSMClick;
-  bApplyOSMView.OnClick := ApplyOSMViewClick;
-  bFitOSMBounds.OnClick := FitOSMBoundsClick;
+  bActivateOSM.OnClick := @ActivateOSMClick;
+  bApplyOSMView.OnClick := @ApplyOSMViewClick;
+  bFitOSMBounds.OnClick := @FitOSMBoundsClick;
 
-  lbOSMMarkers.OnClick := OSMMarkerListClick;
-  bOSMClearMarkers.OnClick := OSMClearMarkersClick;
-  bOSMZoomToMarkers.OnClick := OSMZoomToMarkersClick;
+  lbOSMMarkers.OnClick := @OSMMarkerListClick;
+  bOSMClearMarkers.OnClick := @OSMClearMarkersClick;
+  bOSMZoomToMarkers.OnClick := @OSMZoomToMarkersClick;
 
-  for var I := 0 to OSMMap.Markers.Count - 1 do
+  for I := 0 to OSMMap.Markers.Count - 1 do
     BindOSMMarkerEvents(OSMMap.Markers[I]);
   RefreshOSMMarkerList;
 
   // Setup OSM Offline events and buttons
-  OSMMap.OnOfflineDownloadProgress := OSMMapDownloadProgress;
-  OSMMap.OnOfflineRegionReady := OSMMapRegionReady;
-  OSMMap.OnOfflineError := OSMMapOfflineError;
-  bOSMDownloadRegion.OnClick := bOSMDownloadRegionClick;
-  bOSMDeleteRegion.OnClick := bOSMDeleteRegionClick;
+  OSMMap.OnOfflineDownloadProgress := @OSMMapDownloadProgress;
+  OSMMap.OnOfflineRegionReady := @OSMMapRegionReady;
+  OSMMap.OnOfflineError := @OSMMapOfflineError;
+  bOSMDownloadRegion.OnClick := @bOSMDownloadRegionClick;
+  bOSMDeleteRegion.OnClick := @bOSMDeleteRegionClick;
+  bOSMBuildRegion.OnClick := @bOSMBuildRegionClick;
+  bOSMGoToRegion.OnClick := @bOSMGoToRegionClick;
+  bOSMCancelJob.OnClick := @bOSMCancelJobClick;
   RefreshOSMRegionsList;
 end;
 
@@ -922,10 +938,10 @@ procedure TMainFrm.BindOSMMarkerEvents(AMarker: TOSMMarkerItem);
 begin
   if not Assigned(AMarker) then
     Exit;
-  AMarker.OnClick := OSMMapCoordinateEvent;
-  AMarker.OnDragStart := OSMMapCoordinateEvent;
-  AMarker.OnDrag := OSMMapCoordinateEvent;
-  AMarker.OnDragEnd := OSMMapCoordinateEvent;
+  AMarker.OnClick := @OSMMapCoordinateEvent;
+  AMarker.OnDragStart := @OSMMapCoordinateEvent;
+  AMarker.OnDrag := @OSMMapCoordinateEvent;
+  AMarker.OnDragEnd := @OSMMapCoordinateEvent;
 end;
 
 procedure TMainFrm.OSMMapViewChangedEvent(Sender: TObject; ACenter: TMapLibLatLng; AZoom, ABearing, APitch: Double);
@@ -964,11 +980,14 @@ end;
 procedure TMainFrm.OSMMapDownloadProgress(Sender: TObject; const AJobId: string;
   APercent: Double; ABytesDone, ABytesTotal: Int64);
 begin
+  FOSMActiveOfflineJobId := string(AJobId);
   Log(Format('OSM download %s: %.1f%% (%d/%d bytes)', [AJobId, APercent, ABytesDone, ABytesTotal]));
 end;
 
 procedure TMainFrm.OSMMapRegionReady(Sender: TObject; const ARegionId: TMapLibOfflineRegionId);
 begin
+  if SameText(FOSMActiveOfflineJobId, string(ARegionId)) then
+    FOSMActiveOfflineJobId := '';
   Log(Format('OSM Region Ready: %s is downloaded and added to catalog.', [string(ARegionId)]));
   RefreshOSMRegionsList;
 end;
@@ -976,20 +995,53 @@ end;
 procedure TMainFrm.OSMMapOfflineError(Sender: TObject; AErrorCode: Integer;
   const AUserMessage, ATechnicalMessage: string);
 begin
+  if (AErrorCode = 400) or (AErrorCode = 401) or (AErrorCode = 402) or
+    (AErrorCode = 403) then
+    FOSMActiveOfflineJobId := '';
   Log(Format('OSM Offline Error %d: %s (%s)', [AErrorCode, AUserMessage, ATechnicalMessage]));
 end;
 
+function TMainFrm.BuildCurrentViewportDefaultRegionId: string;
+var
+  centerLat: Double;
+  centerLng: Double;
+  currentZoom: Integer;
+  east: Double;
+  latToken: string;
+  lngToken: string;
+  north: Double;
+  south: Double;
+  west: Double;
+begin
+  currentZoom := Round(StrToFloatDef(Trim(eOSMZoom.Text), 0, cInvariantFormatSettings));
+  north := StrToFloatDef(Trim(eOSMNorth.Text), 0, cInvariantFormatSettings);
+  south := StrToFloatDef(Trim(eOSMSouth.Text), 0, cInvariantFormatSettings);
+  east := StrToFloatDef(Trim(eOSMEast.Text), 0, cInvariantFormatSettings);
+  west := StrToFloatDef(Trim(eOSMWest.Text), 0, cInvariantFormatSettings);
+  centerLat := (north + south) / 2;
+  centerLng := (east + west) / 2;
+  latToken := StringReplace(FormatFloat('0.00', Abs(centerLat), cInvariantFormatSettings), '.', '_', [rfReplaceAll]);
+  lngToken := StringReplace(FormatFloat('0.00', Abs(centerLng), cInvariantFormatSettings), '.', '_', [rfReplaceAll]);
+  if centerLat >= 0 then
+    latToken := 'n' + latToken
+  else
+    latToken := 's' + latToken;
+  if centerLng >= 0 then
+    lngToken := 'e' + lngToken
+  else
+    lngToken := 'w' + lngToken;
+  Result := Format('region-%s-%s-z%d', [latToken, lngToken, currentZoom]);
+end;
+
 procedure TMainFrm.bOSMDownloadRegionClick(Sender: TObject);
-(*
 var
   RegionId: string;
   SourceUrl: string;
   Req: TMapLibOfflineDownloadRequest;
-*)
 begin
-(*
   RegionId := 'spain';
   SourceUrl := 'https://example.invalid/spain.mbtiles';
+  Req := Default(TMapLibOfflineDownloadRequest);
 
   if InputQuery('Download Offline Region', 'Enter Region ID (e.g. spain):', RegionId) then
   begin
@@ -1001,7 +1053,6 @@ begin
         Exit;
       end;
 
-      FillChar(Req, SizeOf(Req), 0);
       Req.RegionId := TMapLibOfflineRegionId(RegionId);
       Req.SourceUrl := SourceUrl;
       Req.MinZoom := 0;
@@ -1013,12 +1064,83 @@ begin
       Req.DataVersion := '1.0.0';
 
       if OSMMap.OfflineRegionManager.DownloadRegion(Req) <> '' then
+      begin
+        FOSMActiveOfflineJobId := RegionId;
         Log('OSM download started for region: ' + RegionId)
+      end
       else
         Log('OSM download failed to start or is already active.');
     end;
   end;
-*)
+end;
+
+procedure TMainFrm.bOSMBuildRegionClick(Sender: TObject);
+var
+  bounds: TMapLibOfflineRegionBounds;
+  buildRequest: TMapLibOfflineBuildRegionRequest;
+  coverageSummary: TMapLibOfflineTileCoverageSummary;
+  currentZoom: Double;
+  defaultMaxZoom: Integer;
+  defaultMinZoom: Integer;
+  maxZoom: Integer;
+  minZoom: Integer;
+  maxZoomText: string;
+  minZoomText: string;
+  regionId: string;
+  remoteTileTemplate: string;
+begin
+  buildRequest := Default(TMapLibOfflineBuildRegionRequest);
+  if not TryStrToFloat(Trim(eOSMNorth.Text), bounds.North, cInvariantFormatSettings) or
+    not TryStrToFloat(Trim(eOSMSouth.Text), bounds.South, cInvariantFormatSettings) or
+    not TryStrToFloat(Trim(eOSMEast.Text), bounds.East, cInvariantFormatSettings) or
+    not TryStrToFloat(Trim(eOSMWest.Text), bounds.West, cInvariantFormatSettings) then
+  begin
+    ShowMessage('Current OSM bounds are not valid.');
+    Exit;
+  end;
+
+  currentZoom := StrToFloatDef(Trim(eOSMZoom.Text), 0, cInvariantFormatSettings);
+  defaultMinZoom := Max(0, Trunc(currentZoom) - 2);
+  defaultMaxZoom := Min(14, Trunc(currentZoom + 2));
+  regionId := BuildCurrentViewportDefaultRegionId;
+  minZoomText := IntToStr(defaultMinZoom);
+  maxZoomText := IntToStr(defaultMaxZoom);
+
+  if not InputQuery('Build Offline Region', 'Enter Region ID:', regionId) then
+    Exit;
+  if not InputQuery('Build Offline Region', 'Enter Min zoom:', minZoomText) then
+    Exit;
+  if not InputQuery('Build Offline Region', 'Enter Max zoom:', maxZoomText) then
+    Exit;
+
+  minZoom := StrToIntDef(Trim(minZoomText), defaultMinZoom);
+  maxZoom := StrToIntDef(Trim(maxZoomText), defaultMaxZoom);
+  remoteTileTemplate := Trim(eOSMOfflineTileJsonUrl.Text);
+  if remoteTileTemplate = '' then
+  begin
+    ShowMessage('Remote tile template is empty.');
+    Exit;
+  end;
+
+  coverageSummary := MapLibBuildTileCoverageSummary(bounds, minZoom, maxZoom);
+  Log(Format('OSM build estimate [%s]: zoom=%d..%d tiles=%d',
+    [regionId, coverageSummary.MinZoom, coverageSummary.MaxZoom, coverageSummary.TileCount]));
+
+  buildRequest.RegionId := regionId;
+  buildRequest.SourceId := 'osm';
+  buildRequest.RemoteTileTemplate := remoteTileTemplate;
+  buildRequest.MinZoom := minZoom;
+  buildRequest.MaxZoom := maxZoom;
+  buildRequest.Bounds := bounds;
+  buildRequest.DataVersion := '1.0.0';
+
+  if OSMMap.OfflineRegionManager.BuildRegion(buildRequest) <> '' then
+  begin
+    FOSMActiveOfflineJobId := regionId;
+    Log('OSM build started for region: ' + regionId);
+  end
+  else
+    Log('OSM build failed to start or is already active.');
 end;
 
 procedure TMainFrm.bOSMDeleteRegionClick(Sender: TObject);
@@ -1050,6 +1172,47 @@ begin
         Log('Failed to delete OSM region: ' + string(RegionId));
     end;
   end;
+end;
+
+procedure TMainFrm.bOSMGoToRegionClick(Sender: TObject);
+var
+  regionId: string;
+  regions: TMapLibOfflineRegionMetadataArray;
+  selectedIdx: Integer;
+begin
+  if not Assigned(lbOSMRegions) or (lbOSMRegions.ItemIndex < 0) then
+  begin
+    ShowMessage('Please select a region to navigate to.');
+    Exit;
+  end;
+
+  selectedIdx := lbOSMRegions.ItemIndex;
+  regions := OSMMap.OfflineRegionManager.ListRegions;
+  if (selectedIdx < Low(regions)) or (selectedIdx > High(regions)) then
+    Exit;
+
+  regionId := regions[selectedIdx].RegionId;
+  OSMMap.FitBounds(
+    regions[selectedIdx].Bounds.North,
+    regions[selectedIdx].Bounds.South,
+    regions[selectedIdx].Bounds.East,
+    regions[selectedIdx].Bounds.West
+  );
+  Log(Format('OSM go to region: %s', [regionId]));
+end;
+
+procedure TMainFrm.bOSMCancelJobClick(Sender: TObject);
+begin
+  if Trim(FOSMActiveOfflineJobId) = '' then
+  begin
+    Log('No active offline job to cancel.');
+    Exit;
+  end;
+
+  if OSMMap.OfflineRegionManager.CancelDownload(FOSMActiveOfflineJobId) then
+    Log('OSM offline cancel requested for job: ' + FOSMActiveOfflineJobId)
+  else
+    Log('OSM offline cancel request failed for job: ' + FOSMActiveOfflineJobId);
 end;
 
 procedure TMainFrm.RefreshOSMRegionsList;
@@ -1148,52 +1311,52 @@ begin
 
   if cbOSMLogMove.Checked then
   begin
-    OSMMap.OnMoveStart := OSMMapViewChangedEvent;
-    OSMMap.OnMove := OSMMapViewChangedEvent;
-    OSMMap.OnMoveEnd := OSMMapViewChangedEvent;
-    OSMMap.OnDragStart := OSMMapViewChangedEvent;
-    OSMMap.OnDrag := OSMMapViewChangedEvent;
-    OSMMap.OnDragEnd := OSMMapViewChangedEvent;
-    OSMMap.OnZoomStart := OSMMapViewChangedEvent;
-    OSMMap.OnZoom := OSMMapViewChangedEvent;
-    OSMMap.OnZoomEnd := OSMMapViewChangedEvent;
-    OSMMap.OnRotateStart := OSMMapViewChangedEvent;
-    OSMMap.OnRotate := OSMMapViewChangedEvent;
-    OSMMap.OnRotateEnd := OSMMapViewChangedEvent;
-    OSMMap.OnPitchStart := OSMMapViewChangedEvent;
-    OSMMap.OnPitch := OSMMapViewChangedEvent;
-    OSMMap.OnPitchEnd := OSMMapViewChangedEvent;
+    OSMMap.OnMoveStart := @OSMMapViewChangedEvent;
+    OSMMap.OnMove := @OSMMapViewChangedEvent;
+    OSMMap.OnMoveEnd := @OSMMapViewChangedEvent;
+    OSMMap.OnDragStart := @OSMMapViewChangedEvent;
+    OSMMap.OnDrag := @OSMMapViewChangedEvent;
+    OSMMap.OnDragEnd := @OSMMapViewChangedEvent;
+    OSMMap.OnZoomStart := @OSMMapViewChangedEvent;
+    OSMMap.OnZoom := @OSMMapViewChangedEvent;
+    OSMMap.OnZoomEnd := @OSMMapViewChangedEvent;
+    OSMMap.OnRotateStart := @OSMMapViewChangedEvent;
+    OSMMap.OnRotate := @OSMMapViewChangedEvent;
+    OSMMap.OnRotateEnd := @OSMMapViewChangedEvent;
+    OSMMap.OnPitchStart := @OSMMapViewChangedEvent;
+    OSMMap.OnPitch := @OSMMapViewChangedEvent;
+    OSMMap.OnPitchEnd := @OSMMapViewChangedEvent;
   end;
   if cbOSMLogRender.Checked then
   begin
-    OSMMap.OnRender := OSMMapSimpleEvent;
-    OSMMap.OnResize := OSMMapSimpleEvent;
-    OSMMap.OnLoad := OSMMapSimpleEvent;
-    OSMMap.OnIdle := OSMMapSimpleEvent;
-    OSMMap.OnTouchCancel := OSMMapSimpleEvent;
-    OSMMap.OnTouchEnd := OSMMapSimpleEvent;
-    OSMMap.OnTouchMove := OSMMapSimpleEvent;
-    OSMMap.OnTouchStart := OSMMapSimpleEvent;
-    OSMMap.OnBoxZoomStart := OSMMapSimpleEvent;
-    OSMMap.OnBoxZoomEnd := OSMMapSimpleEvent;
-    OSMMap.OnBoxZoomCancel := OSMMapSimpleEvent;
-    OSMMap.OnWheel := OSMMapSimpleEvent;
+    OSMMap.OnRender := @OSMMapSimpleEvent;
+    OSMMap.OnResize := @OSMMapSimpleEvent;
+    OSMMap.OnLoad := @OSMMapSimpleEvent;
+    OSMMap.OnIdle := @OSMMapSimpleEvent;
+    OSMMap.OnTouchCancel := @OSMMapSimpleEvent;
+    OSMMap.OnTouchEnd := @OSMMapSimpleEvent;
+    OSMMap.OnTouchMove := @OSMMapSimpleEvent;
+    OSMMap.OnTouchStart := @OSMMapSimpleEvent;
+    OSMMap.OnBoxZoomStart := @OSMMapSimpleEvent;
+    OSMMap.OnBoxZoomEnd := @OSMMapSimpleEvent;
+    OSMMap.OnBoxZoomCancel := @OSMMapSimpleEvent;
+    OSMMap.OnWheel := @OSMMapSimpleEvent;
   end;
   if cbOSMLogData.Checked then
   begin
-    OSMMap.OnData := OSMMapSimpleEvent;
-    OSMMap.OnDataLoading := OSMMapSimpleEvent;
-    OSMMap.OnDataAbort := OSMMapSimpleEvent;
-    OSMMap.OnSourceData := OSMMapSimpleEvent;
-    OSMMap.OnSourceDataLoading := OSMMapSimpleEvent;
-    OSMMap.OnSourceDataAbort := OSMMapSimpleEvent;
-    OSMMap.OnStyleData := OSMMapSimpleEvent;
-    OSMMap.OnStyleDataLoading := OSMMapSimpleEvent;
-    OSMMap.OnStyleImageMissing := OSMMapSimpleEvent;
-    OSMMap.OnTerrain := OSMMapSimpleEvent;
-    OSMMap.OnProjectionTransition := OSMMapSimpleEvent;
-    OSMMap.OnWebGLContextLost := OSMMapSimpleEvent;
-    OSMMap.OnWebGLContextRestored := OSMMapSimpleEvent;
+    OSMMap.OnData := @OSMMapSimpleEvent;
+    OSMMap.OnDataLoading := @OSMMapSimpleEvent;
+    OSMMap.OnDataAbort := @OSMMapSimpleEvent;
+    OSMMap.OnSourceData := @OSMMapSimpleEvent;
+    OSMMap.OnSourceDataLoading := @OSMMapSimpleEvent;
+    OSMMap.OnSourceDataAbort := @OSMMapSimpleEvent;
+    OSMMap.OnStyleData := @OSMMapSimpleEvent;
+    OSMMap.OnStyleDataLoading := @OSMMapSimpleEvent;
+    OSMMap.OnStyleImageMissing := @OSMMapSimpleEvent;
+    OSMMap.OnTerrain := @OSMMapSimpleEvent;
+    OSMMap.OnProjectionTransition := @OSMMapSimpleEvent;
+    OSMMap.OnWebGLContextLost := @OSMMapSimpleEvent;
+    OSMMap.OnWebGLContextRestored := @OSMMapSimpleEvent;
   end;
 
   Log('OSM event filter applied.');
@@ -1333,6 +1496,8 @@ begin
     OSMMap.StyleTemplateFileName := '';
     OSMMap.GlyphsRootPath := '';
     OSMMap.RemoteTileTemplate := '';
+    OSMMap.MapLibreCssUrl := '';
+    OSMMap.MapLibreJsUrl := '';
   end;
 
   Log(Format('OSM assets css=%s js=%s cssExists=%s jsExists=%s',
@@ -1780,13 +1945,13 @@ begin
   UpdateStatus('Map loaded.');
 
   Log('Assigning GeoCode.OnCompleted...');
-  GMMap.GeoCode.OnCompleted := GeoCodeCompleted;
+  GMMap.GeoCode.OnCompleted := @GeoCodeCompleted;
 
   Log('Assigning Elevations.OnCompleted...');
-  GMMap.Elevations.OnCompleted := ElevationCompleted;
+  GMMap.Elevations.OnCompleted := @ElevationCompleted;
 
   Log('Assigning Routes.OnCompleted...');
-  GMMap.Routes.OnCompleted := RouteCompleted;
+  GMMap.Routes.OnCompleted := @RouteCompleted;
   GMMap.Routes.CloseOthersBeforeVisible := cbRouteCloseOthers.Checked;
   cbRouteCloseOthers.Checked := GMMap.Routes.CloseOthersBeforeVisible;
 
@@ -1823,8 +1988,8 @@ begin
   for I := 0 to GMMap.GroundOverlays.Count - 1 do
     BindGroundOverlayEvents(GMMap.GroundOverlays[I]);
 
-  GMMap.GeoCode.OnCompleted := GeoCodeCompleted;
-  GMMap.Elevations.OnCompleted := ElevationCompleted;
+  GMMap.GeoCode.OnCompleted := @GeoCodeCompleted;
+  GMMap.Elevations.OnCompleted := @ElevationCompleted;
 
   RefreshMarkerList;
   RefreshPolylineList;
@@ -2089,6 +2254,7 @@ procedure TMainFrm.bLoadMarkersCsvClick(Sender: TObject);
 var
   OpenDialog: TOpenDialog;
   CsvText: TStringList;
+  I: Integer;
 begin
   OpenDialog := TOpenDialog.Create(nil);
   try
@@ -2102,7 +2268,7 @@ begin
       CsvText.LoadFromFile(OpenDialog.FileName);
       GMMap.Markers.LoadFromCSV(CsvText.Text, 'lat', 'lng', 'title', 'visible');
 
-      for var I := 0 to GMMap.Markers.Count - 1 do
+      for I := 0 to GMMap.Markers.Count - 1 do
         BindMarkerEvents(GMMap.Markers[I]);
 
       RefreshMarkerList;
@@ -2118,6 +2284,7 @@ end;
 procedure TMainFrm.bLoadMarkersSampleClick(Sender: TObject);
 var
   CsvText: TStringList;
+  I: Integer;
 begin
   CsvText := TStringList.Create;
   try
@@ -2125,7 +2292,7 @@ begin
 
     GMMap.Markers.LoadFromCSV(CsvText.Text, 'lat', 'lng', 'title', 'visible');
 
-    for var I := 0 to GMMap.Markers.Count - 1 do
+    for I := 0 to GMMap.Markers.Count - 1 do
       BindMarkerEvents(GMMap.Markers[I]);
 
     RefreshMarkerList;
@@ -2154,14 +2321,14 @@ begin
   if not Assigned(AMarker) then
     Exit;
 
-  AMarker.OnClick := MapMarkersClick;
-  AMarker.OnDragStart := MapMarkersDragStart;
-  AMarker.OnDrag := MapMarkersDrag;
-  AMarker.OnDragEnd := MapMarkersDragEnd;
-  AMarker.OnMouseDown := MapMarkersMouseDown;
-  AMarker.OnMouseEnter := MapMarkersMouseEnter;
-  AMarker.OnMouseLeave := MapMarkersMouseLeave;
-  AMarker.OnMouseUp := MapMarkersMouseUp;
+  AMarker.OnClick := @MapMarkersClick;
+  AMarker.OnDragStart := @MapMarkersDragStart;
+  AMarker.OnDrag := @MapMarkersDrag;
+  AMarker.OnDragEnd := @MapMarkersDragEnd;
+  AMarker.OnMouseDown := @MapMarkersMouseDown;
+  AMarker.OnMouseEnter := @MapMarkersMouseEnter;
+  AMarker.OnMouseLeave := @MapMarkersMouseLeave;
+  AMarker.OnMouseUp := @MapMarkersMouseUp;
 end;
 
 procedure TMainFrm.MapMarkersClick(Sender: TObject);
@@ -2282,22 +2449,27 @@ end;
 
 procedure TMainFrm.LoadUIToPolyline(APolyline: TGMLclPolylineItem);
 var
+  I: Integer;
+  Line: string;
   Lat, Lng: Double;
+  lPos: SizeInt;
+  LatStr: string;
+  LngStr: string;
 begin
   if not Assigned(APolyline) then
     Exit;
 
   APolyline.Options.Path.Clear;
   APolyline.Options.Path.BeginUpdate;
-  for var I := 0 to mPolylinePath.Lines.Count - 1 do
+  for I := 0 to mPolylinePath.Lines.Count - 1 do
   begin
-    var Line := Trim(mPolylinePath.Lines[I]);
+    Line := Trim(mPolylinePath.Lines[I]);
     if Line = '' then
       Continue;
 
-    var lPos := Pos(',', Line);
-    var LatStr := Copy(Line, 1, lPos - 1);
-    var LngStr := Copy(Line, lPos + 1, Length(Line));
+    lPos := Pos(',', Line);
+    LatStr := Copy(Line, 1, lPos - 1);
+    LngStr := Copy(Line, lPos + 1, Length(Line));
 
     if TryStrToFloat(LatStr, Lat, cInvariantFormatSettings) and TryStrToFloat(LngStr, Lng, cInvariantFormatSettings) then
       APolyline.Options.Path.Add(Lat, Lng);
@@ -2513,18 +2685,18 @@ begin
   if not Assigned(APolyline) then
     Exit;
 
-  APolyline.OnClick := MapPolylineClick;
-  APolyline.OnContextMenu := MapPolylineContextMenu;
-  APolyline.OnDblClick := MapPolylineDblClick;
-  APolyline.OnDragStart := MapPolylineDragStart;
-  APolyline.OnDrag := MapPolylineDrag;
-  APolyline.OnDragEnd := MapPolylineDragEnd;
-  APolyline.OnMouseDown := MapPolylineMouseDown;
-  APolyline.OnMouseMove := MapPolylineMouseMove;
-  APolyline.OnMouseOut := MapPolylineMouseOut;
-  APolyline.OnMouseOver := MapPolylineMouseOver;
-  APolyline.OnMouseUp := MapPolylineMouseUp;
-  APolyline.OnPathChanged := MapPolylinePathChanged;
+  APolyline.OnClick := @MapPolylineClick;
+  APolyline.OnContextMenu := @MapPolylineContextMenu;
+  APolyline.OnDblClick := @MapPolylineDblClick;
+  APolyline.OnDragStart := @MapPolylineDragStart;
+  APolyline.OnDrag := @MapPolylineDrag;
+  APolyline.OnDragEnd := @MapPolylineDragEnd;
+  APolyline.OnMouseDown := @MapPolylineMouseDown;
+  APolyline.OnMouseMove := @MapPolylineMouseMove;
+  APolyline.OnMouseOut := @MapPolylineMouseOut;
+  APolyline.OnMouseOver := @MapPolylineMouseOver;
+  APolyline.OnMouseUp := @MapPolylineMouseUp;
+  APolyline.OnPathChanged := @MapPolylinePathChanged;
 end;
 
 procedure TMainFrm.MapPolylineClick(Sender: TObject; ALatLng: TMapLibLatLng);
@@ -2688,22 +2860,27 @@ end;
 
 procedure TMainFrm.LoadUIToPolygon(APolygon: TGMLclPolygonItem);
 var
+  I: Integer;
+  Line: string;
   Lat, Lng: Double;
+  lPos: SizeInt;
+  LatStr: string;
+  LngStr: string;
 begin
   if not Assigned(APolygon) then
     Exit;
 
   APolygon.Options.Path.Clear;
   APolygon.Options.Path.BeginUpdate;
-  for var I := 0 to mPolygonPath.Lines.Count - 1 do
+  for I := 0 to mPolygonPath.Lines.Count - 1 do
   begin
-    var Line := Trim(mPolygonPath.Lines[I]);
+    Line := Trim(mPolygonPath.Lines[I]);
     if Line = '' then
       Continue;
 
-    var lPos := Pos(',', Line);
-    var LatStr := Copy(Line, 1, lPos - 1);
-    var LngStr := Copy(Line, lPos + 1, Length(Line));
+    lPos := Pos(',', Line);
+    LatStr := Copy(Line, 1, lPos - 1);
+    LngStr := Copy(Line, lPos + 1, Length(Line));
 
     if TryStrToFloat(LatStr, Lat, cInvariantFormatSettings) and TryStrToFloat(LngStr, Lng, cInvariantFormatSettings) then
       APolygon.Options.Path.Add(Lat, Lng);
@@ -2728,18 +2905,18 @@ begin
   if not Assigned(APolygon) then
     Exit;
 
-  APolygon.OnClick := MapPolygonClick;
-  APolygon.OnContextMenu := MapPolygonContextMenu;
-  APolygon.OnDblClick := MapPolygonDblClick;
-  APolygon.OnDragStart := MapPolygonDragStart;
-  APolygon.OnDrag := MapPolygonDrag;
-  APolygon.OnDragEnd := MapPolygonDragEnd;
-  APolygon.OnMouseDown := MapPolygonMouseDown;
-  APolygon.OnMouseMove := MapPolygonMouseMove;
-  APolygon.OnMouseOut := MapPolygonMouseOut;
-  APolygon.OnMouseOver := MapPolygonMouseOver;
-  APolygon.OnMouseUp := MapPolygonMouseUp;
-  APolygon.OnPathChanged := MapPolygonPathChanged;
+  APolygon.OnClick := @MapPolygonClick;
+  APolygon.OnContextMenu := @MapPolygonContextMenu;
+  APolygon.OnDblClick := @MapPolygonDblClick;
+  APolygon.OnDragStart := @MapPolygonDragStart;
+  APolygon.OnDrag := @MapPolygonDrag;
+  APolygon.OnDragEnd := @MapPolygonDragEnd;
+  APolygon.OnMouseDown := @MapPolygonMouseDown;
+  APolygon.OnMouseMove := @MapPolygonMouseMove;
+  APolygon.OnMouseOut := @MapPolygonMouseOut;
+  APolygon.OnMouseOver := @MapPolygonMouseOver;
+  APolygon.OnMouseUp := @MapPolygonMouseUp;
+  APolygon.OnPathChanged := @MapPolygonPathChanged;
 end;
 
 procedure TMainFrm.lbPolygonsClick(Sender: TObject);
@@ -3017,18 +3194,18 @@ begin
   if not Assigned(ARectangle) then
     Exit;
 
-  ARectangle.OnClick := MapRectangleClick;
-  ARectangle.OnContextMenu := MapRectangleContextMenu;
-  ARectangle.OnDblClick := MapRectangleDblClick;
-  ARectangle.OnDragStart := MapRectangleDragStart;
-  ARectangle.OnDrag := MapRectangleDrag;
-  ARectangle.OnDragEnd := MapRectangleDragEnd;
-  ARectangle.OnMouseDown := MapRectangleMouseDown;
-  ARectangle.OnMouseMove := MapRectangleMouseMove;
-  ARectangle.OnMouseOut := MapRectangleMouseOut;
-  ARectangle.OnMouseOver := MapRectangleMouseOver;
-  ARectangle.OnMouseUp := MapRectangleMouseUp;
-  ARectangle.OnBoundsChanged := MapRectangleBoundsChanged;
+  ARectangle.OnClick := @MapRectangleClick;
+  ARectangle.OnContextMenu := @MapRectangleContextMenu;
+  ARectangle.OnDblClick := @MapRectangleDblClick;
+  ARectangle.OnDragStart := @MapRectangleDragStart;
+  ARectangle.OnDrag := @MapRectangleDrag;
+  ARectangle.OnDragEnd := @MapRectangleDragEnd;
+  ARectangle.OnMouseDown := @MapRectangleMouseDown;
+  ARectangle.OnMouseMove := @MapRectangleMouseMove;
+  ARectangle.OnMouseOut := @MapRectangleMouseOut;
+  ARectangle.OnMouseOver := @MapRectangleMouseOver;
+  ARectangle.OnMouseUp := @MapRectangleMouseUp;
+  ARectangle.OnBoundsChanged := @MapRectangleBoundsChanged;
 end;
 
 procedure TMainFrm.lbRectanglesClick(Sender: TObject);
@@ -3285,19 +3462,19 @@ begin
   if not Assigned(ACircle) then
     Exit;
 
-  ACircle.OnClick := MapCircleClick;
-  ACircle.OnContextMenu := MapCircleContextMenu;
-  ACircle.OnDblClick := MapCircleDblClick;
-  ACircle.OnDragStart := MapCircleDragStart;
-  ACircle.OnDrag := MapCircleDrag;
-  ACircle.OnDragEnd := MapCircleDragEnd;
-  ACircle.OnMouseDown := MapCircleMouseDown;
-  ACircle.OnMouseMove := MapCircleMouseMove;
-  ACircle.OnMouseOut := MapCircleMouseOut;
-  ACircle.OnMouseOver := MapCircleMouseOver;
-  ACircle.OnMouseUp := MapCircleMouseUp;
-  ACircle.OnCenterChanged := MapCircleCenterChanged;
-  ACircle.OnRadiusChanged := MapCircleRadiusChanged;
+  ACircle.OnClick := @MapCircleClick;
+  ACircle.OnContextMenu := @MapCircleContextMenu;
+  ACircle.OnDblClick := @MapCircleDblClick;
+  ACircle.OnDragStart := @MapCircleDragStart;
+  ACircle.OnDrag := @MapCircleDrag;
+  ACircle.OnDragEnd := @MapCircleDragEnd;
+  ACircle.OnMouseDown := @MapCircleMouseDown;
+  ACircle.OnMouseMove := @MapCircleMouseMove;
+  ACircle.OnMouseOut := @MapCircleMouseOut;
+  ACircle.OnMouseOver := @MapCircleMouseOver;
+  ACircle.OnMouseUp := @MapCircleMouseUp;
+  ACircle.OnCenterChanged := @MapCircleCenterChanged;
+  ACircle.OnRadiusChanged := @MapCircleRadiusChanged;
 end;
 
 procedure TMainFrm.lbCirclesClick(Sender: TObject);
@@ -3564,8 +3741,8 @@ begin
   if not Assigned(AGroundOverlay) then
     Exit;
 
-  AGroundOverlay.OnClick := MapGroundOverlayClick;
-  AGroundOverlay.OnDblClick := MapGroundOverlayDblClick;
+  AGroundOverlay.OnClick := @MapGroundOverlayClick;
+  AGroundOverlay.OnDblClick := @MapGroundOverlayDblClick;
 end;
 
 procedure TMainFrm.lbGroundOverlaysClick(Sender: TObject);
@@ -3729,7 +3906,8 @@ var
   HTML: string;
   FirstResult: TGMGeocodeResult;
 begin
-  Log('GeoCodeCompleted - Status: ' + AResponse.Status + ', HasResults: ' + BoolToStr(AResponse.HasResults, True));
+  Log('GeoCodeCompleted - Status: ' + AResponse.Status + ', HasResults: ' +
+    BoolToStr(GMLibGeocodeResponseHasResults(AResponse), True));
 
   if not Assigned(FCurrentMarkerForInfoWindow) or not Assigned(FCurrentInfoWindowForMarker) then
   begin
@@ -3743,9 +3921,9 @@ begin
   HTML := '<div style="font-family:Arial,sans-serif;font-size:12px;">';
   HTML := HTML + '<strong>Coords:</strong> ' + Format('%.6f, %.6f', [Lat, Lng]) + '<br/>';
 
-  if AResponse.HasResults then
+  if GMLibGeocodeResponseHasResults(AResponse) then
   begin
-    if AResponse.TryGetFirstResult(FirstResult) then
+    if GMLibGeocodeResponseTryGetFirstResult(AResponse, FirstResult) then
     begin
       HTML := HTML + '<strong>Address:</strong><br/>' + FirstResult.FormattedAddress + '<br/>';
       HTML := HTML + '<strong>Place ID:</strong> ' + FirstResult.PlaceId + '<br/>';
@@ -3774,7 +3952,8 @@ var
   FirstResult: TGMElevationResult;
   GeocodeResult: TGMGeocodeResult;
 begin
-  Log('ElevationCompleted - Status: ' + AResponse.Status + ', HasResults: ' + BoolToStr(AResponse.HasResults, True));
+  Log('ElevationCompleted - Status: ' + AResponse.Status + ', HasResults: ' +
+    BoolToStr(GMLibElevationResponseHasResults(AResponse), True));
 
   if (not Assigned(FCurrentMarkerForInfoWindow)) or (not Assigned(FCurrentInfoWindowForMarker)) then
   begin
@@ -3794,7 +3973,7 @@ begin
   HTML := '<div style="font-family:Arial,sans-serif;font-size:12px;">';
   HTML := HTML + '<strong>Coords:</strong> ' + Format('%.6f, %.6f', [FCurrentMarkerForInfoWindow.Options.Position.Lat, FCurrentMarkerForInfoWindow.Options.Position.Lng]) + '<br/>';
 
-  if GMMap.GeoCode.LastResponse.HasResults then
+  if GMLibGeocodeResponseHasResults(GMMap.GeoCode.LastResponse) then
   begin
     GeocodeResult := GMMap.GeoCode.LastResponse.Results[0];
     HTML := HTML + '<strong>Address:</strong><br/>' + GeocodeResult.FormattedAddress + '<br/>';
@@ -3804,9 +3983,9 @@ begin
   else
     HTML := HTML + '<em>No address found</em><br/>';
 
-  if AResponse.HasResults then
+  if GMLibElevationResponseHasResults(AResponse) then
   begin
-    if AResponse.TryGetFirstResult(FirstResult) then
+    if GMLibElevationResponseTryGetFirstResult(AResponse, FirstResult) then
     begin
       HTML := HTML + '<strong>Elevation:</strong> ' + Format('%.2f m', [FirstResult.Elevation]) + '<br/>';
       HTML := HTML + '<strong>Resolution:</strong> ' + Format('%.2f m', [FirstResult.Resolution]) + '<br/>';
@@ -3854,7 +4033,8 @@ end;
 
 procedure TMainFrm.RouteCompleted(Sender: TObject; const AResponse: TGMRouteResponse);
 begin
-  Log('Route completed. Status: ' + AResponse.Status + ', HasResults: ' + BoolToStr(AResponse.HasResults, True));
+  Log('Route completed. Status: ' + AResponse.Status + ', HasResults: ' +
+    BoolToStr(GMLibRouteResponseHasResults(AResponse), True));
   RefreshRouteList;
 end;
 
@@ -3978,6 +4158,10 @@ begin
 
   RouteResult.ZoomToRoute;
 end;
+
+initialization
+  cInvariantFormatSettings := DefaultFormatSettings;
+  cInvariantFormatSettings.DecimalSeparator := '.';
 
 end.
 

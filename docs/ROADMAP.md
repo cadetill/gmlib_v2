@@ -82,6 +82,12 @@
     the same embedded/file-switch strategy used in `VCL`.
   - `GMLibRuntime.Lcl` compile path is back to green after the latest FPC
     compatibility fixes in the common offline/runtime layer.
+  - `MegaDemo LCL` also compiles again and now exposes the same practical
+    offline validation surface needed to test regions/runtime.
+  - the LCL offline/hybrid bootstrap path has moved from `LoadString(...)` to
+    a real runtime-served `/bootstrap` URL under the same localhost origin.
+  - the localhost runtime itself now starts without freezing the UI in `LCL`
+    because `TFPHTTPServer` activation runs on a worker thread.
   - `VCL MegaDemo` now exposes:
     - camera + restrictions (`min/max zoom`, `min/max pitch`, `max bounds`)
     - interaction flags
@@ -133,6 +139,20 @@
     - cancellation now reported separately from real download/build failures
   - current build performance is considered sufficient for `v1`; no extra
     download concurrency is planned for now.
+  - current `CEF4Delphi` hybrid/offline blocker is no longer
+    compile/bootstrap/runtime startup:
+    runtime `/bootstrap` and `/asset/...` requests work, but even a minimal
+    external `probe.js` served by the embedded localhost runtime is downloaded
+    and still not executed afterwards in the current host flow.
+  - this means the active problem is no longer best framed as a pure
+    `MapLibre` worker issue; it currently looks like a `CEF4Delphi`
+    localhost-script bootstrap limitation/integration gap.
+  - this line is parked for now until a different `CEF4Delphi` bootstrap
+    strategy is selected.
+  - the separate `LCL` online regression discovered during this investigation
+    is now closed:
+    it was caused by the diagnostic logger itself (`gmlib_lcl_hybrid_trace.log`
+    file locking), not by `OSM` online rendering.
 
 ## Next milestones
 
@@ -140,6 +160,10 @@
 
 - Finish validation/stabilization of the current OSM map core across
   `VCL`/`FMX`/`LCL`.
+- Revisit the parked `CEF4Delphi` hybrid/offline line with a different
+  bootstrap strategy; the current localhost external-script path is requested
+  correctly but not executed by the host, so more worker-only debugging is not
+  the right next step.
 - Visible bounds stay event-only through `OnBoundsChanged`; no extra read-only
   Delphi property is planned for the current map layer.
 - Decide whether any extra map-only interaction flags are still needed for v1,

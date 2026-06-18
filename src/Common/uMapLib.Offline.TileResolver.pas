@@ -13,7 +13,7 @@ interface
 
 uses
 {$IFDEF FPC}
-  SysUtils,
+  Classes, SysUtils,
 {$ELSE}
   System.SysUtils,
 {$ENDIF}
@@ -67,6 +67,33 @@ type
   end;
 
 implementation
+
+procedure AppendTileResolverTrace(const AMessage: string);
+{$IFDEF FPC}
+var
+  logLines: TStringList;
+  logFileName: string;
+begin
+  try
+    logFileName := IncludeTrailingPathDelimiter(ExtractFilePath(ParamStr(0))) +
+      'gmlib_lcl_hybrid_trace.log';
+    logLines := TStringList.Create;
+    try
+      if FileExists(logFileName) then
+        logLines.LoadFromFile(logFileName);
+      logLines.Add(FormatDateTime('hh:nn:ss.zzz', Now) + ' [TileResolver] ' + AMessage);
+      logLines.SaveToFile(logFileName);
+    finally
+      logLines.Free;
+    end;
+  except
+    // Logging must never break the runtime.
+  end;
+end;
+{$ELSE}
+begin
+end;
+{$ENDIF}
 
 { TMapLibTileResolver }
 
@@ -137,16 +164,26 @@ function TMapLibTileResolver.TryResolveRemote(const ASourceId: string; AZ, AX,
   AY: Integer; out ATileData: TBytes; out AContentType,
   AContentEncoding: string): Boolean;
 begin
+  AppendTileResolverTrace(Format('Remote resolve start source=%s z=%d x=%d y=%d',
+    [ASourceId, AZ, AX, AY]));
   Result := Assigned(FRemoteTileProvider) and
     FRemoteTileProvider.TryFetchTile(ASourceId, AZ, AX, AY, ATileData,
       AContentType, AContentEncoding);
+  AppendTileResolverTrace(Format('Remote resolve result=%s bytes=%d contentType=%s contentEncoding=%s',
+    [BoolToStr(Result, True), Length(ATileData), AContentType, AContentEncoding]));
   if Result and Assigned(FTileStore) then
   begin
     try
+      AppendTileResolverTrace('Cache put start');
       FTileStore.PutTile(ASourceId, FSourceVariant, AZ, AX, AY, ATileData,
         AContentType, AContentEncoding);
+      AppendTileResolverTrace('Cache put done');
     except
+      on E: Exception do
+      begin
+        AppendTileResolverTrace('Cache put exception: ' + E.Message);
       // Un fallo de persistencia no debe impedir servir el tile remoto ya descargado.
+      end;
     end;
   end;
 end;

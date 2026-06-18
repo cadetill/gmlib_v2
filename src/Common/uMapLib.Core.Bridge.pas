@@ -29,6 +29,18 @@ type
     property BridgeInterval: Integer read GetBridgeInterval write SetBridgeInterval;
   end;
 
+  IMapBridgeDocumentBaseUrl = interface
+    ['{D8010B30-5B56-4B74-937A-4C733C5FAF0D}']
+    procedure SetDocumentBaseUrl(const AValue: string);
+    function GetDocumentBaseUrl: string;
+    property DocumentBaseUrl: string read GetDocumentBaseUrl write SetDocumentBaseUrl;
+  end;
+
+  IMapBridgeNavigation = interface
+    ['{53A8D991-C8E7-40A5-93F6-BAA8F0F16D63}']
+    procedure Navigate(const AUrl: string);
+  end;
+
   IMapBridgeTransport = interface
     ['{0D8A77BD-5A15-4310-A8EE-88C1307AE7A3}']
     function GetBackend: TGMBridgeBackend;

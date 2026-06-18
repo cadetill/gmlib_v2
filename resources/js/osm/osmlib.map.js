@@ -949,10 +949,6 @@
       bootstrapMapId = this.mapId;
 
       reportBootstrap("bootstrap entered");
-      reportBootstrap(
-        "entered. styleUrl=" + String((config && config.styleUrl) || "") +
-        " styleJsonLength=" + String((config && config.styleJson) ? config.styleJson.length : 0)
-      );
 
       if (!host) {
         sendMessage("map.event.error", this.mapId, { message: "OSM bootstrap failed: host element #osmlib-map not found." });

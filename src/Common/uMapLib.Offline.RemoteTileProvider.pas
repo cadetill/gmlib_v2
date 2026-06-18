@@ -13,9 +13,9 @@ interface
 
 uses
 {$IFDEF FPC}
-  Classes, SysUtils;
+  Classes, SysUtils, StrUtils, fphttpclient;
 {$ELSE}
-  System.Classes, System.SysUtils, System.Net.HttpClient, System.NetConsts;
+  System.Classes, System.SysUtils, System.StrUtils, System.Net.HttpClient, System.NetConsts;
 {$ENDIF}
 
 type
@@ -79,6 +79,33 @@ uses
   System.Net.URLClient;
 {$ENDIF}
 
+procedure AppendRemoteTileProviderTrace(const AMessage: string);
+{$IFDEF FPC}
+var
+  logLines: TStringList;
+  logFileName: string;
+begin
+  try
+    logFileName := IncludeTrailingPathDelimiter(ExtractFilePath(ParamStr(0))) +
+      'gmlib_lcl_hybrid_trace.log';
+    logLines := TStringList.Create;
+    try
+      if FileExists(logFileName) then
+        logLines.LoadFromFile(logFileName);
+      logLines.Add(FormatDateTime('hh:nn:ss.zzz', Now) + ' [RemoteTileProvider] ' + AMessage);
+      logLines.SaveToFile(logFileName);
+    finally
+      logLines.Free;
+    end;
+  except
+    // Logging must never break the runtime.
+  end;
+end;
+{$ELSE}
+begin
+end;
+{$ENDIF}
+
 { TMapLibHttpRemoteTileProvider }
 
 function TMapLibHttpRemoteTileProvider.BuildTileUrl(const ASourceId: string; AZ,
@@ -89,6 +116,8 @@ begin
   Result := StringReplace(Result, '{z}', IntToStr(AZ), [rfReplaceAll, rfIgnoreCase]);
   Result := StringReplace(Result, '{x}', IntToStr(AX), [rfReplaceAll, rfIgnoreCase]);
   Result := StringReplace(Result, '{y}', IntToStr(AY), [rfReplaceAll, rfIgnoreCase]);
+  if StartsText('http://tiles.openfreemap.org/', Result) then
+    Result := 'https://' + Copy(Result, Length('http://') + 1, MaxInt);
 end;
 
 constructor TMapLibHttpRemoteTileProvider.Create;
@@ -124,7 +153,12 @@ end;
 function TMapLibHttpRemoteTileProvider.TryFetchTile(const ASourceId: string; AZ,
   AX, AY: Integer; out ATileData: TBytes; out AContentType,
   AContentEncoding: string): Boolean;
-{$IFNDEF FPC}
+{$IFDEF FPC}
+var
+  tileStream: TMemoryStream;
+  tileUrl: string;
+  httpClient: TFPHTTPClient;
+{$ELSE}
 var
   response: IHTTPResponse;
   tileUrl: string;
@@ -137,7 +171,44 @@ begin
   AContentEncoding := '';
 
 {$IFDEF FPC}
-  Exit;
+  httpClient := TFPHTTPClient.Create(nil);
+  tileStream := TMemoryStream.Create;
+  try
+    tileUrl := BuildTileUrl(ASourceId, AZ, AX, AY);
+    AppendRemoteTileProviderTrace(Format('Fetch start source=%s z=%d x=%d y=%d url=%s',
+      [ASourceId, AZ, AX, AY, tileUrl]));
+    httpClient.ConnectTimeout := FConnectTimeout;
+    httpClient.IOTimeout := FResponseTimeout;
+    httpClient.AllowRedirect := True;
+    httpClient.AddHeader('Accept',
+      'application/vnd.mapbox-vector-tile, application/x-protobuf, */*');
+    httpClient.AddHeader('Accept-Encoding', 'identity');
+    try
+      httpClient.Get(tileUrl, tileStream);
+      AppendRemoteTileProviderTrace(Format('Fetch completed status=%d bytes=%d',
+        [httpClient.ResponseStatusCode, tileStream.Size]));
+      if (httpClient.ResponseStatusCode <> 200) or (tileStream.Size <= 0) then
+        Exit(False);
+
+      SetLength(ATileData, tileStream.Size);
+      tileStream.Position := 0;
+      tileStream.ReadBuffer(ATileData[0], tileStream.Size);
+      AContentType := httpClient.ResponseHeaders.Values['Content-Type'];
+      AContentEncoding := httpClient.ResponseHeaders.Values['Content-Encoding'];
+      AppendRemoteTileProviderTrace(Format('Fetch success contentType=%s contentEncoding=%s',
+        [AContentType, AContentEncoding]));
+      Result := True;
+    except
+      on E: Exception do
+      begin
+        AppendRemoteTileProviderTrace('Fetch exception: ' + E.Message);
+        Result := False;
+      end;
+    end;
+  finally
+    tileStream.Free;
+    httpClient.Free;
+  end;
 {$ELSE}
   if not Assigned(FHttpClient) then
     Exit;

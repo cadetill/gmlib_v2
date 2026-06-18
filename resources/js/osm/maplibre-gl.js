@@ -28,10 +28,20 @@ function define(moduleName, _dependencies, moduleFactory) {
     // to check the correct order, see dist/maplibre-gl-dev.js file (look for `define(` calls)
     // we assume that for our 3 chunks it will generate 3 modules and their order is predefined like the following
     modules.shared(sharedModule);
+
+    if (typeof WorkerGlobalScope !== 'undefined' && typeof self !== 'undefined' && self instanceof WorkerGlobalScope && typeof window === 'undefined') {
+        modules.worker(sharedModule);
+        return;
+    }
+
     modules.index(maplibregl, sharedModule);
 
     if (typeof window !== 'undefined') {
-        maplibregl.setWorkerUrl(window.URL.createObjectURL(new Blob([workerBundleString], { type: 'text/javascript' })));
+        if (typeof document !== 'undefined' && document.currentScript && document.currentScript.src) {
+            maplibregl.setWorkerUrl(document.currentScript.src);
+        } else {
+            maplibregl.setWorkerUrl(window.URL.createObjectURL(new Blob([workerBundleString], { type: 'text/javascript' })));
+        }
     }
 
     return maplibregl;

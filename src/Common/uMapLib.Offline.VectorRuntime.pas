@@ -30,6 +30,7 @@ type
   {** @abstract(Coordinador principal del runtime vectorial local.) }
   TMapLibVectorRuntime = class
   private
+    FBootstrapHtml: string;
     FSourceId: string;
     FMapMode: TMapLibMapMode;
     FOfflinePolicy: TMapLibOfflinePolicy;
@@ -50,6 +51,8 @@ type
     function ResolveTileStoreDatabaseFileName: string;
     function BuildGlyphsUrlTemplate: string;
     function DetectContentEncoding(const AData: TBytes): string;
+    function TryServeAssetRequest(ARequest: TMapLibHttpRequestData;
+      AResponse: TMapLibHttpResponseData): Boolean;
     function TryServeGlyphRequest(ARequest: TMapLibHttpRequestData;
       AResponse: TMapLibHttpResponseData): Boolean;
     procedure HandleServerCommand(Sender: TObject; ARequest: TMapLibHttpRequestData;
@@ -68,6 +71,7 @@ type
     function BuildTileUrlTemplate(const ASourceId: string = ''): string;
     {** @abstract(Construye el style JSON final para MapLibre.) }
     function BuildStyleJson: string;
+    function BuildBootstrapUrl: string;
 
     property SourceId: string read FSourceId write FSourceId;
     property MapMode: TMapLibMapMode read FMapMode write FMapMode;
@@ -76,6 +80,7 @@ type
     property ActiveRegionFileName: string read FActiveRegionFileName write FActiveRegionFileName;
     property StyleTemplateFileName: string read FStyleTemplateFileName write FStyleTemplateFileName;
     property GlyphsRootPath: string read FGlyphsRootPath write FGlyphsRootPath;
+    property BootstrapHtml: string read FBootstrapHtml write FBootstrapHtml;
     property LocalHttpServer: TMapLibLocalHttpServer read FLocalHttpServer;
     property RemoteTileProvider: TMapLibHttpRemoteTileProvider read FRemoteTileProvider;
     property StyleProvider: TMapLibStyleProvider read FStyleProvider write FStyleProvider;
@@ -88,7 +93,8 @@ implementation
 uses
   uMapLib.Offline.SqliteTileStore,
   uMapLib.Offline.RegionTileStore,
-  uMapLib.Offline.CompositeTileStore;
+  uMapLib.Offline.CompositeTileStore,
+  fphttpclient;
 {$ELSE}
 uses
   uMapLib.Offline.SqliteTileStore,
@@ -141,6 +147,64 @@ const
       '{"id":"poi-dots","type":"circle","source":"osm","source-layer":"poi","minzoom":10,"paint":{"circle-color":"#8b5a2b","circle-radius":1.8,"circle-opacity":0.65}}' +
     ']'+
     '}';
+
+procedure AppendVectorRuntimeTrace(const AMessage: string);
+{$IFDEF FPC}
+var
+  logLines: TStringList;
+  logFileName: string;
+begin
+  try
+    logFileName := IncludeTrailingPathDelimiter(ExtractFilePath(ParamStr(0))) +
+      'gmlib_lcl_hybrid_trace.log';
+    logLines := TStringList.Create;
+    try
+      if FileExists(logFileName) then
+        logLines.LoadFromFile(logFileName);
+      logLines.Add(FormatDateTime('hh:nn:ss.zzz', Now) + ' [VectorRuntime] ' + AMessage);
+      logLines.SaveToFile(logFileName);
+    finally
+      logLines.Free;
+    end;
+  except
+    // Logging must never break the runtime.
+  end;
+end;
+{$ELSE}
+begin
+end;
+{$ENDIF}
+
+{$IFDEF FPC}
+function TryReadRuntimeHealth(const AUrl: string; out AResponseText, AErrorText: string): Boolean;
+var
+  httpClient: TFPHTTPClient;
+  responseStream: TStringStream;
+begin
+  Result := False;
+  AResponseText := '';
+  AErrorText := '';
+  httpClient := TFPHTTPClient.Create(nil);
+  responseStream := TStringStream.Create('');
+  try
+    httpClient.ConnectTimeout := 2000;
+    httpClient.IOTimeout := 2000;
+    try
+      httpClient.Get(AUrl, responseStream);
+      AResponseText := responseStream.DataString;
+      Result := httpClient.ResponseStatusCode = 200;
+      if not Result then
+        AErrorText := Format('status=%d body=%s', [httpClient.ResponseStatusCode, AResponseText]);
+    except
+      on E: Exception do
+        AErrorText := E.Message;
+    end;
+  finally
+    responseStream.Free;
+    httpClient.Free;
+  end;
+end;
+{$ENDIF}
 
 { TMapLibVectorRuntime }
 
@@ -224,6 +288,8 @@ end;
 function TMapLibVectorRuntime.BuildStyleJson: string;
 var
   effectiveSourceId: string;
+  tileUrlTemplate: string;
+  glyphsUrlTemplate: string;
 begin
   effectiveSourceId := FSourceId;
   if effectiveSourceId = '' then
@@ -244,9 +310,17 @@ begin
     if Trim(FStyleTemplateFileName) <> '' then
       FStyleProvider.TemplateJson := '';
     FStyleProvider.TemplateFileName := FStyleTemplateFileName;
-    FStyleProvider.TileUrlTemplate := BuildTileUrlTemplate(effectiveSourceId);
-    FStyleProvider.GlyphsUrlTemplate := BuildGlyphsUrlTemplate;
+    tileUrlTemplate := BuildTileUrlTemplate(effectiveSourceId);
+    glyphsUrlTemplate := BuildGlyphsUrlTemplate;
+    FStyleProvider.TileUrlTemplate := tileUrlTemplate;
+    FStyleProvider.GlyphsUrlTemplate := glyphsUrlTemplate;
     Result := FStyleProvider.BuildStyleJson;
+    AppendVectorRuntimeTrace(
+      'BuildStyleJson sourceId=' + effectiveSourceId +
+      ' tileUrl=' + tileUrlTemplate +
+      ' glyphsUrl=' + glyphsUrlTemplate +
+      ' styleLength=' + IntToStr(Length(Result))
+    );
   end
   else
     Result := '';
@@ -414,6 +488,7 @@ procedure TMapLibVectorRuntime.HandleServerCommand(Sender: TObject;
   ARequest: TMapLibHttpRequestData; AResponse: TMapLibHttpResponseData;
   var AHandled: Boolean);
 var
+  clientLogMessage: string;
   tileData: TBytes;
   contentType: string;
   contentEncoding: string;
@@ -423,9 +498,45 @@ var
   tileX: Integer;
   tileY: Integer;
 begin
+  AppendVectorRuntimeTrace('HandleServerCommand document=' + ARequest.Document);
   if TryServeGlyphRequest(ARequest, AResponse) then
   begin
+    AppendVectorRuntimeTrace('Glyph request served');
     AHandled := True;
+    Exit;
+  end;
+
+  if TryServeAssetRequest(ARequest, AResponse) then
+  begin
+    AppendVectorRuntimeTrace('Asset request served');
+    AHandled := True;
+    Exit;
+  end;
+
+  if SameText(ARequest.Document, '/clientlog') then
+  begin
+    AHandled := True;
+    clientLogMessage := Trim(ARequest.Params.Values['msg']);
+    AppendVectorRuntimeTrace('ClientLog ' + clientLogMessage);
+    AResponse.StatusCode := 204;
+    Exit;
+  end;
+
+  if SameText(ARequest.Document, '/bootstrap') then
+  begin
+    AHandled := True;
+    if Trim(FBootstrapHtml) = '' then
+    begin
+      AResponse.StatusCode := 404;
+      AResponse.ContentType := 'application/json; charset=utf-8';
+      AResponse.ContentText := BuildJsonError('Bootstrap HTML is not configured.');
+    end
+    else
+    begin
+      AResponse.StatusCode := 200;
+      AResponse.ContentType := 'text/html; charset=utf-8';
+      AResponse.ContentText := FBootstrapHtml;
+    end;
     Exit;
   end;
 
@@ -438,6 +549,7 @@ begin
      not ParseRequestInteger(ARequest.Params, 'x', tileX) or
      not ParseRequestInteger(ARequest.Params, 'y', tileY) then
   begin
+    AppendVectorRuntimeTrace('Invalid tile coordinates');
     AResponse.StatusCode := 400;
     AResponse.ContentType := 'application/json; charset=utf-8';
     AResponse.ContentText := BuildJsonError('Invalid tile coordinates.');
@@ -447,12 +559,17 @@ begin
   tileSource := Trim(ARequest.Params.Values['source']);
   if tileSource = '' then
     tileSource := FSourceId;
+  AppendVectorRuntimeTrace(Format('Tile request source=%s z=%d x=%d y=%d mode=%d policy=%d variant=%s',
+    [tileSource, tileZ, tileX, tileY, Ord(FMapMode), Ord(FOfflinePolicy),
+     FRemoteTileProvider.TileUrlTemplate]));
 
   FTileResolver.MapMode := FMapMode;
   FTileResolver.OfflinePolicy := FOfflinePolicy;
   FTileResolver.SourceVariant := FRemoteTileProvider.TileUrlTemplate;
   resolveStatus := FTileResolver.ResolveTile(tileSource, tileZ, tileX, tileY,
     tileData, contentType, contentEncoding);
+  AppendVectorRuntimeTrace(Format('Resolve status=%d bytes=%d contentType=%s contentEncoding=%s',
+    [Ord(resolveStatus), Length(tileData), contentType, contentEncoding]));
 
   case resolveStatus of
     trsLocal, trsRemote:
@@ -551,15 +668,159 @@ begin
   AResponse.FreeContentStream := True;
 end;
 
-function TMapLibVectorRuntime.Start: Boolean;
+function TMapLibVectorRuntime.TryServeAssetRequest(
+  ARequest: TMapLibHttpRequestData; AResponse: TMapLibHttpResponseData): Boolean;
+var
+  assetRelativePath: string;
+  assetFileName: string;
+  assetFilePath: string;
+  assetData: TBytes;
+  assetText: string;
+{$IFDEF FPC}
+  assetLines: TStringList;
+{$ENDIF}
 begin
+  Result := False;
+
+  if not StartsText('/asset/', Trim(ARequest.Document)) then
+    Exit;
+
+  Result := True;
+  if Trim(FGlyphsRootPath) = '' then
+  begin
+    AppendVectorRuntimeTrace('Asset request rejected: GlyphsRootPath is empty');
+    AResponse.StatusCode := 404;
+    AResponse.ContentType := 'application/json; charset=utf-8';
+    AResponse.ContentText := BuildJsonError('Asset root path is not configured.');
+    Exit;
+  end;
+
+  assetRelativePath := Copy(Trim(ARequest.Document), Length('/asset/') + 1, MaxInt);
+  assetFileName := ExtractFileName(DecodeUrlComponent(assetRelativePath));
+  AppendVectorRuntimeTrace('Asset request relativePath=' + assetRelativePath +
+    ' fileName=' + assetFileName + ' root=' + FGlyphsRootPath);
+  if assetFileName = '' then
+  begin
+    AppendVectorRuntimeTrace('Asset request rejected: empty asset file name');
+    AResponse.StatusCode := 400;
+    AResponse.ContentType := 'application/json; charset=utf-8';
+    AResponse.ContentText := BuildJsonError('Invalid asset request.');
+    Exit;
+  end;
+
+  assetFilePath := CombinePath(FGlyphsRootPath, assetFileName);
+
+  if SameText(assetFileName, 'probe.js') then
+  begin
+    assetText :=
+      '(function(){' +
+      'try{' +
+      'var base=String(window.__osmlibRuntimeBaseUrl||"");' +
+      'if(base){(new Image()).src=base+"clientlog?msg="+encodeURIComponent("probe loaded");}' +
+      '}catch(e){}' +
+      'window.__osmlibProbeLoaded=true;' +
+      '})();';
+    AppendVectorRuntimeTrace('Asset request serving probe.js chars=' + IntToStr(Length(assetText)));
+    AResponse.StatusCode := 200;
+    AResponse.ContentType := 'text/javascript; charset=utf-8';
+    AResponse.ContentText := assetText;
+    Exit;
+  end;
+
+  if not FileExists(assetFilePath) then
+  begin
+    AppendVectorRuntimeTrace('Asset request file not found path=' + assetFilePath);
+    AResponse.StatusCode := 404;
+    AResponse.ContentType := 'application/json; charset=utf-8';
+    AResponse.ContentText := BuildJsonError('Asset file not found.');
+    Exit;
+  end;
+
+  if SameText(assetFileName, 'osmlib.map.js') or
+     SameText(assetFileName, 'maplibre-gl.js') then
+  begin
+    AppendVectorRuntimeTrace('Asset request entering JS text path=' + assetFilePath);
+    try
+{$IFDEF FPC}
+      assetLines := TStringList.Create;
+      try
+        assetLines.LoadFromFile(assetFilePath);
+        assetText := assetLines.Text;
+      finally
+        assetLines.Free;
+      end;
+{$ELSE}
+      assetText := TFile.ReadAllText(assetFilePath, TEncoding.UTF8);
+{$ENDIF}
+      AppendVectorRuntimeTrace(Format(
+        'Asset request serving JS text path=%s chars=%d',
+        [assetFilePath, Length(assetText)]));
+      AResponse.StatusCode := 200;
+      AResponse.ContentType := 'text/javascript; charset=utf-8';
+      AResponse.ContentText := assetText;
+      AppendVectorRuntimeTrace('Asset request JS text response prepared for ' + assetFileName);
+      Exit;
+    except
+      on E: Exception do
+      begin
+        AppendVectorRuntimeTrace('Asset request JS text exception: ' + E.Message);
+        AResponse.StatusCode := 500;
+        AResponse.ContentType := 'application/json; charset=utf-8';
+        AResponse.ContentText := BuildJsonError('Asset JS text error: ' + E.Message);
+        Exit;
+      end;
+    end;
+  end;
+
+  assetData := ReadAllBytesFromFile(assetFilePath);
+  AppendVectorRuntimeTrace(Format('Asset request serving path=%s bytes=%d',
+    [assetFilePath, Length(assetData)]));
+  AResponse.StatusCode := 200;
+  if SameText(ExtractFileExt(assetFileName), '.js') then
+    AResponse.ContentType := 'application/javascript; charset=utf-8'
+  else if SameText(ExtractFileExt(assetFileName), '.css') then
+    AResponse.ContentType := 'text/css; charset=utf-8'
+  else
+    AResponse.ContentType := 'application/octet-stream';
+  AResponse.ContentStream := TBytesStream.Create(assetData);
+  AResponse.FreeContentStream := True;
+end;
+
+function TMapLibVectorRuntime.Start: Boolean;
+{$IFDEF FPC}
+var
+  healthText: string;
+  healthError: string;
+{$ENDIF}
+begin
+  AppendVectorRuntimeTrace(Format(
+    'Start mapMode=%d policy=%d storage=%s activeRegion=%s styleTemplate=%s glyphs=%s remoteTemplate=%s',
+    [Ord(FMapMode), Ord(FOfflinePolicy), FOfflineStoragePath, FActiveRegionFileName,
+     FStyleTemplateFileName, FGlyphsRootPath, FRemoteTileProvider.TileUrlTemplate]));
   ConfigureTileStore;
+  AppendVectorRuntimeTrace('Start after ConfigureTileStore');
   Result := FLocalHttpServer.Start;
+  AppendVectorRuntimeTrace('Start result=' + BoolToStr(Result, True) +
+    ' baseUrl=' + FLocalHttpServer.GetBaseUrl + ' lastError=' + FLocalHttpServer.GetLastError);
+{$IFDEF FPC}
+  if Result then
+  begin
+    if TryReadRuntimeHealth(FLocalHttpServer.BuildRuntimeUrl('health'), healthText, healthError) then
+      AppendVectorRuntimeTrace('Health check ok body=' + healthText)
+    else
+      AppendVectorRuntimeTrace('Health check failed error=' + healthError);
+  end;
+{$ENDIF}
 end;
 
 procedure TMapLibVectorRuntime.Stop;
 begin
   FLocalHttpServer.Stop;
+end;
+
+function TMapLibVectorRuntime.BuildBootstrapUrl: string;
+begin
+  Result := FLocalHttpServer.BuildRuntimeUrl('bootstrap');
 end;
 
 end.

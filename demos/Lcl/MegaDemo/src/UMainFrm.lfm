@@ -24,7 +24,6 @@ object MainFrm: TMainFrm
     Height = 476
     Align = alClient
     TabOrder = 0
-    DefaultUrl = 'about:blank'
   end
   object pcSupplier: TPageControl
     Left = 0
@@ -2934,19 +2933,46 @@ object MainFrm: TMainFrm
           object bOSMDownloadRegion: TButton
             Left = 764
             Top = 140
-            Width = 140
+            Width = 120
             Height = 25
             Caption = 'Download Region'
             TabOrder = 5
             OnClick = bOSMDownloadRegionClick
           end
-          object bOSMDeleteRegion: TButton
-            Left = 924
+          object bOSMBuildRegion: TButton
+            Left = 894
             Top = 140
-            Width = 140
+            Width = 100
+            Height = 25
+            Caption = 'Build Region'
+            TabOrder = 6
+            OnClick = bOSMBuildRegionClick
+          end
+          object bOSMDeleteRegion: TButton
+            Left = 1004
+            Top = 140
+            Width = 90
             Height = 25
             Caption = 'Delete Region'
-            TabOrder = 6
+            TabOrder = 7
+          end
+          object bOSMGoToRegion: TButton
+            Left = 1104
+            Top = 140
+            Width = 80
+            Height = 25
+            Caption = 'Go To'
+            TabOrder = 8
+            OnClick = bOSMGoToRegionClick
+          end
+          object bOSMCancelJob: TButton
+            Left = 1104
+            Top = 108
+            Width = 80
+            Height = 25
+            Caption = 'Cancel Job'
+            TabOrder = 9
+            OnClick = bOSMCancelJobClick
           end
         end
         object tsOSMMarkers: TTabSheet
@@ -3027,7 +3053,6 @@ object MainFrm: TMainFrm
         Options.StrokeColor = clRed
         Options.StrokeOpacity = 1.000000000000000000
       end>
-    InfoWindows.CloseOthersBeforeOpen = True
     InfoWindows = <
       item
       end>
@@ -3080,10 +3105,6 @@ object MainFrm: TMainFrm
         Options.FillOpacity = 0.350000000000000000
         Options.StrokeColor = clRed
         Options.StrokeOpacity = 1.000000000000000000
-        Options.Bounds.East = -116.234000000000000000
-        Options.Bounds.North = 33.685000000000000000
-        Options.Bounds.South = 33.671000000000000000
-        Options.Bounds.West = -116.251000000000000000
       end>
     OnBoundsChanged = MapBoundsChanged
     OnCenterChanged = MapCenterChanged

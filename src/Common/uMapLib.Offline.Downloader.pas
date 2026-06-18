@@ -12,6 +12,7 @@ uses
 {$IFDEF FPC}
   Classes,
   SysUtils,
+  fphttpclient,
 {$ELSE}
   System.Classes,
   System.SysUtils,
@@ -45,7 +46,9 @@ type
     FSyncBytesDone: Int64;
     FSyncBytesTotal: Int64;
     FSyncPercent: Double;
-{$IFNDEF FPC}
+{$IFDEF FPC}
+    procedure DoReceiveData(Sender: TObject; const ContentLength, CurrentPos: Int64);
+{$ELSE}
     procedure DoReceiveData(const Sender: TObject; AContentLength, AReadCount: Int64; var AAbort: Boolean);
 {$ENDIF}
     procedure SyncProgress;
@@ -95,7 +98,20 @@ begin
   FillChar(FResultMetadata, SizeOf(FResultMetadata), 0);
 end;
 
-{$IFNDEF FPC}
+{$IFDEF FPC}
+procedure TMapLibDownloadJob.DoReceiveData(Sender: TObject; const ContentLength,
+  CurrentPos: Int64);
+begin
+  FSyncBytesDone := CurrentPos;
+  FSyncBytesTotal := ContentLength;
+  if ContentLength > 0 then
+    FSyncPercent := (CurrentPos / ContentLength) * 100
+  else
+    FSyncPercent := 0;
+
+  TThread.Queue(Self, @SyncProgress);
+end;
+{$ELSE}
 procedure TMapLibDownloadJob.DoReceiveData(const Sender: TObject; AContentLength,
   AReadCount: Int64; var AAbort: Boolean);
 begin
@@ -130,11 +146,14 @@ end;
 
 procedure TMapLibDownloadJob.Execute;
 {$IFDEF FPC}
-begin
-  FSuccess := False;
-  FErrorMsg := 'Offline downloader is not implemented for FPC in this milestone.';
-  TThread.Queue(Self, @SyncCompleted);
-end;
+var
+  Client: TFPHTTPClient;
+  TempFilePath: string;
+  FinalFileName: string;
+  FinalFilePath: string;
+  FileExt: string;
+  FileStream: TFileStream;
+  fileSizeStream: TFileStream;
 {$ELSE}
 var
   Client: THTTPClient;
@@ -144,6 +163,7 @@ var
   FileExt: string;
   FileStream: TFileStream;
   Response: IHTTPResponse;
+{$ENDIF}
 begin
   FSuccess := False;
   FErrorMsg := '';
@@ -151,7 +171,11 @@ begin
   if (FStorageBasePath = '') or (not DirectoryExists(FStorageBasePath)) then
   begin
     FErrorMsg := 'Base storage path does not exist.';
+{$IFDEF FPC}
+    TThread.Queue(Self, @SyncCompleted);
+{$ELSE}
     TThread.Queue(Self, SyncCompleted);
+{$ENDIF}
     Exit;
   end;
 
@@ -163,20 +187,42 @@ begin
   FinalFileName := FRequest.RegionId + FileExt;
   FinalFilePath := CombinePath(FStorageBasePath, FinalFileName);
 
+{$IFDEF FPC}
+  Client := TFPHTTPClient.Create(nil);
+{$ELSE}
   Client := THTTPClient.Create;
+{$ENDIF}
   try
+{$IFDEF FPC}
+    Client.AllowRedirect := True;
+    Client.OnDataReceived := @DoReceiveData;
+{$ELSE}
     Client.OnReceiveData := DoReceiveData;
+{$ENDIF}
 
     try
       if FileExists(TempFilePath) then
+{$IFDEF FPC}
+        SysUtils.DeleteFile(TempFilePath);
+{$ELSE}
         TFile.Delete(TempFilePath);
+{$ENDIF}
 
       FileStream := TFileStream.Create(TempFilePath, fmCreate);
       try
+{$IFDEF FPC}
+        Client.Get(FRequest.SourceUrl, FileStream);
+        FSuccess := (Client.ResponseStatusCode = 200) or
+          (Client.ResponseStatusCode = 206);
+        if not FSuccess then
+          FErrorMsg := Format('HTTP Error %d: %s',
+            [Client.ResponseStatusCode, Client.ResponseStatusText]);
+{$ELSE}
         Response := Client.Get(FRequest.SourceUrl, FileStream);
         FSuccess := (Response.StatusCode = 200) or (Response.StatusCode = 206);
         if not FSuccess then
           FErrorMsg := Format('HTTP Error %d: %s', [Response.StatusCode, Response.StatusText]);
+{$ENDIF}
       finally
         FileStream.Free;
       end;
@@ -186,15 +232,27 @@ begin
         FSuccess := False;
         FErrorMsg := 'Download cancelled.';
         if FileExists(TempFilePath) then
+{$IFDEF FPC}
+          SysUtils.DeleteFile(TempFilePath);
+{$ELSE}
           TFile.Delete(TempFilePath);
+{$ENDIF}
       end;
 
       if FSuccess then
       begin
         if FileExists(FinalFilePath) then
+{$IFDEF FPC}
+          SysUtils.DeleteFile(FinalFilePath);
+
+        if not RenameFile(TempFilePath, FinalFilePath) then
+          raise Exception.CreateFmt('Could not rename "%s" to "%s".',
+            [TempFilePath, FinalFilePath]);
+{$ELSE}
           TFile.Delete(FinalFilePath);
 
         TFile.Move(TempFilePath, FinalFilePath);
+{$ENDIF}
 
         FResultMetadata.RegionId := FRequest.RegionId;
         FResultMetadata.MinZoom := FRequest.MinZoom;
@@ -203,7 +261,16 @@ begin
         FResultMetadata.CreatedAtUtc := Now;
         FResultMetadata.UpdatedAtUtc := Now;
         FResultMetadata.DataVersion := FRequest.DataVersion;
+{$IFDEF FPC}
+        fileSizeStream := TFileStream.Create(FinalFilePath, fmOpenRead or fmShareDenyNone);
+        try
+          FResultMetadata.SizeBytes := fileSizeStream.Size;
+        finally
+          fileSizeStream.Free;
+        end;
+{$ELSE}
         FResultMetadata.SizeBytes := TFile.GetSize(FinalFilePath);
+{$ENDIF}
         FResultMetadata.Checksum := '';
         FResultMetadata.StoragePath := FinalFileName;
       end;
@@ -216,7 +283,11 @@ begin
         if FileExists(TempFilePath) then
         begin
           try
+{$IFDEF FPC}
+            SysUtils.DeleteFile(TempFilePath);
+{$ELSE}
             TFile.Delete(TempFilePath);
+{$ENDIF}
           except
           end;
         end;
@@ -227,8 +298,11 @@ begin
     Client.Free;
   end;
 
+{$IFDEF FPC}
+  TThread.Queue(Self, @SyncCompleted);
+{$ELSE}
   TThread.Queue(Self, SyncCompleted);
-end;
 {$ENDIF}
+end;
 
 end.

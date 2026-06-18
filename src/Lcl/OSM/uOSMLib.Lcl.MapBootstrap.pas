@@ -9,6 +9,7 @@ interface
 
 uses
   uGMLib.BootstrapAssets,
+  uMapLib.Core.Offline,
   uOSMLib.Map;
 
 type
@@ -34,6 +35,13 @@ class function TOSMLibLclMapBootstrap.BuildCssBlock(AMap: TOSMMap): string;
 var
   cssUrl: string;
 begin
+  if (AMap.MapMode <> uMapLib.Core.Offline.omOnline) and (Trim(AMap.RuntimeBaseUrl) <> '') then
+  begin
+    Result := '<link rel="stylesheet" href="' +
+      AMap.VectorRuntime.LocalHttpServer.BuildRuntimeUrl('asset/maplibre-gl.css') + '">';
+    Exit;
+  end;
+
   cssUrl := AMap.ResolveMapLibreCssUrl;
   if (cssUrl <> '') and FileExists(cssUrl) then
     Result := '<style>' + TGMLibBootstrapAssets.LoadTextFile(cssUrl) + '</style>'
@@ -46,6 +54,13 @@ var
   jsUrl: string;
   jsText: string;
 begin
+  if (AMap.MapMode <> uMapLib.Core.Offline.omOnline) and (Trim(AMap.RuntimeBaseUrl) <> '') then
+  begin
+    Result := '<script src="' + AMap.VectorRuntime.LocalHttpServer.BuildRuntimeUrl('asset/maplibre-gl.js') +
+      '" onload="window.osmlibBootstrap()" onerror="window.osmlibBootstrapError && window.osmlibBootstrapError()"></script>';
+    Exit;
+  end;
+
   jsUrl := AMap.ResolveMapLibreJsUrl;
   if (jsUrl <> '') and FileExists(jsUrl) then
   begin

@@ -49,10 +49,8 @@ type
     FSyncPercent: Double;
     FSuccessfulTileCount: Int64;
     FFailedTileCount: Int64;
-{$IFNDEF FPC}
     FProvider: TMapLibHttpRemoteTileProvider;
     FWriter: TMapLibMBTilesWriter;
-{$ENDIF}
     procedure SyncProgress;
     procedure SyncCompleted;
     procedure HandleTileEnumerated(const ATile: TMapLibOfflineTileCoordinate);
@@ -126,11 +124,6 @@ end;
 
 procedure TMapLibRegionBuildJob.HandleBuildTile(
   const ATile: TMapLibOfflineTileCoordinate);
-{$IFDEF FPC}
-begin
-  if (ATile.ZoomLevel = 0) and (ATile.TileX < 0) then ;
-end;
-{$ELSE}
 var
   contentEncoding: string;
   contentType: string;
@@ -155,21 +148,21 @@ begin
     FSyncPercent := 0;
   if ((FSyncBytesDone mod cProgressNotifyEveryTiles) = 0) or
     (FSyncBytesDone >= FSyncBytesTotal) then
+{$IFDEF FPC}
+    TThread.Queue(Self, @SyncProgress);
+{$ELSE}
     TThread.Queue(Self, SyncProgress);
-end;
 {$ENDIF}
+end;
 
 procedure TMapLibRegionBuildJob.Execute;
-{$IFDEF FPC}
-begin
-  FSuccess := False;
-  FErrorMsg := 'Offline region build is not implemented for FPC in this milestone.';
-  TThread.Queue(Self, @SyncCompleted);
-end;
-{$ELSE}
 var
   finalFileName: string;
   finalFilePath: string;
+  finalFileSize: Int64;
+{$IFDEF FPC}
+  finalFileStream: TFileStream;
+{$ENDIF}
   shouldDeleteTempFile: Boolean;
   tempFileName: string;
   tempFilePath: string;
@@ -186,26 +179,46 @@ begin
   if Trim(FStorageBasePath) = '' then
   begin
     FErrorMsg := 'Base storage path does not exist.';
+{$IFDEF FPC}
+    TThread.Queue(Self, @SyncCompleted);
+{$ELSE}
     TThread.Queue(Self, SyncCompleted);
+{$ENDIF}
     Exit;
   end;
 
   if not DirectoryExists(FStorageBasePath) then
+{$IFDEF FPC}
+    ForceDirectories(FStorageBasePath);
+{$ELSE}
     TDirectory.CreateDirectory(FStorageBasePath);
+{$ENDIF}
 
   if Trim(FRequest.RemoteTileTemplate) = '' then
   begin
     FErrorMsg := 'Remote tile template is required.';
+{$IFDEF FPC}
+    TThread.Queue(Self, @SyncCompleted);
+{$ELSE}
     TThread.Queue(Self, SyncCompleted);
+{$ENDIF}
     Exit;
   end;
 
   MapLibEnumerateBoundsTiles(FRequest.Bounds, FRequest.MinZoom, FRequest.MaxZoom,
+{$IFDEF FPC}
+    @HandleTileEnumerated);
+{$ELSE}
     HandleTileEnumerated);
+{$ENDIF}
   if FSyncBytesTotal <= 0 then
   begin
     FErrorMsg := 'The selected bounds do not produce any tiles for the requested zoom range.';
+{$IFDEF FPC}
+    TThread.Queue(Self, @SyncCompleted);
+{$ELSE}
     TThread.Queue(Self, SyncCompleted);
+{$ENDIF}
     Exit;
   end;
 
@@ -214,7 +227,11 @@ begin
   tempFileName := BuildTemporaryRegionFileName(FRequest.RegionId);
   tempFilePath := CombinePath(FStorageBasePath, tempFileName);
   if FileExists(tempFilePath) then
+{$IFDEF FPC}
+    SysUtils.DeleteFile(tempFilePath);
+{$ELSE}
     TFile.Delete(tempFilePath);
+{$ENDIF}
 
   FProvider := TMapLibHttpRemoteTileProvider.Create;
   FWriter := nil;
@@ -225,7 +242,11 @@ begin
       FRequest.MaxZoom, FRequest.DataVersion);
 
     MapLibEnumerateBoundsTiles(FRequest.Bounds, FRequest.MinZoom, FRequest.MaxZoom,
+{$IFDEF FPC}
+      @HandleBuildTile);
+{$ELSE}
       HandleBuildTile);
+{$ENDIF}
 
     if Terminated then
     begin
@@ -247,8 +268,22 @@ begin
       FWriter.Free;
       FWriter := nil;
       if FileExists(finalFilePath) then
+{$IFDEF FPC}
+        SysUtils.DeleteFile(finalFilePath);
+      if not RenameFile(tempFilePath, finalFilePath) then
+        raise Exception.CreateFmt('Could not rename "%s" to "%s".',
+          [tempFilePath, finalFilePath]);
+      finalFileStream := TFileStream.Create(finalFilePath, fmOpenRead or fmShareDenyNone);
+      try
+        finalFileSize := finalFileStream.Size;
+      finally
+        finalFileStream.Free;
+      end;
+{$ELSE}
         TFile.Delete(finalFilePath);
       TFile.Move(tempFilePath, finalFilePath);
+      finalFileSize := TFile.GetSize(finalFilePath);
+{$ENDIF}
       FResultMetadata.RegionId := FRequest.RegionId;
       FResultMetadata.MinZoom := FRequest.MinZoom;
       FResultMetadata.MaxZoom := FRequest.MaxZoom;
@@ -256,7 +291,7 @@ begin
       FResultMetadata.CreatedAtUtc := Now;
       FResultMetadata.UpdatedAtUtc := Now;
       FResultMetadata.DataVersion := FRequest.DataVersion;
-      FResultMetadata.SizeBytes := TFile.GetSize(finalFilePath);
+      FResultMetadata.SizeBytes := finalFileSize;
       FResultMetadata.Checksum := '';
       FResultMetadata.StoragePath := finalFileName;
       FSuccess := True;
@@ -277,13 +312,20 @@ begin
   if shouldDeleteTempFile and FileExists(tempFilePath) then
   begin
     try
+{$IFDEF FPC}
+      SysUtils.DeleteFile(tempFilePath);
+{$ELSE}
       TFile.Delete(tempFilePath);
+{$ENDIF}
     except
     end;
   end;
 
+{$IFDEF FPC}
+  TThread.Queue(Self, @SyncCompleted);
+{$ELSE}
   TThread.Queue(Self, SyncCompleted);
-end;
 {$ENDIF}
+end;
 
 end.

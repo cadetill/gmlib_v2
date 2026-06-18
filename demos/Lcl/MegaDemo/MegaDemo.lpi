@@ -5,12 +5,10 @@
     <PathDelim Value="\"/>
     <General>
       <Flags>
-        <MainUnitHasCreateFormStatements Value="True"/>
         <MainUnitHasTitleStatement Value="False"/>
         <MainUnitHasScaledStatement Value="False"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
-      <MainUnit Value="0"/>
       <Title Value="MegaDemo"/>
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
@@ -18,19 +16,12 @@
     <BuildModes>
       <Item Name="Default" Default="True"/>
     </BuildModes>
-    <Units>
-      <Unit>
-        <Filename Value="MegaDemo.lpr"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="MegaDemo"/>
-      </Unit>
-      <Unit>
-        <Filename Value="src\UMainFrm.pas"/>
-        <IsPartOfProject Value="True"/>
-        <HasForm Value="True"/>
-        <UnitName Value="UMainFrm"/>
-      </Unit>
-    </Units>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+    <RunParams>
+      <FormatVersion Value="2"/>
+    </RunParams>
     <RequiredPackages>
       <Item>
         <PackageName Value="LCL"/>
@@ -39,18 +30,29 @@
         <PackageName Value="GMLibRuntime.Lcl"/>
       </Item>
     </RequiredPackages>
+    <Units>
+      <Unit>
+        <Filename Value="MegaDemo.lpr"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="src\UMainFrm.pas"/>
+        <IsPartOfProject Value="True"/>
+        <HasResources Value="True"/>
+      </Unit>
+    </Units>
   </ProjectOptions>
   <CompilerOptions>
-    <Version Value="12"/>
+    <Version Value="11"/>
     <SearchPaths>
-      <OtherUnitFiles Value="src;..\..\..\src\Common;..\..\..\src\Common\GM;..\..\..\src\Common\OSM;..\..\..\src\Lcl;..\..\..\src\Lcl\GM;..\..\..\src\Lcl\OSM"/>
-      <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="src;../../../src/Common;../../../src/Common/GM;../../../src/Common/OSM;../../../src/Lcl;../../../src/Lcl/GM;../../../src/Lcl/OSM"/>
+      <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
-    <Parsing>
-      <SyntaxMode Value="3"/>
-    </Parsing>
-    <CodeGeneration>
-      <TargetOSDefault Value="Win64"/>
-    </CodeGeneration>
+    <Linking>
+      <Debugging>
+        <DebugInfoType Value="dsDwarf3"/>
+      </Debugging>
+    </Linking>
   </CompilerOptions>
 </CONFIG>

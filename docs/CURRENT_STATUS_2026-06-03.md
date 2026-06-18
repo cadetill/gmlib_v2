@@ -1,5 +1,108 @@
 # Current Status - June 3, 2026
 
+## Update - June 18, 2026
+
+The previous `LCL/FPC` hybrid/offline blocker diagnosis was refined after a
+full trace round with runtime-served probes.
+
+What is now confirmed:
+
+- the embedded localhost runtime starts correctly
+- `/health` works
+- `/bootstrap` is served correctly
+- the browser navigates to the runtime URL correctly
+- runtime assets under `/asset/...` are requested and served correctly
+- even a minimal external `probe.js` is downloaded from the local runtime
+
+What is @bold(not) confirmed:
+
+- the downloaded external script is @bold(not) executed afterwards inside the
+  current `CEF4Delphi` host flow
+
+The key conclusion changed:
+
+- the current blocker is no longer best described as a `MapLibre GL JS`
+  worker-startup issue
+- the blocker now appears earlier, at `CEF4Delphi` host level, when consuming
+  external scripts served by the embedded localhost runtime in the
+  `Hybrid/Offline` bootstrap flow
+
+Practical implication:
+
+- this should be treated as a broader `CEF4Delphi` bootstrap/runtime
+  limitation or integration gap, not just as an `LCL`-only symptom
+- because the same browser host family also exists on Delphi, the same risk is
+  expected to matter there once the same hybrid path is enabled
+
+Current decision:
+
+- the `CEF4Delphi` hybrid/offline line is parked for now
+- no more time should be spent on this branch until a different bootstrap
+  strategy is chosen for `CEF4Delphi` (for example, a different inline/manual
+  script-loading approach instead of relying on external localhost scripts)
+
+### LCL online regression closed
+
+During the same round, an apparent `LCL` online regression turned out not to be
+an `OSM`/`MapLibre` rendering failure.
+
+The actual issue was the diagnostic logging path itself:
+
+- multiple `LCL/CEF` trace writers were reopening
+  `gmlib_lcl_hybrid_trace.log`
+- under some runs the file was already locked by another process
+- that logging failure could raise a visible `Unable to create file ...` error
+  and abort the demo
+
+Current state after the fix:
+
+- `GMLib` online works again in `LCL`
+- `OSMLib` online works again in `LCL`
+- `OSMLib` online also remains validated in Delphi `VCL` and `FMX`
+- `LCL/CEF` tracing is now treated as best-effort and must not break runtime
+  execution anymore
+
+## Update - June 17, 2026
+
+The `LCL/FPC` path is no longer blocked at compile/bootstrap level for the
+shared OSM offline/hybrid runtime.
+
+- `GMLibRuntime.Lcl` now compiles again after the recent common/runtime
+  compatibility fixes.
+- `MegaDemo LCL` also compiles again and was expanded so it can exercise the
+  offline region/runtime flow (`Download Region`, `Build Region`, `Delete`,
+  `Go To`, `Cancel Job`).
+- `FPC/LCL` now has real implementations again for:
+  - remote tile download
+  - offline download pipeline
+  - `BuildRegion`
+- the embedded localhost runtime no longer freezes the LCL UI:
+  `TFPHTTPServer` activation now runs in a worker thread.
+- `OSM Hybrid` in `LCL` now gets past the previous bootstrap/origin problems:
+  - runtime `/health` works
+  - `/bootstrap` is now served from the local runtime itself
+  - the browser navigates to a real runtime URL instead of relying on
+    `LoadString(...)`
+  - `styleJson` generation was traced and validated
+
+### Current LCL blocker
+
+This diagnosis is now superseded by the June 18, 2026 update above.
+
+Current evidence from traced runs:
+
+- the generated vector style is correct
+- tile and glyph URLs are correct
+- the map bootstrap is now served and loaded by HTTP
+- `styledata`, `sourcedata`, and `data` events appear
+- but no real `/tile` or `/glyphs` requests reach the Delphi localhost server
+
+The latest working hypothesis is:
+
+- `MapLibre` worker bootstrapping in `CEF4Delphi/LCL` still needs a dedicated
+  solution (likely explicit worker URL/asset serving), even though the rest of
+  the runtime pipeline is now in place
+
 ## Update - June 16, 2026
 
 The offline-region v1 flow was hardened after the first usable `BuildRegion`

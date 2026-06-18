@@ -92,6 +92,17 @@ begin
 
   targetPath := IncludeTrailingPathDelimiter(BuildTempBootstrapDir) + ATargetFileName;
 
+{$IFDEF FPC}
+  sourcePath := FindResourceFile(ARelativePath);
+  if sourcePath <> '' then
+  begin
+    SaveTextToFile(targetPath, LoadTextFile(sourcePath));
+    FLastDiagnostic := Format('Repository fallback "%s" copied to "%s".',
+      [sourcePath, targetPath]);
+    Exit(targetPath);
+  end;
+{$ENDIF}
+
   resourceText := LoadEmbeddedText(AResourceName);
   if resourceText <> '' then
   begin
@@ -101,7 +112,9 @@ begin
     Exit(targetPath);
   end;
 
+{$IFNDEF FPC}
   sourcePath := FindResourceFile(ARelativePath);
+{$ENDIF}
   if sourcePath = '' then
   begin
     if FLastDiagnostic = '' then
@@ -139,6 +152,28 @@ begin
 
   targetPath := IncludeTrailingPathDelimiter(BuildTempBootstrapDir) + ATargetFileName;
 
+{$IFDEF FPC}
+  sourcePath := FindResourceFile(ARelativePath);
+  if sourcePath <> '' then
+  begin
+    ForceDirectories(ExtractFileDir(targetPath));
+    if FileExists(targetPath) then
+      SysUtils.DeleteFile(targetPath);
+    sourceStream := TFileStream.Create(sourcePath, fmOpenRead or fmShareDenyWrite);
+    try
+      SetLength(resourceBytes, sourceStream.Size);
+      if Length(resourceBytes) > 0 then
+        sourceStream.ReadBuffer(resourceBytes[0], Length(resourceBytes));
+    finally
+      sourceStream.Free;
+    end;
+    SaveBytesToFile(targetPath, resourceBytes);
+    FLastDiagnostic := Format('Repository fallback "%s" copied to "%s".',
+      [sourcePath, targetPath]);
+    Exit(targetPath);
+  end;
+{$ENDIF}
+
   resourceBytes := LoadEmbeddedBytes(AResourceName);
   if Length(resourceBytes) > 0 then
   begin
@@ -148,7 +183,9 @@ begin
     Exit(targetPath);
   end;
 
+{$IFNDEF FPC}
   sourcePath := FindResourceFile(ARelativePath);
+{$ENDIF}
   if sourcePath = '' then
   begin
     if FLastDiagnostic = '' then
