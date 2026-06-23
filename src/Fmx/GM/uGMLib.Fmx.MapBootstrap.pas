@@ -20,6 +20,7 @@ type
   {** @abstract(Helper para construir el HTML de arranque del mapa FMX.) }
   TGMLibFmxMapBootstrap = class
   private
+    class function BuildMapsApiChannelParam(AMap: TGMCustomMap): string; static;
     class function BuildMapsApiScriptUrl(AMap: TGMCustomMap): string; static;
     class function BuildTemplateFallback: string; static;
   public
@@ -29,6 +30,8 @@ type
 implementation
 
 uses
+  uGMLib.Google.Types,
+  System.StrUtils,
   System.SysUtils;
 
 class function TGMLibFmxMapBootstrap.BuildHtml(AMap: TGMCustomMap): string;
@@ -80,8 +83,11 @@ end;
 
 class function TGMLibFmxMapBootstrap.BuildMapsApiScriptUrl(AMap: TGMCustomMap): string;
 var
+  ChannelParam: string;
   MapIdParam: string;
 begin
+  ChannelParam := BuildMapsApiChannelParam(AMap);
+
   if AMap.Options.MapId <> '' then
     MapIdParam := AMap.Options.MapId
   else
@@ -91,24 +97,42 @@ begin
   begin
     if Trim(AMap.APIKey) = '' then
       Result := Format(
-        'https://maps.googleapis.com/maps/api/js?loading=async&callback=gmlibInitMap&map_ids=%s',
-        [MapIdParam]
+        'https://maps.googleapis.com/maps/api/js?loading=async&callback=gmlibInitMap&map_ids=%s%s',
+        [MapIdParam, ChannelParam]
       )
     else
       Result := Format(
-        'https://maps.googleapis.com/maps/api/js?key=%s&loading=async&callback=gmlibInitMap&map_ids=%s',
-        [AMap.APIKey, MapIdParam]
+        'https://maps.googleapis.com/maps/api/js?key=%s&loading=async&callback=gmlibInitMap&map_ids=%s%s',
+        [AMap.APIKey, MapIdParam, ChannelParam]
       );
     Exit;
   end;
 
   if Trim(AMap.APIKey) = '' then
-    Result := 'https://maps.googleapis.com/maps/api/js?loading=async&callback=gmlibInitMap'
+    Result := 'https://maps.googleapis.com/maps/api/js?loading=async&callback=gmlibInitMap' + ChannelParam
   else
     Result := Format(
-      'https://maps.googleapis.com/maps/api/js?key=%s&loading=async&callback=gmlibInitMap',
-      [AMap.APIKey]
+      'https://maps.googleapis.com/maps/api/js?key=%s&loading=async&callback=gmlibInitMap%s',
+      [AMap.APIKey, ChannelParam]
     );
+end;
+
+class function TGMLibFmxMapBootstrap.BuildMapsApiChannelParam(AMap: TGMCustomMap): string;
+var
+  ChannelValue: string;
+begin
+  case AMap.ApiChannel of
+    gacQuarterly:
+      ChannelValue := 'quarterly';
+    gacBeta:
+      ChannelValue := 'beta';
+    gacAlpha:
+      ChannelValue := 'alpha';
+  else
+    ChannelValue := 'weekly';
+  end;
+
+  Result := IfThen(ChannelValue <> '', '&v=' + ChannelValue, '');
 end;
 
 class function TGMLibFmxMapBootstrap.BuildTemplateFallback: string;

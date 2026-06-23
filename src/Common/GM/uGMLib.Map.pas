@@ -97,6 +97,7 @@ type
   private
     FActive: Boolean;
     FAPIKey: string;
+    FApiChannel: TGMJavaScriptApiChannel;
     FBridge: IMapBridgeTransport;
 {$IFDEF FPC}
     FCommandQueue: specialize TList<string>;
@@ -115,6 +116,7 @@ type
     {** @abstract(Indica que ya recibimos el primer `map.idle` estable del mapa.) }
     FMapIdleReceived: Boolean;
     FInitializationOptionsSignature: string;
+    FInitializationApiChannel: TGMJavaScriptApiChannel;
     FMapId: TGMMapId;
     FOnBoundsChanged: TGMMapBoundsEvent;
     FOnDblClick: TGMMapCoordinateEvent;
@@ -191,6 +193,7 @@ type
     function TryParseMapTypeId(const AValue: string; out AMapTypeId: TGMMapTypeId): Boolean;
     function TryGetCoordinateFromPayload(const APayload: string; out ALatLng: TMapLibLatLng): Boolean;
     procedure SetAPIKey(const Value: string);
+    procedure SetApiChannel(const Value: TGMJavaScriptApiChannel);
     procedure SetActive(const Value: Boolean);
     procedure SetBridge(const Value: IMapBridgeTransport);
     procedure SetCircles(const Value: TGMCircles);
@@ -288,6 +291,14 @@ type
     property Active: Boolean read FActive write SetActive default False;
     {** @abstract(API key de Google Maps usada durante el bootstrap del mapa.) }
     property APIKey: string read FAPIKey write SetAPIKey;
+    {** @abstract(Canal/versionado del loader de Google Maps JavaScript API.)
+        @longcode(
+          `Quarterly` ofrece una base mas estable y con menos cambios que
+          `Weekly`. `Beta` y `Alpha` se reservan para validaciones puntuales de
+          APIs mas nuevas o experimentales.
+        )
+    }
+    property ApiChannel: TGMJavaScriptApiChannel read FApiChannel write SetApiChannel default gacQuarterly;
     property Circles: TGMCircles read FCircles write SetCircles;
     property InfoWindows: TGMInfoWindows read FInfoWindows write SetInfoWindows;
     {** @abstract(ColecciÃƒÂ³n de marcadores gestionada por el mapa.) }
@@ -451,6 +462,7 @@ begin
     FMapId := TGMMapId('map_1');
 
   FInitializationOptionsSignature := FOptions.BuildInitializationOptionsLiteral;
+  FInitializationApiChannel := FApiChannel;
   FMapIdleReceived := False;
   FActive := True;
 end;
@@ -748,6 +760,8 @@ begin
   inherited;
 
   FActive := False;
+  FApiChannel := gacQuarterly;
+  FInitializationApiChannel := gacQuarterly;
 {$IFDEF FPC}
   FCommandQueue := specialize TList<string>.Create;
   FLinkedComponents := specialize TObjectDictionary<TGMObjectId, TGMCustomMapLinkedComponent>.Create([]);
@@ -1112,11 +1126,12 @@ begin
   if not FActive then
     Exit;
 
-  if FInitializationOptionsSignature = FOptions.BuildInitializationOptionsLiteral then
+  if (FInitializationOptionsSignature = FOptions.BuildInitializationOptionsLiteral) and
+     (FInitializationApiChannel = FApiChannel) then
     Exit;
 
   raise EInvalidOperation.Create(
-    'ColorScheme, ControlSize, MapId and RenderingType can only be changed before activating the map.'
+    'ColorScheme, ControlSize, MapId, RenderingType and ApiChannel can only be changed before activating the map.'
   );
 end;
 
@@ -1698,6 +1713,20 @@ begin
     Exit;
 
   FAPIKey := Value;
+  MapStateChanged;
+end;
+
+procedure TGMCustomMap.SetApiChannel(const Value: TGMJavaScriptApiChannel);
+begin
+  if FApiChannel = Value then
+    Exit;
+
+  if FActive and (FInitializationApiChannel <> Value) then
+    raise EInvalidOperation.Create(
+      'ColorScheme, ControlSize, MapId, RenderingType and ApiChannel can only be changed before activating the map.'
+    );
+
+  FApiChannel := Value;
   MapStateChanged;
 end;
 

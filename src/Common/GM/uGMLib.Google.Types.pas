@@ -76,6 +76,14 @@ type
     rtVector
   );
 
+  { Google Maps JavaScript API loader channels. }
+  TGMJavaScriptApiChannel = (
+    gacWeekly,
+    gacQuarterly,
+    gacBeta,
+    gacAlpha
+  );
+
   { AdvancedMarkerElement specific. }
   TGMCollisionBehavior = (
     cbRequired,

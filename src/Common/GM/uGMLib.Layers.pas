@@ -84,6 +84,13 @@ type
   TGMKmlLayerClickEvent = procedure(Sender: TObject; ALatLng: TMapLibLatLng) of object;
   TGMKmlLayerStatusEvent = procedure(Sender: TObject; const AStatus: string) of object;
 
+  {** @abstract(Wrapper de `google.maps.KmlLayer`.)
+
+      @bold(Deprecated):
+      Google marcó `KmlLayer` como deprecated el `April 30, 2026`.
+      Se mantiene en GMLib como superficie de compatibilidad, pero no debe
+      tratarse como área de expansión futura.
+  }
   TGMKmlLayer = class(TMapLibApiObject)
   private
     FUpdateCount: Integer;

@@ -298,6 +298,8 @@ type
 
     procedure Assign(Source: TPersistent); override;
     procedure Clear;
+    { Routes uses the modern Google Maps routes library (`google.maps.routes.Route`)
+      instead of the legacy DirectionsService surface. }
     procedure Execute;
     function ExecuteQuery: TGMRouteQuery;
     function GetResult(Index: Integer): TGMRouteResult;

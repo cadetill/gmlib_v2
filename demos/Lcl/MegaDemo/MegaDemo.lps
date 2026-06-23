@@ -10,14 +10,14 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="37" Y="9"/>
-        <UsageCount Value="52"/>
+        <UsageCount Value="53"/>
       </Unit>
       <Unit>
         <Filename Value="src\UMainFrm.pas"/>
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="52"/>
+        <UsageCount Value="53"/>
       </Unit>
       <Unit>
         <Filename Value="src\UMainFrm.lfm"/>
@@ -39,9 +39,9 @@
         <Filename Value="..\..\..\src\Common\uMapLib.Offline.VectorRuntime.pas"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="705"/>
-        <CursorPos X="18" Y="716"/>
-        <UsageCount Value="8"/>
+        <TopLine Value="6"/>
+        <CursorPos X="32" Y="16"/>
+        <UsageCount Value="10"/>
       </Unit>
       <Unit>
         <Filename Value="..\..\..\src\Common\GM\uGMLib.BootstrapAssets.pas"/>

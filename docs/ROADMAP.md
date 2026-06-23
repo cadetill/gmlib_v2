@@ -11,7 +11,12 @@
   - `Polyline`, `Polygon`, `Rectangle`, `Circle`, `GroundOverlay`
   - `GeoCode`, `Elevation`, `Routes`
   - `Layers` (`Traffic`, `Transit`, `Bicycling`, `Kml`)
+    - `Kml` remains only as compatibility surface because Google deprecated
+      `KmlLayer` on `2026-04-30`
 - Shared bootstrap/runtime JS is integrated and working.
+- Google bootstrap now exposes an explicit `ApiChannel`
+  (`Weekly/Quarterly/Beta/Alpha`) instead of relying only on the loader
+  default.
 - Runtime asset packaging is implemented via embedded resources extracted to temp files.
 - Embedded bootstrap extraction is now validated on `FMX` mobile for both
   `GMLib` and `OSMLib`; `MAP_BOOTSTRAP_FROM_FILES` remains development-only.
@@ -211,6 +216,22 @@
 - Keep docs aligned with real implementation status (`README`, architecture, roadmap).
 - Increase deterministic unit tests on shared/core behavior, especially around
   `OSMLib` and the offline runtime.
+- pending Google bootstrap cleanup:
+  - retire the global `gmlibInitMap` callback once the modern loader path is
+    promoted from backlog to implementation work
+- future documentation hygiene:
+  - review whether `GetAPIUrl` / `GetDocumentationUrl` should keep pointing to
+    the live reference or start recording a validated API channel/version note
+- future OSM runtime hygiene:
+  - keep the validated vendored/runtime baseline explicit (`MapLibre GL JS
+    5.6.2` at the current validation point)
+  - plan a deliberate review before moving the vendored/runtime baseline to the
+    newer `MapLibre 6.x` line
+- pending OSM bootstrap cleanup:
+  - keep the current `window.osmlibBootstrap()` callback flow for now
+  - only revisit it when bootstrap cleanup becomes active work
+- Windows `LCL/FPC` no longer needs a separate recovery track for
+  `Hybrid/Offline`; keep it in the same shared validation line as `VCL/FMX`
 - Keep Delphi 11/12/13 and Lazarus compatibility validated during refactors.
 - Keep optional `CEF4Delphi` bridge outside default mandatory runtime dependencies.
 - `AirQualityMeterElement` remains future/experimental because Google documents it in `v=alpha`.

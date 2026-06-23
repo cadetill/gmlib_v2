@@ -22,6 +22,10 @@ Google Maps imposes several requirements for normal map usage:
 
 - You need an `API Key` to show a map without a watermark.
 - You need a `Map ID` for several components, such as `AdvancedMarkerElement`.
+- The Google bootstrap now exposes an `ApiChannel` property so the component
+  can load the JavaScript API through an explicit channel (`Weekly`,
+  `Quarterly`, `Beta`, `Alpha`) instead of relying on the default loader
+  policy.
 
 For more information and to create your `API Key` and `Map ID`, visit the [Google Cloud Console](https://console.cloud.google.com/).
 
@@ -66,7 +70,7 @@ The following Google Maps API classes are currently implemented:
   - [google.maps.TrafficLayer](https://developers.google.com/maps/documentation/javascript/reference/map#TrafficLayer)
   - [google.maps.TransitLayer](https://developers.google.com/maps/documentation/javascript/reference/map#TransitLayer)
   - [google.maps.BicyclingLayer](https://developers.google.com/maps/documentation/javascript/reference/map#BicyclingLayer)
-  - [google.maps.KmlLayer](https://developers.google.com/maps/documentation/javascript/reference/kml)
+  - [google.maps.KmlLayer](https://developers.google.com/maps/documentation/javascript/reference/kml) (`deprecated` by Google on `April 30, 2026`; kept in GMLib as compatibility surface)
 - [google.maps.marker.AdvancedMarkerElement](https://developers.google.com/maps/documentation/javascript/reference/advanced-markers) and associated classes to display a marker.
 - [google.maps.InfoWindow](https://developers.google.com/maps/documentation/javascript/reference/info-window) and associated classes to display an info window.
 - [google.maps.Polyline](https://developers.google.com/maps/documentation/javascript/reference/polygon#Polyline) and associated classes to display a polyline.
@@ -78,12 +82,32 @@ The following Google Maps API classes are currently implemented:
 - [google.maps.ElevationService](https://developers.google.com/maps/documentation/javascript/reference/elevation) and associated classes for requesting elevation data.
 - [google.maps.routes.Route](https://developers.google.com/maps/documentation/javascript/reference/route) and associated classes for route requests.
 
+Google marker policy in this repo is intentionally explicit:
+
+- `GMLib` keeps `AdvancedMarkerElement` as the marker surface for Google Maps.
+- `google.maps.Marker` is not the target path for new work or regressions.
+
+Google routes policy in this repo is also explicit:
+
+- `GMLib` uses the modern `google.maps.routes.Route` library.
+- legacy `DirectionsService` should not be reintroduced as the primary route API.
+
 The following OSM / MapLibre runtime surface is currently implemented:
 
 - [MapLibre GL JS `Map`](https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/) and associated map lifecycle/bootstrap flow in `VCL`, `FMX`, and `LCL`.
 - Overlay slice:
   - [MapLibre GL JS `Marker`](https://maplibre.org/maplibre-gl-js/docs/API/classes/Marker/)
   - [MapLibre GL JS `Popup`](https://maplibre.org/maplibre-gl-js/docs/API/classes/Popup/)
+
+OSM runtime policy in this repo is intentionally explicit:
+
+- the validated `MapLibre GL JS` baseline is currently `v5.6.2`
+- `GetDocumentationUrl` still points to the live MapLibre docs, so those pages
+  should be treated as the upstream reference, not as a version-pinned contract
+  for the exact vendored runtime
+- `OSMLib` is not just a thin alias for upstream `MapLibre`:
+  part of the public surface is native `MapLibre`, and part is project-owned
+  contract layered on top of it
 
 ### Multi-provider status
 
@@ -99,6 +123,7 @@ The following OSM / MapLibre runtime surface is currently implemented:
     - `renderWorldCopies`
   - marker collection with per-item events (`OnClick`, `OnDblClick`, `OnMouseEnter`, `OnMouseLeave`, `OnMouseDown`, `OnMouseUp`, `OnDragStart`, `OnDrag`, `OnDragEnd`)
   - marker kinds `Standard`, `Pin`, and `Dot` with per-kind options classes
+  - these marker families are `OSMLib` contract, not native `MapLibre`
   - `Pin` visual selectors now exposed as enums instead of free strings
   - `Pin.ShapeVariant` is now treated as a closed visual contract:
     - `Default/Classic`: rounded pin with tail
@@ -117,6 +142,8 @@ The following OSM / MapLibre runtime surface is currently implemented:
   - click-to-add marker flow stabilized after creation/update notification fixes
   - MegaDemo OSM marker editors now accept local or invariant decimal input for doubles
   - first dedicated OSM `Popup` slice added in core and JS runtime
+  - popup presets and the anchor-loss close rule are `OSMLib` contract layered
+    on top of native `MapLibre Popup`
   - validated OSM `Popup` slice with:
     - free-position popup
     - marker-anchored popup
@@ -156,6 +183,8 @@ The following OSM / MapLibre runtime surface is currently implemented:
     - `SqliteTileStore`
   - embedded localhost serving and SQLite tile-cache persistence are now
     aligned across `VCL`, `FMX`, and `LCL/FPC`
+  - `LCL/FPC` Windows now also validates the active `Online / Hybrid / Offline`
+    OSM runtime path against the same embedded localhost + SQLite cache model
   - `GMLibRuntime.Lcl` compile path is back in sync with the current shared
     runtime layer
 
@@ -200,6 +229,8 @@ The following OSM / MapLibre runtime surface is currently implemented:
   online/offline/hybrid behavior and for the current camera/interaction surface.
 - LCL also exposes the OSM offline/hybrid surface, including the embedded
   localhost runtime path and SQLite tile-cache persistence in the shared layer.
+- `demos/Lcl/MegaDemo` is now back as a valid Windows `LCL/FPC` validation
+  surface for `OSMLib Online / Hybrid / Offline`.
 
 ## How to install
 

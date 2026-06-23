@@ -1,5 +1,124 @@
 # Current Status - June 3, 2026
 
+## Update - June 23, 2026
+
+The `LCL/FPC` Windows `OSMLib Hybrid/Offline` line is no longer blocked.
+
+What is confirmed now:
+
+- `OSMLib Online / Hybrid / Offline` is now validated again on the `LCL`
+  Windows path
+- the embedded localhost bootstrap/runtime flow is working
+- `MapLibre` is now requesting real `/tile` URLs through the local runtime
+- the shared SQLite tile-cache runtime path is working in the same practical
+  model already validated in `VCL` and `FMX`
+
+Root cause that was finally confirmed:
+
+- the remaining blocker was not `MapLibre`
+- the remaining blocker was not `CEF4Delphi` worker startup anymore
+- the actual final blocker was remote `HTTPS` tile download on `FPC`
+- the previous `TFPHTTPClient + OpenSSL` path failed with
+  `Could not initialize OpenSSL library`
+
+What changed in practical implementation:
+
+- `LCL/FPC + Windows` no longer depends on external OpenSSL DLLs for the
+  runtime remote tile fetch path
+- the shared remote tile provider now uses native Windows HTTP transport on
+  that platform path
+- the offline-region downloader was aligned with the same platform decision so
+  the Windows `LCL` path does not reintroduce the OpenSSL dependency there
+
+Current implication:
+
+- the old `LCL Hybrid/Offline parked` diagnosis is no longer the active status
+- for Windows `LCL/FPC`, the active OSM runtime path should now be treated as
+  functionally available, alongside `VCL` and `FMX`
+
+## Update - June 22, 2026
+
+The Google Maps (`GMLib`) surface was rechecked against the current official
+Google Maps JavaScript API docs and release channel state.
+
+What is confirmed:
+
+- the active `GMLib` Google surface still matches the current documented API
+  for:
+  - `Map`
+  - `AdvancedMarkerElement`
+  - `InfoWindow`
+  - `Polyline`, `Polygon`, `Rectangle`, `Circle`
+  - `GroundOverlay`
+  - `Geocoder`
+  - `ElevationService`
+  - `google.maps.routes.Route`
+- the project now exposes an explicit `ApiChannel` property on the Google map
+  component so the loader can target `Weekly`, `Quarterly`, `Beta`, or `Alpha`
+  intentionally instead of inheriting the default loader channel silently
+- current marker policy is explicit:
+  `AdvancedMarkerElement` stays as the Google marker path in `GMLib`
+- current routes policy is explicit:
+  the project uses the modern `google.maps.routes.Route` surface and should not
+  move back to legacy `DirectionsService` as the main route API
+
+What changed in practical status:
+
+- `KmlLayer` is no longer treated as a neutral stable slice
+- Google deprecated `KmlLayer` on `April 30, 2026`
+- `GMLib` keeps it only as compatibility surface for now
+
+Current backlog note:
+
+- the Google bootstrap still uses the global `gmlibInitMap` callback
+- this is now tracked as pending cleanup, not as immediate work
+- `GetAPIUrl` / `GetDocumentationUrl` version pinning also remains a future
+  improvement, without urgency
+
+## Update - June 22, 2026
+
+The OSM / MapLibre (`OSMLib`) surface was rechecked against the current
+official `MapLibre GL JS` docs and current upstream release state.
+
+What is confirmed:
+
+- the active `OSMLib` map runtime still matches the current documented
+  `MapLibre` surface for:
+  - `Map`
+  - `Marker`
+  - `Popup`
+- the current project runtime baseline is `MapLibre GL JS 5.6.2`
+- the current `OSMLib` map, marker, popup and interaction surface still fits
+  that baseline correctly
+- current map interaction coverage remains aligned with the modern `MapLibre`
+  surface used by the repo, including:
+  - `renderWorldCopies`
+  - `cooperativeGestures`
+  - `cooperativegestureprevented`
+  - current marker `draggable` / `rotation` / `offset` usage
+  - current popup `closeOnMove` usage
+
+What is explicit now from an architecture point of view:
+
+- `OSMLib` is not just a raw alias of upstream `MapLibre`
+- part of its public API is native `MapLibre` contract
+- part of its public API is project-owned contract layered above it
+- this project-owned contract includes:
+  - marker families `Standard`, `Pin`, `Dot`
+  - `Pin.ShapeVariant`
+  - typed popup presets
+  - the anchor-loss popup close rule
+  - legacy `PopupText` as compatibility-only shortcut
+
+Current backlog note:
+
+- `GetDocumentationUrl` still points to the live `MapLibre` docs instead of a
+  version-pinned `5.6.2` reference note
+- upstream already shows `MapLibre 6.x` releases, but the repo should not move
+  there reactively without a deliberate validation pass
+- the current `window.osmlibBootstrap()` callback bootstrap is kept as pending
+  cleanup, not as immediate work
+
 ## Update - June 18, 2026
 
 The previous `LCL/FPC` hybrid/offline blocker diagnosis was refined after a

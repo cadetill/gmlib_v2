@@ -13,7 +13,13 @@ interface
 
 uses
 {$IFDEF FPC}
-  Classes, SysUtils, StrUtils, fphttpclient;
+  Classes, SysUtils, StrUtils
+  {$IFDEF MSWINDOWS}
+  , Windows, WinInet
+  {$ELSE}
+  , fphttpclient, opensslsockets
+  {$ENDIF}
+  ;
 {$ELSE}
   System.Classes, System.SysUtils, System.StrUtils, System.Net.HttpClient, System.NetConsts;
 {$ENDIF}
@@ -77,6 +83,134 @@ implementation
 {$IFNDEF FPC}
 uses
   System.Net.URLClient;
+{$ENDIF}
+
+{$IFDEF FPC}
+{$IFDEF MSWINDOWS}
+function QueryHeaderString(AHandle: HINTERNET; AQuery: DWORD): string;
+var
+  bufferLength: DWORD;
+  index: DWORD;
+begin
+  Result := '';
+  bufferLength := 0;
+  index := 0;
+  HttpQueryInfo(AHandle, AQuery, nil, bufferLength, index);
+  if GetLastError <> ERROR_INSUFFICIENT_BUFFER then
+    Exit;
+
+  SetLength(Result, bufferLength);
+  if HttpQueryInfo(AHandle, AQuery, PChar(Result), bufferLength, index) then
+  begin
+    if bufferLength > 0 then
+      SetLength(Result, Integer(bufferLength) - 1)
+    else
+      Result := '';
+  end
+  else
+    Result := '';
+end;
+
+function TryFetchUrlWinInet(const AUrl: string; AConnectTimeout,
+  AResponseTimeout: Integer; out AData: TBytes; out AContentType,
+  AContentEncoding: string; out AStatusCode: Integer;
+  out AErrorText: string): Boolean;
+const
+  cBufferSize = 16384;
+var
+  sessionHandle: HINTERNET;
+  urlHandle: HINTERNET;
+  optionValue: DWORD;
+  headerText: string;
+  statusCodeSize: DWORD;
+  statusCodeIndex: DWORD;
+  readBuffer: array[0..cBufferSize - 1] of Byte;
+  bytesRead: DWORD;
+  requestFlags: DWORD;
+  outputStream: TMemoryStream;
+begin
+  Result := False;
+  AData := nil;
+  AContentType := '';
+  AContentEncoding := '';
+  AStatusCode := 0;
+  AErrorText := '';
+  sessionHandle := nil;
+  urlHandle := nil;
+
+  sessionHandle := InternetOpen('GMLib/1.0', INTERNET_OPEN_TYPE_PRECONFIG, nil, nil, 0);
+  if sessionHandle = nil then
+  begin
+    AErrorText := 'InternetOpen failed: ' + SysErrorMessage(GetLastError);
+    Exit;
+  end;
+
+  try
+    optionValue := DWORD(AConnectTimeout);
+    InternetSetOption(sessionHandle, INTERNET_OPTION_CONNECT_TIMEOUT, @optionValue, SizeOf(optionValue));
+    optionValue := DWORD(AResponseTimeout);
+    InternetSetOption(sessionHandle, INTERNET_OPTION_RECEIVE_TIMEOUT, @optionValue, SizeOf(optionValue));
+    InternetSetOption(sessionHandle, INTERNET_OPTION_SEND_TIMEOUT, @optionValue, SizeOf(optionValue));
+
+    headerText :=
+      'Accept: application/vnd.mapbox-vector-tile, application/x-protobuf, */*' + #13#10 +
+      'Accept-Encoding: identity' + #13#10;
+    requestFlags := INTERNET_FLAG_RELOAD or INTERNET_FLAG_NO_CACHE_WRITE or
+      INTERNET_FLAG_PRAGMA_NOCACHE;
+    if StartsText('https://', AUrl) then
+      requestFlags := requestFlags or INTERNET_FLAG_SECURE;
+
+    urlHandle := InternetOpenUrl(sessionHandle, PChar(AUrl), PChar(headerText),
+      Length(headerText), requestFlags, 0);
+    if urlHandle = nil then
+    begin
+      AErrorText := 'InternetOpenUrl failed: ' + SysErrorMessage(GetLastError);
+      Exit;
+    end;
+
+    statusCodeSize := SizeOf(AStatusCode);
+    statusCodeIndex := 0;
+    if not HttpQueryInfo(urlHandle, HTTP_QUERY_STATUS_CODE or HTTP_QUERY_FLAG_NUMBER,
+      @AStatusCode, statusCodeSize, statusCodeIndex) then
+      AStatusCode := 0;
+
+    AContentType := QueryHeaderString(urlHandle, HTTP_QUERY_CONTENT_TYPE);
+    AContentEncoding := QueryHeaderString(urlHandle, HTTP_QUERY_CONTENT_ENCODING);
+
+    outputStream := TMemoryStream.Create;
+    try
+      repeat
+        bytesRead := 0;
+        if not InternetReadFile(urlHandle, @readBuffer[0], SizeOf(readBuffer), bytesRead) then
+        begin
+          AErrorText := 'InternetReadFile failed: ' + SysErrorMessage(GetLastError);
+          Exit;
+        end;
+        if bytesRead > 0 then
+          outputStream.WriteBuffer(readBuffer[0], bytesRead);
+      until bytesRead = 0;
+
+      if (AStatusCode = 200) and (outputStream.Size > 0) then
+      begin
+        SetLength(AData, outputStream.Size);
+        outputStream.Position := 0;
+        outputStream.ReadBuffer(AData[0], outputStream.Size);
+        Result := True;
+      end
+      else if AStatusCode = 0 then
+        AErrorText := 'HTTP status code unavailable.'
+      else
+        AErrorText := Format('HTTP Error %d', [AStatusCode]);
+    finally
+      outputStream.Free;
+    end;
+  finally
+    if urlHandle <> nil then
+      InternetCloseHandle(urlHandle);
+    InternetCloseHandle(sessionHandle);
+  end;
+end;
+{$ENDIF}
 {$ENDIF}
 
 procedure AppendRemoteTileProviderTrace(const AMessage: string);
@@ -154,10 +288,17 @@ function TMapLibHttpRemoteTileProvider.TryFetchTile(const ASourceId: string; AZ,
   AX, AY: Integer; out ATileData: TBytes; out AContentType,
   AContentEncoding: string): Boolean;
 {$IFDEF FPC}
+{$IFDEF MSWINDOWS}
+var
+  tileUrl: string;
+  statusCode: Integer;
+  errorText: string;
+{$ELSE}
 var
   tileStream: TMemoryStream;
   tileUrl: string;
   httpClient: TFPHTTPClient;
+{$ENDIF}
 {$ELSE}
 var
   response: IHTTPResponse;
@@ -171,6 +312,21 @@ begin
   AContentEncoding := '';
 
 {$IFDEF FPC}
+{$IFDEF MSWINDOWS}
+  tileUrl := BuildTileUrl(ASourceId, AZ, AX, AY);
+  AppendRemoteTileProviderTrace(Format('Fetch start source=%s z=%d x=%d y=%d url=%s',
+    [ASourceId, AZ, AX, AY, tileUrl]));
+  Result := TryFetchUrlWinInet(tileUrl, FConnectTimeout, FResponseTimeout,
+    ATileData, AContentType, AContentEncoding, statusCode, errorText);
+  if Result then
+    AppendRemoteTileProviderTrace(Format('Fetch success status=%d bytes=%d contentType=%s contentEncoding=%s',
+      [statusCode, Length(ATileData), AContentType, AContentEncoding]))
+  else if errorText <> '' then
+    AppendRemoteTileProviderTrace('Fetch exception: ' + errorText)
+  else
+    AppendRemoteTileProviderTrace(Format('Fetch failed status=%d bytes=%d',
+      [statusCode, Length(ATileData)]));
+{$ELSE}
   httpClient := TFPHTTPClient.Create(nil);
   tileStream := TMemoryStream.Create;
   try
@@ -209,6 +365,7 @@ begin
     tileStream.Free;
     httpClient.Free;
   end;
+{$ENDIF}
 {$ELSE}
   if not Assigned(FHttpClient) then
     Exit;
